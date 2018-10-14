@@ -51,12 +51,12 @@ NULL
         version <- slot(object, "metadata")[["version"]]
         assert_is_all_of(version, c("package_version", "numeric_version"))
         message(paste0(
-            "Upgrading from ", version, " to ", packageVersion, "."
+            "Updating from ", version, " to ", packageVersion, "."
         ))
 
         # Check for legacy bcbio slot.
         if (.hasSlot(object, "bcbio")) {
-            message("Legacy bcbio slot detected.")
+            message("Legacy bcbio() slot detected.")
         }
 
         # Metadata -------------------------------------------------------------
@@ -65,13 +65,13 @@ NULL
 
         # bcbioLog
         if (is.null(metadata[["bcbioLog"]])) {
-            message("Setting `bcbioLog` as empty `character`.")
+            message("Setting bcbioLog as empty character.")
             metadata[["bcbioLog"]] <- character()
         }
 
         # bcbioCommandsLog
         if (is.null(metadata[["bcbioCommandsLog"]])) {
-            message("Setting `bcbioCommands` as empty `character`.")
+            message("Setting bcbioCommands as empty character.")
             metadata[["bcbioCommandsLog"]] <- character()
         }
 
@@ -83,7 +83,7 @@ NULL
 
         # caller
         if (!"caller" %in% names(metadata)) {
-            message("Setting `caller` as salmon.")
+            message("Setting caller as salmon.")
             metadata[["caller"]] <- "salmon"
         }
 
@@ -95,7 +95,7 @@ NULL
                 countsFromAbundance <- "no"
             }
             message(paste0(
-                "Setting `countsFromAbundance` as ", countsFromAbundance, "."
+                "Setting countsFromAbundance as ", countsFromAbundance, "."
             ))
             metadata[["countsFromAbundance"]] <- countsFromAbundance
         }
@@ -108,37 +108,37 @@ NULL
 
         # design
         if ("design" %in% names(metadata)) {
-            message("Dropping legacy design formula.")
+            message("Dropping legacy design.")
             metadata[["design"]] <- NULL
         }
 
         # ensemblRelease
         if ("ensemblVersion" %in% names(metadata)) {
             # Renamed in v0.2.0.
-            message("Renaming `ensemblVersion` to `ensemblRelease`.")
+            message("Renaming ensemblVersion to ensemblRelease.")
             metadata[["ensemblRelease"]] <- metadata[["ensemblVersion"]]
             metadata[["ensemblVersion"]] <- NULL
         }
         if (!is.integer(metadata[["ensemblRelease"]])) {
-            message("Setting `ensemblRelease` as `integer`.")
+            message("Setting ensemblRelease as integer.")
             metadata[["ensemblRelease"]] <-
                 as.integer(metadata[["ensemblRelease"]])
         }
 
         # genomeBuild
         if (!is.character(metadata[["genomeBuild"]])) {
-            message("Setting `genomeBuild` as empty `character`.")
+            message("Setting genomeBuild as empty character.")
             metadata[["genomeBuild"]] <- character()
         }
 
         # gffFile
         if ("gtfFile" %in% names(metadata)) {
-            message("Renaming `gtfFile` to `gffFile`.")
+            message("Renaming gtfFile to gffFile.")
             metadata[["gffFile"]] <- metadata[["gtfFile"]]
             metadata[["gtfFile"]] <- NULL
         }
         if (!"gffFile" %in% names(metadata)) {
-            message("Setting `gffFile` as empty `character`")
+            message("Setting gffFile as empty character")
             metadata[["gffFile"]] <- character()
         }
 
@@ -150,20 +150,20 @@ NULL
 
         # lanes
         if (!is.integer(metadata[["lanes"]])) {
-            message("Setting `lanes` as `integer`.")
+            message("Setting lanes as integer.")
             metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
         }
 
         # level
         if (!"level" %in% names(metadata)) {
-            message("Setting `level` as genes.")
+            message("Setting level as genes.")
             metadata[["level"]] <- "genes"
         }
 
         # programVersions
         if (!"programVersions" %in% names(metadata) &&
             "programs" %in% names(metadata)) {
-            message("Renaming `programs` to `programVersions`.")
+            message("Renaming programs to programVersions.")
             metadata[["programVersions"]] <- metadata[["programs"]]
             metadata <- metadata[setdiff(names(metadata), "programs")]
         }
@@ -174,7 +174,7 @@ NULL
 
         # rowRangesMetadata
         if ("rowRangesMetadata" %in% names(metadata)) {
-            message("Moving `rowRangesMetadata` into `rowRanges()`.")
+            message("Moving rowRangesMetadata into rowRanges().")
             metadata(rowRanges)[["ensembldb"]] <-
                 metadata[["rowRangesMetadata"]]
             metadata[["rowRangesMetadata"]] <- NULL
@@ -182,13 +182,13 @@ NULL
 
         # sampleMetadataFile
         if (!is.character(metadata[["sampleMetadataFile"]])) {
-            message("Setting `sampleMetadataFile` as empty `character`.")
+            message("Setting sampleMetadataFile as empty character.")
             metadata[["sampleMetadataFile"]] <- character()
         }
 
         # sessionInfo
-        # Support for legacy `devtoolsSessionInfo` stash.
-        # Previously, we stashed both `devtools*` and `utils*` variants.
+        # Support for legacy devtoolsSessionInfo stash.
+        # Previously, we stashed both devtools* and utils* variants.
         if ("devtoolsSessionInfo" %in% names(metadata)) {
             metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
             metadata[["devtoolsSessionInfo"]] <- NULL
@@ -197,29 +197,29 @@ NULL
 
         # template
         if ("template" %in% names(metadata)) {
-            message("Dropping legacy `template`.")
+            message("Dropping legacy template.")
             metadata[["template"]] <- NULL
         }
 
         # tx2gene
         if (!is(metadata[["tx2gene"]], "Tx2Gene")) {
-            message("Coercing `tx2gene` to `Tx2Gene` class.")
+            message("Coercing tx2gene to Tx2Gene class.")
             metadata[["tx2gene"]] <- tx2gene(metadata[["tx2gene"]])
         }
 
         # Dead genes: "missing" or "unannotated"
         if ("missingGenes" %in% names(metadata)) {
-            warning("Dropping `missingGenes` from metadata.", call. = FALSE)
+            message("Dropping missingGenes from metadata.")
             metadata[["missingGenes"]] <- NULL
         }
         if ("unannotatedGenes" %in% names(metadata)) {
-            warning("Dropping `unannotatedGenes` from metadata.", call. = FALSE)
+            message("Dropping unannotatedGenes from metadata.")
             metadata[["unannotatedGenes"]] <- NULL
         }
 
         # yamlFile
         if ("yamlFile" %in% names(metadata)) {
-            message("Dropping `yamlFile` file path.")
+            message("Dropping yamlFile file path.")
             metadata[["yamlFile"]] <- NULL
         }
 
@@ -229,7 +229,7 @@ NULL
 
         # Assays ---------------------------------------------------------------
         # Coerce the assays (e.g. ShallowSimpleListAssays) back to list.
-        # Using `slot()` here to avoid error on missing rowRanges.
+        # Using slot() here to avoid error on missing rowRanges.
         # Ensure this comes before the rowRanges handling (see below).
         assays <- slot(object, "assays")
         assays <- lapply(seq_along(assays), function(a) {
@@ -247,14 +247,14 @@ NULL
 
         # Ensure raw counts are always named "counts".
         if ("raw" %in% names(assays)) {
-            message("Renaming `raw` assay to `counts`.")
+            message("Renaming raw assay to counts.")
             assays[["counts"]] <- assays[["raw"]]
             assays[["raw"]] <- NULL
         }
 
         # Rename average transcript length matrix.
         if ("length" %in% names(assays)) {
-            message("Renaming `length` assay to `avgTxLength`.")
+            message("Renaming length assay to avgTxLength.")
             assays[["avgTxLength"]] <- assays[["length"]]
             assays[["length"]] <- NULL
         }
@@ -262,8 +262,8 @@ NULL
         # Legacy TMM counts.
         if ("tmm" %in% names(assays)) {
             message(paste(
-                "Dropping tmm from assays.",
-                "Now calculated on the fly instead."
+                "Dropping tmm from assays().",
+                "Calculating on the fly instead."
             ))
             assays[["tmm"]] <- NULL
         }
@@ -288,13 +288,17 @@ NULL
 
             # Variance-stabilizing transformation.
             if (is(assays[["vst"]], "DESeqTransform")) {
-                message("Coercing VST `DESeqTransform` to `matrix`.")
+                message(
+                    "Coercing vst assay from DESeqTransform to matrix."
+                )
                 assays[["vst"]] <- assay(assays[["vst"]])
             }
 
             # Regularized log.
             if (is(assays[["rlog"]], "DESeqTransform")) {
-                message("Coercing rlog `DESeqTransform` to `matrix`.")
+                message(
+                    "Coercing rlog assay from DESeqTransform to matrix."
+                )
                 assays[["rlog"]] <- assay(assays[["rlog"]])
             }
         }
@@ -315,14 +319,14 @@ NULL
         if (.hasSlot(object, "rowRanges") && !is.null(rowRanges)) {
             stop(paste(
                 "Object already contains rowRanges.",
-                "Don't attempt to slot new ones with `rowRanges` argument.",
+                "Don't attempt to slot new ones with rowRanges argument.",
                 sep = "\n"
             ), call. = FALSE)
         } else if (.hasSlot(object, "rowRanges")) {
             rowRanges <- rowRanges(object)
         } else if (is.null(rowRanges)) {
             warning(paste(
-                "`rowRanges` are now recommended for gene annotations."
+                "rowRanges are now recommended for gene annotations."
             ), call. = FALSE)
             message("Generating empty ranges.")
             rowRanges <- emptyRanges(names = rownames(assays[[1L]]))
@@ -333,7 +337,7 @@ NULL
 
         # biotype
         if ("biotype" %in% colnames(mcols(rowRanges))) {
-            message("Renaming `biotype` to `geneBiotype`.")
+            message("Renaming biotype to geneBiotype.")
             mcols(rowRanges)[["geneBiotype"]] <-
                 as.factor(mcols(rowRanges)[["biotype"]])
             mcols(rowRanges)[["biotype"]] <- NULL
@@ -343,20 +347,20 @@ NULL
             "broadClass" %in% colnames(mcols(rowRanges)) &&
             is.character(mcols(rowRanges)[["broadClass"]])
         ) {
-            message("Setting `broadClass` to factor.")
+            message("Setting broadClass to factor.")
             mcols(rowRanges)[["broadClass"]] <-
                 as.factor(mcols(rowRanges)[["broadClass"]])
         }
         # ensgene
         if ("ensgene" %in% colnames(mcols(rowRanges))) {
-            message("Renaming `ensgene` to `geneID`.")
+            message("Renaming ensgene to geneID.")
             mcols(rowRanges)[["geneID"]] <-
                 as.character(mcols(rowRanges)[["ensgene"]])
             mcols(rowRanges)[["ensgene"]] <- NULL
         }
         # symbol
         if ("symbol" %in% colnames(mcols(rowRanges))) {
-            message("Renaming `symbol` to `geneName`.")
+            message("Renaming symbol to geneName.")
             mcols(rowRanges)[["geneName"]] <-
                 as.factor(mcols(rowRanges)[["symbol"]])
             mcols(rowRanges)[["symbol"]] <- NULL
@@ -368,10 +372,10 @@ NULL
         # Move metrics from metadata into colData, if necessary.
         metrics <- metadata[["metrics"]]
         if (!is.null(metrics)) {
-            message("Moving metrics from `metadata()` into `colData()`.")
+            message("Moving metrics from metadata() into colData().")
             assert_is_data.frame(metrics)
 
-            # Always remove legacy `name` column.
+            # Always remove legacy name column.
             metrics[["name"]] <- NULL
 
             # Rename 5'3' bias.
@@ -403,7 +407,7 @@ NULL
             metadata[["metrics"]] <- NULL
         }
 
-        # Remove legacy `sampleID` and `description` columns, if present.
+        # Remove legacy sampleID and description columns, if present.
         colData[["sampleID"]] <- NULL
         colData[["description"]] <- NULL
 
