@@ -124,7 +124,7 @@ genomes are supported.</p>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>,
-  <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>,
   <span class='kw'>NULL</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>TRUE</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</pre>
     
@@ -176,22 +176,18 @@ palette globally, use <code>options(basejump.discrete.color = ggplot2::scale_col
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
-  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
+    <div class='dont-index'><p><code><a href='plotGene.html'>plotGene()</a></code>.</p>
+<p>Other Plots: <code>plotCountsPerBiotype</code>,
   <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
-  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
-  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
-  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
-  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
-  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
-  <code><a href='plotPCA.html'>plotPCA</a></code>, <code><a href='plotQC.html'>plotQC</a></code>,
-  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
-  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
+  <code>plotGenesDetected</code>, <code><a href='plotGene.html'>plotGene</a></code>,
+  <code>plotHeatmap</code>, <code><a href='plotQC.html'>plotQC</a></code>,
+  <code>plotTotalCounts</code>,
+  <code>plotZerosVsDepth</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>)</div><div class='output co'>#&gt; <span class='message'>Error: All genes failed to map: ENSMUSG00000086503, ENSMUSG00000069045, ENSMUSG00000056673, ENSMUSG00000068457</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
+<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb_small</span>)</div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -119,8 +119,8 @@
     <pre class="usage"><span class='fu'>topTables</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for DESeqAnalysis</span>
-<span class='fu'>topTables</span>(<span class='no'>object</span>, <span class='no'>results</span>, <span class='kw'>lfcShrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>50L</span>)
+<span class='fu'>topTables</span>(<span class='no'>object</span>, <span class='kw'>results</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>lfcShrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>50L</span>)
 
 <span class='co'># S4 method for DESeqResults</span>
 <span class='fu'>topTables</span>(<span class='no'>object</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>50L</span>)
@@ -155,33 +155,29 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>kable</code>.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other R Markdown Functions: <code><a href='prepareRNASeqTemplate.html'>prepareRNASeqTemplate</a></code></p></div>
+    <p><code>kable</code>. Markdown tables.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqAnalysis ====</span>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
 <span class='fu'>topTables</span>(<span class='no'>deseq_small</span>, <span class='kw'>results</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5L</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='output co'>#&gt; 
 #&gt; 
 #&gt; |                   |geneName |geneBiotype    | baseMean|lfc  |padj      |description                           |
 #&gt; |:------------------|:--------|:--------------|--------:|:----|:---------|:-------------------------------------|
-#&gt; |ENSMUSG00000024164 |C3       |protein_coding |    12578|8.70 |4.32e-193 |complement component 3                |
-#&gt; |ENSMUSG00000029304 |Spp1     |protein_coding |    69411|5.65 |3.47e-76  |secreted phosphoprotein 1             |
-#&gt; |ENSMUSG00000003617 |Cp       |protein_coding |     3563|4.28 |3.54e-45  |ceruloplasmin                         |
-#&gt; |ENSMUSG00000022037 |Clu      |protein_coding |     3547|3.70 |1.88e-42  |clusterin                             |
-#&gt; |ENSMUSG00000040405 |Havcr1   |protein_coding |     3004|3.92 |9.93e-38  |hepatitis A virus cellular receptor 1 |
+#&gt; |ENSMUSG00000024164 |C3       |protein_coding |    12562|8.27 |3.89e-194 |complement component 3                |
+#&gt; |ENSMUSG00000029304 |Spp1     |protein_coding |    69340|5.36 |9.03e-76  |secreted phosphoprotein 1             |
+#&gt; |ENSMUSG00000003617 |Cp       |protein_coding |     3560|4.08 |7.16e-45  |ceruloplasmin                         |
+#&gt; |ENSMUSG00000022037 |Clu      |protein_coding |     3544|3.56 |3.87e-42  |clusterin                             |
+#&gt; |ENSMUSG00000040405 |Havcr1   |protein_coding |     3002|3.74 |1.63e-37  |hepatitis A virus cellular receptor 1 |
 #&gt; 
 #&gt; 
 #&gt; |                   |geneName |geneBiotype    | baseMean|lfc   |padj     |description                                                        |
 #&gt; |:------------------|:--------|:--------------|--------:|:-----|:--------|:------------------------------------------------------------------|
-#&gt; |ENSMUSG00000027199 |Gatm     |protein_coding |    11590|-2.39 |1.37e-12 |glycine amidinotransferase (L-arginine:glycine amidinotransferase) |
-#&gt; |ENSMUSG00000005980 |Dnase1   |protein_coding |     5779|-2.89 |1.71e-12 |deoxyribonuclease I                                                |
-#&gt; |ENSMUSG00000049152 |Ugt3a2   |protein_coding |    13854|-1.74 |1.02e-10 |UDP glycosyltransferases 3 family, polypeptide A2                  |
-#&gt; |ENSMUSG00000028713 |Cyp4b1   |protein_coding |    14769|-1.67 |2.28e-10 |cytochrome P450, family 4, subfamily b, polypeptide 1              |
-#&gt; |ENSMUSG00000061906 |Ugt2b38  |protein_coding |     7395|-2.02 |1.03e-09 |UDP glucuronosyltransferase 2 family, polypeptide B38              |</div></pre>
+#&gt; |ENSMUSG00000027199 |Gatm     |protein_coding |    11624|-2.31 |9.65e-13 |glycine amidinotransferase (L-arginine:glycine amidinotransferase) |
+#&gt; |ENSMUSG00000005980 |Dnase1   |protein_coding |     5795|-2.72 |1.10e-12 |deoxyribonuclease I                                                |
+#&gt; |ENSMUSG00000049152 |Ugt3a2   |protein_coding |    13888|-1.72 |6.78e-11 |UDP glycosyltransferases 3 family, polypeptide A2                  |
+#&gt; |ENSMUSG00000028713 |Cyp4b1   |protein_coding |    14806|-1.65 |1.90e-10 |cytochrome P450, family 4, subfamily b, polypeptide 1              |
+#&gt; |ENSMUSG00000061906 |Ugt2b38  |protein_coding |     7413|-1.98 |7.50e-10 |UDP glucuronosyltransferase 2 family, polypeptide B38              |</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -189,8 +185,6 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

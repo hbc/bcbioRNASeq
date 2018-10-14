@@ -16,9 +16,6 @@
 #'   authentication. If set `NULL` and `dropboxDir` is defined, then an
 #'   interactive prompt will appear requesting authorization.
 #'
-#' @return
-#' - `DESeqResultsTables`: CSV files.
-#'
 #' @examples
 #' data(deseq_small)
 #' x <- DESeqResultsTables(deseq_small)
@@ -36,27 +33,33 @@ NULL
     function(
         x,
         dir = ".",
+        compress = TRUE,
         dropboxDir = NULL,
         rdsToken = NULL
     ) {
         validObject(x)
-        assertIsAStringOrNULL(dropboxDir)
-
         # Write local files to tempdir if Dropbox mode is enabled.
         if (is_a_string(dropboxDir)) {
             dir <- tempdir()  # nocov
         } else {
             dir <- initializeDirectory(dir)
         }
+        assert_is_a_bool(compress)
+        assertIsAStringOrNULL(dropboxDir)
 
         # Extract the results tables from the object.
         tables <- coerceS4ToList(x)[c("all", "deg", "degUp", "degDown")]
 
         # Local files (required) -----------------------------------------------
         stem <- snake(contrastName(x))
+        format <- "csv"
+        if (isTRUE(compress)) {
+            format <- paste0(format, ".gz")
+        }
+        ext <- paste0(".", format)
         localFiles <- file.path(
             dir,
-            paste0(stem, "_", snake(names(tables)), ".csv.gz")
+            paste0(stem, "_", snake(names(tables)), ext)
         )
         names(localFiles) <- names(tables)
 

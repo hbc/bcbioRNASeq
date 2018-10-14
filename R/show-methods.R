@@ -1,7 +1,3 @@
-# TODO Consider limiting the length of file paths.
-
-
-
 #' @name show
 #' @author Michael Steinbuagh
 #' @importFrom methods show
@@ -9,9 +5,8 @@
 #' @export
 #'
 #' @examples
-#' data(bcb_small, deseq_small)
+#' data(bcb_small)
 #' show(bcb_small)
-#' show(deseq_small)
 NULL
 
 

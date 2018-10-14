@@ -34,7 +34,7 @@
   
 <meta property="og:title" content="Sample Data — sampleData" />
 
-<meta property="og:description" content="Return the sample metadata. Columns are always sanitized to factor." />
+<meta property="og:description" content="Metadata that describes the samples." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,7 +112,7 @@
 
     <div class="ref-description">
     
-    <p>Return the sample metadata. Columns are always sanitized to factor.</p>
+    <p>Metadata that describes the samples.</p>
     
     </div>
 
@@ -129,7 +129,9 @@
     <tr>
       <th>clean</th>
       <td><p><code>boolean</code>. Only return <code>factor</code> columns not defined in
-<a href='http://www.rdocumentation.org/packages/bcbioBase/topics/metadataBlacklist'>bcbioBase::metadataBlacklist</a>.</p></td>
+<a href='http://www.rdocumentation.org/packages/bcbioBase/topics/metadataBlacklist'>bcbioBase::metadataBlacklist</a>. This removes metrics columns used for
+quality control analysis, which are often not informative as sample
+metadata.</p></td>
     </tr>
     </table>
     
@@ -137,7 +139,7 @@
 
     <p><code>DataFrame</code>.</p>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This is a complement to the standard <code>colData()</code> function, but improves
 support for accessing sample metadata for datasets where multiple items in
@@ -146,13 +148,24 @@ experiment).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/bcbioBase/topics/metadataBlacklist'>bcbioBase::metadataBlacklist</a>.</p>
-<p>Other Data Functions: <code><a href='counts.html'>counts</a></code>,
-  <code><a href='tmm.html'>tmm</a></code></p></div>
+    <div class='dont-index'><p>Other Metadata Functions: <code>detectHPC</code>,
+  <code>detectLanes</code>, <code>detectOrganism</code>,
+  <code>interestingGroups</code>,
+  <code>microplate</code>,
+  <code>minimalSampleData</code>, <code>organism</code>,
+  <code>sampleNames</code>,
+  <code>uniteInterestingGroups</code></p>
+<p>Other SummarizedExperiment Functions: <code><a href='counts.html'>counts</a></code>,
+  <code>interestingGroups</code>,
+  <code>makeSummarizedExperiment</code>,
+  <code>mapGenes</code>, <code>meltCounts</code>,
+  <code>metrics</code>, <code>sampleNames</code>,
+  <code>selectSamples</code>, <code>tpm</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># SummarizedExperiment ====</span>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
+
 <span class='fu'>sampleData</span>(<span class='no'>bcb_small</span>, <span class='kw'>clean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>glimpse</span>()</div><div class='output co'>#&gt; Formal class 'DataFrame' [package "S4Vectors"] with 6 slots
 #&gt;   ..@ rownames       : chr [1:6] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" ...
 #&gt;   ..@ nrows          : int 6
@@ -202,10 +215,10 @@ experiment).</p>
 #&gt;   ..@ elementType    : chr "ANY"
 #&gt;   ..@ elementMetadata: NULL
 #&gt;   ..@ metadata       : list()</div><div class='input'>
-<span class='co'># Assignment support</span>
+<span class='co'>## Assignment support.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>
 <span class='fu'>sampleData</span>(<span class='no'>x</span>)<span class='kw'>[[</span><span class='st'>"test"</span>]] <span class='kw'>&lt;-</span> <span class='fu'>seq_len</span>(<span class='fu'>ncol</span>(<span class='no'>x</span>))
-<span class='co'># `test` column should be now defined</span>
+<span class='co'>## `test` column should be now defined</span>
 <span class='st'>"test"</span> <span class='kw'>%in%</span> <span class='fu'>colnames</span>(<span class='fu'>sampleData</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -215,7 +228,7 @@ experiment).</p>
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#note">Note</a></li>
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

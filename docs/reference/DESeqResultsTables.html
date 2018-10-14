@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title><code>DESeqResultsTables</code> Generator — DESeqResultsTables • bcbioRNASeq</title>
+<title>DESeq2 Differential Expression Results Tables — DESeqResultsTables • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="<code>DESeqResultsTables</code> Generator — DESeqResultsTables" />
+<meta property="og:title" content="DESeq2 Differential Expression Results Tables — DESeqResultsTables" />
 
-<meta property="og:description" content="DESeqResultsTables Generator" />
+<meta property="og:description" content="DESeqResults object with DataFrame subsets and file path information." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,14 +105,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><code>DESeqResultsTables</code> Generator</h1>
+    <h1>DESeq2 Differential Expression Results Tables</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/DESeqResultsTables-methods.R'><code>R/DESeqResultsTables-methods.R</code></a></small>
     <div class="hidden name"><code>DESeqResultsTables.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>DESeqResultsTables</code> Generator</p>
+    <p><code>DESeqResults</code> object with <code>DataFrame</code> subsets and file path information.</p>
     
     </div>
 
@@ -158,63 +158,88 @@
 
     <p><code>DESeqResultsTables</code>.</p>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <h2 class="hasAnchor" id="obtaining-results-from-deseq-"><a class="anchor" href="#obtaining-results-from-deseq-"></a>Obtaining results from DESeq2</h2>
 
-    <p>Log fold change cutoff threshold ("<code>lfcThreshold</code>") does not apply to
-statistical hypothesis testing, only gene filtering in the results tables.
-See <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code> for additional information about using
-<code>lfcThreshold</code> and <code>altHypothesis</code> to set an alternative hypothesis based
-on expected fold changes.</p>
+    
+    <p>It is recommended to specify the <code>contrast</code> argument as <code>character</code>:</p><ol>
+<li><p>Design matrix factor of interest.</p></li>
+<li><p>Numerator for LFC (expt).</p></li>
+<li><p>Denominator for LFC (control).</p></li>
+</ol>
+    <p>For example, to get the relative change in gene expression between mutant
+and wildtype samples, here's how to set the contrast vector:</p><pre>c(
+    factor = "genotype",
+    numerator = "mutant",
+    denominator = "wildtype"
+)
+</pre>
+    
+    <h2 class="hasAnchor" id="log-fold-change-threshold-cutoffs"><a class="anchor" href="#log-fold-change-threshold-cutoffs"></a>Log fold change threshold cutoffs</h2>
+
+    
+    <p>Refer to <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code> for additional information about using
+<code>lfcThreshold</code> and <code>altHypothesis</code> to set an alternative hypothesis based on
+expected fold changes. In addition, the "Hypothesis tests with thresholds on
+effect size" section in the DESeq2 paper provides additional explanation.</p>
+<p>Don't apply <em>post hoc</em> LFC threshold filtering to obtain results tables, as
+this will destroy the meaning of the adjusted <em>P</em> values computed. If you are
+expecting a biological effect size past a particular threshold, set
+<code>lfcThreshold</code>, but be conservative.</p>
+<p>This <a href='https://support.bioconductor.org/p/101504/'>thread</a> on the Bioconductor forums explains how <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code>
+should be called with regard to LFC cutoffs in nice detail. In particular,
+refer to Mike Love:</p>
+<p>"A common procedure is to disregard genes whose estimated LFC <em>β ir</em> is below
+some threshold, <em>β ir ≤ θ</em>. However, this approach loses the benefit of an
+easily interpretable FDR, as the reported <em>P</em> value and adjusted <em>P</em> value
+still correspond to the test of <em>zero</em> LFC. It is therefore desirable to
+include the threshold in the statistical testing procedure directly, i.e.,
+not to filter post hoc on a reported fold-change <em>estimate</em>, but rather to
+evaluate statistically directly whether there is sufficient evidence that the
+LFC is above the chosen threshold."</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p><code><a href='markdown.html'>markdown()</a></code>.</p></li>
-<li><p><code>write()</code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code>.</p></li>
+<li><p><code><a href='markdown.html'>markdown()</a></code>, <code>write()</code>.</p></li>
 </ul></div>
     <div class='dont-index'><p>Other S4 Generators: <code><a href='DESeqAnalysis.html'>DESeqAnalysis</a></code>,
   <code><a href='bcbioRNASeq.html'>bcbioRNASeq</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqAnalysis ====</span>
-<span class='co'># This is the recommended default method.</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DESeqResultsTables</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='output co'>#&gt; <span class='message'>Adding `rowData()` annotations (atomic columns only)...</span></div><div class='output co'>#&gt; <span class='message'>Adding DESeq2 normalized counts...</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; DESeqResultsTables
-#&gt; Contrast: treatment folic acid vs control
-#&gt; Alpha: 0.1
-#&gt; LFC threshold: 0
-#&gt; ─────────────────────────────────────────────────────────────
-#&gt; 500 genes total
-#&gt; 500 genes with base mean &gt; 1
-#&gt; 494 genes with adjusted P values
-#&gt; 115 upregulated genes
-#&gt; 138 downregulated genes
-#&gt; ─────────────────────────────────────────────────────────────
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
+
+<span class='co'>## DESeqAnalysis ====</span>
+<span class='co'>## This is the recommended default method.</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DESeqResultsTables</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='output co'>#&gt; <span class='message'>Adding `rowData()` annotations (atomic columns only).</span>
+#&gt; <span class='message'>[1] "broadClass"     "description"    "geneBiotype"    "geneID"        </span>
+#&gt; <span class='message'>[5] "geneName"       "seqCoordSystem"</span></div><div class='output co'>#&gt; <span class='message'>Adding DESeq2 normalized counts.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; DESeqResultsTables 
+#&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
+#&gt; citation("bcbioRNASeq")
+#&gt; contrast: treatment folic acid vs control
+#&gt; alpha: 0.1
+#&gt; lfcThreshold: 0
 #&gt; out of 500 with nonzero total read count
 #&gt; adjusted p-value &lt; 0.1
 #&gt; LFC &gt; 0 (up)       : 115, 23%
-#&gt; LFC &lt; 0 (down)     : 138, 28%
+#&gt; LFC &lt; 0 (down)     : 139, 28%
 #&gt; outliers [1]       : 6, 1.2%
 #&gt; low counts [2]     : 0, 0%
 #&gt; (mean count &lt; 33)</div><div class='input'>
-<span class='co'># DESeqResults ====</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>)
+<span class='co'>## DESeqResults ====</span>
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>DESeqResultsTables</span>(<span class='no'>res</span>)
-<span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; DESeqResultsTables
-#&gt; Contrast: treatment folic acid vs control
-#&gt; Alpha: 0.1
-#&gt; LFC threshold: 0
-#&gt; ─────────────────────────────────────────────────────────────
-#&gt; 500 genes total
-#&gt; 500 genes with base mean &gt; 1
-#&gt; 494 genes with adjusted P values
-#&gt; 115 upregulated genes
-#&gt; 138 downregulated genes
-#&gt; ─────────────────────────────────────────────────────────────
+<span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; DESeqResultsTables 
+#&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
+#&gt; citation("bcbioRNASeq")
+#&gt; contrast: treatment folic acid vs control
+#&gt; alpha: 0.1
+#&gt; lfcThreshold: 0
 #&gt; out of 500 with nonzero total read count
 #&gt; adjusted p-value &lt; 0.1
 #&gt; LFC &gt; 0 (up)       : 115, 23%
-#&gt; LFC &lt; 0 (down)     : 138, 28%
+#&gt; LFC &lt; 0 (down)     : 139, 28%
 #&gt; outliers [1]       : 6, 1.2%
 #&gt; low counts [2]     : 0, 0%
 #&gt; (mean count &lt; 33)</div></pre>
@@ -226,7 +251,9 @@ on expected fold changes.</p>
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#note">Note</a></li>
+      <li><a href="#obtaining-results-from-deseq-">Obtaining results from DESeq2</a></li>
+
+      <li><a href="#log-fold-change-threshold-cutoffs">Log fold change threshold cutoffs</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

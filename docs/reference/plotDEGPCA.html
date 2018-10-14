@@ -34,8 +34,7 @@
   
 <meta property="og:title" content="Plot DEG PCA — plotDEGPCA" />
 
-<meta property="og:description" content="Wrapper for DESeq2::plotPCA() that improves principal component analysis
-(PCA) sample coloring and labeling." />
+<meta property="og:description" content="A generic function which produces a PCA-plot." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -113,23 +112,22 @@
 
     <div class="ref-description">
     
-    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code> that improves principal component analysis
-(PCA) sample coloring and labeling.</p>
+    <p>A generic function which produces a PCA-plot.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>plotDEGPCA</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for DESeqAnalysis</span>
-<span class='fu'>plotDEGPCA</span>(<span class='no'>object</span>, <span class='kw'>counts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>results</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='co'># S4 method for DESeqResults</span>
+<span class='fu'>plotDEGPCA</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>,
+  <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>, <span class='kw'>NULL</span>),
   <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>,
   <span class='st'>"DataFrame"</span>))
 
-<span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>plotDEGPCA</span>(<span class='no'>object</span>, <span class='no'>counts</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>,
-  <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='co'># S4 method for DESeqAnalysis</span>
+<span class='fu'>plotDEGPCA</span>(<span class='no'>object</span>, <span class='kw'>counts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>results</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>, <span class='kw'>NULL</span>),
   <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>,
   <span class='st'>"DataFrame"</span>))</pre>
@@ -139,7 +137,10 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object.</p></td>
+      <td>
+    
+<p>A data object, typically containing gene expression information.</p>
+<p></p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -148,10 +149,6 @@
     <tr>
       <th>counts</th>
       <td><p><code>DESeqTransform</code>.</p></td>
-    </tr>
-    <tr>
-      <th>results</th>
-      <td><p><code>scalar</code>. Position or name of <code>DESeqResults</code>.</p></td>
     </tr>
     <tr>
       <th>direction</th>
@@ -180,6 +177,10 @@ To set the discrete color palette globally, use
       <td><p><code>string</code>. Object class to return. Uses <code>match.arg()</code> internally
 and picks the first item in the vector by default.</p></td>
     </tr>
+    <tr>
+      <th>results</th>
+      <td><p><code>scalar</code>. Position or name of <code>DESeqResults</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -188,28 +189,37 @@ and picks the first item in the vector by default.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
+    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code> that improves principal component analysis
+(PCA) sample coloring and labeling. Always plots using normalized counts.</p>
+<p>PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
 summarize the systematic patterns of variations in the data. PCA takes the
 expression levels for genes and transforms it in principal component space,
 reducing each sample into one point. Thereby, we can separate samples by
 expression variation, and identify potential sample outliers. The PCA plot is
 a way to look at how samples are clustering.</p>
     
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Jolliffe, et al., 2002.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Differential Expression Functions: <code><a href='alphaSummary.html'>alphaSummary</a></code>,
-  <code><a href='contrastName.html'>contrastName</a></code>, <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code>,
-  <code><a href='plotMA.html'>plotMA</a></code>, <code><a href='plotVolcano.html'>plotVolcano</a></code></p></div>
+    <div class='dont-index'><ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code>.</p></li>
+<li><p><code>getMethod("plotPCA", "DESeqTransform")</code></p></li>
+</ul></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqAnalysis ====</span>
-<span class='fu'>plotDEGPCA</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control</span></div><div class='output co'>#&gt; <span class='message'>253 differentially expressed genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 253 genes.</span></div><div class='img'><img src='plotDEGPCA-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># DESeqResults ====</span>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
+
+<span class='co'>## DESeqAnalysis ====</span>
+<span class='fu'>plotDEGPCA</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control</span></div><div class='output co'>#&gt; <span class='message'>254 differentially expressed genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 254 genes.</span></div><div class='img'><img src='plotDEGPCA-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## DESeqResults ====</span>
 <span class='fu'>plotDEGPCA</span>(
-    <span class='kw'>object</span> <span class='kw'>=</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>),
-    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqTransform"</span>)
-)</div><div class='output co'>#&gt; <span class='message'>253 differentially expressed genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 253 genes.</span></div><div class='img'><img src='plotDEGPCA-2.png' alt='' width='700' height='433' /></div></pre>
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>),
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqTransform"</span>)
+)</div><div class='output co'>#&gt; <span class='message'>254 differentially expressed genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 254 genes.</span></div><div class='img'><img src='plotDEGPCA-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -219,6 +229,8 @@ a way to look at how samples are clustering.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

@@ -124,7 +124,10 @@
 
 <span class='co'># S4 method for DESeqDataSet</span>
 <span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='kw'>vst</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rlog</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>FALSE</span>))</pre>
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>FALSE</span>))
+
+<span class='co'># S4 method for DESeqAnalysis</span>
+<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,41 +165,30 @@ discouraged by default for visualization.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <ul>
-<li><p><strong>DESeq2 log2</strong>: log2 normalized counts.</p></li>
-<li><p><strong>DESeq2 rlog</strong>: regularized log transformation.</p></li>
-<li><p><strong>DESeq2 vst</strong>: variance stabilizing transformation.</p></li>
-<li><p><strong>edgeR log2 tmm</strong>: log2 trimmed mean of M-values transformation.</p></li>
+<li><p>DESeq2 log2: log2 size factor-adjusted normalized counts.</p></li>
+<li><p>DESeq2 rlog: <strong>r</strong>egularized <strong>log</strong> transformation.</p></li>
+<li><p>DESeq2 VST: <strong>v</strong>ariance-<strong>s</strong>tabilizing <strong>t</strong>ransformation.</p></li>
+<li><p>edgeR log2 TMM: log2 <strong>t</strong>rimmed <strong>m</strong>ean of <strong>M</strong>-values transformation.</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p><code><a href='http://www.rdocumentation.org/packages/vsn/topics/meanSdPlot'>vsn::meanSdPlot()</a></code>.</p></li>
-<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq2::DESeq()</a></code>.</p></li>
-<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>.</p></li>
-<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
-<li><p><code><a href='tmm.html'>tmm()</a></code>.</p></li>
+<li><p><a href='http://www.rdocumentation.org/packages/vsn/topics/meanSdPlot'>vsn::meanSdPlot</a>.</p></li>
+<li><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq2::DESeq</a>.</p></li>
+<li><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog</a>.</p></li>
+<li><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation</a>.</p></li>
+<li><p><a href='http://www.rdocumentation.org/packages/edgeR/topics/calcNormFactors'>edgeR::calcNormFactors</a>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
-  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
-  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
-  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
-  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
-  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
-  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
-  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
-  <code><a href='plotQC.html'>plotQC</a></code>, <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
-  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Skipping regularized log.</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization...</span></div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># DESeqDataSet ====</span>
-<span class='no'>dds_small</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='fu'>plotMeanSD</span>(<span class='no'>dds_small</span>)</div><div class='output co'>#&gt; <span class='message'>Skipping regularized log.</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization...</span></div><div class='img'><img src='plotMeanSD-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>, <span class='no'>deseq_small</span>)
+
+<span class='co'>## bcbioRNASeq ====</span>
+<span class='fu'>plotMeanSD</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Skipping regularized log.</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## DESeqAnalysis ====</span>
+<span class='fu'>plotMeanSD</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>Skipping regularized log.</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='img'><img src='plotMeanSD-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

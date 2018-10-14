@@ -6,13 +6,15 @@
 \alias{export,DESeqResultsTables-method}
 \title{Export}
 \usage{
-\S4method{export}{DESeqResultsTables}(x, dir = ".", dropboxDir = NULL,
-  rdsToken = NULL)
+\S4method{export}{DESeqResultsTables}(x, dir = ".", compress = TRUE,
+  dropboxDir = NULL, rdsToken = NULL)
 }
 \arguments{
 \item{x}{Object.}
 
 \item{dir}{\code{string}. Local directory path.}
+
+\item{compress}{\code{boolean}. Apply gzip compression to all files.}
 
 \item{dropboxDir}{\code{string} or \code{NULL}. Dropbox directory path where to archive
 the results tables for permanent storage (e.g. Stem Cell Commons). When
@@ -25,9 +27,7 @@ authentication. If set \code{NULL} and \code{dropboxDir} is defined, then an
 interactive prompt will appear requesting authorization.}
 }
 \value{
-\itemize{
-\item \code{DESeqResultsTables}: CSV files.
-}
+Invisible \code{character}. File path(s).
 }
 \description{
 Export data out of R and write to disk.

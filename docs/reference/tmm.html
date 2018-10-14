@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title><strong>T</strong>rimmed <strong>M</strong>ean of <strong>M</strong>-Values (TMM) Normalization — tmm • bcbioRNASeq</title>
+<title>Trimmed Mean of M-Values — tmm • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,11 +32,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="<strong>T</strong>rimmed <strong>M</strong>ean of <strong>M</strong>-Values (TMM) Normalization — tmm" />
+<meta property="og:title" content="Trimmed Mean of M-Values — tmm" />
 
 <meta property="og:description" content="TMM normalization is recommended for RNA-seq data generally when the majority
-of genes are not differentially expressed. We use this as a quality control
-tool when plotting counts per gene." />
+of genes are not differentially expressed." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,7 +106,7 @@ tool when plotting counts per gene." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><strong>T</strong>rimmed <strong>M</strong>ean of <strong>M</strong>-Values (TMM) Normalization</h1>
+    <h1>Trimmed Mean of M-Values</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/tmm-methods.R'><code>R/tmm-methods.R</code></a></small>
     <div class="hidden name"><code>tmm.Rd</code></div>
     </div>
@@ -115,8 +114,7 @@ tool when plotting counts per gene." />
     <div class="ref-description">
     
     <p>TMM normalization is recommended for RNA-seq data generally when the majority
-of genes are not differentially expressed. We use this as a quality control
-tool when plotting counts per gene.</p>
+of genes are not differentially expressed.</p>
     
     </div>
 
@@ -126,9 +124,6 @@ tool when plotting counts per gene.</p>
 <span class='fu'>tmm</span>(<span class='no'>object</span>)
 
 <span class='co'># S4 method for SummarizedExperiment</span>
-<span class='fu'>tmm</span>(<span class='no'>object</span>, <span class='kw'>assay</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
-
-<span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>tmm</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -142,11 +137,6 @@ tool when plotting counts per gene.</p>
       <th>...</th>
       <td><p>Additional arguments.</p></td>
     </tr>
-    <tr>
-      <th>assay</th>
-      <td><p><code>scalar</code>. Name or index of counts matrix slotted in <code>assays()</code>.
-When passing in a <code>string</code>, the name must be defined in <code>assayNames()</code>.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -155,29 +145,36 @@ When passing in a <code>string</code>, the name must be defined in <code>assayNa
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Only gene-level counts are supported.</p>
+    <p>Only recommended for gene-level counts.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Robinson and Oshlack (2010).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Data Functions: <code><a href='counts.html'>counts</a></code>,
-  <code><a href='sampleData.html'>sampleData</a></code></p></div>
+    <div class='dont-index'><ul>
+<li><p><a href='http://www.rdocumentation.org/packages/edgeR/topics/calcNormFactors'>edgeR::calcNormFactors</a>.</p></li>
+<li><p><a href='http://www.rdocumentation.org/packages/edgeR/topics/cpm'>edgeR::cpm</a>.</p></li>
+</ul></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>tmm</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization...</span></div><div class='input'><span class='fu'>summary</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
-#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:    22.2   1st Qu.:    21.4   1st Qu.:    19.2   1st Qu.:    26.7  
-#&gt;  Median :    75.8   Median :    80.3   Median :    81.3   Median :    78.4  
-#&gt;  Mean   :  2301.0   Mean   :  1999.6   Mean   :  2461.9   Mean   :  1753.0  
-#&gt;  3rd Qu.:   250.7   3rd Qu.:   261.5   3rd Qu.:   251.5   3rd Qu.:   239.7  
-#&gt;  Max.   :621202.9   Max.   :523577.1   Max.   :693947.0   Max.   :472850.0  
-#&gt;   fa_day7_rep2       fa_day7_rep3     
-#&gt;  Min.   :     0.0   Min.   :     0.0  
-#&gt;  1st Qu.:    25.0   1st Qu.:    34.0  
-#&gt;  Median :    77.8   Median :    85.5  
-#&gt;  Mean   :  1719.9   Mean   :  1874.0  
-#&gt;  3rd Qu.:   240.5   3rd Qu.:   234.8  
-#&gt;  Max.   :480720.6   Max.   :536078.7  </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>tmm</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='input'><span class='fu'>summary</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3     
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    22.2   1st Qu.:    20.9   1st Qu.:    19.0  
+#&gt;  Median :    73.5   Median :    78.7   Median :    78.6  
+#&gt;  Mean   :  2305.1   Mean   :  2000.5   Mean   :  2462.0  
+#&gt;  3rd Qu.:   248.2   3rd Qu.:   261.8   3rd Qu.:   246.7  
+#&gt;  Max.   :622589.2   Max.   :524028.7   Max.   :694226.2  
+#&gt;   fa_day7_rep1       fa_day7_rep2       fa_day7_rep3     
+#&gt;  Min.   :     0.0   Min.   :     0.0   Min.   :     0.0  
+#&gt;  1st Qu.:    25.8   1st Qu.:    24.8   1st Qu.:    34.0  
+#&gt;  Median :    76.8   Median :    77.2   Median :    84.1  
+#&gt;  Mean   :  1751.8   Mean   :  1715.5   Mean   :  1875.8  
+#&gt;  3rd Qu.:   239.2   3rd Qu.:   239.9   3rd Qu.:   234.5  
+#&gt;  Max.   :472948.1   Max.   :479617.2   Max.   :536832.8  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -187,6 +184,8 @@ When passing in a <code>string</code>, the name must be defined in <code>assayNa
       <li><a href="#value">Value</a></li>
 
       <li><a href="#note">Note</a></li>
+
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

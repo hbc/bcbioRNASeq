@@ -34,8 +34,8 @@
   
 <meta property="og:title" content="Plot Dispersion Estimates — plotDispEsts" />
 
-<meta property="og:description" content="This plot shows the dispersion by mean of normalized counts. We expect the
-dispersion to decrease as the mean of normalized counts increases." />
+<meta property="og:description" content="A simple helper function that plots the per-gene dispersion
+estimates together with the fitted mean-dispersion relationship." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -113,12 +113,17 @@ dispersion to decrease as the mean of normalized counts increases." />
 
     <div class="ref-description">
     
-    <p>This plot shows the dispersion by mean of normalized counts. We expect the
-dispersion to decrease as the mean of normalized counts increases.</p>
+    <p>A simple helper function that plots the per-gene dispersion
+estimates together with the fitted mean-dispersion relationship.</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>plotDispEsts</span>(<span class='no'>object</span>, <span class='no'>ymin</span>, <span class='kw'>CV</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>genecol</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>fitcol</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"dodgerblue"</span>,
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"xy"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.45</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqAnalysis</span>
 <span class='fu'>plotDispEsts</span>(<span class='no'>object</span>, <span class='no'>ymin</span>, <span class='kw'>CV</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>genecol</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>fitcol</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"dodgerblue"</span>,
   <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"xy"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.45</span>, <span class='no'>...</span>)</pre>
@@ -185,40 +190,37 @@ plotting dispersion.</p></td>
 
     <p><code>ggplot</code>.</p>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Here we're generating a <code>DESeqDataSet</code> object on the fly, which already
-has method support for plotting dispersion, provided by the DESeq2 package.</p>
+    <p>This plot shows the dispersion by mean of normalized counts. We expect the
+dispersion to decrease as the mean of normalized counts increases.</p>
+<p>Here we're generating a <code>DESeqDataSet</code> object on the fly, which already has
+method support for plotting dispersion, provided by the DESeq2 package.</p>
+    
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+
+    <ul>
+<li><p><code>bcbioRNASeq</code>: Coerces to <code>DESeqDataSet</code> and inherits method from
+DESeq2.</p></li>
+<li><p><code>DESeqAnalysis</code>: Extracts internal <code>DESeqDataSet</code> and inherits method
+from DESeq2.</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><ul>
-<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotDispEsts'>DESeq2::plotDispEsts()</a></code>.</p></li>
-<li><p><code>getMethod("plotDispEsts", "DESeqDataSet")</code>.</p></li>
-</ul></div>
-    <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
-  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
-  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
-  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
-  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
-  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
-  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
-  <code><a href='plotPCA.html'>plotPCA</a></code>, <code><a href='plotQC.html'>plotQC</a></code>,
-  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
-  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
+    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotDispEsts'>DESeq2::plotDispEsts</a>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plotDispEsts</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Coercing bcbioRNASeq to DESeqDataSet with DESeq2 1.21.22...</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotDispEsts-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Custom colors, using DESeq2 parameters.</span>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
+<span class='fu'>plotDispEsts</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.21.23.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotDispEsts-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## Custom colors, using DESeq2 parameters.</span>
 <span class='fu'>plotDispEsts</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
     <span class='kw'>genecol</span> <span class='kw'>=</span> <span class='st'>"gray"</span>,
     <span class='kw'>fitcol</span> <span class='kw'>=</span> <span class='st'>"purple"</span>,
     <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"orange"</span>
-)</div><div class='output co'>#&gt; <span class='message'>Coercing bcbioRNASeq to DESeqDataSet with DESeq2 1.21.22...</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotDispEsts-2.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.21.23.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='img'><img src='plotDispEsts-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -227,7 +229,9 @@ has method support for plotting dispersion, provided by the DESeq2 package.</p>
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#note">Note</a></li>
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
