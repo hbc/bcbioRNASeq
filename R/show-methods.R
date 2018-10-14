@@ -1,4 +1,3 @@
-# FIXME Standardize this across all classes.
 # TODO Consider limiting the length of file paths.
 
 
