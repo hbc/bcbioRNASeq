@@ -33,6 +33,7 @@ utils::sessionInfo()
 [GO]: http://www.geneontology.org
 [GSEA]: http://software.broadinstitute.org/gsea
 [KEGG]: http://www.genome.jp/kegg
+[LibreOffice]: https://www.libreoffice.org
 [macOS]: https://www.apple.com/macos
 [pathview]: https://doi.org/doi:10.18129/B9.bioc.pathview
 [pheatmap]: https://cran.r-project.org/web/packages/pheatmap/index.html

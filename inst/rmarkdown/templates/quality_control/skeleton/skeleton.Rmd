@@ -42,7 +42,7 @@ files <- export(
 )
 ```
 
-The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [Excel][] or [RStudio][].
+The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [LibreOffice][], [Excel][], or [RStudio][].
 
 - [`r basename(files$assays$counts)`](`r files$assays$counts`): Raw counts. Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and are not normalized.
 
