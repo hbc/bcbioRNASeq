@@ -46,7 +46,10 @@ NULL
         ))
 
         # Extend the standard RangedSummarizedExperiment method.
-        cat(capture.output(show(as(object, "RangedSummarizedExperiment"))))
+        cat(
+            capture.output(show(as(object, "RangedSummarizedExperiment"))),
+            sep = "\n"
+        )
     }
 
 
@@ -67,7 +70,7 @@ NULL
             transform = .transformType(object@transform),
             contrastNames = contrastNames
         ))
-        cat(capture.output(show(object@data)))
+        cat(capture.output(show(object@data)), sep = "\n")
     }
 
 
