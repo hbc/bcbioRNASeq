@@ -126,6 +126,7 @@ setMethod(
             assays[["normalized"]] <- NULL
             assays[["rlog"]] <- NULL
             assays[["vst"]] <- NULL
+            assays[["fpkm"]] <- NULL
         }
 
         # Row data -------------------------------------------------------------

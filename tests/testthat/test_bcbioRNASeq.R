@@ -227,21 +227,18 @@ test_that("bcbioRNASeq : User-defined sample metadata", {
 })
 
 test_that("bcbioRNASeq: Sample selection", {
-    keep <- head(colnames(object), n = 2L)
-    censor <- setdiff(colnames(object), keep)
-
     # Keep samples.
-    object <- bcbioRNASeq(uploadDir, samples = keep)
+    object <- bcbioRNASeq(uploadDir, samples = "control_rep1")
     expect_identical(
         object = colnames(object),
-        expected = keep
+        expected = "control_rep1"
     )
 
     # Censor samples.
-    object <- bcbioRNASeq(uploadDir, censorSamples = censor)
+    object <- bcbioRNASeq(uploadDir, censorSamples = "control_rep2")
     expect_identical(
         object = colnames(object),
-        expected = keep
+        expected = "control_rep1"
     )
 })
 
@@ -286,7 +283,14 @@ test_that("extract : Calculate DESeq2 transforms", {
         object = object %>%
             .[seq_len(nrow), ] %>%
             assayNames(),
-        expected = c("counts", "tpm", "avgTxLength", "normalized", "vst")
+        expected = c(
+            "counts",
+            "tpm",
+            "avgTxLength",
+            "normalized",
+            "vst",
+            "fpkm"
+        )
     )
 
     # Allow the user to skip, using `recalculate` argument.
@@ -294,7 +298,11 @@ test_that("extract : Calculate DESeq2 transforms", {
         object = object %>%
             .[seq_len(nrow), , recalculate = FALSE] %>%
             assayNames(),
-        expected = c("counts", "tpm", "avgTxLength")
+        expected = c(
+            "counts",
+            "tpm",
+            "avgTxLength"
+        )
     )
 })
 
