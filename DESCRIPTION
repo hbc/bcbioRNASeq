@@ -117,7 +117,7 @@ Imports:
     cowplot (>= 0.9),
     crayon,
     dplyr (>= 0.7),
-    edgeR (>= 3.23),
+    edgeR (>= 3.22),
     GenomicFeatures,
     ggplot2 (>= 3.0),
     ggrepel (>= 0.8),
