@@ -60,7 +60,6 @@ NULL
         }
 
         # Metadata -------------------------------------------------------------
-        # Update this slot before colData, assays (see below).
         metadata <- metadata(object)
 
         # bcbioLog
@@ -170,14 +169,6 @@ NULL
         programVersions <- metadata[["programVersions"]]
         if (is(programVersions, "data.frame")) {
             metadata[["programVersions"]] <- as(programVersions, "DataFrame")
-        }
-
-        # rowRangesMetadata
-        if ("rowRangesMetadata" %in% names(metadata)) {
-            message("Moving rowRangesMetadata into rowRanges().")
-            metadata(rowRanges)[["ensembldb"]] <-
-                metadata[["rowRangesMetadata"]]
-            metadata[["rowRangesMetadata"]] <- NULL
         }
 
         # sampleMetadataFile
@@ -314,7 +305,7 @@ NULL
             assert_is_subset(featureCountsAssays, names(assays))
         }
 
-        # Row data -------------------------------------------------------------
+        # Row ranges -----------------------------------------------------------
         # Error if object has rowRanges and the user is trying to reslot.
         if (.hasSlot(object, "rowRanges") && !is.null(rowRanges)) {
             stop(paste(
@@ -335,6 +326,14 @@ NULL
         }
         assert_is_all_of(rowRanges, "GRanges")
 
+        # rowRangesMetadata
+        if ("rowRangesMetadata" %in% names(metadata)) {
+            message("Moving rowRangesMetadata into rowRanges().")
+            metadata(rowRanges)[["ensembldb"]] <-
+                metadata[["rowRangesMetadata"]]
+            metadata[["rowRangesMetadata"]] <- NULL
+        }
+
         # biotype
         if ("biotype" %in% colnames(mcols(rowRanges))) {
             message("Renaming biotype to geneBiotype.")
@@ -342,6 +341,7 @@ NULL
                 as.factor(mcols(rowRanges)[["biotype"]])
             mcols(rowRanges)[["biotype"]] <- NULL
         }
+
         # broadClass
         if (
             "broadClass" %in% colnames(mcols(rowRanges)) &&
@@ -351,6 +351,7 @@ NULL
             mcols(rowRanges)[["broadClass"]] <-
                 as.factor(mcols(rowRanges)[["broadClass"]])
         }
+
         # ensgene
         if ("ensgene" %in% colnames(mcols(rowRanges))) {
             message("Renaming ensgene to geneID.")
@@ -358,6 +359,7 @@ NULL
                 as.character(mcols(rowRanges)[["ensgene"]])
             mcols(rowRanges)[["ensgene"]] <- NULL
         }
+
         # symbol
         if ("symbol" %in% colnames(mcols(rowRanges))) {
             message("Renaming symbol to geneName.")
