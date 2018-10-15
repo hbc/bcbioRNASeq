@@ -61,11 +61,7 @@ NULL
             object = object,
             version = metadata(object@data)[["version"]]
         )
-        contrastNames <- vapply(
-            X = object@results,
-            FUN = contrastName,
-            FUN.VALUE = character(1L)
-        )
+        contrastNames <- .contrastNames(object)
         showSlotInfo(list(
             transform = .transformType(object@transform),
             contrastNames = contrastNames
