@@ -45,3 +45,13 @@ DESeqAnalysis <- function(
         lfcShrink = lfcShrink
     )
 }
+
+
+
+.contrastNames <- function(object) {
+    vapply(
+        X = object@results,
+        FUN = contrastName,
+        FUN.VALUE = character(1L)
+    )
+}
