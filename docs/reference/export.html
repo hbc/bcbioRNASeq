@@ -118,7 +118,7 @@
 
     <pre class="usage"><span class='co'># S4 method for DESeqResultsTables</span>
 <span class='fu'>export</span>(<span class='no'>x</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>dropboxDir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>dropbox</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -129,25 +129,25 @@
     </tr>
     <tr>
       <th>dir</th>
-      <td><p><code>string</code>. Local directory path.</p></td>
+      <td><p><code>string</code>. Directory path.</p></td>
     </tr>
     <tr>
       <th>compress</th>
       <td><p><code>boolean</code>. Apply gzip compression to all files.</p></td>
     </tr>
     <tr>
-      <th>dropboxDir</th>
-      <td><p><code>string</code> or <code>NULL</code>. Dropbox directory path where to archive
-the results tables for permanent storage (e.g. Stem Cell Commons). When
-this option is enabled, unique links per file are generated internally with
-the rdrop2 package. Note that local files are written to <code><a href='http://www.rdocumentation.org/packages/base/topics/tempfile'>base::tempdir()</a></code>
-and the <code>dir</code> argument is ignored, if this is enabled.</p></td>
+      <th>dropbox</th>
+      <td><p><code>boolean</code>. Export results to <a href='https://dropbox.com'>Dropbox</a> instead of local
+storage. Recommended method by <a href='http://bioinformatics.sph.harvard.edu'>HBC</a> for permanent storage (e.g. <a href='https://stemcellcommons.org'>Stem Cell Commons</a>). When this option is enabled, unique links per file are
+generated internally with <code><a href='http://www.rdocumentation.org/packages/bcbioBase/topics/copyToDropbox'>bcbioBase::copyToDropbox()</a></code>, which relies on the
+<a href='https://cran.r-project.org/package=rdrop2'>rdrop2</a> package. Note that local files are written to <code><a href='http://www.rdocumentation.org/packages/base/topics/tempfile'>base::tempdir()</a></code>
+when this option is enabled.</p></td>
     </tr>
     <tr>
       <th>rdsToken</th>
       <td><p><code>string</code> or <code>NULL</code>. RDS file token to use for Dropbox
-authentication. If set <code>NULL</code> and <code>dropboxDir</code> is defined, then an
-interactive prompt will appear requesting authorization.</p></td>
+authentication. If set <code>NULL</code> and <code>dropbox = TRUE</code> then an interactive
+prompt will appear requesting authorization.</p></td>
     </tr>
     </table>
     
@@ -184,23 +184,23 @@ column in the CSV export.</p>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='DESeqResultsTables.html'>DESeqResultsTables</a></span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='output co'>#&gt; <span class='message'>Adding `rowData()` annotations (atomic columns only).</span>
 #&gt; <span class='message'>[1] "broadClass"     "description"    "geneBiotype"    "geneID"        </span>
-#&gt; <span class='message'>[5] "geneName"       "seqCoordSystem"</span></div><div class='output co'>#&gt; <span class='message'>Adding DESeq2 normalized counts.</span></div><div class='input'><span class='fu'>export</span>(<span class='no'>x</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"example"</span>)</div><div class='output co'>#&gt; <span class='message'>Writing treatment_folic_acid_vs_control_all.csv.gz, treatment_folic_acid_vs_control_deg.csv.gz, treatment_folic_acid_vs_control_deg_up.csv.gz, treatment_folic_acid_vs_control_deg_down.csv.gz to /Users/mike/git/bcbioRNASeq-private/docs/reference/example.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_all.csv.gz.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_deg.csv.gz.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_deg_up.csv.gz.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_deg_down.csv.gz.</span></div><div class='output co'>#&gt; DESeqResultsTables 
+#&gt; <span class='message'>[5] "geneName"       "seqCoordSystem"</span></div><div class='input'><span class='fu'>export</span>(<span class='no'>x</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"example"</span>)</div><div class='output co'>#&gt; <span class='message'>Writing treatment_folic_acid_vs_control_all.csv.gz, treatment_folic_acid_vs_control_up.csv.gz, treatment_folic_acid_vs_control_down.csv.gz, treatment_folic_acid_vs_control_both.csv.gz to /Users/mike/git/bcbioRNASeq-private/docs/reference/example.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_all.csv.gz.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_up.csv.gz.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_down.csv.gz.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_both.csv.gz.</span></div><div class='output co'>#&gt; DESeqResultsTables 1.21.22
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
 #&gt; contrast: treatment folic acid vs control
 #&gt; alpha: 0.1
 #&gt; lfcThreshold: 0
-#&gt; export: /Users/mike/git/bcbioRNASeq-private/docs/reference/example
+#&gt; dir: /Users/mike/git/bcbioRNASeq-private/docs/reference/example
 #&gt; out of 500 with nonzero total read count
 #&gt; adjusted p-value &lt; 0.1
 #&gt; LFC &gt; 0 (up)       : 115, 23%
 #&gt; LFC &lt; 0 (down)     : 139, 28%
 #&gt; outliers [1]       : 6, 1.2%
 #&gt; low counts [2]     : 0, 0%
-#&gt; (mean count &lt; 33)</div><div class='input'><span class='fu'>list.files</span>(<span class='st'>"example"</span>)</div><div class='output co'>#&gt; [1] "treatment_folic_acid_vs_control_all.csv.gz"     
-#&gt; [2] "treatment_folic_acid_vs_control_deg_down.csv.gz"
-#&gt; [3] "treatment_folic_acid_vs_control_deg_up.csv.gz"  
-#&gt; [4] "treatment_folic_acid_vs_control_deg.csv.gz"     </div><div class='input'>
+#&gt; (mean count &lt; 33)</div><div class='input'><span class='fu'>list.files</span>(<span class='st'>"example"</span>)</div><div class='output co'>#&gt; [1] "treatment_folic_acid_vs_control_all.csv.gz" 
+#&gt; [2] "treatment_folic_acid_vs_control_both.csv.gz"
+#&gt; [3] "treatment_folic_acid_vs_control_down.csv.gz"
+#&gt; [4] "treatment_folic_acid_vs_control_up.csv.gz"  </div><div class='input'>
 <span class='co'>## Clean up.</span>
 <span class='fu'>unlink</span>(<span class='st'>"example"</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>
