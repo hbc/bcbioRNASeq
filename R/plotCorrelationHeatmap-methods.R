@@ -28,7 +28,7 @@ NULL
             what = plotCorrelationHeatmap,
             args = matchArgsToDoCall(
                 args = list(object = rse),
-                removeFormals = c("normalized")
+                removeFormals = "normalized"
             )
         )
     }

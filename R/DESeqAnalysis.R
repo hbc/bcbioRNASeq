@@ -31,20 +31,21 @@
 #'     lfcShrink = list(lfcShrink(dds = dds, coef = 2L))
 #' )
 #' print(x)
-DESeqAnalysis <- function(
-    data,
-    transform,
-    results,
-    lfcShrink
-) {
-    new(
-        Class = "DESeqAnalysis",
-        data = data,
-        transform = transform,
-        results = results,
-        lfcShrink = lfcShrink
-    )
-}
+DESeqAnalysis <-  # nolint
+    function(
+        data,
+        transform,
+        results,
+        lfcShrink
+    ) {
+        new(
+            Class = "DESeqAnalysis",
+            data = data,
+            transform = transform,
+            results = results,
+            lfcShrink = lfcShrink
+        )
+    }
 
 
 

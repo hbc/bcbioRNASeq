@@ -16,12 +16,14 @@ test_that("alphaSummary : DESeqDataSet", {
     expect_equal(
         object = x,
         expected = matrix(
+            # nolint start
             data = c(
                 115,  88,  58,  31,  19,
                 139, 120, 100,  59,  14,
                   6,   6,   6,    6,  6,
                   0,   0,   0,    0,  39
             ),
+            # nolint end
             nrow = 4L,
             ncol = 5L,
             byrow = TRUE,

@@ -436,7 +436,7 @@ bcbioRNASeq <- function(
         is_a_string(organism) &&
         is.numeric(ensemblRelease)
     ) {
-        # AnnotationHub/ensembldb.
+        # AnnotationHub (ensembldb).
         message("Using `makeGRangesFromEnsembl()` for annotations.")
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,

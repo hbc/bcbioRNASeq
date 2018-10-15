@@ -43,7 +43,7 @@ setMethod(
         stopifnot(is(object, "DESeqResultsTables"))
         validObject(object)
         assertIsHeaderLevel(headerLevel)
-        
+
         metadata <- slot(object, "metadata")
 
         # Include a contrast header, which is useful for looping.

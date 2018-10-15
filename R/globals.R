@@ -9,7 +9,7 @@ packageVersion <- packageVersion("bcbioRNASeq")
 #' bcbioRNASeqCacheURL
 bcbioRNASeqCacheURL <- paste0(
     "http://bcbiobase.seq.cloud/",
-    "v", packageVersion$major, ".", packageVersion$minor
+    "v", packageVersion$major, ".", packageVersion$minor  # nolint
 )
 
 lanePattern <- basejump::lanePattern

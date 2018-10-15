@@ -1,4 +1,5 @@
-# TODO Consider a utility that we can use in `[` and `updateObject`.
+# FIXME Consider a utility that we can use in `[` and `updateObject`.
+# FIXME Coerce, remove, rename slot (add to basejump).
 # .updateMetadata <- function(metadata) {
 #     metadata[["template"]] <- NULL
 #     metadata
