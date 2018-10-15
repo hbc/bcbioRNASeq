@@ -9,7 +9,7 @@ r:
   # - bioc-devel
 
 os:
-  # - linux
+  - linux
   - osx
 
 matrix:
