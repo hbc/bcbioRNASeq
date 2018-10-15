@@ -299,15 +299,6 @@ setValidity(
 
 
 # DESeqResultsTables ===========================================================
-# FIXME Move these to metadata:
-# localFiles = "character",
-# dropboxFiles = "list"
-# Switch to using vectors for `deg`, `degUp`, `degDown`.
-# `deg` can be automatic, a combination of up down.
-# deg should be a named character, `up`, `down`
-
-
-
 #' DESeq2 Differential Expression Results Tables
 #'
 #' `DESeqResults` object with `DataFrame` subsets and file path information.
