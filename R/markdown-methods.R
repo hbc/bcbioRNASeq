@@ -24,7 +24,7 @@ NULL
 
 
 
-#' @rdname markdown
+#' @describeIn markdown Sample metadata table.
 #' @export
 setMethod(
     f = "markdown",
@@ -108,7 +108,7 @@ setMethod(
 
 
 
-#' @rdname markdown
+#' @describeIn markdown File paths (if exported) and top tables.
 #' @export
 setMethod(
     f = "markdown",
