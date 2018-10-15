@@ -73,7 +73,6 @@ NULL
 
 
 
-# FIXME Add `metadata()` support.
 .show.DESeqResultsTables <-  # nolint
     function(object) {
         validObject(object)
