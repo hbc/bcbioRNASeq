@@ -75,18 +75,23 @@ NULL
 
 
 
+# FIXME Add `metadata()` support.
 .show.DESeqResultsTables <-  # nolint
     function(object) {
         validObject(object)
-        .showHeader(object)
+        .showHeader(
+            object = object,
+            version = object@metadata[["version"]]
+        )
 
-        all <- slot(object, "all")
-        up <- slot(object, "degUp")
-        down <- slot(object, "degDown")
+        results <- object@results
 
-        contrast <- contrastName(all)
-        alpha <- metadata(all)[["alpha"]]
-        lfcThreshold <- metadata(all)[["lfcThreshold"]]
+        up <- object@deg[["up"]]
+        down <- object@deg[["down"]]
+
+        contrast <- contrastName(results)
+        alpha <- metadata(results)[["alpha"]]
+        lfcThreshold <- metadata(results)[["lfcThreshold"]]
 
         list <- list(
             contrast = contrast,
@@ -95,17 +100,14 @@ NULL
         )
 
         # Include file paths, if they're stashed (from `export()`).
-        if (length(object@dropboxFiles) > 0L) {
-            name <- "dropbox export"
-            paths <- object@dropboxFiles
-        } else if (length(object@localFiles) > 0L) {
-            name <- "export"
-            paths <- object@localFiles
-        } else {
-            paths <- character()
-        }
-        if (length(paths) > 0L) {
-            dirname <- unique(dirname(paths))
+        if (is.character(object@metadata[["export"]])) {
+            if (isTRUE(object@metadata[["dropbox"]])) {
+                name <- "dropbox"
+            } else {
+                name <- "dir"
+            }
+            files <- object@metadata[["files"]]
+            dirname <- unique(dirname(files))
             assert_is_a_string(dirname)
             list[[name]] <- dirname
         }
@@ -113,7 +115,7 @@ NULL
         showSlotInfo(list)
 
         # Include DESeqResults summary.
-        summary <- capture.output(summary(all)) %>%
+        summary <- capture.output(summary(results)) %>%
             # Remove leading and trailing whitespace.
             .[!grepl("^$", .)] %>%
             # Remove the lines about results documentation.
