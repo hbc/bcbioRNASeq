@@ -105,7 +105,7 @@ NULL
             } else {
                 name <- "dir"
             }
-            files <- metadata[["files"]]
+            files <- metadata[["export"]]
             dirname <- unique(dirname(files))
             assert_is_a_string(dirname)
             list[[name]] <- dirname
