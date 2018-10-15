@@ -318,7 +318,10 @@ setValidity(
 #'   Values map to the `rownames` of the internal `DESeqResults`. These are
 #'   genes that pass `alpha` and `lfcThreshold` cutoffs set in
 #'   [DESeq2::results()] call.
+#' @slot counts `matrix`. Normalized counts matrix.
 #' @slot rowData `DataFrame`. Row annotations.
+#' @slot sampleNames `character`. Human-friendly sample names. Must contain
+#'   [names()] that map to the [colnames()] of the `DESeqDataSet`.
 #' @slot metadata `list`. Metadata. Contains file paths and information on
 #'   whether we're writing locally or to Dropbox.
 #'
@@ -328,11 +331,15 @@ setClass(
     slots = c(
         results = "DESeqResults",
         deg = "list",
+        counts = "matrix",
         rowData = "DataFrame",
+        sampleNames = "character",
         metadata = "list"
     ),
     prototype = list(
+        counts = matrix(),
         rowData = DataFrame(),
+        sampleNames = character(),
         metadata = list()
     )
 )
@@ -340,41 +347,33 @@ setClass(
 setValidity(
     Class = "DESeqResultsTables",
     method = function(object) {
-        # assert_is_a_string(contrastName(object@all))
-        # assert_is_a_number(metadata(object@all)[["alpha"]])
-        # assert_is_a_number(metadata(object@all)[["lfcThreshold"]])
-        # assert_is_subset(
-        #     x = rownames(object@degUp),
-        #     y = rownames(object@all)
-        # )
-        # assert_is_subset(
-        #     x = rownames(object@degDown),
-        #     y = rownames(object@all)
-        # )
-        # assert_are_disjoint_sets(
-        #     x = rownames(object@degUp),
-        #     y = rownames(object@degDown)
-        # )
-        #
-        # # Require that the subsets match the `DESeqResults` summary.
-        # match <- removeNA(str_match(
-        #     string = capture.output(summary(object@all)),
-        #     pattern = "^LFC.*\\s\\:\\s([0-9]+).*"
-        # ))
-        # assert_are_identical(
-        #     x = nrow(object@degUp),
-        #     y = as.integer(match[1, 2])
-        # )
-        # assert_are_identical(
-        #     x = nrow(object@degDown),
-        #     y = as.integer(match[2, 2])
-        # )
-        #
-        # # Object can have either local or Dropbox file paths, but not both.
-        # stopifnot(!all(
-        #     length(object@localFiles) > 0L,
-        #     length(object@dropboxFiles) > 0L
-        # ))
+        results <- object@results
+        assert_is_a_string(contrastName(results))
+        up <- object@deg[["up"]]
+        assert_is_character(up)
+        assert_is_subset(up, rownames(results))
+        down <- object@deg[["down"]]
+        assert_is_character(down)
+        assert_is_subset(down, rownames(results))
+        assert_are_disjoint_sets(up, down)
+        alpha <- metadata(results)[["alpha"]]
+        assert_is_a_number(alpha)
+        lfcThreshold <- metadata(results)[["lfcThreshold"]]
+        assert_is_a_number(lfcThreshold)
+
+        # Check that DEGs match the `DESeqResults` summary.
+        match <- removeNA(str_match(
+            string = capture.output(summary(results)),
+            pattern = "^LFC.*\\s\\:\\s([0-9]+).*"
+        ))
+        assert_are_identical(
+            x = length(up),
+            y = as.integer(match[1L, 2L])
+        )
+        assert_are_identical(
+            x = length(down),
+            y = as.integer(match[2L, 2L])
+        )
 
         TRUE
     }
