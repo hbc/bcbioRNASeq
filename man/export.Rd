@@ -7,24 +7,24 @@
 \title{Export}
 \usage{
 \S4method{export}{DESeqResultsTables}(x, dir = ".", compress = TRUE,
-  dropboxDir = NULL, rdsToken = NULL)
+  dropbox = FALSE, rdsToken = NULL)
 }
 \arguments{
 \item{x}{Object.}
 
-\item{dir}{\code{string}. Local directory path.}
+\item{dir}{\code{string}. Directory path.}
 
 \item{compress}{\code{boolean}. Apply gzip compression to all files.}
 
-\item{dropboxDir}{\code{string} or \code{NULL}. Dropbox directory path where to archive
-the results tables for permanent storage (e.g. Stem Cell Commons). When
-this option is enabled, unique links per file are generated internally with
-the rdrop2 package. Note that local files are written to \code{\link[base:tempdir]{base::tempdir()}}
-and the \code{dir} argument is ignored, if this is enabled.}
+\item{dropbox}{\code{boolean}. Export results to \href{https://dropbox.com}{Dropbox} instead of local
+storage. Recommended method by \href{http://bioinformatics.sph.harvard.edu}{HBC} for permanent storage (e.g. \href{https://stemcellcommons.org}{Stem Cell Commons}). When this option is enabled, unique links per file are
+generated internally with \code{\link[bcbioBase:copyToDropbox]{bcbioBase::copyToDropbox()}}, which relies on the
+\href{https://cran.r-project.org/package=rdrop2}{rdrop2} package. Note that local files are written to \code{\link[base:tempdir]{base::tempdir()}}
+when this option is enabled.}
 
 \item{rdsToken}{\code{string} or \code{NULL}. RDS file token to use for Dropbox
-authentication. If set \code{NULL} and \code{dropboxDir} is defined, then an
-interactive prompt will appear requesting authorization.}
+authentication. If set \code{NULL} and \code{dropbox = TRUE} then an interactive
+prompt will appear requesting authorization.}
 }
 \value{
 Invisible \code{character}. File path(s).

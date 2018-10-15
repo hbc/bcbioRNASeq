@@ -3,10 +3,16 @@
 \docType{methods}
 \name{markdown}
 \alias{markdown}
+\alias{markdown,bcbioRNASeq-method}
 \alias{markdown,DESeqResultsTables-method}
+\alias{markdown,DESeqAnalysis-method}
 \title{Markdown}
 \usage{
+\S4method{markdown}{bcbioRNASeq}(object)
+
 \S4method{markdown}{DESeqResultsTables}(object, headerLevel = 2L)
+
+\S4method{markdown}{DESeqAnalysis}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -19,6 +25,15 @@ Markdown output.
 \description{
 Markdown
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{bcbioRNASeq}: Sample metadata table.
+
+\item \code{DESeqResultsTables}: File paths (if exported) and top tables.
+
+\item \code{DESeqAnalysis}: List of contrast names.
+}}
+
 \examples{
 data(deseq_small)
 x <- DESeqResultsTables(deseq_small)

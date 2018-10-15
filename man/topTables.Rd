@@ -3,30 +3,30 @@
 \docType{methods}
 \name{topTables}
 \alias{topTables}
-\alias{topTables,DESeqAnalysis-method}
 \alias{topTables,DESeqResults-method}
 \alias{topTables,DESeqResultsTables-method}
+\alias{topTables,DESeqAnalysis-method}
 \title{Top Tables of Differential Expression Results}
 \usage{
 topTables(object, ...)
 
-\S4method{topTables}{DESeqAnalysis}(object, results = 1L,
-  lfcShrink = TRUE, n = 50L)
-
 \S4method{topTables}{DESeqResults}(object, n = 50L)
 
 \S4method{topTables}{DESeqResultsTables}(object, n = 50L)
+
+\S4method{topTables}{DESeqAnalysis}(object, results = 1L,
+  lfcShrink = TRUE, n = 50L)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
 
+\item{n}{\code{scalar integer}. Number of genes (per direction) to report.}
+
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
-
-\item{n}{\code{scalar integer}. Number of genes (per direction) to report.}
 }
 \value{
 \code{kable}. Markdown tables.
