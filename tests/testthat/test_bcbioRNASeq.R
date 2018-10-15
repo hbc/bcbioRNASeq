@@ -221,6 +221,7 @@ test_that("bcbioRNASeq: Sample selection", {
 # Methods ======================================================================
 context("bcbioRNASeq : Methods")
 
+object <- bcb_small
 nrow <- 50L
 ncol <- 2L
 
