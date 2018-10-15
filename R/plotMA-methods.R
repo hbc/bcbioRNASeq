@@ -291,7 +291,7 @@ setMethod(
                         lfcShrink = lfcShrink
                     ),
                     genes = genes,
-                    gene2symbol = gene2symbol(object@data)
+                    gene2symbol = gene2symbol(slot(object, "data"))
                 ),
                 removeFormals = c("results", "lfcShrink")
             )

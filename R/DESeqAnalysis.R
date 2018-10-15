@@ -49,8 +49,9 @@ DESeqAnalysis <- function(
 
 
 .contrastNames <- function(object) {
+    stopifnot(is(object, "DESeqResultsTables"))
     vapply(
-        X = object@results,
+        X = slot(object, "results"),
         FUN = contrastName,
         FUN.VALUE = character(1L)
     )

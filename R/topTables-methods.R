@@ -51,7 +51,8 @@ setMethod(
 # assert_are_disjoint_sets(geneCols, colnames(results))
 #
 # # Add useful gene annotations.
-# rowData <- rowData(object@data)
+# data <- slot(object, "data")
+# rowData <- rowData(data)
 # assert_is_subset(geneCols, colnames(rowData))
 #
 # rowData <- rowData[, geneCols, drop = FALSE]
@@ -72,10 +73,10 @@ setMethod(
         direction <- match.arg(direction)
         assertIsImplicitInteger(n)
 
-        results <- object@results
+        results <- slot(object, "results")
         assert_is_all_of(results, "DESeqResults")
 
-        rownames <- object@deg[[direction]]
+        rownames <- slot(object, "deg")[[direction]]
         assert_is_subset(rownames, rownames(results))
         data <- as(results, "DataFrame")[rownames, , drop = FALSE]
 

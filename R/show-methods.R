@@ -57,16 +57,18 @@ NULL
 .show.DESeqAnalysis <-  # nolint
     function(object) {
         validObject(object)
+        data <- slot(object, "data")
+        transform <- slot(object, "transform")
         .showHeader(
             object = object,
-            version = metadata(object@data)[["version"]]
+            version = metadata(data)[["version"]]
         )
         contrastNames <- .contrastNames(object)
         showSlotInfo(list(
-            transform = .transformType(object@transform),
+            transform = .transformType(transform),
             contrastNames = contrastNames
         ))
-        cat(capture.output(show(object@data)), sep = "\n")
+        cat(capture.output(show(data)), sep = "\n")
     }
 
 
@@ -75,15 +77,17 @@ NULL
 .show.DESeqResultsTables <-  # nolint
     function(object) {
         validObject(object)
+        results <- slot(object, "results")
+        deg <- slot(object, "deg")
+        metadata <- slot(object, "metadata")
+
         .showHeader(
             object = object,
-            version = object@metadata[["version"]]
+            version = metadata[["version"]]
         )
 
-        results <- object@results
-
-        up <- object@deg[["up"]]
-        down <- object@deg[["down"]]
+        up <- deg[["up"]]
+        down <- deg[["down"]]
 
         contrast <- contrastName(results)
         alpha <- metadata(results)[["alpha"]]
@@ -96,13 +100,13 @@ NULL
         )
 
         # Include file paths, if they're stashed (from `export()`).
-        if (is.character(object@metadata[["export"]])) {
-            if (isTRUE(object@metadata[["dropbox"]])) {
+        if (is.character(metadata[["export"]])) {
+            if (isTRUE(metadata[["dropbox"]])) {
                 name <- "dropbox"
             } else {
                 name <- "dir"
             }
-            files <- object@metadata[["files"]]
+            files <- metadata[["files"]]
             dirname <- unique(dirname(files))
             assert_is_a_string(dirname)
             list[[name]] <- dirname

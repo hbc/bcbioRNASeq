@@ -246,38 +246,43 @@ setClass(
 setValidity(
     Class = "DESeqAnalysis",
     method = function(object) {
-        # Require valid dimnames for data set.
-        assertHasValidDimnames(object@data)
+        data <- slot(object, "data")
+        transform <- slot(object, "transform")
+        results <- slot(object, "results")
+        lfcShrink <- slot(object, "lfcShrink")
+
+        stopifnot(is(data, "DESeqDataSet"))
+        assertHasValidDimnames(data)
 
         # Require gene-to-symbol mappings.
         assert_is_subset(
             x = c("geneID", "geneName"),
-            y = colnames(rowData(object@data))
+            y = colnames(rowData(data))
         )
 
         # DESeqDataSet and DESeqTransform must match.
         assert_are_identical(
-            x = dimnames(object@data),
-            y = dimnames(object@transform)
+            x = dimnames(data),
+            y = dimnames(transform)
         )
 
         # DESeqDataSet and DESeqResults must match.
         invisible(lapply(
-            X = object@results,
-            FUN = function(res) {
+            X = results,
+            FUN = function(x) {
                 assert_are_identical(
-                    x = rownames(res),
-                    y = rownames(object@data)
+                    x = rownames(x),
+                    y = rownames(data)
                 )
             }
         ))
 
         # DESeqResults and lfcShrink rownames must match, if shrinkage has been
         # calculated.
-        if (length(object@lfcShrink) > 0L) {
+        if (length(lfcShrink) > 0L) {
             invisible(mapply(
-                unshrunken = object@results,
-                shrunken = object@lfcShrink,
+                unshrunken = results,
+                shrunken = lfcShrink,
                 FUN = function(unshrunken, shrunken) {
                     assert_are_identical(
                         x = rownames(unshrunken),
@@ -347,15 +352,19 @@ setClass(
 setValidity(
     Class = "DESeqResultsTables",
     method = function(object) {
-        results <- object@results
+        results <- slot(object, "results")
+        stopifnot(is(results, "DESeqResults"))
         assert_is_a_string(contrastName(results))
-        up <- object@deg[["up"]]
+
+        deg <- slot(object, "deg")
+        up <- deg[["up"]]
         assert_is_character(up)
         assert_is_subset(up, rownames(results))
-        down <- object@deg[["down"]]
+        down <- deg[["down"]]
         assert_is_character(down)
         assert_is_subset(down, rownames(results))
         assert_are_disjoint_sets(up, down)
+
         alpha <- metadata(results)[["alpha"]]
         assert_is_a_number(alpha)
         lfcThreshold <- metadata(results)[["lfcThreshold"]]

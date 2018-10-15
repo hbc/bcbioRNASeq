@@ -110,7 +110,7 @@ setMethod(
             object = object,
             results = results
         )
-        counts <- object@transform
+        counts <- slot(object, "transform")
         do.call(
             what = plotDEGPCA,
             args = matchArgsToDoCall(

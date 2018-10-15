@@ -321,7 +321,7 @@ NULL
             ), call. = FALSE)
             message("Generating empty ranges.")
             rowRanges <- emptyRanges(names = rownames(assays[[1L]]))
-            rowData <- object@elementMetadata
+            rowData <- slot(object, "elementMetadata")
             mcols(rowRanges) <- rowData
         }
         assert_is_all_of(rowRanges, "GRanges")

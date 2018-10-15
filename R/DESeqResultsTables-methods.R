@@ -87,12 +87,12 @@ NULL
     assert_is_a_bool(counts)
 
     # Get slotted DESeqResults object and coerce.
-    results <- object@results
+    results <- slot(object, "results")
     data <- as(results, "DataFrame")
 
     # Row annotations.
     if (isTRUE(rowData)) {
-        rowData <- object@rowData
+        rowData <- slot(object, "rowData")
         if (ncol(rowData) > 0L) {
             message("Joining row annotations.")
             assert_are_identical(rownames(data), rownames(rowData))
@@ -104,7 +104,7 @@ NULL
     # FIXME Convert to human friendly sample names here, if necessary.
     if (isTRUE(counts)) {
         message("Joining DESeq2 transform counts.")
-        counts <- object@counts
+        counts <- slot(object, "counts")
         assert_are_disjoint_sets(colnames(data), colnames(counts))
         assert_are_identical(rownames(data), rownames(counts))
         data <- cbind(data, counts)
@@ -196,7 +196,7 @@ NULL
         out@counts <- assay(transform)
 
         # Slot rowData.
-        rowData <- sanitizeRowData(rowData(object@data))
+        rowData <- sanitizeRowData(rowData(data))
         # DESeq2 includes additional information in `rowData()` that isn't
         # informative for a user, and doesn't need to be included in the CSV.
         # Use our `bcb_small` example dataset to figure out which columns are

@@ -151,7 +151,6 @@ NULL
 
         # Return ---------------------------------------------------------------
         # Assign the local file paths to the object.
-        print(files)
         slot(x, "metadata")[["export"]] <- files
 
         x

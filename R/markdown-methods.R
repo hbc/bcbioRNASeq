@@ -43,6 +43,8 @@ setMethod(
         stopifnot(is(object, "DESeqResultsTables"))
         validObject(object)
         assertIsHeaderLevel(headerLevel)
+        
+        metadata <- slot(object, "metadata")
 
         # Include a contrast header, which is useful for looping.
         contrast <- contrastName(object)
@@ -50,11 +52,11 @@ setMethod(
         headerLevel <- headerLevel + 1L
 
         # File paths -----------------------------------------------------------
-        files <- object@metadata[["files"]]
+        files <- metadata[["files"]]
 
         if (length(files) > 0L) {
             # Get Dropbox URLs, if necessary.
-            dropbox <- object@metadata[["dropbox"]]
+            dropbox <- metadata[["dropbox"]]
             if (isTRUE(dropbox)) {
                 # nocov start
                 # Using local Dropbox token for code coverage here.
