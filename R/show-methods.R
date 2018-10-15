@@ -11,6 +11,8 @@ NULL
 
 
 
+# FIXME use metadata accessor
+# Export this in basejump?
 .showHeader <- function(object, version = NULL) {
     cat(c(
         bold(paste(class(object), version)),
@@ -18,6 +20,7 @@ NULL
         "citation(\"bcbioRNASeq\")"
     ), sep = "\n")
 }
+
 
 
 .show.bcbioRNASeq <-  # nolint
