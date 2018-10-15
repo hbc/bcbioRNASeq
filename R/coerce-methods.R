@@ -1,3 +1,7 @@
+# TODO Consider adding S3 coercion method with options here.
+
+
+
 #' Methods for Coercing an Object to a Class
 #'
 #' @name coerce
