@@ -13,6 +13,18 @@ analysis.
 \code{bcbioRNASeq} extended \code{SummarizedExperiment} prior to v0.2.0, where we
 migrated to \code{RangedSummarizedExperiment}.
 }
+\section{Automatic metadata}{
+
+
+The \code{\link[=metadata]{metadata()}} slot always contains:
+\itemize{
+\item Object version.
+\item bcbio data provenance information.
+\item File paths and timestamps.
+\item R session information.
+}
+}
+
 \seealso{
 \code{\link[=bcbioRNASeq]{bcbioRNASeq()}}.
 

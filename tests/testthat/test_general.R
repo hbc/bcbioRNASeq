@@ -1,11 +1,7 @@
 context("General")
 
-bcb <- bcbioRNASeq(
-    uploadDir = system.file("extdata/bcbio", package = "bcbioRNASeq"),
-    rlog = TRUE,
-    vst = TRUE
-)
-dds <- as(bcb, "DESeqDataSet")
+bcb <- bcb_small
+dds <- dds_small
 
 
 
@@ -13,13 +9,17 @@ dds <- as(bcb, "DESeqDataSet")
 test_that("aggregateCols", {
     object <- bcb
     # Assign groupings into `aggregate` column of `colData()`.
-    aggregate <- as.factor(sub("^([a-z0-9]+)_.*", "\\1", colnames(object)))
+    aggregate <- as.factor(sub(
+        pattern = "_rep[[:digit:]]$",
+        replacement = "",
+        x = colnames(object)
+    ))
     names(aggregate) <- colnames(object)
     object[["aggregate"]] <- aggregate
     x <- aggregateCols(object)
     expect_identical(
         object = colnames(x),
-        expected = c("group1", "group2")
+        expected = c("control", "fa_day7")
     )
     expect_identical(
         object = sum(counts(x)),
@@ -52,15 +52,13 @@ with_parameters_test_that(
         FALSE,
         TRUE,
         "tpm",
-        "vst",
-        "rlog"
+        "vst"
     ),
     assay = list(
         "counts",
         "normalized",
         "tpm",
-        "vst",
-        "rlog"
+        "vst"
     )
 )
 
@@ -80,17 +78,9 @@ with_parameters_test_that(
     "counts : Skipped DESeq2 transforms", {
         object <- bcb
         assays(object)[[normalized]] <- NULL
-        expect_warning(
+        expect_error(
             object = counts(object, normalized = normalized),
-            regexp = paste(
-                "Calculating log2 TMM counts instead"
-            )
-        )
-        expect_is(
-            object = suppressWarnings(
-                counts(object, normalized = normalized)
-            ),
-            class = "matrix"
+            regexp = "assayNames"
         )
     },
     normalized = c("rlog", "vst")

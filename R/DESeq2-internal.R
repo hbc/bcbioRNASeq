@@ -50,7 +50,7 @@
 .ddsMsg <- function() {
     message(paste0(
         "Generating DESeqDataSet with DESeq2 ",
-        packageVersion("DESeq2"), "..."
+        packageVersion("DESeq2"), "."
     ))
 }
 
@@ -148,12 +148,52 @@
     function(se) {
         .ddsMsg()
         stopifnot(is(se, "SummarizedExperiment"))
-        assays(se) <- assays(se)[intersect(assayNames(se), deseqAssays)]
+
+        # Assert that counts are gene level.
+        level <- metadata(se)[["level"]]
+        assert_is_a_string(level)
+        if (level != "genes") {
+            stop("Gene-level counts are required.")
+        }
+
+        # Subset the assays. Average transcript length matrix should only be
+        # included when raw counts are from tximport and not length scaled.
+        if (
+            metadata(se)[["caller"]] %in% tximportCallers &&
+            metadata(se)[["countsFromAbundance"]] == "no"
+        ) {
+            message("Including average transcript length matrix.")
+            assayNames <- c("counts", "avgTxLength")
+        } else {
+            assayNames <- "counts"
+        }
+        assays(se) <- assays(se)[assayNames]
+
+        # DESeq2 requires integer counts.
         counts <- counts(se)
-        # Integer counts are required.
         counts <- round(counts, digits = 0L)
         mode(counts) <- "integer"
         counts(se) <- counts
+
+        # Subset and update metadata.
+        m <- metadata(se)
+        keep <- c(
+            "version",
+            "interestingGroups",
+            "uploadDir",
+            "caller",
+            "countsFromAbundance",
+            "organism",
+            "genomeBuild",
+            "ensemblRelease",
+            "runDate"
+        )
+        m <- m[intersect(names(m), keep)]
+        m[["date"]] <- Sys.Date()
+        m[["sessionInfo"]] <- session_info()
+        metadata(se) <- m
+
+        # Generate the DESeqDataSet.
         # Using an empty design formula.
         dds <- DESeqDataSet(se = se, design = ~ 1L)
         validObject(dds)
@@ -192,7 +232,7 @@
     if ("rlogIntercept" %in% colnames(mcols(object))) {
         "rlog"
     } else {
-        # varianceStabilizingTransformation
+        # varianceStabilizingTransformation.
         "vst"
     }
 }

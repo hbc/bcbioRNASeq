@@ -19,20 +19,13 @@ data(bcb_small)
 plotQC(bcb_small)
 }
 \seealso{
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCorrelationHeatmap}},
+Other Plots: \code{\link{plotCountsPerBiotype}},
   \code{\link{plotCountsPerGene}},
-  \code{\link{plotDispEsts}},
-  \code{\link{plotExonicMappingRate}},
   \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotPCA}}, \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
+  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
+  \code{\link{plotHeatmap}}, \code{\link{plotTotalCounts}},
+  \code{\link{plotZerosVsDepth}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Functions}

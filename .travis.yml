@@ -6,10 +6,10 @@ cache: packages
 
 r:
   - bioc-release
-  # - bioc-devel
+  - bioc-devel
 
 os:
-  # - linux
+  - linux
   - osx
 
 matrix:
@@ -27,8 +27,8 @@ matrix:
 #   only:
 #   - master
 
-# External dependencies
-# dependency for clusterProfiler > enrichplot > udunits2
+# External dependencies.
+# clusterProfiler > enrichplot > udunits2
 addons:
   apt:
     update: true
@@ -42,10 +42,12 @@ env:
 # r_build_args: "--no-build-vignettes"
 # r_check_args: "--no-vignettes"
 
-# Set true before submission to Bioconductor
-warnings_are_errors: false
+# Set true before submission to Bioconductor.
+# Ignoring built with R 3.5.1 warnings.
+# Ignoring BiocInstaller deprecation warning.
+warnings_are_errors: true
 
-# Temporarily enable when caching Bioconductor packages
+# Temporarily enable when caching Bioconductor packages.
 # script: true
 
 r_packages:
@@ -58,7 +60,7 @@ bioc_packages:
   - DelayedArray
   - EnsDb.Hsapiens.v75
   - DEGreport
-  # clusterProfiler dependencies
+  # clusterProfiler:
   - ALL
   - DO.db
   - GO.db

@@ -3,10 +3,9 @@
 #' Quickly generate a summary table of various alpha level cutoffs, for use in
 #' an R Markdown report.
 #'
-#' @note Use either `contrast` or `name` to specify the desired contrast.
+#' Use either `contrast` or `name` to specify the desired contrast.
 #'
 #' @name alphaSummary
-#' @family Differential Expression Functions
 #' @author Michael Steinbaugh, Lorena Patano
 #' @export
 #'
@@ -23,10 +22,11 @@
 #' @examples
 #' data(deseq_small)
 #'
-#' # DESeqDataSet ====
+#' ## DESeqDataSet ====
 #' object <- as(deseq_small, "DESeqDataSet")
 #' design(object)
 #' resultsNames(object)
+#' alphaSummary(object)
 #' alphaSummary(object, contrast = c("treatment", "folic_acid", "control"))
 #' alphaSummary(object, name = "treatment_folic_acid_vs_control")
 NULL

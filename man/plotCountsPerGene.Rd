@@ -7,7 +7,7 @@
 \title{Plot Counts Per Gene}
 \usage{
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, normalized = c("tmm",
-  "vst", "rlog", "tpm", "rle"), interestingGroups = NULL,
+  "vst", "rlog", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   geom = c("boxplot", "density", "violin"), trans = c("identity",
   "log2", "log10"), color = getOption("basejump.discrete.color", NULL),
   fill = getOption("basejump.discrete.fill", NULL),
@@ -72,20 +72,13 @@ data(bcb_small)
 plotCountsPerGene(bcb_small)
 }
 \seealso{
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotDispEsts}},
-  \code{\link{plotExonicMappingRate}},
+Other Plots: \code{\link{plotCountsPerBiotype}},
   \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotPCA}}, \code{\link{plotQC}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
+  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
+  \code{\link{plotHeatmap}}, \code{\link{plotQC}},
+  \code{\link{plotTotalCounts}},
+  \code{\link{plotZerosVsDepth}}
 }
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Functions}

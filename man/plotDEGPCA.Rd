@@ -3,32 +3,34 @@
 \docType{methods}
 \name{plotDEGPCA}
 \alias{plotDEGPCA}
-\alias{plotDEGPCA,DESeqAnalysis-method}
 \alias{plotDEGPCA,DESeqResults-method}
+\alias{plotDEGPCA,DESeqAnalysis-method}
 \title{Plot DEG PCA}
 \usage{
 plotDEGPCA(object, ...)
-
-\S4method{plotDEGPCA}{DESeqAnalysis}(object, counts = NULL, results,
-  direction = c("both", "up", "down"), interestingGroups = NULL,
-  color = getOption("basejump.discrete.color", NULL),
-  label = getOption("basejump.label", FALSE), return = c("ggplot",
-  "DataFrame"))
 
 \S4method{plotDEGPCA}{DESeqResults}(object, counts, direction = c("both",
   "up", "down"), interestingGroups = NULL,
   color = getOption("basejump.discrete.color", NULL),
   label = getOption("basejump.label", FALSE), return = c("ggplot",
   "DataFrame"))
+
+\S4method{plotDEGPCA}{DESeqAnalysis}(object, counts = NULL, results,
+  direction = c("both", "up", "down"), interestingGroups = NULL,
+  color = getOption("basejump.discrete.color", NULL),
+  label = getOption("basejump.label", FALSE), return = c("ggplot",
+  "DataFrame"))
 }
 \arguments{
-\item{object}{Object.}
+\item{object}{
+    
+    A data object, typically containing gene expression information.
+
+  }
 
 \item{...}{Additional arguments.}
 
 \item{counts}{\code{DESeqTransform}.}
-
-\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
@@ -46,15 +48,19 @@ To set the discrete color palette globally, use
 
 \item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
 and picks the first item in the vector by default.}
+
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 }
 \value{
 \code{ggplot} or \code{DataFrame}.
 }
 \description{
-Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
-(PCA) sample coloring and labeling.
+A generic function which produces a PCA-plot.
 }
 \details{
+Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
+(PCA) sample coloring and labeling. Always plots using normalized counts.
+
 PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
 summarize the systematic patterns of variations in the data. PCA takes the
 expression levels for genes and transforms it in principal component space,
@@ -65,21 +71,24 @@ a way to look at how samples are clustering.
 \examples{
 data(deseq_small)
 
-# DESeqAnalysis ====
+## DESeqAnalysis ====
 plotDEGPCA(deseq_small)
 
-# DESeqResults ====
+## DESeqResults ====
 plotDEGPCA(
     object = as(deseq_small, "DESeqResults"),
     counts = as(deseq_small, "DESeqTransform")
 )
 }
+\references{
+Jolliffe, et al., 2002.
+}
 \seealso{
-Other Differential Expression Functions: \code{\link{alphaSummary}},
-  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}}
+\itemize{
+\item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
+\item \code{getMethod("plotPCA", "DESeqTransform")}
+}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Differential Expression Functions}

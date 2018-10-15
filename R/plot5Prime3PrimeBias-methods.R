@@ -7,7 +7,6 @@
 #' Bioanalyzer and check the RIN scores.
 #'
 #' @name plot5Prime3PrimeBias
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #' @export
 #'

@@ -172,7 +172,7 @@ The value provided to <code>name</code> must be an element of <code>resultsNames
 
     <p><code>integer matrix</code>.</p>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Use either <code>contrast</code> or <code>name</code> to specify the desired contrast.</p>
     
@@ -182,27 +182,29 @@ The value provided to <code>name</code> must be an element of <code>resultsNames
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::resultsNames()</a></code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other Differential Expression Functions: <code><a href='contrastName.html'>contrastName</a></code>,
-  <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code>, <code><a href='plotDEGPCA.html'>plotDEGPCA</a></code>,
-  <code><a href='plotMA.html'>plotMA</a></code>, <code><a href='plotVolcano.html'>plotVolcano</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
 
-<span class='co'># DESeqDataSet ====</span>
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='fu'>design</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; ~treatment</div><div class='input'><span class='fu'>resultsNames</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; [1] "Intercept"                       "treatment_folic_acid_vs_control"</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>object</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"treatment"</span>, <span class='st'>"folic_acid"</span>, <span class='st'>"control"</span>))</div><div class='output co'>#&gt; <span class='message'>treatment folic_acid control</span>
+<span class='co'>## DESeqDataSet ====</span>
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='fu'>design</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; ~treatment</div><div class='input'><span class='fu'>resultsNames</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; [1] "Intercept"                       "treatment_folic_acid_vs_control"</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; <span class='message'>Intercept</span>
 #&gt; <span class='message'>Alpha cutoffs: 0.1, 0.05, 0.01, 0.001, 1e-06</span></div><div class='output co'>#&gt;                0.1 0.05 0.01 0.001 1e-06
-#&gt; LFC &gt; 0 (up)   115   91   58    32    19
-#&gt; LFC &lt; 0 (down) 138  121  100    59    13
+#&gt; LFC &gt; 0 (up)   115   88   58    31    19
+#&gt; LFC &lt; 0 (down) 139  120  100    59    14
 #&gt; outliers [1]     6    6    6     6     6
-#&gt; low counts [2]   0    0    0     0    49</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>object</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"treatment_folic_acid_vs_control"</span>)</div><div class='output co'>#&gt; <span class='message'>treatment_folic_acid_vs_control</span>
+#&gt; low counts [2]   0    0    0     0    39</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>object</span>, <span class='kw'>contrast</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"treatment"</span>, <span class='st'>"folic_acid"</span>, <span class='st'>"control"</span>))</div><div class='output co'>#&gt; <span class='message'>treatment folic_acid control</span>
 #&gt; <span class='message'>Alpha cutoffs: 0.1, 0.05, 0.01, 0.001, 1e-06</span></div><div class='output co'>#&gt;                0.1 0.05 0.01 0.001 1e-06
-#&gt; LFC &gt; 0 (up)   115   91   58    32    19
-#&gt; LFC &lt; 0 (down) 138  121  100    59    13
+#&gt; LFC &gt; 0 (up)   115   88   58    31    19
+#&gt; LFC &lt; 0 (down) 139  120  100    59    14
 #&gt; outliers [1]     6    6    6     6     6
-#&gt; low counts [2]   0    0    0     0    49</div></pre>
+#&gt; low counts [2]   0    0    0     0    39</div><div class='input'><span class='fu'>alphaSummary</span>(<span class='no'>object</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"treatment_folic_acid_vs_control"</span>)</div><div class='output co'>#&gt; <span class='message'>treatment_folic_acid_vs_control</span>
+#&gt; <span class='message'>Alpha cutoffs: 0.1, 0.05, 0.01, 0.001, 1e-06</span></div><div class='output co'>#&gt;                0.1 0.05 0.01 0.001 1e-06
+#&gt; LFC &gt; 0 (up)   115   88   58    31    19
+#&gt; LFC &lt; 0 (down) 139  120  100    59    14
+#&gt; outliers [1]     6    6    6     6     6
+#&gt; low counts [2]   0    0    0     0    39</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -211,7 +213,7 @@ The value provided to <code>name</code> must be an element of <code>resultsNames
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#note">Note</a></li>
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

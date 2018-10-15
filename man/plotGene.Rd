@@ -8,7 +8,7 @@
 \title{Plot Gene Expression}
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = c("vst",
-  "rlog", "tmm", "tpm", "rle"), interestingGroups = NULL,
+  "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   medianLine = TRUE, color = getOption("basejump.discrete.color",
   NULL), legend = getOption("basejump.legend", TRUE),
   style = c("facet", "wide"))
@@ -58,7 +58,7 @@ Plot Gene Expression
 \examples{
 data(bcb_small, deseq_small)
 
-# bcbioRNASeq ====
+## bcbioRNASeq ====
 object <- bcb_small
 g2s <- gene2symbol(object)
 geneIDs <- head(g2s[["geneID"]])
@@ -79,17 +79,20 @@ plotGene(
     style = "wide"
 )
 
-# DESeqAnalysis ====
+## DESeqAnalysis ====
 object <- deseq_small
 plotGene(object, genes = geneIDs, style = "facet")
 plotGene(object, genes = geneNames, style = "wide")
 }
 \seealso{
-Other Plot Functions: \code{\link{plotCountsPerBiotype}},
+Other Plots: \code{\link{plotCountsPerBiotype}},
+  \code{\link{plotCountsPerGene}},
+  \code{\link{plotGenderMarkers}},
+  \code{\link{plotGenesDetected}},
   \code{\link{plotHeatmap}}, \code{\link{plotQC}},
+  \code{\link{plotTotalCounts}},
   \code{\link{plotZerosVsDepth}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Gene Expression Functions}

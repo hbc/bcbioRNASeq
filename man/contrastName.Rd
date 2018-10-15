@@ -30,19 +30,13 @@ contrastName(object, ...)
 Contrast Name
 }
 \examples{
-# DESeqAnalysis ====
+## DESeqAnalysis ====
 contrastName(deseq_small, results = 1L)
 
-# DESeqResults ====
+## DESeqResults ====
 object <- deseq_small@results[[1L]]
 contrastName(object)
-}
-\seealso{
-Other Differential Expression Functions: \code{\link{alphaSummary}},
-  \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Differential Expression Functions}

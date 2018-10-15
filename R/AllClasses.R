@@ -2,9 +2,9 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 
 
-# FIXME Require `avgTxLength` if `countsFromAbundance = "no"`.
-
 # bcbioRNASeq ==================================================================
+# TODO Improve the object documentation here.
+# TODO Consider adding countsFromAbundance check against tximport formals.
 #' bcbio RNA-Seq Data Set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
@@ -14,6 +14,15 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
 #'
+#' @section Automatic metadata:
+#'
+#' The [metadata()] slot always contains:
+#'
+#' - Object version.
+#' - bcbio data provenance information.
+#' - File paths and timestamps.
+#' - R session information.
+#'
 #' @family S4 Classes
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
@@ -21,30 +30,18 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' @seealso [bcbioRNASeq()].
 setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
 
-# TODO Make the metadata slots stricter.
 setValidity(
     Class = "bcbioRNASeq",
     method = function(object) {
+        # Return invalid for all objects older than v0.2.
         stopifnot(metadata(object)[["version"]] >= 0.2)
+
         assert_is_all_of(object, "RangedSummarizedExperiment")
         assert_has_dimnames(object)
 
         # Metadata -------------------------------------------------------------
         # Require the user to update to Bioconductor version.
         metadata <- metadata(object)
-
-        # Support for legacy `devtoolsSessionInfo` stash, which has been
-        # renamed to simply `sessionInfo`. Previously, we stashed both
-        # `devtoolsSessionInfo` and `utilsSessionInfo`.
-        if ("devtoolsSessionInfo" %in% names(metadata)) {
-            metadata[["sessionInfo"]] <- metadata[["devtoolsSessionInfo"]]
-        }
-
-        # Check that interesting groups defined in metadata are valid.
-        assert_is_subset(
-            x = metadata[["interestingGroups"]],
-            y = colnames(colData(object))
-        )
 
         # Detect legacy metrics.
         if (is.data.frame(metadata[["metrics"]])) {
@@ -54,18 +51,30 @@ setValidity(
             ))
         }
 
-        # Detect legacy slots.
-        legacyMetadata <- c(
-            "design",
-            "ensemblVersion",
-            "gtf",
-            "gtfFile",
-            "missingGenes",
-            "programs",
-            "yamlFile"
+        # Check that interesting groups defined in metadata are valid.
+        assert_is_subset(
+            x = metadata[["interestingGroups"]],
+            y = colnames(colData(object))
         )
-        intersect <- intersect(names(metadata), legacyMetadata)
-        if (length(intersect)) {
+
+        # Error on legacy slot detection.
+        intersect <- intersect(
+            x = names(metadata),
+            y = c(
+                "design",
+                "devtoolsSessionInfo",
+                "ensemblVersion",
+                "gtf",
+                "gtfFile",
+                "missingGenes",
+                "programs",
+                "rowRangesMetadata",
+                "template",
+                "utilsSessionInfo",
+                "yamlFile"
+            )
+        )
+        if (has_length(intersect)) {
             stop(paste(
                 paste(
                     "Legacy metadata slots:",
@@ -76,85 +85,68 @@ setValidity(
             ))
         }
 
-        # v0.2.6: countsFromAbundance is now optional, since we're supporting
-        # featureCounts aligned counts.
-
         # Class checks (order independent).
-        requiredMetadata <- list(
-            allSamples = "logical",
-            bcbioCommandsLog = "character",
-            bcbioLog = "character",
-            caller = "character",
-            date = "Date",
-            ensemblRelease = "integer",
-            genomeBuild = "character",
-            gffFile = "character",
-            interestingGroups = "character",
-            lanes = "integer",
-            level = "character",
-            organism = "character",
-            programVersions = "tbl_df",
-            projectDir = "character",
-            runDate = "Date",
-            sampleDirs = "character",
-            sampleMetadataFile = "character",
-            tx2gene = "Tx2Gene",
-            sessionInfo = "session_info",
-            uploadDir = "character",
-            version = "package_version",
-            wd = "character",
-            yaml = "list"
+        checkClasses(
+            object = metadata,
+            expected = list(
+                allSamples = "logical",
+                bcbioCommandsLog = "character",
+                bcbioLog = "character",
+                call = "call",
+                caller = "character",
+                countsFromAbundance = "character",
+                dataVersions = "DataFrame",
+                date = "Date",
+                ensemblRelease = "integer",
+                genomeBuild = "character",
+                gffFile = "character",
+                interestingGroups = "character",
+                lanes = "integer",
+                level = "character",
+                organism = "character",
+                programVersions = "DataFrame",
+                projectDir = "character",
+                runDate = "Date",
+                sampleDirs = "character",
+                sampleMetadataFile = "character",
+                tx2gene = "Tx2Gene",
+                sessionInfo = "session_info",
+                uploadDir = "character",
+                version = "package_version",
+                wd = "character",
+                yaml = "list"
+            ),
+            subset = TRUE
         )
-        classChecks <- invisible(mapply(
-            name <- names(requiredMetadata),
-            expected <- requiredMetadata,
-            MoreArgs = list(metadata = metadata),
-            FUN = function(name, expected, metadata) {
-                actual <- class(metadata[[name]])
-                if (!length(intersect(expected, actual))) {
-                    FALSE
-                } else {
-                    TRUE
-                }
-            },
-            SIMPLIFY = TRUE,
-            USE.NAMES = TRUE
-        ))
-        if (!all(classChecks)) {
-            stop(paste(
-                "Metadata class checks failed.",
-                updateMessage,
-                printString(classChecks),
-                sep = "\n"
-            ))
-        }
 
         # Additional assert checks.
-        # caller
-        assert_is_subset(
-            x = metadata[["caller"]],
-            y = validCallers
-        )
-        # level
-        assert_is_subset(
-            x = metadata[["level"]],
-            y = validLevels
-        )
+        assert_is_subset(metadata[["caller"]], validCallers)
+        assert_is_subset(metadata[["level"]], validLevels)
+        if (is.character(metadata[["countsFromAbundance"]])) {
+            assert_is_subset(
+                x = metadata[["countsFromAbundance"]],
+                y = eval(formals(tximport)[["countsFromAbundance"]])
+            )
+        }
 
         # Assays ---------------------------------------------------------------
-        assert_is_subset(requiredAssays, assayNames(object))
+        assayNames <- assayNames(object)
+        assert_is_subset(requiredAssays, assayNames)
         # Check that all assays are matrices.
-        assayCheck <- vapply(
+        # Note that in previous versions, we slotted `DESeqDataSet` and
+        # `DESeqTransform`, which can result in metadata mismatches because
+        # those objects contain their own `colData()` and `rowData()`.
+        valid <- vapply(
             X = assays(object),
             FUN = is.matrix,
             FUN.VALUE = logical(1L),
             USE.NAMES = TRUE
         )
-        if (!all(assayCheck)) {
+        if (!all(valid)) {
             stop(paste(
                 paste(
                     "Assays that are not matrix:",
-                    toString(names(assayCheck[!assayCheck]))
+                    toString(names(valid[!valid]))
                 ),
                 updateMessage,
                 sep = "\n"
@@ -162,18 +154,44 @@ setValidity(
         }
 
         # Caller-specific checks.
-        # DESeq2 calculations (`normalized`, `rlog`, `vst`) are optional.
         caller <- metadata[["caller"]]
         if (caller %in% tximportCallers) {
-            assert_is_subset(tximportAssays, assayNames(object))
+            assert_is_subset(tximportAssays, assayNames)
+        } else if (caller %in% featureCountsCallers) {
+            assert_is_subset(featureCountsAssays, assayNames)
+        }
+
+        # Check for average transcript length matrix, if necessary.
+        if (
+            metadata[["caller"]] %in% tximportCallers &&
+            metadata[["countsFromAbundance"]] == "no"
+        ) {
+            assert_is_subset("avgTxLength", assayNames)
         }
 
         # Row data -------------------------------------------------------------
         assert_is_all_of(rowRanges(object), "GRanges")
-        assert_is_all_of(rowData(object), "DataFrame")
+        rowData <- rowData(object)
+        if (has_length(colnames(rowData))) {
+            # FIXME Consider requiring description here.
+            checkClasses(
+                object = rowData,
+                expected = list(
+                    broadClass = "factor",
+                    geneBiotype = "factor",
+                    # Factor needed here for transcript-level data.
+                    geneID = c("character", "factor"),
+                    geneName = c("character", "factor")
+                ),
+                subset = TRUE
+            )
+        }
 
         # Column data ----------------------------------------------------------
-        assert_are_disjoint_sets(colnames(colData(object)), legacyMetricsCols)
+        colData <- colData(object)
+        assert_is_subset("sampleName", colnames(colData))
+        # Error on legacy metrics columns.
+        assert_are_disjoint_sets(colnames(colData), legacyMetricsCols)
 
         TRUE
     }
@@ -228,38 +246,43 @@ setClass(
 setValidity(
     Class = "DESeqAnalysis",
     method = function(object) {
-        # Require valid dimnames for data set.
-        assertHasValidDimnames(object@data)
+        data <- slot(object, "data")
+        transform <- slot(object, "transform")
+        results <- slot(object, "results")
+        lfcShrink <- slot(object, "lfcShrink")
+
+        stopifnot(is(data, "DESeqDataSet"))
+        assertHasValidDimnames(data)
 
         # Require gene-to-symbol mappings.
         assert_is_subset(
             x = c("geneID", "geneName"),
-            y = colnames(rowData(object@data))
+            y = colnames(rowData(data))
         )
 
         # DESeqDataSet and DESeqTransform must match.
         assert_are_identical(
-            x = dimnames(object@data),
-            y = dimnames(object@transform)
+            x = dimnames(data),
+            y = dimnames(transform)
         )
 
         # DESeqDataSet and DESeqResults must match.
         invisible(lapply(
-            X = object@results,
-            FUN = function(res) {
+            X = results,
+            FUN = function(x) {
                 assert_are_identical(
-                    x = rownames(res),
-                    y = rownames(object@data)
+                    x = rownames(x),
+                    y = rownames(data)
                 )
             }
         ))
 
         # DESeqResults and lfcShrink rownames must match, if shrinkage has been
         # calculated.
-        if (length(object@lfcShrink) > 0L) {
+        if (length(lfcShrink) > 0L) {
             invisible(mapply(
-                unshrunken = object@results,
-                shrunken = object@lfcShrink,
+                unshrunken = results,
+                shrunken = lfcShrink,
                 FUN = function(unshrunken, shrunken) {
                     assert_are_identical(
                         x = rownames(unshrunken),
@@ -276,6 +299,15 @@ setValidity(
 
 
 # DESeqResultsTables ===========================================================
+# FIXME Move these to metadata:
+# localFiles = "character",
+# dropboxFiles = "list"
+# Switch to using vectors for `deg`, `degUp`, `degDown`.
+# `deg` can be automatic, a combination of up down.
+# deg should be a named character, `up`, `down`
+
+
+
 #' DESeq2 Differential Expression Results Tables
 #'
 #' `DESeqResults` object with `DataFrame` subsets and file path information.
@@ -284,73 +316,73 @@ setValidity(
 #' @author Michael Steinbaugh
 #' @export
 #'
-#' @slot all `DESeqResults`. Original unmodified `DESeqResults`. Should contain
-#'   all genes, including those with `NA` adjusted *P* values.
-#' @slot deg `DataFrame`. Subset containing genes that pass adjusted *P* value
-#'   and log2 fold change cutoffs.
-#' @slot degUp `DataFrame`. Directional subset containing only upregulated
-#'   genes.
-#' @slot degDown `DataFrame`. Directional subset containing only downregulated
-#'   genes.
-#' @slot localFiles `list`. Local file paths.
-#' @slot dropboxFiles `list`. Dropbox file paths.
+#' @slot results `DESeqResults`. Original unmodified `DESeqResults`. Should
+#'   contain all genes, including those with `NA` adjusted *P* values.
+#' @slot deg `list`. Differentially expressed genes. Contains `character`
+#'   vectors of genes that are upregulated (`up`) or downregulated (`down`).
+#'   Values map to the `rownames` of the internal `DESeqResults`. These are
+#'   genes that pass `alpha` and `lfcThreshold` cutoffs set in
+#'   [DESeq2::results()] call.
+#' @slot counts `matrix`. Normalized counts matrix.
+#' @slot rowData `DataFrame`. Row annotations.
+#' @slot sampleNames `character`. Human-friendly sample names. Must contain
+#'   [names()] that map to the [colnames()] of the `DESeqDataSet`.
+#' @slot metadata `list`. Metadata. Contains file paths and information on
+#'   whether we're writing locally or to Dropbox.
 #'
 #' @seealso [DESeqResultsTables()].
 setClass(
     Class = "DESeqResultsTables",
     slots = c(
-        all = "DESeqResults",
-        deg = "DataFrame",
-        degUp = "DataFrame",
-        degDown = "DataFrame",
-        localFiles = "character",
-        dropboxFiles = "list"
+        results = "DESeqResults",
+        deg = "list",
+        counts = "matrix",
+        rowData = "DataFrame",
+        sampleNames = "character",
+        metadata = "list"
     ),
-    # Consider setting an initialize method instead.
     prototype = list(
-        localFiles = character(),
-        dropboxFiles = list()
+        counts = matrix(),
+        rowData = DataFrame(),
+        sampleNames = character(),
+        metadata = list()
     )
 )
 
 setValidity(
     Class = "DESeqResultsTables",
     method = function(object) {
-        assert_is_a_string(contrastName(object@all))
-        assert_is_a_number(metadata(object@all)[["alpha"]])
-        assert_is_a_number(metadata(object@all)[["lfcThreshold"]])
-        assert_is_subset(
-            x = rownames(object@degUp),
-            y = rownames(object@all)
-        )
-        assert_is_subset(
-            x = rownames(object@degDown),
-            y = rownames(object@all)
-        )
-        assert_are_disjoint_sets(
-            x = rownames(object@degUp),
-            y = rownames(object@degDown)
-        )
+        results <- slot(object, "results")
+        stopifnot(is(results, "DESeqResults"))
+        assert_is_a_string(contrastName(results))
 
-        # Require that the subsets match the `DESeqResults` summary.
+        deg <- slot(object, "deg")
+        up <- deg[["up"]]
+        assert_is_character(up)
+        assert_is_subset(up, rownames(results))
+        down <- deg[["down"]]
+        assert_is_character(down)
+        assert_is_subset(down, rownames(results))
+        assert_are_disjoint_sets(up, down)
+
+        alpha <- metadata(results)[["alpha"]]
+        assert_is_a_number(alpha)
+        lfcThreshold <- metadata(results)[["lfcThreshold"]]
+        assert_is_a_number(lfcThreshold)
+
+        # Check that DEGs match the `DESeqResults` summary.
         match <- removeNA(str_match(
-            string = capture.output(summary(object@all)),
+            string = capture.output(summary(results)),
             pattern = "^LFC.*\\s\\:\\s([0-9]+).*"
         ))
         assert_are_identical(
-            x = nrow(object@degUp),
-            y = as.integer(match[1, 2])
+            x = length(up),
+            y = as.integer(match[1L, 2L])
         )
         assert_are_identical(
-            x = nrow(object@degDown),
-            y = as.integer(match[2, 2])
+            x = length(down),
+            y = as.integer(match[2L, 2L])
         )
-
-        # Object can have either local or Dropbox file paths, but not both.
-        stopifnot(!all(
-            length(object@localFiles) > 0L,
-            length(object@dropboxFiles) > 0L
-        ))
 
         TRUE
     }

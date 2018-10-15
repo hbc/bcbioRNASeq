@@ -10,16 +10,16 @@
 plotVolcano(object, ...)
 
 \S4method{plotVolcano}{DESeqAnalysis}(object, results = 1L,
-  lfcShrink = TRUE, alpha = NULL, lfcThreshold = NULL,
-  ylim = 1e-10, genes = NULL, ntop = 0L, direction = c("both",
-  "up", "down"), pointColor = getOption("basejump.point.color",
-  "gray50"), sigPointColor = getOption("basejump.sig.point.color",
-  c(upregulated = "purple", downregulated = "orange")),
-  histograms = FALSE, return = c("ggplot", "DataFrame"))
+  lfcShrink = TRUE, ylim = 1e-10, genes = NULL, ntop = 0L,
+  direction = c("both", "up", "down"),
+  pointColor = getOption("basejump.point.color", "gray50"),
+  sigPointColor = getOption("basejump.sig.point.color", c(upregulated =
+  "purple", downregulated = "orange")), histograms = FALSE,
+  return = c("ggplot", "DataFrame"))
 
-\S4method{plotVolcano}{DESeqResults}(object, alpha = NULL,
-  lfcThreshold = NULL, ylim = 1e-10, genes = NULL,
-  gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
+\S4method{plotVolcano}{DESeqResults}(object, ylim = 1e-10,
+  genes = NULL, gene2symbol = NULL, ntop = 0L,
+  direction = c("both", "up", "down"),
   pointColor = getOption("basejump.point.color", "gray50"),
   sigPointColor = getOption("basejump.sig.point.color", c(upregulated =
   "purple", downregulated = "orange")), histograms = FALSE,
@@ -33,13 +33,6 @@ plotVolcano(object, ...)
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
-
-\item{alpha}{\code{scalar numeric} or \code{NULL}. Adjusted P value ("alpha") cutoff.
-If left \code{NULL}, will use the cutoff defined in the object.}
-
-\item{lfcThreshold}{\code{scalar numeric} or \code{NULL}. Log fold change ratio (base
-2) cutoff threshold. If left \code{NULL}, will use the cutoff defined in the
-object.}
 
 \item{ylim}{\code{scalar numeric}. Upper boundary limit for y-axis. Helps preserve
 dynamic range for gene sets containing highly significant P values (e.g.
@@ -79,7 +72,7 @@ data(deseq_small)
 object <- deseq_small
 print(object)
 
-# Get genes from DESeqDataSet.
+## Get genes from DESeqDataSet.
 dds <- as(object, "DESeqDataSet")
 g2s <- gene2symbol(dds)
 geneIDs <- head(g2s[["geneID"]])
@@ -89,7 +82,7 @@ print(geneNames)
 
 plotVolcano(object)
 
-# Customize the colors.
+## Customize the colors.
 plotVolcano(
     object = object,
     pointColor = "black",
@@ -103,7 +96,7 @@ plotVolcano(
     )
 )
 
-# Directional support (up or down).
+## Directional support (up or down).
 plotVolcano(
     object = object,
     direction = "up",
@@ -115,20 +108,15 @@ plotVolcano(
     ntop = 5L
 )
 
-# Label genes manually.
-# Note that either gene IDs or names (symbols) are supported.
+## Label genes manually.
+## Note that either gene IDs or names (symbols) are supported.
 plotVolcano(object, genes = geneIDs)
 plotVolcano(object, genes = geneNames)
 }
 \seealso{
 This function is an updated variant of
 \code{CHBUtils::volcano_density_plot()}.
-
-Other Differential Expression Functions: \code{\link{alphaSummary}},
-  \code{\link{contrastName}}, \code{\link{plotDEGHeatmap}},
-  \code{\link{plotDEGPCA}}, \code{\link{plotMA}}
 }
 \author{
 John Hutchinson, Michael Steinbaugh, Lorena Pantano
 }
-\concept{Differential Expression Functions}

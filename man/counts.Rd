@@ -13,43 +13,67 @@
 
 \item{normalized}{\code{string} or \code{boolean}. Which normalization method to apply:
 \itemize{
-\item \code{FALSE}: Raw counts (tximport).
-\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
-\item \code{"tpm"}: Transcripts per million (tximport).
-\item \code{"vst"}: DESeq2 \strong{log2} variance stabilizing transformation.
-\item \code{"rlog"}: DESeq2 \strong{log2} regularized log transformation.
-\item \code{"tmm"}: edgeR trimmed mean of M-values. Calculated on the fly.
-\item \code{"rle"}: Relative log expression transformation.
+\item \code{FALSE}: Raw counts.
+\itemize{
+\item When using a \href{https://bioconductor.org/packages/release/bioc/html/tximport.html}{tximport}-compatible caller, these are length scaled
+by default (see \code{countsFromAbundance}).
+\item When using a \href{http://bioinf.wehi.edu.au/featureCounts/}{featureCounts}-compatible caller, these are \code{integer}.
+}
 }
 
-Note that transcript-level counts support only \code{FALSE} and \code{"tpm"}.}
+\href{https://bioconductor.org/packages/release/bioc/html/tximport.html}{tximport} caller-specific normalizations:
+\itemize{
+\item \code{"tpm"}: \strong{T}ranscripts \strong{p}er \strong{m}illion.
+}
+
+Additional gene-level-specific normalizations:
+\itemize{
+\item \code{TRUE}: Size factor-adjusted counts.\cr
+See \link[DESeq2:sizeFactors]{DESeq2::sizeFactors} for more information.
+\item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation.\cr
+Requires \code{vst = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
+See \link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation} for more information.
+\item \code{"rlog"}: \strong{R}egularized \strong{log} transformation (log2).\cr
+Requires \code{rlog = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
+See \link[DESeq2:rlog]{DESeq2::rlog} for more information.
+\item \code{"tmm"}: \strong{T}rimmed \strong{m}ean of \strong{M}-values.\cr
+See \link[edgeR:calcNormFactors]{edgeR::calcNormFactors} for more information.
+\item \code{"rle"}: \strong{R}elative \strong{l}og \strong{e}xpression transformation.
+\item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
+fragments.\cr
+Requires annotations in \code{\link[=rowRanges]{rowRanges()}} with defined \link{widths}, otherwise
+will be skipped during the \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} load call.\cr
+See \link[DESeq2:fpkm]{DESeq2::fpkm} for more information.
+}}
 }
 \value{
 \code{matrix}.
 }
 \description{
-By default, \code{\link[=counts]{counts()}} returns the raw counts. Normalized counts, including
-transcripts per million (TPM) can be accessed using the \code{"normalized"}
-argument.
+By default, returns the raw counts. Normalized counts in a variety of formats
+can be accessed using the \code{normalized} argument.
 }
 \examples{
 data(bcb_small)
-counts(bcb_small, normalized = FALSE) \%>\% summary()
-counts(bcb_small, normalized = TRUE) \%>\% summary()
-counts(bcb_small, normalized = "tpm") \%>\% summary()
-counts(bcb_small, normalized = "vst") \%>\% summary()
+counts(bcb_small) \%>\% summary()
+}
+\references{
+\itemize{
+\item TMM: Robinson and Oshlack (2010).
+\item RLE: Anders and Huber (2010).
+}
 }
 \seealso{
 \itemize{
-\item \code{\link[=tpm]{tpm()}}.
-\item \code{\link[=tmm]{tmm()}}.
+\item \code{\link[tximport:tximport]{tximport::tximport()}}.
 \item \code{\link[DESeq2:counts]{DESeq2::counts()}}.
-\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
+\item \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}}.
 \item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
+\item \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}}.
+\item \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}}.
+\item \code{\link[=tmm]{tmm()}}, \code{\link[=relativeLogExpression]{relativeLogExpression()}}.
 }
-
-Other Data Functions: \code{\link{sampleData}},
-  \code{\link{tmm}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

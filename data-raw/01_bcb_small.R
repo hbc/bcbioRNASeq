@@ -1,5 +1,5 @@
 # bcbioRNASeq Example
-# Last updated 2018-10-08
+# Last updated 2018-10-12
 
 # Restrict to 1 MB.
 limit <- structure(1e6, class = "object_size")
@@ -40,17 +40,28 @@ bcb <- selectSamples(gse65267, day = c(0L, 7L))
 # Minimize metadata slots that are too large for a working example.
 metadata(bcb)[["bcbioCommandsLog"]] <- character()
 metadata(bcb)[["bcbioLog"]] <- character()
-metadata(bcb)[["dataVersions"]] <- tibble()
-metadata(bcb)[["programVersions"]] <- tibble()
+metadata(bcb)[["dataVersions"]] <- DataFrame()
+metadata(bcb)[["programVersions"]] <- DataFrame()
 metadata(bcb)[["tx2gene"]] <- head(metadata(bcb)[["tx2gene"]])
 metadata(bcb)[["yaml"]] <- list()
 
-# Sort the genes by abundance.
-genes <- tpm(bcb) %>%
+# Always include sexually dimorphic marker genes.
+dimorphic_genes <- c(
+    "ENSMUSG00000056673",
+    "ENSMUSG00000068457",
+    "ENSMUSG00000069045",
+    "ENSMUSG00000086503"
+)
+stopifnot(all(dimorphic_genes %in% rownames(bcb)))
+# Include other genes ranked by abundance.
+top_genes <- tpm(bcb) %>%
     rowSums() %>%
     sort(decreasing = TRUE) %>%
-    head(n = 500L) %>%
     names()
+genes <- c(dimorphic_genes, top_genes) %>%
+    unique() %>%
+    head(n = 500L) %>%
+    sort()
 bcb <- bcb[genes, ]
 
 # Update the interesting groups and design formula.

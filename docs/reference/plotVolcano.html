@@ -120,17 +120,17 @@
 
 <span class='co'># S4 method for DESeqAnalysis</span>
 <span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='kw'>results</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>lfcShrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fl'>1e-10</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>,
-  <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.point.color"</span>,
-  <span class='st'>"gray50"</span>), <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.sig.point.color"</span>,
-  <span class='fu'>c</span>(<span class='kw'>upregulated</span> <span class='kw'>=</span> <span class='st'>"purple"</span>, <span class='kw'>downregulated</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)),
-  <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"DataFrame"</span>))
+  <span class='kw'>lfcShrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fl'>1e-10</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>),
+  <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.point.color"</span>, <span class='st'>"gray50"</span>),
+  <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.sig.point.color"</span>, <span class='fu'>c</span>(<span class='kw'>upregulated</span> <span class='kw'>=</span>
+  <span class='st'>"purple"</span>, <span class='kw'>downregulated</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)), <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"DataFrame"</span>))
 
 <span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>lfcThreshold</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fl'>1e-10</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>),
+<span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fl'>1e-10</span>,
+  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>),
   <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.point.color"</span>, <span class='st'>"gray50"</span>),
   <span class='kw'>sigPointColor</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.sig.point.color"</span>, <span class='fu'>c</span>(<span class='kw'>upregulated</span> <span class='kw'>=</span>
   <span class='st'>"purple"</span>, <span class='kw'>downregulated</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)), <span class='kw'>histograms</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -154,17 +154,6 @@
     <tr>
       <th>lfcShrink</th>
       <td><p><code>boolean</code>. Use shrunken log2 fold change (LFC) values.</p></td>
-    </tr>
-    <tr>
-      <th>alpha</th>
-      <td><p><code>scalar numeric</code> or <code>NULL</code>. Adjusted P value ("alpha") cutoff.
-If left <code>NULL</code>, will use the cutoff defined in the object.</p></td>
-    </tr>
-    <tr>
-      <th>lfcThreshold</th>
-      <td><p><code>scalar numeric</code> or <code>NULL</code>. Log fold change ratio (base
-2) cutoff threshold. If left <code>NULL</code>, will use the cutoff defined in the
-object.</p></td>
     </tr>
     <tr>
       <th>ylim</th>
@@ -219,37 +208,28 @@ and picks the first item in the vector by default.</p></td>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>This function is an updated variant of
-<code>CHBUtils::volcano_density_plot()</code>.</p>
-<p>Other Differential Expression Functions: <code><a href='alphaSummary.html'>alphaSummary</a></code>,
-  <code><a href='contrastName.html'>contrastName</a></code>, <code><a href='plotDEGHeatmap.html'>plotDEGHeatmap</a></code>,
-  <code><a href='plotDEGPCA.html'>plotDEGPCA</a></code>, <code><a href='plotMA.html'>plotMA</a></code></p></div>
+<code>CHBUtils::volcano_density_plot()</code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='fu'>gene2symbol</span>(<span class='no'>bcb_small</span>)
-<span class='no'>geneIDs</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneID"</span>]])
-<span class='fu'>print</span>(<span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346"
-#&gt; [4] "ENSMUSG00000000563" "ENSMUSG00000000740" "ENSMUSG00000001175"</div><div class='input'><span class='no'>geneNames</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneName"</span>]])
-<span class='fu'>print</span>(<span class='no'>geneNames</span>)</div><div class='output co'>#&gt; [1] "Cox5a"  "Comt"   "Dazap2" "Atp5f1" "Rpl13"  "Calm1" </div><div class='input'>
-<span class='co'># DESeqAnalysis ====</span>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
+
 <span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='no'>deseq_small</span>
 <span class='fu'>print</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; DESeqAnalysis 1.21.22
-#&gt; Transform: vst
-#&gt; Results (1):
-#&gt;   - treatment folic acid vs control
-#&gt; ────────────────────────────────────────────────────────────────────────
-#&gt; class: DESeqDataSet 
-#&gt; dim: 500 6 
-#&gt; metadata(27): version level ... sessionInfo subset
-#&gt; assays(4): counts mu H cooks
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(29): broadClass description ... deviance maxCooks
-#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(27): averageInsertSize averageReadLength ... treatment
-#&gt;   sizeFactor</div><div class='input'>
+#&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
+#&gt; citation("bcbioRNASeq")
+#&gt; transform: vst
+#&gt; contrastNames: treatment folic acid vs control
+#&gt; class: DESeqDataSet  dim: 500 6  metadata(11): version caller ... date sessionInfo assays(4): counts mu H cooks rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...   ENSMUSG00000114367 ENSMUSG00000114458 rowData names(29): broadClass description ... deviance   maxCooks colnames(6): control_rep1 control_rep2 ... fa_day7_rep2   fa_day7_rep3 colData names(8): sampleName day ... interestingGroups   sizeFactor</div><div class='input'>
+<span class='co'>## Get genes from DESeqDataSet.</span>
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>object</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='fu'>gene2symbol</span>(<span class='no'>dds</span>)
+<span class='no'>geneIDs</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneID"</span>]])
+<span class='fu'>print</span>(<span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346"
+#&gt; [4] "ENSMUSG00000000740" "ENSMUSG00000001175" "ENSMUSG00000001666"</div><div class='input'><span class='no'>geneNames</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneName"</span>]])
+<span class='fu'>print</span>(<span class='no'>geneNames</span>)</div><div class='output co'>#&gt; [1] "Cox5a"  "Comt"   "Dazap2" "Rpl13"  "Calm1"  "Ddt"   </div><div class='input'>
 <span class='fu'>plotVolcano</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='img'><img src='plotVolcano-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Customize the colors.</span>
+<span class='co'>## Customize the colors.</span>
 <span class='fu'>plotVolcano</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>object</span>,
     <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
@@ -261,7 +241,7 @@ and picks the first item in the vector by default.</p></td>
         <span class='kw'>downregulated</span> <span class='kw'>=</span> <span class='st'>"red"</span>
     )
 )</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='img'><img src='plotVolcano-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Directional support (up or down).</span>
+<span class='co'>## Directional support (up or down).</span>
 <span class='fu'>plotVolcano</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>object</span>,
     <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"up"</span>,
@@ -271,8 +251,8 @@ and picks the first item in the vector by default.</p></td>
     <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>,
     <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>5L</span>
 )</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='img'><img src='plotVolcano-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Label genes manually.</span>
-<span class='co'># Note that either gene IDs or names (symbols) are supported.</span>
+<span class='co'>## Label genes manually.</span>
+<span class='co'>## Note that either gene IDs or names (symbols) are supported.</span>
 <span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='img'><img src='plotVolcano-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotVolcano</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneNames</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='img'><img src='plotVolcano-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

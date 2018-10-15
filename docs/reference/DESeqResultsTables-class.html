@@ -121,16 +121,19 @@
 
     
     <dl class='dl-horizontal'>
-<dt><code>all</code></dt><dd><p><code>DESeqResults</code>. Original unmodified <code>DESeqResults</code>. Should contain
-all genes, including those with <code>NA</code> adjusted <em>P</em> values.</p></dd>
-    <dt><code>deg</code></dt><dd><p><code>DataFrame</code>. Subset containing genes that pass adjusted <em>P</em> value
-and log2 fold change cutoffs.</p></dd>
-    <dt><code>degUp</code></dt><dd><p><code>DataFrame</code>. Directional subset containing only upregulated
-genes.</p></dd>
-    <dt><code>degDown</code></dt><dd><p><code>DataFrame</code>. Directional subset containing only downregulated
-genes.</p></dd>
-    <dt><code>localFiles</code></dt><dd><p><code>list</code>. Local file paths.</p></dd>
-    <dt><code>dropboxFiles</code></dt><dd><p><code>list</code>. Dropbox file paths.</p></dd>
+<dt><code>results</code></dt><dd><p><code>DESeqResults</code>. Original unmodified <code>DESeqResults</code>. Should
+contain all genes, including those with <code>NA</code> adjusted <em>P</em> values.</p></dd>
+    <dt><code>deg</code></dt><dd><p><code>list</code>. Differentially expressed genes. Contains <code>character</code>
+vectors of genes that are upregulated (<code>up</code>) or downregulated (<code>down</code>).
+Values map to the <code>rownames</code> of the internal <code>DESeqResults</code>. These are
+genes that pass <code>alpha</code> and <code>lfcThreshold</code> cutoffs set in
+<code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/results'>DESeq2::results()</a></code> call.</p></dd>
+    <dt><code>counts</code></dt><dd><p><code>matrix</code>. Normalized counts matrix.</p></dd>
+    <dt><code>rowData</code></dt><dd><p><code>DataFrame</code>. Row annotations.</p></dd>
+    <dt><code>sampleNames</code></dt><dd><p><code>character</code>. Human-friendly sample names. Must contain
+<code>names()</code> that map to the <code>colnames()</code> of the <code>DESeqDataSet</code>.</p></dd>
+    <dt><code>metadata</code></dt><dd><p><code>list</code>. Metadata. Contains file paths and information on
+whether we're writing locally or to Dropbox.</p></dd>
 </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>

@@ -4,9 +4,14 @@
 \name{plotDispEsts}
 \alias{plotDispEsts}
 \alias{plotDispEsts,bcbioRNASeq-method}
+\alias{plotDispEsts,DESeqAnalysis-method}
 \title{Plot Dispersion Estimates}
 \usage{
 \S4method{plotDispEsts}{bcbioRNASeq}(object, ymin, CV = FALSE,
+  genecol = "black", fitcol = "red", finalcol = "dodgerblue",
+  legend = TRUE, xlab, ylab, log = "xy", cex = 0.45, ...)
+
+\S4method{plotDispEsts}{DESeqAnalysis}(object, ymin, CV = FALSE,
   genecol = "black", fitcol = "red", finalcol = "dodgerblue",
   legend = TRUE, xlab, ylab, log = "xy", cex = 0.45, ...)
 }
@@ -44,18 +49,30 @@ plotting dispersion.}
 \code{ggplot}.
 }
 \description{
+A simple helper function that plots the per-gene dispersion
+estimates together with the fitted mean-dispersion relationship.
+}
+\details{
 This plot shows the dispersion by mean of normalized counts. We expect the
 dispersion to decrease as the mean of normalized counts increases.
+
+Here we're generating a \code{DESeqDataSet} object on the fly, which already has
+method support for plotting dispersion, provided by the DESeq2 package.
 }
-\note{
-Here we're generating a \code{DESeqDataSet} object on the fly, which already
-has method support for plotting dispersion, provided by the DESeq2 package.
-}
+\section{Methods (by class)}{
+\itemize{
+\item \code{bcbioRNASeq}: Coerces to \code{DESeqDataSet} and inherits method from
+DESeq2.
+
+\item \code{DESeqAnalysis}: Extracts internal \code{DESeqDataSet} and inherits method
+from DESeq2.
+}}
+
 \examples{
 data(bcb_small)
 plotDispEsts(bcb_small)
 
-# Custom colors, using DESeq2 parameters.
+## Custom colors, using DESeq2 parameters.
 plotDispEsts(
     object = bcb_small,
     genecol = "gray",
@@ -64,25 +81,8 @@ plotDispEsts(
 )
 }
 \seealso{
-\itemize{
-\item \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.
-\item \code{getMethod("plotDispEsts", "DESeqDataSet")}.
-}
-
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotPCA}}, \code{\link{plotQC}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
+\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts}.
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Functions}

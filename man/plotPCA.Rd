@@ -4,16 +4,20 @@
 \name{plotPCA}
 \alias{plotPCA}
 \alias{plotPCA,bcbioRNASeq-method}
-\title{Sample PCA Plot for Transformed Data}
+\title{PCA-plot: Principal Component Analysis plot}
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
-  "tmm", "tpm", "rle"), interestingGroups = NULL, ntop = 500L,
+  "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL, ntop = 500L,
   color = getOption("basejump.discrete.color", NULL),
   label = getOption("basejump.label", FALSE), title = "PCA",
   subtitle = NULL, return = c("ggplot", "DataFrame"))
 }
 \arguments{
-\item{object}{Object.}
+\item{object}{
+    
+    A data object, typically containing gene expression information.
+
+  }
 
 \item{normalized}{\code{string}. Which normalization method to apply:
 - "\code{tpm}": Transcripts per million (tximport).
@@ -25,7 +29,7 @@
 samples. If left unset, defaults to \code{sampleName}.}
 
 \item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
-Use \code{Inf} to include all genes.}
+Use \code{Inf} to include all genes (\emph{not recommended}).}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
@@ -47,10 +51,12 @@ and picks the first item in the vector by default.}
 \code{ggplot} or \code{DataFrame}.
 }
 \description{
-Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
-(PCA) sample coloring and labeling.
+A generic function which produces a PCA-plot.
 }
 \details{
+Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
+(PCA) sample coloring and labeling. Always plots using normalized counts.
+
 PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
 summarize the systematic patterns of variations in the data. PCA takes the
 expression levels for genes and transforms it in principal component space,
@@ -60,38 +66,18 @@ a way to look at how samples are clustering.
 }
 \examples{
 data(bcb_small)
-plotPCA(
-    object = bcb_small,
-    normalized = "vst",
-    label = TRUE
-)
-plotPCA(
-    object = bcb_small,
-    normalized = "rlog",
-    interestingGroups = "sampleName",
-    label = FALSE
-)
+plotPCA(bcb_small, label = FALSE)
+plotPCA(bcb_small, label = TRUE)
+}
+\references{
+Jolliffe, et al., 2002.
 }
 \seealso{
 \itemize{
 \item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
 \item \code{getMethod("plotPCA", "DESeqTransform")}
 }
-
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotDispEsts}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotQC}}, \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Functions}

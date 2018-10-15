@@ -5,46 +5,43 @@
 \alias{tmm}
 \alias{tmm,matrix-method}
 \alias{tmm,SummarizedExperiment-method}
-\alias{tmm,bcbioRNASeq-method}
-\title{\strong{T}rimmed \strong{M}ean of \strong{M}-Values (TMM) Normalization}
+\title{Trimmed Mean of M-Values}
 \usage{
 tmm(object, ...)
 
 \S4method{tmm}{matrix}(object)
 
-\S4method{tmm}{SummarizedExperiment}(object, assay = 1L)
-
-\S4method{tmm}{bcbioRNASeq}(object)
+\S4method{tmm}{SummarizedExperiment}(object)
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
-
-\item{assay}{\code{scalar}. Name or index of counts matrix slotted in \code{\link[=assays]{assays()}}.
-When passing in a \code{string}, the name must be defined in \code{\link[=assayNames]{assayNames()}}.}
 }
 \value{
 \code{matrix}.
 }
 \description{
 TMM normalization is recommended for RNA-seq data generally when the majority
-of genes are not differentially expressed. We use this as a quality control
-tool when plotting counts per gene.
+of genes are not differentially expressed.
 }
 \note{
-Only gene-level counts are supported.
+Only recommended for gene-level counts.
 }
 \examples{
 data(bcb_small)
 x <- tmm(bcb_small)
 summary(x)
 }
+\references{
+Robinson and Oshlack (2010).
+}
 \seealso{
-Other Data Functions: \code{\link{counts}},
-  \code{\link{sampleData}}
+\itemize{
+\item \link[edgeR:calcNormFactors]{edgeR::calcNormFactors}.
+\item \link[edgeR:cpm]{edgeR::cpm}.
+}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Data Functions}

@@ -2,52 +2,47 @@
 
 
 
-#' Extract or Replace Parts of an Object
-#'
-#' Extract genes by row and samples by column from a `bcbioRNASeq` object.
-#' Internal count transformations are rescaled automatically, if defined.
-#'
-#' @note DESeq2 transformations will only be updated when `recalculate = TRUE`
-#'   and either `rlog` or `vst` counts are defined in [assays()].
-#'
 #' @name extract
-#' @family S4 Functions
-#' @author Lorena Pantano, Michael Steinbaugh
+#' @inherit base::Extract title params references
+#' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @inheritParams base::`[`
+#' @description Extract genes by row and samples by column.
+#'
+#' @details
+#' Internal count transformations are rescaled automatically, if defined. DESeq2
+#' transformations will only be updated when `recalculate = TRUE` and either
+#' `rlog` or `vst` counts are defined in [assays()].
+#
 #' @inheritParams general
-#'
 #' @param recalculate `boolean`. Recalculate DESeq2 normalized counts and
 #'   variance-stabilizing transformations defined in [assays()]. Recommended by
 #'   default, but can take a long time for large datasets.
 #'
 #' @return `bcbioRNASeq`.
 #'
-#' @seealso `help("[", "base")`.
-#'
 #' @examples
 #' data(bcb_small)
 #' object <- bcb_small
 #'
-#' # Minimum of 100 genes, 2 samples
+#' ## Minimum of 100 genes, 2 samples.
 #' genes <- head(rownames(object), 100L)
 #' head(genes)
 #' samples <- head(colnames(object), 2L)
 #' head(samples)
 #'
-#' # Extract by sample name
+#' ## Extract by sample name.
 #' object[, samples]
 #'
-#' # Extract by gene list
+#' ## Extract by gene list.
 #' object[genes, ]
 #'
-#' # Extract by both genes and samples
+#' ## Extract by both genes and samples.
 #' x <- object[genes, samples]
 #' print(x)
 #' assayNames(x)
 #'
-#' # Fast subsetting, by skipping DESeq2 recalculations.
-#' # Note that `normalized`, `rlog`, and `vst` assays will not be defined.
+#' ## Fast subsetting, by skipping DESeq2 recalculations.
+#' ## Note that `normalized`, `rlog`, and `vst` assays will not be defined.
 #' x <- object[, samples, recalculate = FALSE]
 #' print(x)
 #' names(assays(x))
@@ -81,8 +76,8 @@ setMethod(
         if (missing(i)) {
             i <- seq_len(nrow(x))
         }
-        # Require at least 100 genes.
-        assert_all_are_in_range(length(i), lower = 100L, upper = Inf)
+        # Require at least 50 genes.
+        assert_all_are_in_range(length(i), lower = 50L, upper = Inf)
 
         # Samples (columns)
         if (missing(j)) {
@@ -109,28 +104,29 @@ setMethod(
 
         # Recalculate DESeq2 normalized counts and variance stabilizations.
         if (isTRUE(recalculate)) {
-            message("Recalculating DESeq2 normalizations...")
+            message("Recalculating DESeq2 normalizations.")
             dds <- .new.DESeqDataSet(se = rse)
             dds <- DESeq(dds)
             # Normalized counts.
             assays[["normalized"]] <- counts(dds, normalized = TRUE)
             # vst: variance-stabilizing transformation.
             if ("vst" %in% names(assays)) {
-                message("Applying variance-stabilizing transformation...")
+                message("Applying variance-stabilizing transformation.")
                 assays[["vst"]] <-
                     assay(varianceStabilizingTransformation(dds))
             }
             # rlog: regularized log transformation.
             if ("rlog" %in% names(assays)) {
-                message("Applying rlog transformation...")
+                message("Applying rlog transformation.")
                 assays[["rlog"]] <- assay(rlog(dds))
             }
         } else {
             # Otherwise, ensure previous calculations are removed from assays.
-            message("Skipping DESeq2 normalizations...")
+            message("Skipping DESeq2 normalizations.")
             assays[["normalized"]] <- NULL
             assays[["rlog"]] <- NULL
             assays[["vst"]] <- NULL
+            assays[["fpkm"]] <- NULL
         }
 
         # Row data -------------------------------------------------------------

@@ -74,47 +74,45 @@ default, but can take a long time for large datasets.}
 \code{bcbioRNASeq}.
 }
 \description{
-Extract genes by row and samples by column from a \code{bcbioRNASeq} object.
-Internal count transformations are rescaled automatically, if defined.
+Extract genes by row and samples by column.
 }
-\note{
-DESeq2 transformations will only be updated when \code{recalculate = TRUE}
-and either \code{rlog} or \code{vst} counts are defined in \code{\link[=assays]{assays()}}.
+\details{
+Internal count transformations are rescaled automatically, if defined. DESeq2
+transformations will only be updated when \code{recalculate = TRUE} and either
+\code{rlog} or \code{vst} counts are defined in \code{\link[=assays]{assays()}}.
 }
 \examples{
 data(bcb_small)
 object <- bcb_small
 
-# Minimum of 100 genes, 2 samples
+## Minimum of 100 genes, 2 samples.
 genes <- head(rownames(object), 100L)
 head(genes)
 samples <- head(colnames(object), 2L)
 head(samples)
 
-# Extract by sample name
+## Extract by sample name.
 object[, samples]
 
-# Extract by gene list
+## Extract by gene list.
 object[genes, ]
 
-# Extract by both genes and samples
+## Extract by both genes and samples.
 x <- object[genes, samples]
 print(x)
 assayNames(x)
 
-# Fast subsetting, by skipping DESeq2 recalculations.
-# Note that `normalized`, `rlog`, and `vst` assays will not be defined.
+## Fast subsetting, by skipping DESeq2 recalculations.
+## Note that `normalized`, `rlog`, and `vst` assays will not be defined.
 x <- object[, samples, recalculate = FALSE]
 print(x)
 names(assays(x))
 }
-\seealso{
-\code{help("[", "base")}.
-
-Other S4 Functions: \code{\link{coerce}},
-  \code{\link{show}}, \code{\link{updateObject}}
+\references{
+Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988)
+  \emph{The New S Language}.
+  Wadsworth & Brooks/Cole.
 }
 \author{
-Lorena Pantano, Michael Steinbaugh
+Michael Steinbaugh, Lorena Pantano
 }
-\concept{S4 Functions}

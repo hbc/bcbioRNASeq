@@ -5,26 +5,21 @@ date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 params:
   bcb_file: "data/YYYY-MM-DD/bcb.rds"
-  data_dir: !r file.path("data", Sys.Date())
   results_dir: !r file.path("results", Sys.Date(), "quality_control")
+  dropbox: FALSE
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-10-05
+# Last modified 2018-10-14
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 
-# Directory paths ==============================================================
-invisible(mapply(
-    FUN = dir.create,
-    path = c(params$data_dir, params$results_dir),
-    MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
-))
-
-# Load object ==================================================================
+# Load object.
 bcb <- readRDS(file = bcb_file)
 stopifnot(is(bcb, "bcbioRNASeq"))
 invisible(validObject(bcb))
+# Run `updateObject()` if there's a mismatch here.
+stopifnot(identical(metadata(bcb)$version, packageVersion("bcbioRNASeq")))
 print(bcb)
 ```
 
@@ -32,37 +27,30 @@ print(bcb)
 ```
 
 ```{r sample_data}
-sample_data <- sampleData(bcb, clean = TRUE)
-export(
-    x = sample_data,
-    file = file.path(params$results_dir, "sample_data.csv")
-)
-as_tibble(sample_data)
+markdown(bcb)
 ```
 
 [bcbio][] run data was imported from **`r metadata(bcb)$uploadDir`**.
 
-# Count matrices
+# Export results
 
-```{r counts}
-# Raw counts (don't use for plotting).
-raw_counts <- counts(bcb, normalized = FALSE)
-# DESeq2 normalized counts.
-normalized_counts <- counts(bcb, normalized = TRUE)
-# Transcripts per million.
-tpm <- counts(bcb, normalized = "tpm")
-# Fragments per kilobase per million mapped fragments.
-fpkm <- fpkm(as(bcb, "DESeqDataSet"))
-saveData(raw_counts, normalized_counts, tpm, fpkm, dir = params$data_dir)
-writeCounts(raw_counts, normalized_counts, tpm, fpkm, dir = params$results_dir)
+```{r export}
+files <- export(
+    x = bcb,
+    dir = params$results_dir,
+    dropbox = params$dropbox
+)
 ```
 
-The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [Excel][] or [RStudio][].
+The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [LibreOffice][], [Excel][], or [RStudio][].
 
-- [`normalized_counts.csv.gz`](`r file.path(params$results_dir, "normalized_counts.csv.gz")`): Use to evaluate individual genes and/or generate plots. These counts are normalized for the variation in sequencing depth across samples.
-- [`tpm.csv.gz`](`r file.path(params$results_dir, "tpm.csv.gz")`): Transcripts per million, scaled by length and also suitable for plotting.
-- [`fpkm.csv.gz`](`r file.path(params$results_dir, "fpkm.csv.gz")`): Fragments per kilobase per million mapped fragments. Legacy format. We recommend using transcripts per million instead.
-- [`raw_counts.csv.gz`](`r file.path(params$results_dir, "raw_counts.csv.gz")`): Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and have not been normalized. Do not use this file for plotting genes.
+- [`r basename(files$assays$counts)`](`r files$assays$counts`): Raw counts. Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and are not normalized.
+
+These normalized matrices are suitable for comparison across samples, and to generate plots:
+
+- [`r basename(files$assays$tpm)`](`r files$assays$tpm`): Transcripts per million, scaled by length.
+- [`r basename(files$assays$normalized)`](`r files$assays$normalized`): DESeq2 size factor adjusted counts.
+- [`r basename(files$assays$vst)`](`r files$assays$vst`): DESeq2 variance-stabilized counts (log2).
 
 # Read metrics {.tabset}
 
@@ -129,7 +117,7 @@ Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 if ("rrnaRate" %in% colnames(metrics(bcb))) {
     plotRRNAMappingRate(bcb)
 } else {
-    message("rRNA mapping rate was not calculated.")
+    warning("rRNA mapping rate was not calculated.")
 }
 ```
 
@@ -159,7 +147,7 @@ Different RNA-seq processing methods can preferentially capture a subset of the 
 if ("geneBiotype" %in% colnames(rowData(bcb))) {
     plotCountsPerBiotype(bcb, normalized = "tpm")
 } else {
-    message("Biotypes are not defined in `rowData()`.")
+    warning("Biotypes are not defined in `rowData()`.")
 }
 ```
 
@@ -171,7 +159,7 @@ The Ensembl biotype clasifications are too specific to plot them all. Here we ha
 if ("broadClass" %in% colnames(rowData(bcb))) {
     plotCountsPerBroadClass(bcb, normalized = "tpm")
 } else {
-    message("Broad class biotypes are not defined in `rowData()`.")
+    warning("Broad class biotypes are not defined in `rowData()`.")
 }
 ```
 
@@ -180,12 +168,8 @@ if ("broadClass" %in% colnames(rowData(bcb))) {
 Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
 
 ```{r plot_counts_per_gene}
-plotCountsPerGene(
-    object = bcb,
-    geom = "density",
-    interestingGroups = "sampleName",
-    normalized = "tmm"
-)
+plotCountsPerGene(bcb, geom = "boxplot")
+plotCountsPerGene(bcb, geom = "density")
 ```
 
 # Fit modeling
@@ -193,8 +177,8 @@ plotCountsPerGene(
 Several quality metrics are first assessed to explore the fit of the model, before differential expression analysis is performed.
 
 ```{r identical_samples, echo=FALSE, message=FALSE, results="hide"}
-dds <- as(bcb, "DESeqDataSet")
 # If there are no replicates, or samples are identical, don't plot dispersions.
+dds <- as(bcb, "DESeqDataSet")
 identical_samples <- all(rowSums(assay(dds) == assay(dds)[, 1]) == ncol(dds))
 ```
 
@@ -204,7 +188,7 @@ The following plot shows the dispersion by mean of normalized counts. We expect 
 
 ```{r plot_disp_ests}
 if (isTRUE(identical_samples)) {
-    message("Samples are identical. Skipping dispersion plot.")
+    warning("Samples are identical. Skipping dispersion plot.")
 } else {
     plotDispEsts(bcb)
 }
@@ -228,18 +212,10 @@ PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize t
 
 ```{r plot_pca}
 if (isTRUE(identical_samples)) {
-    message("Samples are identical. Skipping PCA.")
+    warning("Samples are identical. Skipping PCA.")
 } else {
-    plotPCA(
-        object = bcb,
-        normalized = "vst",
-        label = FALSE
-    )
-    plotPCA(
-        object = bcb,
-        normalized = "vst",
-        label = TRUE
-    )
+    plotPCA(bcb, label = FALSE)
+    plotPCA(bcb, label = TRUE)
 }
 ```
 
@@ -249,32 +225,10 @@ Inter-correlation analysis (ICA) is another way to look at how well samples clus
 
 ```{r plot_correlation_heatmap}
 if (isTRUE(identical_samples)) {
-    message("Samples are identical. Skipping correlation heatmap.")
+    warning("Samples are identical. Skipping correlation heatmap.")
 } else {
-    plotCorrelationHeatmap(bcb, normalized = "vst")
+    plotCorrelationHeatmap(bcb)
 }
-```
-
-# Save additional data
-
-## Quality metrics
-
-```{r metrics}
-metrics <- metrics(bcb)
-write.csv(
-    x = metrics,
-    file = file.path(params$results_dir, "metrics.csv")
-)
-```
-
-## Gene annotations
-
-```{r gene_annotations}
-gene_annotations <- rowRanges(bcb) %>% as.data.frame()
-write.csv(
-    x = gene_annotations,
-    file = file.path(params$results_dir, "gene_annotations.csv")
-)
 ```
 
 ```{r footer, child="_footer.Rmd"}

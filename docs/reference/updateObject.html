@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update an Object to Its Current Class Definition — updateObject • bcbioRNASeq</title>
+<title>Update an object to its current class definition — updateObject • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,11 +32,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Update an Object to Its Current Class Definition — updateObject" />
+<meta property="og:title" content="Update an object to its current class definition — updateObject" />
 
-<meta property="og:description" content="Update old objects created by the bcbioRNASeq package. The session
-information metadata is preserved from the time when the bcbio data was
-originally loaded into R." />
+<meta property="og:description" content="updateObject is a generic function that returns an instance
+  of object updated to its current class definition." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,16 +106,15 @@ originally loaded into R." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update an Object to Its Current Class Definition</h1>
+    <h1>Update an object to its current class definition</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/updateObject-methods.R'><code>R/updateObject-methods.R</code></a></small>
     <div class="hidden name"><code>updateObject.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Update old objects created by the bcbioRNASeq package. The session
-information metadata is preserved from the time when the bcbio data was
-originally loaded into R.</p>
+    <p><code>updateObject</code> is a generic function that returns an instance
+  of <code>object</code> updated to its current class definition.</p>
     
     </div>
 
@@ -128,7 +126,10 @@ originally loaded into R.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object.</p></td>
+      <td><p>Object to be updated for <code>updateObject</code> and
+    <code>updateObjectFromSlots</code>.</p>
+<p>Object for slot information to be extracted from for
+    <code>getObjectSlots</code>.</p></td>
     </tr>
     <tr>
       <th>rowRanges</th>
@@ -142,6 +143,12 @@ v0.2 don't require this argument and it can be left <code>NULL</code>.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>bcbioRNASeq</code>.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Update old objects created by the bcbioRNASeq package. The session
+information metadata is preserved from the time when the bcbio data was
+originally loaded into R.</p>
     
     <h2 class="hasAnchor" id="legacy-bcbiornadataset-class"><a class="anchor" href="#legacy-bcbiornadataset-class"></a>Legacy <code>bcbioRNADataSet</code> class</h2>
 
@@ -158,33 +165,35 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other S4 Functions: <code><a href='coerce.html'>coerce</a></code>,
-  <code><a href='extract.html'>extract</a></code>, <code><a href='show.html'>show</a></code></p></div>
+    <div class='dont-index'><ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/Biobase/topics/updateObjectTo'>updateObjectTo</a></code> in the <span class="pkg">Biobase</span> package
+          for updating an object to the class definition of a template (might
+          be useful for updating a virtual superclass).</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/validObject'>validObject</a></code> for testing the validity of an
+          object.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/showMethods'>showMethods</a></code> for displaying a summary of the
+          methods defined for a given generic function.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/methods/topics/getMethod'>selectMethod</a></code> for getting the definition of
+          a specific method.</p></li>
+<li><p>BiocGenerics for a summary of all the generics defined
+          in the <span class="pkg">BiocGenerics</span> package.</p></li>
+</ul></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>updateObject</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.99.0 to 0.99.0...</span></div><div class='output co'>#&gt; <span class='message'>Setting rowRangesMetadata as empty tibble</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'DESCRIPTION' file has an 'Encoding' field and re-encoding is not possible</span></div><div class='output co'>#&gt; bcbioRNASeq 0.99.0
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
+<span class='fu'>updateObject</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>Upgrading from 0.99.0 to 0.99.0.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.99.0
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
-#&gt; ────────────────────────────────────────────────────────────────────────
-#&gt; Upload Dir: "/mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final"
-#&gt; Upload Date: 2018-03-18
-#&gt; R Load Date: 2018-10-09
-#&gt; Level: "genes"
-#&gt; Caller: "salmon"
-#&gt; Organism: "Mus musculus"
-#&gt; Interesting Groups: "treatment"
-#&gt; ────────────────────────────────────────────────────────────────────────
-#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 500 6 
-#&gt; metadata(29): version level ... rowRangesMetadata previousVersion
-#&gt; assays(4): counts tpm normalized vst
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
-#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div></pre>
+#&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-14
+#&gt; level: genes
+#&gt; caller: salmon
+#&gt; organism: Mus musculus
+#&gt; ensemblRelease: 90
+#&gt; genomeBuild: GRCm38
+#&gt; interestingGroups: treatment
+#&gt; class: RangedSummarizedExperiment  dim: 500 6  metadata(28): version level ... subset previousVersion assays(6): counts tpm ... vst fpkm rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...   ENSMUSG00000114367 ENSMUSG00000114458 rowData names(7): broadClass description ... geneName   seqCoordSystem colnames(6): control_rep1 control_rep2 ... fa_day7_rep2   fa_day7_rep3 colData names(25): averageInsertSize averageReadLength ...   tissue treatment</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -192,6 +201,8 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#legacy-bcbiornadataset-class">Legacy <code>bcbioRNADataSet</code> class</a></li>
 

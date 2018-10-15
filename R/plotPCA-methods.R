@@ -1,7 +1,12 @@
-#' Sample PCA Plot for Transformed Data
+#' @name plotPCA
+#' @importFrom BiocGenerics plotPCA
+#' @inherit BiocGenerics::plotPCA
+#' @author Michael Steinbaugh
+#' @export
 #'
+#' @details
 #' Wrapper for [DESeq2::plotPCA()] that improves principal component analysis
-#' (PCA) sample coloring and labeling.
+#' (PCA) sample coloring and labeling. Always plots using normalized counts.
 #'
 #' PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
 #' summarize the systematic patterns of variations in the data. PCA takes the
@@ -10,15 +15,11 @@
 #' expression variation, and identify potential sample outliers. The PCA plot is
 #' a way to look at how samples are clustering.
 #'
-#' @name plotPCA
-#' @family Quality Control Functions
-#' @author Michael Steinbaugh
-#' @importFrom BiocGenerics plotPCA
-#' @export
-#'
 #' @inheritParams general
 #' @param ntop `scalar integer` or `Inf`. Number of most variable genes to plot.
-#'   Use `Inf` to include all genes.
+#'   Use `Inf` to include all genes (*not recommended*).
+#'
+#' @references Jolliffe, et al., 2002.
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].
@@ -28,17 +29,8 @@
 #'
 #' @examples
 #' data(bcb_small)
-#' plotPCA(
-#'     object = bcb_small,
-#'     normalized = "vst",
-#'     label = TRUE
-#' )
-#' plotPCA(
-#'     object = bcb_small,
-#'     normalized = "rlog",
-#'     interestingGroups = "sampleName",
-#'     label = FALSE
-#' )
+#' plotPCA(bcb_small, label = FALSE)
+#' plotPCA(bcb_small, label = TRUE)
 NULL
 
 
@@ -173,7 +165,7 @@ NULL
 .plotPCA.bcbioRNASeq <-  # nolint
     function(
         object,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
+        normalized
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
@@ -192,6 +184,7 @@ f1 <- formals(.plotPCA.bcbioRNASeq)
 f2 <- formals(.plotPCA.SummarizedExperiment)
 f2 <- f2[setdiff(names(f2), names(f1))]
 f <- c(f1, f2)
+f[["normalized"]] <- normalizedCounts
 formals(.plotPCA.bcbioRNASeq) <- f
 
 

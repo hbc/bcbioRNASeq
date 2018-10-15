@@ -1,7 +1,6 @@
 #' Plot Volcano
 #'
 #' @name plotVolcano
-#' @family Differential Expression Functions
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #' @export
 #'
@@ -22,7 +21,7 @@
 #' object <- deseq_small
 #' print(object)
 #'
-#' # Get genes from DESeqDataSet.
+#' ## Get genes from DESeqDataSet.
 #' dds <- as(object, "DESeqDataSet")
 #' g2s <- gene2symbol(dds)
 #' geneIDs <- head(g2s[["geneID"]])
@@ -32,7 +31,7 @@
 #'
 #' plotVolcano(object)
 #'
-#' # Customize the colors.
+#' ## Customize the colors.
 #' plotVolcano(
 #'     object = object,
 #'     pointColor = "black",
@@ -46,7 +45,7 @@
 #'     )
 #' )
 #'
-#' # Directional support (up or down).
+#' ## Directional support (up or down).
 #' plotVolcano(
 #'     object = object,
 #'     direction = "up",
@@ -58,19 +57,18 @@
 #'     ntop = 5L
 #' )
 #'
-#' # Label genes manually.
-#' # Note that either gene IDs or names (symbols) are supported.
+#' ## Label genes manually.
+#' ## Note that either gene IDs or names (symbols) are supported.
 #' plotVolcano(object, genes = geneIDs)
 #' plotVolcano(object, genes = geneNames)
 NULL
 
 
 
+# Do not allow post hoc alpha, lfcThreshold cutoffs.
 .plotVolcano.DESeqResults <-  # nolint
     function(
         object,
-        alpha = NULL,
-        lfcThreshold = NULL,
         ylim = 1e-10,
         genes = NULL,
         gene2symbol = NULL,
@@ -88,17 +86,9 @@ NULL
         return = c("ggplot", "DataFrame")
     ) {
         validObject(object)
-        if (is.null(alpha)) {
-            alpha <- metadata(object)[["alpha"]]
-        }
-        assert_all_are_in_left_open_range(
-            x = alpha,
-            lower = 0L,
-            upper = 1L
-        )
-        if (is.null(lfcThreshold)) {
-            lfcThreshold <- metadata(object)[["lfcThreshold"]]
-        }
+        alpha <- metadata(object)[["alpha"]]
+        assertIsAlpha(alpha)
+        lfcThreshold <- metadata(object)[["lfcThreshold"]]
         assert_is_a_number(lfcThreshold)
         assert_is_a_number(ylim)
         assert_all_are_in_range(
@@ -346,7 +336,7 @@ NULL
                         lfcShrink = lfcShrink
                     ),
                     genes = genes,
-                    gene2symbol = gene2symbol(object@data)
+                    gene2symbol = gene2symbol(slot(object, "data"))
                 ),
                 removeFormals = c("results", "lfcShrink")
             )

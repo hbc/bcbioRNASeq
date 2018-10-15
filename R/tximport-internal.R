@@ -24,7 +24,6 @@
 .tximport <- function(
     sampleDirs,
     type = c("salmon", "kallisto", "sailfish"),
-    txIn = TRUE,
     txOut = FALSE,
     countsFromAbundance = "lengthScaledTPM",
     tx2gene,
@@ -33,7 +32,6 @@
     assert_all_are_dirs(sampleDirs)
     assert_are_identical(names(sampleDirs), basename(sampleDirs))
     type <- match.arg(type)
-    assert_is_a_bool(txIn)
     assert_is_a_bool(txOut)
     assert_is_a_string(countsFromAbundance)
     assert_is_all_of(tx2gene, "Tx2Gene")
@@ -41,14 +39,12 @@
     # Locate the counts files --------------------------------------------------
     subdirs <- file.path(sampleDirs, type)
     assert_all_are_dirs(subdirs)
-
     if (type %in% c("salmon", "sailfish")) {
-        # Use `quant.sf` file for salmon or sailfish.
-        files <- file.path(subdirs, "quant.sf")
+        basename <- "quant.sf"
     } else if (type == "kallisto") {
-        # Use `abundance.h5` file (HDF5) for kallisto.
-        files <- file.path(subdirs, "abundance.h5")
+        basename <- "abundance.h5"
     }
+    files <- file.path(subdirs, basename)
     assert_all_are_existing_files(files)
     names(files) <- names(sampleDirs)
 
@@ -64,19 +60,23 @@
     # Import counts using tximport ---------------------------------------------
     # Note that this step can take a long time when processing a lot of samples,
     # and is recommended to be run on an HPC cluster, rather than locally.
-    message(paste(
-        "Reading", type, "counts using tximport",
-        packageVersion("tximport")
+    message(paste0(
+        "Reading ", type, " counts using tximport ",
+        packageVersion("tximport"), "."
     ))
+    message(paste("Reading from", basename(files[[1L]]), "files."))
+    if (countsFromAbundance != "no") {
+        message(paste0("Scaling using ", countsFromAbundance, "."))
+    }
     txi <- tximport(
         files = files,
         type = type,
-        txIn = txIn,
+        txIn = TRUE,
         txOut = txOut,
         countsFromAbundance = countsFromAbundance,
         tx2gene = tx2gene,
         ignoreTxVersion = ignoreTxVersion,
-        importer = read_tsv
+        importer = readr::read_tsv
     )
 
     # Assert checks before return.

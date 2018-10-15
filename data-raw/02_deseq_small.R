@@ -1,5 +1,5 @@
 #' Example DESeq2 differential expression analysis
-#' Last updated 2018-10-08
+#' Last updated 2018-10-12
 
 library(DESeq2)
 
@@ -33,12 +33,10 @@ res <- results(
 )
 
 # Shrink log2 fold changes
-# `BiocManager::install("apeglm")`
 res_shrunken <- lfcShrink(
     dds = dds,
     coef = 2L,
-    res = res,
-    type = "apeglm"
+    res = res
 )
 validObject(res_shrunken)
 

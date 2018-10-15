@@ -1,19 +1,15 @@
-#' Plot Gene Expression
-#'
 #' @name plotGene
-#' @family Gene Expression Functions
-#' @author Michael Steinbaugh
 #' @importFrom basejump plotGene
-#' @export
-#'
 #' @inherit basejump::plotGene
+#' @author Michael Steinbaugh
+#' @export
 #'
 #' @inheritParams general
 #'
 #' @examples
 #' data(bcb_small, deseq_small)
 #'
-#' # bcbioRNASeq ====
+#' ## bcbioRNASeq ====
 #' object <- bcb_small
 #' g2s <- gene2symbol(object)
 #' geneIDs <- head(g2s[["geneID"]])
@@ -34,7 +30,7 @@
 #'     style = "wide"
 #' )
 #'
-#' # DESeqAnalysis ====
+#' ## DESeqAnalysis ====
 #' object <- deseq_small
 #' plotGene(object, genes = geneIDs, style = "facet")
 #' plotGene(object, genes = geneNames, style = "wide")
@@ -42,20 +38,17 @@ NULL
 
 
 
-# FIXME Generalize the `normalized` argument across functions.
-# Set this formal automatically, for consistency.
 .plotGene.bcbioRNASeq <-  # nolint
     function(
         object,
         genes,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle")
+        normalized
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
         counts <- counts(object, normalized = normalized)
         # Ensure counts are always log2 scale.
         if (!normalized %in% c("rlog", "vst")) {
-            # FIXME Any benefit to using 0.1 instead?
             counts <- log2(counts + 1L)
         }
         rse <- as(object, "RangedSummarizedExperiment")
@@ -76,6 +69,7 @@ f1 <- formals(.plotGene.bcbioRNASeq)
 f2 <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay", "countsAxisLabel"))]
 f <- c(f1, f2)
+f[["normalized"]] <- normalizedCounts
 formals(.plotGene.bcbioRNASeq) <- f
 
 

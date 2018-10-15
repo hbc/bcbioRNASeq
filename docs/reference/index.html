@@ -116,20 +116,6 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-package-information" class="hasAnchor"><a href="#section-package-information" class="anchor"></a>Package Information</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="bcbioRNASeq-package.html">bcbioRNASeq-package</a></code> </p>
-        </td>
-        <td><p>bcbioRNASeq</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
           <h2 id="section-s-classes" class="hasAnchor"><a href="#section-s-classes" class="anchor"></a>S4 Classes</h2>
           <p class="section-desc"></p>
         </th>
@@ -165,56 +151,24 @@
         <td>
           <p><code><a href="bcbioRNASeq.html">bcbioRNASeq()</a></code> </p>
         </td>
-        <td><p><code>bcbioRNASeq</code> Generator</p></td>
+        <td><p>bcbio RNA-Seq Data Set</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="DESeqAnalysis.html">DESeqAnalysis()</a></code> </p>
         </td>
-        <td><p><code>DESeqAnalysis</code> Generator</p></td>
+        <td><p>DESeq2 Analysis Container</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="DESeqResultsTables.html">DESeqResultsTables()</a></code> </p>
         </td>
-        <td><p><code>DESeqResultsTables</code> Generator</p></td>
+        <td><p>DESeq2 Differential Expression Results Tables</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-s-functions" class="hasAnchor"><a href="#section-s-functions" class="anchor"></a>S4 Functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="coerce.html">coerce</a></code> </p>
-        </td>
-        <td><p>Methods for Coercing an Object to a Class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="extract.html">`[`(<i>&lt;bcbioRNASeq&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Extract or Replace Parts of an Object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="show.html">show(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;DESeqAnalysis&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;DESeqResultsTables&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Show an Object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="updateObject.html">updateObject(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Update an Object to Its Current Class Definition</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-functions" class="hasAnchor"><a href="#section-data-functions" class="anchor"></a>Data Functions</h2>
+          <h2 id="section-counts" class="hasAnchor"><a href="#section-counts" class="anchor"></a>Counts</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -227,26 +181,20 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="export.html">export(<i>&lt;DESeqResultsTables&gt;</i>)</a></code> </p>
+          <p><code><a href="relativeLogExpression.html">relativeLogExpression()</a></code> </p>
         </td>
-        <td><p>Export</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sampleData.html">sampleData(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Sample Data</p></td>
+        <td><p>Relative Log Expression</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="tmm.html">tmm()</a></code> </p>
         </td>
-        <td><p><strong>T</strong>rimmed <strong>M</strong>ean of <strong>M</strong>-Values (TMM) Normalization</p></td>
+        <td><p>Trimmed Mean of M-Values</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-plot-functions" class="hasAnchor"><a href="#section-plot-functions" class="anchor"></a>Plot Functions</h2>
+          <h2 id="section-plots" class="hasAnchor"><a href="#section-plots" class="anchor"></a>Plots</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -261,7 +209,7 @@
         <td>
           <p><code><a href="plotCorrelationHeatmap.html">plotCorrelationHeatmap(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Plot Correlation Heatmap</p></td>
+        <td><p>Plot Heatmap</p></td>
       </tr><tr>
         
         <td>
@@ -283,7 +231,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotDispEsts.html">plotDispEsts(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+          <p><code><a href="plotDispEsts.html">plotDispEsts(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="plotDispEsts.html">plotDispEsts(<i>&lt;DESeqAnalysis&gt;</i>)</a></code> </p>
         </td>
         <td><p>Plot Dispersion Estimates</p></td>
       </tr><tr>
@@ -319,9 +267,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotMA.html">plotMA(<i>&lt;DESeqAnalysis&gt;</i>)</a></code> <code><a href="plotMA.html">plotMA(<i>&lt;DESeqResults&gt;</i>)</a></code> <code><a href="plotMA.html">plotMeanAverage()</a></code> </p>
+          <p><code><a href="plotMA.html">plotMA(<i>&lt;DESeqResults&gt;</i>)</a></code> <code><a href="plotMA.html">plotMA(<i>&lt;DESeqAnalysis&gt;</i>)</a></code> <code><a href="plotMA.html">plotMeanAverage()</a></code> </p>
         </td>
-        <td><p>MA Plot</p></td>
+        <td><p>MA-plot: plot differences versus averages for high-throughput data</p></td>
       </tr><tr>
         
         <td>
@@ -345,7 +293,7 @@
         <td>
           <p><code><a href="plotPCA.html">plotPCA(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Sample PCA Plot for Transformed Data</p></td>
+        <td><p>PCA-plot: Principal Component Analysis plot</p></td>
       </tr><tr>
         
         <td>
@@ -374,7 +322,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-differential-expression-functions" class="hasAnchor"><a href="#section-differential-expression-functions" class="anchor"></a>Differential Expression Functions</h2>
+          <h2 id="section-differential-expression" class="hasAnchor"><a href="#section-differential-expression" class="anchor"></a>Differential Expression</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -393,9 +341,27 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="DESeqAnalysis-class.html">DESeqAnalysis-class</a></code> </p>
+        </td>
+        <td><p>DESeq2 Analysis Container</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="DESeqAnalysis.html">DESeqAnalysis()</a></code> </p>
+        </td>
+        <td><p>DESeq2 Analysis Container</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="DESeqResultsTables-class.html">DESeqResultsTables-class</a></code> </p>
+        </td>
+        <td><p>DESeq2 Differential Expression Results Tables</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="DESeqResultsTables.html">DESeqResultsTables()</a></code> </p>
         </td>
-        <td><p><code>DESeqResultsTables</code> Generator</p></td>
+        <td><p>DESeq2 Differential Expression Results Tables</p></td>
       </tr><tr>
         
         <td>
@@ -406,14 +372,32 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-r-markdown-functions" class="hasAnchor"><a href="#section-r-markdown-functions" class="anchor"></a>R Markdown Functions</h2>
+          <h2 id="section-general" class="hasAnchor"><a href="#section-general" class="anchor"></a>General</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="markdown.html">markdown(<i>&lt;DESeqResultsTables&gt;</i>)</a></code> </p>
+          <p><code><a href="as.html">as</a></code> </p>
+        </td>
+        <td><p>Force an Object to Belong to a Class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="export.html">export(<i>&lt;DESeqResultsTables&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Export</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="extract.html">`[`(<i>&lt;bcbioRNASeq&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Extract or Replace Parts of an Object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="markdown.html">markdown(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="markdown.html">markdown(<i>&lt;DESeqResultsTables&gt;</i>)</a></code> <code><a href="markdown.html">markdown(<i>&lt;DESeqAnalysis&gt;</i>)</a></code> </p>
         </td>
         <td><p>Markdown</p></td>
       </tr><tr>
@@ -422,6 +406,24 @@
           <p><code><a href="prepareRNASeqTemplate.html">prepareRNASeqTemplate()</a></code> </p>
         </td>
         <td><p>Prepare RNA-Seq R Markdown Template</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sampleData.html">sampleData(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Sample Data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="show.html">show(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;DESeqAnalysis&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;DESeqResultsTables&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Show an Object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="updateObject.html">updateObject(<i>&lt;bcbioRNASeq&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Update an object to its current class definition</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -435,13 +437,13 @@
         <td>
           <p><code><a href="bcb_small.html">bcb_small</a></code> </p>
         </td>
-        <td><p><code>bcbioRNASeq</code> Example</p></td>
+        <td><p>bcbio RNA-Seq Example Data</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="deseq_small.html">deseq_small</a></code> </p>
         </td>
-        <td><p><code>DESeqAnalysis</code> Example</p></td>
+        <td><p>DESeq2 Example Analysis</p></td>
       </tr>
     </tbody>
     </table>
@@ -450,14 +452,12 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-package-information">Package Information</a></li>
       <li><a href="#section-s-classes">S4 Classes</a></li>
       <li><a href="#section-s-generators">S4 Generators</a></li>
-      <li><a href="#section-s-functions">S4 Functions</a></li>
-      <li><a href="#section-data-functions">Data Functions</a></li>
-      <li><a href="#section-plot-functions">Plot Functions</a></li>
-      <li><a href="#section-differential-expression-functions">Differential Expression Functions</a></li>
-      <li><a href="#section-r-markdown-functions">R Markdown Functions</a></li>
+      <li><a href="#section-counts">Counts</a></li>
+      <li><a href="#section-plots">Plots</a></li>
+      <li><a href="#section-differential-expression">Differential Expression</a></li>
+      <li><a href="#section-general">General</a></li>
       <li><a href="#section-example-data">Example Data</a></li>
     </ul>
   </div>

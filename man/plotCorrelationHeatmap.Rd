@@ -4,10 +4,10 @@
 \name{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap,bcbioRNASeq-method}
-\title{Plot Correlation Heatmap}
+\title{Plot Heatmap}
 \usage{
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
-  normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
+  normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"),
   interestingGroups = NULL, method = c("pearson", "spearman"),
   clusteringMethod = "ward.D2", showRownames = TRUE,
   showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
@@ -72,8 +72,7 @@ arguments should be formatted in camel case, not snake case.}
 \code{pheatmap}.
 }
 \description{
-This function calculates a correlation matrix based on feature expression per
-sample.
+Construct a simple heatmap.
 }
 \section{Hierarchical clustering}{
 
@@ -108,24 +107,23 @@ plotCorrelationHeatmap(bcb_small, method = "spearman")
 }
 \seealso{
 \itemize{
-\item \code{help("plotCorrelationHeatmap", "basejump")}.
-\item \code{findMethod("plotCorrelationHeatmap", "SummarizedExperiment")}.
+\item \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
+\item \code{\link[RColorBrewer:brewer.pal]{RColorBrewer::brewer.pal()}}.
 }
 
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
+\itemize{
+\item \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
+\item \code{\link[stats:cor]{stats::cor()}}.
+\item \code{\link[stats:hclust]{stats::hclust()}}.
+}
+
+Other Plots: \code{\link{plotCountsPerBiotype}},
   \code{\link{plotCountsPerGene}},
-  \code{\link{plotDispEsts}},
-  \code{\link{plotExonicMappingRate}},
   \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotPCA}}, \code{\link{plotQC}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
+  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
+  \code{\link{plotQC}}, \code{\link{plotTotalCounts}},
+  \code{\link{plotZerosVsDepth}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Functions}

@@ -1,7 +1,6 @@
 #' Contrast Name
 #'
 #' @name contrastName
-#' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #' @export
 #'
@@ -10,10 +9,10 @@
 #' @return `string`. Contrast name.
 #'
 #' @examples
-#' # DESeqAnalysis ====
+#' ## DESeqAnalysis ====
 #' contrastName(deseq_small, results = 1L)
 #'
-#' # DESeqResults ====
+#' ## DESeqResults ====
 #' object <- deseq_small@results[[1L]]
 #' contrastName(object)
 NULL
@@ -48,7 +47,7 @@ NULL
 
 .contrastName.DESeqResultsTables <-  # nolint
     function(object) {
-        contrastName(slot(object, name = "all"))
+        contrastName(slot(object, name = "results"))
     }
 
 

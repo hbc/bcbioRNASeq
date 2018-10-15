@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sample PCA Plot for Transformed Data — plotPCA • bcbioRNASeq</title>
+<title>PCA-plot: Principal Component Analysis plot — plotPCA • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,10 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Sample PCA Plot for Transformed Data — plotPCA" />
+<meta property="og:title" content="PCA-plot: Principal Component Analysis plot — plotPCA" />
 
-<meta property="og:description" content="Wrapper for DESeq2::plotPCA() that improves principal component analysis
-(PCA) sample coloring and labeling." />
+<meta property="og:description" content="A generic function which produces a PCA-plot." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,21 +105,20 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sample PCA Plot for Transformed Data</h1>
+    <h1>PCA-plot: Principal Component Analysis plot</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotPCA-methods.R'><code>R/plotPCA-methods.R</code></a></small>
     <div class="hidden name"><code>plotPCA.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code> that improves principal component analysis
-(PCA) sample coloring and labeling.</p>
+    <p>A generic function which produces a PCA-plot.</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotPCA</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>,
-  <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>500L</span>,
+  <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>500L</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>, <span class='kw'>NULL</span>),
   <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.label"</span>, <span class='fl'>FALSE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"PCA"</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ggplot"</span>, <span class='st'>"DataFrame"</span>))</pre>
@@ -130,7 +128,10 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object.</p></td>
+      <td>
+    
+<p>A data object, typically containing gene expression information.</p>
+<p></p></td>
     </tr>
     <tr>
       <th>normalized</th>
@@ -148,7 +149,7 @@ samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     <tr>
       <th>ntop</th>
       <td><p><code>scalar integer</code> or <code>Inf</code>. Number of most variable genes to plot.
-Use <code>Inf</code> to include all genes.</p></td>
+Use <code>Inf</code> to include all genes (<em>not recommended</em>).</p></td>
     </tr>
     <tr>
       <th>color</th>
@@ -184,12 +185,18 @@ and picks the first item in the vector by default.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
+    <p>Wrapper for <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code> that improves principal component analysis
+(PCA) sample coloring and labeling. Always plots using normalized counts.</p>
+<p>PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
 summarize the systematic patterns of variations in the data. PCA takes the
 expression levels for genes and transforms it in principal component space,
 reducing each sample into one point. Thereby, we can separate samples by
 expression variation, and identify potential sample outliers. The PCA plot is
 a way to look at how samples are clustering.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Jolliffe, et al., 2002.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -197,31 +204,11 @@ a way to look at how samples are clustering.</p>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotPCA'>DESeq2::plotPCA()</a></code>.</p></li>
 <li><p><code>getMethod("plotPCA", "DESeqTransform")</code></p></li>
 </ul></div>
-    <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
-  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
-  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
-  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
-  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
-  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
-  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
-  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
-  <code><a href='plotQC.html'>plotQC</a></code>, <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
-  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plotPCA</span>(
-    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
-    <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
-    <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes.</span></div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotPCA</span>(
-    <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb_small</span>,
-    <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"rlog"</span>,
-    <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>,
-    <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using rlog counts.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: rlog not present in assays. Calculating log2 TMM counts instead.</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization...</span></div><div class='output co'>#&gt; <span class='message'>Applying log2 transformation to TMM values...</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes.</span></div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
+<span class='fu'>plotPCA</span>(<span class='no'>bcb_small</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes.</span></div><div class='img'><img src='plotPCA-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotPCA</span>(<span class='no'>bcb_small</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Plotting PCA using 500 genes.</span></div><div class='img'><img src='plotPCA-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -231,6 +218,8 @@ a way to look at how samples are clustering.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

@@ -50,16 +50,17 @@ The value provided to \code{name} must be an element of \code{resultsNames(objec
 Quickly generate a summary table of various alpha level cutoffs, for use in
 an R Markdown report.
 }
-\note{
+\details{
 Use either \code{contrast} or \code{name} to specify the desired contrast.
 }
 \examples{
 data(deseq_small)
 
-# DESeqDataSet ====
+## DESeqDataSet ====
 object <- as(deseq_small, "DESeqDataSet")
 design(object)
 resultsNames(object)
+alphaSummary(object)
 alphaSummary(object, contrast = c("treatment", "folic_acid", "control"))
 alphaSummary(object, name = "treatment_folic_acid_vs_control")
 }
@@ -68,12 +69,7 @@ alphaSummary(object, name = "treatment_folic_acid_vs_control")
 \item \code{\link[DESeq2:results]{DESeq2::results()}}.
 \item \code{\link[DESeq2:resultsNames]{DESeq2::resultsNames()}}.
 }
-
-Other Differential Expression Functions: \code{\link{contrastName}},
-  \code{\link{plotDEGHeatmap}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}}
 }
 \author{
 Michael Steinbaugh, Lorena Patano
 }
-\concept{Differential Expression Functions}

@@ -1,5 +1,10 @@
 #' Differentially Expressed Gene Heatmap
+#' @name plotDEGHeatmap
+#' @inherit basejump::plotHeatmap
+#' @author Michael Steinbaugh
+#' @export
 #'
+#' @details
 #' This function is a simplified version of [plotHeatmap()] that is
 #' optimized for handling a `DESeqResults` object rather a gene vector. All of
 #' the optional parameters for [plotHeatmap()] are also available to this
@@ -9,26 +14,16 @@
 #' argument, which must contain a `SummarizedExperiment` (e.g. `DESeqTransform`,
 #' `DESeqDataSet`).
 #'
-#' @name plotDEGHeatmap
-#' @family Differential Expression Functions
-#' @author Michael Steinbaugh
-#'
-#' @inherit basejump::plotHeatmap
-#'
 #' @inheritParams general
 #' @param counts `DESeqTransform`.
-#'
-#' @seealso
-#' - `help("plotHeatmap", "basejump")`.
-#' - `findMethod("plotHeatmap", "SummarizedExperiment")`.
 #'
 #' @examples
 #' data(deseq_small)
 #'
-#' # DESeqAnalysis ====
+#' ## DESeqAnalysis ====
 #' plotDEGHeatmap(deseq_small)
 #'
-#' # DESeqResults ====
+#' ## DESeqResults ====
 #' plotDEGHeatmap(
 #'     object = as(deseq_small, "DESeqResults"),
 #'     counts = as(deseq_small, "DESeqTransform")
@@ -37,6 +32,8 @@ NULL
 
 
 
+# DESeqResults =================================================================
+# Do not allow post hoc alpha, lfcThreshold cutoffs.
 .plotDEGHeatmap.DESeqResults <-  # nolint
     function(
         object,
@@ -119,6 +116,17 @@ formals(.plotDEGHeatmap.DESeqResults) <- f
 
 
 
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    f = "plotDEGHeatmap",
+    signature = signature("DESeqResults"),
+    definition = .plotDEGHeatmap.DESeqResults
+)
+
+
+
+# DESeqAnalysis ================================================================
 .plotDEGHeatmap.DESeqAnalysis <-  # nolint
     function(object, results) {
         do.call(
@@ -151,14 +159,4 @@ setMethod(
     f = "plotDEGHeatmap",
     signature = signature("DESeqAnalysis"),
     definition = .plotDEGHeatmap.DESeqAnalysis
-)
-
-
-
-#' @rdname plotDEGHeatmap
-#' @export
-setMethod(
-    f = "plotDEGHeatmap",
-    signature = signature("DESeqResults"),
-    definition = .plotDEGHeatmap.DESeqResults
 )

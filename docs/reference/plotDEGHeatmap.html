@@ -34,10 +34,7 @@
   
 <meta property="og:title" content="Differentially Expressed Gene Heatmap — plotDEGHeatmap" />
 
-<meta property="og:description" content="This function is a simplified version of plotHeatmap() that is
-optimized for handling a DESeqResults object rather a gene vector. All of
-the optional parameters for plotHeatmap() are also available to this
-function." />
+<meta property="og:description" content="Construct a simple heatmap." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,25 +112,22 @@ function." />
 
     <div class="ref-description">
     
-    <p>This function is a simplified version of <code>plotHeatmap()</code> that is
-optimized for handling a <code>DESeqResults</code> object rather a gene vector. All of
-the optional parameters for <code>plotHeatmap()</code> are also available to this
-function.</p>
+    <p>Construct a simple heatmap.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for DESeqAnalysis</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>results</span>, <span class='no'>counts</span>,
+<span class='co'># S4 method for DESeqResults</span>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
   <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clusterRows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>clusterCols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>showRownames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>showColnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>treeheightRow</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
   <span class='kw'>treeheightCol</span> <span class='kw'>=</span> <span class='fl'>50L</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
   <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>, <span class='kw'>borderColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>counts</span>,
+<span class='co'># S4 method for DESeqAnalysis</span>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>object</span>, <span class='no'>results</span>, <span class='no'>counts</span>,
   <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>), <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"row"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clusterRows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>clusterCols</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>showRownames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>showColnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>treeheightRow</span> <span class='kw'>=</span> <span class='fl'>0L</span>,
@@ -151,10 +145,6 @@ function.</p>
       <th>...</th>
       <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>. The names of the
 arguments should be formatted in camel case, not snake case.</p></td>
-    </tr>
-    <tr>
-      <th>results</th>
-      <td><p><code>scalar</code>. Position or name of <code>DESeqResults</code>.</p></td>
     </tr>
     <tr>
       <th>counts</th>
@@ -232,6 +222,10 @@ for legend labels. Note that hexadecimal values are not supported. If set
       <td><p><code>string</code> or <code>NULL</code>. Border color. Disabled by default for
 improved aesthetics.</p></td>
     </tr>
+    <tr>
+      <th>results</th>
+      <td><p><code>scalar</code>. Position or name of <code>DESeqResults</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -240,7 +234,11 @@ improved aesthetics.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>To adjust the annotation columns, modify the <code>colData</code> of the <code>counts</code>
+    <p>This function is a simplified version of <code>plotHeatmap()</code> that is
+optimized for handling a <code>DESeqResults</code> object rather a gene vector. All of
+the optional parameters for <code>plotHeatmap()</code> are also available to this
+function.</p>
+<p>To adjust the annotation columns, modify the <code>colData</code> of the <code>counts</code>
 argument, which must contain a <code>SummarizedExperiment</code> (e.g. <code>DESeqTransform</code>,
 <code>DESeqDataSet</code>).</p>
     
@@ -264,22 +262,32 @@ or <code>clusterCols</code> to <code>FALSE</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p><code>help("plotHeatmap", "basejump")</code>.</p></li>
-<li><p><code>findMethod("plotHeatmap", "SummarizedExperiment")</code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/RColorBrewer/topics/ColorBrewer'>RColorBrewer::brewer.pal()</a></code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other Differential Expression Functions: <code><a href='alphaSummary.html'>alphaSummary</a></code>,
-  <code><a href='contrastName.html'>contrastName</a></code>, <code><a href='plotDEGPCA.html'>plotDEGPCA</a></code>,
-  <code><a href='plotMA.html'>plotMA</a></code>, <code><a href='plotVolcano.html'>plotVolcano</a></code></p></div>
+    <div class='dont-index'><ul>
+<li><p><code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/stats/topics/hclust'>stats::hclust()</a></code>.</p></li>
+</ul></div>
+    <div class='dont-index'><p>Other Plots: <code>plotCountsPerBiotype</code>,
+  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
+  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
+  <code>plotGenesDetected</code>, <code><a href='plotGene.html'>plotGene</a></code>,
+  <code><a href='plotQC.html'>plotQC</a></code>, <code>plotTotalCounts</code>,
+  <code>plotZerosVsDepth</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># DESeqAnalysis ====</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control</span></div><div class='output co'>#&gt; <span class='message'>253 differentially expressed genes detected.</span></div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># DESeqResults ====</span>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
+
+<span class='co'>## DESeqAnalysis ====</span>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control</span></div><div class='output co'>#&gt; <span class='message'>254 differentially expressed genes detected.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: partial match of 'just' to 'justification'</span></div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## DESeqResults ====</span>
 <span class='fu'>plotDEGHeatmap</span>(
-    <span class='kw'>object</span> <span class='kw'>=</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>),
-    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqTransform"</span>)
-)</div><div class='output co'>#&gt; <span class='message'>253 differentially expressed genes detected.</span></div><div class='img'><img src='plotDEGHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
+    <span class='kw'>object</span> <span class='kw'>=</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>),
+    <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqTransform"</span>)
+)</div><div class='output co'>#&gt; <span class='message'>254 differentially expressed genes detected.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: partial match of 'just' to 'justification'</span></div><div class='img'><img src='plotDEGHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

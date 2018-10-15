@@ -2,7 +2,7 @@
 % Please edit documentation in R/DESeqAnalysis.R
 \name{DESeqAnalysis}
 \alias{DESeqAnalysis}
-\title{\code{DESeqAnalysis} Generator}
+\title{DESeq2 Analysis Container}
 \usage{
 DESeqAnalysis(data, transform, results, lfcShrink)
 }
@@ -21,8 +21,28 @@ DESeqAnalysis(data, transform, results, lfcShrink)
 \code{DESeqAnalysis}.
 }
 \description{
-\code{DESeqAnalysis} Generator
+Class containing all elements generated during differential expression
+analysis with DESeq2. This class is essentially a \code{list} with validity checks
+to ensure \code{DESeqTransform} and \code{DESeqResults} correspond to the
+\code{DESeqDataSet}.
 }
+\section{DESeqDataSet}{
+
+
+We recommend generating the \code{DESeqDataSet} by coercion from \code{bcbioRNASeq}
+object using \code{as(dds, "bcbioRNASeq")}. Don't use the \code{\link[DESeq2:DESeqDataSet]{DESeq2::DESeqDataSet()}}
+or \code{\link[DESeq2:DESeqDataSetFromMatrix]{DESeq2::DESeqDataSetFromMatrix()}} constructors to generate the
+\code{DESeqDataSet} object.
+}
+
+\section{DESeqResults}{
+
+
+Don't modify any of the \code{DESeqResults} objects manually. This includes
+rearranging the rows or dropping genes without adjusted P values. We'll take
+care of this automatically in supported methods.
+}
+
 \examples{
 data(bcb_small)
 library(DESeq2)

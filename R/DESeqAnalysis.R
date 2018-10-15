@@ -1,5 +1,4 @@
-#' `DESeqAnalysis` Generator
-#'
+#' @inherit DESeqAnalysis-class
 #' @family S4 Generators
 #' @author Michael Steinbaugh
 #' @export
@@ -44,5 +43,16 @@ DESeqAnalysis <- function(
         transform = transform,
         results = results,
         lfcShrink = lfcShrink
+    )
+}
+
+
+
+.contrastNames <- function(object) {
+    stopifnot(is(object, "DESeqAnalysis"))
+    vapply(
+        X = slot(object, "results"),
+        FUN = contrastName,
+        FUN.VALUE = character(1L)
     )
 }

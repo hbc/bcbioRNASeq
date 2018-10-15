@@ -5,6 +5,7 @@
 \alias{plotMeanSD}
 \alias{plotMeanSD,bcbioRNASeq-method}
 \alias{plotMeanSD,DESeqDataSet-method}
+\alias{plotMeanSD,DESeqAnalysis-method}
 \title{Plot Row Standard Deviations vs. Row Means}
 \usage{
 plotMeanSD(object, ...)
@@ -14,6 +15,8 @@ plotMeanSD(object, ...)
 
 \S4method{plotMeanSD}{DESeqDataSet}(object, vst = TRUE, rlog = FALSE,
   legend = getOption("basejump.legend", FALSE))
+
+\S4method{plotMeanSD}{DESeqAnalysis}(object)
 }
 \arguments{
 \item{object}{Object.}
@@ -38,45 +41,30 @@ discouraged by default for visualization.}
 }
 \details{
 \itemize{
-\item \strong{DESeq2 log2}: log2 normalized counts.
-\item \strong{DESeq2 rlog}: regularized log transformation.
-\item \strong{DESeq2 vst}: variance stabilizing transformation.
-\item \strong{edgeR log2 tmm}: log2 trimmed mean of M-values transformation.
+\item DESeq2 log2: log2 size factor-adjusted normalized counts.
+\item DESeq2 rlog: \strong{r}egularized \strong{log} transformation.
+\item DESeq2 VST: \strong{v}ariance-\strong{s}tabilizing \strong{t}ransformation.
+\item edgeR log2 TMM: log2 \strong{t}rimmed \strong{m}ean of \strong{M}-values transformation.
 }
 }
 \examples{
-data(bcb_small, dds_small)
+data(bcb_small, deseq_small)
 
-# bcbioRNASeq ====
+## bcbioRNASeq ====
 plotMeanSD(bcb_small)
 
-# DESeqDataSet ====
-dds_small <- as(deseq_small, "DESeqDataSet")
-plotMeanSD(dds_small)
+## DESeqAnalysis ====
+plotMeanSD(deseq_small)
 }
 \seealso{
 \itemize{
-\item \code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}}.
-\item \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
-\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
-\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
-\item \code{\link[=tmm]{tmm()}}.
+\item \link[vsn:meanSdPlot]{vsn::meanSdPlot}.
+\item \link[DESeq2:DESeq]{DESeq2::DESeq}.
+\item \link[DESeq2:rlog]{DESeq2::rlog}.
+\item \link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation}.
+\item \link[edgeR:calcNormFactors]{edgeR::calcNormFactors}.
 }
-
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotDispEsts}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotPCA}},
-  \code{\link{plotQC}}, \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh, Lorena Patano
 }
-\concept{Quality Control Functions}

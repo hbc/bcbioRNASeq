@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title><code>DESeqAnalysis</code> Generator — DESeqAnalysis • bcbioRNASeq</title>
+<title>DESeq2 Analysis Container — DESeqAnalysis • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,9 +32,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="<code>DESeqAnalysis</code> Generator — DESeqAnalysis" />
+<meta property="og:title" content="DESeq2 Analysis Container — DESeqAnalysis" />
 
-<meta property="og:description" content="DESeqAnalysis Generator" />
+<meta property="og:description" content="Class containing all elements generated during differential expression
+analysis with DESeq2. This class is essentially a list with validity checks
+to ensure DESeqTransform and DESeqResults correspond to the
+DESeqDataSet." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,14 +108,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><code>DESeqAnalysis</code> Generator</h1>
+    <h1>DESeq2 Analysis Container</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/DESeqAnalysis.R'><code>R/DESeqAnalysis.R</code></a></small>
     <div class="hidden name"><code>DESeqAnalysis.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>DESeqAnalysis</code> Generator</p>
+    <p>Class containing all elements generated during differential expression
+analysis with DESeq2. This class is essentially a <code>list</code> with validity checks
+to ensure <code>DESeqTransform</code> and <code>DESeqResults</code> correspond to the
+<code>DESeqDataSet</code>.</p>
     
     </div>
 
@@ -145,6 +151,21 @@
 
     <p><code>DESeqAnalysis</code>.</p>
     
+    <h2 class="hasAnchor" id="deseqdataset"><a class="anchor" href="#deseqdataset"></a>DESeqDataSet</h2>
+
+    
+    <p>We recommend generating the <code>DESeqDataSet</code> by coercion from <code>bcbioRNASeq</code>
+object using <code><a href='as.html'>as(dds, "bcbioRNASeq")</a></code>. Don't use the <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeq2::DESeqDataSet()</a></code>
+or <code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeq2::DESeqDataSetFromMatrix()</a></code> constructors to generate the
+<code>DESeqDataSet</code> object.</p>
+    
+    <h2 class="hasAnchor" id="deseqresults"><a class="anchor" href="#deseqresults"></a>DESeqResults</h2>
+
+    
+    <p>Don't modify any of the <code>DESeqResults</code> objects manually. This includes
+rearranging the rows or dropping genes without adjusted P values. We'll take
+care of this automatically in supported methods.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other S4 Generators: <code><a href='DESeqResultsTables.html'>DESeqResultsTables</a></code>,
@@ -152,8 +173,9 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>DESeq2</span>)
-<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='coerce.html'>as</a></span>(<span class='no'>bcb_small</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>Coercing bcbioRNASeq to DESeqDataSet with DESeq2 1.21.22...</span></div><div class='input'><span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/design'>design</a></span>(<span class='no'>dds</span>) <span class='kw'>&lt;-</span> ~ <span class='no'>treatment</span>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
+<span class='fu'>library</span>(<span class='no'>DESeq2</span>)
+<span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>bcb_small</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.21.23.</span></div><div class='input'><span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/design'>design</a></span>(<span class='no'>dds</span>) <span class='kw'>&lt;-</span> ~ <span class='no'>treatment</span>
 <span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq</a></span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='input'><span class='fu'>class</span>(<span class='no'>dds</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
 #&gt; attr(,"package")
 #&gt; [1] "DESeq2"</div><div class='input'><span class='no'>vst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>varianceStabilizingTransformation</a></span>(<span class='no'>dds</span>)
@@ -168,21 +190,12 @@
     <span class='kw'>results</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>res</span>),
     <span class='kw'>lfcShrink</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/DESeq2/topics/lfcShrink'>lfcShrink</a></span>(<span class='kw'>dds</span> <span class='kw'>=</span> <span class='no'>dds</span>, <span class='kw'>coef</span> <span class='kw'>=</span> <span class='fl'>2L</span>))
 )</div><div class='output co'>#&gt; <span class='message'>using 'normal' for LFC shrinkage, the Normal prior from Love et al (2014).</span>
-#&gt; <span class='message'>    additional priors are available via the 'type' argument, see ?lfcShrink for details</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; DESeqAnalysis 1.21.22
-#&gt; Transform: vst
-#&gt; Results (1):
-#&gt;   - treatment folic acid vs control
-#&gt; ────────────────────────────────────────────────────────────────────────
-#&gt; class: DESeqDataSet 
-#&gt; dim: 500 6 
-#&gt; metadata(27): version level ... sessionInfo subset
-#&gt; assays(4): counts mu H cooks
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(29): broadClass description ... deviance maxCooks
-#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(27): averageInsertSize averageReadLength ... treatment
-#&gt;   sizeFactor</div></pre>
+#&gt; <span class='message'>    additional priors are available via the 'type' argument, see ?lfcShrink for details</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; DESeqAnalysis 1.21.23
+#&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
+#&gt; citation("bcbioRNASeq")
+#&gt; transform: vst
+#&gt; contrastNames: treatment folic acid vs control
+#&gt; class: DESeqDataSet  dim: 500 6  metadata(11): version caller ... date sessionInfo assays(4): counts mu H cooks rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...   ENSMUSG00000114367 ENSMUSG00000114458 rowData names(29): broadClass description ... deviance maxCooks colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3 colData names(8): sampleName day ... interestingGroups sizeFactor</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -190,6 +203,10 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#deseqdataset">DESeqDataSet</a></li>
+
+      <li><a href="#deseqresults">DESeqResults</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

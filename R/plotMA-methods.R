@@ -1,29 +1,28 @@
-#' MA Plot
+#' @name plotMA
+#' @importFrom BiocGenerics plotMA
+#' @inherit BiocGenerics::plotMA
+#' @author Michael Steinbaugh, Rory Kirchner
+#' @export
 #'
+#' @details
 #' An MA plot is an application of a Bland–Altman plot for visual representation
 #' of genomic data. The plot visualizes the differences between measurements
 #' taken in two samples, by transforming the data onto M (log ratio) and A
 #' (mean average) scales, then plotting these values.
 #'
-#' @name plotMA
-#' @family Differential Expression Functions
-#' @author Michael Steinbaugh, Rory Kirchner
-#' @importFrom BiocGenerics plotMA
-#' @export
-#'
 #' @inheritParams general
 #'
 #' @return `ggplot`.
 #'
-#' @seealso [DESeq2::plotMA()].
+#' @seealso [DESeq2::plotMA].
 #'
 #' @examples
 #' data(deseq_small)
 #' object <- deseq_small
 #' print(object)
 #'
-#' # DESeqAnalysis ====
-#' # This is the current recommended method.
+#' ## DESeqAnalysis ====
+#' ## This is the current recommended method.
 #'
 #' dds <- as(object, "DESeqDataSet")
 #' g2s <- gene2symbol(dds)
@@ -34,7 +33,7 @@
 #'
 #' plotMA(object)
 #'
-#' # Customize the colors.
+#' ## Customize the colors.
 #' plotMA(
 #'     object = object,
 #'     pointColor = "black",
@@ -48,18 +47,20 @@
 #'     )
 #' )
 #'
-#' # Directional support (up or down).
+#' ## Directional support (up or down).
 #' plotMA(object, direction = "up", ntop = 5L)
 #' plotMA(object, direction = "down", ntop = 5L)
 #'
-#' # Label genes manually.
-#' # Note that either gene IDs or names (symbols) are supported.
+#' ## Label genes manually.
+#' ## Note that either gene IDs or names (symbols) are supported.
 #' plotMA(object = object, genes = geneIDs)
 #' plotMA(object = object, genes = geneNames)
 NULL
 
 
 
+# DESeqResults =================================================================
+# Do not allow post hoc alpha, lfcThreshold cutoffs.
 .plotMA.DESeqResults <-  # nolint
     function(
         object,
@@ -79,8 +80,7 @@ NULL
     ) {
         validObject(object)
         alpha <- metadata(object)[["alpha"]]
-        assert_is_a_number(alpha)
-        assert_all_are_in_left_open_range(alpha, lower = 0L, upper = 1L)
+        assertIsAlpha(alpha)
         lfcThreshold <- metadata(object)[["lfcThreshold"]]
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
@@ -263,6 +263,17 @@ NULL
 
 
 
+#' @rdname plotMA
+#' @export
+setMethod(
+    f = "plotMA",
+    signature = signature("DESeqResults"),
+    definition = .plotMA.DESeqResults
+)
+
+
+
+# DESeqAnalysis ================================================================
 .plotMA.DESeqAnalysis <-  # nolint
     function(
         object,
@@ -280,7 +291,7 @@ NULL
                         lfcShrink = lfcShrink
                     ),
                     genes = genes,
-                    gene2symbol = gene2symbol(object@data)
+                    gene2symbol = gene2symbol(slot(object, "data"))
                 ),
                 removeFormals = c("results", "lfcShrink")
             )
@@ -304,19 +315,10 @@ setMethod(
 
 
 
-#' @rdname plotMA
-#' @export
-setMethod(
-    f = "plotMA",
-    signature = signature("DESeqResults"),
-    definition = .plotMA.DESeqResults
-)
-
-
-
 # Aliases ======================================================================
 #' @rdname plotMA
 #' @export
 plotMeanAverage <- function(...) {
+    # This function is soft deprecated.
     plotMA(...)
 }

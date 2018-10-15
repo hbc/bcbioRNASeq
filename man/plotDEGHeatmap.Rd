@@ -3,20 +3,20 @@
 \docType{methods}
 \name{plotDEGHeatmap}
 \alias{plotDEGHeatmap}
-\alias{plotDEGHeatmap,DESeqAnalysis-method}
 \alias{plotDEGHeatmap,DESeqResults-method}
+\alias{plotDEGHeatmap,DESeqAnalysis-method}
 \title{Differentially Expressed Gene Heatmap}
 \usage{
 plotDEGHeatmap(object, ...)
 
-\S4method{plotDEGHeatmap}{DESeqAnalysis}(object, results, counts,
+\S4method{plotDEGHeatmap}{DESeqResults}(object, counts,
   direction = c("both", "up", "down"), scale = "row", title = TRUE,
   interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
   showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
   treeheightCol = 50L, color = viridis::viridis,
   legendColor = viridis::viridis, borderColor = NULL, ...)
 
-\S4method{plotDEGHeatmap}{DESeqResults}(object, counts,
+\S4method{plotDEGHeatmap}{DESeqAnalysis}(object, results, counts,
   direction = c("both", "up", "down"), scale = "row", title = TRUE,
   interestingGroups = NULL, clusterRows = TRUE, clusterCols = TRUE,
   showRownames = FALSE, showColnames = TRUE, treeheightRow = 0L,
@@ -28,8 +28,6 @@ plotDEGHeatmap(object, ...)
 
 \item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
 arguments should be formatted in camel case, not snake case.}
-
-\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{counts}{\code{DESeqTransform}.}
 
@@ -79,17 +77,21 @@ for legend labels. Note that hexadecimal values are not supported. If set
 
 \item{borderColor}{\code{string} or \code{NULL}. Border color. Disabled by default for
 improved aesthetics.}
+
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 }
 \value{
 \code{pheatmap}.
 }
 \description{
+Construct a simple heatmap.
+}
+\details{
 This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
 optimized for handling a \code{DESeqResults} object rather a gene vector. All of
 the optional parameters for \code{\link[=plotHeatmap]{plotHeatmap()}} are also available to this
 function.
-}
-\details{
+
 To adjust the annotation columns, modify the \code{colData} of the \code{counts}
 argument, which must contain a \code{SummarizedExperiment} (e.g. \code{DESeqTransform},
 \code{DESeqDataSet}).
@@ -123,10 +125,10 @@ Apply quantile breaks.
 \examples{
 data(deseq_small)
 
-# DESeqAnalysis ====
+## DESeqAnalysis ====
 plotDEGHeatmap(deseq_small)
 
-# DESeqResults ====
+## DESeqResults ====
 plotDEGHeatmap(
     object = as(deseq_small, "DESeqResults"),
     counts = as(deseq_small, "DESeqTransform")
@@ -134,15 +136,23 @@ plotDEGHeatmap(
 }
 \seealso{
 \itemize{
-\item \code{help("plotHeatmap", "basejump")}.
-\item \code{findMethod("plotHeatmap", "SummarizedExperiment")}.
+\item \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
+\item \code{\link[RColorBrewer:brewer.pal]{RColorBrewer::brewer.pal()}}.
 }
 
-Other Differential Expression Functions: \code{\link{alphaSummary}},
-  \code{\link{contrastName}}, \code{\link{plotDEGPCA}},
-  \code{\link{plotMA}}, \code{\link{plotVolcano}}
+\itemize{
+\item \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
+\item \code{\link[stats:cor]{stats::cor()}}.
+\item \code{\link[stats:hclust]{stats::hclust()}}.
+}
+
+Other Plots: \code{\link{plotCountsPerBiotype}},
+  \code{\link{plotCountsPerGene}},
+  \code{\link{plotGenderMarkers}},
+  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
+  \code{\link{plotQC}}, \code{\link{plotTotalCounts}},
+  \code{\link{plotZerosVsDepth}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Differential Expression Functions}

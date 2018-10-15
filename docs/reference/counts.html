@@ -34,9 +34,8 @@
   
 <meta property="og:title" content="Count Matrix Accessors — counts" />
 
-<meta property="og:description" content="By default, counts() returns the raw counts. Normalized counts, including
-transcripts per million (TPM) can be accessed using the &quot;normalized&quot;
-argument." />
+<meta property="og:description" content="By default, returns the raw counts. Normalized counts in a variety of formats
+can be accessed using the normalized argument." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,9 +113,8 @@ argument." />
 
     <div class="ref-description">
     
-    <p>By default, <code>counts()</code> returns the raw counts. Normalized counts, including
-transcripts per million (TPM) can be accessed using the <code>"normalized"</code>
-argument.</p>
+    <p>By default, returns the raw counts. Normalized counts in a variety of formats
+can be accessed using the <code>normalized</code> argument.</p>
     
     </div>
 
@@ -133,16 +131,35 @@ argument.</p>
     <tr>
       <th>normalized</th>
       <td><p><code>string</code> or <code>boolean</code>. Which normalization method to apply:</p><ul>
-<li><p><code>FALSE</code>: Raw counts (tximport).</p></li>
-<li><p><code>TRUE</code>: DESeq2 normalized counts. Calculated on the fly.</p></li>
-<li><p><code>"tpm"</code>: Transcripts per million (tximport).</p></li>
-<li><p><code>"vst"</code>: DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-<li><p><code>"rlog"</code>: DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p><code>"tmm"</code>: edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p><code>"rle"</code>: Relative log expression transformation.</p></li>
+<li><p><code>FALSE</code>: Raw counts.</p><ul>
+<li><p>When using a <a href='https://bioconductor.org/packages/release/bioc/html/tximport.html'>tximport</a>-compatible caller, these are length scaled
+by default (see <code>countsFromAbundance</code>).</p></li>
+<li><p>When using a <a href='http://bioinf.wehi.edu.au/featureCounts/'>featureCounts</a>-compatible caller, these are <code>integer</code>.</p></li>
+</ul></li>
 </ul>
 
-<p>Note that transcript-level counts support only <code>FALSE</code> and <code>"tpm"</code>.</p></td>
+<p><a href='https://bioconductor.org/packages/release/bioc/html/tximport.html'>tximport</a> caller-specific normalizations:</p><ul>
+<li><p><code>"tpm"</code>: <strong>T</strong>ranscripts <strong>p</strong>er <strong>m</strong>illion.</p></li>
+</ul>
+
+<p>Additional gene-level-specific normalizations:</p><ul>
+<li><p><code>TRUE</code>: Size factor-adjusted counts.<br />
+See <a href='http://www.rdocumentation.org/packages/DESeq2/topics/sizeFactors'>DESeq2::sizeFactors</a> for more information.</p></li>
+<li><p><code>"vst"</code>: <strong>V</strong>ariance-<strong>s</strong>tabilizing <strong>t</strong>ransformation.<br />
+Requires <code>vst = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
+See <a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation</a> for more information.</p></li>
+<li><p><code>"rlog"</code>: <strong>R</strong>egularized <strong>log</strong> transformation (log2).<br />
+Requires <code>rlog = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
+See <a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog</a> for more information.</p></li>
+<li><p><code>"tmm"</code>: <strong>T</strong>rimmed <strong>m</strong>ean of <strong>M</strong>-values.<br />
+See <a href='http://www.rdocumentation.org/packages/edgeR/topics/calcNormFactors'>edgeR::calcNormFactors</a> for more information.</p></li>
+<li><p><code>"rle"</code>: <strong>R</strong>elative <strong>l</strong>og <strong>e</strong>xpression transformation.</p></li>
+<li><p><code>"fpkm"</code>: <strong>F</strong>ragments <strong>p</strong>er <strong>k</strong>ilobase per <strong>m</strong>illion mapped
+fragments.<br />
+Requires annotations in <code>rowRanges()</code> with defined widths, otherwise
+will be skipped during the <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> load call.<br />
+See <a href='http://www.rdocumentation.org/packages/DESeq2/topics/fpkm'>DESeq2::fpkm</a> for more information.</p></li>
+</ul></td>
     </tr>
     </table>
     
@@ -150,74 +167,43 @@ argument.</p>
 
     <p><code>matrix</code>.</p>
     
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <ul>
+<li><p>TMM: Robinson and Oshlack (2010).</p></li>
+<li><p>RLE: Anders and Huber (2010).</p></li>
+</ul>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p><code>tpm()</code>.</p></li>
-<li><p><code><a href='tmm.html'>tmm()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/counts'>DESeq2::counts()</a></code>.</p></li>
-<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/sizeFactors'>DESeq2::sizeFactors()</a></code>.</p></li>
 <li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/fpkm'>DESeq2::fpkm()</a></code>.</p></li>
+<li><p><code><a href='http://www.rdocumentation.org/packages/edgeR/topics/calcNormFactors'>edgeR::calcNormFactors()</a></code>.</p></li>
+<li><p><code><a href='tmm.html'>tmm()</a></code>, <code><a href='relativeLogExpression.html'>relativeLogExpression()</a></code>.</p></li>
 </ul></div>
-    <div class='dont-index'><p>Other Data Functions: <code><a href='sampleData.html'>sampleData</a></code>,
-  <code><a href='tmm.html'>tmm</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
+<span class='fu'>counts</span>(<span class='no'>bcb_small</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
 #&gt;  Min.   :       0   Min.   :       0   Min.   :       0   Min.   :       1  
-#&gt;  1st Qu.:     420   1st Qu.:     926   1st Qu.:     322   1st Qu.:     599  
-#&gt;  Median :    1437   Median :    3469   Median :    1360   Median :    1761  
-#&gt;  Mean   :   43587   Mean   :   86418   Mean   :   41182   Mean   :   39387  
-#&gt;  3rd Qu.:    4749   3rd Qu.:   11303   3rd Qu.:    4207   3rd Qu.:    5385  
+#&gt;  1st Qu.:     419   1st Qu.:     904   1st Qu.:     317   1st Qu.:     579  
+#&gt;  Median :    1389   Median :    3397   Median :    1315   Median :    1725  
+#&gt;  Mean   :   43568   Mean   :   86384   Mean   :   41167   Mean   :   39351  
+#&gt;  3rd Qu.:    4692   3rd Qu.:   11303   3rd Qu.:    4125   3rd Qu.:    5373  
 #&gt;  Max.   :11767239   Max.   :22627793   Max.   :11608372   Max.   :10623916  
 #&gt;   fa_day7_rep2      fa_day7_rep3     
 #&gt;  Min.   :      0   Min.   :       0  
-#&gt;  1st Qu.:    504   1st Qu.:     771  
-#&gt;  Median :   1565   Median :    1936  
-#&gt;  Mean   :  34620   Mean   :   42456  
-#&gt;  3rd Qu.:   4840   3rd Qu.:    5320  
-#&gt;  Max.   :9676254   Max.   :12145225  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1       control_rep2       control_rep3       fa_day7_rep1     
-#&gt;  Min.   :       0   Min.   :       0   Min.   :       0   Min.   :       1  
-#&gt;  1st Qu.:     513   1st Qu.:     484   1st Qu.:     439   1st Qu.:     599  
-#&gt;  Median :    1754   Median :    1816   Median :    1854   Median :    1759  
-#&gt;  Mean   :   53216   Mean   :   45233   Mean   :   56164   Mean   :   39342  
-#&gt;  3rd Qu.:    5798   3rd Qu.:    5916   3rd Qu.:    5738   3rd Qu.:    5379  
-#&gt;  Max.   :14366610   Max.   :11843822   Max.   :15831507   Max.   :10611940  
-#&gt;   fa_day7_rep2       fa_day7_rep3     
-#&gt;  Min.   :       0   Min.   :       0  
-#&gt;  1st Qu.:     580   1st Qu.:     761  
-#&gt;  Median :    1803   Median :    1909  
-#&gt;  Mean   :   39874   Mean   :   41869  
-#&gt;  3rd Qu.:    5575   3rd Qu.:    5246  
-#&gt;  Max.   :11144754   Max.   :11977303  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"tpm"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1        control_rep2       control_rep3       fa_day7_rep1      
-#&gt;  Min.   :     0.00   Min.   :     0.0   Min.   :     0.0   Min.   :     1.48  
-#&gt;  1st Qu.:    50.48   1st Qu.:    55.5   1st Qu.:    65.9   1st Qu.:    93.29  
-#&gt;  Median :    83.12   Median :    95.0   Median :   107.6   Median :   144.09  
-#&gt;  Mean   :  1828.61   Mean   :  1817.5   Mean   :  1788.3   Mean   :  1672.23  
-#&gt;  3rd Qu.:   184.63   3rd Qu.:   181.8   3rd Qu.:   219.1   3rd Qu.:   254.47  
-#&gt;  Max.   :292758.61   Max.   :320187.5   Max.   :337651.9   Max.   :272312.78  
-#&gt;   fa_day7_rep2        fa_day7_rep3      
-#&gt;  Min.   :     0.00   Min.   :     0.00  
-#&gt;  1st Qu.:    92.77   1st Qu.:    78.54  
-#&gt;  Median :   138.55   Median :   117.01  
-#&gt;  Mean   :  1662.03   Mean   :  1734.09  
-#&gt;  3rd Qu.:   236.03   3rd Qu.:   210.51  
-#&gt;  Max.   :291312.78   Max.   :270608.66  </div><div class='input'><span class='fu'>counts</span>(<span class='no'>bcb_small</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>summary</span>()</div><div class='output co'>#&gt;   control_rep1     control_rep2     control_rep3     fa_day7_rep1   
-#&gt;  Min.   : 4.666   Min.   : 4.666   Min.   : 4.666   Min.   : 4.952  
-#&gt;  1st Qu.: 9.135   1st Qu.: 9.061   1st Qu.: 8.932   1st Qu.: 9.341  
-#&gt;  Median :10.817   Median :10.866   Median :10.895   Median :10.821  
-#&gt;  Mean   :10.805   Mean   :10.794   Mean   :10.777   Mean   :10.850  
-#&gt;  3rd Qu.:12.514   3rd Qu.:12.543   3rd Qu.:12.499   3rd Qu.:12.407  
-#&gt;  Max.   :23.776   Max.   :23.498   Max.   :23.916   Max.   :23.339  
-#&gt;   fa_day7_rep2     fa_day7_rep3   
-#&gt;  Min.   : 4.666   Min.   : 4.666  
-#&gt;  1st Qu.: 9.298   1st Qu.: 9.663  
-#&gt;  Median :10.856   Median :10.936  
-#&gt;  Mean   :10.798   Mean   :10.831  
-#&gt;  3rd Qu.:12.458   3rd Qu.:12.371  
-#&gt;  Max.   :23.410   Max.   :23.514  </div></pre>
+#&gt;  1st Qu.:    501   1st Qu.:     769  
+#&gt;  Median :   1557   Median :    1904  
+#&gt;  Mean   :  34610   Mean   :   42438  
+#&gt;  3rd Qu.:   4840   3rd Qu.:    5304  
+#&gt;  Max.   :9676254   Max.   :12145225  </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -225,6 +211,8 @@ argument.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

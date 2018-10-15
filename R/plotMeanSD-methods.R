@@ -2,20 +2,19 @@
 #'
 #' [vsn::meanSdPlot()] wrapper that plots count transformations on a log2 scale.
 #'
-#' - **DESeq2 log2**: log2 normalized counts.
-#' - **DESeq2 rlog**: regularized log transformation.
-#' - **DESeq2 vst**: variance stabilizing transformation.
-#' - **edgeR log2 tmm**: log2 trimmed mean of M-values transformation.
+#' - DESeq2 log2: log2 size factor-adjusted normalized counts.
+#' - DESeq2 rlog: **r**egularized **log** transformation.
+#' - DESeq2 VST: **v**ariance-**s**tabilizing **t**ransformation.
+#' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
 #' @seealso
-#' - [vsn::meanSdPlot()].
-#' - [DESeq2::DESeq()].
-#' - [DESeq2::rlog()].
-#' - [DESeq2::varianceStabilizingTransformation()].
-#' - [tmm()].
+#' - [vsn::meanSdPlot].
+#' - [DESeq2::DESeq].
+#' - [DESeq2::rlog].
+#' - [DESeq2::varianceStabilizingTransformation].
+#' - [edgeR::calcNormFactors].
 #'
 #' @name plotMeanSD
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Lorena Patano
 #' @export
 #'
@@ -25,18 +24,18 @@
 #' @return `ggplot` grid.
 #'
 #' @examples
-#' data(bcb_small, dds_small)
+#' data(bcb_small, deseq_small)
 #'
-#' # bcbioRNASeq ====
+#' ## bcbioRNASeq ====
 #' plotMeanSD(bcb_small)
 #'
-#' # DESeqDataSet ====
-#' dds_small <- as(deseq_small, "DESeqDataSet")
-#' plotMeanSD(dds_small)
+#' ## DESeqAnalysis ====
+#' plotMeanSD(deseq_small)
 NULL
 
 
 
+# Internal plot grid constructor ===============================================
 # Match the vst, rlog conventions to `bcbioRNASeq()` generator.
 .plotMeanSD <- function(
     raw,
@@ -129,14 +128,11 @@ NULL
 
 
 
+# bcbioRNASeq ==================================================================
 # Require that the DESeq2 transformations are slotted.
 # If `transformationLimit` was applied, this function will error.
-#' @rdname plotMeanSD
-#' @export
-setMethod(
-    f = "plotMeanSD",
-    signature = signature("bcbioRNASeq"),
-    definition = function(
+.plotMeanSD.bcbioRNASeq <-  # nolint
+    function(
         object,
         legend = getOption("basejump.legend", FALSE)
     ) {
@@ -148,7 +144,6 @@ setMethod(
             legend = legend
         )
     }
-)
 
 
 
@@ -156,8 +151,15 @@ setMethod(
 #' @export
 setMethod(
     f = "plotMeanSD",
-    signature = signature("DESeqDataSet"),
-    definition = function(
+    signature = signature("bcbioRNASeq"),
+    definition = .plotMeanSD.bcbioRNASeq
+)
+
+
+
+# DESeqDataSet =================================================================
+.plotMeanSD.DESeqDataSet <-  # nolint
+    function(
         object,
         vst = TRUE,
         rlog = FALSE,
@@ -183,5 +185,27 @@ setMethod(
             rlog = rlog,
             legend = legend
         )
+    }
+
+
+
+#' @rdname plotMeanSD
+#' @export
+setMethod(
+    f = "plotMeanSD",
+    signature = signature("DESeqDataSet"),
+    definition = .plotMeanSD.DESeqDataSet
+)
+
+
+
+# DESeqAnalysis ================================================================
+#' @rdname plotMeanSD
+#' @export
+setMethod(
+    f = "plotMeanSD",
+    signature = signature("DESeqAnalysis"),
+    definition = function(object) {
+        plotMeanSD(as(object, "DESeqDataSet"))
     }
 )

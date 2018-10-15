@@ -4,7 +4,6 @@
 #' per sample.
 #'
 #' @name plotTotalReads
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @export
 #'

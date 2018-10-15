@@ -1,9 +1,7 @@
-#' Markdown
-#'
 #' @name markdown
-#' @author Michael Steinbaugh
 #' @importFrom basejump markdown
 #' @inherit basejump::markdown
+#' @author Michael Steinbaugh
 #' @export
 #'
 #' @inheritParams general
@@ -16,68 +14,93 @@ NULL
 
 
 
+# bcbioRNASeq ==================================================================
+.markdown.bcbioRNASeq <-  # nolint
+    function(object) {
+        rse <- as(object, "RangedSummarizedExperiment")
+        sampleData(rse) <- sampleData(object, clean = TRUE)
+        markdown(rse)
+    }
+
+
+
+#' @describeIn markdown Sample metadata table.
+#' @export
+setMethod(
+    f = "markdown",
+    signature = signature("bcbioRNASeq"),
+    definition = .markdown.bcbioRNASeq
+)
+
+
+
+# DESeqResultsTables ===========================================================
 .markdown.DESeqResultsTables <-  # nolint
     function(
         object,
         headerLevel = 2L
     ) {
-        assert_is_all_of(object, "DESeqResultsTables")
+        stopifnot(is(object, "DESeqResultsTables"))
         validObject(object)
         assertIsHeaderLevel(headerLevel)
+        
+        metadata <- slot(object, "metadata")
 
         # Include a contrast header, which is useful for looping.
         contrast <- contrastName(object)
         markdownHeader(contrast, level = headerLevel, asis = TRUE)
         headerLevel <- headerLevel + 1L
 
-        # CSV file links -------------------------------------------------------
-        paths <- NULL
-        # Prioritze `dropboxFiles` over `localFiles`.
-        if (length(object@dropboxFiles) > 0L) {
-            # nocov start
-            # Using local Dropbox token for code coverage here.
-            paths <- vapply(
-                X = object@dropboxFiles,
-                FUN = function(x) {
-                    x[["url"]]
-                },
-                FUN.VALUE = "character"
-            )
-            basenames <- gsub("\\?.*$", "", basename(paths))
-            # nocov end
-        } else if (length(object@localFiles) > 0L) {
-            paths <- object@localFiles
-        } else {
-            message("Object doesn't contain saved file paths.")
-        }
+        # File paths -----------------------------------------------------------
+        files <- metadata[["files"]]
 
-        if (length(paths) > 0L) {
-            basenames <- basename(paths)
-            names(basenames) <- names(paths)
-            markdownHeader("CSV file links", level = headerLevel, asis = TRUE)
+        if (length(files) > 0L) {
+            # Get Dropbox URLs, if necessary.
+            dropbox <- metadata[["dropbox"]]
+            if (isTRUE(dropbox)) {
+                # nocov start
+                # Using local Dropbox token for code coverage here.
+                files <- vapply(
+                    X = files,
+                    FUN = function(x) {
+                        x[["url"]]
+                    },
+                    FUN.VALUE = "character"
+                )
+                # Remove trailing query string from URL.
+                basenames <- gsub("\\?.*$", "", basename(files))
+                # nocov end
+            } else {
+                basenames <- basename(files)
+            }
+            names(basenames) <- names(files)
+
+            markdownHeader("File downloads", level = headerLevel, asis = TRUE)
             markdownList(c(
                 paste0(
                     "[`", basenames[["all"]], "`]",
-                    "(", paths[["all"]], "): ",
+                    "(", files[["all"]], "): ",
                     "All genes, sorted by Ensembl identifier."
                 ),
                 paste0(
                     "[`", basenames[["deg"]], "`]",
-                    "(", paths[["deg"]], "): ",
+                    "(", files[["deg"]], "): ",
                     "Genes that pass the alpha (FDR) and",
                     "log2 fold change (LFC) cutoffs."
                 ),
                 paste0(
                     "[`", basenames[["degUp"]], "`]",
-                    "(", paths[["degUp"]], "): ",
+                    "(", files[["degUp"]], "): ",
                     "Upregulated DEG; positive fold change."
                 ),
                 paste0(
                     "[`", basenames[["degDown"]], "`]",
-                    "(", paths[["degDown"]], "): ",
+                    "(", files[["degDown"]], "): ",
                     "Downregulated DEG; negative fold change."
                 )
             ), asis = TRUE)
+        } else {
+            message("Object doesn't contain saved file paths.")
         }
 
         # Top tables -----------------------------------------------------------
@@ -87,10 +110,29 @@ NULL
 
 
 
-#' @rdname markdown
+#' @describeIn markdown File paths (if exported) and top tables.
 #' @export
 setMethod(
     f = "markdown",
     signature = signature("DESeqResultsTables"),
     definition = .markdown.DESeqResultsTables
+)
+
+
+
+# DESeqAnalysis ================================================================
+.markdown.DESeqAnalysis <-  # nolint
+    function(object) {
+        show(markdownHeader("Contrast names"))
+        show(markdownList(.contrastNames(object)))
+    }
+
+
+
+#' @describeIn markdown List of contrast names.
+#' @export
+setMethod(
+    f = "markdown",
+    signature = signature("DESeqAnalysis"),
+    definition = .markdown.DESeqAnalysis
 )
