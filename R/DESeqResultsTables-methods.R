@@ -1,7 +1,3 @@
-# FIXME Stash `rowData` as a slot.
-
-
-
 #' @inherit DESeqResultsTables-class
 #' @name DESeqResultsTables
 #' @family S4 Generators
@@ -80,10 +76,54 @@ NULL
 
 
 
+# FIXME Use this in `export()` method.
+.joinDESeqResults <- function(
+    object,
+    rowData = TRUE,
+    counts = TRUE
+) {
+    stopifnot(is(object, "DESeqResultsTables"))
+    assert_is_a_bool(rowData)
+    assert_is_a_bool(counts)
+
+    # Get slotted DESeqResults object and coerce.
+    results <- object@results
+    data <- as(results, "DataFrame")
+
+    # Row annotations.
+    if (isTRUE(rowData)) {
+        rowData <- object@rowData
+        if (ncol(rowData) > 0L) {
+            message("Joining row annotations.")
+            assert_are_identical(rownames(data), rownames(rowData))
+            data <- cbind(data, rowData)
+        }
+    }
+
+    # Variance-stabilized counts (DESeqTransform).
+    # FIXME Convert to human friendly sample names here, if necessary.
+    if (isTRUE(counts)) {
+        message("Joining DESeq2 transform counts.")
+        counts <- object@counts
+        assert_are_disjoint_sets(colnames(data), colnames(counts))
+        assert_are_identical(rownames(data), rownames(counts))
+        data <- cbind(data, counts)
+    }
+
+    # Regenerate the DESeqResults.
+    DESeqResults(
+        DataFrame = data,
+        priorInfo = priorInfo(results)
+    )
+}
+
+
+
+# Consider not exporting this as a method, and requiring DESeqAnalysis.
 .DESeqResultsTables.DESeqResults <-  # nolint
     function(object) {
         validObject(object)
-        assert_is_all_of(object, "DESeqResults")
+        stopifnot(is(object, "DESeqResults"))
         assert_is_subset(c("log2FoldChange", "padj"), colnames(object))
         alpha <- metadata(object)[["alpha"]]
         assertIsAlpha(alpha)
@@ -113,16 +153,17 @@ NULL
             # Remove genes that don't pass LFC threshold.
             filter(!!lfc > !!lfcThreshold | !!lfc < -UQ(lfcThreshold))
         # Get directional subsets.
-        degUp <- filter(deg, !!lfc > 0L)
-        degDown <- filter(deg, !!lfc < 0L)
+        up <- deg %>%
+            filter(!!lfc > 0L) %>%
+            pull("rowname")
+        down <- deg %>%
+            filter(!!lfc < 0L) %>%
+            pull("rowname")
 
         new(
             Class = "DESeqResultsTables",
-            results = object
-            # FIXME This is broken.
-            # deg = as(deg, "DataFrame"),
-            # degUp = as(degUp, "DataFrame"),
-            # degDown = as(degDown, "DataFrame")
+            results = object,
+            deg = list(up = up, down = down)
         )
     }
 
@@ -140,62 +181,61 @@ NULL
         assert_is_a_bool(rowData)
         assert_is_a_bool(counts)
 
-        # Match the DESeqResults object.
+        data <- as(object, "DESeqDataSet")
+        transform <- as(object, "DESeqTransform")
         results <- .matchResults(
             object = object,
             results = results,
             lfcShrink = lfcShrink
         )
 
-        # Add columns (optional) -----------------------------------------------
-        if (isTRUE(rowData) || isTRUE(counts)) {
-            # Coerce to `DataFrame`.
-            # We'll regenerate a modified `DESeqResults` from this below.
-            data <- as(results, "DataFrame")
+        # Generate object using DESeqResults.
+        out <- DESeqResultsTables(results)
 
-            # Row annotations.
-            if (isTRUE(rowData)) {
-                rowData <- sanitizeRowData(rowData(object@data))
-                # DESeq2 includes additional information in `rowData()` that
-                # isn't informative for a user, and doesn't need to be included
-                # in the CSV. Use our `bcb_small` example dataset to figure out
-                # which columns are worth including.
-                data(bcb_small, envir = environment())
-                keep <- intersect(
-                    x = colnames(rowData),
-                    y = colnames(rowData(bcb_small))
-                )
-                assert_is_non_empty(keep)
-                message(paste(
-                    "Adding `rowData()` annotations (atomic columns only).",
-                    printString(keep),
-                    sep = "\n"
-                ))
-                rowData <- rowData[, keep, drop = FALSE]
-                assert_all_are_true(vapply(rowData, is.atomic, logical(1L)))
-                assert_is_non_empty(rowData)
-                assert_are_disjoint_sets(colnames(data), colnames(rowData))
-                data <- cbind(data, rowData)
-            }
+        # Slot variance-stabilized counts.
+        out@counts <- assay(transform)
 
-            # DESeq2 normalized counts
-            if (isTRUE(counts)) {
-                message("Adding DESeq2 normalized counts.")
-                counts <- counts(object@data, normalized = TRUE)
-                assert_are_disjoint_sets(colnames(data), colnames(counts))
-                assert_are_identical(rownames(data), rownames(counts))
-                data <- cbind(data, counts)
-            }
+        # Slot rowData.
+        rowData <- sanitizeRowData(rowData(object@data))
+        # DESeq2 includes additional information in `rowData()` that isn't
+        # informative for a user, and doesn't need to be included in the CSV.
+        # Use our `bcb_small` example dataset to figure out which columns are
+        # worth including.
+        data(bcb_small, envir = environment())
+        keep <- intersect(
+            x = colnames(rowData),
+            y = colnames(rowData(bcb_small))
+        )
+        assert_is_non_empty(keep)
+        message(paste(
+            "Adding `rowData()` annotations (atomic columns only).",
+            printString(keep),
+            sep = "\n"
+        ))
+        rowData <- rowData[, keep, drop = FALSE]
+        assert_all_are_true(vapply(rowData, is.atomic, logical(1L)))
+        assert_is_non_empty(rowData)
+        assert_are_disjoint_sets(colnames(data), colnames(rowData))
+        out@rowData <- rowData
 
-            # Regenerate the DESeqResults.
-            results <- DESeqResults(
-                DataFrame = data,
-                priorInfo = priorInfo(results)
+        # Slot human-friendly sample names, if they are defined.
+        sampleNames <- sampleNames(data)
+        if (
+            has_length(sampleNames) &&
+            !identical(
+                x = as.character(sampleNames),
+                y = colnames(data)
             )
+        ) {
+            out@sampleNames <- sampleNames(data)
         }
 
-        # Return ---------------------------------------------------------------
-        DESeqResultsTables(results)
+        # Slot metadata.
+        out@metadata <- list(
+            version = metadata(data)[["version"]]
+        )
+
+        out
     }
 
 
