@@ -10,21 +10,24 @@
 \section{Slots}{
 
 \describe{
-\item{\code{all}}{\code{DESeqResults}. Original unmodified \code{DESeqResults}. Should contain
-all genes, including those with \code{NA} adjusted \emph{P} values.}
+\item{\code{results}}{\code{DESeqResults}. Original unmodified \code{DESeqResults}. Should
+contain all genes, including those with \code{NA} adjusted \emph{P} values.}
 
-\item{\code{deg}}{\code{DataFrame}. Subset containing genes that pass adjusted \emph{P} value
-and log2 fold change cutoffs.}
+\item{\code{deg}}{\code{list}. Differentially expressed genes. Contains \code{character}
+vectors of genes that are upregulated (\code{up}) or downregulated (\code{down}).
+Values map to the \code{rownames} of the internal \code{DESeqResults}. These are
+genes that pass \code{alpha} and \code{lfcThreshold} cutoffs set in
+\code{\link[DESeq2:results]{DESeq2::results()}} call.}
 
-\item{\code{degUp}}{\code{DataFrame}. Directional subset containing only upregulated
-genes.}
+\item{\code{counts}}{\code{matrix}. Normalized counts matrix.}
 
-\item{\code{degDown}}{\code{DataFrame}. Directional subset containing only downregulated
-genes.}
+\item{\code{rowData}}{\code{DataFrame}. Row annotations.}
 
-\item{\code{localFiles}}{\code{list}. Local file paths.}
+\item{\code{sampleNames}}{\code{character}. Human-friendly sample names. Must contain
+\code{\link[=names]{names()}} that map to the \code{\link[=colnames]{colnames()}} of the \code{DESeqDataSet}.}
 
-\item{\code{dropboxFiles}}{\code{list}. Dropbox file paths.}
+\item{\code{metadata}}{\code{list}. Metadata. Contains file paths and information on
+whether we're writing locally or to Dropbox.}
 }}
 
 \seealso{
