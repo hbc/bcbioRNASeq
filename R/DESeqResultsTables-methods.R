@@ -1,3 +1,7 @@
+# FIXME Stash `rowData` as a slot.
+
+
+
 #' @inherit DESeqResultsTables-class
 #' @name DESeqResultsTables
 #' @family S4 Generators
@@ -114,10 +118,11 @@ NULL
 
         new(
             Class = "DESeqResultsTables",
-            all = object,
-            deg = as(deg, "DataFrame"),
-            degUp = as(degUp, "DataFrame"),
-            degDown = as(degDown, "DataFrame")
+            results = object
+            # FIXME This is broken.
+            # deg = as(deg, "DataFrame"),
+            # degUp = as(degUp, "DataFrame"),
+            # degDown = as(degDown, "DataFrame")
         )
     }
 
