@@ -47,7 +47,7 @@ NULL
 
 .contrastName.DESeqResultsTables <-  # nolint
     function(object) {
-        contrastName(slot(object, name = "all"))
+        contrastName(slot(object, name = "results"))
     }
 
 
