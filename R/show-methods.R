@@ -86,9 +86,6 @@ NULL
             version = metadata[["version"]]
         )
 
-        up <- deg[["up"]]
-        down <- deg[["down"]]
-
         contrast <- contrastName(results)
         alpha <- metadata(results)[["alpha"]]
         lfcThreshold <- metadata(results)[["lfcThreshold"]]
