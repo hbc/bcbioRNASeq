@@ -1,5 +1,4 @@
-# FIXME Need to include dimorphic genes in example dataset.
-# FIXME Unit test with rle -- need to handle non-finite values better.
+# TODO Unit test with rle -- need to handle non-finite values better.
 
 
 
