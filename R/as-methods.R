@@ -1,7 +1,3 @@
-# TODO Consider adding S3 coercion method with options here.
-
-
-
 #' @name as
 #' @aliases coerce
 #' @importFrom methods coerce
@@ -67,10 +63,6 @@
 NULL
 
 
-
-# FIXME Add this to documentation as a section.
-# FIXME Minimize the metadata we're passing through.
-# FIXME Ensure sessionInfo is updated.
 
 # Note that gene-level counts are required. Mention `summarizeToGene()`.
 # By default, we're using length-scaled TPM, so a corresponding average
