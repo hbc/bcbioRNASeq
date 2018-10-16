@@ -11,7 +11,7 @@
 #'
 #' ## bcbioRNASeq ====
 #' object <- bcb_small
-#' g2s <- gene2symbol(object)
+#' g2s <- Gene2Symbol(object)
 #' geneIDs <- head(g2s[["geneID"]])
 #' print(geneIDs)
 #' geneNames <- head(g2s[["geneName"]])

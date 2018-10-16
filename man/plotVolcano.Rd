@@ -74,7 +74,7 @@ print(object)
 
 ## Get genes from DESeqDataSet.
 dds <- as(object, "DESeqDataSet")
-g2s <- gene2symbol(dds)
+g2s <- Gene2Symbol(dds)
 geneIDs <- head(g2s[["geneID"]])
 print(geneIDs)
 geneNames <- head(g2s[["geneName"]])

@@ -196,7 +196,7 @@ NULL
         # tx2gene
         if (!is(metadata[["tx2gene"]], "Tx2Gene")) {
             message("Coercing tx2gene to Tx2Gene class.")
-            metadata[["tx2gene"]] <- tx2gene(metadata[["tx2gene"]])
+            metadata[["tx2gene"]] <- Tx2Gene(metadata[["tx2gene"]])
         }
 
         # Dead genes: "missing" or "unannotated"
