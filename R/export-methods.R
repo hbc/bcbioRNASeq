@@ -135,7 +135,7 @@ NULL
     function(
         x,
         dir = ".",
-        compress = TRUE,
+        compress = FALSE,
         dropbox = FALSE,
         rdsToken = NULL
     ) {
