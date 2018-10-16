@@ -173,13 +173,12 @@ setValidity(
         assert_is_all_of(rowRanges(object), "GRanges")
         rowData <- rowData(object)
         if (has_length(colnames(rowData))) {
-            # FIXME Consider requiring description here.
+            # Note that GTF/GFF annotations won't contain description.
             checkClasses(
                 object = rowData,
                 expected = list(
                     broadClass = "factor",
                     geneBiotype = "factor",
-                    # Factor needed here for transcript-level data.
                     geneID = c("character", "factor"),
                     geneName = c("character", "factor")
                 ),
