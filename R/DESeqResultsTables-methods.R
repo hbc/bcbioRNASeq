@@ -76,49 +76,6 @@ NULL
 
 
 
-# FIXME Use this in `export()` method.
-.joinDESeqResults <- function(
-    object,
-    rowData = TRUE,
-    counts = TRUE
-) {
-    stopifnot(is(object, "DESeqResultsTables"))
-    assert_is_a_bool(rowData)
-    assert_is_a_bool(counts)
-
-    # Get slotted DESeqResults object and coerce.
-    results <- slot(object, "results")
-    data <- as(results, "DataFrame")
-
-    # Row annotations.
-    if (isTRUE(rowData)) {
-        rowData <- slot(object, "rowData")
-        if (ncol(rowData) > 0L) {
-            message("Joining row annotations.")
-            assert_are_identical(rownames(data), rownames(rowData))
-            data <- cbind(data, rowData)
-        }
-    }
-
-    # Variance-stabilized counts (DESeqTransform).
-    # FIXME Convert to human friendly sample names here, if necessary.
-    if (isTRUE(counts)) {
-        message("Joining DESeq2 transform counts.")
-        counts <- slot(object, "counts")
-        assert_are_disjoint_sets(colnames(data), colnames(counts))
-        assert_are_identical(rownames(data), rownames(counts))
-        data <- cbind(data, counts)
-    }
-
-    # Regenerate the DESeqResults.
-    DESeqResults(
-        DataFrame = data,
-        priorInfo = priorInfo(results)
-    )
-}
-
-
-
 # Consider not exporting this as a method, and requiring DESeqAnalysis.
 .DESeqResultsTables.DESeqResults <-  # nolint
     function(object) {
