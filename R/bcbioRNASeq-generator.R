@@ -1,18 +1,3 @@
-# TODO Add automatic support for loading transcriptome (bcbio v1.1+), if the
-# `transcriptome/` directory is created. Don't allow the user to get gene
-# annotations manually if this is the case.
-
-# TODO Stash the bcbio commit number/version in metadata.
-
-# TODO Consider always loading the annotations from GTF...simpler.
-
-# TODO Go back to seeing if we can detect organism automatically. This will
-# work for most cases.
-
-# FIXME Consider making `rowRanges` match strict.
-
-
-
 #' @inherit bcbioRNASeq-class
 #' @family S4 Generators
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
