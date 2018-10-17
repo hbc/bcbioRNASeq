@@ -204,19 +204,22 @@ test_that("bcbioRNASeq : User-defined sample metadata", {
     )
 })
 
-test_that("bcbioRNASeq: Sample selection", {
-    # Keep samples.
-    object <- bcbioRNASeq(uploadDir, samples = "control_rep1")
+test_that("bcbioRNASeq : Sample selection", {
+    keep <- paste0("control_rep", seq_len(3L))
+    censor <- paste0("fa_day7_rep", seq_len(3L))
+
+    # Keep only control samples.
+    object <- bcbioRNASeq(uploadDir = uploadDir, samples = keep)
     expect_identical(
         object = colnames(object),
-        expected = "control_rep1"
+        expected = keep
     )
 
-    # Censor samples.
-    object <- bcbioRNASeq(uploadDir, censorSamples = "control_rep2")
+    # Censor the folic acid samples.
+    object <- bcbioRNASeq(uploadDir, censorSamples = censor)
     expect_identical(
         object = colnames(object),
-        expected = "control_rep1"
+        expected = keep
     )
 })
 
