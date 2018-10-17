@@ -158,6 +158,7 @@ NULL
         # Use our `bcb_small` example dataset to figure out which columns are
         # worth including.
         data(bcb_small, package = "bcbioRNASeq", envir = environment())
+        bcb_small <- get("bcb_small", inherits = FALSE)
         stopifnot(is(bcb_small, "bcbioRNASeq"))
         keep <- intersect(
             x = colnames(rowData),

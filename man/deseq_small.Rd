@@ -12,7 +12,8 @@ deseq_small
 Minimal DESeq2 differential expression analysis.
 }
 \examples{
-bcbioRNASeq::deseq_small
+data(deseq_small)
+deseq_small
 }
 \seealso{
 Other GSE65267: \code{\link{bcb_small}}

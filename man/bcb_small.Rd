@@ -12,7 +12,8 @@ bcb_small
 bcbio RNA-Seq Example Data
 }
 \examples{
-bcbioRNASeq::bcb_small
+data(bcb_small)
+bcb_small
 }
 \seealso{
 Other GSE65267: \code{\link{deseq_small}}
