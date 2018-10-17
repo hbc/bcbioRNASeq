@@ -74,11 +74,11 @@ taken in two samples, by transforming the data onto M (log ratio) and A
 }
 \examples{
 data(deseq_small)
-object <- deseq_small
-print(object)
 
 ## DESeqAnalysis ====
 ## This is the current recommended method.
+object <- deseq_small
+print(object)
 
 dds <- as(object, "DESeqDataSet")
 g2s <- Gene2Symbol(dds)
@@ -113,7 +113,7 @@ plotMA(object = object, genes = geneIDs)
 plotMA(object = object, genes = geneNames)
 }
 \seealso{
-\link[DESeq2:plotMA]{DESeq2::plotMA}.
+\code{\link[DESeq2:plotMA]{DESeq2::plotMA()}}.
 }
 \author{
 Michael Steinbaugh, Rory Kirchner

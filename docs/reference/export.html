@@ -116,8 +116,10 @@
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for DESeqResultsTables</span>
-<span class='fu'>export</span>(<span class='no'>x</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>export</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqResultsTables</span>
+<span class='fu'>export</span>(<span class='no'>x</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>compress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>dropbox</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rdsToken</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -126,6 +128,10 @@
     <tr>
       <th>x</th>
       <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
       <th>dir</th>
@@ -184,7 +190,7 @@ column in the CSV export.</p>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='DESeqResultsTables.html'>DESeqResultsTables</a></span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control (shrunken LFC)</span></div><div class='output co'>#&gt; <span class='message'>Adding `rowData()` annotations (atomic columns only).</span>
 #&gt; <span class='message'>[1] "broadClass"     "description"    "geneBiotype"    "geneID"        </span>
-#&gt; <span class='message'>[5] "geneName"       "seqCoordSystem"</span></div><div class='input'><span class='fu'>export</span>(<span class='no'>x</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"example"</span>)</div><div class='output co'>#&gt; <span class='message'>Writing treatment_folic_acid_vs_control_all.csv.gz, treatment_folic_acid_vs_control_up.csv.gz, treatment_folic_acid_vs_control_down.csv.gz, treatment_folic_acid_vs_control_both.csv.gz to /Users/mike/git/bcbioRNASeq-private/docs/reference/example.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_all.csv.gz.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_up.csv.gz.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_down.csv.gz.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_both.csv.gz.</span></div><div class='output co'>#&gt; DESeqResultsTables 1.21.22
+#&gt; <span class='message'>[5] "geneName"       "seqCoordSystem"</span></div><div class='input'><span class='fu'>export</span>(<span class='no'>x</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"example"</span>)</div><div class='output co'>#&gt; <span class='message'>Joining row annotations.</span></div><div class='output co'>#&gt; <span class='message'>Joining DESeq2 transform counts.</span></div><div class='output co'>#&gt; <span class='message'>Writing treatment_folic_acid_vs_control_all.csv, treatment_folic_acid_vs_control_up.csv, treatment_folic_acid_vs_control_down.csv, treatment_folic_acid_vs_control_both.csv to /Users/mike/git/bcbioRNASeq-private/docs/reference/example.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_all.csv.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_up.csv.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_down.csv.</span></div><div class='output co'>#&gt; <span class='message'>Exported treatment_folic_acid_vs_control_both.csv.</span></div><div class='output co'>#&gt; DESeqResultsTables 1.21.22
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
 #&gt; contrast: treatment folic acid vs control
@@ -197,10 +203,10 @@ column in the CSV export.</p>
 #&gt; LFC &lt; 0 (down)     : 139, 28%
 #&gt; outliers [1]       : 6, 1.2%
 #&gt; low counts [2]     : 0, 0%
-#&gt; (mean count &lt; 33)</div><div class='input'><span class='fu'>list.files</span>(<span class='st'>"example"</span>)</div><div class='output co'>#&gt; [1] "treatment_folic_acid_vs_control_all.csv.gz" 
-#&gt; [2] "treatment_folic_acid_vs_control_both.csv.gz"
-#&gt; [3] "treatment_folic_acid_vs_control_down.csv.gz"
-#&gt; [4] "treatment_folic_acid_vs_control_up.csv.gz"  </div><div class='input'>
+#&gt; (mean count &lt; 33)</div><div class='input'><span class='fu'>list.files</span>(<span class='st'>"example"</span>)</div><div class='output co'>#&gt; [1] "treatment_folic_acid_vs_control_all.csv" 
+#&gt; [2] "treatment_folic_acid_vs_control_both.csv"
+#&gt; [3] "treatment_folic_acid_vs_control_down.csv"
+#&gt; [4] "treatment_folic_acid_vs_control_up.csv"  </div><div class='input'>
 <span class='co'>## Clean up.</span>
 <span class='fu'>unlink</span>(<span class='st'>"example"</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>

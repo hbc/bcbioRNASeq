@@ -116,7 +116,9 @@
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+    <pre class="usage"><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>,
   <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>),
   <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"pearson"</span>, <span class='st'>"spearman"</span>),
@@ -131,6 +133,11 @@
     <tr>
       <th>object</th>
       <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>. The names of the
+arguments should be formatted in camel case, not snake case.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
@@ -203,16 +210,20 @@ improved aesthetics.</p></td>
       <th>title</th>
       <td><p><code>string</code> or <code>NULL</code>. Plot title.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Passthrough arguments to <code><a href='http://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>. The names of the
-arguments should be formatted in camel case, not snake case.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>pheatmap</code>.</p>
+    
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+
+    
+    <ul>
+<li><p><code>SummarizedExperiment</code>: Construct a correlation heatmap comparing the columns
+of the matrix.</p></li>
+<li><p><code>SummarizedExperiment</code>: Scale the heatmap by applying quantile breaks.</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="hierarchical-clustering"><a class="anchor" href="#hierarchical-clustering"></a>Hierarchical clustering</h2>
 
@@ -220,16 +231,6 @@ arguments should be formatted in camel case, not snake case.</p></td>
     <p>By default, row- and column-wise hierarchical clustering is performed using
 the Ward method, but this behavior can be overrided by setting <code>clusterRows</code>
 or <code>clusterCols</code> to <code>FALSE</code>.</p>
-    
-    <h2 class="hasAnchor" id="correlation-heatmap"><a class="anchor" href="#correlation-heatmap"></a>Correlation heatmap</h2>
-
-    
-    <p>Construct a correlation heatmap comparing the columns of the matrix.</p>
-    
-    <h2 class="hasAnchor" id="quantile-heatmap"><a class="anchor" href="#quantile-heatmap"></a>Quantile heatmap</h2>
-
-    
-    <p>Apply quantile breaks.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -252,7 +253,7 @@ or <code>clusterCols</code> to <code>FALSE</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: partial match of 'just' to 'justification'</span></div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: partial match of 'just' to 'justification'</span></div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb_small</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -261,11 +262,9 @@ or <code>clusterCols</code> to <code>FALSE</code>.</p>
       
       <li><a href="#value">Value</a></li>
 
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
+
       <li><a href="#hierarchical-clustering">Hierarchical clustering</a></li>
-
-      <li><a href="#correlation-heatmap">Correlation heatmap</a></li>
-
-      <li><a href="#quantile-heatmap">Quantile heatmap</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

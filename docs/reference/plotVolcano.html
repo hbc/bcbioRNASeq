@@ -220,10 +220,18 @@ and picks the first item in the vector by default.</p></td>
 #&gt; citation("bcbioRNASeq")
 #&gt; transform: vst
 #&gt; contrastNames: treatment folic acid vs control
-#&gt; class: DESeqDataSet  dim: 500 6  metadata(11): version caller ... date sessionInfo assays(4): counts mu H cooks rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...   ENSMUSG00000114367 ENSMUSG00000114458 rowData names(29): broadClass description ... deviance   maxCooks colnames(6): control_rep1 control_rep2 ... fa_day7_rep2   fa_day7_rep3 colData names(8): sampleName day ... interestingGroups   sizeFactor</div><div class='input'>
+#&gt; class: DESeqDataSet 
+#&gt; dim: 500 6 
+#&gt; metadata(11): version caller ... date sessionInfo
+#&gt; assays(4): counts mu H cooks
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(29): broadClass description ... deviance maxCooks
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(8): sampleName day ... interestingGroups sizeFactor</div><div class='input'>
 <span class='co'>## Get genes from DESeqDataSet.</span>
 <span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>object</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='fu'>gene2symbol</span>(<span class='no'>dds</span>)
+<span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='fu'>Gene2Symbol</span>(<span class='no'>dds</span>)
 <span class='no'>geneIDs</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneID"</span>]])
 <span class='fu'>print</span>(<span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346"
 #&gt; [4] "ENSMUSG00000000740" "ENSMUSG00000001175" "ENSMUSG00000001666"</div><div class='input'><span class='no'>geneNames</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneName"</span>]])

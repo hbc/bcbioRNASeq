@@ -22,11 +22,12 @@ plotMA <- BiocGenerics::plotMA
 #' @seealso [DESeq2::plotMA()].
 #'
 #' @examples
-#' object <- bcbioRNASeq::deseq_small
-#' print(object)
+#' data(deseq_small)
 #'
 #' ## DESeqAnalysis ====
 #' ## This is the current recommended method.
+#' object <- deseq_small
+#' print(object)
 #'
 #' dds <- as(object, "DESeqDataSet")
 #' g2s <- Gene2Symbol(dds)
