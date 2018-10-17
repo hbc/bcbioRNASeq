@@ -1,3 +1,7 @@
+data(bcb_small, envir = environment())
+
+
+
 # bcb_small ====================================================================
 context("bcbioRNASeq : bcb_small")
 
@@ -66,7 +70,7 @@ test_that("bcbioRNASeq : salmon (default)", {
     # Dimensions.
     expect_identical(
         object = dim(object),
-        expected = c(100L, 2L)
+        expected = c(100L, 6L)
     )
     expect_identical(
         object = colnames(object),
