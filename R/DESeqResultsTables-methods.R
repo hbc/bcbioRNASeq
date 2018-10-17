@@ -149,7 +149,7 @@ NULL
         out <- DESeqResultsTables(results)
 
         # Slot variance-stabilized counts.
-        out@counts <- assay(transform)
+        slot(out, "counts") <- assay(transform)
 
         # Slot rowData.
         rowData <- sanitizeRowData(rowData(data))
@@ -157,9 +157,11 @@ NULL
         # informative for a user, and doesn't need to be included in the CSV.
         # Use our `bcb_small` example dataset to figure out which columns are
         # worth including.
+        data(bcb_small, package = "bcbioRNASeq", envir = environment())
+        stopifnot(is(bcb_small, "bcbioRNASeq"))
         keep <- intersect(
             x = colnames(rowData),
-            y = colnames(rowData(bcbioRNASeq::bcb_small))
+            y = colnames(rowData(bcb_small))
         )
         assert_is_non_empty(keep)
         message(paste(
@@ -171,7 +173,7 @@ NULL
         assert_all_are_true(vapply(rowData, is.atomic, logical(1L)))
         assert_is_non_empty(rowData)
         assert_are_disjoint_sets(colnames(data), colnames(rowData))
-        out@rowData <- rowData
+        slot(out, "rowData") <- rowData
 
         # Slot human-friendly sample names, if they are defined.
         sampleNames <- sampleNames(data)
@@ -182,11 +184,11 @@ NULL
                 y = colnames(data)
             )
         ) {
-            out@sampleNames <- sampleNames(data)
+            slot(out, "sampleNames") <- sampleNames(data)
         }
 
         # Slot metadata.
-        out@metadata <- list(
+        slot(out, "metadata") <- list(
             version = metadata(data)[["version"]]
         )
 

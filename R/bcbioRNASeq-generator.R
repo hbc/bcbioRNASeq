@@ -311,9 +311,14 @@ bcbioRNASeq <- function(
             samples <- setdiff(samples, censorSamples)
         }
         assert_is_non_empty(samples)
-        sampleData <- filter(sampleData, !!sym("description") %in% !!samples)
+        sampleData <- sampleData %>%
+            as_tibble() %>%
+            filter(!!sym("description") %in% !!samples) %>%
+            as("DataFrame")
     }
     samples <- rownames(sampleData)
+    # Require at least 2 samples.
+    stopifnot(length(samples) >= 2L)
     assert_is_subset(samples, names(sampleDirs))
     assertAllAreValidNames(samples)
     if (length(samples) < length(sampleDirs)) {

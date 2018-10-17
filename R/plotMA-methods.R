@@ -19,11 +19,10 @@ plotMA <- BiocGenerics::plotMA
 #'
 #' @return `ggplot`.
 #'
-#' @seealso [DESeq2::plotMA].
+#' @seealso [DESeq2::plotMA()].
 #'
 #' @examples
-#' data(deseq_small)
-#' object <- deseq_small
+#' object <- bcbioRNASeq::deseq_small
 #' print(object)
 #'
 #' ## DESeqAnalysis ====
