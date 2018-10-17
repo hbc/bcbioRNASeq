@@ -210,7 +210,11 @@ taken in two samples, by transforming the data onto M (log ratio) and A
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>bcbioRNASeq</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/bcbioRNASeq/topics/deseq_small'>deseq_small</a></span>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
+
+<span class='co'>## DESeqAnalysis ====</span>
+<span class='co'>## This is the current recommended method.</span>
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='no'>deseq_small</span>
 <span class='fu'>print</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; DESeqAnalysis 1.21.22
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
@@ -225,9 +229,6 @@ taken in two samples, by transforming the data onto M (log ratio) and A
 #&gt; rowData names(29): broadClass description ... deviance maxCooks
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
 #&gt; colData names(8): sampleName day ... interestingGroups sizeFactor</div><div class='input'>
-<span class='co'>## DESeqAnalysis ====</span>
-<span class='co'>## This is the current recommended method.</span>
-
 <span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>object</span>, <span class='st'>"DESeqDataSet"</span>)
 <span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='fu'>Gene2Symbol</span>(<span class='no'>dds</span>)
 <span class='no'>geneIDs</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneID"</span>]])

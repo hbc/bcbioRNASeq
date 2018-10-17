@@ -73,11 +73,12 @@ taken in two samples, by transforming the data onto M (log ratio) and A
 (mean average) scales, then plotting these values.
 }
 \examples{
-object <- bcbioRNASeq::deseq_small
-print(object)
+data(deseq_small)
 
 ## DESeqAnalysis ====
 ## This is the current recommended method.
+object <- deseq_small
+print(object)
 
 dds <- as(object, "DESeqDataSet")
 g2s <- Gene2Symbol(dds)
