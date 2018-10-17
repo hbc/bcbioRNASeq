@@ -27,9 +27,10 @@
 #' provided in `description` must be unique. These values will be sanitized into
 #' syntactically valid names (see [basejump::makeNames] for more information),
 #' and assigned as the column names of the `bcbioRNASeq` object. The original
-#' values are stored as the `sampleName` column in [colData()], and are used for
-#' all plotting functions. Do not attempt to set a `sampleID` column, as this is
-#' used internally by the package.
+#' values are stored as the `sampleName` column in
+#' [SummarizedExperiment::colData()], and are used for all plotting functions.
+#' Do not attempt to set a `sampleID` column, as this is used internally by the
+#' package.
 #'
 #' Here is a minimal example of a properly formatted sample metadata file:
 #'
@@ -43,33 +44,33 @@
 #'
 #' @section Valid names:
 #'
-#' R is strict about values that are considered valid for use in [names()] and
-#' [dimnames()] (i.e. [rownames()] and [colnames()]). Non-alphanumeric
-#' characters, spaces, and **dashes** are not valid. Use either underscores or
-#' periods in place of dashes when working in R. Also note that names should
-#' **not begin with a number**, and will be prefixed with an `X` when sanitized.
-#' Consult the documentation in the [base::make.names()] function for more
-#' information. We strongly recommend adhering to these conventions when
-#' labeling samples, to help avoid unexpected downstream behavior in R due to
-#' [dimnames()] mismatches.
+#' R is strict about values that are considered valid for use in [base::names()]
+#' and [base::dimnames()] (i.e. [base::rownames()] and [base::colnames()]).
+#' Non-alphanumeric characters, spaces, and **dashes** are not valid. Use either
+#' underscores or periods in place of dashes when working in R. Also note that
+#' names should **not begin with a number**, and will be prefixed with an `X`
+#' when sanitized. Consult the documentation in the [base::make.names()]
+#' function for more information. We strongly recommend adhering to these
+#' conventions when labeling samples, to help avoid unexpected downstream
+#' behavior in R due to [base::dimnames()] mismatches.
 #'
 #' @section Genome build:
 #'
-#' Ensure that the organism and genome build used with bcio match correctly
-#' here in the function call. In particular, for the legacy *Homo sapiens*
+#' Ensure that the organism and genome build used with bcio match correctly here
+#' in the function call. In particular, for the legacy *Homo sapiens*
 #' GRCh37/hg19 genome build, ensure that `genomeBuild = "GRCh37"`. Otherwise,
-#' the genomic ranges set in [rowRanges()] will mismatch. It is recommended
-#' for current projects that GRCh38/hg38 is used in place of GRCh37/hg19
-#' if possible.
+#' the genomic ranges set in [SummarizedExperiment::rowRanges()] will mismatch.
+#' It is recommended for current projects that GRCh38/hg38 is used in place of
+#' GRCh37/hg19 if possible.
 #'
 #' @section DESeq2:
 #'
 #' DESeq2 is run automatically when `bcbioRNASeq()` is called. Internally, this
-#' automatically slots normalized counts into [assays()], and optionally
-#' generates variance-stabilized `rlog` or `vst` counts, depending on the call.
-#' When loading a dataset with a large number of samples (i.e. > 50), we
-#' recommend disabling the `rlog` transformation, since it can take a long time
-#' to compute.
+#' automatically slots normalized counts into [SummarizedExperiment::assays()],
+#' and optionally generates variance-stabilized `rlog` or `vst` counts,
+#' depending on the call. When loading a dataset with a large number of samples
+#' (i.e. > 50), we recommend disabling the `rlog` transformation, since it can
+#' take a long time to compute.
 #'
 #' @section Remote connections:
 #'
@@ -126,20 +127,21 @@
 #'   unless `gffFile` is set.
 #' @param gffFile `string` or `NULL`. By default, we recommend leaving this
 #'   `NULL` for genomes that are supported on Ensembl. In this case, the row
-#'   annotations ([rowRanges()]) will be obtained automatically from Ensembl by
-#'   passing the `organism`, `genomeBuild`, and `ensemblRelease` arguments to
-#'   AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
-#'   and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
-#'   Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
-#'   possible, although all GFF formats are supported. The function will
-#'   internally generate a `TxDb` containing transcript-to-gene mappings and
-#'   construct a `GRanges` object containing the genomic ranges ([rowRanges()]).
+#'   annotations ([SummarizedExperiment::rowRanges()]) will be obtained
+#'   automatically from Ensembl by passing the `organism`, `genomeBuild`, and
+#'   `ensemblRelease` arguments to AnnotationHub and ensembldb. For a genome
+#'   that is not supported on Ensembl and/or AnnotationHub, a GFF/GTF (General
+#'   Feature Format) file is required. Generally, we recommend using a GTF
+#'   (GFFv2) file here over a GFF3 file if possible, although all GFF formats
+#'   are supported. The function will internally generate a `TxDb` containing
+#'   transcript-to-gene mappings and construct a `GRanges` object containing the
+#'   genomic ranges.
 #' @param countsFromAbundance `string`. Whether to generate estimated counts
 #'   using abundance estimates (*recommended by default*). `lengthScaledTPM` is
 #'   a suitable default, and counts are scaled using the average transcript
 #'   length over samples and then the library size. Refer to
-#'   [tximport::tximport] for more information on this parameter, but it should
-#'   only ever be changed when loading some datasets at transcript level
+#'   [tximport::tximport()] for more information on this parameter, but it
+#'   should only ever be changed when loading some datasets at transcript level
 #'   (e.g. for DTU analsyis).
 #' @param vst `boolean`. Calculate variance-stabilizing transformation using
 #'   [DESeq2::varianceStabilizingTransformation()]. Recommended by default

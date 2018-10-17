@@ -68,14 +68,15 @@ unless \code{gffFile} is set.}
 
 \item{gffFile}{\code{string} or \code{NULL}. By default, we recommend leaving this
 \code{NULL} for genomes that are supported on Ensembl. In this case, the row
-annotations (\code{\link[=rowRanges]{rowRanges()}}) will be obtained automatically from Ensembl by
-passing the \code{organism}, \code{genomeBuild}, and \code{ensemblRelease} arguments to
-AnnotationHub and ensembldb. For a genome that is not supported on Ensembl
-and/or AnnotationHub, a GFF/GTF (General Feature Format) file is required.
-Generally, we recommend using a GTF (GFFv2) file here over a GFF3 file if
-possible, although all GFF formats are supported. The function will
-internally generate a \code{TxDb} containing transcript-to-gene mappings and
-construct a \code{GRanges} object containing the genomic ranges (\code{\link[=rowRanges]{rowRanges()}}).}
+annotations (\code{\link[SummarizedExperiment:rowRanges]{SummarizedExperiment::rowRanges()}}) will be obtained
+automatically from Ensembl by passing the \code{organism}, \code{genomeBuild}, and
+\code{ensemblRelease} arguments to AnnotationHub and ensembldb. For a genome
+that is not supported on Ensembl and/or AnnotationHub, a GFF/GTF (General
+Feature Format) file is required. Generally, we recommend using a GTF
+(GFFv2) file here over a GFF3 file if possible, although all GFF formats
+are supported. The function will internally generate a \code{TxDb} containing
+transcript-to-gene mappings and construct a \code{GRanges} object containing the
+genomic ranges.}
 
 \item{transgeneNames}{\code{character} or \code{NULL}. Vector indicating which
 \code{\link[=assay]{assay()}} rows denote transgenes (e.g. EGFP, TDTOMATO).}
@@ -87,8 +88,8 @@ rows denote spike-in sequences (e.g. ERCCs).}
 using abundance estimates (\emph{recommended by default}). \code{lengthScaledTPM} is
 a suitable default, and counts are scaled using the average transcript
 length over samples and then the library size. Refer to
-\link[tximport:tximport]{tximport::tximport} for more information on this parameter, but it should
-only ever be changed when loading some datasets at transcript level
+\code{\link[tximport:tximport]{tximport::tximport()}} for more information on this parameter, but it
+should only ever be changed when loading some datasets at transcript level
 (e.g. for DTU analsyis).}
 
 \item{vst}{\code{boolean}. Calculate variance-stabilizing transformation using
@@ -131,9 +132,10 @@ The samples in the bcbio run must map to the \code{description} column. The valu
 provided in \code{description} must be unique. These values will be sanitized into
 syntactically valid names (see \link[basejump:makeNames]{basejump::makeNames} for more information),
 and assigned as the column names of the \code{bcbioRNASeq} object. The original
-values are stored as the \code{sampleName} column in \code{\link[=colData]{colData()}}, and are used for
-all plotting functions. Do not attempt to set a \code{sampleID} column, as this is
-used internally by the package.
+values are stored as the \code{sampleName} column in
+\code{\link[SummarizedExperiment:colData]{SummarizedExperiment::colData()}}, and are used for all plotting functions.
+Do not attempt to set a \code{sampleID} column, as this is used internally by the
+package.
 
 Here is a minimal example of a properly formatted sample metadata file:
 
@@ -149,37 +151,37 @@ sample4 \tab knockout
 \section{Valid names}{
 
 
-R is strict about values that are considered valid for use in \code{\link[=names]{names()}} and
-\code{\link[=dimnames]{dimnames()}} (i.e. \code{\link[=rownames]{rownames()}} and \code{\link[=colnames]{colnames()}}). Non-alphanumeric
-characters, spaces, and \strong{dashes} are not valid. Use either underscores or
-periods in place of dashes when working in R. Also note that names should
-\strong{not begin with a number}, and will be prefixed with an \code{X} when sanitized.
-Consult the documentation in the \code{\link[base:make.names]{base::make.names()}} function for more
-information. We strongly recommend adhering to these conventions when
-labeling samples, to help avoid unexpected downstream behavior in R due to
-\code{\link[=dimnames]{dimnames()}} mismatches.
+R is strict about values that are considered valid for use in \code{\link[base:names]{base::names()}}
+and \code{\link[base:dimnames]{base::dimnames()}} (i.e. \code{\link[base:rownames]{base::rownames()}} and \code{\link[base:colnames]{base::colnames()}}).
+Non-alphanumeric characters, spaces, and \strong{dashes} are not valid. Use either
+underscores or periods in place of dashes when working in R. Also note that
+names should \strong{not begin with a number}, and will be prefixed with an \code{X}
+when sanitized. Consult the documentation in the \code{\link[base:make.names]{base::make.names()}}
+function for more information. We strongly recommend adhering to these
+conventions when labeling samples, to help avoid unexpected downstream
+behavior in R due to \code{\link[base:dimnames]{base::dimnames()}} mismatches.
 }
 
 \section{Genome build}{
 
 
-Ensure that the organism and genome build used with bcio match correctly
-here in the function call. In particular, for the legacy \emph{Homo sapiens}
+Ensure that the organism and genome build used with bcio match correctly here
+in the function call. In particular, for the legacy \emph{Homo sapiens}
 GRCh37/hg19 genome build, ensure that \code{genomeBuild = "GRCh37"}. Otherwise,
-the genomic ranges set in \code{\link[=rowRanges]{rowRanges()}} will mismatch. It is recommended
-for current projects that GRCh38/hg38 is used in place of GRCh37/hg19
-if possible.
+the genomic ranges set in \code{\link[SummarizedExperiment:rowRanges]{SummarizedExperiment::rowRanges()}} will mismatch.
+It is recommended for current projects that GRCh38/hg38 is used in place of
+GRCh37/hg19 if possible.
 }
 
 \section{DESeq2}{
 
 
 DESeq2 is run automatically when \code{bcbioRNASeq()} is called. Internally, this
-automatically slots normalized counts into \code{\link[=assays]{assays()}}, and optionally
-generates variance-stabilized \code{rlog} or \code{vst} counts, depending on the call.
-When loading a dataset with a large number of samples (i.e. > 50), we
-recommend disabling the \code{rlog} transformation, since it can take a long time
-to compute.
+automatically slots normalized counts into \code{\link[SummarizedExperiment:assays]{SummarizedExperiment::assays()}},
+and optionally generates variance-stabilized \code{rlog} or \code{vst} counts,
+depending on the call. When loading a dataset with a large number of samples
+(i.e. > 50), we recommend disabling the \code{rlog} transformation, since it can
+take a long time to compute.
 }
 
 \section{Remote connections}{
