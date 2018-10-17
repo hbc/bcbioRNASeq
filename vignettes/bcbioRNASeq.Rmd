@@ -22,6 +22,7 @@ abstract: >
 ```{r setup, include=FALSE, message=FALSE}
 library(bcbioRNASeq)
 ggplot2::theme_set(theme_paperwhite())
+knitr::opts_chunk$set(message = FALSE)
 ```
 
 # Introduction
@@ -57,21 +58,21 @@ print(upload_dir)
 [bcbio][] outputs RNA-seq data in a standardized directory structure, which is described in detail in our [workflow paper][].
 
 ```{r}
-dir(path = upload_dir, full.names = FALSE, recursive = TRUE)
+list.files(path = upload_dir, full.names = FALSE, recursive = TRUE)
 ```
 
 ## Counts level
 
 By default, [bcbioRNASeq][] imports counts at gene level, which are required for standard differential expression analysis (`level = "genes"`). For pseudo-aligned counts (e.g. [Salmon][], [Kallisto][], [Sailfish][]) [@Bray2016-me; @Patro2014-qz; @Patro2017-pi], [tximport][] [@Soneson2016-tu] is used internally to aggregate transcript-level counts to gene-level counts, and generates length-scaled transcripts per million (TPM) values. For aligned counts processed with [featureCounts][] [@Liao2014-js] (e.g. [STAR][], [HISAT2][]) [@Dobin2013-hr; @Dobin2016-qj; @Kim2015-rr], these values are already returned at gene level, and therefore not handled by [tximport][]. Once the gene-level counts are imported during the `bcbioRNASeq()` call, the [DESeq2][] package [@Love2014-sq] is then used to generate an internal `DESeqDataSet` from which we derive normalized and variance-stabilized counts.
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(uploadDir = upload_dir, level = "genes")
 print(bcb)
 ```
 
 Alternatively, if you want to perform transcript-aware analysis, such as differential exon usage or splicing analysis, transcript-level counts can be obtained using `level = "transcripts"`. Note that when counts are loaded at transcript level, TPMs are generated with [tximport][] internally, but no additional normalizations or transformations normally calculated for gene-level counts with [DESeq2][] are generated.
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(uploadDir = upload_dir, level = "transcripts")
 print(bcb)
 ```
@@ -82,19 +83,19 @@ Since [bcbio][] is flexible and supports a number of expression callers, we have
 
 [Salmon][], [Kallisto][], and [Sailfish][] counts are supported at either gene or transcript level. Internally, these are loaded using [tximport][].
 
-```{r, message=FALSE}
+```{r}
 salmon_genes <- bcbioRNASeq(uploadDir = upload_dir, caller = "salmon")
 assayNames(salmon_genes)
 ```
 
-```{r, message=FALSE}
+```{r}
 salmon_tx <- bcbioRNASeq(uploadDir = upload_dir, level = "transcripts")
 assayNames(salmon_tx)
 ```
 
 [STAR][] and [HISAT2][] aligned counts processed with [featureCounts][] are also supported, but only at gene level.
 
-```{r, message=FALSE}
+```{r}
 star <- bcbioRNASeq(uploadDir = upload_dir, caller = "star")
 assayNames(star)
 ```
@@ -111,7 +112,7 @@ stopifnot(file.exists(sample_metadata_file))
 import(file = sample_metadata_file)
 ```
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(
     uploadDir = upload_dir,
     sampleMetadataFile = sample_metadata_file
@@ -125,7 +126,7 @@ When analyzing a dataset against a well-annotated genome, we recommend importing
 
 For example, with our internal [bcbio][] dataset, we're analyzing counts generated against the [Ensembl][] *Mus musculus* GRCm38 genome build (release 87). These parameters can be defined in the object load call to ensure that the annotations match up exactly with the genome used.
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(
     uploadDir = upload_dir,
     level = "genes",
@@ -139,7 +140,7 @@ rowData(bcb) %>% str()
 
 Alternatively, transcript-level annotations can also be obtained automatically using this method.
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(
     uploadDir = upload_dir,
     level = "transcripts",
@@ -156,7 +157,7 @@ If your dataset contains transgenes (e.g. EGFP, TDTOMATO) or spike-ins (e.g. ERC
 
 We recommend loading up data per genome in its own `bcbioRNASeq` object when possible, so that rich metadata can be imported easily. In the edge case where you need to look at multiple genomes simultaneously, set `organism = NULL`, and bcbioRNASeq will skip the gene annotation acquisition step.
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(uploadDir = upload_dir, organism = NULL)
 print(bcb)
 ```
@@ -165,7 +166,7 @@ print(bcb)
 
 During the `bcbioRNASeq()` constructor call, variance stabilizaton of gene-level counts can be calculated automatically, and is recommended. This is performed internally by the [DESeq2][] package. These transformations will be slotted into `assays()` as `vst` and/or `rlog` matrices. The `vst` matrix is calculated by `DESeq2::varianceStabilizingTransformation()` and `rlog` by `DESeq2::rlog()`. For large datasets, `rlog` calculation can take a long time, so we are currently recommending calculation of only `vst` by default.
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(
     uploadDir = upload_dir,
     vst = TRUE,
@@ -183,7 +184,7 @@ To demonstrate the functionality and configuration of the package, we have taken
 
 For the vignette, we are loading a pre-computed version of the example `bcbioRNASeq` object used in our [workflow paper][].
 
-```{r, message=FALSE}
+```{r}
 loadRemoteData("https://github.com/hbc/bcbioRNASeq/raw/f1000v2/data/bcb.rda")
 bcb <- updateObject(bcb)
 print(bcb)
@@ -259,7 +260,7 @@ plotGeneSaturation(bcb, label = FALSE)
 plotGeneSaturation(bcb, label = TRUE)
 ```
 
-```{r, message=FALSE}
+```{r}
 plotCountsPerGene(bcb, geom = "boxplot")
 plotCountsPerGene(bcb, geom = "density")
 ```
@@ -268,7 +269,7 @@ plotCountsPerGene(bcb, geom = "density")
 
 These plots show the standard deviation of normalized counts using `log2()`, `varianceStabilizingTransform()`, `rlog()`, and `tmm()` by `rank(mean)`. Note that all counts shown are log2 scale.
 
-```{r, message=FALSE}
+```{r}
 plotMeanSD(bcb)
 ```
 
