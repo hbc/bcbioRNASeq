@@ -1,6 +1,6 @@
 context("Differential Expression")
 
-data(deseq_small, envir = environment())
+data(bcb_small, deseq_small, envir = environment())
 dds_small <- as(deseq_small, "DESeqDataSet")
 vst_small <- as(deseq_small, "DESeqTransform")
 res_small <- as(deseq_small, "DESeqResults")
