@@ -1,3 +1,7 @@
-fileName,description,treatment
-control_rep1_R1.fastq.gz,control_rep1,control
-control_rep2_R1.fastq.gz,control_rep2,control
+fileName,description,treatment,day
+control_rep1_R1.fastq.gz,control_rep1,control,0
+control_rep2_R1.fastq.gz,control_rep2,control,0
+control_rep3_R1.fastq.gz,control_rep3,control,0
+fa_day7_rep1_R1.fastq.gz,fa_day7_rep1,folic acid,7
+fa_day7_rep2_R1.fastq.gz,fa_day7_rep2,folic acid,7
+fa_day7_rep3_R1.fastq.gz,fa_day7_rep3,folic acid,7
