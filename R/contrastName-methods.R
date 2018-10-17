@@ -9,6 +9,8 @@
 #' @return `string`. Contrast name.
 #'
 #' @examples
+#' data(deseq_small)
+#' 
 #' ## DESeqAnalysis ====
 #' contrastName(deseq_small, results = 1L)
 #'

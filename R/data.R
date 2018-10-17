@@ -4,7 +4,7 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
 #' @examples
-#' bcb_small
+#' bcbioRNASeq::bcb_small
 "bcb_small"
 
 
@@ -17,5 +17,5 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
 #' @examples
-#' deseq_small
+#' bcbioRNASeq::deseq_small
 "deseq_small"

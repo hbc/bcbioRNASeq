@@ -44,17 +44,21 @@ care of this automatically in supported methods.
 }
 
 \examples{
-data(bcb_small)
 library(DESeq2)
+data(bcb_small)
+
 dds <- as(bcb_small, "DESeqDataSet")
 design(dds) <- ~ treatment
 dds <- DESeq(dds)
 class(dds)
+
 vst <- varianceStabilizingTransformation(dds)
 class(vst)
+
 resultsNames(dds)
 res <- results(dds, name = resultsNames(dds)[[2L]])
 class(res)
+
 x <- DESeqAnalysis(
     data = dds,
     transform = vst,

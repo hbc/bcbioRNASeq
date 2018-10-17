@@ -30,6 +30,8 @@ contrastName(object, ...)
 Contrast Name
 }
 \examples{
+data(deseq_small)
+
 ## DESeqAnalysis ====
 contrastName(deseq_small, results = 1L)
 

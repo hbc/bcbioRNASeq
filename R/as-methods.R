@@ -32,6 +32,8 @@
 #'   *have not been shrunken* using [DESeq2::lfcShrink()].
 #'
 #' @examples
+#' data(bcb_small, deseq_small)
+#'
 #' ## bcbioRNASeq to DESeqDataSet ====
 #' x <- as(bcb_small, "DESeqDataSet")
 #' names(S4Vectors::mcols(x))

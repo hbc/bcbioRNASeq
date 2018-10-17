@@ -82,6 +82,8 @@ corresponds to results containing log2 fold change (LFC) values that
 }
 
 \examples{
+data(bcb_small, deseq_small)
+
 ## bcbioRNASeq to DESeqDataSet ====
 x <- as(bcb_small, "DESeqDataSet")
 names(S4Vectors::mcols(x))
