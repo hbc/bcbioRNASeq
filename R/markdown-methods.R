@@ -1,8 +1,13 @@
-#' @name markdown
+#' @rdname markdown
 #' @importFrom basejump markdown
+#' @export
+markdown <- basejump::markdown
+
+
+
+#' @name markdown
 #' @inherit basejump::markdown
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @inheritParams general
 #'

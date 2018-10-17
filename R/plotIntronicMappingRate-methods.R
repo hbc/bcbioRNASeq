@@ -4,7 +4,6 @@
 #'
 #' @name plotIntronicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @export
 #'
 #' @inheritParams general
 #'

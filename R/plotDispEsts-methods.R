@@ -1,9 +1,14 @@
+#' @rdname plotDispEsts
+#' @importFrom BiocGenerics plotDispEsts
+#' @export
+plotDispEsts <- BiocGenerics::plotDispEsts
+
+
+
 #' Plot Dispersion Estimates
 #' @name plotDispEsts
-#' @importFrom BiocGenerics plotDispEsts
 #' @inherit DESeq2::plotDispEsts
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @details
 #' This plot shows the dispersion by mean of normalized counts. We expect the

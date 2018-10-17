@@ -1,8 +1,13 @@
+#' @rdname show
+#' @importFrom methods show
+#' @export
+show <- methods::show
+
+
+
 #' @name show
 #' @author Michael Steinbuagh
-#' @importFrom methods show
 #' @inherit methods::show
-#' @export
 #'
 #' @examples
 #' data(bcb_small)

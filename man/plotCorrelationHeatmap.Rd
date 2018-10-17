@@ -6,6 +6,8 @@
 \alias{plotCorrelationHeatmap,bcbioRNASeq-method}
 \title{Plot Heatmap}
 \usage{
+plotCorrelationHeatmap(object, ...)
+
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
   normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"),
   interestingGroups = NULL, method = c("pearson", "spearman"),
@@ -16,6 +18,9 @@
 }
 \arguments{
 \item{object}{Object.}
+
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
+arguments should be formatted in camel case, not snake case.}
 
 \item{normalized}{\code{string}. Which normalization method to apply:
 - "\code{tpm}": Transcripts per million (tximport).
@@ -64,9 +69,6 @@ for legend labels. Note that hexadecimal values are not supported. If set
 improved aesthetics.}
 
 \item{title}{\code{string} or \code{NULL}. Plot title.}
-
-\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
-arguments should be formatted in camel case, not snake case.}
 }
 \value{
 \code{pheatmap}.

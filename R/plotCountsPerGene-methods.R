@@ -1,8 +1,13 @@
-#' @name plotCountsPerGene
+#' @rdname plotCountsPerGene
 #' @importFrom basejump plotCountsPerGene
+#' @export
+plotCountsPerGene <- basejump::plotCountsPerGene
+
+
+
+#' @name plotCountsPerGene
 #' @inherit basejump::plotCountsPerGene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @export
 #'
 #' @section TMM:
 #' We recommend visualizing counts normalized with the Trimmed Mean of M-Values

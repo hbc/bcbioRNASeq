@@ -2,7 +2,6 @@
 #' @name DESeqResultsTables
 #' @family S4 Generators
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @section Obtaining results from DESeq2:
 #'

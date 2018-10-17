@@ -3,7 +3,6 @@
 #' @author Michael Steinbaugh
 #' @include plotPCA-methods.R
 #' @inherit plotPCA
-#' @export
 #'
 #' @inheritParams general
 #' @param counts `DESeqTransform`.

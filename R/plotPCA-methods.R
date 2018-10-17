@@ -1,8 +1,13 @@
-#' @name plotPCA
+#' @rdname plotPCA
 #' @importFrom BiocGenerics plotPCA
+#' @export
+plotPCA <- BiocGenerics::plotPCA
+
+
+
+#' @name plotPCA
 #' @inherit BiocGenerics::plotPCA
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @details
 #' Wrapper for [DESeq2::plotPCA()] that improves principal component analysis

@@ -7,7 +7,6 @@
 #'
 #' @name tmm
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @inheritParams general
 #'

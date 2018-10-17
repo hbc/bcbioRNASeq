@@ -2,7 +2,6 @@
 #' @name plotDEGHeatmap
 #' @inherit basejump::plotHeatmap
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @details
 #' This function is a simplified version of [plotHeatmap()] that is

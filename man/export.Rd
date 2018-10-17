@@ -6,11 +6,15 @@
 \alias{export,DESeqResultsTables-method}
 \title{Export}
 \usage{
+export(x, ...)
+
 \S4method{export}{DESeqResultsTables}(x, dir = ".", compress = FALSE,
   dropbox = FALSE, rdsToken = NULL)
 }
 \arguments{
 \item{x}{Object.}
+
+\item{...}{Additional arguments.}
 
 \item{dir}{\code{string}. Directory path.}
 

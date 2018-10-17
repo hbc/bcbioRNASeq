@@ -1,8 +1,13 @@
-#' @name plotQC
+#' @rdname plotQC
 #' @importFrom basejump plotQC
+#' @export
+plotQC <- basejump::plotQC
+
+
+
+#' @name plotQC
 #' @inherit basejump::plotQC
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @examples
 #' data(bcb_small)

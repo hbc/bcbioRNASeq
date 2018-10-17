@@ -8,6 +8,8 @@
 \alias{show,DESeqResultsTables-method}
 \title{Show an Object}
 \usage{
+show(object)
+
 \S4method{show}{bcbioRNASeq}(object)
 
 \S4method{show}{DESeqAnalysis}(object)

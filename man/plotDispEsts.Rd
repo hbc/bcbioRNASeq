@@ -7,6 +7,8 @@
 \alias{plotDispEsts,DESeqAnalysis-method}
 \title{Plot Dispersion Estimates}
 \usage{
+plotDispEsts(object, ...)
+
 \S4method{plotDispEsts}{bcbioRNASeq}(object, ymin, CV = FALSE,
   genecol = "black", fitcol = "red", finalcol = "dodgerblue",
   legend = TRUE, xlab, ylab, log = "xy", cex = 0.45, ...)
@@ -17,6 +19,8 @@
 }
 \arguments{
 \item{object}{Object.}
+
+\item{...}{further arguments to \code{plot}}
 
 \item{ymin}{the lower bound for points on the plot, points beyond this
 are drawn as triangles at ymin}
@@ -42,8 +46,6 @@ plotting dispersion.}
 \item{log}{log}
 
 \item{cex}{cex}
-
-\item{...}{further arguments to \code{plot}}
 }
 \value{
 \code{ggplot}.

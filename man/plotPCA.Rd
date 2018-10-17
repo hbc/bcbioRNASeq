@@ -6,6 +6,8 @@
 \alias{plotPCA,bcbioRNASeq-method}
 \title{PCA-plot: Principal Component Analysis plot}
 \usage{
+plotPCA(object, ...)
+
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL, ntop = 500L,
   color = getOption("basejump.discrete.color", NULL),
@@ -17,6 +19,10 @@
     
     A data object, typically containing gene expression information.
 
+  }
+
+\item{...}{
+    Additional arguments, for use in specific methods.
   }
 
 \item{normalized}{\code{string}. Which normalization method to apply:

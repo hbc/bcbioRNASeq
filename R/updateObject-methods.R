@@ -7,11 +7,16 @@
 
 
 
-#' @name updateObject
+#' @rdname updateObject
 #' @importFrom BiocGenerics updateObject
+#' @export
+updateObject <- BiocGenerics::updateObject
+
+
+
+#' @name updateObject
 #' @inherit BiocGenerics::updateObject
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session

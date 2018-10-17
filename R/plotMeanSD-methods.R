@@ -16,7 +16,6 @@
 #'
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
-#' @export
 #'
 #' @inheritParams general
 #' @inheritParams bcbioRNASeq

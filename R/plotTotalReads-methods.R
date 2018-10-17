@@ -5,7 +5,6 @@
 #'
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @export
 #'
 #' @inheritParams general
 #'

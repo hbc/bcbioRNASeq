@@ -1,8 +1,13 @@
-#' @name plotCorrelationHeatmap
+#' @rdname plotCorrelationHeatmap
 #' @importFrom basejump plotCorrelationHeatmap
+#' @export
+plotCorrelationHeatmap <- basejump::plotCorrelationHeatmap
+
+
+
+#' @name plotCorrelationHeatmap
 #' @inherit basejump::plotCorrelationHeatmap
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @inheritParams general
 #'

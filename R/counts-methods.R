@@ -1,3 +1,15 @@
+#' @rdname counts
+#' @importFrom BiocGenerics counts
+#' @export
+counts <- BiocGenerics::counts
+
+#' @rdname counts
+#' @importFrom BiocGenerics counts<-
+#' @export
+`counts<-` <- BiocGenerics::`counts<-`
+
+
+
 #' Count Matrix Accessors
 #'
 #' By default, returns the raw counts. Normalized counts in a variety of formats
@@ -6,8 +18,6 @@
 #' @name counts
 #' @family Data Functions
 #' @author Michael Steinbaugh, Lorena Pantano
-#' @importFrom BiocGenerics counts counts<-
-#' @export
 #'
 #' @inheritParams general
 #' @param normalized `string` or `boolean`. Which normalization method to apply:

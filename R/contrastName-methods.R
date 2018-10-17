@@ -2,7 +2,6 @@
 #'
 #' @name contrastName
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @inheritParams general
 #'

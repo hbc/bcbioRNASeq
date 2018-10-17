@@ -2,11 +2,16 @@
 
 
 
-#' @name plotGenderMarkers
+#' @rdname plotGenderMarkers
 #' @importFrom basejump plotGenderMarkers
+#' @export
+plotGenderMarkers <- basejump::plotGenderMarkers
+
+
+
+#' @name plotGenderMarkers
 #' @inherit basejump::plotGenderMarkers
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @inheritParams general
 #'

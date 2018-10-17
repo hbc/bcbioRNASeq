@@ -6,7 +6,6 @@
 #'
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @export
 #'
 #' @inheritParams general
 #' @param trendline `boolean`. Include a trendline for each group.

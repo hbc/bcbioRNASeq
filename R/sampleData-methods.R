@@ -1,8 +1,13 @@
+#' @rdname sampleData
+#' @importFrom basejump sampleData
+#' @export
+sampleData <- basejump::sampleData
+
+
+
 #' @name sampleData
 #' @author Michael Steinbaugh
-#' @importFrom basejump sampleData
 #' @inherit basejump::sampleData
-#' @export
 #'
 #' @inheritParams general
 #' @param clean `boolean`. Only return `factor` columns not defined in

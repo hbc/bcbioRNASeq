@@ -8,7 +8,6 @@
 #'
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @inheritParams general
 #'

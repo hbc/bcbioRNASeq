@@ -6,6 +6,8 @@
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \title{Plot Sexually Dimorphic Gender Marker Genes}
 \usage{
+plotGenderMarkers(object, ...)
+
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("vst",
   "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   medianLine = TRUE, color = getOption("basejump.discrete.color",
@@ -13,6 +15,8 @@
 }
 \arguments{
 \item{object}{Object.}
+
+\item{...}{Additional arguments.}
 
 \item{normalized}{\code{string}. Which normalization method to apply:
 - "\code{tpm}": Transcripts per million (tximport).

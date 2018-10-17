@@ -1,8 +1,13 @@
-#' @name plotGene
+#' @rdname plotGene
 #' @importFrom basejump plotGene
+#' @export
+plotGene <- basejump::plotGene
+
+
+
+#' @name plotGene
 #' @inherit basejump::plotGene
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @inheritParams general
 #'

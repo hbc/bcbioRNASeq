@@ -1,8 +1,13 @@
-#' @name export
+#' @rdname export
 #' @importFrom basejump export
+#' @export
+export <- basejump::export
+
+
+
+#' @name export
 #' @inherit basejump::export
 #' @author Michael Steinbaugh
-#' @export
 #'
 #' @inheritParams bcbioBase::copyToDropbox
 #' @inheritParams general
