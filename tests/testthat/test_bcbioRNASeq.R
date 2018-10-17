@@ -1,3 +1,7 @@
+data(bcb_small, envir = environment())
+
+
+
 # bcb_small ====================================================================
 context("bcbioRNASeq : bcb_small")
 
@@ -66,11 +70,14 @@ test_that("bcbioRNASeq : salmon (default)", {
     # Dimensions.
     expect_identical(
         object = dim(object),
-        expected = c(100L, 2L)
+        expected = c(100L, 6L)
     )
     expect_identical(
         object = colnames(object),
-        expected = paste0("control_rep", seq_len(2L))
+        expected = paste0(
+            rep(c("control_rep", "fa_day7_rep"), each = 3L),
+            rep(seq_len(3L), times = 2L)
+        )
     )
 
     # Check that the assays contain expected counts.
@@ -79,7 +86,11 @@ test_that("bcbioRNASeq : salmon (default)", {
         expected = c(
             # nolint start
             control_rep1 = 17659,
-            control_rep2 = 60245
+            control_rep2 = 60245,
+            control_rep3 = 16105,
+            fa_day7_rep1 = 29482,
+            fa_day7_rep2 = 26272,
+            fa_day7_rep3 = 29883
             # nolint end
         )
     )
@@ -130,7 +141,11 @@ test_that("bcbioRNASeq : Aligned counts", {
         expected = c(
             # nolint start
             control_rep1 = 21629,
-            control_rep2 = 64024
+            control_rep2 = 64024,
+            control_rep3 = 18773,
+            fa_day7_rep1 = 30890,
+            fa_day7_rep2 = 28140,
+            fa_day7_rep3 = 31869
             # nolint end
         )
     )
@@ -194,6 +209,7 @@ test_that("bcbioRNASeq : User-defined sample metadata", {
         sampleMetadataFile = file.path(uploadDir, "sample_metadata.csv")
     )
     expect_s4_class(object, "bcbioRNASeq")
+    expect_identical(dim(object), c(100L, 6L))
     expect_identical(
         object = basename(metadata(object)[["sampleMetadataFile"]]),
         expected = "sample_metadata.csv"

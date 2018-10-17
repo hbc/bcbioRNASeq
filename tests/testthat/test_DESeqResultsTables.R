@@ -1,3 +1,5 @@
+lfcThreshold <- 0.25
+
 # export
 # markdown
 
@@ -7,7 +9,7 @@
 #         resultsTables(
 #             object = res_small,
 #             counts = dds_small,
-#             lfcThreshold = lfc,
+#             lfcThreshold = lfcThreshold,
 #             summary = TRUE,
 #             headerLevel = 2L,
 #             write = TRUE,
@@ -93,7 +95,7 @@
 #         resTbl <- resultsTables(
 #             results = res_small,
 #             counts = dds_small,
-#             lfcThreshold = lfc,
+#             lfcThreshold = lfcThreshold,
 #             summary = FALSE,
 #             write = TRUE,
 #             dir = "resultsTables",

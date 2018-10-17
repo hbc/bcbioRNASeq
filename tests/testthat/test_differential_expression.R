@@ -1,5 +1,10 @@
 context("Differential Expression")
 
+data(bcb_small, deseq_small, envir = environment())
+dds_small <- as(deseq_small, "DESeqDataSet")
+vst_small <- as(deseq_small, "DESeqTransform")
+res_small <- as(deseq_small, "DESeqResults")
+
 g2s <- Gene2Symbol(bcb_small)
 geneIDs <- head(g2s[["geneID"]])
 geneNames <- head(g2s[["geneName"]])
