@@ -1,5 +1,9 @@
 context("Plots : Quality Control")
 
+data(bcb_small, deseq_small, envir = environment())
+dds_small <- as(deseq_small, "DESeqDataSet")
+vst_small <- as(deseq_small, "DESeqTransform")
+
 
 
 # QC plots with interesting groups =============================================

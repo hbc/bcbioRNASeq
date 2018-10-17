@@ -1,5 +1,9 @@
 context("Markdown")
 
+data(deseq_small, envir = environment())
+res_small <- as(deseq_small, "DESeqResults")
+res_tables <- DESeqResultsTables(res_small)
+
 
 
 # prepareRNASeqTemplate ========================================================
