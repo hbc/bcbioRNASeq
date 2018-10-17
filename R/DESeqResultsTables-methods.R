@@ -157,9 +157,15 @@ NULL
         # informative for a user, and doesn't need to be included in the CSV.
         # Use our `bcb_small` example dataset to figure out which columns are
         # worth including.
+        bcb <- get(
+            x = "bcb_small",
+            envir = asNamespace("bcbioRNASeq"),
+            inherits = FALSE
+        )
+        stopifnot(is(bcb, "bcbioRNASeq"))
         keep <- intersect(
             x = colnames(rowData),
-            y = colnames(rowData(bcbioRNASeq::bcb_small))
+            y = colnames(rowData(bcb))
         )
         assert_is_non_empty(keep)
         message(paste(
