@@ -2,9 +2,10 @@
 #'
 #' @name relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
-#' @export
 #'
-#' @seealso [edgeR::calcNormFactors].
+#' @inheritParams general
+#'
+#' @seealso [edgeR::calcNormFactors()].
 #'
 #' @references Anders and Huber (2010).
 #'

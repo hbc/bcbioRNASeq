@@ -14,6 +14,11 @@ relativeLogExpression(object, ...)
 
 \S4method{relativeLogExpression}{SummarizedExperiment}(object)
 }
+\arguments{
+\item{object}{Object.}
+
+\item{...}{Additional arguments.}
+}
 \description{
 Relative Log Expression
 }
@@ -25,7 +30,7 @@ relativeLogExpression(bcb_small)
 Anders and Huber (2010).
 }
 \seealso{
-\link[edgeR:calcNormFactors]{edgeR::calcNormFactors}.
+\code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}}.
 }
 \author{
 Lorena Pantano, Michael Steinbaugh

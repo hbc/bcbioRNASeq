@@ -17,7 +17,7 @@
 #'   assert_all_are_in_left_open_range assert_all_are_in_range
 #'   assert_all_are_non_negative assert_all_are_positive is_positive
 #' @importFrom assertive.properties assert_has_colnames assert_has_dimnames
-#'   assert_has_dims assert_has_no_duplicates assert_has_rows
+#'   assert_has_dims assert_has_names assert_has_no_duplicates assert_has_rows
 #'   assert_is_non_empty assert_is_of_length assert_is_scalar assert_is_vector
 #'   has_dims has_names
 #' @importFrom assertive.sets assert_are_disjoint_sets
@@ -43,8 +43,9 @@
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
 #'   methodFormals metrics organism plotGenesDetected plotHeatmap
 #'   prepareTemplate printString readYAML realpath removeNA sampleData
-#'   sanitizeRowData sanitizeSampleData separator showSlotInfo snake
-#'   standardizeCall stripTranscriptVersions Tx2Gene uniteInterestingGroups
+#'   sampleData<- sanitizeRowData sanitizeSampleData separator showSlotInfo
+#'   snake standardizeCall stripTranscriptVersions Tx2Gene
+#'   uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
 #'   readSampleData readTx2Gene runDate sampleDirs

@@ -16,7 +16,7 @@
 \item \code{FALSE}: Raw counts.
 \itemize{
 \item When using a \href{https://bioconductor.org/packages/release/bioc/html/tximport.html}{tximport}-compatible caller, these are length scaled
-by default (see \code{countsFromAbundance}).
+by default (see \code{countsFromAbundance} argument).
 \item When using a \href{http://bioinf.wehi.edu.au/featureCounts/}{featureCounts}-compatible caller, these are \code{integer}.
 }
 }
@@ -29,21 +29,21 @@ by default (see \code{countsFromAbundance}).
 Additional gene-level-specific normalizations:
 \itemize{
 \item \code{TRUE}: Size factor-adjusted counts.\cr
-See \link[DESeq2:sizeFactors]{DESeq2::sizeFactors} for more information.
+See \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}} for more information.
 \item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation.\cr
 Requires \code{vst = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
-See \link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation} for more information.
+See \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} for more information.
 \item \code{"rlog"}: \strong{R}egularized \strong{log} transformation (log2).\cr
 Requires \code{rlog = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
-See \link[DESeq2:rlog]{DESeq2::rlog} for more information.
+See \code{\link[DESeq2:rlog]{DESeq2::rlog()}} for more information.
 \item \code{"tmm"}: \strong{T}rimmed \strong{m}ean of \strong{M}-values.\cr
-See \link[edgeR:calcNormFactors]{edgeR::calcNormFactors} for more information.
+See \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}} for more information.
 \item \code{"rle"}: \strong{R}elative \strong{l}og \strong{e}xpression transformation.
 \item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
 fragments.\cr
-Requires annotations in \code{\link[=rowRanges]{rowRanges()}} with defined \link{widths}, otherwise
+Requires annotations in \code{\link[=rowRanges]{rowRanges()}} with defined \code{width}; otherwise,
 will be skipped during the \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} load call.\cr
-See \link[DESeq2:fpkm]{DESeq2::fpkm} for more information.
+See \code{\link[BiocGenerics:width]{BiocGenerics::width()}} and \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}} for more information.
 }}
 }
 \value{

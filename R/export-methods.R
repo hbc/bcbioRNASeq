@@ -211,7 +211,7 @@ NULL
             # Using a local token to cover this code.
             files <- copyToDropbox(
                 files = files,
-                dir = dropboxDir,
+                dir = dir,
                 rdsToken = rdsToken
             )
             assert_is_list(files)
