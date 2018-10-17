@@ -213,55 +213,91 @@ transformations will only be updated when <code>recalculate = TRUE</code> and ei
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
 #&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-14
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-17
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
 #&gt; ensemblRelease: 90
 #&gt; genomeBuild: GRCm38
 #&gt; interestingGroups: treatment
-#&gt; class: RangedSummarizedExperiment  dim: 500 2  metadata(27): version level ... sessionInfo subset assays(6): counts tpm ... vst fpkm rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...   ENSMUSG00000114367 ENSMUSG00000114458 rowData names(7): broadClass description ... geneName seqCoordSystem colnames(2): control_rep1 control_rep2 colData names(26): averageInsertSize averageReadLength ... tissue   treatment</div><div class='input'>
+#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 500 2 
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(6): counts tpm ... vst fpkm
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; colnames(2): control_rep1 control_rep2
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'>
 <span class='co'>## Extract by gene list.</span>
 <span class='no'>object</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.21.23.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.99.0
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
 #&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-14
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-17
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
 #&gt; ensemblRelease: 90
 #&gt; genomeBuild: GRCm38
 #&gt; interestingGroups: treatment
-#&gt; class: RangedSummarizedExperiment  dim: 100 6  metadata(27): version level ... sessionInfo subset assays(6): counts tpm ... vst fpkm rownames(100): ENSMUSG00000000088 ENSMUSG00000000326 ...   ENSMUSG00000024503 ENSMUSG00000024610 rowData names(7): broadClass description ... geneName   seqCoordSystem colnames(6): control_rep1 control_rep2 ... fa_day7_rep2   fa_day7_rep3 colData names(26): averageInsertSize averageReadLength ...   tissue treatment</div><div class='input'>
+#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 100 6 
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(6): counts tpm ... vst fpkm
+#&gt; rownames(100): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000024503 ENSMUSG00000024610
+#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'>
 <span class='co'>## Extract by both genes and samples.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.21.23.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.99.0
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
 #&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-14
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-17
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
 #&gt; ensemblRelease: 90
 #&gt; genomeBuild: GRCm38
 #&gt; interestingGroups: treatment
-#&gt; class: RangedSummarizedExperiment  dim: 100 2  metadata(27): version level ... sessionInfo subset assays(6): counts tpm ... vst fpkm rownames(100): ENSMUSG00000000088 ENSMUSG00000000326 ...   ENSMUSG00000024503 ENSMUSG00000024610 rowData names(7): broadClass description ... geneName   seqCoordSystem colnames(2): control_rep1 control_rep2 colData names(26): averageInsertSize averageReadLength ...   tissue treatment</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "counts"      "tpm"         "avgTxLength" "normalized" 
-#&gt; [5] "vst"         "fpkm"       </div><div class='input'>
+#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 100 2 
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(6): counts tpm ... vst fpkm
+#&gt; rownames(100): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000024503 ENSMUSG00000024610
+#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; colnames(2): control_rep1 control_rep2
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "counts"      "tpm"         "avgTxLength" "normalized"  "vst"        
+#&gt; [6] "fpkm"       </div><div class='input'>
 <span class='co'>## Fast subsetting, by skipping DESeq2 recalculations.</span>
 <span class='co'>## Note that `normalized`, `rlog`, and `vst` assays will not be defined.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[, <span class='no'>samples</span>, <span class='kw'>recalculate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 normalizations.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.99.0
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
 #&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-14
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-17
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
 #&gt; ensemblRelease: 90
 #&gt; genomeBuild: GRCm38
 #&gt; interestingGroups: treatment
-#&gt; class: RangedSummarizedExperiment  dim: 500 2  metadata(27): version level ... sessionInfo subset assays(4): counts tpm avgTxLength fpkm rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...   ENSMUSG00000114367 ENSMUSG00000114458 rowData names(7): broadClass description ... geneName   seqCoordSystem colnames(2): control_rep1 control_rep2 colData names(26): averageInsertSize averageReadLength ...   tissue treatment</div><div class='input'><span class='fu'>names</span>(<span class='fu'>assays</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "counts"      "tpm"         "avgTxLength" "fpkm"       </div></pre>
+#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 500 2 
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(3): counts tpm avgTxLength
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; colnames(2): control_rep1 control_rep2
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'><span class='fu'>names</span>(<span class='fu'>assays</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "counts"      "tpm"         "avgTxLength"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

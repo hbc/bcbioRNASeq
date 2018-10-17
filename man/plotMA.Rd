@@ -73,8 +73,7 @@ taken in two samples, by transforming the data onto M (log ratio) and A
 (mean average) scales, then plotting these values.
 }
 \examples{
-data(deseq_small)
-object <- deseq_small
+object <- bcbioRNASeq::deseq_small
 print(object)
 
 ## DESeqAnalysis ====
@@ -113,7 +112,7 @@ plotMA(object = object, genes = geneIDs)
 plotMA(object = object, genes = geneNames)
 }
 \seealso{
-\link[DESeq2:plotMA]{DESeq2::plotMA}.
+\code{\link[DESeq2:plotMA]{DESeq2::plotMA()}}.
 }
 \author{
 Michael Steinbaugh, Rory Kirchner

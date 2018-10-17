@@ -242,22 +242,21 @@ function.</p>
 argument, which must contain a <code>SummarizedExperiment</code> (e.g. <code>DESeqTransform</code>,
 <code>DESeqDataSet</code>).</p>
     
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+
+    
+    <ul>
+<li><p><code>SummarizedExperiment</code>: Construct a correlation heatmap comparing the columns
+of the matrix.</p></li>
+<li><p><code>SummarizedExperiment</code>: Scale the heatmap by applying quantile breaks.</p></li>
+</ul>
+    
     <h2 class="hasAnchor" id="hierarchical-clustering"><a class="anchor" href="#hierarchical-clustering"></a>Hierarchical clustering</h2>
 
     
     <p>By default, row- and column-wise hierarchical clustering is performed using
 the Ward method, but this behavior can be overrided by setting <code>clusterRows</code>
 or <code>clusterCols</code> to <code>FALSE</code>.</p>
-    
-    <h2 class="hasAnchor" id="correlation-heatmap"><a class="anchor" href="#correlation-heatmap"></a>Correlation heatmap</h2>
-
-    
-    <p>Construct a correlation heatmap comparing the columns of the matrix.</p>
-    
-    <h2 class="hasAnchor" id="quantile-heatmap"><a class="anchor" href="#quantile-heatmap"></a>Quantile heatmap</h2>
-
-    
-    <p>Apply quantile breaks.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -282,12 +281,12 @@ or <code>clusterCols</code> to <code>FALSE</code>.</p>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
 
 <span class='co'>## DESeqAnalysis ====</span>
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control</span></div><div class='output co'>#&gt; <span class='message'>254 differentially expressed genes detected.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: partial match of 'just' to 'justification'</span></div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotDEGHeatmap</span>(<span class='no'>deseq_small</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control</span></div><div class='output co'>#&gt; <span class='message'>254 differentially expressed genes detected.</span></div><div class='img'><img src='plotDEGHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## DESeqResults ====</span>
 <span class='fu'>plotDEGHeatmap</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>),
     <span class='kw'>counts</span> <span class='kw'>=</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqTransform"</span>)
-)</div><div class='output co'>#&gt; <span class='message'>254 differentially expressed genes detected.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: partial match of 'just' to 'justification'</span></div><div class='img'><img src='plotDEGHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>254 differentially expressed genes detected.</span></div><div class='img'><img src='plotDEGHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -298,11 +297,9 @@ or <code>clusterCols</code> to <code>FALSE</code>.</p>
 
       <li><a href="#details">Details</a></li>
 
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
+
       <li><a href="#hierarchical-clustering">Hierarchical clustering</a></li>
-
-      <li><a href="#correlation-heatmap">Correlation heatmap</a></li>
-
-      <li><a href="#quantile-heatmap">Quantile heatmap</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

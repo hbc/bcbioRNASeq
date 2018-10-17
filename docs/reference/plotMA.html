@@ -118,7 +118,9 @@
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for DESeqResults</span>
+    <pre class="usage"><span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqResults</span>
 <span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>),
   <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.point.color"</span>, <span class='st'>"gray50"</span>),
@@ -142,6 +144,10 @@
     <tr>
       <th>object</th>
       <td><p>A data object, typically containing count values from an RNA-Seq experiment or microarray intensity values.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments, for use in specific methods.</p></td>
     </tr>
     <tr>
       <th>genes</th>
@@ -185,10 +191,6 @@ and picks the first item in the vector by default.</p></td>
       <th>lfcShrink</th>
       <td><p><code>boolean</code>. Use shrunken log2 fold change (LFC) values.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments, for use in specific methods.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -204,23 +206,30 @@ taken in two samples, by transforming the data onto M (log ratio) and A
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotMA'>DESeq2::plotMA</a>.</p></div>
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/DESeq2/topics/plotMA'>DESeq2::plotMA()</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='no'>deseq_small</span>
+    <pre class="examples"><div class='input'><span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>bcbioRNASeq</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/bcbioRNASeq/topics/deseq_small'>deseq_small</a></span>
 <span class='fu'>print</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; DESeqAnalysis 1.21.22
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
 #&gt; transform: vst
 #&gt; contrastNames: treatment folic acid vs control
-#&gt; class: DESeqDataSet  dim: 500 6  metadata(11): version caller ... date sessionInfo assays(4): counts mu H cooks rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...   ENSMUSG00000114367 ENSMUSG00000114458 rowData names(29): broadClass description ... deviance   maxCooks colnames(6): control_rep1 control_rep2 ... fa_day7_rep2   fa_day7_rep3 colData names(8): sampleName day ... interestingGroups   sizeFactor</div><div class='input'>
+#&gt; class: DESeqDataSet 
+#&gt; dim: 500 6 
+#&gt; metadata(11): version caller ... date sessionInfo
+#&gt; assays(4): counts mu H cooks
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(29): broadClass description ... deviance maxCooks
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(8): sampleName day ... interestingGroups sizeFactor</div><div class='input'>
 <span class='co'>## DESeqAnalysis ====</span>
 <span class='co'>## This is the current recommended method.</span>
 
 <span class='no'>dds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>object</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='fu'>gene2symbol</span>(<span class='no'>dds</span>)
+<span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='fu'>Gene2Symbol</span>(<span class='no'>dds</span>)
 <span class='no'>geneIDs</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneID"</span>]])
 <span class='fu'>print</span>(<span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346"
 #&gt; [4] "ENSMUSG00000000740" "ENSMUSG00000001175" "ENSMUSG00000001666"</div><div class='input'><span class='no'>geneNames</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneName"</span>]])
