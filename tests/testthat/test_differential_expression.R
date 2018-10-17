@@ -142,23 +142,17 @@ with_parameters_test_that(
         expect_is(x, "ggplot")
 
         # Label the top genes.
-        args <- list(
-            object = object,
-            ntop = 10L
-        )
+        args <- list(object = object, ntop = 10L)
         if (!is(object, "DESeqAnalysis")) {
-            args[["gene2symbol"]] <- gene2symbol
+            args[["gene2symbol"]] <- g2s
         }
         x <- do.call(what = plotMA, args = args)
         expect_is(x, "ggplot")
 
         # Label specific genes.
-        args <- list(
-            object = object,
-            genes = geneNames
-        )
+        args <- list(object = object, genes = geneNames)
         if (!is(object, "DESeqAnalysis")) {
-            args[["gene2symbol"]] <- gene2symbol
+            args[["gene2symbol"]] <- g2s
         }
         x <- do.call(what = plotMA, args = args)
         expect_is(x, "ggplot")
@@ -201,23 +195,17 @@ with_parameters_test_that(
         expect_is(x, "ggplot")
 
         # Label the top genes.
-        args <- list(
-            object = object,
-            ntop = 5L
-        )
+        args <- list(object = object, ntop = 5L)
         if (!is(object, "DESeqAnalysis")) {
-            args[["gene2symbol"]] <- gene2symbol
+            args[["gene2symbol"]] <- g2s
         }
         x <- do.call(what = plotVolcano, args = args)
         expect_is(x, "ggplot")
 
         # Label specific genes.
-        args <- list(
-            object = object,
-            genes = geneNames
-        )
+        args <- list(object = object, genes = geneNames)
         if (!is(object, "DESeqAnalysis")) {
-            args[["gene2symbol"]] <- gene2symbol
+            args[["gene2symbol"]] <- g2s
         }
         x <- do.call(what = plotVolcano, args = args)
         expect_is(x, "ggplot")
@@ -234,7 +222,7 @@ with_parameters_test_that(
 
 
 
-# FIXME Move to generators...
+# FIXME Move to generators test file...
 # DESeqResultsTables ===========================================================
 with_parameters_test_that(
     "DESeqResultsTables", {
