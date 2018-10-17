@@ -37,14 +37,14 @@
 #'   assertIsHexColorFunctionOrNULL assertIsImplicitInteger basejump_geom_abline
 #'   basejump_geom_label basejump_geom_label_repel camel checkClasses
 #'   coerceS4ToList convertGenesToSymbols detectLanes detectOrganism emptyRanges
-#'   fixNA gene2symbol hasRownames import initDir interestingGroups
+#'   fixNA Gene2Symbol hasRownames import initDir interestingGroups
 #'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
 #'   methodFormals metrics organism plotGenesDetected plotHeatmap
 #'   prepareTemplate printString readYAML realpath removeNA sampleData
 #'   sanitizeRowData sanitizeSampleData separator showSlotInfo snake
-#'   standardizeCall stripTranscriptVersions tx2gene uniteInterestingGroups
+#'   standardizeCall stripTranscriptVersions Tx2Gene uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
 #'   readSampleData readTx2Gene runDate sampleDirs

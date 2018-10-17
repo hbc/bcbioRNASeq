@@ -41,12 +41,77 @@ NULL
 
 
 
-.resultsTablesList <- function(object) {
+# DESeqResults =================================================================
+.prepareResults <-  # nolint
+    function(
+        object,
+        rowData = NULL,
+        counts = NULL,
+        sampleNames = NULL
+    ) {
+        assert_is_all_of(object, "DESeqResults")
+        assert_is_any_of(rowData, c("DataFrame", "NULL"))
+        assert_is_any_of(counts, c("matrix", "NULL"))
+        assert_is_any_of(sampleNames, c("character", "NULL"))
+
+        # Coerce DESeqResults to DataFrame.
+        data <- as(object, "DataFrame")
+
+        # Row annotations.
+        if (
+            !is.null(rowData) &&
+            ncol(rowData) > 0L
+        ) {
+            message("Joining row annotations.")
+            assert_is_all_of(rowData, "DataFrame")
+            assert_are_identical(rownames(data), rownames(rowData))
+            data <- cbind(data, rowData)
+        }
+
+        # Variance-stabilized counts (DESeqTransform).
+        if (
+            !is.null(counts) &&
+            ncol(counts) > 0L
+        ) {
+            message("Joining DESeq2 transform counts.")
+            assert_is_matrix(counts)
+            assert_are_identical(rownames(data), rownames(counts))
+            # Convert to human friendly sample names, if possible.
+            if (
+                is.character(sampleNames) &&
+                has_length(sampleNames)
+            ) {
+                message("Using human-friendly sample names.")
+                assert_has_names(sampleNames)
+                assert_are_identical(names(sampleNames), colnames(counts))
+                colnames(counts) <- as.character(sampleNames)
+            }
+            assert_are_disjoint_sets(colnames(data), colnames(counts))
+            data <- cbind(data, counts)
+        }
+
+        DESeqResults(
+            DataFrame = data,
+            priorInfo = priorInfo(object)
+        )
+    }
+
+
+
+# DESeqResultsTables ===========================================================
+.resultsTables <- function(object) {
     stopifnot(is(object, "DESeqResultsTables"))
     validObject(object)
 
-    results <- slot(object, "results")
+    # Join rowData and slotted counts.
+    results <- .prepareResults(
+        object = slot(object, "results"),
+        rowData = slot(object, "rowData"),
+        counts = slot(object, "counts"),
+        sampleNames = slot(object, "sampleNames")
+    )
     stopifnot(is(results, "DESeqResults"))
+    validObject(results)
 
     deg <- slot(object, "deg")
     assert_is_list(deg)
@@ -66,13 +131,11 @@ NULL
 
 
 
-# FIXME Need to update this method after we change the DESeqResultsTables structure.
-# FIXME Ensure we're joining rowData and counts automatically here.
 .export.DESeqResultsTables <-  # nolint
     function(
         x,
         dir = ".",
-        compress = TRUE,
+        compress = FALSE,
         dropbox = FALSE,
         rdsToken = NULL
     ) {
@@ -86,7 +149,14 @@ NULL
         assert_is_a_bool(compress)
         assert_is_a_bool(dropbox)
 
-        tables <- .resultsTablesList(x)
+        tables <- .resultsTables(x)
+        assert_is_list(tables)
+        lapply(
+            X = tables,
+            FUN = function(x) {
+                assert_is_all_of(x, "DESeqResults")
+            }
+        )
         assert_are_identical(
             x = names(tables),
             y = c("all", "up", "down", "both")

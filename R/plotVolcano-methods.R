@@ -23,7 +23,7 @@
 #'
 #' ## Get genes from DESeqDataSet.
 #' dds <- as(object, "DESeqDataSet")
-#' g2s <- gene2symbol(dds)
+#' g2s <- Gene2Symbol(dds)
 #' geneIDs <- head(g2s[["geneID"]])
 #' print(geneIDs)
 #' geneNames <- head(g2s[["geneName"]])
@@ -336,7 +336,7 @@ NULL
                         lfcShrink = lfcShrink
                     ),
                     genes = genes,
-                    gene2symbol = gene2symbol(slot(object, "data"))
+                    gene2symbol = Gene2Symbol(slot(object, "data"))
                 ),
                 removeFormals = c("results", "lfcShrink")
             )

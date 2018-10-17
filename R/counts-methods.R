@@ -1,7 +1,3 @@
-# FIXME Consider dropping `tmm()` generic.
-
-
-
 #' Count Matrix Accessors
 #'
 #' By default, returns the raw counts. Normalized counts in a variety of formats

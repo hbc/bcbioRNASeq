@@ -151,9 +151,9 @@ test_that("plotDispEsts", {
 
 context("Plots : Gene Expression")
 
-gene2symbol <- gene2symbol(bcb_small)
-geneIDs <- head(gene2symbol[["geneID"]])
-geneNames <- head(gene2symbol[["geneName"]])
+g2s <- Gene2Symbol(bcb_small)
+geneIDs <- head(g2s[["geneID"]])
+geneNames <- head(g2s[["geneName"]])
 
 
 

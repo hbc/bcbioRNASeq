@@ -6,7 +6,7 @@
 \alias{export,DESeqResultsTables-method}
 \title{Export}
 \usage{
-\S4method{export}{DESeqResultsTables}(x, dir = ".", compress = TRUE,
+\S4method{export}{DESeqResultsTables}(x, dir = ".", compress = FALSE,
   dropbox = FALSE, rdsToken = NULL)
 }
 \arguments{
