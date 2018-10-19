@@ -19,8 +19,9 @@
 
 \item{rowRanges}{\code{GRanges} or \code{NULL}. Row annotations. Since we converted to
 \code{RangedSummarizedExperiment} in v0.2.0, this option had to be added to
-enable updating of newly required \code{\link[=rowRanges]{rowRanges()}} slot. Objects that are >=
-v0.2 don't require this argument and it can be left \code{NULL}.}
+enable updating of newly required \code{\link[SummarizedExperiment:rowRanges]{SummarizedExperiment::rowRanges()}} slot.
+Objects that are >= v0.2 don't require this argument and it can be left
+\code{NULL}.}
 }
 \value{
 \code{bcbioRNASeq}.
@@ -41,7 +42,7 @@ Support for \code{bcbioRNADataSet} objects was dropped in v0.2.0 of the package.
 If you need to load one of these objects, please install an older release.
 }
 
-\section{Legacy objects created with \code{bcbioRnaseq}}{
+\section{Legacy \code{bcbioRnaseq} package}{
 
 
 The previous \code{bcbioRnaseq} package (note case) must be reinstalled to load

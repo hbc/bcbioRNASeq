@@ -64,7 +64,7 @@ plotDEGPCA.DESeqResults <-  # nolint
 
         # Using our internal `SummarizedExperiment` method.
         do.call(
-            what = .plotPCA.SummarizedExperiment,
+            what = plotPCA.SummarizedExperiment,
             args = list(
                 object = counts[deg, , drop = FALSE],
                 interestingGroups = interestingGroups,
@@ -81,7 +81,7 @@ plotDEGPCA.DESeqResults <-  # nolint
     }
 f1 <- formals(plotDEGPCA.DESeqResults)
 # Note that we're not exporting the plotPCA SE method.
-f2 <- formals(.plotPCA.SummarizedExperiment)
+f2 <- formals(plotPCA.SummarizedExperiment)
 f2 <- f2[c("interestingGroups", "color", "label", "return")]
 f <- c(f1, f2)
 formals(plotDEGPCA.DESeqResults) <- f

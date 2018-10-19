@@ -58,11 +58,11 @@ plotMeanSD(deseq_small)
 }
 \seealso{
 \itemize{
-\item \link[vsn:meanSdPlot]{vsn::meanSdPlot}.
-\item \link[DESeq2:DESeq]{DESeq2::DESeq}.
-\item \link[DESeq2:rlog]{DESeq2::rlog}.
-\item \link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation}.
-\item \link[edgeR:calcNormFactors]{edgeR::calcNormFactors}.
+\item \code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}}.
+\item \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
+\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
+\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+\item \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}}.
 }
 }
 \author{

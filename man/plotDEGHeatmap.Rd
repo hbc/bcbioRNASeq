@@ -87,9 +87,9 @@ improved aesthetics.}
 Construct a simple heatmap.
 }
 \details{
-This function is a simplified version of \code{\link[=plotHeatmap]{plotHeatmap()}} that is
+This function is a simplified version of \code{\link[basejump:plotHeatmap]{basejump::plotHeatmap()}} that is
 optimized for handling a \code{DESeqResults} object rather a gene vector. All of
-the optional parameters for \code{\link[=plotHeatmap]{plotHeatmap()}} are also available to this
+the optional parameters for \code{plotHeatmap} are also available to this
 function.
 
 To adjust the annotation columns, modify the \code{colData} of the \code{counts}

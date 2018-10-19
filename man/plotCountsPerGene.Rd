@@ -57,19 +57,23 @@ plots containing many samples.}
 Generally, we expect similar count spreads for all genes between samples
 unless the library sizes or total RNA expression are different.
 }
-\section{TMM}{
+\section{Trimmed Mean of M-Values}{
 
-We recommend visualizing counts normalized with the Trimmed Mean of M-Values
-(TMM) method here (Robinson, et al., 2010). TMM normalization equates the
-overall expression levels of genes between samples under the assumption that
-the majority of them are not differentially expressed. Therefore, by
-normalizing for total RNA expression by sample, we expect the spread of the
+
+We recommend visualizing counts normalized with the \strong{T}rimmed \strong{M}ean of
+\strong{M}-Values (TMM) method here. TMM normalization equates the overall
+expression levels of genes between samples under the assumption that the
+majority of them are not differentially expressed. Therefore, by normalizing
+for total RNA expression by sample, we expect the spread of the
 TMM-normalized counts per gene to be similar for every sample.
 }
 
 \examples{
 data(bcb_small)
 plotCountsPerGene(bcb_small)
+}
+\references{
+TMM: Robinson, et al., 2010.
 }
 \seealso{
 Other Plots: \code{\link{plotCountsPerBiotype}},

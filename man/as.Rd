@@ -17,10 +17,10 @@ Coerce an object to a given class.
 \enumerate{
 \item Coerces to \code{RangedSummarizedExperiment}.
 \item Rounds raw counts to \code{integer matrix}.
-\item Subsets \code{\link[=colData]{colData()}} to include only clean factor columns. See
-\code{\link[=sampleData]{sampleData()}} for more details.
-\item Simplifies \code{\link[=metadata]{metadata()}} to include only relevant information and
-updates \code{sessionInfo}.
+\item Subsets \code{\link[SummarizedExperiment:colData]{SummarizedExperiment::colData()}} to include only clean factor
+columns. See \code{\link[basejump:sampleData]{basejump::sampleData()}} for more details.
+\item Simplifies \code{\link[S4Vectors:metadata]{S4Vectors::metadata()}} to include only relevant information
+and updates \code{sessionInfo}.
 }
 }
 

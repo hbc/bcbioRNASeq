@@ -36,7 +36,7 @@ data(deseq_small)
 contrastName(deseq_small, results = 1L)
 
 ## DESeqResults ====
-object <- deseq_small@results[[1L]]
+object <- as(deseq_small, "DESeqResults")
 contrastName(object)
 }
 \author{

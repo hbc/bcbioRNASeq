@@ -46,7 +46,7 @@ data(bcb_small)
 plotMappedReads(bcb_small)
 }
 \seealso{
-\link{plotMappingRate}.
+\code{\link[=plotMappingRate]{plotMappingRate()}}.
 }
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera

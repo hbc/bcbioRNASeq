@@ -196,7 +196,7 @@ possible.
 \section{Automatic metadata}{
 
 
-The \code{\link[=metadata]{metadata()}} slot always contains:
+The \code{\link[S4Vectors:metadata]{S4Vectors::metadata()}} slot always contains:
 \itemize{
 \item Object version.
 \item bcbio data provenance information.

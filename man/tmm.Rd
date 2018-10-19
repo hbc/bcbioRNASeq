@@ -38,8 +38,8 @@ Robinson and Oshlack (2010).
 }
 \seealso{
 \itemize{
-\item \link[edgeR:calcNormFactors]{edgeR::calcNormFactors}.
-\item \link[edgeR:cpm]{edgeR::cpm}.
+\item \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}}.
+\item \code{\link[edgeR:cpm]{edgeR::cpm()}}.
 }
 }
 \author{

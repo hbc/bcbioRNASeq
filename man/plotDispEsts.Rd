@@ -81,7 +81,7 @@ plotDispEsts(
 )
 }
 \seealso{
-\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts}.
+\code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.
 }
 \author{
 Michael Steinbaugh
