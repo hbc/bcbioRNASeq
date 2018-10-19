@@ -29,12 +29,13 @@ authors:
 reference:
   - title: S4 Classes
     contents:
-    - ends_with("-class")
-  - title: S4 Generators
-    contents:
-    - bcbioRNASeq
-    - DESeqAnalysis
-    - DESeqResultsTables
+    - starts_with("bcbioRNASeq")
+    - starts_with("DESeqAnalysis")
+    - starts_with("DESeqResultsTables")
+    - as
+    - extract
+    - show
+    - updateObject
   - title: Counts
     contents:
     - counts
@@ -47,19 +48,13 @@ reference:
     contents:
     - alphaSummary
     - contrastName
-    - starts_with("DESeq")
-    - ends_with("Tables")
-  - title: General
+  - title: Miscellaneous
     contents:
-    - as
     - export
-    - extract
     - markdown
     - prepareRNASeqTemplate
     - sampleData
-    - show
-    - updateObject
-  - title: Example Data
+  - title: Example Data Sets
     desc: GSE65267
     contents:
     - ends_with("_small")
