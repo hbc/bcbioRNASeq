@@ -48,6 +48,7 @@ reference:
     contents:
     - alphaSummary
     - contrastName
+    - topTables
   - title: Miscellaneous
     contents:
     - export
