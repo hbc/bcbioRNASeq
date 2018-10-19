@@ -87,8 +87,8 @@ counts matrix.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
-\item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
-and picks the first item in the vector by default.}
+\item{return}{\code{string}. Object class to return. Uses \code{\link[base:match.arg]{base::match.arg()}}
+internally and picks the first item in the vector by default.}
 
 \item{samples}{\code{character} or \code{NULL}. Samples to include.}
 

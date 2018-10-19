@@ -1,6 +1,5 @@
 #' @inherit DESeqResultsTables-class
 #' @name DESeqResultsTables
-#' @family S4 Generators
 #' @author Michael Steinbaugh
 #'
 #' @section Obtaining results from DESeq2:

@@ -75,14 +75,6 @@ plotCountsPerGene(bcb_small)
 \references{
 TMM: Robinson, et al., 2010.
 }
-\seealso{
-Other Plots: \code{\link{plotCountsPerBiotype}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
-  \code{\link{plotHeatmap}}, \code{\link{plotQC}},
-  \code{\link{plotTotalCounts}},
-  \code{\link{plotZerosVsDepth}}
-}
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }

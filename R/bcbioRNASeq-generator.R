@@ -1,5 +1,4 @@
 #' @inherit bcbioRNASeq-class
-#' @family S4 Generators
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #' @export
 #'

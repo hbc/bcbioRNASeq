@@ -58,8 +58,8 @@
 #' @param perMillion `boolean`. Display as counts per million.
 #' @param pointColor `string`. Default point color for the plot.
 #' @param results `scalar`. Position or name of `DESeqResults`.
-#' @param return `string`. Object class to return. Uses [match.arg()] internally
-#'   and picks the first item in the vector by default.
+#' @param return `string`. Object class to return. Uses [base::match.arg()]
+#'   internally and picks the first item in the vector by default.
 #' @param samples `character` or `NULL`. Samples to include.
 #' @param sigPointColor `character`. Color names for labeling upregulated and
 #'   downregulated genes. Also supports a character string for labeling DEGs

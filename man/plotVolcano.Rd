@@ -54,8 +54,8 @@ with the same color, regardless of direction.}
 
 \item{histograms}{\code{boolean}. Show LFC and P value histograms.}
 
-\item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
-and picks the first item in the vector by default.}
+\item{return}{\code{string}. Object class to return. Uses \code{\link[base:match.arg]{base::match.arg()}}
+internally and picks the first item in the vector by default.}
 
 \item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
 \code{geneID} and \code{geneName} columns, with rownames defined.}

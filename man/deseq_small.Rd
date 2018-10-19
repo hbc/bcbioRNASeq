@@ -15,11 +15,7 @@ Minimal DESeq2 differential expression analysis.
 data(deseq_small)
 deseq_small
 }
-\seealso{
-Other GSE65267: \code{\link{bcb_small}}
-}
 \author{
 Michael Steinbaugh, Lorena Pantano
 }
-\concept{GSE65267}
 \keyword{datasets}

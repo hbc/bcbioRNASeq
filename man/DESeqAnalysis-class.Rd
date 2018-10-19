@@ -42,10 +42,10 @@ care of this automatically in supported methods.
 \seealso{
 \code{\link[=DESeqAnalysis]{DESeqAnalysis()}}.
 
-Other S4 Classes: \code{\link{DESeqResultsTables-class}},
+Other S4 classes: \code{\link{DESeqResultsTables-class}},
   \code{\link{bcbioRNASeq-class}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{S4 Classes}
+\concept{S4 classes}

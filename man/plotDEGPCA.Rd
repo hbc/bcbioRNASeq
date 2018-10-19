@@ -46,8 +46,8 @@ To set the discrete color palette globally, use
 
 \item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
 
-\item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
-and picks the first item in the vector by default.}
+\item{return}{\code{string}. Object class to return. Uses \code{\link[base:match.arg]{base::match.arg()}}
+internally and picks the first item in the vector by default.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 }

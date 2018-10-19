@@ -97,11 +97,7 @@ print(x)
 \item \code{\link[DESeq2:results]{DESeq2::results()}}.
 \item \code{\link[=markdown]{markdown()}}, \code{\link[=write]{write()}}.
 }
-
-Other S4 Generators: \code{\link{DESeqAnalysis}},
-  \code{\link{bcbioRNASeq}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{S4 Generators}

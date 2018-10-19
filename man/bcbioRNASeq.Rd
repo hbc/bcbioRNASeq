@@ -236,11 +236,7 @@ print(object)
 \item \code{\link[methods:validObject]{methods::validObject()}}.
 \item \code{\link[BiocGenerics:updateObject]{BiocGenerics::updateObject()}}.
 }
-
-Other S4 Generators: \code{\link{DESeqAnalysis}},
-  \code{\link{DESeqResultsTables}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 }
-\concept{S4 Generators}

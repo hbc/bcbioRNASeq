@@ -27,7 +27,7 @@ authors:
     href: http://bioinformatics.sph.harvard.edu
 
 reference:
-  - title: S4 Classes
+  - title: S4 classes
     contents:
     - starts_with("bcbioRNASeq")
     - starts_with("DESeqAnalysis")
@@ -44,7 +44,7 @@ reference:
   - title: Plots
     contents:
     - starts_with("plot")
-  - title: Differential Expression
+  - title: Differential expression
     contents:
     - alphaSummary
     - contrastName
@@ -55,7 +55,7 @@ reference:
     - markdown
     - prepareRNASeqTemplate
     - sampleData
-  - title: Example Data Sets
+  - title: Example data
     desc: GSE65267
     contents:
     - ends_with("_small")

@@ -5,7 +5,6 @@
 #' poor sequencing quality or other artifacts.
 #'
 #' @name plotMappingRate
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general

@@ -21,7 +21,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' - File paths and timestamps.
 #' - R session information.
 #'
-#' @family S4 Classes
+#' @family S4 classes
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
 #'
@@ -217,7 +217,7 @@ setValidity(
 #' rearranging the rows or dropping genes without adjusted P values. We'll take
 #' care of this automatically in supported methods.
 #'
-#' @family S4 Classes
+#' @family S4 classes
 #' @author Michael Steinbaugh
 #' @export
 #'
@@ -300,7 +300,7 @@ setValidity(
 #'
 #' `DESeqResults` object with `DataFrame` subsets and file path information.
 #'
-#' @family S4 Classes
+#' @family S4 classes
 #' @author Michael Steinbaugh
 #' @export
 #'

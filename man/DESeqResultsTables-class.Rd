@@ -33,10 +33,10 @@ whether we're writing locally or to Dropbox.}
 \seealso{
 \code{\link[=DESeqResultsTables]{DESeqResultsTables()}}.
 
-Other S4 Classes: \code{\link{DESeqAnalysis-class}},
+Other S4 classes: \code{\link{DESeqAnalysis-class}},
   \code{\link{bcbioRNASeq-class}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{S4 Classes}
+\concept{S4 classes}

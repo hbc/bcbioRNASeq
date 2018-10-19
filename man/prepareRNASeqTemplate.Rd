@@ -39,13 +39,6 @@ unlink(c(
     "bibliography.bib"
 ))
 }
-\seealso{
-Other Markdown Functions: \code{\link{markdownHeader}},
-  \code{\link{markdownLink}}, \code{\link{markdownList}},
-  \code{\link{markdownPlotlist}},
-  \code{\link{markdownTables}}, \code{\link{markdown}}
-}
 \author{
 Michael Steinbaugh
 }
-\concept{R Markdown Functions}

@@ -1,6 +1,5 @@
 #' bcbio RNA-Seq Example Data
 #'
-#' @family GSE65267
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
 #' @examples
@@ -14,7 +13,6 @@
 #'
 #' Minimal DESeq2 differential expression analysis.
 #'
-#' @family GSE65267
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
 #' @examples

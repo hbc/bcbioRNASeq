@@ -50,4 +50,3 @@ plotMappingRate(bcb_small)
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera
 }
-\concept{Quality Control Functions}

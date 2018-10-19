@@ -15,11 +15,7 @@ bcbio RNA-Seq Example Data
 data(bcb_small)
 bcb_small
 }
-\seealso{
-Other GSE65267: \code{\link{deseq_small}}
-}
 \author{
 Michael Steinbaugh, Lorena Pantano
 }
-\concept{GSE65267}
 \keyword{datasets}

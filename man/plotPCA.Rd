@@ -44,8 +44,8 @@ To set the discrete color palette globally, use
 
 \item{subtitle}{\code{string} or \code{NULL}. Plot subtitle.}
 
-\item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
-and picks the first item in the vector by default.}
+\item{return}{\code{string}. Object class to return. Uses \code{\link[base:match.arg]{base::match.arg()}}
+internally and picks the first item in the vector by default.}
 }
 \value{
 \code{ggplot} or \code{DataFrame}.

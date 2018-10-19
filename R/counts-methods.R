@@ -16,7 +16,6 @@ BiocGenerics::`counts<-`
 #' can be accessed using the `normalized` argument.
 #'
 #' @name counts
-#' @family Data Functions
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
 #' @inheritParams general

@@ -18,14 +18,6 @@ Plot Quality Control
 data(bcb_small)
 plotQC(bcb_small)
 }
-\seealso{
-Other Plots: \code{\link{plotCountsPerBiotype}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGenesDetected}}, \code{\link{plotGene}},
-  \code{\link{plotHeatmap}}, \code{\link{plotTotalCounts}},
-  \code{\link{plotZerosVsDepth}}
-}
 \author{
 Michael Steinbaugh
 }

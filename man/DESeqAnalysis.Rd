@@ -68,10 +68,11 @@ x <- DESeqAnalysis(
 print(x)
 }
 \seealso{
-Other S4 Generators: \code{\link{DESeqResultsTables}},
-  \code{\link{bcbioRNASeq}}
+\code{\link[=DESeqAnalysis]{DESeqAnalysis()}}.
+
+Other S4 classes: \code{\link{DESeqResultsTables-class}},
+  \code{\link{bcbioRNASeq-class}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{S4 Generators}

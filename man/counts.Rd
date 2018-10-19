@@ -78,4 +78,3 @@ counts(bcb_small) \%>\% summary()
 \author{
 Michael Steinbaugh, Lorena Pantano
 }
-\concept{Data Functions}

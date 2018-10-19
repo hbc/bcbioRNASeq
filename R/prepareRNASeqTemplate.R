@@ -1,7 +1,6 @@
 #' Prepare RNA-Seq R Markdown Template
 #'
 #' @name prepareRNASeqTemplate
-#' @family R Markdown Functions
 #' @author Michael Steinbaugh
 #' @inherit basejump::prepareTemplate
 #' @export

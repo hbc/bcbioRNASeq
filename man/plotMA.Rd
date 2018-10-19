@@ -46,8 +46,8 @@ Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 downregulated genes. Also supports a character string for labeling DEGs
 with the same color, regardless of direction.}
 
-\item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
-and picks the first item in the vector by default.}
+\item{return}{\code{string}. Object class to return. Uses \code{\link[base:match.arg]{base::match.arg()}}
+internally and picks the first item in the vector by default.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
