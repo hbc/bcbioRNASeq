@@ -35,7 +35,7 @@ setMethod(
 
 
 # SummarizedExperiment =========================================================
-.relativeLogExpression.SE <-  # nolint
+.relativeLogExpression.SummarizedExperiment <-  # nolint
     function(object) {
         relativeLogExpression(counts(object))
     }
@@ -47,5 +47,5 @@ setMethod(
 setMethod(
     f = "relativeLogExpression",
     signature = signature("SummarizedExperiment"),
-    definition = .relativeLogExpression.SE
+    definition = .relativeLogExpression.SummarizedExperiment
 )

@@ -49,7 +49,7 @@ setMethod(
 
 
 # SummarizedExperiment =========================================================
-.tmm.SE <-  # nolint
+.tmm.SummarizedExperiment <-  # nolint
     function(object) {
         validObject(object)
         tmm(counts(object))
@@ -62,5 +62,5 @@ setMethod(
 setMethod(
     f = "tmm",
     signature = signature("SummarizedExperiment"),
-    definition = .tmm.SE
+    definition = .tmm.SummarizedExperiment
 )
