@@ -1,12 +1,16 @@
+# Do not allow post hoc alpha, lfcThreshold cutoffs.
+
+
+
 #' Differentially Expressed Gene Heatmap
 #' @name plotDEGHeatmap
 #' @inherit basejump::plotHeatmap
 #' @author Michael Steinbaugh
 #'
 #' @details
-#' This function is a simplified version of [plotHeatmap()] that is
+#' This function is a simplified version of [basejump::plotHeatmap()] that is
 #' optimized for handling a `DESeqResults` object rather a gene vector. All of
-#' the optional parameters for [plotHeatmap()] are also available to this
+#' the optional parameters for `plotHeatmap` are also available to this
 #' function.
 #'
 #' To adjust the annotation columns, modify the `colData` of the `counts`
@@ -32,8 +36,7 @@ NULL
 
 
 # DESeqResults =================================================================
-# Do not allow post hoc alpha, lfcThreshold cutoffs.
-.plotDEGHeatmap.DESeqResults <-  # nolint
+plotDEGHeatmap.DESeqResults <-  # nolint
     function(
         object,
         counts,
@@ -107,11 +110,11 @@ NULL
             )
         )
     }
-f1 <- formals(.plotDEGHeatmap.DESeqResults)
+f1 <- formals(plotDEGHeatmap.DESeqResults)
 f2 <- methodFormals(f = "plotHeatmap", signature = "SummarizedExperiment")
 f2 <- f2[setdiff(names(f2), c(names(f1), "object", "assay"))]
 f <- c(f1, f2)
-formals(.plotDEGHeatmap.DESeqResults) <- f
+formals(plotDEGHeatmap.DESeqResults) <- f
 
 
 
@@ -120,13 +123,13 @@ formals(.plotDEGHeatmap.DESeqResults) <- f
 setMethod(
     f = "plotDEGHeatmap",
     signature = signature("DESeqResults"),
-    definition = .plotDEGHeatmap.DESeqResults
+    definition = plotDEGHeatmap.DESeqResults
 )
 
 
 
 # DESeqAnalysis ================================================================
-.plotDEGHeatmap.DESeqAnalysis <-  # nolint
+plotDEGHeatmap.DESeqAnalysis <-  # nolint
     function(object, results) {
         do.call(
             what = plotDEGHeatmap,
@@ -144,11 +147,11 @@ setMethod(
             )
         )
     }
-f1 <- formals(.plotDEGHeatmap.DESeqAnalysis)
-f2 <- formals(.plotDEGHeatmap.DESeqResults)
+f1 <- formals(plotDEGHeatmap.DESeqAnalysis)
+f2 <- formals(plotDEGHeatmap.DESeqResults)
 f2 <- f2[setdiff(names(f2), names(f1))]
 f <- c(f1, f2)
-formals(.plotDEGHeatmap.DESeqAnalysis) <- f
+formals(plotDEGHeatmap.DESeqAnalysis) <- f
 
 
 
@@ -157,5 +160,5 @@ formals(.plotDEGHeatmap.DESeqAnalysis) <- f
 setMethod(
     f = "plotDEGHeatmap",
     signature = signature("DESeqAnalysis"),
-    definition = .plotDEGHeatmap.DESeqAnalysis
+    definition = plotDEGHeatmap.DESeqAnalysis
 )

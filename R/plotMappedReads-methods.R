@@ -9,7 +9,7 @@
 #'
 #' @return `ggplot`.
 #'
-#' @seealso [plotMappingRate].
+#' @seealso [plotMappingRate()].
 #'
 #' @examples
 #' data(bcb_small)
@@ -18,7 +18,7 @@ NULL
 
 
 
-.plotMappedReads.bcbioRNASeq <-  # nolint
+plotMappedReads.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -94,5 +94,5 @@ NULL
 setMethod(
     f = "plotMappedReads",
     signature = signature("bcbioRNASeq"),
-    definition = .plotMappedReads.bcbioRNASeq
+    definition = plotMappedReads.bcbioRNASeq
 )

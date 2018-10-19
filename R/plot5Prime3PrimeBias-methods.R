@@ -20,7 +20,7 @@ NULL
 
 
 
-.plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
+plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -96,5 +96,5 @@ NULL
 setMethod(
     f = "plot5Prime3PrimeBias",
     signature = signature("bcbioRNASeq"),
-    definition = .plot5Prime3PrimeBias.bcbioRNASeq
+    definition = plot5Prime3PrimeBias.bcbioRNASeq
 )

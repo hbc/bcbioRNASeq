@@ -20,7 +20,7 @@ NULL
 
 
 
-.plotRRNAMappingRate.bcbioRNASeq <-  # nolint
+plotRRNAMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -96,5 +96,5 @@ NULL
 setMethod(
     f = "plotRRNAMappingRate",
     signature = signature("bcbioRNASeq"),
-    definition = .plotRRNAMappingRate.bcbioRNASeq
+    definition = plotRRNAMappingRate.bcbioRNASeq
 )

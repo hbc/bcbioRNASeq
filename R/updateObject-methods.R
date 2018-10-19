@@ -28,7 +28,7 @@ BiocGenerics::updateObject
 #' Support for `bcbioRNADataSet` objects was dropped in v0.2.0 of the package.
 #' If you need to load one of these objects, please install an older release.
 #'
-#' @section Legacy objects created with `bcbioRnaseq`:
+#' @section Legacy `bcbioRnaseq` package:
 #'
 #' The previous `bcbioRnaseq` package (note case) must be reinstalled to load
 #' objects from versions <= 0.0.20. We changed the name of the package to
@@ -37,8 +37,9 @@ BiocGenerics::updateObject
 #' @inheritParams general
 #' @param rowRanges `GRanges` or `NULL`. Row annotations. Since we converted to
 #'   `RangedSummarizedExperiment` in v0.2.0, this option had to be added to
-#'   enable updating of newly required [rowRanges()] slot. Objects that are >=
-#'   v0.2 don't require this argument and it can be left `NULL`.
+#'   enable updating of newly required [SummarizedExperiment::rowRanges()] slot.
+#'   Objects that are >= v0.2 don't require this argument and it can be left
+#'   `NULL`.
 #'
 #' @return `bcbioRNASeq`.
 #'
@@ -49,7 +50,7 @@ NULL
 
 
 
-.updateObject.bcbioRNASeq <-  # nolint
+updateObject.bcbioRNASeq <-  # nolint
     function(
         object,
         rowRanges = NULL
@@ -435,5 +436,5 @@ NULL
 setMethod(
     f = "updateObject",
     signature = signature("bcbioRNASeq"),
-    definition = .updateObject.bcbioRNASeq
+    definition = updateObject.bcbioRNASeq
 )

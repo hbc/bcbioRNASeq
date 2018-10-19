@@ -1,7 +1,3 @@
-# FIXME Rework how we handle extraction.
-
-
-
 #' @name extract
 #' @inherit base::Extract title params references
 #' @author Michael Steinbaugh, Lorena Pantano
@@ -11,12 +7,13 @@
 #' @details
 #' Internal count transformations are rescaled automatically, if defined. DESeq2
 #' transformations will only be updated when `recalculate = TRUE` and either
-#' `rlog` or `vst` counts are defined in [assays()].
+#' `rlog` or `vst` counts are defined in [SummarizedExperiment::assays()].
 #
 #' @inheritParams general
 #' @param recalculate `boolean`. Recalculate DESeq2 normalized counts and
-#'   variance-stabilizing transformations defined in [assays()]. Recommended by
-#'   default, but can take a long time for large datasets.
+#'   variance-stabilizing transformations defined in
+#'   [SummarizedExperiment::assays()]. Recommended by default, but can take a
+#'   long time for large datasets.
 #'
 #' @return `bcbioRNASeq`.
 #'

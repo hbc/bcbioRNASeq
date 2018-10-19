@@ -1,3 +1,7 @@
+# Don't attempt to abbreviate as `rle()`, since that is already defined in R.
+
+
+
 #' Relative Log Expression
 #'
 #' @name relativeLogExpression
@@ -17,7 +21,7 @@ NULL
 
 
 # matrix =======================================================================
-.relativeLogExpression.matrix <-  # nolint
+relativeLogExpression.matrix <-  # nolint
     function(object) {
         t(t(object) / colMedians(object))
     }
@@ -29,13 +33,13 @@ NULL
 setMethod(
     f = "relativeLogExpression",
     signature = signature("matrix"),
-    definition = .relativeLogExpression.matrix
+    definition = relativeLogExpression.matrix
 )
 
 
 
 # SummarizedExperiment =========================================================
-.relativeLogExpression.SummarizedExperiment <-  # nolint
+relativeLogExpression.SummarizedExperiment <-  # nolint
     function(object) {
         relativeLogExpression(counts(object))
     }
@@ -47,5 +51,5 @@ setMethod(
 setMethod(
     f = "relativeLogExpression",
     signature = signature("SummarizedExperiment"),
-    definition = .relativeLogExpression.SummarizedExperiment
+    definition = relativeLogExpression.SummarizedExperiment
 )

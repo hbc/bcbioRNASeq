@@ -1,4 +1,20 @@
 # FIXME Need to fix these for DESeqResultsTables update.
+# FIXME Improve support for joining rowData.
+
+# geneCols <- c("geneName", "geneBiotype", "description")
+# assert_are_disjoint_sets(geneCols, colnames(results))
+#
+# # Add useful gene annotations.
+# data <- slot(object, "data")
+# rowData <- rowData(data)
+# assert_is_subset(geneCols, colnames(rowData))
+#
+# rowData <- rowData[, geneCols, drop = FALSE]
+# # Don't use cbind or merge...it will coerce to `DataFrame`.
+# results[["geneName"]] <- rowData[["geneName"]]
+# results[["geneBiotype"]] <- rowData[["geneBiotype"]]
+# results[["description"]] <- rowData[["description"]]
+# assert_is_all_of(results, "DESeqResults")
 
 
 
@@ -20,7 +36,7 @@ NULL
 
 
 # DESeqResults =================================================================
-.topTables.DESeqResults <-  # nolint
+topTables.DESeqResults <-  # nolint
     function(object, n = 50L) {
         do.call(
             what = topTables,
@@ -38,30 +54,13 @@ NULL
 setMethod(
     f = "topTables",
     signature = signature("DESeqResults"),
-    definition = .topTables.DESeqResults
+    definition = topTables.DESeqResults
 )
 
 
 
 # DESeqResultsTables ===========================================================
-# FIXME Improve support for joining rowData.
-
-# geneCols <- c("geneName", "geneBiotype", "description")
-# assert_are_disjoint_sets(geneCols, colnames(results))
-#
-# # Add useful gene annotations.
-# data <- slot(object, "data")
-# rowData <- rowData(data)
-# assert_is_subset(geneCols, colnames(rowData))
-#
-# rowData <- rowData[, geneCols, drop = FALSE]
-# # Don't use cbind or merge...it will coerce to `DataFrame`.
-# results[["geneName"]] <- rowData[["geneName"]]
-# results[["geneBiotype"]] <- rowData[["geneBiotype"]]
-# results[["description"]] <- rowData[["description"]]
-# assert_is_all_of(results, "DESeqResults")
-
-.topTable.DESeqResultsTables <-  # nolint
+.topTable <-  # nolint
     function(
         object,
         direction = c("up", "down"),
@@ -129,12 +128,12 @@ setMethod(
             # This coercion will automatically set rownames.
             as("DataFrame")
     }
-formals(.topTable.DESeqResultsTables)[["n"]] <-
-    formals(.topTables.DESeqResults)[["n"]]
+formals(.topTable)[["n"]] <-
+    formals(topTables.DESeqResults)[["n"]]
 
 
 
-.topTables.DESeqResultsTables <-  # nolint
+topTables.DESeqResultsTables <-  # nolint
     function(object, n) {
         validObject(object)
         assertIsAnImplicitInteger(n)
@@ -142,11 +141,7 @@ formals(.topTable.DESeqResultsTables)[["n"]] <-
         assert_is_a_string(contrast)
 
         # Upregulated.
-        up <- .topTable.DESeqResultsTables(
-            object = object,
-            direction = "up",
-            n = n
-        )
+        up <- .topTable(object, direction = "up", n = n)
         if (length(up)) {
             show(kable(
                 x = as.data.frame(up),
@@ -155,11 +150,7 @@ formals(.topTable.DESeqResultsTables)[["n"]] <-
         }
 
         # Downregulated.
-        down <- .topTable.DESeqResultsTables(
-            object = object,
-            direction = "down",
-            n = n
-        )
+        down <- .topTable(object, direction = "down", n = n)
         if (length(down)) {
             show(kable(
                 x = as.data.frame(down),
@@ -170,8 +161,8 @@ formals(.topTable.DESeqResultsTables)[["n"]] <-
         # Invisibly return list containing the subsets.
         invisible(list(up = up, down = down))
     }
-formals(.topTables.DESeqResultsTables)[["n"]] <-
-    formals(.topTables.DESeqResults)[["n"]]
+formals(topTables.DESeqResultsTables)[["n"]] <-
+    formals(topTables.DESeqResults)[["n"]]
 
 
 
@@ -180,13 +171,13 @@ formals(.topTables.DESeqResultsTables)[["n"]] <-
 setMethod(
     "topTables",
     signature("DESeqResultsTables"),
-    definition = .topTables.DESeqResultsTables
+    definition = topTables.DESeqResultsTables
 )
 
 
 
 # DESeqAnalysis ================================================================
-.topTables.DESeqAnalysis <-  # nolint
+topTables.DESeqAnalysis <-  # nolint
     function(
         object,
         results = 1L,
@@ -208,8 +199,8 @@ setMethod(
             )
         )
     }
-formals(.topTables.DESeqAnalysis)[["n"]] <-
-    formals(.topTables.DESeqResults)[["n"]]
+formals(topTables.DESeqAnalysis)[["n"]] <-
+    formals(topTables.DESeqResults)[["n"]]
 
 
 
@@ -218,5 +209,5 @@ formals(.topTables.DESeqAnalysis)[["n"]] <-
 setMethod(
     f = "topTables",
     signature = signature("DESeqAnalysis"),
-    definition = .topTables.DESeqAnalysis
+    definition = topTables.DESeqAnalysis
 )

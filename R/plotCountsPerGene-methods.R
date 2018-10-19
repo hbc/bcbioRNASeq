@@ -9,15 +9,18 @@ basejump::plotCountsPerGene
 #' @inherit basejump::plotCountsPerGene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @section TMM:
-#' We recommend visualizing counts normalized with the Trimmed Mean of M-Values
-#' (TMM) method here (Robinson, et al., 2010). TMM normalization equates the
-#' overall expression levels of genes between samples under the assumption that
-#' the majority of them are not differentially expressed. Therefore, by
-#' normalizing for total RNA expression by sample, we expect the spread of the
+#' @section Trimmed Mean of M-Values:
+#'
+#' We recommend visualizing counts normalized with the **T**rimmed **M**ean of
+#' **M**-Values (TMM) method here. TMM normalization equates the overall
+#' expression levels of genes between samples under the assumption that the
+#' majority of them are not differentially expressed. Therefore, by normalizing
+#' for total RNA expression by sample, we expect the spread of the
 #' TMM-normalized counts per gene to be similar for every sample.
 #'
 #' @inheritParams general
+#'
+#' @references TMM: Robinson, et al., 2010.
 #'
 #' @examples
 #' data(bcb_small)
@@ -26,7 +29,7 @@ NULL
 
 
 
-.plotCountsPerGene.bcbioRNASeq <-  # nolint
+plotCountsPerGene.bcbioRNASeq <-  # nolint
     function(
         object,
         normalized
@@ -59,13 +62,13 @@ NULL
             )
         )
     }
-f1 <- formals(.plotCountsPerGene.bcbioRNASeq)
+f1 <- formals(plotCountsPerGene.bcbioRNASeq)
 f2 <- methodFormals("plotCountsPerGene", "SummarizedExperiment")
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
 # Ensure TMM is set first.
 f[["normalized"]] <- unique(c("tmm", normalizedCounts))
-formals(.plotCountsPerGene.bcbioRNASeq) <- f
+formals(plotCountsPerGene.bcbioRNASeq) <- f
 
 
 
@@ -74,5 +77,5 @@ formals(.plotCountsPerGene.bcbioRNASeq) <- f
 setMethod(
     f = "plotCountsPerGene",
     signature = signature("bcbioRNASeq"),
-    definition = .plotCountsPerGene.bcbioRNASeq
+    definition = plotCountsPerGene.bcbioRNASeq
 )

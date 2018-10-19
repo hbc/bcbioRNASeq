@@ -17,7 +17,7 @@ NULL
 
 
 
-.plotTotalReads.bcbioRNASeq <-  # nolint
+plotTotalReads.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -101,5 +101,5 @@ NULL
 setMethod(
     f = "plotTotalReads",
     signature = signature("bcbioRNASeq"),
-    definition = .plotTotalReads.bcbioRNASeq
+    definition = plotTotalReads.bcbioRNASeq
 )

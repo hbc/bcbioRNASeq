@@ -8,11 +8,11 @@
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
 #' @seealso
-#' - [vsn::meanSdPlot].
-#' - [DESeq2::DESeq].
-#' - [DESeq2::rlog].
-#' - [DESeq2::varianceStabilizingTransformation].
-#' - [edgeR::calcNormFactors].
+#' - [vsn::meanSdPlot()].
+#' - [DESeq2::DESeq()].
+#' - [DESeq2::rlog()].
+#' - [DESeq2::varianceStabilizingTransformation()].
+#' - [edgeR::calcNormFactors()].
 #'
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
@@ -130,7 +130,7 @@ NULL
 # bcbioRNASeq ==================================================================
 # Require that the DESeq2 transformations are slotted.
 # If `transformationLimit` was applied, this function will error.
-.plotMeanSD.bcbioRNASeq <-  # nolint
+plotMeanSD.bcbioRNASeq <-  # nolint
     function(
         object,
         legend = getOption("basejump.legend", FALSE)
@@ -151,13 +151,13 @@ NULL
 setMethod(
     f = "plotMeanSD",
     signature = signature("bcbioRNASeq"),
-    definition = .plotMeanSD.bcbioRNASeq
+    definition = plotMeanSD.bcbioRNASeq
 )
 
 
 
 # DESeqDataSet =================================================================
-.plotMeanSD.DESeqDataSet <-  # nolint
+plotMeanSD.DESeqDataSet <-  # nolint
     function(
         object,
         vst = TRUE,
@@ -193,7 +193,7 @@ setMethod(
 setMethod(
     f = "plotMeanSD",
     signature = signature("DESeqDataSet"),
-    definition = .plotMeanSD.DESeqDataSet
+    definition = plotMeanSD.DESeqDataSet
 )
 
 

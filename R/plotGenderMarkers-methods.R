@@ -24,7 +24,7 @@ NULL
 
 
 
-.plotGenderMarkers.bcbioRNASeq <-  # nolint
+plotGenderMarkers.bcbioRNASeq <-  # nolint
     function(
         object,
         normalized
@@ -50,7 +50,7 @@ NULL
             )
         )
     }
-f1 <- formals(.plotGenderMarkers.bcbioRNASeq)
+f1 <- formals(plotGenderMarkers.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotGenderMarkers",
     signature = "SummarizedExperiment"
@@ -61,7 +61,7 @@ f2 <- f2[setdiff(
 )]
 f <- c(f1, f2)
 f[["normalized"]] <- normalizedCounts
-formals(.plotGenderMarkers.bcbioRNASeq) <- f
+formals(plotGenderMarkers.bcbioRNASeq) <- f
 
 
 
@@ -70,5 +70,5 @@ formals(.plotGenderMarkers.bcbioRNASeq) <- f
 setMethod(
     f = "plotGenderMarkers",
     signature = signature("bcbioRNASeq"),
-    definition = .plotGenderMarkers.bcbioRNASeq
+    definition = plotGenderMarkers.bcbioRNASeq
 )

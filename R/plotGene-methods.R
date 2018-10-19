@@ -43,7 +43,7 @@ NULL
 
 
 
-.plotGene.bcbioRNASeq <-  # nolint
+plotGene.bcbioRNASeq <-  # nolint
     function(
         object,
         genes,
@@ -70,16 +70,16 @@ NULL
             )
         )
     }
-f1 <- formals(.plotGene.bcbioRNASeq)
+f1 <- formals(plotGene.bcbioRNASeq)
 f2 <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay", "countsAxisLabel"))]
 f <- c(f1, f2)
 f[["normalized"]] <- normalizedCounts
-formals(.plotGene.bcbioRNASeq) <- f
+formals(plotGene.bcbioRNASeq) <- f
 
 
 
-.plotGene.DESeqAnalysis <-  # nolint
+plotGene.DESeqAnalysis <-  # nolint
     function(object) {
         validObject(object)
         # Using DESeqTransform
@@ -102,7 +102,7 @@ formals(.plotGene.bcbioRNASeq) <- f
     }
 f <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
 f <- f[setdiff(names(f), c("assay", "countsAxisLabel"))]
-formals(.plotGene.DESeqAnalysis) <- f
+formals(plotGene.DESeqAnalysis) <- f
 
 
 
@@ -111,7 +111,7 @@ formals(.plotGene.DESeqAnalysis) <- f
 setMethod(
     f = "plotGene",
     signature = signature("bcbioRNASeq"),
-    definition = .plotGene.bcbioRNASeq
+    definition = plotGene.bcbioRNASeq
 )
 
 
@@ -121,5 +121,5 @@ setMethod(
 setMethod(
     f = "plotGene",
     signature = signature("DESeqAnalysis"),
-    definition = .plotGene.DESeqAnalysis
+    definition = plotGene.DESeqAnalysis
 )

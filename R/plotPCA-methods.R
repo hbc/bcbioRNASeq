@@ -42,7 +42,7 @@ NULL
 
 # We're using this internal constructor for `plotDEGHeatmap()` also.
 # Keep this code separate from the bcbioRNASeq method, but don't export.
-.plotPCA.SummarizedExperiment <-  # nolint
+plotPCA.SummarizedExperiment <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -167,7 +167,7 @@ NULL
 
 
 
-.plotPCA.bcbioRNASeq <-  # nolint
+plotPCA.bcbioRNASeq <-  # nolint
     function(
         object,
         normalized
@@ -178,19 +178,19 @@ NULL
         rse <- as(object, "RangedSummarizedExperiment")
         assays(rse) <- list(counts(object, normalized = normalized))
         do.call(
-            what = .plotPCA.SummarizedExperiment,
+            what = plotPCA.SummarizedExperiment,
             args = matchArgsToDoCall(
                 args = list(object = rse),
                 removeFormals = "normalized"
             )
         )
     }
-f1 <- formals(.plotPCA.bcbioRNASeq)
-f2 <- formals(.plotPCA.SummarizedExperiment)
+f1 <- formals(plotPCA.bcbioRNASeq)
+f2 <- formals(plotPCA.SummarizedExperiment)
 f2 <- f2[setdiff(names(f2), names(f1))]
 f <- c(f1, f2)
 f[["normalized"]] <- normalizedCounts
-formals(.plotPCA.bcbioRNASeq) <- f
+formals(plotPCA.bcbioRNASeq) <- f
 
 
 
@@ -199,5 +199,5 @@ formals(.plotPCA.bcbioRNASeq) <- f
 setMethod(
     f = "plotPCA",
     signature = signature("bcbioRNASeq"),
-    definition = .plotPCA.bcbioRNASeq
+    definition = plotPCA.bcbioRNASeq
 )

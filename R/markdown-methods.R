@@ -20,7 +20,7 @@ NULL
 
 
 # bcbioRNASeq ==================================================================
-.markdown.bcbioRNASeq <-  # nolint
+markdown.bcbioRNASeq <-  # nolint
     function(object) {
         rse <- as(object, "RangedSummarizedExperiment")
         sampleData(rse) <- sampleData(object, clean = TRUE)
@@ -34,13 +34,13 @@ NULL
 setMethod(
     f = "markdown",
     signature = signature("bcbioRNASeq"),
-    definition = .markdown.bcbioRNASeq
+    definition = markdown.bcbioRNASeq
 )
 
 
 
 # DESeqResultsTables ===========================================================
-.markdown.DESeqResultsTables <-  # nolint
+markdown.DESeqResultsTables <-  # nolint
     function(
         object,
         headerLevel = 2L
@@ -120,13 +120,13 @@ setMethod(
 setMethod(
     f = "markdown",
     signature = signature("DESeqResultsTables"),
-    definition = .markdown.DESeqResultsTables
+    definition = markdown.DESeqResultsTables
 )
 
 
 
 # DESeqAnalysis ================================================================
-.markdown.DESeqAnalysis <-  # nolint
+markdown.DESeqAnalysis <-  # nolint
     function(object) {
         show(markdownHeader("Contrast names"))
         show(markdownList(.contrastNames(object)))
@@ -139,5 +139,5 @@ setMethod(
 setMethod(
     f = "markdown",
     signature = signature("DESeqAnalysis"),
-    definition = .markdown.DESeqAnalysis
+    definition = markdown.DESeqAnalysis
 )

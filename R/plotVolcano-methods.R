@@ -1,3 +1,7 @@
+# Do not allow post hoc alpha, lfcThreshold cutoffs.
+
+
+
 #' Plot Volcano
 #'
 #' @name plotVolcano
@@ -64,8 +68,7 @@ NULL
 
 
 
-# Do not allow post hoc alpha, lfcThreshold cutoffs.
-.plotVolcano.DESeqResults <-  # nolint
+plotVolcano.DESeqResults <-  # nolint
     function(
         object,
         ylim = 1e-10,
@@ -318,7 +321,7 @@ NULL
 
 
 
-.plotVolcano.DESeqAnalysis <-  # nolint
+plotVolcano.DESeqAnalysis <-  # nolint
     function(
         object,
         results = 1L,
@@ -341,11 +344,11 @@ NULL
             )
         )
     }
-f1 <- formals(.plotVolcano.DESeqAnalysis)
-f2 <- formals(.plotVolcano.DESeqResults)
+f1 <- formals(plotVolcano.DESeqAnalysis)
+f2 <- formals(plotVolcano.DESeqResults)
 f2 <- f2[setdiff(names(f2), c(names(f1), "gene2symbol"))]
 f <- c(f1, f2)
-formals(.plotVolcano.DESeqAnalysis) <- f
+formals(plotVolcano.DESeqAnalysis) <- f
 
 
 
@@ -354,7 +357,7 @@ formals(.plotVolcano.DESeqAnalysis) <- f
 setMethod(
     f = "plotVolcano",
     signature = signature("DESeqAnalysis"),
-    definition = .plotVolcano.DESeqAnalysis
+    definition = plotVolcano.DESeqAnalysis
 )
 
 
@@ -364,5 +367,5 @@ setMethod(
 setMethod(
     "plotVolcano",
     signature("DESeqResults"),
-    definition = .plotVolcano.DESeqResults
+    definition = plotVolcano.DESeqResults
 )

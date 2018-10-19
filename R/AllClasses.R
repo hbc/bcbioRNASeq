@@ -3,8 +3,6 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 
 # bcbioRNASeq ==================================================================
-# TODO Improve the object documentation here.
-# TODO Consider adding countsFromAbundance check against tximport formals.
 #' bcbio RNA-Seq Data Set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
@@ -16,7 +14,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #'
 #' @section Automatic metadata:
 #'
-#' The [metadata()] slot always contains:
+#' The [S4Vectors::metadata()] slot always contains:
 #'
 #' - Object version.
 #' - bcbio data provenance information.

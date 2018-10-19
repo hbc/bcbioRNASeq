@@ -76,7 +76,7 @@ NULL
 
 
 
-.counts.bcbioRNASeq <-  # nolint
+counts.bcbioRNASeq <-  # nolint
     function(object, normalized = FALSE) {
         validObject(object)
         assert_is_any_of(normalized, c("character", "logical"))
@@ -124,5 +124,5 @@ NULL
 setMethod(
     f = "counts",
     signature = signature("bcbioRNASeq"),
-    definition = .counts.bcbioRNASeq
+    definition = counts.bcbioRNASeq
 )

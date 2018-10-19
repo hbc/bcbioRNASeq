@@ -1,3 +1,10 @@
+# FIXME Add Dropbox support for `bcbioRNASeq`
+# FIXME Also need to export the on-the-fly calculations (TMM, RLE).
+# TODO Add dropbox mode for bcbioRNASeq, similar to DESeqResultsTables.
+# TODO Set `dropbox` as a boolean, instead of a separate dir call.
+
+
+
 #' @importFrom basejump export
 #' @aliases NULL
 #' @export
@@ -36,13 +43,6 @@ basejump::export
 #' ## Clean up.
 #' unlink("example", recursive = TRUE)
 NULL
-
-
-
-# FIXME Add Dropbox support for `bcbioRNASeq`
-# FIXME Also need to export the on-the-fly calculations (TMM, RLE).
-# TODO Add dropbox mode for bcbioRNASeq, similar to DESeqResultsTables.
-# Set `dropbox` as a boolean, instead of a separate dir call.
 
 
 
@@ -136,7 +136,7 @@ NULL
 
 
 
-.export.DESeqResultsTables <-  # nolint
+export.DESeqResultsTables <-  # nolint
     function(
         x,
         dir = ".",
@@ -238,5 +238,5 @@ NULL
 setMethod(
     f = "export",
     signature = signature("DESeqResultsTables"),
-    definition = .export.DESeqResultsTables
+    definition = export.DESeqResultsTables
 )

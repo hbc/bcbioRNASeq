@@ -24,7 +24,7 @@ NULL
 
 # DESeqResults =================================================================
 # Do not allow post hoc alpha, lfcThreshold cutoffs.
-.plotDEGPCA.DESeqResults <-  # nolint
+plotDEGPCA.DESeqResults <-  # nolint
     function(
         object,
         counts,
@@ -79,12 +79,12 @@ NULL
             )
         )
     }
-f1 <- formals(.plotDEGPCA.DESeqResults)
+f1 <- formals(plotDEGPCA.DESeqResults)
 # Note that we're not exporting the plotPCA SE method.
 f2 <- formals(.plotPCA.SummarizedExperiment)
 f2 <- f2[c("interestingGroups", "color", "label", "return")]
 f <- c(f1, f2)
-formals(.plotDEGPCA.DESeqResults) <- f
+formals(plotDEGPCA.DESeqResults) <- f
 
 
 
@@ -93,13 +93,13 @@ formals(.plotDEGPCA.DESeqResults) <- f
 setMethod(
     f = "plotDEGPCA",
     signature = signature("DESeqResults"),
-    definition = .plotDEGPCA.DESeqResults
+    definition = plotDEGPCA.DESeqResults
 )
 
 
 
 # DESeqAnalysis ================================================================
-.plotDEGPCA.DESeqAnalysis <-  # nolint
+plotDEGPCA.DESeqAnalysis <-  # nolint
     function(
         object,
         counts = NULL,
@@ -121,11 +121,11 @@ setMethod(
             )
         )
     }
-f1 <- formals(.plotDEGPCA.DESeqAnalysis)
-f2 <- formals(.plotDEGPCA.DESeqResults)
+f1 <- formals(plotDEGPCA.DESeqAnalysis)
+f2 <- formals(plotDEGPCA.DESeqResults)
 f2 <- f2[setdiff(names(f2), names(f1))]
 f <- c(f1, f2)
-formals(.plotDEGPCA.DESeqAnalysis) <- f
+formals(plotDEGPCA.DESeqAnalysis) <- f
 
 
 
@@ -134,5 +134,5 @@ formals(.plotDEGPCA.DESeqAnalysis) <- f
 setMethod(
     f = "plotDEGPCA",
     signature = signature("DESeqAnalysis"),
-    definition = .plotDEGPCA.DESeqAnalysis
+    definition = plotDEGPCA.DESeqAnalysis
 )

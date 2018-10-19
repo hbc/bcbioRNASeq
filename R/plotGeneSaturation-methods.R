@@ -20,7 +20,7 @@ NULL
 
 
 
-.plotGeneSaturation.bcbioRNASeq <-  # nolint
+plotGeneSaturation.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -99,5 +99,5 @@ NULL
 setMethod(
     f = "plotGeneSaturation",
     signature = signature("bcbioRNASeq"),
-    definition = .plotGeneSaturation.bcbioRNASeq
+    definition = plotGeneSaturation.bcbioRNASeq
 )

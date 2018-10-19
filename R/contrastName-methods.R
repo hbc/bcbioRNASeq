@@ -9,18 +9,18 @@
 #'
 #' @examples
 #' data(deseq_small)
-#' 
+#'
 #' ## DESeqAnalysis ====
 #' contrastName(deseq_small, results = 1L)
 #'
 #' ## DESeqResults ====
-#' object <- deseq_small@results[[1L]]
+#' object <- as(deseq_small, "DESeqResults")
 #' contrastName(object)
 NULL
 
 
 
-.contrastName.DESeqAnalysis <-  # nolint
+contrastName.DESeqAnalysis <-  # nolint
     function(object, results) {
         do.call(
             what = contrastName,
@@ -32,7 +32,7 @@ NULL
 
 
 
-.contrastName.DESeqResults <-  # nolint
+contrastName.DESeqResults <-  # nolint
     function(object) {
         validObject(object)
         contrast <- mcols(object)[2L, "description"]
@@ -46,7 +46,7 @@ NULL
 
 
 
-.contrastName.DESeqResultsTables <-  # nolint
+contrastName.DESeqResultsTables <-  # nolint
     function(object) {
         contrastName(slot(object, name = "results"))
     }
@@ -58,7 +58,7 @@ NULL
 setMethod(
     f = "contrastName",
     signature = signature("DESeqAnalysis"),
-    definition = .contrastName.DESeqAnalysis
+    definition = contrastName.DESeqAnalysis
 )
 
 
@@ -68,7 +68,7 @@ setMethod(
 setMethod(
     f = "contrastName",
     signature = signature("DESeqResults"),
-    definition = .contrastName.DESeqResults
+    definition = contrastName.DESeqResults
 )
 
 
@@ -78,5 +78,5 @@ setMethod(
 setMethod(
     f = "contrastName",
     signature = signature("DESeqResultsTables"),
-    definition = .contrastName.DESeqResultsTables
+    definition = contrastName.DESeqResultsTables
 )

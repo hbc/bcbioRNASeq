@@ -19,7 +19,7 @@ NULL
 
 
 
-.plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
+plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
     function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
@@ -37,14 +37,14 @@ NULL
             )
         )
     }
-f1 <- formals(.plotCorrelationHeatmap.bcbioRNASeq)
+f1 <- formals(plotCorrelationHeatmap.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCorrelationHeatmap",
     signature = "SummarizedExperiment"
 )
 f <- c(f1, f2[setdiff(names(f2), c(names(f1), "assay"))])
 f[["normalized"]] <- normalizedCounts
-formals(.plotCorrelationHeatmap.bcbioRNASeq) <- f
+formals(plotCorrelationHeatmap.bcbioRNASeq) <- f
 
 
 
@@ -53,5 +53,5 @@ formals(.plotCorrelationHeatmap.bcbioRNASeq) <- f
 setMethod(
     f = "plotCorrelationHeatmap",
     signature = signature("bcbioRNASeq"),
-    definition = .plotCorrelationHeatmap.bcbioRNASeq
+    definition = plotCorrelationHeatmap.bcbioRNASeq
 )

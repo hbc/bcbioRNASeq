@@ -16,7 +16,7 @@ NULL
 
 
 
-.plotExonicMappingRate.bcbioRNASeq <-  # nolint
+plotExonicMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -92,5 +92,5 @@ NULL
 setMethod(
     f = "plotExonicMappingRate",
     signature = signature("bcbioRNASeq"),
-    definition = .plotExonicMappingRate.bcbioRNASeq
+    definition = plotExonicMappingRate.bcbioRNASeq
 )

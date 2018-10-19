@@ -1,3 +1,7 @@
+# FIXME Improve loading of metadataBlacklist. Don't assume lazy loading.
+
+
+
 #' @importFrom basejump sampleData
 #' @aliases NULL
 #' @export
@@ -30,7 +34,7 @@ NULL
 
 
 
-.sampleData.bcbioRNASeq <-  # nolint
+sampleData.bcbioRNASeq <-  # nolint
     function(object, clean = FALSE) {
         assert_is_a_bool(clean)
         rse <- as(object, "RangedSummarizedExperiment")
@@ -52,5 +56,5 @@ NULL
 setMethod(
     f = "sampleData",
     signature = signature("bcbioRNASeq"),
-    definition = .sampleData.bcbioRNASeq
+    definition = sampleData.bcbioRNASeq
 )

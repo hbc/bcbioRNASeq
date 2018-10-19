@@ -10,10 +10,10 @@
 #'
 #' 1. Coerces to `RangedSummarizedExperiment`.
 #' 2. Rounds raw counts to `integer matrix`.
-#' 3. Subsets [colData()] to include only clean factor columns. See
-#'    [sampleData()] for more details.
-#' 4. Simplifies [metadata()] to include only relevant information and
-#'    updates `sessionInfo`.
+#' 3. Subsets [SummarizedExperiment::colData()] to include only clean factor
+#'    columns. See [basejump::sampleData()] for more details.
+#' 4. Simplifies [S4Vectors::metadata()] to include only relevant information
+#'    and updates `sessionInfo`.
 #'
 #' @section bcbioRNASeq to DESeqTransform:
 #'

@@ -15,8 +15,8 @@
 #' @references Robinson and Oshlack (2010).
 #'
 #' @seealso
-#' - [edgeR::calcNormFactors].
-#' - [edgeR::cpm].
+#' - [edgeR::calcNormFactors()].
+#' - [edgeR::cpm()].
 #'
 #' @examples
 #' data(bcb_small)
@@ -27,7 +27,7 @@ NULL
 
 
 # matrix =======================================================================
-.tmm.matrix <-  # nolint
+tmm.matrix <-  # nolint
     function(object) {
         message("Applying trimmed mean of M-values (TMM) normalization.")
         object %>%
@@ -43,13 +43,13 @@ NULL
 setMethod(
     f = "tmm",
     signature = signature("matrix"),
-    definition = .tmm.matrix
+    definition = tmm.matrix
 )
 
 
 
 # SummarizedExperiment =========================================================
-.tmm.SummarizedExperiment <-  # nolint
+tmm.SummarizedExperiment <-  # nolint
     function(object) {
         validObject(object)
         tmm(counts(object))
@@ -62,5 +62,5 @@ setMethod(
 setMethod(
     f = "tmm",
     signature = signature("SummarizedExperiment"),
-    definition = .tmm.SummarizedExperiment
+    definition = tmm.SummarizedExperiment
 )

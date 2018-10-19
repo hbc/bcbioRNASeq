@@ -16,7 +16,7 @@ NULL
 
 
 
-.plotIntronicMappingRate.bcbioRNASeq <-  # nolint
+plotIntronicMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -92,5 +92,5 @@ NULL
 setMethod(
     f = "plotIntronicMappingRate",
     signature = signature("bcbioRNASeq"),
-    definition = .plotIntronicMappingRate.bcbioRNASeq
+    definition = plotIntronicMappingRate.bcbioRNASeq
 )

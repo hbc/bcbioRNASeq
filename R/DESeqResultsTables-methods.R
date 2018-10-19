@@ -76,7 +76,7 @@ NULL
 
 
 # Consider not exporting this as a method, and requiring DESeqAnalysis.
-.DESeqResultsTables.DESeqResults <-  # nolint
+DESeqResultsTables.DESeqResults <-  # nolint
     function(object) {
         validObject(object)
         stopifnot(is(object, "DESeqResults"))
@@ -125,7 +125,7 @@ NULL
 
 
 
-.DESeqResultsTables.DESeqAnalysis <-  # nolint
+DESeqResultsTables.DESeqAnalysis <-  # nolint
     function(
         object,
         results = 1L,
@@ -203,7 +203,7 @@ NULL
 setMethod(
     f = "DESeqResultsTables",
     signature = signature("DESeqResults"),
-    definition = .DESeqResultsTables.DESeqResults
+    definition = DESeqResultsTables.DESeqResults
 )
 
 
@@ -213,5 +213,5 @@ setMethod(
 setMethod(
     f = "DESeqResultsTables",
     signature = signature("DESeqAnalysis"),
-    definition = .DESeqResultsTables.DESeqAnalysis
+    definition = DESeqResultsTables.DESeqAnalysis
 )

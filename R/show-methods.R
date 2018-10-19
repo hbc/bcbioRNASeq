@@ -26,7 +26,7 @@ NULL
 
 
 
-.show.bcbioRNASeq <-  # nolint
+show.bcbioRNASeq <-  # nolint
     function(object) {
         validObject(object)
         # Metadata.
@@ -60,7 +60,7 @@ NULL
 
 
 
-.show.DESeqAnalysis <-  # nolint
+show.DESeqAnalysis <-  # nolint
     function(object) {
         validObject(object)
         data <- slot(object, "data")
@@ -79,7 +79,7 @@ NULL
 
 
 
-.show.DESeqResultsTables <-  # nolint
+show.DESeqResultsTables <-  # nolint
     function(object) {
         validObject(object)
         results <- slot(object, "results")
@@ -132,7 +132,7 @@ NULL
 setMethod(
     f = "show",
     signature = signature("bcbioRNASeq"),
-    definition = .show.bcbioRNASeq
+    definition = show.bcbioRNASeq
 )
 
 
@@ -142,7 +142,7 @@ setMethod(
 setMethod(
     f = "show",
     signature = signature("DESeqAnalysis"),
-    definition = .show.DESeqAnalysis
+    definition = show.DESeqAnalysis
 )
 
 
@@ -152,5 +152,5 @@ setMethod(
 setMethod(
     f = "show",
     signature = signature("DESeqResultsTables"),
-    definition = .show.DESeqResultsTables
+    definition = show.DESeqResultsTables
 )

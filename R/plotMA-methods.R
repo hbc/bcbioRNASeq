@@ -1,3 +1,7 @@
+# Do not allow post hoc alpha, lfcThreshold cutoffs.
+
+
+
 #' @importFrom BiocGenerics plotMA
 #' @aliases NULL
 #' @export
@@ -65,8 +69,7 @@ NULL
 
 
 # DESeqResults =================================================================
-# Do not allow post hoc alpha, lfcThreshold cutoffs.
-.plotMA.DESeqResults <-  # nolint
+plotMA.DESeqResults <-  # nolint
     function(
         object,
         genes = NULL,
@@ -273,13 +276,13 @@ NULL
 setMethod(
     f = "plotMA",
     signature = signature("DESeqResults"),
-    definition = .plotMA.DESeqResults
+    definition = plotMA.DESeqResults
 )
 
 
 
 # DESeqAnalysis ================================================================
-.plotMA.DESeqAnalysis <-  # nolint
+plotMA.DESeqAnalysis <-  # nolint
     function(
         object,
         results = 1L,
@@ -302,11 +305,11 @@ setMethod(
             )
         )
     }
-f1 <- formals(.plotMA.DESeqAnalysis)
-f2 <- formals(.plotMA.DESeqResults)
+f1 <- formals(plotMA.DESeqAnalysis)
+f2 <- formals(plotMA.DESeqResults)
 f2 <- f2[setdiff(names(f2), c(names(f1), "gene2symbol"))]
 f <- c(f1, f2)
-formals(.plotMA.DESeqAnalysis) <- f
+formals(plotMA.DESeqAnalysis) <- f
 
 
 
@@ -315,7 +318,7 @@ formals(.plotMA.DESeqAnalysis) <- f
 setMethod(
     f = "plotMA",
     signature = signature("DESeqAnalysis"),
-    definition = .plotMA.DESeqAnalysis
+    definition = plotMA.DESeqAnalysis
 )
 
 

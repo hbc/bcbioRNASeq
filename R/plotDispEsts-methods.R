@@ -20,7 +20,7 @@ BiocGenerics::plotDispEsts
 #' @inheritParams general
 #' @param object Object.
 #'
-#' @seealso [DESeq2::plotDispEsts].
+#' @seealso [DESeq2::plotDispEsts()].
 #'
 #' @return `ggplot`.
 #'
@@ -39,7 +39,7 @@ NULL
 
 
 
-.plotDispEsts.bcbioRNASeq <-  # nolint
+plotDispEsts.bcbioRNASeq <-  # nolint
     function() {
         validObject(object)
         dds <- as(object, "DESeqDataSet")
@@ -50,7 +50,7 @@ NULL
             args = matchArgsToDoCall(args = list(object = dds))
         )
     }
-formals(.plotDispEsts.bcbioRNASeq) <-
+formals(plotDispEsts.bcbioRNASeq) <-
     methodFormals(f = "plotDispEsts", signature = "DESeqDataSet")
 
 
@@ -61,17 +61,17 @@ formals(.plotDispEsts.bcbioRNASeq) <-
 setMethod(
     f = "plotDispEsts",
     signature = signature("bcbioRNASeq"),
-    definition = .plotDispEsts.bcbioRNASeq
+    definition = plotDispEsts.bcbioRNASeq
 )
 
 
 
 # DESeqAnalysis ================================================================
-.plotDispEsts.DESeqAnalysis <-  # nolint
+plotDispEsts.DESeqAnalysis <-  # nolint
     function(object, ...) {
         plotDispEsts(as(object, "DESeqDataSet"), ...)
     }
-formals(.plotDispEsts.DESeqAnalysis) <-
+formals(plotDispEsts.DESeqAnalysis) <-
     methodFormals(f = "plotDispEsts", signature = "DESeqDataSet")
 
 
@@ -82,5 +82,5 @@ formals(.plotDispEsts.DESeqAnalysis) <-
 setMethod(
     f = "plotDispEsts",
     signature = signature("DESeqAnalysis"),
-    definition = .plotDispEsts.DESeqAnalysis
+    definition = plotDispEsts.DESeqAnalysis
 )
