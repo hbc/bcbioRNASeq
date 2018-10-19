@@ -1,8 +1,10 @@
 # bcbioRNASeq Example
-# Last updated 2018-10-12
+# 2018-10-12
 
-# Restrict to 1 MB.
-limit <- structure(1e6, class = "object_size")
+# Restrict to 2 MB.
+# Use `pryr::object_size()` instead of `utils::object.size()`.
+library(pryr)
+limit <- structure(2e6, class = "object_size")
 
 # GSE65267 =====================================================================
 # GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
@@ -73,11 +75,11 @@ bcb[["treatment"]] <- snake(bcb[["treatment"]])
 # Report the size of each slot in bytes.
 vapply(
     X = coerceS4ToList(bcb),
-    FUN = object.size,
+    FUN = object_size,
     FUN.VALUE = numeric(1L)
 )
-format(object.size(bcb), units = "auto")
-stopifnot(object.size(bcb) < limit)
+object_size(bcb)
+stopifnot(object_size(bcb) < limit)
 
 # Check that object is valid.
 stopifnot(is(bcb, "bcbioRNASeq"))

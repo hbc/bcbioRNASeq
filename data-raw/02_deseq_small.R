@@ -1,10 +1,12 @@
 #' Example DESeq2 differential expression analysis
-#' Last updated 2018-10-12
-
-library(DESeq2)
+#' 2018-10-12
 
 # Restrict to 2 MB.
+# Use `pryr::object_size()` instead of `utils::object.size()`.
+library(pryr)
 limit <- structure(2e6, class = "object_size")
+
+library(DESeq2)
 
 # DESeqDataSet
 # Coerce from bcbioRNASeq object.
@@ -52,11 +54,11 @@ print(deseq_small)
 # Report the size of each slot in bytes.
 vapply(
     X = coerceS4ToList(deseq_small),
-    FUN = object.size,
+    FUN = object_size,
     FUN.VALUE = numeric(1L)
 )
-format(object.size(deseq_small), units = "auto")
-stopifnot(object.size(bcb) < limit)
+object_size(deseq_small)
+stopifnot(object_size(bcb) < limit)
 
 # Check that object is valid.
 stopifnot(is(deseq_small, "DESeqAnalysis"))
