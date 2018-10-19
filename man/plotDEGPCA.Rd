@@ -28,9 +28,7 @@ plotDEGPCA(object, ...)
 
   }
 
-\item{...}{
-    Additional arguments, for use in specific methods.
-  }
+\item{...}{Additional arguments.}
 
 \item{counts}{\code{DESeqTransform}.}
 

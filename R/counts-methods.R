@@ -1,12 +1,12 @@
-#' @rdname counts
 #' @importFrom BiocGenerics counts
+#' @aliases NULL
 #' @export
-counts <- BiocGenerics::counts
+BiocGenerics::counts
 
-#' @rdname counts
 #' @importFrom BiocGenerics counts<-
+#' @aliases NULL
 #' @export
-`counts<-` <- BiocGenerics::`counts<-`
+BiocGenerics::`counts<-`
 
 
 

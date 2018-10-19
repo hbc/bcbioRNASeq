@@ -1,7 +1,7 @@
-#' @rdname plotQC
 #' @importFrom basejump plotQC
+#' @aliases NULL
 #' @export
-plotQC <- basejump::plotQC
+basejump::plotQC
 
 
 

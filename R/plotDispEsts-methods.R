@@ -1,7 +1,7 @@
-#' @rdname plotDispEsts
 #' @importFrom BiocGenerics plotDispEsts
+#' @aliases NULL
 #' @export
-plotDispEsts <- BiocGenerics::plotDispEsts
+BiocGenerics::plotDispEsts
 
 
 

@@ -6,8 +6,6 @@
 \alias{updateObject,bcbioRNASeq-method}
 \title{Update an object to its current class definition}
 \usage{
-updateObject(object, ..., verbose = FALSE)
-
 \S4method{updateObject}{bcbioRNASeq}(object, rowRanges = NULL)
 }
 \arguments{
@@ -17,17 +15,6 @@ updateObject(object, ..., verbose = FALSE)
 
     Object for slot information to be extracted from for
     \code{getObjectSlots}.
-  }
-
-\item{...}{
-    Additional arguments, for use in specific \code{updateObject}
-    methods.
-  }
-
-\item{verbose}{
-    \code{TRUE} or \code{FALSE}, indicating whether information about
-    the update should be reported. Use \code{\link[base]{message}} to
-    report this information.
   }
 
 \item{rowRanges}{\code{GRanges} or \code{NULL}. Row annotations. Since we converted to

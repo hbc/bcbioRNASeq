@@ -1,7 +1,7 @@
-#' @rdname export
 #' @importFrom basejump export
+#' @aliases NULL
 #' @export
-export <- basejump::export
+basejump::export
 
 
 

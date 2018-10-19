@@ -1,5 +1,5 @@
-# FIXME Consider a utility that we can use in `[` and `updateObject`.
-# FIXME Coerce, remove, rename slot (add to basejump).
+# TODO Consider a utility that we can use in `[` and `updateObject`.
+# TODO Coerce, remove, rename slot (add to basejump).
 # .updateMetadata <- function(metadata) {
 #     metadata[["template"]] <- NULL
 #     metadata
@@ -7,10 +7,10 @@
 
 
 
-#' @rdname updateObject
 #' @importFrom BiocGenerics updateObject
+#' @aliases NULL
 #' @export
-updateObject <- BiocGenerics::updateObject
+BiocGenerics::updateObject
 
 
 

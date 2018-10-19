@@ -2,10 +2,10 @@
 
 
 
-#' @rdname plotGenderMarkers
 #' @importFrom basejump plotGenderMarkers
+#' @aliases NULL
 #' @export
-plotGenderMarkers <- basejump::plotGenderMarkers
+basejump::plotGenderMarkers
 
 
 

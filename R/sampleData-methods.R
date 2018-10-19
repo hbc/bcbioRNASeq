@@ -1,7 +1,7 @@
-#' @rdname sampleData
 #' @importFrom basejump sampleData
+#' @aliases NULL
 #' @export
-sampleData <- basejump::sampleData
+basejump::sampleData
 
 
 

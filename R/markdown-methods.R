@@ -1,7 +1,7 @@
-#' @rdname markdown
 #' @importFrom basejump markdown
+#' @aliases NULL
 #' @export
-markdown <- basejump::markdown
+basejump::markdown
 
 
 

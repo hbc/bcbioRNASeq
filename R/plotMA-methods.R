@@ -1,7 +1,7 @@
-#' @rdname plotMA
 #' @importFrom BiocGenerics plotMA
+#' @aliases NULL
 #' @export
-plotMA <- BiocGenerics::plotMA
+BiocGenerics::plotMA
 
 
 

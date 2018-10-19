@@ -1,7 +1,7 @@
-#' @rdname plotPCA
 #' @importFrom BiocGenerics plotPCA
+#' @aliases NULL
 #' @export
-plotPCA <- BiocGenerics::plotPCA
+BiocGenerics::plotPCA
 
 
 

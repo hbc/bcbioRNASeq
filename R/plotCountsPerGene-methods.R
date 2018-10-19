@@ -1,7 +1,7 @@
-#' @rdname plotCountsPerGene
 #' @importFrom basejump plotCountsPerGene
+#' @aliases NULL
 #' @export
-plotCountsPerGene <- basejump::plotCountsPerGene
+basejump::plotCountsPerGene
 
 
 

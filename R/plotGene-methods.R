@@ -1,7 +1,7 @@
-#' @rdname plotGene
 #' @importFrom basejump plotGene
+#' @aliases NULL
 #' @export
-plotGene <- basejump::plotGene
+basejump::plotGene
 
 
 

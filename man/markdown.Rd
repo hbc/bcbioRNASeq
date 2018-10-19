@@ -8,8 +8,6 @@
 \alias{markdown,DESeqAnalysis-method}
 \title{Markdown}
 \usage{
-markdown(object, ...)
-
 \S4method{markdown}{bcbioRNASeq}(object)
 
 \S4method{markdown}{DESeqResultsTables}(object, headerLevel = 2L)
@@ -18,8 +16,6 @@ markdown(object, ...)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{...}{Additional arguments.}
 
 \item{headerLevel}{\code{scalar integer} (\code{1}-\code{7}). R Markdown header level.}
 }

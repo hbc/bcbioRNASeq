@@ -6,8 +6,6 @@
 \alias{plotCountsPerGene,bcbioRNASeq-method}
 \title{Plot Counts Per Gene}
 \usage{
-plotCountsPerGene(object, ...)
-
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, normalized = c("tmm",
   "vst", "rlog", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   geom = c("boxplot", "density", "violin"), trans = c("identity",
@@ -18,8 +16,6 @@ plotCountsPerGene(object, ...)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{...}{Additional arguments.}
 
 \item{normalized}{\code{string}. Which normalization method to apply:
 - "\code{tpm}": Transcripts per million (tximport).

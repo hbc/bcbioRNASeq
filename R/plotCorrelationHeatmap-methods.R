@@ -1,7 +1,7 @@
-#' @rdname plotCorrelationHeatmap
 #' @importFrom basejump plotCorrelationHeatmap
+#' @aliases NULL
 #' @export
-plotCorrelationHeatmap <- basejump::plotCorrelationHeatmap
+basejump::plotCorrelationHeatmap
 
 
 

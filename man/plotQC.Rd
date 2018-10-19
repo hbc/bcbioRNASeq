@@ -6,14 +6,10 @@
 \alias{plotQC,bcbioRNASeq-method}
 \title{Plot Quality Control}
 \usage{
-plotQC(object, ...)
-
 \S4method{plotQC}{bcbioRNASeq}(object)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{...}{Additional arguments.}
 }
 \description{
 Plot Quality Control

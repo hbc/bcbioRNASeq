@@ -8,8 +8,6 @@
 \alias{plotMeanAverage}
 \title{MA-plot: plot differences versus averages for high-throughput data}
 \usage{
-plotMA(object, ...)
-
 \S4method{plotMA}{DESeqResults}(object, genes = NULL,
   gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
   pointColor = getOption("basejump.point.color", "gray50"),
@@ -29,10 +27,6 @@ plotMeanAverage(...)
 \arguments{
 \item{object}{
     A data object, typically containing count values from an RNA-Seq experiment or microarray intensity values.
-  }
-
-\item{...}{
-    Additional arguments, for use in specific methods.
   }
 
 \item{genes}{\code{character}. Genes to include. These must match the rownames of
@@ -58,6 +52,10 @@ and picks the first item in the vector by default.}
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
+
+\item{...}{
+    Additional arguments, for use in specific methods.
+  }
 }
 \value{
 \code{ggplot}.

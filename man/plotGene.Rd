@@ -7,8 +7,6 @@
 \alias{plotGene,DESeqAnalysis-method}
 \title{Plot Gene Expression}
 \usage{
-plotGene(object, ...)
-
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = c("vst",
   "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   medianLine = TRUE, color = getOption("basejump.discrete.color",
@@ -23,8 +21,6 @@ plotGene(object, ...)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{...}{Additional arguments.}
 
 \item{genes}{\code{character}. Gene identifiers.}
 

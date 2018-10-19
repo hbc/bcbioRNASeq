@@ -3,22 +3,13 @@
 \docType{methods}
 \name{counts}
 \alias{counts}
-\alias{counts<-}
 \alias{counts,bcbioRNASeq-method}
 \title{Count Matrix Accessors}
 \usage{
-counts(object, ...)
-
-counts(object, ...) <- value
-
 \S4method{counts}{bcbioRNASeq}(object, normalized = FALSE)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{...}{Additional arguments.}
-
-\item{value}{Value to assign.}
 
 \item{normalized}{\code{string} or \code{boolean}. Which normalization method to apply:
 \itemize{
