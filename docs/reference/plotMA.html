@@ -118,9 +118,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for DESeqResults</span>
+    <pre class="usage"><span class='co'># S4 method for DESeqResults</span>
 <span class='fu'>plotMA</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>gene2symbol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ntop</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"up"</span>, <span class='st'>"down"</span>),
   <span class='kw'>pointColor</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.point.color"</span>, <span class='st'>"gray50"</span>),
@@ -144,10 +142,6 @@
     <tr>
       <th>object</th>
       <td><p>A data object, typically containing count values from an RNA-Seq experiment or microarray intensity values.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments, for use in specific methods.</p></td>
     </tr>
     <tr>
       <th>genes</th>
@@ -190,6 +184,10 @@ and picks the first item in the vector by default.</p></td>
     <tr>
       <th>lfcShrink</th>
       <td><p><code>boolean</code>. Use shrunken log2 fold change (LFC) values.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments, for use in specific methods.</p></td>
     </tr>
     </table>
     

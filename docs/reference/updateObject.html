@@ -118,9 +118,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='co'># S4 method for bcbioRNASeq</span>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='kw'>rowRanges</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -134,22 +132,12 @@
     <code>getObjectSlots</code>.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional arguments, for use in specific <code>updateObject</code>
-    methods.</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p><code>TRUE</code> or <code>FALSE</code>, indicating whether information about
-    the update should be reported. Use <code><a href='http://www.rdocumentation.org/packages/base/topics/message'>message</a></code> to
-    report this information.</p></td>
-    </tr>
-    <tr>
       <th>rowRanges</th>
       <td><p><code>GRanges</code> or <code>NULL</code>. Row annotations. Since we converted to
 <code>RangedSummarizedExperiment</code> in v0.2.0, this option had to be added to
-enable updating of newly required <code>rowRanges()</code> slot. Objects that are &gt;=
-v0.2 don't require this argument and it can be left <code>NULL</code>.</p></td>
+enable updating of newly required <code><a href='http://www.rdocumentation.org/packages/SummarizedExperiment/topics/RangedSummarizedExperiment-class'>SummarizedExperiment::rowRanges()</a></code> slot.
+Objects that are &gt;= v0.2 don't require this argument and it can be left
+<code>NULL</code>.</p></td>
     </tr>
     </table>
     
@@ -169,7 +157,7 @@ originally loaded into R.</p>
     <p>Support for <code>bcbioRNADataSet</code> objects was dropped in v0.2.0 of the package.
 If you need to load one of these objects, please install an older release.</p>
     
-    <h2 class="hasAnchor" id="legacy-objects-created-with-bcbiornaseq"><a class="anchor" href="#legacy-objects-created-with-bcbiornaseq"></a>Legacy objects created with <code>bcbioRnaseq</code></h2>
+    <h2 class="hasAnchor" id="legacy-bcbiornaseq-package"><a class="anchor" href="#legacy-bcbiornaseq-package"></a>Legacy <code>bcbioRnaseq</code> package</h2>
 
     
     <p>The previous <code>bcbioRnaseq</code> package (note case) must be reinstalled to load
@@ -199,7 +187,7 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
 #&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-17
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-19
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -228,7 +216,7 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 
       <li><a href="#legacy-bcbiornadataset-class">Legacy <code>bcbioRNADataSet</code> class</a></li>
 
-      <li><a href="#legacy-objects-created-with-bcbiornaseq">Legacy objects created with <code>bcbioRnaseq</code></a></li>
+      <li><a href="#legacy-bcbiornaseq-package">Legacy <code>bcbioRnaseq</code> package</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

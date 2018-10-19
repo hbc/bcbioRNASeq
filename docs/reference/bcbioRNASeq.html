@@ -336,7 +336,7 @@ possible.</p>
     <h2 class="hasAnchor" id="automatic-metadata"><a class="anchor" href="#automatic-metadata"></a>Automatic metadata</h2>
 
     
-    <p>The <code>metadata()</code> slot always contains:</p><ul>
+    <p>The <code><a href='http://www.rdocumentation.org/packages/S4Vectors/topics/Annotated-class'>S4Vectors::metadata()</a></code> slot always contains:</p><ul>
 <li><p>Object version.</p></li>
 <li><p>bcbio data provenance information.</p></li>
 <li><p>File paths and timestamps.</p></li>
@@ -410,14 +410,14 @@ possible.</p>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='warning'>Warning: bcbio GTF file missing:</span>
-#&gt; <span class='warning'>  /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf</span></div><div class='output co'>#&gt; <span class='message'>Using `makeGRangesFromEnsembl()` for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.13.8 (2018-10-16).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
+#&gt; <span class='warning'>  /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf</span></div><div class='output co'>#&gt; <span class='message'>Using `makeGRangesFromEnsembl()` for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.13.8 (2018-10-18).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Build: GRCm38</span>
 #&gt; <span class='message'>  - Release: 87</span>
 #&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.21.23.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.99.0
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
 #&gt; uploadDir: /Users/mike/git/bcbioRNASeq-private/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-17
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-19
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -485,14 +485,14 @@ possible.</p>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
 #&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='warning'>Warning: bcbio GTF file missing:</span>
-#&gt; <span class='warning'>  /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf</span></div><div class='output co'>#&gt; <span class='message'>Using `makeGRangesFromEnsembl()` for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.13.8 (2018-10-16).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
+#&gt; <span class='warning'>  /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf</span></div><div class='output co'>#&gt; <span class='message'>Using `makeGRangesFromEnsembl()` for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.13.8 (2018-10-18).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Build: GRCm38</span>
 #&gt; <span class='message'>  - Release: 87</span>
 #&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, transcriptBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.99.0
 #&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
 #&gt; citation("bcbioRNASeq")
 #&gt; uploadDir: /Users/mike/git/bcbioRNASeq-private/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-17
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-19
 #&gt; level: transcripts
 #&gt; caller: salmon
 #&gt; organism: Mus musculus

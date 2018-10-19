@@ -84,7 +84,6 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>This is an <a href="https://www.r-project.org">R</a> package.</p>
 <div id="bioconductor-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bioconductor-method" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method</h3>
@@ -140,38 +139,10 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h2 class="hasAnchor">
 <a href="#loading-bcbio-rna-seq-data" class="anchor"></a>Loading <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq data</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bcbioRNASeq)
-bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(
-    <span class="dt">uploadDir =</span> <span class="st">"bcbio/final"</span>,
-    <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span>,
-    <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>)
-)
-<span class="kw">saveData</span>(bcb)</code></pre></div>
-<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor function documentation for detailed information on the supported parameters.</p>
+bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> <span class="st">"bcbio/final"</span>)
+<span class="kw">saveData</span>(bcb, <span class="dt">dir =</span> <span class="st">"."</span>)</code></pre></div>
+<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> generator function documentation for detailed information on the supported parameters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th>description</th>
-<th>genotype</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>sample1</td>
-<td>wildtype</td>
-</tr>
-<tr class="even">
-<td>sample2</td>
-<td>knockout</td>
-</tr>
-<tr class="odd">
-<td>sample3</td>
-<td>wildtype</td>
-</tr>
-<tr class="even">
-<td>sample4</td>
-<td>knockout</td>
-</tr>
-</tbody>
-</table>
 </div>
 <div id="r-markdown-templates" class="section level2">
 <h2 class="hasAnchor">

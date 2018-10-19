@@ -18,8 +18,6 @@ citation("bcbioRNASeq")
 
 ## Installation
 
-This is an [R][] package.
-
 ### [Bioconductor][] method
 
 We recommend installing the package with [BiocManager][].
@@ -105,34 +103,19 @@ devtools::install("steinbaugh/basejump", ref = "v0.5.0", dependencies = FALSE)
 
 ```r
 library(bcbioRNASeq)
-bcb <- bcbioRNASeq(
-    uploadDir = "bcbio/final",
-    organism = "Homo sapiens",
-    interestingGroups = c("genotype", "treatment")
-)
-saveData(bcb)
+bcb <- bcbioRNASeq(uploadDir = "bcbio/final")
+saveData(bcb, dir = ".")
 ```
 
-This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class. Consult the `bcbioRNASeq()` constructor function documentation for detailed information on the supported parameters.
+This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class. Consult the `bcbioRNASeq()` generator function documentation for detailed information on the supported parameters.
 
 ```r
 help(topic = "bcbioRNASeq", package = "bcbioRNASeq")
 ```
 
-
-
-| description | genotype |
-|-------------|----------|
-| sample1     | wildtype |
-| sample2     | knockout |
-| sample3     | wildtype |
-| sample4     | knockout |
-
 ## [R Markdown][] templates
 
-This package provides multiple [R Markdown][] templates, including quality control, differential expression using [DESeq2][], and functional enrichment analysis.
-
-These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
+The package provides multiple [R Markdown][] templates, including quality control, differential expression using [DESeq2][], and functional enrichment analysis. They are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
 
 ### Example reports
 
