@@ -88,7 +88,6 @@ setMethod(
             x = dim(x),
             y = c(length(i), length(j))
         )) {
-            message("Returning object unmodified.")
             return(x)
         }
 
