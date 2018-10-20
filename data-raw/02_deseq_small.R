@@ -64,4 +64,4 @@ stopifnot(object_size(bcb) < limit)
 stopifnot(is(deseq_small, "DESeqAnalysis"))
 stopifnot(validObject(deseq_small))
 
-devtools::use_data(deseq_small, overwrite = TRUE, compress = "xz")
+usethis::use_data(deseq_small, overwrite = TRUE, compress = "xz")

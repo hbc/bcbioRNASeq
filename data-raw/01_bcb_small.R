@@ -87,4 +87,4 @@ stopifnot(is(bcb, "bcbioRNASeq"))
 stopifnot(validObject(bcb))
 
 bcb_small <- bcb
-devtools::use_data(bcb_small, overwrite = TRUE, compress = "xz")
+usethis::use_data(bcb_small, overwrite = TRUE, compress = "xz")
