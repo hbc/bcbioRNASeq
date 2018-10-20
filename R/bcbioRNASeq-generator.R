@@ -161,7 +161,7 @@
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
-#' ## Gene level
+#' ## Gene level.
 #' object <- bcbioRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "genes",
@@ -171,7 +171,7 @@
 #' )
 #' print(object)
 #'
-#' ## Transcript level
+#' ## Transcript level.
 #' object <- bcbioRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "transcripts",
@@ -278,6 +278,7 @@ bcbioRNASeq <- function(
     # Transcript-to-gene mappings ----------------------------------------------
     tx2gene <- readTx2Gene(
         file = file.path(projectDir, "tx2gene.csv"),
+        organism = organism,
         genomeBuild = genomeBuild,
         ensemblRelease = ensemblRelease
     )
