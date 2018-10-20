@@ -275,11 +275,19 @@ bcbioRNASeq <- function(
         import(file.path(projectDir, "bcbio-nextgen-commands.log"))
     assert_is_character(bcbioCommandsLog)
 
+    # Transcript-to-gene mappings ----------------------------------------------
+    tx2gene <- readTx2Gene(
+        file = file.path(projectDir, "tx2gene.csv"),
+        genomeBuild = genomeBuild,
+        ensemblRelease = ensemblRelease
+    )
+    assert_is_all_of(tx2gene, "Tx2Gene")
+
     # Sequencing lanes ---------------------------------------------------------
     lanes <- detectLanes(sampleDirs)
     assert_is_integer(lanes)
 
-    # Determine which samples to load ------------------------------------------
+    # Samples ------------------------------------------------------------------
     # Get the sample data.
     if (is_a_string(sampleMetadataFile)) {
         # Normalize path of local file.
@@ -348,10 +356,6 @@ bcbioRNASeq <- function(
     }
     assert_is_all_of(colData, "DataFrame")
     assert_are_identical(samples, rownames(colData))
-
-    # Transcript-to-gene mappings ----------------------------------------------
-    tx2gene <- readTx2Gene(file.path(projectDir, "tx2gene.csv"))
-    assert_is_all_of(tx2gene, "Tx2Gene")
 
     # Assays -------------------------------------------------------------------
     assays <- list()
@@ -441,6 +445,15 @@ bcbioRNASeq <- function(
     }
     assert_is_all_of(rowRanges, "GRanges")
 
+    # Attempt to get genome build and Ensembl release if not declared.
+    # Note that these will remain NULL when using GTF file (see above).
+    if (is.null(genomeBuild)) {
+        genomeBuild <- metadata(rowRanges)[["genomeBuild"]]
+    }
+    if (is.null(ensemblRelease)) {
+        ensemblRelease <- metadata(rowRanges)[["ensemblRelease"]]
+    }
+
     # Metadata -----------------------------------------------------------------
     # Interesting groups.
     interestingGroups <- camel(interestingGroups)
@@ -458,15 +471,6 @@ bcbioRNASeq <- function(
                 ), call. = FALSE)
             }
         )
-    }
-
-    # Attempt to get genome build and Ensembl release if not declared.
-    # Note that these will remain NULL when using GTF file (see above).
-    if (is.null(genomeBuild)) {
-        genomeBuild <- metadata(rowRanges)[["build"]]
-    }
-    if (is.null(ensemblRelease)) {
-        ensemblRelease <- metadata(rowRanges)[["release"]]
     }
 
     metadata <- list(
