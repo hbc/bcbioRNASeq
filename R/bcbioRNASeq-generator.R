@@ -437,7 +437,7 @@ bcbioRNASeq <- function(
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
-            build = genomeBuild,
+            genomeBuild = genomeBuild,
             release = ensemblRelease
         )
     } else {
