@@ -8,7 +8,7 @@ packageVersion <- packageVersion("bcbioRNASeq")
 #' @examples
 #' bcbioRNASeqCacheURL
 bcbioRNASeqCacheURL <- paste0(
-    "http://bcbiobase.seq.cloud/",
+    "http://bcbiornaseq.seq.cloud/",
     "v", packageVersion$major, ".", packageVersion$minor  # nolint
 )
 
