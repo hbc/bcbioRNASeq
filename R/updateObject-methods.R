@@ -200,9 +200,14 @@ updateObject.bcbioRNASeq <-  # nolint
         }
 
         # tx2gene
-        if (!is(metadata[["tx2gene"]], "Tx2Gene")) {
+        tx2gene <- metadata[["tx2gene"]]
+        if (!is(tx2gene, "Tx2Gene")) {
             message("Coercing tx2gene to Tx2Gene class.")
-            metadata[["tx2gene"]] <- Tx2Gene(metadata[["tx2gene"]])
+            assert_is_data.frame(tx2gene)
+            tx2gene <- as(tx2gene, "DataFrame")
+            colnames(tx2gene) <- c("transcriptID", "geneID")
+            rownames(tx2gene) <- NULL
+            metadata[["tx2gene"]] <- Tx2Gene(tx2gene)
         }
 
         # Dead genes: "missing" or "unannotated"
