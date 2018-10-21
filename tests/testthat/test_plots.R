@@ -188,7 +188,7 @@ with_parameters_test_that(
         interestingGroups = "sampleName",
         style = "facet"
     )
-    expect_is(p, "ggplot")
+    expect_s3_class(p, "ggplot")
 
     # Wide format.
     p <- plotGene(
@@ -196,7 +196,7 @@ with_parameters_test_that(
         genes = geneNames,
         style = "wide"
     )
-    expect_is(p, "ggplot")
+    expect_s3_class(p, "ggplot")
 },
     object = list(
         bcbioRNASeq = bcb_small,
