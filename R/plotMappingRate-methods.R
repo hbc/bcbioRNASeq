@@ -22,7 +22,7 @@ plotMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
-        limit = 0.9,
+        limit = 0.7,
         fill = getOption("basejump.discrete.fill", NULL),
         flip = getOption("basejump.flip", TRUE),
         title = "mapping rate"

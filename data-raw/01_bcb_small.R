@@ -1,5 +1,5 @@
 # bcbioRNASeq Example
-# 2018-10-12
+# 2018-10-20
 
 # Restrict to 2 MB.
 # Use `pryr::object_size()` instead of `utils::object.size()`.
@@ -12,7 +12,8 @@ limit <- structure(2e6, class = "object_size")
 # Using sshfs connection to O2 here.
 gse65267 <- bcbioRNASeq(
     uploadDir = file.path(
-        "~",
+        "",
+        "mnt",
         "O2",
         "hbc",
         "bcbioRNASeq",
@@ -86,4 +87,4 @@ stopifnot(is(bcb, "bcbioRNASeq"))
 stopifnot(validObject(bcb))
 
 bcb_small <- bcb
-devtools::use_data(bcb_small, overwrite = TRUE, compress = "xz")
+usethis::use_data(bcb_small, overwrite = TRUE, compress = "xz")

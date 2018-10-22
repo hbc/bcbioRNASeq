@@ -1,5 +1,5 @@
 #' Example DESeq2 differential expression analysis
-#' 2018-10-12
+#' 2018-10-20
 
 # Restrict to 2 MB.
 # Use `pryr::object_size()` instead of `utils::object.size()`.
@@ -64,4 +64,4 @@ stopifnot(object_size(bcb) < limit)
 stopifnot(is(deseq_small, "DESeqAnalysis"))
 stopifnot(validObject(deseq_small))
 
-devtools::use_data(deseq_small, overwrite = TRUE, compress = "xz")
+usethis::use_data(deseq_small, overwrite = TRUE, compress = "xz")

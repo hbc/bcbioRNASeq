@@ -161,7 +161,7 @@
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #'
-#' ## Gene level
+#' ## Gene level.
 #' object <- bcbioRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "genes",
@@ -171,7 +171,7 @@
 #' )
 #' print(object)
 #'
-#' ## Transcript level
+#' ## Transcript level.
 #' object <- bcbioRNASeq(
 #'     uploadDir = uploadDir,
 #'     level = "transcripts",
@@ -275,11 +275,20 @@ bcbioRNASeq <- function(
         import(file.path(projectDir, "bcbio-nextgen-commands.log"))
     assert_is_character(bcbioCommandsLog)
 
+    # Transcript-to-gene mappings ----------------------------------------------
+    tx2gene <- readTx2Gene(
+        file = file.path(projectDir, "tx2gene.csv"),
+        organism = organism,
+        genomeBuild = genomeBuild,
+        ensemblRelease = ensemblRelease
+    )
+    assert_is_all_of(tx2gene, "Tx2Gene")
+
     # Sequencing lanes ---------------------------------------------------------
     lanes <- detectLanes(sampleDirs)
     assert_is_integer(lanes)
 
-    # Determine which samples to load ------------------------------------------
+    # Samples ------------------------------------------------------------------
     # Get the sample data.
     if (is_a_string(sampleMetadataFile)) {
         # Normalize path of local file.
@@ -348,10 +357,6 @@ bcbioRNASeq <- function(
     }
     assert_is_all_of(colData, "DataFrame")
     assert_are_identical(samples, rownames(colData))
-
-    # Transcript-to-gene mappings ----------------------------------------------
-    tx2gene <- readTx2Gene(file.path(projectDir, "tx2gene.csv"))
-    assert_is_all_of(tx2gene, "Tx2Gene")
 
     # Assays -------------------------------------------------------------------
     assays <- list()
@@ -432,7 +437,7 @@ bcbioRNASeq <- function(
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
-            build = genomeBuild,
+            genomeBuild = genomeBuild,
             release = ensemblRelease
         )
     } else {
@@ -440,6 +445,15 @@ bcbioRNASeq <- function(
         rowRanges <- emptyRanges(rownames(assays[[1L]]))
     }
     assert_is_all_of(rowRanges, "GRanges")
+
+    # Attempt to get genome build and Ensembl release if not declared.
+    # Note that these will remain NULL when using GTF file (see above).
+    if (is.null(genomeBuild)) {
+        genomeBuild <- metadata(rowRanges)[["genomeBuild"]]
+    }
+    if (is.null(ensemblRelease)) {
+        ensemblRelease <- metadata(rowRanges)[["ensemblRelease"]]
+    }
 
     # Metadata -----------------------------------------------------------------
     # Interesting groups.
@@ -458,15 +472,6 @@ bcbioRNASeq <- function(
                 ), call. = FALSE)
             }
         )
-    }
-
-    # Attempt to get genome build and Ensembl release if not declared.
-    # Note that these will remain NULL when using GTF file (see above).
-    if (is.null(genomeBuild)) {
-        genomeBuild <- metadata(rowRanges)[["build"]]
-    }
-    if (is.null(ensemblRelease)) {
-        ensemblRelease <- metadata(rowRanges)[["release"]]
     }
 
     metadata <- list(
