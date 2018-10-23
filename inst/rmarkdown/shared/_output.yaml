@@ -2,6 +2,7 @@ html_document:
   code_folding: show
   df_print: paged
   highlight: pygments
+  keep_md: TRUE
   number_sections: false
   self_contained: true
   toc: true
