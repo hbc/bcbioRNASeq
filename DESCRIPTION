@@ -107,7 +107,7 @@ Depends:
 Imports:
     BiocGenerics,
     GenomicFeatures,
-    S4Vectors (>= 0.19.11),
+    S4Vectors,
     assertive.base,
     assertive.files,
     assertive.numbers,
