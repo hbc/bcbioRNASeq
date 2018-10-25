@@ -47,8 +47,8 @@ after_success:
   - Rscript -e 'lintr::lint_package()'
   - Rscript -e 'covr::codecov()'
   - R CMD BiocCheck .
-  - chmod +x travis_render.sh
-  - ./travis_render.sh
+  # - chmod +x travis_render.sh
+  # - ./travis_render.sh
 
 notifications:
   email:
