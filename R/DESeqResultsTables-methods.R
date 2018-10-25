@@ -37,14 +37,14 @@
 #' should be called with regard to LFC cutoffs in nice detail. In particular,
 #' refer to Mike Love:
 #'
-#' "A common procedure is to disregard genes whose estimated LFC *β ir* is below
-#' some threshold, *β ir ≤ θ*. However, this approach loses the benefit of an
-#' easily interpretable FDR, as the reported *P* value and adjusted *P* value
-#' still correspond to the test of *zero* LFC. It is therefore desirable to
-#' include the threshold in the statistical testing procedure directly, i.e.,
-#' not to filter post hoc on a reported fold-change *estimate*, but rather to
-#' evaluate statistically directly whether there is sufficient evidence that the
-#' LFC is above the chosen threshold."
+#' "A common procedure is to disregard genes whose estimated LFC *beta ir* is
+#' below some threshold, *beta ir ≤ theta*. However, this approach loses the
+#' benefit of an easily interpretable FDR, as the reported *P* value and
+#' adjusted *P* value still correspond to the test of *zero* LFC. It is
+#' therefore desirable to include the threshold in the statistical testing
+#' procedure directly, i.e., not to filter post hoc on a reported fold-change
+#' *estimate*, but rather to evaluate statistically directly whether there is
+#' sufficient evidence that the LFC is above the chosen threshold."
 #'
 #' [thread]: https://support.bioconductor.org/p/101504/
 #'
