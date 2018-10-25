@@ -1,6 +1,7 @@
-# DO NOT CHANGE the "init" and "install" sections below
+# AppVeyor-CI configuration for Bioconductor packages
+# https://github.com/krlmlr/r-appveyor
 
-# Download script file from GitHub
+# Download script file from GitHub.
 init:
   ps: |
         $ErrorActionPreference = "Stop"
@@ -10,10 +11,11 @@ init:
 install:
   ps: Bootstrap
 
-cache:
-  # - C:\RLibrary
+platform: x64
 
-# Adapt as necessary starting from here
+# Cache size limit is currently too small for R packages.
+# cache:
+#   - C:\RLibrary
 
 environment:
   global:
@@ -23,7 +25,14 @@ environment:
     USE_RTOOLS: true
     # WARNINGS_ARE_ERRORS: 1
 
-# clusterProfiler dependencies
+# GenomicFeatures > GenomicRanges error
+# Error: package or namespace load failed for 'GenomicRanges':
+#   (converted from warning) no function found corresponding to methods exports
+#   from 'XVector' for: 'concatenateObjects'
+# Error : package 'GenomicRanges' could not be loaded
+# ERROR: lazy loading failed for package 'GenomicFeatures'
+
+# clusterProfiler dependencies:
 # - travis-tool.sh install_bioc ALL
 # - travis-tool.sh install_bioc DO.db
 # - travis-tool.sh install_bioc GO.db
@@ -31,13 +40,6 @@ environment:
 # - travis-tool.sh install_bioc org.Hs.eg.db
 # - travis-tool.sh install_bioc org.Mm.eg.db
 # - travis-tool.sh install_r data.table
-
-# GenomicFeatures > GenomicRanges error
-# Error: package or namespace load failed for 'GenomicRanges':
-#   (converted from warning) no function found corresponding to methods exports
-#   from 'XVector' for: 'concatenateObjects'
-# Error : package 'GenomicRanges' could not be loaded
-# ERROR: lazy loading failed for package 'GenomicFeatures'
 
 build_script:
   - travis-tool.sh install_bioc GenomeInfoDbData
