@@ -145,6 +145,7 @@ Suggests:
     EnsDb.Hsapiens.v75,
     apeglm,
     clusterProfiler (>= 3.8),
+    hexbin,
     org.Hs.eg.db,
     org.Mm.eg.db,
     pathview (>= 1.20),
