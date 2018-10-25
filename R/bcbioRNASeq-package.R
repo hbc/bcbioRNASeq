@@ -30,8 +30,8 @@
 #'   assert_is_integer assert_is_list assert_is_matrix assert_is_numeric
 #'   assert_is_tbl_df is_a_string
 #' @importFrom basejump assertAllAreValidNames assertAreGeneAnnotations
-#'   assertFormalGene2Symbol assertHasValidDimnames assertIsAlpha
-#'   assertIsAStringOrNULL assertIsAnImplicitInteger
+#'   assertFormalGene2Symbol assertHasRownames assertHasValidDimnames
+#'   assertIsAlpha assertIsAStringOrNULL assertIsAnImplicitInteger
 #'   assertIsAnImplicitIntegerOrNULL assertIsColorScaleDiscreteOrNULL
 #'   assertIsFillScaleDiscreteOrNULL assertIsHeaderLevel
 #'   assertIsHexColorFunctionOrNULL assertIsImplicitInteger basejump_geom_abline
