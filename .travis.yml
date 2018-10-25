@@ -40,7 +40,6 @@ bioc_packages:
   - S4Vectors
   - DelayedArray
   - EnsDb.Hsapiens.v75
-  - fgsea
 r_github_packages:
   - jimhester/lintr
 
