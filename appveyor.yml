@@ -17,26 +17,27 @@ cache:
 
 environment:
   global:
-    _R_CHECK_FORCE_SUGGESTS_: FALSE
-    BIOC_USE_DEVEL: TRUE
+    _R_CHECK_FORCE_SUGGESTS_: false
+    BIOC_USE_DEVEL: true
     R_ARCH: x64
-    USE_RTOOLS: TRUE
+    USE_RTOOLS: true
     # WARNINGS_ARE_ERRORS: 1
 
+# clusterProfiler dependencies
+# - travis-tool.sh install_bioc ALL
+# - travis-tool.sh install_bioc DO.db
+# - travis-tool.sh install_bioc GO.db
+# - travis-tool.sh install_bioc enrichplot
+# - travis-tool.sh install_bioc org.Hs.eg.db
+# - travis-tool.sh install_bioc org.Mm.eg.db
+# - travis-tool.sh install_r data.table
+
 build_script:
-  - Rscript -e "source('http://bioconductor.org/biocLite.R')"
+  - travis-tool.sh install_github Bioconductor/GenomicRanges
   - travis-tool.sh install_bioc GenomeInfoDbData
   - travis-tool.sh install_bioc DelayedArray
   - travis-tool.sh install_github jotsetung/ensembldb
   - travis-tool.sh install_bioc EnsDb.Hsapiens.v75
-  # clusterProfiler dependencies
-  - travis-tool.sh install_bioc ALL
-  - travis-tool.sh install_bioc DO.db
-  - travis-tool.sh install_bioc GO.db
-  - travis-tool.sh install_bioc enrichplot
-  - travis-tool.sh install_bioc org.Hs.eg.db
-  - travis-tool.sh install_bioc org.Mm.eg.db
-  - travis-tool.sh install_r data.table
   - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_deps
 
