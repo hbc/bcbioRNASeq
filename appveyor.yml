@@ -32,6 +32,13 @@ environment:
 # - travis-tool.sh install_bioc org.Mm.eg.db
 # - travis-tool.sh install_r data.table
 
+# GenomicFeatures > GenomicRanges error
+# Error: package or namespace load failed for 'GenomicRanges':
+#   (converted from warning) no function found corresponding to methods exports
+#   from 'XVector' for: 'concatenateObjects'
+# Error : package 'GenomicRanges' could not be loaded
+# ERROR: lazy loading failed for package 'GenomicFeatures'
+
 build_script:
   - travis-tool.sh install_bioc GenomeInfoDbData
   - travis-tool.sh install_bioc DelayedArray
