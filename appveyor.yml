@@ -18,7 +18,7 @@ cache:
 environment:
   global:
     _R_CHECK_FORCE_SUGGESTS_: false
-    BIOC_USE_DEVEL: true
+    # BIOC_USE_DEVEL: true
     R_ARCH: x64
     USE_RTOOLS: true
     # WARNINGS_ARE_ERRORS: 1
@@ -33,10 +33,9 @@ environment:
 # - travis-tool.sh install_r data.table
 
 build_script:
-  - travis-tool.sh install_github Bioconductor/GenomicRanges
   - travis-tool.sh install_bioc GenomeInfoDbData
   - travis-tool.sh install_bioc DelayedArray
-  - travis-tool.sh install_github jotsetung/ensembldb
+  - travis-tool.sh install_bioc ensembldb
   - travis-tool.sh install_bioc EnsDb.Hsapiens.v75
   - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_deps
