@@ -145,6 +145,7 @@ Suggests:
     EnsDb.Hsapiens.v75,
     apeglm,
     clusterProfiler (>= 3.8),
+    fgsea (>= 1.6),
     hexbin,
     org.Hs.eg.db,
     org.Mm.eg.db,
