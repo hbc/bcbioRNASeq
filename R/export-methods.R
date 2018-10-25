@@ -63,10 +63,7 @@ NULL
         data <- as(object, "DataFrame")
 
         # Row annotations.
-        if (
-            !is.null(rowData) &&
-            ncol(rowData) > 0L
-        ) {
+        if (!is.null(rowData) && ncol(rowData) > 0L) {
             message("Joining row annotations.")
             assert_is_all_of(rowData, "DataFrame")
             assert_are_identical(rownames(data), rownames(rowData))
@@ -74,10 +71,7 @@ NULL
         }
 
         # Variance-stabilized counts (DESeqTransform).
-        if (
-            !is.null(counts) &&
-            ncol(counts) > 0L
-        ) {
+        if (!is.null(counts) && ncol(counts) > 0L) {
             message("Joining DESeq2 transform counts.")
             assert_is_matrix(counts)
             assert_are_identical(rownames(data), rownames(counts))

@@ -151,7 +151,9 @@ DESeqResultsTables.DESeqAnalysis <-  # nolint
         slot(out, "counts") <- assay(transform)
 
         # Slot rowData.
-        rowData <- sanitizeRowData(rowData(data))
+        rowData <- rowData(data)
+        rownames(rowData) <- rownames(data)
+        rowData <- sanitizeRowData(rowData)
         # DESeq2 includes additional information in `rowData()` that isn't
         # informative for a user, and doesn't need to be included in the CSV.
         # Use our `bcb_small` example dataset to figure out which columns are
@@ -173,6 +175,7 @@ DESeqResultsTables.DESeqAnalysis <-  # nolint
         assert_all_are_true(vapply(rowData, is.atomic, logical(1L)))
         assert_is_non_empty(rowData)
         assert_are_disjoint_sets(colnames(data), colnames(rowData))
+        assertHasRownames(rowData)
         slot(out, "rowData") <- rowData
 
         # Slot human-friendly sample names, if they are defined.
