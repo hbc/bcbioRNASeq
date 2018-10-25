@@ -42,22 +42,6 @@ uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 organism <- "Mus musculus"
 ensemblRelease <- 90L
 
-# GFF3 files are also supported, but we're only testing GTF here for speed.
-# This functionality is provided by basejump and covered by unit tests.
-gtfURL <- paste(
-    "ftp://ftp.ensembl.org",
-    "pub",
-    "release-90",
-    "gtf",
-    "mus_musculus",
-    "Mus_musculus.GRCm38.90.gtf.gz",
-    sep = "/"
-)
-gtfFile <- basename(gtfURL)
-if (!file.exists(gtfFile)) {
-    download.file(url = gtfURL, destfile = gtfFile)
-}
-
 test_that("bcbioRNASeq : salmon (default)", {
     # Expecting warnings about rowRanges.
     object <- suppressWarnings(bcbioRNASeq(uploadDir))
@@ -154,6 +138,22 @@ test_that("bcbioRNASeq : Aligned counts", {
 # Testing both gene and transcript level.
 with_parameters_test_that(
     "bcbioRNASeq : GTF/GFF file", {
+        skip_on_travis()
+        # GFF3 files are also supported, but we're only testing GTF here for
+        # speed. This functionality is covered in basejump tests also.
+        gtfURL <- paste(
+            "ftp://ftp.ensembl.org",
+            "pub",
+            "release-90",
+            "gtf",
+            "mus_musculus",
+            "Mus_musculus.GRCm38.90.gtf.gz",
+            sep = "/"
+        )
+        gtfFile <- basename(gtfURL)
+        if (!file.exists(gtfFile)) {
+            download.file(url = gtfURL, destfile = gtfFile)
+        }
         object <- bcbioRNASeq(
             uploadDir = uploadDir,
             level = level,
