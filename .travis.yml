@@ -7,7 +7,7 @@ sudo: false
 bioc_required: true
 
 # Temporarily enable when caching package library.
-# script: true
+script: true
 
 matrix:
   include:
