@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.99.0
-Date: 2018-10-21
+Date: 2018-10-27
 Authors@R: c(
     person(
         given = "Michael",
@@ -151,7 +151,7 @@ Suggests:
     viridis
 Remotes:
     steinbaugh/basejump@bioconductor,
-    steinbaugh/bcbioBase@bioconductor
+    hbc/bcbioBase@bioconductor
 biocViews:
     DataImport,
     DataRepresentation,

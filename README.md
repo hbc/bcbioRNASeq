@@ -26,14 +26,8 @@ We recommend installing the package with [BiocManager][].
 if (!require("BiocManager")) {
     install.packages("BiocManager")
 }
-BiocManager::install(
-    pkgs = c(
-        "devtools",
-        "remotes",
-        "GenomeInfoDbData"
-    )
-)
-BiocManager::install("hbc/bcbioRNASeq")
+BiocManager::install("remotes")
+BiocManager::install("hbc/bcbioRNASeq", ref = "bioconductor")
 ```
 
 For [R][] < 3.5, [BiocManager][] is not supported. Use `BiocInstaller::biocLite()` instead of `BiocManager::install()`. This requires sourcing the legacy [Bioconductor][] `biocLite.R` script.
