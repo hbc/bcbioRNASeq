@@ -53,7 +53,7 @@ DESeqAnalysis <-  # nolint
 
 
 .contrastNames <- function(object) {
-    stopifnot(is(object, "DESeqAnalysis"))
+    assert_that(is(object, "DESeqAnalysis"))
     vapply(
         X = slot(object, "results"),
         FUN = contrastName,

@@ -18,7 +18,7 @@ BiocGenerics::`counts<-`
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #' @param normalized `string` or `boolean`. Which normalization method to apply:
 #'
 #'   - `FALSE`: Raw counts.

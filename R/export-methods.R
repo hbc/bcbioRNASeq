@@ -17,7 +17,7 @@ basejump::export
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams bcbioBase::copyToDropbox
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #' @param dir `string`. Directory path.
 #' @param dropbox `boolean`. Export results to [Dropbox][] instead of local
 #'   storage. Recommended method by [HBC][] for permanent storage (e.g. [Stem
@@ -99,7 +99,7 @@ NULL
 
 # DESeqResultsTables ===========================================================
 .resultsTables <- function(object) {
-    stopifnot(is(object, "DESeqResultsTables"))
+    assert_that(is(object, "DESeqResultsTables"))
     validObject(object)
 
     # Join rowData and slotted counts.
@@ -109,7 +109,7 @@ NULL
         counts = slot(object, "counts"),
         sampleNames = slot(object, "sampleNames")
     )
-    stopifnot(is(results, "DESeqResults"))
+    assert_that(is(results, "DESeqResults"))
     validObject(results)
 
     deg <- slot(object, "deg")

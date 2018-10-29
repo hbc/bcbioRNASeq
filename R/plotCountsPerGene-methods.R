@@ -18,7 +18,7 @@ basejump::plotCountsPerGene
 #' for total RNA expression by sample, we expect the spread of the
 #' TMM-normalized counts per gene to be similar for every sample.
 #'
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #'
 #' @references TMM: Robinson, et al., 2010.
 #'

@@ -147,7 +147,7 @@
 .new.DESeqDataSet <-  # nolint
     function(se) {
         .ddsMsg()
-        stopifnot(is(se, "SummarizedExperiment"))
+        assert_that(is(se, "SummarizedExperiment"))
 
         # Assert that counts are gene level.
         level <- metadata(se)[["level"]]

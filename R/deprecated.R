@@ -9,7 +9,7 @@
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #'
 #' @return [.Deprecated()].
 NULL
@@ -22,7 +22,7 @@ NULL
 #' @author Michael Steinbaugh
 #' @keywords internal
 #'
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #'
 #' @return [.Defunct()].
 NULL

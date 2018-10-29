@@ -9,7 +9,7 @@ basejump::plotCorrelationHeatmap
 #' @inherit basejump::plotCorrelationHeatmap
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #'
 #' @examples
 #' data(bcb_small)

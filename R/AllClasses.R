@@ -1,3 +1,5 @@
+# FIXME Use `validate_that()` here.
+
 setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 
@@ -32,7 +34,7 @@ setValidity(
     Class = "bcbioRNASeq",
     method = function(object) {
         # Return invalid for all objects older than v0.2.
-        stopifnot(metadata(object)[["version"]] >= 0.2)
+        assert_that(metadata(object)[["version"]] >= 0.2)
 
         assert_is_all_of(object, "RangedSummarizedExperiment")
         assert_has_dimnames(object)
@@ -248,7 +250,7 @@ setValidity(
         results <- slot(object, "results")
         lfcShrink <- slot(object, "lfcShrink")
 
-        stopifnot(is(data, "DESeqDataSet"))
+        assert_that(is(data, "DESeqDataSet"))
         assertHasValidDimnames(data)
 
         # Require gene-to-symbol mappings.
@@ -341,7 +343,7 @@ setValidity(
     Class = "DESeqResultsTables",
     method = function(object) {
         results <- slot(object, "results")
-        stopifnot(is(results, "DESeqResults"))
+        assert_that(is(results, "DESeqResults"))
         assert_is_a_string(contrastName(results))
 
         deg <- slot(object, "deg")

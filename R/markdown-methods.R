@@ -9,7 +9,7 @@ basejump::markdown
 #' @inherit basejump::markdown
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #'
 #' @examples
 #' data(deseq_small)
@@ -45,7 +45,7 @@ markdown.DESeqResultsTables <-  # nolint
         object,
         headerLevel = 2L
     ) {
-        stopifnot(is(object, "DESeqResultsTables"))
+        assert_that(is(object, "DESeqResultsTables"))
         validObject(object)
         assertIsHeaderLevel(headerLevel)
 

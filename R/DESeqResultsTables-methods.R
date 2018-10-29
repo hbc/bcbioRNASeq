@@ -48,7 +48,7 @@
 #'
 #' [thread]: https://support.bioconductor.org/p/101504/
 #'
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #' @param rowData `boolean`. Include gene annotations.
 #' @param counts `boolean`. Include DESeq2 normalized counts.
 #'
@@ -78,7 +78,7 @@ NULL
 DESeqResultsTables.DESeqResults <-  # nolint
     function(object) {
         validObject(object)
-        stopifnot(is(object, "DESeqResults"))
+        assert_that(is(object, "DESeqResults"))
         assert_is_subset(c("log2FoldChange", "padj"), colnames(object))
         alpha <- metadata(object)[["alpha"]]
         assertIsAlpha(alpha)
@@ -160,7 +160,7 @@ DESeqResultsTables.DESeqAnalysis <-  # nolint
         # worth including.
         data(bcb_small, package = "bcbioRNASeq", envir = environment())
         bcb_small <- get("bcb_small", inherits = FALSE)
-        stopifnot(is(bcb_small, "bcbioRNASeq"))
+        assert_that(is(bcb_small, "bcbioRNASeq"))
         keep <- intersect(
             x = colnames(rowData),
             y = colnames(rowData(bcb_small))

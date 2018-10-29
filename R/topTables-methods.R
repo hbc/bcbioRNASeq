@@ -23,7 +23,7 @@
 #' @name topTables
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #' @param n `scalar integer`. Number of genes (per direction) to report.
 #'
 #' @return `kable`. Markdown tables.
@@ -66,7 +66,7 @@ setMethod(
         direction = c("up", "down"),
         n
     ) {
-        stopifnot(is(object, "DESeqResultsTables"))
+        assert_that(is(object, "DESeqResultsTables"))
         validObject(object)
         direction <- match.arg(direction)
         assertIsImplicitInteger(n)

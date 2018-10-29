@@ -9,7 +9,7 @@
 #' transformations will only be updated when `recalculate = TRUE` and either
 #' `rlog` or `vst` counts are defined in [SummarizedExperiment::assays()].
 #
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #' @param recalculate `boolean`. Recalculate DESeq2 normalized counts and
 #'   variance-stabilizing transformations defined in
 #'   [SummarizedExperiment::assays()]. Recommended by default, but can take a
@@ -66,7 +66,7 @@ setMethod(
     ) {
         validObject(x)
         # Never allow the user to drop on extraction.
-        stopifnot(!isTRUE(drop))
+        assert_that(!isTRUE(drop))
         assert_is_a_bool(recalculate)
 
         # Genes (rows)

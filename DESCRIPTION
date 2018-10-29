@@ -115,6 +115,7 @@ Imports:
     assertive.sets,
     assertive.strings,
     assertive.types,
+    assertthat,
     bcbioBase (>= 0.99.0),
     cowplot (>= 0.9),
     crayon,
@@ -175,7 +176,6 @@ Collate:
     'as-methods.R'
     'assert-internal.R'
     'bcbioRNASeq-generator.R'
-    'bcbioRNASeq-package.R'
     'contrastName-methods.R'
     'counts-methods.R'
     'data.R'
@@ -186,6 +186,7 @@ Collate:
     'globals.R'
     'markdown-methods.R'
     'meltCounts-internal.R'
+    'package.R'
     'plot5Prime3PrimeBias-methods.R'
     'plotCorrelationHeatmap-methods.R'
     'plotCountsPerGene-methods.R'

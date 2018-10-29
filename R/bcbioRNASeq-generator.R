@@ -81,7 +81,7 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @inheritParams basejump::makeSummarizedExperiment
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #' @param uploadDir `string`. Path to final upload directory. This path is set
 #'   when running "`bcbio_nextgen -w template`".
 #' @param level `string`. Import counts at gene level ("`genes`"; *default*) or
@@ -326,7 +326,7 @@ bcbioRNASeq <- function(
     }
     samples <- rownames(sampleData)
     # Require at least 2 samples.
-    stopifnot(length(samples) >= 2L)
+    assert_that(length(samples) >= 2L)
     assert_is_subset(samples, names(sampleDirs))
     assertAllAreValidNames(samples)
     if (length(samples) < length(sampleDirs)) {

@@ -17,7 +17,7 @@ BiocGenerics::plotDispEsts
 #' Here we're generating a `DESeqDataSet` object on the fly, which already has
 #' method support for plotting dispersion, provided by the DESeq2 package.
 #'
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #' @param object Object.
 #'
 #' @seealso [DESeq2::plotDispEsts()].

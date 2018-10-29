@@ -3,7 +3,7 @@
 #' @name contrastName
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
+#' @inheritParams basejump.globals::params
 #'
 #' @return `string`. Contrast name.
 #'
