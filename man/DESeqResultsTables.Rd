@@ -12,7 +12,7 @@ DESeqResultsTables(object, ...)
 \S4method{DESeqResultsTables}{DESeqResults}(object)
 
 \S4method{DESeqResultsTables}{DESeqAnalysis}(object, results = 1L,
-  lfcShrink = TRUE, rowData = TRUE, counts = TRUE)
+  lfcShrink = TRUE)
 }
 \arguments{
 \item{object}{Object.}
@@ -22,10 +22,6 @@ DESeqResultsTables(object, ...)
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 
 \item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
-
-\item{rowData}{\code{boolean}. Include gene annotations.}
-
-\item{counts}{\code{boolean}. Include DESeq2 normalized counts.}
 }
 \value{
 \code{DESeqResultsTables}.
