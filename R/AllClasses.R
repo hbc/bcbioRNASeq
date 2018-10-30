@@ -327,18 +327,19 @@ setClass(
         results = "DESeqResults",
         deg = "list",
         counts = "matrix",
-        rowData = "DataFrame",
+        rowRanges = "GRanges",
         sampleNames = "character",
         metadata = "list"
     ),
     prototype = list(
         counts = matrix(),
-        rowData = DataFrame(),
+        rowRanges = GRanges(),
         sampleNames = character(),
         metadata = list()
     )
 )
 
+# FIXME Add assert check to ensure counts and rowData are identical.
 setValidity(
     Class = "DESeqResultsTables",
     method = function(object) {
