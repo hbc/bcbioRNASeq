@@ -1,5 +1,6 @@
-#' @inherit DESeqResultsTables-class
 #' @name DESeqResultsTables
+#' @inherit DESeqResultsTables-class
+#' @inheritParams general
 #' @author Michael Steinbaugh
 #'
 #' @section Obtaining results from DESeq2:
@@ -48,10 +49,6 @@
 #'
 #' [thread]: https://support.bioconductor.org/p/101504/
 #'
-#' @inheritParams basejump.globals::params
-#' @param rowData `boolean`. Include gene annotations.
-#' @param counts `boolean`. Include DESeq2 normalized counts.
-#'
 #' @return `DESeqResultsTables`.
 #'
 #' @seealso
@@ -74,7 +71,7 @@ NULL
 
 
 
-# Consider not exporting this as a method, and requiring DESeqAnalysis.
+# DESeqResults =================================================================
 DESeqResultsTables.DESeqResults <-  # nolint
     function(object) {
         validObject(object)
@@ -122,61 +119,66 @@ DESeqResultsTables.DESeqResults <-  # nolint
         )
     }
 
-
-
+# DESeqAnalysis ================================================================
 DESeqResultsTables.DESeqAnalysis <-  # nolint
     function(
         object,
         results = 1L,
-        lfcShrink = TRUE,
-        rowData = TRUE,
-        counts = TRUE
+        lfcShrink = TRUE
     ) {
         validObject(object)
-        assert_is_a_bool(rowData)
-        assert_is_a_bool(counts)
 
-        data <- as(object, "DESeqDataSet")
-        transform <- as(object, "DESeqTransform")
+        # Prepare the DESeqResultsTables object with our DESeqResults method.
         results <- .matchResults(
             object = object,
             results = results,
             lfcShrink = lfcShrink
         )
-
-        # Generate object using DESeqResults.
+        # Prepare the DESeqResultsTables object.
         out <- DESeqResultsTables(results)
+        rm(results)
 
-        # Slot variance-stabilized counts.
-        slot(out, "counts") <- assay(transform)
+        # Automatically populate additional slots using DESeqDataSet.
+        data <- as(object, "DESeqDataSet")
 
-        # Slot rowData.
-        rowData <- rowData(data)
-        rownames(rowData) <- rownames(data)
-        rowData <- sanitizeRowData(rowData)
-        # DESeq2 includes additional information in `rowData()` that isn't
-        # informative for a user, and doesn't need to be included in the CSV.
-        # Use our `bcb_small` example dataset to figure out which columns are
-        # worth including.
-        data(bcb_small, package = "bcbioRNASeq", envir = environment())
-        bcb_small <- get("bcb_small", inherits = FALSE)
-        assert_that(is(bcb_small, "bcbioRNASeq"))
-        keep <- intersect(
-            x = colnames(rowData),
-            y = colnames(rowData(bcb_small))
+        # Note that we're slotting the size factor-normalized counts here.
+        counts <- counts(data, normalized = TRUE)
+        slot(out, "counts") <- counts
+
+        # Slot the row annotations (genomic ranges).
+        #
+        # DESeq2 includes additional columns in `mcols()` that aren't
+        # informative for a user, and doesn't need to be included in the tables.
+        #
+        # Instead, only keep informative columns that are character or factor.
+        # Be sure to drop complex, non-atomic columns (e.g. list, S4) that are
+        # allowed in GRanges/DataFrame but will fail to write to disk as CSV.
+        rowRanges <- rowRanges(data)
+        mcols <- mcols(rowRanges)
+        keep <- vapply(
+            X = mcols,
+            FUN = function(x) {
+                is.character(x) || is.factor(x)
+            },
+            FUN.VALUE = logical(1L)
         )
-        assert_is_non_empty(keep)
-        message(paste(
-            "Adding `rowData()` annotations (atomic columns only).",
-            printString(keep),
-            sep = "\n"
+        mcols <- mcols[, keep, drop = FALSE]
+        mcols(rowRanges) <- mcols
+        assert_is_non_empty(rowRanges)
+        assert_are_identical(
+            x = rownames(data),
+            y = names(rowRanges)
+        )
+        assert_are_disjoint_sets(
+            x = colnames(data),
+            y = colnames(mcols(rowRanges))
+        )
+        assert_all_are_true(vapply(
+            X = mcols(rowRanges),
+            FUN = is.atomic,
+            FUN.VALUE = logical(1L)
         ))
-        rowData <- rowData[, keep, drop = FALSE]
-        assert_all_are_true(vapply(rowData, is.atomic, logical(1L)))
-        assert_is_non_empty(rowData)
-        assert_are_disjoint_sets(colnames(data), colnames(rowData))
-        assertHasRownames(rowData)
-        slot(out, "rowData") <- rowData
+        slot(out, "rowRanges") <- rowRanges
 
         # Slot human-friendly sample names, if they are defined.
         sampleNames <- sampleNames(data)
@@ -187,8 +189,9 @@ DESeqResultsTables.DESeqAnalysis <-  # nolint
                 y = colnames(data)
             )
         ) {
-            slot(out, "sampleNames") <- sampleNames(data)
+            slot(out, "sampleNames") <- sampleNames
         }
+
 
         # Slot metadata.
         slot(out, "metadata") <- list(
