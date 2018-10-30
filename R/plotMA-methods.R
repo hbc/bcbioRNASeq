@@ -24,7 +24,7 @@ BiocGenerics::plotMA
 #' taken in two samples, by transforming the data onto M (log ratio) and A
 #' (mean average) scales, then plotting these values.
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #'
 #' @return `ggplot`.
 #'

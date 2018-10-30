@@ -9,7 +9,7 @@
 #' transformations will only be updated when `recalculate = TRUE` and either
 #' `rlog` or `vst` counts are defined in [SummarizedExperiment::assays()].
 #
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #' @param recalculate `boolean`. Recalculate DESeq2 normalized counts and
 #'   variance-stabilizing transformations defined in
 #'   [SummarizedExperiment::assays()]. Recommended by default, but can take a

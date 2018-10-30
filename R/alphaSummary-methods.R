@@ -8,7 +8,7 @@
 #' @name alphaSummary
 #' @author Michael Steinbaugh, Lorena Patano
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #' @inheritParams DESeq2::results
 #' @param alpha `numeric`. Multiple alpha cutoffs.
 #'

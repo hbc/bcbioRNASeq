@@ -48,7 +48,7 @@
 #'
 #' [thread]: https://support.bioconductor.org/p/101504/
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #' @param rowData `boolean`. Include gene annotations.
 #' @param counts `boolean`. Include DESeq2 normalized counts.
 #'

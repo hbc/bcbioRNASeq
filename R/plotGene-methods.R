@@ -9,7 +9,7 @@ basejump::plotGene
 #' @inherit basejump::plotGene
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #'
 #' @examples
 #' data(bcb_small, deseq_small)
