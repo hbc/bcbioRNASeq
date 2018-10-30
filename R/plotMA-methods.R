@@ -1,3 +1,8 @@
+# FIXME Don't make DESeqResults method for plotMA. Consider only exporting
+# DESeqAnalysis method.
+
+
+
 # Do not allow post hoc alpha, lfcThreshold cutoffs.
 
 
