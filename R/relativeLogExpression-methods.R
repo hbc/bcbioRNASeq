@@ -14,8 +14,8 @@
 #' @references Anders and Huber (2010).
 #'
 #' @examples
-#' data(bcb_small)
-#' relativeLogExpression(bcb_small)
+#' data(bcb)
+#' relativeLogExpression(bcb)
 NULL
 
 

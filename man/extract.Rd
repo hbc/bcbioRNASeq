@@ -83,8 +83,8 @@ transformations will only be updated when \code{recalculate = TRUE} and either
 \code{rlog} or \code{vst} counts are defined in \code{\link[SummarizedExperiment:assays]{SummarizedExperiment::assays()}}.
 }
 \examples{
-data(bcb_small)
-object <- bcb_small
+data(bcb)
+object <- bcb
 
 ## Minimum of 100 genes, 2 samples.
 genes <- head(rownames(object), 100L)

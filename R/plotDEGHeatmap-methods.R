@@ -26,15 +26,15 @@
 #' @param counts `DESeqTransform`.
 #'
 #' @examples
-#' data(deseq_small)
+#' data(deseq)
 #'
 #' ## DESeqAnalysis ====
-#' plotDEGHeatmap(deseq_small)
+#' plotDEGHeatmap(deseq)
 #'
 #' ## DESeqResults ====
 #' plotDEGHeatmap(
-#'     object = as(deseq_small, "DESeqResults"),
-#'     counts = as(deseq_small, "DESeqTransform")
+#'     object = as(deseq, "DESeqResults"),
+#'     counts = as(deseq, "DESeqTransform")
 #' )
 NULL
 

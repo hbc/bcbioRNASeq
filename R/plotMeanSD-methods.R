@@ -23,13 +23,13 @@
 #' @return `ggplot` grid.
 #'
 #' @examples
-#' data(bcb_small, deseq_small)
+#' data(bcb, deseq)
 #'
 #' ## bcbioRNASeq ====
-#' plotMeanSD(bcb_small)
+#' plotMeanSD(bcb)
 #'
 #' ## DESeqAnalysis ====
-#' plotMeanSD(deseq_small)
+#' plotMeanSD(deseq)
 NULL
 
 

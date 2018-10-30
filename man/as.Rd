@@ -82,34 +82,34 @@ corresponds to results containing log2 fold change (LFC) values that
 }
 
 \examples{
-data(bcb_small, deseq_small)
+data(bcb, deseq)
 
 ## bcbioRNASeq to DESeqDataSet ====
-x <- as(bcb_small, "DESeqDataSet")
+x <- as(bcb, "DESeqDataSet")
 names(S4Vectors::mcols(x))
 class(x)
 show(x)
 
 ## bcbioRNASeq to RangedSummarizedExperiment ====
-x <- as(bcb_small, "RangedSummarizedExperiment")
+x <- as(bcb, "RangedSummarizedExperiment")
 slotNames(x)
 show(x)
 
 ## bcbioRNASeq to SummarizedExperiment ====
 ## Coerce to RangedSummarizedExperiment first.
-x <- as(bcb_small, "RangedSummarizedExperiment")
+x <- as(bcb, "RangedSummarizedExperiment")
 x <- as(x, "SummarizedExperiment")
 class(x)
 slotNames(x)
 show(x)
 
 ## DESeqAnalysis ====
-dds <- as(deseq_small, "DESeqDataSet")
+dds <- as(deseq, "DESeqDataSet")
 print(dds)
-dt <- as(deseq_small, "DESeqTransform")
+dt <- as(deseq, "DESeqTransform")
 print(dt)
 ## Pulls the first results slotted.
-res <- as(deseq_small, "DESeqResults")
+res <- as(deseq, "DESeqResults")
 contrastName(res)
 summary(res)
 }

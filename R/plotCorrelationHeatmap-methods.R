@@ -1,10 +1,3 @@
-#' @importFrom basejump plotCorrelationHeatmap
-#' @aliases NULL
-#' @export
-basejump::plotCorrelationHeatmap
-
-
-
 #' @name plotCorrelationHeatmap
 #' @inherit basejump::plotCorrelationHeatmap
 #' @author Michael Steinbaugh
@@ -12,10 +5,17 @@ basejump::plotCorrelationHeatmap
 #' @inheritParams general
 #'
 #' @examples
-#' data(bcb_small)
-#' plotCorrelationHeatmap(bcb_small, method = "pearson")
-#' plotCorrelationHeatmap(bcb_small, method = "spearman")
+#' data(bcb)
+#' plotCorrelationHeatmap(bcb, method = "pearson")
+#' plotCorrelationHeatmap(bcb, method = "spearman")
 NULL
+
+
+
+#' @importFrom basejump plotCorrelationHeatmap
+#' @aliases NULL
+#' @export
+basejump::plotCorrelationHeatmap
 
 
 

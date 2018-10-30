@@ -1,11 +1,11 @@
-data(bcb_small, envir = environment())
+data(bcb, envir = environment())
 
 
 
-# bcb_small ====================================================================
-context("bcbioRNASeq : bcb_small")
+# bcb ====================================================================
+context("bcbioRNASeq : bcb")
 
-object <- bcb_small
+object <- bcb
 
 with_parameters_test_that(
     "Assays", {
@@ -240,7 +240,7 @@ test_that("bcbioRNASeq : Sample selection", {
 # Methods ======================================================================
 context("bcbioRNASeq : Methods")
 
-object <- bcb_small
+object <- bcb
 nrow <- 50L
 ncol <- 2L
 

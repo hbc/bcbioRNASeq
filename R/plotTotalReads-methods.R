@@ -11,8 +11,8 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' data(bcb_small)
-#' plotTotalReads(bcb_small)
+#' data(bcb)
+#' plotTotalReads(bcb)
 NULL
 
 

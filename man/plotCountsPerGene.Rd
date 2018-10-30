@@ -69,8 +69,8 @@ TMM-normalized counts per gene to be similar for every sample.
 }
 
 \examples{
-data(bcb_small)
-plotCountsPerGene(bcb_small)
+data(bcb)
+plotCountsPerGene(bcb)
 }
 \references{
 TMM: Robinson, et al., 2010.

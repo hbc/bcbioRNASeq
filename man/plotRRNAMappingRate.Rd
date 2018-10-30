@@ -47,8 +47,8 @@ reduce the number of biologically meaningful reads in the experiment and is
 best avoided.
 }
 \examples{
-data(bcb_small)
-plotRRNAMappingRate(bcb_small)
+data(bcb)
+plotRRNAMappingRate(bcb)
 }
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera

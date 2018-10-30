@@ -56,15 +56,15 @@
 #' - [markdown()], [write()].
 #'
 #' @examples
-#' data(deseq_small)
+#' data(deseq)
 #'
 #' ## DESeqAnalysis ====
 #' ## This is the recommended default method.
-#' x <- DESeqResultsTables(deseq_small)
+#' x <- DESeqResultsTables(deseq)
 #' print(x)
 #'
 #' ## DESeqResults ====
-#' res <- as(deseq_small, "DESeqResults")
+#' res <- as(deseq, "DESeqResults")
 #' x <- DESeqResultsTables(res)
 #' print(x)
 NULL

@@ -1,4 +1,8 @@
 # Do not allow post hoc alpha, lfcThreshold cutoffs.
+# FIXME Consider exporting this as a generic in basejump.
+# TODO Look into using ggforce::geom_sina() instead.
+# https://twitter.com/timtriche/status/1056898767985799168
+# https://twitter.com/strnr/status/1056908633454362626
 
 
 
@@ -19,9 +23,9 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' data(deseq_small)
+#' data(deseq)
 #'
-#' object <- deseq_small
+#' object <- deseq
 #' print(object)
 #'
 #' ## Get genes from DESeqDataSet.
@@ -68,6 +72,7 @@ NULL
 
 
 
+# DESeqResults =================================================================
 plotVolcano.DESeqResults <-  # nolint
     function(
         object,
@@ -321,6 +326,17 @@ plotVolcano.DESeqResults <-  # nolint
 
 
 
+#' @rdname plotVolcano
+#' @export
+setMethod(
+    "plotVolcano",
+    signature("DESeqResults"),
+    definition = plotVolcano.DESeqResults
+)
+
+
+
+# DESeqAnalysis ================================================================
 plotVolcano.DESeqAnalysis <-  # nolint
     function(
         object,
@@ -358,14 +374,4 @@ setMethod(
     f = "plotVolcano",
     signature = signature("DESeqAnalysis"),
     definition = plotVolcano.DESeqAnalysis
-)
-
-
-
-#' @rdname plotVolcano
-#' @export
-setMethod(
-    "plotVolcano",
-    signature("DESeqResults"),
-    definition = plotVolcano.DESeqResults
 )

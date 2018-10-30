@@ -1,11 +1,11 @@
 context("Differential Expression")
 
-data(bcb_small, deseq_small, envir = environment())
-dds_small <- as(deseq_small, "DESeqDataSet")
-vst_small <- as(deseq_small, "DESeqTransform")
-res_small <- as(deseq_small, "DESeqResults")
+data(bcb, deseq, envir = environment())
+dds_small <- as(deseq, "DESeqDataSet")
+vst_small <- as(deseq, "DESeqTransform")
+res_small <- as(deseq, "DESeqResults")
 
-g2s <- Gene2Symbol(bcb_small)
+g2s <- Gene2Symbol(bcb)
 geneIDs <- head(g2s[["geneID"]])
 geneNames <- head(g2s[["geneName"]])
 
@@ -78,7 +78,7 @@ with_parameters_test_that(
             object = res_small,
             counts = vst_small
         ),
-        DESeqAnalysis = list(object = deseq_small)
+        DESeqAnalysis = list(object = deseq)
     )
 )
 
@@ -97,7 +97,7 @@ with_parameters_test_that(
             object = res_small,
             counts = vst_small
         ),
-        DESeqAnalysis = list(object = deseq_small)
+        DESeqAnalysis = list(object = deseq)
     )
 )
 
@@ -168,7 +168,7 @@ with_parameters_test_that(
         expect_true("isDE" %in% colnames(x))
     },
     object = list(
-        DESeqAnalysis = deseq_small,
+        DESeqAnalysis = deseq,
         DESeqResults = res_small
     )
 )
@@ -220,7 +220,7 @@ with_parameters_test_that(
         expect_s4_class(x, "DataFrame")
     },
     object = list(
-        DESeqAnalysis = deseq_small,
+        DESeqAnalysis = deseq,
         DESeqResults = res_small
     )
 )
@@ -237,7 +237,7 @@ with_parameters_test_that(
         )
     },
     object = list(
-        DESeqAnalysis = deseq_small,
+        DESeqAnalysis = deseq,
         DESeqResults = res_small
     )
 )

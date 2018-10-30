@@ -29,11 +29,11 @@ where multiple items in the columns map to a single sample (e.g. cells for a
 single-cell RNA-seq experiment).
 }
 \examples{
-data(bcb_small)
-sampleData(bcb_small, clean = TRUE) \%>\% lapply(head)
+data(bcb)
+sampleData(bcb, clean = TRUE) \%>\% lapply(head)
 
 ## Assignment support.
-x <- bcb_small
+x <- bcb
 sampleData(x)[["test"]] <- seq_len(ncol(x))
 ## `test` column should be now defined.
 "test" \%in\% colnames(sampleData(x))

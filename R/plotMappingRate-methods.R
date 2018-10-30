@@ -12,8 +12,8 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' data(bcb_small)
-#' plotMappingRate(bcb_small)
+#' data(bcb)
+#' plotMappingRate(bcb)
 NULL
 
 

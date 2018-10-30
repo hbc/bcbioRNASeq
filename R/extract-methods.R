@@ -18,8 +18,8 @@
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
-#' data(bcb_small)
-#' object <- bcb_small
+#' data(bcb)
+#' object <- bcb
 #'
 #' ## Minimum of 100 genes, 2 samples.
 #' genes <- head(rownames(object), 100L)

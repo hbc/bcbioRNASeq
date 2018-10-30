@@ -95,9 +95,9 @@ or \code{clusterCols} to \code{FALSE}.
 }
 
 \examples{
-data(bcb_small)
-plotCorrelationHeatmap(bcb_small, method = "pearson")
-plotCorrelationHeatmap(bcb_small, method = "spearman")
+data(bcb)
+plotCorrelationHeatmap(bcb, method = "pearson")
+plotCorrelationHeatmap(bcb, method = "spearman")
 }
 \seealso{
 \itemize{

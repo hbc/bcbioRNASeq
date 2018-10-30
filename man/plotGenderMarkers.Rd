@@ -45,8 +45,8 @@ chromosomes. Currently only \emph{Homo sapiens} and \emph{Mus musculus}
 genomes are supported.
 }
 \examples{
-data(bcb_small)
-plotGenderMarkers(bcb_small)
+data(bcb)
+plotGenderMarkers(bcb)
 }
 \seealso{
 \code{\link[=plotGene]{plotGene()}}.

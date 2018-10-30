@@ -70,12 +70,15 @@ of genomic data. The plot visualizes the differences between measurements
 taken in two samples, by transforming the data onto M (log ratio) and A
 (mean average) scales, then plotting these values.
 }
+\note{
+We are not allowing post hoc \code{alpha} or \code{lfcThreshold} cutoffs here.
+}
 \examples{
-data(deseq_small)
+data(deseq)
 
 ## DESeqAnalysis ====
 ## This is the current recommended method.
-object <- deseq_small
+object <- deseq
 print(object)
 
 dds <- as(object, "DESeqDataSet")

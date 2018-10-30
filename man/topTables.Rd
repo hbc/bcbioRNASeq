@@ -35,8 +35,8 @@ topTables(object, ...)
 Top Tables of Differential Expression Results
 }
 \examples{
-data(deseq_small)
-topTables(deseq_small, results = 1L, n = 5L)
+data(deseq)
+topTables(deseq, results = 1L, n = 5L)
 }
 \author{
 Michael Steinbaugh

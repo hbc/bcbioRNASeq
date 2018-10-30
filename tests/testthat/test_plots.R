@@ -1,8 +1,8 @@
 context("Plots : Quality Control")
 
-data(bcb_small, deseq_small, envir = environment())
-dds_small <- as(deseq_small, "DESeqDataSet")
-vst_small <- as(deseq_small, "DESeqTransform")
+data(bcb, deseq, envir = environment())
+dds_small <- as(deseq, "DESeqDataSet")
+vst_small <- as(deseq, "DESeqTransform")
 
 
 
@@ -10,9 +10,9 @@ vst_small <- as(deseq_small, "DESeqTransform")
 with_parameters_test_that(
     "Plots supporting interesting groups", {
         expect_is(fun, "function")
-        object <- fun(object = bcb_small)
+        object <- fun(object = bcb)
         expect_is(object, "ggplot")
-        object <- fun(object = bcb_small, interestingGroups = "sampleName")
+        object <- fun(object = bcb, interestingGroups = "sampleName")
         expect_is(object, "ggplot")
     },
     fun = list(
@@ -52,7 +52,7 @@ with_parameters_test_that(
         )
     },
     object = list(
-        bcbioRNASeq = bcb_small,
+        bcbioRNASeq = bcb,
         DESeqDataSet = dds_small,
         DESeqResults = vst_small
     )
@@ -65,7 +65,7 @@ with_parameters_test_that(
 test_that("plotCountsPerGene", {
     expect_is(
         object = plotCountsPerGene(
-            object = bcb_small,
+            object = bcb,
             normalized = "vst",
             title = NULL,
             interestingGroups = "sampleName"
@@ -79,11 +79,11 @@ test_that("plotCountsPerGene", {
 # plotCountsPerGene ============================================================
 with_parameters_test_that(
     "plotCountsPerGene", {
-        x <- plotCountsPerGene(bcb_small, geom = geom)
+        x <- plotCountsPerGene(bcb, geom = geom)
         expect_is(x, "ggplot")
 
         x <- plotCountsPerGene(
-            object = bcb_small,
+            object = bcb,
             normalized = "vst",
             interestingGroups = "sampleName",
             title = NULL
@@ -103,7 +103,7 @@ with_parameters_test_that(
 # plotGeneSaturation ===========================================================
 test_that("plotGeneSaturation", {
     object <- plotGeneSaturation(
-        object = bcb_small,
+        object = bcb,
         trendline = TRUE,
         label = TRUE
     )
@@ -119,7 +119,7 @@ with_parameters_test_that(
         expect_is(x, "ggplot")
     },
     object = list(
-        bcbioRNASeq = bcb_small,
+        bcbioRNASeq = bcb,
         DESeqDataSet = dds_small
     )
 )
@@ -128,14 +128,14 @@ with_parameters_test_that(
 
 # plotPCA ======================================================================
 test_that("plotPCA : Label", {
-    object <- plotPCA(bcb_small, label = FALSE)
+    object <- plotPCA(bcb, label = FALSE)
     expect_is(object, "ggplot")
-    object <- plotPCA(bcb_small, label = TRUE)
+    object <- plotPCA(bcb, label = TRUE)
     expect_is(object, "ggplot")
 })
 
 test_that("plotPCA : DataFrame", {
-    object <- plotPCA(bcb_small, return = "DataFrame")
+    object <- plotPCA(bcb, return = "DataFrame")
     expect_is(object, "DataFrame")
 })
 
@@ -143,7 +143,7 @@ test_that("plotPCA : DataFrame", {
 
 # plotDispEsts =================================================================
 test_that("plotDispEsts", {
-    object <- plotDispEsts(bcb_small)
+    object <- plotDispEsts(bcb)
     expect_is(object, "list")
     expect_identical(
         names(object),
@@ -155,7 +155,7 @@ test_that("plotDispEsts", {
 
 context("Plots : Gene Expression")
 
-g2s <- Gene2Symbol(bcb_small)
+g2s <- Gene2Symbol(bcb)
 geneIDs <- head(g2s[["geneID"]])
 geneNames <- head(g2s[["geneName"]])
 
@@ -170,7 +170,7 @@ with_parameters_test_that(
         )
     },
     object = list(
-        bcbioRNASeq = bcb_small,
+        bcbioRNASeq = bcb,
         DESeqDataSet = dds_small,
         DESeqTransform = vst_small
     )
@@ -192,17 +192,17 @@ with_parameters_test_that(
 
     # Wide format.
     p <- plotGene(
-        object = bcb_small,
+        object = bcb,
         genes = geneNames,
         style = "wide"
     )
     expect_s3_class(p, "ggplot")
 },
     object = list(
-        bcbioRNASeq = bcb_small,
+        bcbioRNASeq = bcb,
         DESeqDataSet = dds_small,
         DESeqTransform = vst_small,
-        DESeqAnalysis = deseq_small
+        DESeqAnalysis = deseq
     )
 )
 
@@ -210,8 +210,8 @@ with_parameters_test_that(
 
 # plotHeatmap ==================================================================
 test_that("plotHeatmap : bcbioRNASeq", {
-    genes <- head(rownames(bcb_small), n = 100L)
-    p <- plotHeatmap(bcb_small[genes, ])
+    genes <- head(rownames(bcb), n = 100L)
+    p <- plotHeatmap(bcb[genes, ])
     expect_is(p, "pheatmap")
 })
 

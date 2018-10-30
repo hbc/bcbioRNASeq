@@ -10,7 +10,7 @@ library(DESeq2)
 
 # DESeqDataSet
 # Coerce from bcbioRNASeq object.
-dds <- as(bcb_small, "DESeqDataSet")
+dds <- as(bcb, "DESeqDataSet")
 design(dds) <- ~ treatment
 dds <- DESeq(dds)
 validObject(dds)
@@ -42,26 +42,26 @@ res_shrunken <- lfcShrink(
 )
 validObject(res_shrunken)
 
-deseq_small <- DESeqAnalysis(
+deseq <- DESeqAnalysis(
     data = dds,
     transform = vst,
     results = list(res),
     lfcShrink = list(res_shrunken)
 )
-validObject(deseq_small)
-print(deseq_small)
+validObject(deseq)
+print(deseq)
 
 # Report the size of each slot in bytes.
 vapply(
-    X = coerceS4ToList(deseq_small),
+    X = coerceS4ToList(deseq),
     FUN = object_size,
     FUN.VALUE = numeric(1L)
 )
-object_size(deseq_small)
+object_size(deseq)
 stopifnot(object_size(bcb) < limit)
 
 # Check that object is valid.
-stopifnot(is(deseq_small, "DESeqAnalysis"))
-stopifnot(validObject(deseq_small))
+stopifnot(is(deseq, "DESeqAnalysis"))
+stopifnot(validObject(deseq))
 
-usethis::use_data(deseq_small, overwrite = TRUE, compress = "xz")
+usethis::use_data(deseq, overwrite = TRUE, compress = "xz")

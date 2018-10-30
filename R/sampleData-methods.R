@@ -2,13 +2,6 @@
 
 
 
-#' @importFrom basejump sampleData
-#' @aliases NULL
-#' @export
-basejump::sampleData
-
-
-
 #' @name sampleData
 #' @author Michael Steinbaugh
 #' @inherit basejump::sampleData
@@ -22,15 +15,22 @@ basejump::sampleData
 #' @return `DataFrame`.
 #'
 #' @examples
-#' data(bcb_small)
-#' sampleData(bcb_small, clean = TRUE) %>% lapply(head)
+#' data(bcb)
+#' sampleData(bcb, clean = TRUE) %>% lapply(head)
 #'
 #' ## Assignment support.
-#' x <- bcb_small
+#' x <- bcb
 #' sampleData(x)[["test"]] <- seq_len(ncol(x))
 #' ## `test` column should be now defined.
 #' "test" %in% colnames(sampleData(x))
 NULL
+
+
+
+#' @importFrom basejump sampleData
+#' @aliases NULL
+#' @export
+basejump::sampleData
 
 
 

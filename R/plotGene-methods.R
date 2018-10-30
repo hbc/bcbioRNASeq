@@ -1,10 +1,3 @@
-#' @importFrom basejump plotGene
-#' @aliases NULL
-#' @export
-basejump::plotGene
-
-
-
 #' @name plotGene
 #' @inherit basejump::plotGene
 #' @author Michael Steinbaugh
@@ -12,10 +5,10 @@ basejump::plotGene
 #' @inheritParams general
 #'
 #' @examples
-#' data(bcb_small, deseq_small)
+#' data(bcb, deseq)
 #'
 #' ## bcbioRNASeq ====
-#' object <- bcb_small
+#' object <- bcb
 #' g2s <- Gene2Symbol(object)
 #' geneIDs <- head(g2s[["geneID"]])
 #' print(geneIDs)
@@ -36,10 +29,17 @@ basejump::plotGene
 #' )
 #'
 #' ## DESeqAnalysis ====
-#' object <- deseq_small
+#' object <- deseq
 #' plotGene(object, genes = geneIDs, style = "facet")
 #' plotGene(object, genes = geneNames, style = "wide")
 NULL
+
+
+
+#' @importFrom basejump plotGene
+#' @aliases NULL
+#' @export
+basejump::plotGene
 
 
 

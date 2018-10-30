@@ -65,9 +65,9 @@ expression variation, and identify potential sample outliers. The PCA plot is
 a way to look at how samples are clustering.
 }
 \examples{
-data(bcb_small)
-plotPCA(bcb_small, label = FALSE)
-plotPCA(bcb_small, label = TRUE)
+data(bcb)
+plotPCA(bcb, label = FALSE)
+plotPCA(bcb, label = TRUE)
 }
 \references{
 Jolliffe, et al., 2002.

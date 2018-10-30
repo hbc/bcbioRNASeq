@@ -69,12 +69,12 @@ from DESeq2.
 }}
 
 \examples{
-data(bcb_small)
-plotDispEsts(bcb_small)
+data(bcb)
+plotDispEsts(bcb)
 
 ## Custom colors, using DESeq2 parameters.
 plotDispEsts(
-    object = bcb_small,
+    object = bcb,
     genecol = "gray",
     fitcol = "purple",
     finalcol = "orange"

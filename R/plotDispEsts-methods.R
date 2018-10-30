@@ -1,10 +1,3 @@
-#' @importFrom BiocGenerics plotDispEsts
-#' @aliases NULL
-#' @export
-BiocGenerics::plotDispEsts
-
-
-
 #' Plot Dispersion Estimates
 #' @name plotDispEsts
 #' @inherit DESeq2::plotDispEsts
@@ -25,17 +18,24 @@ BiocGenerics::plotDispEsts
 #' @return `ggplot`.
 #'
 #' @examples
-#' data(bcb_small)
-#' plotDispEsts(bcb_small)
+#' data(bcb)
+#' plotDispEsts(bcb)
 #'
 #' ## Custom colors, using DESeq2 parameters.
 #' plotDispEsts(
-#'     object = bcb_small,
+#'     object = bcb,
 #'     genecol = "gray",
 #'     fitcol = "purple",
 #'     finalcol = "orange"
 #' )
 NULL
+
+
+
+#' @importFrom BiocGenerics plotDispEsts
+#' @aliases NULL
+#' @export
+BiocGenerics::plotDispEsts
 
 
 

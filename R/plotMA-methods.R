@@ -5,17 +5,6 @@
 
 
 
-# Do not allow post hoc alpha, lfcThreshold cutoffs.
-
-
-
-#' @importFrom BiocGenerics plotMA
-#' @aliases NULL
-#' @export
-BiocGenerics::plotMA
-
-
-
 #' @name plotMA
 #' @inherit BiocGenerics::plotMA
 #' @author Michael Steinbaugh, Rory Kirchner
@@ -26,6 +15,8 @@ BiocGenerics::plotMA
 #' taken in two samples, by transforming the data onto M (log ratio) and A
 #' (mean average) scales, then plotting these values.
 #'
+#' @note We are not allowing post hoc `alpha` or `lfcThreshold` cutoffs here.
+#'
 #' @inheritParams general
 #'
 #' @return `ggplot`.
@@ -33,11 +24,11 @@ BiocGenerics::plotMA
 #' @seealso [DESeq2::plotMA()].
 #'
 #' @examples
-#' data(deseq_small)
+#' data(deseq)
 #'
 #' ## DESeqAnalysis ====
 #' ## This is the current recommended method.
-#' object <- deseq_small
+#' object <- deseq
 #' print(object)
 #'
 #' dds <- as(object, "DESeqDataSet")
@@ -72,6 +63,13 @@ BiocGenerics::plotMA
 #' plotMA(object = object, genes = geneIDs)
 #' plotMA(object = object, genes = geneNames)
 NULL
+
+
+
+#' @importFrom BiocGenerics plotMA
+#' @aliases NULL
+#' @export
+BiocGenerics::plotMA
 
 
 

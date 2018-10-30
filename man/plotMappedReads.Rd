@@ -42,8 +42,8 @@ plots containing many samples.}
 The number of mapped reads should correspond to the number of total reads.
 }
 \examples{
-data(bcb_small)
-plotMappedReads(bcb_small)
+data(bcb)
+plotMappedReads(bcb)
 }
 \seealso{
 \code{\link[=plotMappingRate]{plotMappingRate()}}.

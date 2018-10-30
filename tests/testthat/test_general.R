@@ -1,7 +1,7 @@
 context("General")
 
-data(bcb_small, deseq_small, envir = environment())
-dds_small <- as(deseq_small, "DESeqDataSet")
+data(bcb, deseq, envir = environment())
+dds_small <- as(deseq, "DESeqDataSet")
 
 assay <- SummarizedExperiment::assay
 
@@ -9,7 +9,7 @@ assay <- SummarizedExperiment::assay
 
 # aggregateCols ================================================================
 test_that("aggregateCols", {
-    object <- bcb_small
+    object <- bcb
     # Assign groupings into `aggregate` column of `colData()`.
     aggregate <- as.factor(sub(
         pattern = "_rep[[:digit:]]$",
@@ -38,7 +38,7 @@ test_that("aggregateCols", {
 # counts =======================================================================
 with_parameters_test_that(
     "counts : Slotted assays", {
-        object <- bcb_small
+        object <- bcb
         # Check that all are matrices.
         expect_is(
             object = counts(object, normalized = normalized),
@@ -66,7 +66,7 @@ with_parameters_test_that(
 
 with_parameters_test_that(
     "counts : On the fly assays", {
-        object <- bcb_small
+        object <- bcb
         expect_is(
             object = counts(object, normalized = normalized),
             class = "matrix"
@@ -78,7 +78,7 @@ with_parameters_test_that(
 
 with_parameters_test_that(
     "counts : Skipped DESeq2 transforms", {
-        object <- bcb_small
+        object <- bcb
         assays(object)[[normalized]] <- NULL
         expect_error(
             object = counts(object, normalized = normalized),
@@ -92,7 +92,7 @@ with_parameters_test_that(
 
 # sampleData ===================================================================
 test_that("sampleData : Verbose mode (default)", {
-    object <- bcb_small
+    object <- bcb
     x <- sampleData(object, clean = FALSE)
 
     # Return `interestingGroups` factor column by default.
@@ -107,7 +107,7 @@ test_that("sampleData : Verbose mode (default)", {
 })
 
 test_that("sampleData : Clean mode", {
-    object <- bcb_small
+    object <- bcb
     x <- sampleData(object, clean = TRUE)
     # Require that all clean columns are factor.
     invisible(lapply(x, function(x) {
@@ -116,7 +116,7 @@ test_that("sampleData : Clean mode", {
 })
 
 test_that("sampleData<-", {
-    object <- bcb_small
+    object <- bcb
     sampleData(object)[["testthat"]] <- factor("XXX")
     expect_identical(
         object = levels(sampleData(object)[["testthat"]]),
@@ -135,8 +135,8 @@ with_parameters_test_that(
         )
     },
     object = list(
-        bcbioRNASeq = bcb_small,
+        bcbioRNASeq = bcb,
         DESeqDataSet = dds_small,
-        matrix = assay(bcb_small)
+        matrix = assay(bcb)
     )
 )

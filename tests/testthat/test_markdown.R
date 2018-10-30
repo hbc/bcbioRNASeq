@@ -1,7 +1,7 @@
 context("Markdown")
 
-data(deseq_small, envir = environment())
-res_small <- as(deseq_small, "DESeqResults")
+data(deseq, envir = environment())
+res_small <- as(deseq, "DESeqResults")
 res_tables <- DESeqResultsTables(res_small)
 
 
@@ -29,7 +29,7 @@ with_parameters_test_that(
         expect_true(grepl("padj", x[[3L]]))
     },
     object = list(
-        DESeqAnalysis = deseq_small,
+        DESeqAnalysis = deseq,
         DESeqResults = res_small,
         DESeqResultsTables = res_tables
     )

@@ -3,22 +3,22 @@
 \docType{methods}
 \name{plotVolcano}
 \alias{plotVolcano}
-\alias{plotVolcano,DESeqAnalysis-method}
 \alias{plotVolcano,DESeqResults-method}
+\alias{plotVolcano,DESeqAnalysis-method}
 \title{Plot Volcano}
 \usage{
 plotVolcano(object, ...)
 
-\S4method{plotVolcano}{DESeqAnalysis}(object, results = 1L,
-  lfcShrink = TRUE, ylim = 1e-10, genes = NULL, ntop = 0L,
+\S4method{plotVolcano}{DESeqResults}(object, ylim = 1e-10,
+  genes = NULL, gene2symbol = NULL, ntop = 0L,
   direction = c("both", "up", "down"),
   pointColor = getOption("basejump.point.color", "gray50"),
   sigPointColor = getOption("basejump.sig.point.color", c(upregulated =
   "purple", downregulated = "orange")), histograms = FALSE,
   return = c("ggplot", "DataFrame"))
 
-\S4method{plotVolcano}{DESeqResults}(object, ylim = 1e-10,
-  genes = NULL, gene2symbol = NULL, ntop = 0L,
+\S4method{plotVolcano}{DESeqAnalysis}(object, results = 1L,
+  lfcShrink = TRUE, ylim = 1e-10, genes = NULL, ntop = 0L,
   direction = c("both", "up", "down"),
   pointColor = getOption("basejump.point.color", "gray50"),
   sigPointColor = getOption("basejump.sig.point.color", c(upregulated =
@@ -30,10 +30,6 @@ plotVolcano(object, ...)
 
 \item{...}{Additional arguments.}
 
-\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
-
-\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
-
 \item{ylim}{\code{scalar numeric}. Upper boundary limit for y-axis. Helps preserve
 dynamic range for gene sets containing highly significant P values (e.g.
 \code{1e-100}).}
@@ -41,6 +37,9 @@ dynamic range for gene sets containing highly significant P values (e.g.
 \item{genes}{\code{character}. Genes to include. These must match the rownames of
 the object. It is best practice to use the stable gene identifiers from
 Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
+
+\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
+\code{geneID} and \code{geneName} columns, with rownames defined.}
 
 \item{ntop}{\code{scalar integer}. Number of top genes to label.}
 
@@ -57,8 +56,9 @@ with the same color, regardless of direction.}
 \item{return}{\code{string}. Object class to return. Uses \code{\link[base:match.arg]{base::match.arg()}}
 internally and picks the first item in the vector by default.}
 
-\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
-\code{geneID} and \code{geneName} columns, with rownames defined.}
+\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
+
+\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 }
 \value{
 \code{ggplot}.
@@ -67,9 +67,9 @@ internally and picks the first item in the vector by default.}
 Plot Volcano
 }
 \examples{
-data(deseq_small)
+data(deseq)
 
-object <- deseq_small
+object <- deseq
 print(object)
 
 ## Get genes from DESeqDataSet.

@@ -8,13 +8,13 @@
 #' @return `string`. Contrast name.
 #'
 #' @examples
-#' data(deseq_small)
+#' data(deseq)
 #'
 #' ## DESeqAnalysis ====
-#' contrastName(deseq_small, results = 1L)
+#' contrastName(deseq, results = 1L)
 #'
 #' ## DESeqResults ====
-#' object <- as(deseq_small, "DESeqResults")
+#' object <- as(deseq, "DESeqResults")
 #' contrastName(object)
 NULL
 

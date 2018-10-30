@@ -36,7 +36,7 @@ saveData(gse65267, dir = "data-raw")
 f1000 <- selectSamples(gse65267, day = c(0L, 1L, 3L, 7L))
 saveData(f1000, dir = "data-raw")
 
-# bcb_small ====================================================================
+# bcb ====================================================================
 # Minimal working example: days 0, 7.
 bcb <- selectSamples(gse65267, day = c(0L, 7L))
 
@@ -86,5 +86,5 @@ stopifnot(object_size(bcb) < limit)
 stopifnot(is(bcb, "bcbioRNASeq"))
 stopifnot(validObject(bcb))
 
-bcb_small <- bcb
-usethis::use_data(bcb_small, overwrite = TRUE, compress = "xz")
+bcb <- bcb
+usethis::use_data(bcb, overwrite = TRUE, compress = "xz")

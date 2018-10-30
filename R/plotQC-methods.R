@@ -1,18 +1,18 @@
-#' @importFrom basejump plotQC
-#' @aliases NULL
-#' @export
-basejump::plotQC
-
-
-
 #' @name plotQC
 #' @inherit basejump::plotQC
 #' @author Michael Steinbaugh
 #'
 #' @examples
-#' data(bcb_small)
-#' plotQC(bcb_small)
+#' data(bcb)
+#' plotQC(bcb)
 NULL
+
+
+
+#' @importFrom basejump plotQC
+#' @aliases NULL
+#' @export
+basejump::plotQC
 
 
 

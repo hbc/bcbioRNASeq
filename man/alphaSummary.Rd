@@ -54,10 +54,10 @@ an R Markdown report.
 Use either \code{contrast} or \code{name} to specify the desired contrast.
 }
 \examples{
-data(deseq_small)
+data(deseq)
 
 ## DESeqDataSet ====
-object <- as(deseq_small, "DESeqDataSet")
+object <- as(deseq, "DESeqDataSet")
 design(object)
 resultsNames(object)
 alphaSummary(object)

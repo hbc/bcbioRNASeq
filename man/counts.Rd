@@ -54,8 +54,8 @@ By default, returns the raw counts. Normalized counts in a variety of formats
 can be accessed using the \code{normalized} argument.
 }
 \examples{
-data(bcb_small)
-counts(bcb_small) \%>\% summary()
+data(bcb)
+counts(bcb) \%>\% summary()
 }
 \references{
 \itemize{

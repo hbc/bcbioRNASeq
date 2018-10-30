@@ -1,10 +1,3 @@
-#' @importFrom BiocGenerics plotPCA
-#' @aliases NULL
-#' @export
-BiocGenerics::plotPCA
-
-
-
 #' @name plotPCA
 #' @inherit BiocGenerics::plotPCA
 #' @author Michael Steinbaugh
@@ -33,10 +26,17 @@ BiocGenerics::plotPCA
 #' @return `ggplot` or `DataFrame`.
 #'
 #' @examples
-#' data(bcb_small)
-#' plotPCA(bcb_small, label = FALSE)
-#' plotPCA(bcb_small, label = TRUE)
+#' data(bcb)
+#' plotPCA(bcb, label = FALSE)
+#' plotPCA(bcb, label = TRUE)
 NULL
+
+
+
+#' @importFrom BiocGenerics plotPCA
+#' @aliases NULL
+#' @export
+BiocGenerics::plotPCA
 
 
 

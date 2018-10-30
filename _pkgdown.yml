@@ -58,4 +58,5 @@ reference:
   - title: Example data
     desc: GSE65267
     contents:
-    - ends_with("_small")
+    - bcb
+    - deseq

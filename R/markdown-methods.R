@@ -1,10 +1,3 @@
-#' @importFrom basejump markdown
-#' @aliases NULL
-#' @export
-basejump::markdown
-
-
-
 #' @name markdown
 #' @inherit basejump::markdown
 #' @author Michael Steinbaugh
@@ -12,10 +5,17 @@ basejump::markdown
 #' @inheritParams general
 #'
 #' @examples
-#' data(deseq_small)
-#' x <- DESeqResultsTables(deseq_small)
+#' data(deseq)
+#' x <- DESeqResultsTables(deseq)
 #' markdown(x)
 NULL
+
+
+
+#' @importFrom basejump markdown
+#' @aliases NULL
+#' @export
+basejump::markdown
 
 
 

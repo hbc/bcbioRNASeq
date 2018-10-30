@@ -10,8 +10,8 @@
 #' @return `ggplot`.
 #'
 #' @examples
-#' data(bcb_small)
-#' plotExonicMappingRate(bcb_small)
+#' data(bcb)
+#' plotExonicMappingRate(bcb)
 NULL
 
 

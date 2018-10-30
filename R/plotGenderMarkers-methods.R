@@ -2,13 +2,6 @@
 
 
 
-#' @importFrom basejump plotGenderMarkers
-#' @aliases NULL
-#' @export
-basejump::plotGenderMarkers
-
-
-
 #' @name plotGenderMarkers
 #' @inherit basejump::plotGenderMarkers
 #' @author Michael Steinbaugh
@@ -18,9 +11,16 @@ basejump::plotGenderMarkers
 #' @return `ggplot`.
 #'
 #' @examples
-#' data(bcb_small)
-#' plotGenderMarkers(bcb_small)
+#' data(bcb)
+#' plotGenderMarkers(bcb)
 NULL
+
+
+
+#' @importFrom basejump plotGenderMarkers
+#' @aliases NULL
+#' @export
+basejump::plotGenderMarkers
 
 
 

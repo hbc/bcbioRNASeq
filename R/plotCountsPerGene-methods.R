@@ -1,10 +1,3 @@
-#' @importFrom basejump plotCountsPerGene
-#' @aliases NULL
-#' @export
-basejump::plotCountsPerGene
-
-
-
 #' @name plotCountsPerGene
 #' @inherit basejump::plotCountsPerGene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
@@ -23,9 +16,16 @@ basejump::plotCountsPerGene
 #' @references TMM: Robinson, et al., 2010.
 #'
 #' @examples
-#' data(bcb_small)
-#' plotCountsPerGene(bcb_small)
+#' data(bcb)
+#' plotCountsPerGene(bcb)
 NULL
+
+
+
+#' @importFrom basejump plotCountsPerGene
+#' @aliases NULL
+#' @export
+basejump::plotCountsPerGene
 
 
 

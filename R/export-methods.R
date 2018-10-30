@@ -5,13 +5,6 @@
 
 
 
-#' @importFrom basejump export
-#' @aliases NULL
-#' @export
-basejump::export
-
-
-
 #' @name export
 #' @inherit basejump::export
 #' @author Michael Steinbaugh
@@ -35,14 +28,21 @@ basejump::export
 #'   prompt will appear requesting authorization.
 #'
 #' @examples
-#' data(deseq_small)
-#' x <- DESeqResultsTables(deseq_small)
+#' data(deseq)
+#' x <- DESeqResultsTables(deseq)
 #' export(x, dir = "example")
 #' list.files("example")
 #'
 #' ## Clean up.
 #' unlink("example", recursive = TRUE)
 NULL
+
+
+
+#' @importFrom basejump export
+#' @aliases NULL
+#' @export
+basejump::export
 
 
 

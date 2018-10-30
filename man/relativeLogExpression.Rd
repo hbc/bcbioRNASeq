@@ -23,8 +23,8 @@ relativeLogExpression(object, ...)
 Relative Log Expression
 }
 \examples{
-data(bcb_small)
-relativeLogExpression(bcb_small)
+data(bcb)
+relativeLogExpression(bcb)
 }
 \references{
 Anders and Huber (2010).

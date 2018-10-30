@@ -47,8 +47,8 @@ amount of bias is observed here, be sure to analyze the samples with a
 Bioanalyzer and check the RIN scores.
 }
 \examples{
-data(bcb_small)
-plot5Prime3PrimeBias(bcb_small)
+data(bcb)
+plot5Prime3PrimeBias(bcb)
 }
 \author{
 Michael Steinbaugh

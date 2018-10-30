@@ -19,10 +19,10 @@
 #' - [DESeq2::resultsNames()].
 #'
 #' @examples
-#' data(deseq_small)
+#' data(deseq)
 #'
 #' ## DESeqDataSet ====
-#' object <- as(deseq_small, "DESeqDataSet")
+#' object <- as(deseq, "DESeqDataSet")
 #' design(object)
 #' resultsNames(object)
 #' alphaSummary(object)

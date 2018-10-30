@@ -1,18 +1,18 @@
-#' @importFrom methods show
-#' @aliases NULL
-#' @export
-methods::show
-
-
-
 #' @name show
 #' @author Michael Steinbuagh
 #' @inherit methods::show
 #'
 #' @examples
-#' data(bcb_small)
-#' show(bcb_small)
+#' data(bcb)
+#' show(bcb)
 NULL
+
+
+
+#' @importFrom methods show
+#' @aliases NULL
+#' @export
+methods::show
 
 
 
@@ -26,6 +26,7 @@ NULL
 
 
 
+# bcbioRNASeq ==================================================================
 show.bcbioRNASeq <-  # nolint
     function(object) {
         validObject(object)
@@ -60,6 +61,17 @@ show.bcbioRNASeq <-  # nolint
 
 
 
+#' @rdname show
+#' @export
+setMethod(
+    f = "show",
+    signature = signature("bcbioRNASeq"),
+    definition = show.bcbioRNASeq
+)
+
+
+
+# DESeqAnalysis ================================================================
 show.DESeqAnalysis <-  # nolint
     function(object) {
         validObject(object)
@@ -79,6 +91,17 @@ show.DESeqAnalysis <-  # nolint
 
 
 
+#' @rdname show
+#' @export
+setMethod(
+    f = "show",
+    signature = signature("DESeqAnalysis"),
+    definition = show.DESeqAnalysis
+)
+
+
+
+# DESeqResultsTables ===========================================================
 show.DESeqResultsTables <-  # nolint
     function(object) {
         validObject(object)
@@ -124,26 +147,6 @@ show.DESeqResultsTables <-  # nolint
             .[!grepl("\\?results$", .)]
         cat(summary, sep = "\n")
     }
-
-
-
-#' @rdname show
-#' @export
-setMethod(
-    f = "show",
-    signature = signature("bcbioRNASeq"),
-    definition = show.bcbioRNASeq
-)
-
-
-
-#' @rdname show
-#' @export
-setMethod(
-    f = "show",
-    signature = signature("DESeqAnalysis"),
-    definition = show.DESeqAnalysis
-)
 
 
 

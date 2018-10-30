@@ -8,15 +8,15 @@
 #' @param counts `DESeqTransform`.
 #'
 #' @examples
-#' data(deseq_small)
+#' data(deseq)
 #'
 #' ## DESeqAnalysis ====
-#' plotDEGPCA(deseq_small)
+#' plotDEGPCA(deseq)
 #'
 #' ## DESeqResults ====
 #' plotDEGPCA(
-#'     object = as(deseq_small, "DESeqResults"),
-#'     counts = as(deseq_small, "DESeqTransform")
+#'     object = as(deseq, "DESeqResults"),
+#'     counts = as(deseq, "DESeqTransform")
 #' )
 NULL
 

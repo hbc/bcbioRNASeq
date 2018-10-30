@@ -45,8 +45,8 @@ plots containing many samples.}
 The majority of reads should map to exons and not introns.
 }
 \examples{
-data(bcb_small)
-plotIntronicMappingRate(bcb_small)
+data(bcb)
+plotIntronicMappingRate(bcb)
 }
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera

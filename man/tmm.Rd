@@ -29,8 +29,8 @@ of genes are not differentially expressed.
 Only recommended for gene-level counts.
 }
 \examples{
-data(bcb_small)
-x <- tmm(bcb_small)
+data(bcb)
+x <- tmm(bcb)
 summary(x)
 }
 \references{

@@ -7,13 +7,6 @@
 
 
 
-#' @importFrom BiocGenerics updateObject
-#' @aliases NULL
-#' @export
-BiocGenerics::updateObject
-
-
-
 #' @name updateObject
 #' @inherit BiocGenerics::updateObject
 #' @author Michael Steinbaugh
@@ -44,9 +37,16 @@ BiocGenerics::updateObject
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
-#' data(bcb_small)
-#' updateObject(bcb_small)
+#' data(bcb)
+#' updateObject(bcb)
 NULL
+
+
+
+#' @importFrom BiocGenerics updateObject
+#' @aliases NULL
+#' @export
+BiocGenerics::updateObject
 
 
 

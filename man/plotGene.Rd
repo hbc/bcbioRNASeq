@@ -56,10 +56,10 @@ palette globally, use \code{options(basejump.discrete.color = ggplot2::scale_col
 Plot Gene Expression
 }
 \examples{
-data(bcb_small, deseq_small)
+data(bcb, deseq)
 
 ## bcbioRNASeq ====
-object <- bcb_small
+object <- bcb
 g2s <- Gene2Symbol(object)
 geneIDs <- head(g2s[["geneID"]])
 print(geneIDs)
@@ -80,7 +80,7 @@ plotGene(
 )
 
 ## DESeqAnalysis ====
-object <- deseq_small
+object <- deseq
 plotGene(object, genes = geneIDs, style = "facet")
 plotGene(object, genes = geneNames, style = "wide")
 }

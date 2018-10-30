@@ -19,8 +19,8 @@
 #' - [edgeR::cpm()].
 #'
 #' @examples
-#' data(bcb_small)
-#' x <- tmm(bcb_small)
+#' data(bcb)
+#' x <- tmm(bcb)
 #' summary(x)
 NULL
 

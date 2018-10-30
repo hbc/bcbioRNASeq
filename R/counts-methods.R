@@ -1,15 +1,3 @@
-#' @importFrom BiocGenerics counts
-#' @aliases NULL
-#' @export
-BiocGenerics::counts
-
-#' @importFrom BiocGenerics counts<-
-#' @aliases NULL
-#' @export
-BiocGenerics::`counts<-`
-
-
-
 #' Count Matrix Accessors
 #'
 #' By default, returns the raw counts. Normalized counts in a variety of formats
@@ -69,9 +57,21 @@ BiocGenerics::`counts<-`
 #' - [tmm()], [relativeLogExpression()].
 #'
 #' @examples
-#' data(bcb_small)
-#' counts(bcb_small) %>% summary()
+#' data(bcb)
+#' counts(bcb) %>% summary()
 NULL
+
+
+
+#' @importFrom BiocGenerics counts
+#' @aliases NULL
+#' @export
+BiocGenerics::counts
+
+#' @importFrom BiocGenerics counts<-
+#' @aliases NULL
+#' @export
+BiocGenerics::`counts<-`
 
 
 

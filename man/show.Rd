@@ -43,8 +43,8 @@ complete, original object, with misleading results.  See the
 the discussion in \code{\link{setIs}} for the general concept.
 }
 \examples{
-data(bcb_small)
-show(bcb_small)
+data(bcb)
+show(bcb)
 }
 \seealso{
 \code{\link{showMethods}} prints all the methods for one or more
