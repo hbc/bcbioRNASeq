@@ -1,3 +1,8 @@
+# FIXME Use `clusteringMethod = "ward.D2" by default`.
+# FIXME Don't message about gene symbol mappings.
+
+
+
 # Do not allow post hoc alpha, lfcThreshold cutoffs.
 
 

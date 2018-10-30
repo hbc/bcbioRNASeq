@@ -1,6 +1,8 @@
 # FIXME Don't make DESeqResults method for plotMA. Consider only exporting
 # DESeqAnalysis method.
 
+# TODO Add a `results = "all"` plot mode?
+
 
 
 # Do not allow post hoc alpha, lfcThreshold cutoffs.
