@@ -5,7 +5,7 @@
 #' @name plotIntronicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #'
 #' @return `ggplot`.
 #'

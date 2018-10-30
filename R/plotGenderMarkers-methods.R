@@ -13,7 +13,7 @@ basejump::plotGenderMarkers
 #' @inherit basejump::plotGenderMarkers
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #'
 #' @return `ggplot`.
 #'

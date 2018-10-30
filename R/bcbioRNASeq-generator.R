@@ -81,7 +81,7 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @inheritParams basejump::makeSummarizedExperiment
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #' @param uploadDir `string`. Path to final upload directory. This path is set
 #'   when running "`bcbio_nextgen -w template`".
 #' @param level `string`. Import counts at gene level ("`genes`"; *default*) or

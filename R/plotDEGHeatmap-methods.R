@@ -22,7 +22,7 @@
 #' argument, which must contain a `SummarizedExperiment` (e.g. `DESeqTransform`,
 #' `DESeqDataSet`).
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #' @param counts `DESeqTransform`.
 #'
 #' @examples

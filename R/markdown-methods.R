@@ -9,7 +9,7 @@ basejump::markdown
 #' @inherit basejump::markdown
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #'
 #' @examples
 #' data(deseq_small)

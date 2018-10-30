@@ -7,7 +7,7 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #' @param trendline `boolean`. Include a trendline for each group.
 #'
 #' @return `ggplot`.

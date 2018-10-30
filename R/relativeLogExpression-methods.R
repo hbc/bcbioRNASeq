@@ -7,7 +7,7 @@
 #' @name relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #'
 #' @seealso [edgeR::calcNormFactors()].
 #'

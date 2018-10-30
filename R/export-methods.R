@@ -17,7 +17,7 @@ basejump::export
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams bcbioBase::copyToDropbox
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #' @param dir `string`. Directory path.
 #' @param dropbox `boolean`. Export results to [Dropbox][] instead of local
 #'   storage. Recommended method by [HBC][] for permanent storage (e.g. [Stem

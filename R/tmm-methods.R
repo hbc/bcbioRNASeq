@@ -8,7 +8,7 @@
 #' @name tmm
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #'
 #' @return `matrix`.
 #'

@@ -17,7 +17,7 @@
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #' @inheritParams bcbioRNASeq
 #'
 #' @return `ggplot` grid.

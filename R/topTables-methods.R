@@ -23,7 +23,7 @@
 #' @name topTables
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams basejump.globals::params
+#' @inheritParams general
 #' @param n `scalar integer`. Number of genes (per direction) to report.
 #'
 #' @return `kable`. Markdown tables.
