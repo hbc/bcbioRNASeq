@@ -10,12 +10,12 @@
 \usage{
 topTables(object, ...)
 
-\S4method{topTables}{DESeqResults}(object, n = 50L)
+\S4method{topTables}{DESeqResults}(object, n = 10L)
 
-\S4method{topTables}{DESeqResultsTables}(object, n = 50L)
+\S4method{topTables}{DESeqResultsTables}(object, n = 10L)
 
 \S4method{topTables}{DESeqAnalysis}(object, results = 1L,
-  lfcShrink = TRUE, n = 50L)
+  lfcShrink = TRUE, n = 10L)
 }
 \arguments{
 \item{object}{Object.}

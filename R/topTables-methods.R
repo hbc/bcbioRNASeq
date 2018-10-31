@@ -37,7 +37,7 @@ NULL
 
 # DESeqResults =================================================================
 topTables.DESeqResults <-  # nolint
-    function(object, n = 50L) {
+    function(object, n = 10L) {
         do.call(
             what = topTables,
             args = list(
@@ -74,43 +74,53 @@ setMethod(
         results <- slot(object, "results")
         assert_is_all_of(results, "DESeqResults")
 
-        rownames <- slot(object, "deg")[[direction]]
-        assert_is_subset(rownames, rownames(results))
-        data <- as(results, "DataFrame")[rownames, , drop = FALSE]
-
+        # Get the differentially expressed genes.
+        deg <- slot(object, "deg")[[direction]]
         # Early return when there are no significant DEGs.
-        if (!nrow(data)) {
+        if (!has_length(deg)) {
             warning(paste0(
                 "No significant ", direction, "-regulated genes."
             ), call. = FALSE)
             return(invisible())
         }
 
-        requiredCols <- c(
-            "baseMean",
-            "log2FoldChange",
-            "padj"
-        )
-        keepCols <- c(
-            requiredCols,
-            "rowname",
-            "geneName",
-            "geneBiotype",
-            "description"
-        )
-        assert_is_subset(requiredCols, colnames(data))
+        # Coerce DESeqResults to DEG subset DataFrame.
+        data <- as(results, "DataFrame")
+        keep <- c("baseMean", "log2FoldChange", "padj")
+        assert_is_subset(keep, colnames(data))
+        assert_is_subset(deg, rownames(data))
+        data <- data[deg, keep, drop = FALSE]
 
-        # Sanitize the description, if necessary.
-        if ("description" %in% colnames(data)) {
-            # Remove symbol information in description, if present
-            data[["description"]] <- gsub(
-                pattern = " \\[.+\\]$",
-                replacement = "",
-                x = data[["description"]]
+        # Join helpful row annotations, if defined.
+        rowRanges <- slot(object, "rowRanges")
+        if (has_length(rowRanges)) {
+            rowData <- as(rowRanges, "DataFrame")
+            # Consider using broadClass here instead of geneBiotype.
+            keep <- intersect(
+                x = c("geneName", "geneBiotype", "description"
+                ),
+                y = colnames(rowData)
             )
+            assert_is_subset(rownames(data), rownames(rowData))
+            rowData <- rowData[rownames(data), keep, drop = FALSE]
+            if ("description" %in% colnames(rowData)) {
+                # Remove symbol information in brackets.
+                rowData[["description"]] <- gsub(
+                    pattern = " \\[.+\\]$",
+                    replacement = "",
+                    x = rowData[["description"]]
+                )
+                # Truncate to max 50 characters.
+                rowData[["description"]] <- str_trunc(
+                    string = as.character(rowData[["description"]]),
+                    width = 50L,
+                    side = "right"
+                )
+            }
+            data <- cbind(data, rowData)
         }
 
-        # Coerce to `tbl_df` and use dplyr functions, then return `data.frame`.
+        # Modify using dplyr and return as DataFrame.
         data %>%
             as("tbl_df") %>%
             head(n = n) %>%
@@ -119,8 +129,6 @@ setMethod(
                 log2FoldChange = format(!!sym("log2FoldChange"), digits = 3L),
                 padj = format(!!sym("padj"), digits = 3L, scientific = TRUE)
             ) %>%
-            # Select only the desired keep columns (see above).
-            .[, which(colnames(.) %in% keepCols)] %>%
             # Shorten `log2FoldChange` to `lfc` to keep column width compact.
             rename(lfc = !!sym("log2FoldChange")) %>%
             # Ensure `gene*` annotation columns appear first.
@@ -191,9 +199,7 @@ topTables.DESeqAnalysis <-  # nolint
                 object = DESeqResultsTables(
                     object = object,
                     results = results,
-                    lfcShrink = lfcShrink,
-                    rowData = TRUE,
-                    counts = FALSE
+                    lfcShrink = lfcShrink
                 ),
                 n = n
             )
