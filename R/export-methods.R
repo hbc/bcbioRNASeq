@@ -1,7 +1,8 @@
-# FIXME Add Dropbox support for `bcbioRNASeq`
-# FIXME Also need to export the on-the-fly calculations (TMM, RLE).
-# TODO Add dropbox mode for bcbioRNASeq, similar to DESeqResultsTables.
-# TODO Set `dropbox` as a boolean, instead of a separate dir call.
+# TODO Add dropbox mode for all supported methods.
+# TODO Set `dropbox` as a boolean, instead of separate `dropboxDir` argument.
+
+# TODO Need to add a bcbioRNASeq method that also exports the on-the-fly
+# calculations (TMM, RLE).
 
 
 
@@ -11,6 +12,9 @@
 #'
 #' @inheritParams bcbioBase::copyToDropbox
 #' @inheritParams general
+#'
+#' @param counts `matrix`. Normalized counts. DESeq2 size-factor normalized
+#'   counts or transcripts per million (TPM) are recommended.
 #' @param dir `string`. Directory path.
 #' @param dropbox `boolean`. Export results to [Dropbox][] instead of local
 #'   storage. Recommended method by [HBC][] for permanent storage (e.g. [Stem
@@ -18,6 +22,13 @@
 #'   generated internally with [bcbioBase::copyToDropbox()], which relies on the
 #'   [rdrop2][] package. Note that local files are written to [base::tempdir()]
 #'   when this option is enabled.
+#' @param rowData `DataFrame`. Row annotation data.
+#' @param sampleNames Named `character`. Human readable sample names. Only
+#'   applies when `counts` argument is defined. Names must correspond to
+#'   `colnames` of `counts` (these should be valid in R; see
+#'   [base::make.names()] for details). Values will be remapped onto the counts
+#'   columns per sample in the exported file, and can contain non-alphanumeric
+#'   characters, hyphens, spaces, or start with a number.
 #'
 #'   [Dropbox]: https://dropbox.com
 #'   [HBC]: http://bioinformatics.sph.harvard.edu
@@ -29,6 +40,15 @@
 #'
 #' @examples
 #' data(deseq)
+#'
+#' ## DESeqResults ====
+#' x <- as(deseq, "DESeqResults")
+#' export(x, file = "example.csv")
+#'
+#' ## Clean up.
+#' unlink("example.csv", recursive = TRUE)
+#'
+#' ## DESeqResultsTables ====
 #' x <- DESeqResultsTables(deseq)
 #' export(x, dir = "example")
 #' list.files("example")
@@ -46,85 +66,111 @@ basejump::export
 
 
 
+# Internal =====================================================================
+.prepareDESeqResults <- function(
+    object,
+    rowData = NULL,
+    counts = NULL,
+    sampleNames = NULL
+) {
+    assert_is_all_of(object, "DESeqResults")
+    assert_is_any_of(rowData, c("DataFrame", "NULL"))
+    assert_is_any_of(counts, c("matrix", "NULL"))
+    assert_is_any_of(sampleNames, c("character", "NULL"))
+
+    # Coerce DESeqResults to DataFrame.
+    data <- as(object, "DataFrame")
+
+    # Row annotations.
+    if (!is.null(rowData) && ncol(rowData) > 0L) {
+        message("Joining annotations.")
+        assert_is_all_of(rowData, "DataFrame")
+        rowData <- sanitizeRowData(rowData)
+        assert_are_identical(rownames(data), rownames(rowData))
+        data <- cbind(data, rowData)
+    }
+
+    # Variance-stabilized counts (DESeqTransform).
+    if (!is.null(counts) && ncol(counts) > 0L) {
+        message("Joining counts.")
+        assert_is_matrix(counts)
+        assert_are_identical(rownames(data), rownames(counts))
+        # Convert to human friendly sample names, if possible.
+        if (
+            is.character(sampleNames) &&
+            has_length(sampleNames)
+        ) {
+            message("Mapping human-friendly sample names.")
+            assert_has_names(sampleNames)
+            assert_are_identical(names(sampleNames), colnames(counts))
+            colnames(counts) <- as.character(sampleNames)
+        }
+        assert_are_disjoint_sets(colnames(data), colnames(counts))
+        data <- cbind(data, counts)
+    }
+}
+
+
+
 # DESeqResults =================================================================
-.prepareResults <-  # nolint
+export.DESeqResults <-  # nolint
     function(
-        object,
+        x,
+        file,
+        format,
         rowData = NULL,
         counts = NULL,
         sampleNames = NULL
     ) {
-        assert_is_all_of(object, "DESeqResults")
-        assert_is_any_of(rowData, c("DataFrame", "NULL"))
-        assert_is_any_of(counts, c("matrix", "NULL"))
-        assert_is_any_of(sampleNames, c("character", "NULL"))
-
-        # Coerce DESeqResults to DataFrame.
-        data <- as(object, "DataFrame")
-
-        # Row annotations.
-        if (!is.null(rowData) && ncol(rowData) > 0L) {
-            message("Joining row annotations.")
-            assert_is_all_of(rowData, "DataFrame")
-            assert_are_identical(rownames(data), rownames(rowData))
-            data <- cbind(data, rowData)
-        }
-
-        # Variance-stabilized counts (DESeqTransform).
-        if (!is.null(counts) && ncol(counts) > 0L) {
-            message("Joining DESeq2 transform counts.")
-            assert_is_matrix(counts)
-            assert_are_identical(rownames(data), rownames(counts))
-            # Convert to human friendly sample names, if possible.
-            if (
-                is.character(sampleNames) &&
-                has_length(sampleNames)
-            ) {
-                message("Using human-friendly sample names.")
-                assert_has_names(sampleNames)
-                assert_are_identical(names(sampleNames), colnames(counts))
-                colnames(counts) <- as.character(sampleNames)
-            }
-            assert_are_disjoint_sets(colnames(data), colnames(counts))
-            data <- cbind(data, counts)
-        }
-
-        DESeqResults(
-            DataFrame = data,
-            priorInfo = priorInfo(object)
+        x <- .prepareDESeqResults(
+            object = x,
+            rowData = rowData,
+            counts = counts,
+            sampleNames = sampleNames
         )
+        # Export using ANY method.
+        export(x = data, file = file, format = format)
     }
 
 
 
+#' @rdname export
+#' @export
+setMethod(
+    f = "export",
+    signature = signature("DESeqResults"),
+    definition = export.DESeqResults
+)
+
+
+
 # DESeqResultsTables ===========================================================
-.resultsTables <- function(object) {
+.prepareResultsTablesList <- function(object) {
     assert_that(is(object, "DESeqResultsTables"))
     validObject(object)
-
-    # Join rowData and slotted counts.
-    results <- .prepareResults(
-        object = slot(object, "results"),
-        rowData = slot(object, "rowData"),
-        counts = slot(object, "counts"),
-        sampleNames = slot(object, "sampleNames")
-    )
-    assert_that(is(results, "DESeqResults"))
-    validObject(results)
 
     deg <- slot(object, "deg")
     assert_is_list(deg)
     assert_are_identical(names(deg), c("up", "down"))
 
+    # Up-regulated, down-regulated, and bidirectional DEGs.
     up <- deg[["up"]]
     down <- deg[["down"]]
     both <- c(up, down)
 
+    all <- .prepareDESeqResults(
+        object = slot(object, "results"),
+        rowData = as(slot(object, "rowRanges"), "DataFrame"),
+        counts = slot(object, "counts"),
+        sampleNames = slot(object, "sampleNames")
+    )
+    assert_that(is(all, "DataFrame"))
+
     list(
-        all = results,
-        up = results[up, , drop = FALSE],
-        down = results[down, , drop = FALSE],
-        both = results[both, , drop = FALSE]
+        all = all,
+        up = all[up, , drop = FALSE],
+        down = all[down, , drop = FALSE],
+        both = all[both, , drop = FALSE]
     )
 }
 
@@ -148,7 +194,8 @@ export.DESeqResultsTables <-  # nolint
         assert_is_a_bool(compress)
         assert_is_a_bool(dropbox)
 
-        tables <- .resultsTables(x)
+        # Prepare the subset tables.
+        tables <- .prepareResultsTablesList(x)
         assert_is_list(tables)
         lapply(
             X = tables,
@@ -186,8 +233,7 @@ export.DESeqResultsTables <-  # nolint
             # nocov end
         } else {
             message(paste0(
-                "Writing ", toString(basename(files)),
-                " to ", dir, "."
+                "Writing ", toString(basename(files)), " to ", dir, "."
             ))
         }
 
