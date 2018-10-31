@@ -1,5 +1,5 @@
 #' Example DESeq2 differential expression analysis
-#' 2018-10-20
+#' 2018-10-31
 
 # Restrict to 2 MB.
 # Use `pryr::object_size()` instead of `utils::object.size()`.
@@ -10,6 +10,7 @@ library(DESeq2)
 
 # DESeqDataSet
 # Coerce from bcbioRNASeq object.
+data(bcb)
 dds <- as(bcb, "DESeqDataSet")
 design(dds) <- ~ treatment
 dds <- DESeq(dds)
