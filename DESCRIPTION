@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.99.1
-Date: 2018-10-30
+Date: 2018-10-31
 Authors@R: c(
     person(
         given = "Michael",
@@ -209,6 +209,7 @@ Collate:
     'plotVolcano-methods.R'
     'prepareRNASeqTemplate.R'
     'relativeLogExpression-methods.R'
+    'runGSEA-methods.R'
     'sampleData-methods.R'
     'show-methods.R'
     'tmm-methods.R'

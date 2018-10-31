@@ -175,6 +175,17 @@ setGeneric(
 
 
 
+#' @rdname runGSEA
+#' @export
+setGeneric(
+    name = "runGSEA",
+    def = function(object, ...) {
+        standardGeneric("runGSEA")
+    }
+)
+
+
+
 #' @rdname tmm
 #' @export
 setGeneric(
