@@ -93,7 +93,8 @@ setMethod(
 
         # Join helpful row annotations, if defined.
         rowRanges <- slot(object, "rowRanges")
-        if (has_length(rowRanges)) {
+        # Note that `rlang::has_length()` doesn't return FALSE here.
+        if (length(rowRanges) > 0L) {
             rowData <- as(rowRanges, "DataFrame")
             # Consider using broadClass here instead of geneBiotype.
             keep <- intersect(
