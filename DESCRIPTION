@@ -209,7 +209,6 @@ Collate:
     'plotVolcano-methods.R'
     'prepareRNASeqTemplate.R'
     'relativeLogExpression-methods.R'
-    'runGSEA-methods.R'
     'sampleData-methods.R'
     'show-methods.R'
     'tmm-methods.R'
