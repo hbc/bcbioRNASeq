@@ -129,7 +129,7 @@ export.DESeqResults <-  # nolint
             sampleNames = sampleNames
         )
         # Export using ANY method.
-        export(x = data, file = file, format = format)
+        export(x = x, file = file, format = format)
     }
 
 

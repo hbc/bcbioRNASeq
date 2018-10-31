@@ -21,7 +21,7 @@ genes that pass \code{alpha} and \code{lfcThreshold} cutoffs set in
 
 \item{\code{counts}}{\code{matrix}. Normalized counts matrix.}
 
-\item{\code{rowData}}{\code{DataFrame}. Row annotations.}
+\item{\code{rowRanges}}{\code{GRanges}. Row annotations.}
 
 \item{\code{sampleNames}}{\code{character}. Human-friendly sample names. Must contain
 \code{\link[=names]{names()}} that map to the \code{\link[=colnames]{colnames()}} of the \code{DESeqDataSet}.}

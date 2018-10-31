@@ -314,7 +314,7 @@ setValidity(
 #'   genes that pass `alpha` and `lfcThreshold` cutoffs set in
 #'   [DESeq2::results()] call.
 #' @slot counts `matrix`. Normalized counts matrix.
-#' @slot rowData `DataFrame`. Row annotations.
+#' @slot rowRanges `GRanges`. Row annotations.
 #' @slot sampleNames `character`. Human-friendly sample names. Must contain
 #'   [names()] that map to the [colnames()] of the `DESeqDataSet`.
 #' @slot metadata `list`. Metadata. Contains file paths and information on
@@ -339,7 +339,7 @@ setClass(
     )
 )
 
-# FIXME Add assert check to ensure counts and rowData are identical.
+# FIXME Add assert check to ensure counts and rowRanges are identical.
 setValidity(
     Class = "DESeqResultsTables",
     method = function(object) {
