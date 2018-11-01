@@ -10,9 +10,7 @@
 
 ## Installation
 
-This is an [R][] package.
-
-### [Bioconductor][]
+### [Bioconductor][] method
 
 We recommend installing the package with [BiocManager][].
 
@@ -20,13 +18,7 @@ We recommend installing the package with [BiocManager][].
 if (!require("BiocManager")) {
     install.packages("BiocManager")
 }
-BiocManager::install(
-    pkgs = c(
-        "devtools",
-        "remotes",
-        "GenomeInfoDbData"
-    )
-)
+BiocManager::install("remotes")
 BiocManager::install("hbc/bcbioRNASeq")
 ```
 
@@ -44,22 +36,22 @@ source("https://bioconductor.org/biocLite.R")
 BiocManager::install("hbc/bcbioRNASeq", ref = "v0.2.4")
 ```
 
-### [conda][]
+### [conda][] method
 
 Configure [conda][] to use the [bioconda][] channels.
 
 ```bash
 conda config --add channels defaults
-conda config --add channels conda-forge
 conda config --add channels bioconda
+conda config --add channels conda-forge
 ```
 
 To avoid version issues, your `.condarc` file should only contain the following channels, in this order:
 
 ```
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
   - defaults
 ```
 
@@ -93,9 +85,7 @@ bcb <- bcbioRNASeq(
     interestingGroups = c("genotype", "treatment"),
     organism = "Homo sapiens"
 )
-# Back up all data inside bcbioRNASeq object
-flat <- flatFiles(bcb)
-saveData(bcb, flat)
+saveData(bcb, dir = ".")
 ```
 
 This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class. Consult the `bcbioRNASeq()` constructor function documentation for detailed information on the supported parameters:
