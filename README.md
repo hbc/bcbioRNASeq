@@ -8,6 +8,14 @@
 
 [R][] package for [bcbio][] RNA-seq analysis.
 
+## Workflow paper
+
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][workflow paper] *F1000Research* 6:1976.
+
+```r
+citation("bcbioRNASeq")
+```
+
 ## Installation
 
 ### [Bioconductor][] method
@@ -69,7 +77,7 @@ Note that there is currently a bug with [conda][] and `libgfortran`. You may nee
 conda install libgfortran-ng
 ```
 
-## Load [bcbio][] run
+## Load [bcbio][] RNA-seq data
 
 ```r
 library(bcbioRNASeq)
@@ -113,14 +121,6 @@ These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` ->
 - [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
 - [Functional Analysis](http://bcb.io/bcbio_rnaseq_output_example/fa-master.html)
-
-## Citation
-
-```r
-citation("bcbioRNASeq")
-```
-
-Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][workflow paper] *F1000Research* 6:1976.
 
 ## References
 
