@@ -29,13 +29,6 @@ For [R][] < 3.5, [BiocManager][] is not supported. Use `BiocInstaller::biocLite(
 source("https://bioconductor.org/biocLite.R")
 ```
 
-#### Pinned [workflow paper][] version
-
-```r
-# v0.2.4
-BiocManager::install("hbc/bcbioRNASeq", ref = "v0.2.4")
-```
-
 ### [conda][] method
 
 Configure [conda][] to use the [bioconda][] channels.
