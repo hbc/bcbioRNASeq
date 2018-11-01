@@ -81,33 +81,20 @@
 <p>This is an <a href="https://www.r-project.org">R</a> package.</p>
 <div id="bioconductor" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bioconductor" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a>
+<a href="#bioconductor" class="anchor"></a><a href="https://bioconductor.org">Bioconductor</a> method
 </h3>
 <p>We recommend installing the package with <a href="https://cran.r-project.org/package=BiocManager">BiocManager</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">"BiocManager"</span>)) {
     <span class="kw">install.packages</span>(<span class="st">"BiocManager"</span>)
 }
-BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(
-    <span class="dt">pkgs =</span> <span class="kw">c</span>(
-        <span class="st">"devtools"</span>,
-        <span class="st">"remotes"</span>,
-        <span class="st">"GenomeInfoDbData"</span>
-    )
-)
+BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(<span class="st">"remotes"</span>)
 BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>)</code></pre></div>
 <p>For <a href="https://www.r-project.org">R</a> &lt; 3.5, <a href="https://cran.r-project.org/package=BiocManager">BiocManager</a> is not supported. Use <code><a href="http://www.rdocumentation.org/packages/BiocInstaller/topics/biocLite">BiocInstaller::biocLite()</a></code> instead of <code><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">BiocManager::install()</a></code>. This requires sourcing the legacy <a href="https://bioconductor.org">Bioconductor</a> <code>biocLite.R</code> script.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># try http:// if https:// URLs are not supported</span>
 <span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)</code></pre></div>
-<div id="pinned-workflow-paper-version" class="section level4">
-<h4 class="hasAnchor">
-<a href="#pinned-workflow-paper-version" class="anchor"></a>Pinned <a href="https://f1000research.com/articles/6-1976/v2">workflow paper</a> version</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># v0.2.4</span>
-BiocManager<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>, <span class="dt">ref =</span> <span class="st">"v0.2.4"</span>)</code></pre></div>
-</div>
-</div>
 <div id="conda" class="section level3">
 <h3 class="hasAnchor">
-<a href="#conda" class="anchor"></a><a href="https://conda.io">conda</a>
+<a href="#conda" class="anchor"></a><a href="https://conda.io">conda</a> method
 </h3>
 <p>Configure <a href="https://conda.io">conda</a> to use the <a href="https://bioconda.github.io">bioconda</a> channels.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> config --add channels defaults
@@ -137,9 +124,7 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASe
     <span class="dt">interestingGroups =</span> <span class="kw">c</span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),
     <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span>
 )
-<span class="co"># Back up all data inside bcbioRNASeq object</span>
-flat &lt;-<span class="st"> </span><span class="kw">flatFiles</span>(bcb)
-<span class="kw">saveData</span>(bcb, flat)</code></pre></div>
+<span class="kw">saveData</span>(bcb, dir = ".")</code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor function documentation for detailed information on the supported parameters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</code></pre></div>
 <div id="sample-metadata" class="section level3">
