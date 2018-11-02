@@ -13,7 +13,7 @@
 #' expression variation, and identify potential sample outliers. The PCA plot is
 #' a way to look at how samples are clustering.
 #'
-#' @inheritParams general
+#' @inheritParams params
 #' @param ntop `scalar integer` or `Inf`. Number of most variable genes to plot.
 #'   Use `Inf` to include all genes (*not recommended*).
 #'

@@ -3,7 +3,7 @@
 #' @name contrastName
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
+#' @inheritParams params
 #'
 #' @return `string`. Contrast name.
 #'

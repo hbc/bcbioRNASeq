@@ -10,7 +10,7 @@
 #' Here we're generating a `DESeqDataSet` object on the fly, which already has
 #' method support for plotting dispersion, provided by the DESeq2 package.
 #'
-#' @inheritParams general
+#' @inheritParams params
 #' @param object Object.
 #'
 #' @seealso [DESeq2::plotDispEsts()].
@@ -51,7 +51,11 @@ plotDispEsts.bcbioRNASeq <-  # nolint
         )
     }
 formals(plotDispEsts.bcbioRNASeq) <-
-    methodFormals(f = "plotDispEsts", signature = "DESeqDataSet")
+    methodFormals(
+        f = "plotDispEsts",
+        signature = "DESeqDataSet",
+        package = "DESeq2"
+    )
 
 
 
@@ -71,8 +75,7 @@ plotDispEsts.DESeqAnalysis <-  # nolint
     function(object, ...) {
         plotDispEsts(as(object, "DESeqDataSet"), ...)
     }
-formals(plotDispEsts.DESeqAnalysis) <-
-    methodFormals(f = "plotDispEsts", signature = "DESeqDataSet")
+formals(plotDispEsts.DESeqAnalysis) <- formals(plotDispEsts.bcbioRNASeq)
 
 
 

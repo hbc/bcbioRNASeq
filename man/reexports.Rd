@@ -14,7 +14,9 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{basejump}{\code{\link[basejump]{export}}, \code{\link[basejump]{markdown}}, \code{\link[basejump]{plotCorrelationHeatmap}}, \code{\link[basejump]{plotCountsPerGene}}, \code{\link[basejump]{plotGenderMarkers}}, \code{\link[basejump]{plotGene}}, \code{\link[basejump]{plotQC}}, \code{\link[basejump]{sampleData}}}
+  \item{basejump}{\code{\link[basejump]{export}}}
+
+  \item{basejump.generics}{\code{\link[basejump.generics]{markdown}}, \code{\link[basejump.generics]{plotCorrelationHeatmap}}, \code{\link[basejump.generics]{plotCountsPerGene}}, \code{\link[basejump.generics]{plotGenderMarkers}}, \code{\link[basejump.generics]{plotGene}}, \code{\link[basejump.generics]{plotQC}}, \code{\link[basejump.generics]{sampleData}}}
 
   \item{BiocGenerics}{\code{\link[BiocGenerics]{counts}}, \code{\link[BiocGenerics]{counts<-}}, \code{\link[BiocGenerics]{plotPCA}}, \code{\link[BiocGenerics]{plotDispEsts}}, \code{\link[BiocGenerics]{plotMA}}, \code{\link[BiocGenerics]{updateObject}}}
 

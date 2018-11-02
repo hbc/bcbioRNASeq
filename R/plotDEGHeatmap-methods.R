@@ -9,20 +9,20 @@
 
 #' Differentially Expressed Gene Heatmap
 #' @name plotDEGHeatmap
-#' @inherit basejump::plotHeatmap
+#' @inherit basejump.generics::plotHeatmap
 #' @author Michael Steinbaugh
 #'
 #' @details
-#' This function is a simplified version of [basejump::plotHeatmap()] that is
-#' optimized for handling a `DESeqResults` object rather a gene vector. All of
-#' the optional parameters for `plotHeatmap` are also available to this
+#' This function is a simplified version of [basejump.plots::plotHeatmap()] that
+#' is optimized for handling a `DESeqResults` object rather a gene vector. All
+#' of the optional parameters for `plotHeatmap` are also available to this
 #' function.
 #'
 #' To adjust the annotation columns, modify the `colData` of the `counts`
 #' argument, which must contain a `SummarizedExperiment` (e.g. `DESeqTransform`,
 #' `DESeqDataSet`).
 #'
-#' @inheritParams general
+#' @inheritParams params
 #' @param counts `DESeqTransform`.
 #'
 #' @examples
@@ -116,7 +116,11 @@ plotDEGHeatmap.DESeqResults <-  # nolint
         )
     }
 f1 <- formals(plotDEGHeatmap.DESeqResults)
-f2 <- methodFormals(f = "plotHeatmap", signature = "SummarizedExperiment")
+f2 <- methodFormals(
+    f = "plotHeatmap",
+    signature = "SummarizedExperiment",
+    package = "basejump.plots"
+)
 f2 <- f2[setdiff(names(f2), c(names(f1), "object", "assay"))]
 f <- c(f1, f2)
 formals(plotDEGHeatmap.DESeqResults) <- f

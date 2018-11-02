@@ -4,7 +4,7 @@
 #' @include plotPCA-methods.R
 #' @inherit plotPCA
 #'
-#' @inheritParams general
+#' @inheritParams params
 #' @param counts `DESeqTransform`.
 #'
 #' @examples

@@ -2,7 +2,7 @@
 #'
 #' @name prepareRNASeqTemplate
 #' @author Michael Steinbaugh
-#' @inherit basejump::prepareTemplate
+#' @inherit basejump.markdown::prepareTemplate
 #' @export
 #'
 #' @examples

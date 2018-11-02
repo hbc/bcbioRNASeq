@@ -8,7 +8,7 @@
 #' @name tmm
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
+#' @inheritParams params
 #'
 #' @return `matrix`.
 #'

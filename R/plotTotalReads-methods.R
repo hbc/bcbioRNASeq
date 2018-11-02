@@ -6,7 +6,7 @@
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
-#' @inheritParams general
+#' @inheritParams params
 #'
 #' @return `ggplot`.
 #'

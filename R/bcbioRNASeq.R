@@ -24,9 +24,9 @@
 #'
 #' The samples in the bcbio run must map to the `description` column. The values
 #' provided in `description` must be unique. These values will be sanitized into
-#' syntactically valid names (see [basejump::makeNames] for more information),
-#' and assigned as the column names of the `bcbioRNASeq` object. The original
-#' values are stored as the `sampleName` column in
+#' syntactically valid names (see [basejump.sanitization::makeNames] for more
+#' information), and assigned as the column names of the `bcbioRNASeq` object.
+#' The original values are stored as the `sampleName` column in
 #' [SummarizedExperiment::colData()], and are used for all plotting functions.
 #' Do not attempt to set a `sampleID` column, as this is used internally by the
 #' package.
@@ -80,8 +80,8 @@
 #'
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
-#' @inheritParams basejump::makeSummarizedExperiment
-#' @inheritParams general
+#' @inheritParams params
+#' @inheritParams basejump.experiment::makeSummarizedExperiment
 #' @param uploadDir `string`. Path to final upload directory. This path is set
 #'   when running "`bcbio_nextgen -w template`".
 #' @param level `string`. Import counts at gene level ("`genes`"; *default*) or

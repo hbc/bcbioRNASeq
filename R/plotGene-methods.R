@@ -1,8 +1,8 @@
 #' @name plotGene
-#' @inherit basejump::plotGene
+#' @inherit basejump.generics::plotGene
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
+#' @inheritParams params
 #'
 #' @examples
 #' data(bcb, deseq)
@@ -36,10 +36,10 @@ NULL
 
 
 
-#' @importFrom basejump plotGene
+#' @importFrom basejump.generics plotGene
 #' @aliases NULL
 #' @export
-basejump::plotGene
+basejump.generics::plotGene
 
 
 
@@ -71,7 +71,11 @@ plotGene.bcbioRNASeq <-  # nolint
         )
     }
 f1 <- formals(plotGene.bcbioRNASeq)
-f2 <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
+f2 <- methodFormals(
+    f = "plotGene",
+    signature = "SummarizedExperiment",
+    package = "basejump.plots"
+)
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay", "countsAxisLabel"))]
 f <- c(f1, f2)
 f[["normalized"]] <- normalizedCounts
@@ -100,7 +104,11 @@ plotGene.DESeqAnalysis <-  # nolint
             )
         )
     }
-f <- methodFormals(f = "plotGene", signature = "SummarizedExperiment")
+f <- methodFormals(
+    f = "plotGene",
+    signature = "SummarizedExperiment",
+    package = "basejump.plots"
+)
 f <- f[setdiff(names(f), c("assay", "countsAxisLabel"))]
 formals(plotGene.DESeqAnalysis) <- f
 

@@ -7,11 +7,11 @@
 
 
 #' @name export
-#' @inherit basejump::export
+#' @inherit basejump.io::export
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams bcbioBase::copyToDropbox
-#' @inheritParams general
+#' @inheritParams params
 #'
 #' @param counts `matrix`. Normalized counts. DESeq2 size-factor normalized
 #'   counts or transcripts per million (TPM) are recommended.

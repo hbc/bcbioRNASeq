@@ -17,7 +17,7 @@
 #'
 #' @note We are not allowing post hoc `alpha` or `lfcThreshold` cutoffs here.
 #'
-#' @inheritParams general
+#' @inheritParams params
 #'
 #' @return `ggplot`.
 #'

@@ -3,10 +3,10 @@
 
 
 #' @name plotGenderMarkers
-#' @inherit basejump::plotGenderMarkers
+#' @inherit basejump.generics::plotGenderMarkers
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
+#' @inheritParams params
 #'
 #' @return `ggplot`.
 #'
@@ -17,10 +17,10 @@ NULL
 
 
 
-#' @importFrom basejump plotGenderMarkers
+#' @importFrom basejump.generics plotGenderMarkers
 #' @aliases NULL
 #' @export
-basejump::plotGenderMarkers
+basejump.generics::plotGenderMarkers
 
 
 
@@ -53,7 +53,8 @@ plotGenderMarkers.bcbioRNASeq <-  # nolint
 f1 <- formals(plotGenderMarkers.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotGenderMarkers",
-    signature = "SummarizedExperiment"
+    signature = "SummarizedExperiment",
+    package = "basejump.plots"
 )
 f2 <- f2[setdiff(
     x = names(f2),

@@ -6,7 +6,8 @@
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
 #'
-#' @inheritParams general
+#' @inheritParams params
+#'
 #' @param normalized `string` or `boolean`. Which normalization method to apply:
 #'
 #'   - `FALSE`: Raw counts.

@@ -9,7 +9,7 @@
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams general
+#' @inheritParams params
 #'
 #' @return `ggplot`.
 #'

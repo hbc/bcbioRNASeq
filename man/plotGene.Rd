@@ -22,7 +22,9 @@
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{\code{character}. Gene identifiers.}
+\item{genes}{\code{character}. Genes to include. These must match the rownames of
+the object. It is best practice to use the stable gene identifiers from
+Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
 
 \item{normalized}{\code{string}. Which normalization method to apply:
 - "\code{tpm}": Transcripts per million (tximport).
@@ -30,27 +32,17 @@
 - "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 - "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 
-\item{interestingGroups}{\code{character}. Groups of interest.}
-
-\item{medianLine}{\code{boolean}. Include median line for each group. Disabled if
-samples are colored by sample name.}
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
-recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color
-palette globally, use \code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
+recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
+To set the discrete color palette globally, use
+\code{options(bcbio.discrete.color = scale_color_viridis_d())}.}
 
 \item{legend}{\code{boolean}. Show plot legend.}
-
-\item{style}{\code{string}. Plot style.}
-}
-\value{
-\itemize{
-\item \code{style = "facet"}: \code{ggplot} grouped by \code{sampleName}, with
-\code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}} applied to panel the samples.
-\item \code{style = "wide"}: \code{ggplot} in wide format, with genes on the x-axis.
-}
 }
 \description{
 Plot Gene Expression

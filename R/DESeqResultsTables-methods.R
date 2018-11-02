@@ -1,6 +1,6 @@
 #' @name DESeqResultsTables
 #' @inherit DESeqResultsTables-class
-#' @inheritParams general
+#' @inheritParams params
 #' @author Michael Steinbaugh
 #'
 #' @section Obtaining results from DESeq2:

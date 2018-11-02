@@ -13,7 +13,6 @@ bcbioRNASeqCacheURL <- paste0(
 )
 
 lanePattern <- basejump::lanePattern
-updateMessage <- basejump::updateMessage
 
 metadataBlacklist <- bcbioBase::metadataBlacklist
 projectDirPattern <- bcbioBase::projectDirPattern

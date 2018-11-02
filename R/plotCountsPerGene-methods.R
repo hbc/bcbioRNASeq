@@ -1,5 +1,5 @@
 #' @name plotCountsPerGene
-#' @inherit basejump::plotCountsPerGene
+#' @inherit basejump.generics::plotCountsPerGene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @section Trimmed Mean of M-Values:
@@ -11,7 +11,7 @@
 #' for total RNA expression by sample, we expect the spread of the
 #' TMM-normalized counts per gene to be similar for every sample.
 #'
-#' @inheritParams general
+#' @inheritParams params
 #'
 #' @references TMM: Robinson, et al., 2010.
 #'
@@ -22,10 +22,10 @@ NULL
 
 
 
-#' @importFrom basejump plotCountsPerGene
+#' @importFrom basejump.generics plotCountsPerGene
 #' @aliases NULL
 #' @export
-basejump::plotCountsPerGene
+basejump.generics::plotCountsPerGene
 
 
 
@@ -63,7 +63,11 @@ plotCountsPerGene.bcbioRNASeq <-  # nolint
         )
     }
 f1 <- formals(plotCountsPerGene.bcbioRNASeq)
-f2 <- methodFormals("plotCountsPerGene", "SummarizedExperiment")
+f2 <- methodFormals(
+    f = "plotCountsPerGene",
+    signature = "SummarizedExperiment",
+    package = "basejump.plots"
+)
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
 # Ensure TMM is set first.

@@ -47,7 +47,7 @@ setValidity(
         if (is.data.frame(metadata[["metrics"]])) {
             stop(paste(
                 "`metrics` saved in `metadata()` instead of `colData()`.",
-                updateMessage
+                "FIXME update message"
             ))
         }
 
@@ -80,7 +80,7 @@ setValidity(
                     "Legacy metadata slots:",
                     toString(sort(intersect))
                 ),
-                updateMessage,
+                "FIXME update message",
                 sep = "\n"
             ))
         }
@@ -148,7 +148,7 @@ setValidity(
                     "Assays that are not matrix:",
                     toString(names(valid[!valid]))
                 ),
-                updateMessage,
+                "FIXME update message",
                 sep = "\n"
             ))
         }

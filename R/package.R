@@ -6,11 +6,13 @@
 #' @aliases NULL
 #' @keywords internal
 #'
-#' @importClassesFrom basejump Tx2Gene
+#' @importClassesFrom basejump.classes Tx2Gene
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
-#' @importMethodsFrom basejump coerce
+#'
+#' @importMethodsFrom basejump.coercion coerce
+#'
 #' @importFrom assertive.base assert_all_are_true assert_are_identical
 #' @importFrom assertive.files assert_all_are_dirs assert_all_are_existing_files
 #' @importFrom assertive.numbers assert_all_are_greater_than
