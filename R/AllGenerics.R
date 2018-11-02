@@ -1,3 +1,7 @@
+# FIXME Move generics to basejump.generics
+
+
+
 #' @rdname alphaSummary
 #' @export
 setGeneric(
