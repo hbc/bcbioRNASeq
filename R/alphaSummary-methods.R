@@ -28,6 +28,7 @@ NULL
 
 
 #' @importFrom basejump.generics alphaSummary
+#' @aliases NULL
 #' @export
 basejump.generics::alphaSummary
 

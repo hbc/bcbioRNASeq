@@ -59,15 +59,6 @@ dispersion to decrease as the mean of normalized counts increases.
 Here we're generating a \code{DESeqDataSet} object on the fly, which already has
 method support for plotting dispersion, provided by the DESeq2 package.
 }
-\section{Methods (by class)}{
-\itemize{
-\item \code{bcbioRNASeq}: Coerces to \code{DESeqDataSet} and inherits method from
-DESeq2.
-
-\item \code{DESeqAnalysis}: Extracts internal \code{DESeqDataSet} and inherits method
-from DESeq2.
-}}
-
 \examples{
 data(bcb)
 plotDispEsts(bcb)

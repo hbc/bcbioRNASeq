@@ -12,6 +12,7 @@ NULL
 
 
 #' @importFrom basejump.generics plot5Prime3PrimeBias
+#' @aliases NULL
 #' @export
 basejump.generics::plot5Prime3PrimeBias
 

@@ -12,6 +12,7 @@ NULL
 
 
 #' @importFrom basejump.generics plotMappingRate
+#' @aliases NULL
 #' @export
 basejump.generics::plotMappingRate
 

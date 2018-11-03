@@ -62,6 +62,7 @@ NULL
 
 
 #' @importFrom basejump.generics plotVolcano
+#' @aliases NULL
 #' @export
 basejump.generics::plotVolcano
 

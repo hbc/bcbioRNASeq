@@ -12,6 +12,7 @@ NULL
 
 
 #' @importFrom basejump.generics plotTotalReads
+#' @aliases NULL
 #' @export
 basejump.generics::plotTotalReads
 

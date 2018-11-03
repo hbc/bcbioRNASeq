@@ -13,6 +13,7 @@ NULL
 
 
 #' @importFrom basejump.generics topTables
+#' @aliases NULL
 #' @export
 basejump.generics::topTables
 

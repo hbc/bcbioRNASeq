@@ -14,6 +14,7 @@ NULL
 
 
 #' @importFrom basejump.generics plotGeneSaturation
+#' @aliases NULL
 #' @export
 basejump.generics::plotGeneSaturation
 

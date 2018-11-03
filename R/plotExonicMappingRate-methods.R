@@ -15,6 +15,7 @@ NULL
 
 
 #' @importFrom basejump.generics plotExonicMappingRate
+#' @aliases NULL
 #' @export
 basejump.generics::plotExonicMappingRate
 

@@ -12,6 +12,7 @@ NULL
 
 
 #' @importFrom basejump.generics plotIntronicMappingRate
+#' @aliases NULL
 #' @export
 basejump.generics::plotIntronicMappingRate
 

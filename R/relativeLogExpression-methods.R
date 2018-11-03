@@ -16,6 +16,7 @@ NULL
 
 
 #' @importFrom basejump.generics relativeLogExpression
+#' @aliases NULL
 #' @export
 basejump.generics::relativeLogExpression
 

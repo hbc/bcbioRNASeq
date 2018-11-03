@@ -37,6 +37,9 @@ To set the discrete color palette globally, use
 
 \item{...}{Additional arguments.}
 }
+\value{
+\code{pheatmap}.
+}
 \description{
 Construct a simple heatmap.
 }

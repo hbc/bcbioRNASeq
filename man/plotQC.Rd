@@ -11,6 +11,9 @@
 \arguments{
 \item{object}{Object.}
 }
+\value{
+\code{ggplot}.
+}
 \description{
 Plot Quality Control
 }

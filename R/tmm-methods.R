@@ -17,6 +17,7 @@ NULL
 
 
 #' @importFrom basejump.generics tmm
+#' @aliases NULL
 #' @export
 basejump.generics::tmm
 

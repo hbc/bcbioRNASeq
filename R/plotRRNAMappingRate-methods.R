@@ -14,6 +14,7 @@ NULL
 
 
 #' @importFrom basejump.generics plotRRNAMappingRate
+#' @aliases NULL
 #' @export
 basejump.generics::plotRRNAMappingRate
 

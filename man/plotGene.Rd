@@ -44,6 +44,9 @@ To set the discrete color palette globally, use
 
 \item{legend}{\code{boolean}. Show plot legend.}
 }
+\value{
+\code{ggplot}.
+}
 \description{
 Plot Gene Expression
 }

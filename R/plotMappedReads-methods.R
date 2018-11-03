@@ -14,6 +14,7 @@ NULL
 
 
 #' @importFrom basejump.generics plotMappedReads
+#' @aliases NULL
 #' @export
 basejump.generics::plotMappedReads
 

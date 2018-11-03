@@ -33,6 +33,7 @@ NULL
 
 
 #' @importFrom basejump.generics plotMeanSD
+#' @aliases NULL
 #' @export
 basejump.generics::plotMeanSD
 

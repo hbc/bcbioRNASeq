@@ -18,8 +18,32 @@ NULL
 
 
 #' @importFrom basejump.generics contrastName
+#' @aliases NULL
 #' @export
 basejump.generics::contrastName
+
+
+
+# DESeqAnalysis ================================================================
+contrastName.DESeqAnalysis <-  # nolint
+    function(object, results) {
+        do.call(
+            what = contrastName,
+            args = list(
+                object = .matchResults(object, results)
+            )
+        )
+    }
+
+
+
+#' @rdname contrastName
+#' @export
+setMethod(
+    f = "contrastName",
+    signature = signature("DESeqAnalysis"),
+    definition = contrastName.DESeqAnalysis
+)
 
 
 
@@ -44,29 +68,6 @@ setMethod(
     f = "contrastName",
     signature = signature("DESeqResults"),
     definition = contrastName.DESeqResults
-)
-
-
-
-# DESeqAnalysis ================================================================
-contrastName.DESeqAnalysis <-  # nolint
-    function(object, results) {
-        do.call(
-            what = contrastName,
-            args = list(
-                object = .matchResults(object, results)
-            )
-        )
-    }
-
-
-
-#' @rdname contrastName
-#' @export
-setMethod(
-    f = "contrastName",
-    signature = signature("DESeqAnalysis"),
-    definition = contrastName.DESeqAnalysis
 )
 
 

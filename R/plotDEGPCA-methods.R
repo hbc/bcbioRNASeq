@@ -23,6 +23,7 @@ NULL
 
 
 #' @importFrom basejump.generics plotDEGPCA
+#' @aliases NULL
 #' @export
 basejump.generics::plotDEGPCA
 
