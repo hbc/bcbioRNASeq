@@ -100,3 +100,9 @@
 #' @importFrom utils capture.output globalVariables packageVersion
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
+
+
+
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
