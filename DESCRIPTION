@@ -122,6 +122,7 @@ Imports:
     basejump.developer,
     basejump.experiment,
     basejump.generics (>= 0.99.2),
+    basejump.globals,
     basejump.io,
     basejump.markdown,
     basejump.plots,
