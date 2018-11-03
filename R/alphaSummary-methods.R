@@ -1,18 +1,13 @@
-#' Alpha Level Cutoff Summary Statistics
-#'
-#' Quickly generate a summary table of various alpha level cutoffs, for use in
-#' an R Markdown report.
-#'
-#' Use either `contrast` or `name` to specify the desired contrast.
-#'
 #' @name alphaSummary
+#' @inherit basejump.generics::alphaSummary
 #' @author Michael Steinbaugh, Lorena Patano
+#'
+#' @details
+#' Use either `contrast` or `name` to specify the desired contrast.
 #'
 #' @inheritParams params
 #' @inheritParams DESeq2::results
 #' @param alpha `numeric`. Multiple alpha cutoffs.
-#'
-#' @return `integer matrix`.
 #'
 #' @seealso
 #' - [DESeq2::results()].
@@ -32,6 +27,13 @@ NULL
 
 
 
+#' @importFrom basejump.generics alphaSummary
+#' @export
+basejump.generics::alphaSummary
+
+
+
+# DESeqDataSet =================================================================
 alphaSummary.DESeqDataSet <-  # nolint
     function(
         object,

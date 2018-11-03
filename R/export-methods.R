@@ -59,10 +59,10 @@ NULL
 
 
 
-#' @importFrom basejump export
+#' @importFrom basejump.io export
 #' @aliases NULL
 #' @export
-basejump::export
+basejump.io::export
 
 
 

@@ -29,6 +29,7 @@ basejump.generics::plotCountsPerGene
 
 
 
+# bcbioRNASeq ==================================================================
 plotCountsPerGene.bcbioRNASeq <-  # nolint
     function(
         object,

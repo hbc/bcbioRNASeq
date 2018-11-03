@@ -1,26 +1,10 @@
-# FIXME Use `clusteringMethod = "ward.D2" by default`.
-# FIXME Don't message about gene symbol mappings.
+# TODO Don't message about gene symbol mappings.
 
 
 
-# Do not allow post hoc alpha, lfcThreshold cutoffs.
-
-
-
-#' Differentially Expressed Gene Heatmap
 #' @name plotDEGHeatmap
 #' @inherit basejump.generics::plotHeatmap
 #' @author Michael Steinbaugh
-#'
-#' @details
-#' This function is a simplified version of [basejump.plots::plotHeatmap()] that
-#' is optimized for handling a `DESeqResults` object rather a gene vector. All
-#' of the optional parameters for `plotHeatmap` are also available to this
-#' function.
-#'
-#' To adjust the annotation columns, modify the `colData` of the `counts`
-#' argument, which must contain a `SummarizedExperiment` (e.g. `DESeqTransform`,
-#' `DESeqDataSet`).
 #'
 #' @inheritParams params
 #' @param counts `DESeqTransform`.
@@ -40,12 +24,19 @@ NULL
 
 
 
+#' @importFrom basejump.generics plotDEGHeatmap
+#' @export
+basejump.generics::plotDEGHeatmap
+
+
+
 # DESeqResults =================================================================
 plotDEGHeatmap.DESeqResults <-  # nolint
     function(
         object,
         counts,
         direction = c("both", "up", "down"),
+        clusteringMethod = "ward.D2",
         scale = "row",
         title = TRUE
     ) {
@@ -60,6 +51,7 @@ plotDEGHeatmap.DESeqResults <-  # nolint
         assert_is_a_number(lfcThreshold)
         assert_all_are_non_negative(lfcThreshold)
         direction <- match.arg(direction)
+        assert_is_a_string(clusteringMethod)
         # Hiding the choices from the user by default, because in most cases row
         # scaling should be used.
         scale <- match.arg(scale, choices = c("row", "column", "none"))

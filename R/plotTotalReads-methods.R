@@ -1,14 +1,8 @@
-#' Plot Total Reads
-#'
-#' High quality RNA-seq samples ideally should have at least 10 million reads
-#' per sample.
-#'
 #' @name plotTotalReads
+#' @inherit basejump.generics::plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams params
-#'
-#' @return `ggplot`.
 #'
 #' @examples
 #' data(bcb)
@@ -17,6 +11,13 @@ NULL
 
 
 
+#' @importFrom basejump.generics plotTotalReads
+#' @export
+basejump.generics::plotTotalReads
+
+
+
+# bcbioRNASeq ==================================================================
 plotTotalReads.bcbioRNASeq <-  # nolint
     function(
         object,

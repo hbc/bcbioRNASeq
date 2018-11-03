@@ -1,13 +1,8 @@
-#' Plot Intronic Mapping Rate
-#'
-#' The majority of reads should map to exons and not introns.
-#'
 #' @name plotIntronicMappingRate
+#' @inherit basejump.generics::plotIntronicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams params
-#'
-#' @return `ggplot`.
 #'
 #' @examples
 #' data(bcb)
@@ -16,6 +11,13 @@ NULL
 
 
 
+#' @importFrom basejump.generics plotIntronicMappingRate
+#' @export
+basejump.generics::plotIntronicMappingRate
+
+
+
+# bcbioRNASeq ==================================================================
 plotIntronicMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,

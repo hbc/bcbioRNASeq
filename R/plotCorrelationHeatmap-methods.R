@@ -19,6 +19,7 @@ basejump.generics::plotCorrelationHeatmap
 
 
 
+# bcbioRNASeq ==================================================================
 plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
     function(object, normalized) {
         validObject(object)

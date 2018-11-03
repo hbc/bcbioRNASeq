@@ -1,22 +1,23 @@
-# Don't attempt to abbreviate as `rle()`, since that is already defined in R.
+# TODO Consider moving this to basejump.experiment.
 
 
 
-#' Relative Log Expression
-#'
 #' @name relativeLogExpression
+#' @inherit basejump.generics::relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams params
-#'
-#' @seealso [edgeR::calcNormFactors()].
-#'
-#' @references Anders and Huber (2010).
 #'
 #' @examples
 #' data(bcb)
 #' relativeLogExpression(bcb)
 NULL
+
+
+
+#' @importFrom basejump.generics relativeLogExpression
+#' @export
+basejump.generics::relativeLogExpression
 
 
 

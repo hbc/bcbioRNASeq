@@ -1,11 +1,8 @@
-#' Contrast Name
-#'
 #' @name contrastName
+#' @inherit basejump.generics::contrastName
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
-#'
-#' @return `string`. Contrast name.
 #'
 #' @examples
 #' data(deseq)
@@ -20,18 +17,13 @@ NULL
 
 
 
-contrastName.DESeqAnalysis <-  # nolint
-    function(object, results) {
-        do.call(
-            what = contrastName,
-            args = list(
-                object = .matchResults(object, results)
-            )
-        )
-    }
+#' @importFrom basejump.generics contrastName
+#' @export
+basejump.generics::contrastName
 
 
 
+# DESeqResults =================================================================
 contrastName.DESeqResults <-  # nolint
     function(object) {
         validObject(object)
@@ -46,9 +38,25 @@ contrastName.DESeqResults <-  # nolint
 
 
 
-contrastName.DESeqResultsTables <-  # nolint
-    function(object) {
-        contrastName(slot(object, name = "results"))
+#' @rdname contrastName
+#' @export
+setMethod(
+    f = "contrastName",
+    signature = signature("DESeqResults"),
+    definition = contrastName.DESeqResults
+)
+
+
+
+# DESeqAnalysis ================================================================
+contrastName.DESeqAnalysis <-  # nolint
+    function(object, results) {
+        do.call(
+            what = contrastName,
+            args = list(
+                object = .matchResults(object, results)
+            )
+        )
     }
 
 
@@ -63,13 +71,11 @@ setMethod(
 
 
 
-#' @rdname contrastName
-#' @export
-setMethod(
-    f = "contrastName",
-    signature = signature("DESeqResults"),
-    definition = contrastName.DESeqResults
-)
+# DESeqResultsTables ===========================================================
+contrastName.DESeqResultsTables <-  # nolint
+    function(object) {
+        contrastName(slot(object, name = "results"))
+    }
 
 
 

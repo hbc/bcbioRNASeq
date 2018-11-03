@@ -1,15 +1,6 @@
-# Do not allow post hoc alpha, lfcThreshold cutoffs.
-# FIXME Consider exporting this as a generic in basejump.
-# TODO Look into using ggforce::geom_sina() instead.
-# https://twitter.com/timtriche/status/1056898767985799168
-# https://twitter.com/strnr/status/1056908633454362626
-
-
-
-#' Plot Volcano
-#'
 #' @name plotVolcano
-#' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
+#' @inherit basejump.generics::plotVolcano
+#' @author Michael Steinbaugh, John Hutchinson, Lorena Pantano
 #'
 #' @inheritParams params
 #' @param ylim `scalar numeric`. Upper boundary limit for y-axis. Helps preserve
@@ -17,10 +8,8 @@
 #'   `1e-100`).
 #' @param histograms `boolean`. Show LFC and P value histograms.
 #'
-#' @seealso This function is an updated variant of
+#' @seealso This method is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.
-#'
-#' @return `ggplot`.
 #'
 #' @examples
 #' data(deseq)
@@ -69,6 +58,12 @@
 #' plotVolcano(object, genes = geneIDs)
 #' plotVolcano(object, genes = geneNames)
 NULL
+
+
+
+#' @importFrom basejump.generics plotVolcano
+#' @export
+basejump.generics::plotVolcano
 
 
 

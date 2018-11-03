@@ -1,16 +1,9 @@
-#' Plot Gene Detection Saturation
-#'
-#' We should observe a linear trend in the number of genes detected with the
-#' number of mapped reads, which indicates that the sample input was not
-#' overloaded.
-#'
 #' @name plotGeneSaturation
+#' @inherit basejump.generics::plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams params
 #' @param trendline `boolean`. Include a trendline for each group.
-#'
-#' @return `ggplot`.
 #'
 #' @examples
 #' data(bcb)
@@ -20,6 +13,13 @@ NULL
 
 
 
+#' @importFrom basejump.generics plotGeneSaturation
+#' @export
+basejump.generics::plotGeneSaturation
+
+
+
+# bcbioRNASeq ==================================================================
 plotGeneSaturation.bcbioRNASeq <-  # nolint
     function(
         object,

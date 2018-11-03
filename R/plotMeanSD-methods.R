@@ -1,5 +1,8 @@
-#' Plot Row Standard Deviations vs. Row Means
+#' @name plotMeanSD
+#' @inherit basejump.generics::plotMeanSD
+#' @author Michael Steinbaugh, Lorena Patano
 #'
+#' @details
 #' [vsn::meanSdPlot()] wrapper that plots count transformations on a log2 scale.
 #'
 #' - DESeq2 log2: log2 size factor-adjusted normalized counts.
@@ -7,20 +10,15 @@
 #' - DESeq2 VST: **v**ariance-**s**tabilizing **t**ransformation.
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
+#' @inheritParams params
+#' @inheritParams bcbioRNASeq
+#'
 #' @seealso
 #' - [vsn::meanSdPlot()].
 #' - [DESeq2::DESeq()].
 #' - [DESeq2::rlog()].
 #' - [DESeq2::varianceStabilizingTransformation()].
 #' - [edgeR::calcNormFactors()].
-#'
-#' @name plotMeanSD
-#' @author Michael Steinbaugh, Lorena Patano
-#'
-#' @inheritParams params
-#' @inheritParams bcbioRNASeq
-#'
-#' @return `ggplot` grid.
 #'
 #' @examples
 #' data(bcb, deseq)
@@ -31,6 +29,12 @@
 #' ## DESeqAnalysis ====
 #' plotMeanSD(deseq)
 NULL
+
+
+
+#' @importFrom basejump.generics plotMeanSD
+#' @export
+basejump.generics::plotMeanSD
 
 
 

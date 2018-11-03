@@ -39,6 +39,7 @@ BiocGenerics::plotDispEsts
 
 
 
+# bcbioRNASeq ==================================================================
 plotDispEsts.bcbioRNASeq <-  # nolint
     function() {
         validObject(object)
@@ -59,8 +60,7 @@ formals(plotDispEsts.bcbioRNASeq) <-
 
 
 
-#' @describeIn plotDispEsts Coerces to `DESeqDataSet` and inherits method from
-#'   DESeq2.
+#' @rdname plotDispEsts
 #' @export
 setMethod(
     f = "plotDispEsts",
@@ -79,8 +79,7 @@ formals(plotDispEsts.DESeqAnalysis) <- formals(plotDispEsts.bcbioRNASeq)
 
 
 
-#' @describeIn plotDispEsts Extracts internal `DESeqDataSet` and inherits method
-#'   from DESeq2.
+#' @rdname plotDispEsts
 #' @export
 setMethod(
     f = "plotDispEsts",

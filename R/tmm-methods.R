@@ -1,28 +1,24 @@
-#' Trimmed Mean of M-Values
-#'
-#' TMM normalization is recommended for RNA-seq data generally when the majority
-#' of genes are not differentially expressed.
-#'
-#' @note Only recommended for gene-level counts.
-#'
+# TODO Move these methods to basejump.experiment.
+
+
+
 #' @name tmm
+#' @inherit basejump.generics::tmm
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
-#'
-#' @return `matrix`.
-#'
-#' @references Robinson and Oshlack (2010).
-#'
-#' @seealso
-#' - [edgeR::calcNormFactors()].
-#' - [edgeR::cpm()].
 #'
 #' @examples
 #' data(bcb)
 #' x <- tmm(bcb)
 #' summary(x)
 NULL
+
+
+
+#' @importFrom basejump.generics tmm
+#' @export
+basejump.generics::tmm
 
 
 

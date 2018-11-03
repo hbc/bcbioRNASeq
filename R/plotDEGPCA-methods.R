@@ -1,8 +1,8 @@
-#' Plot DEG PCA
 #' @name plotDEGPCA
-#' @author Michael Steinbaugh
-#' @include plotPCA-methods.R
+#' @inherit basejump.generics::plotDEGPCA
 #' @inherit plotPCA
+#' @include plotPCA-methods.R
+#' @author Michael Steinbaugh
 #'
 #' @inheritParams params
 #' @param counts `DESeqTransform`.
@@ -19,6 +19,12 @@
 #'     counts = as(deseq, "DESeqTransform")
 #' )
 NULL
+
+
+
+#' @importFrom basejump.generics plotDEGPCA
+#' @export
+basejump.generics::plotDEGPCA
 
 
 

@@ -1,7 +1,3 @@
-# FIXME Improve loading of metadataBlacklist. Don't assume lazy loading.
-
-
-
 #' @name sampleData
 #' @author Michael Steinbaugh
 #' @inherit basejump.generics::sampleData

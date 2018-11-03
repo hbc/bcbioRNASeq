@@ -16,6 +16,7 @@ basejump.generics::plotQC
 
 
 
+# bcbioRNASeq ==================================================================
 plotQC.bcbioRNASeq <-  # nolint
     function(object) {
         validObject(object)

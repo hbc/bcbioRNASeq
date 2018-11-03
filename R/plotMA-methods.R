@@ -1,4 +1,4 @@
-# FIXME Don't make DESeqResults method for plotMA. Consider only exporting
+# TODO Don't export DESeqResults method for plotMA. Consider only exporting
 # DESeqAnalysis method.
 
 # TODO Add a `results = "all"` plot mode?

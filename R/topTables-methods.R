@@ -1,37 +1,20 @@
-# FIXME Need to fix these for DESeqResultsTables update.
-# FIXME Improve support for joining rowData.
-
-# geneCols <- c("geneName", "geneBiotype", "description")
-# assert_are_disjoint_sets(geneCols, colnames(results))
-#
-# # Add useful gene annotations.
-# data <- slot(object, "data")
-# rowData <- rowData(data)
-# assert_is_subset(geneCols, colnames(rowData))
-#
-# rowData <- rowData[, geneCols, drop = FALSE]
-# # Don't use cbind or merge...it will coerce to `DataFrame`.
-# results[["geneName"]] <- rowData[["geneName"]]
-# results[["geneBiotype"]] <- rowData[["geneBiotype"]]
-# results[["description"]] <- rowData[["description"]]
-# assert_is_all_of(results, "DESeqResults")
-
-
-
-#' Top Tables of Differential Expression Results
-#'
 #' @name topTables
+#' @inherit basejump.generics::topTables
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
 #' @param n `scalar integer`. Number of genes (per direction) to report.
 #'
-#' @return `kable`. Markdown tables.
-#'
 #' @examples
 #' data(deseq)
 #' topTables(deseq, results = 1L, n = 5L)
 NULL
+
+
+
+#' @importFrom basejump.generics topTables
+#' @export
+basejump.generics::topTables
 
 
 

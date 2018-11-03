@@ -1,13 +1,8 @@
-#' Plot Mapped Reads
-#'
-#' The number of mapped reads should correspond to the number of total reads.
-#'
 #' @name plotMappedReads
+#' @inherit basejump.generics::plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams params
-#'
-#' @return `ggplot`.
 #'
 #' @seealso [plotMappingRate()].
 #'
@@ -18,6 +13,13 @@ NULL
 
 
 
+#' @importFrom basejump.generics plotMappedReads
+#' @export
+basejump.generics::plotMappedReads
+
+
+
+# bcbioRNASeq ==================================================================
 plotMappedReads.bcbioRNASeq <-  # nolint
     function(
         object,
