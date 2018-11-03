@@ -1,4 +1,4 @@
-# FIXME Use `validate_that()` here.
+# TODO Use `validate_that()` here.
 
 setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
@@ -46,8 +46,7 @@ setValidity(
         # Detect legacy metrics.
         if (is.data.frame(metadata[["metrics"]])) {
             stop(paste(
-                "`metrics` saved in `metadata()` instead of `colData()`.",
-                "FIXME update message"
+                "`metrics` saved in `metadata()` instead of `colData()`."
             ))
         }
 
@@ -80,7 +79,6 @@ setValidity(
                     "Legacy metadata slots:",
                     toString(sort(intersect))
                 ),
-                "FIXME update message",
                 sep = "\n"
             ))
         }
@@ -148,7 +146,6 @@ setValidity(
                     "Assays that are not matrix:",
                     toString(names(valid[!valid]))
                 ),
-                "FIXME update message",
                 sep = "\n"
             ))
         }
@@ -339,7 +336,7 @@ setClass(
     )
 )
 
-# FIXME Add assert check to ensure counts and rowRanges are identical.
+# TODO Add assert check to ensure counts and rowRanges are identical.
 setValidity(
     Class = "DESeqResultsTables",
     method = function(object) {
