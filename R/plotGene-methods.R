@@ -1,5 +1,5 @@
 #' @name plotGene
-#' @inherit basejump.generics::plotGene
+#' @inherit basejump.plots::plotGene
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params

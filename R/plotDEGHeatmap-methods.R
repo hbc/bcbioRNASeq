@@ -3,7 +3,7 @@
 
 
 #' @name plotDEGHeatmap
-#' @inherit basejump.generics::plotDEGHeatmap
+#' @inherit basejump.plots::plotHeatmap
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params

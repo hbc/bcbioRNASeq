@@ -3,7 +3,7 @@
 
 
 #' @name plotGenderMarkers
-#' @inherit basejump.generics::plotGenderMarkers
+#' @inherit basejump.plots::plotGenderMarkers
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params

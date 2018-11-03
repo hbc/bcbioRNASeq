@@ -1,5 +1,5 @@
 #' @name plotCountsPerGene
-#' @inherit basejump.generics::plotCountsPerGene
+#' @inherit basejump.plots::plotCountsPerGene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @section Trimmed Mean of M-Values:

@@ -23,27 +23,31 @@
 - "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 - "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest.}
+
+\item{geom}{\code{string}. Type of ggplot2 geometric object to use.}
+
+\item{trans}{\code{string}. Name of the axis scale transformation to apply. See
+\code{help("scale_x_continuous", "ggplot2")} for more information.}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
-recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
-To set the discrete color palette globally, use
-\code{options(bcbio.discrete.color = scale_color_viridis_d())}.}
+recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color
+palette globally, use \code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
 
 \item{fill}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 fill scale.
 Must supply discrete values. When set to \code{NULL}, the default ggplot2 color
 palette will be used. If manual color definitions are desired, we recommend
-using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
-To set the discrete fill palette globally, use
-\code{options(bcbio.discrete.fill = scale_fill_viridis_d())}.}
+using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}. To set the discrete fill palette
+globally, use \code{options(bcbio.discrete.fill = scale_fill_viridis_d())}.}
 
 \item{flip}{\code{boolean}. Flip x and y axes. Recommended for quality control
 plots containing many samples.}
 
-\item{title}{\code{string} or \code{NULL}. Plot title.}
+\item{countsAxisLabel}{\code{string}. Counts axis label.}
+
+\item{title}{\code{string}. Plot title.}
 }
 \value{
 \code{ggplot}.
