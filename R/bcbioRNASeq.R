@@ -575,7 +575,7 @@ bcbioRNASeq <- function(
     ) {
         new(
             Class = "bcbioRNASeq",
-            # FIXME Make stricter.
+            # TODO Make stricter.
             # Error if there are any rowRanges mismatches.
             makeSummarizedExperiment(
                 assays = assays,
