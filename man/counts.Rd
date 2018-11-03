@@ -4,7 +4,7 @@
 \name{counts}
 \alias{counts}
 \alias{counts,bcbioRNASeq-method}
-\title{Count Matrix Accessors}
+\title{Counts}
 \usage{
 \S4method{counts}{bcbioRNASeq}(object, normalized = FALSE)
 }
@@ -50,7 +50,10 @@ See \code{\link[BiocGenerics:width]{BiocGenerics::width()}} and \code{\link[DESe
 \code{matrix}.
 }
 \description{
-By default, returns the raw counts. Normalized counts in a variety of formats
+Count matrix.
+}
+\details{
+By default, return the raw counts. Normalized counts in a variety of formats
 can be accessed using the \code{normalized} argument.
 }
 \examples{

@@ -1,6 +1,8 @@
-#' Count Matrix Accessors
+#' Counts
 #'
-#' By default, returns the raw counts. Normalized counts in a variety of formats
+#' Count matrix.
+#'
+#' By default, return the raw counts. Normalized counts in a variety of formats
 #' can be accessed using the `normalized` argument.
 #'
 #' @name counts
