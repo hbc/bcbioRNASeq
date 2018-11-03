@@ -1,3 +1,4 @@
+library(basejump)
 library(bcbioRNASeq)
 library(DESeq2)
 library(knitr)
