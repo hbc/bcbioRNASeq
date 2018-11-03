@@ -1,5 +1,5 @@
 #' @name plotCorrelationHeatmap
-#' @inherit basejump.generics::plotCorrelationHeatmap
+#' @inherit basejump.plots::plotHeatmap
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params

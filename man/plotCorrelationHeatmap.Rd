@@ -23,19 +23,50 @@
 - "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 - "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest.}
 
-\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
-scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
-color palette will be used. If manual color definitions are desired, we
-recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
-To set the discrete color palette globally, use
-\code{options(bcbio.discrete.color = scale_color_viridis_d())}.}
+\item{method}{\code{string}. Correlation coefficient (or covariance) method to be
+computed. Defaults to "\code{pearson}" but "\code{spearman}" can also be used.
+Consult the \code{\link[stats:cor]{stats::cor()}} documentation for more information.}
+
+\item{clusteringMethod}{\code{string}. Clustering method. Accepts the same values
+as \code{\link[stats:hclust]{stats::hclust()}}.}
+
+\item{showRownames}{\code{boolean}. Show row or column names.}
+
+\item{showColnames}{\code{boolean}. Show row or column names.}
+
+\item{treeheightRow}{\code{scalar integer}. Size of the row and
+column dendrograms. Use \code{0} to disable.}
+
+\item{treeheightCol}{\code{scalar integer}. Size of the row and
+column dendrograms. Use \code{0} to disable.}
+
+\item{color}{\code{function}, \code{character}, or \code{NULL}. Hexadecimal color function
+or values to use for plot. We generally recommend these hexadecimal
+functions from the viridis package:
+\itemize{
+\item \code{\link[viridis:viridis]{viridis::viridis()}} (\emph{default}).
+\item \code{\link[viridis:inferno]{viridis::inferno()}}.
+\item \code{\link[viridis:magma]{viridis::magma()}}.
+\item \code{\link[viridis:plasma]{viridis::plasma()}}.
+Alternatively, colors can be defined manually using hexadecimal values
+(e.g. \code{c("#FF0000", "#0000FF")}), but this is not generally recommended.
+Refer to the RColorBrewer package for hexadecimal color palettes that may
+be suitable. If set \code{NULL}, will use the default pheatmap colors.
+}}
+
+\item{legendColor}{\code{function} or \code{NULL}. Hexadecimal color function to use
+for legend labels. Note that hexadecimal values are not supported. If set
+\code{NULL}, will use the default pheatmap colors.}
+
+\item{borderColor}{\code{string} or \code{NULL}. Border color. Disabled by default for
+improved aesthetics.}
 
 \item{title}{\code{string} or \code{NULL}. Plot title.}
 
-\item{...}{Additional arguments.}
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
+arguments should be formatted in camel case, not snake case.}
 }
 \value{
 \code{pheatmap}.
@@ -43,10 +74,42 @@ To set the discrete color palette globally, use
 \description{
 Construct a simple heatmap.
 }
+\section{Methods (by class)}{
+
+\itemize{
+\item \code{SummarizedExperiment}: Construct a correlation heatmap comparing the columns
+of the matrix.
+
+\item \code{SummarizedExperiment}: Scale the heatmap by applying quantile breaks.
+}
+}
+
+\section{Hierarchical clustering}{
+
+
+
+By default, row- and column-wise hierarchical clustering is performed using
+the Ward method, but this behavior can be overrided by setting \code{clusterRows}
+or \code{clusterCols} to \code{FALSE}.
+
+}
+
 \examples{
 data(bcb)
 plotCorrelationHeatmap(bcb, method = "pearson")
 plotCorrelationHeatmap(bcb, method = "spearman")
+}
+\seealso{
+\itemize{
+\item \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
+\item \code{\link[RColorBrewer:brewer.pal]{RColorBrewer::brewer.pal()}}.
+}
+
+\itemize{
+\item \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
+\item \code{\link[stats:cor]{stats::cor()}}.
+\item \code{\link[stats:hclust]{stats::hclust()}}.
+}
 }
 \author{
 Michael Steinbaugh
