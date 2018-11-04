@@ -108,6 +108,8 @@ basejump.io::export
         assert_are_disjoint_sets(colnames(data), colnames(counts))
         data <- cbind(data, counts)
     }
+
+    data
 }
 
 
