@@ -17,7 +17,6 @@ NULL
 #' @name defunct
 #' @author Michael Steinbaugh
 #' @keywords internal
-#' @inheritParams params
 #' @inheritParams basejump.globals::params
 #' @return [.Defunct()].
 NULL

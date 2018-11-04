@@ -17,7 +17,7 @@
 \arguments{
 \item{object}{Object.}
 
-\item{headerLevel}{\code{scalar integer} (\code{1}-\code{7}). R Markdown header level.}
+\item{headerLevel}{\code{scalar integer} (\code{1}-\code{7}). Markdown header level.}
 }
 \value{
 Markdown output.
