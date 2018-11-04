@@ -162,8 +162,20 @@ Suggests:
     testthat (>= 2.0),
     viridis
 Remotes:
-    steinbaugh/basejump@bioconductor,
     hbc/bcbioBase@bioconductor
+    steinbaugh/basejump@bioconductor,
+    steinbaugh/basejump.annotations,
+    steinbaugh/basejump.assertions,
+    steinbaugh/basejump.classes,
+    steinbaugh/basejump.coercion,
+    steinbaugh/basejump.developer,
+    steinbaugh/basejump.experiment,
+    steinbaugh/basejump.generics,
+    steinbaugh/basejump.globals,
+    steinbaugh/basejump.io,
+    steinbaugh/basejump.markdown,
+    steinbaugh/basejump.plots,
+    steinbaugh/basejump.sanitization
 biocViews:
     DataImport,
     DataRepresentation,
