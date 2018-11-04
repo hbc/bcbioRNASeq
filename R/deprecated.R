@@ -4,26 +4,21 @@
 
 
 #' Deprecated Functions
-#'
 #' @name deprecated
 #' @author Michael Steinbaugh
 #' @keywords internal
-#'
-#' @inheritParams params
-#'
+#' @inheritParams basejump.globals::params
 #' @return [.Deprecated()].
 NULL
 
 
 
 #' Defunct Functions
-#'
 #' @name defunct
 #' @author Michael Steinbaugh
 #' @keywords internal
-#'
 #' @inheritParams params
-#'
+#' @inheritParams basejump.globals::params
 #' @return [.Defunct()].
 NULL
 
