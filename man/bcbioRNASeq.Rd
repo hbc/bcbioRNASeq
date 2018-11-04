@@ -100,8 +100,8 @@ for visualization.}
 \code{\link[DESeq2:rlog]{DESeq2::rlog()}}. This calculation is slow for large datasets and now
 discouraged by default for visualization.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character} or \code{NULL}. Groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{...}{Additional arguments.}
 }
