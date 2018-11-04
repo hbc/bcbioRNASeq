@@ -17,11 +17,7 @@ methods::show
 
 
 .showHeader <- function(object, version = NULL) {
-    cat(c(
-        bold(paste(class(object), version)),
-        italic("http://bioinformatics.sph.harvard.edu/bcbioRNASeq"),
-        "citation(\"bcbioRNASeq\")"
-    ), sep = "\n")
+    cat(paste(class(object), version), sep = "\n")
 }
 
 
