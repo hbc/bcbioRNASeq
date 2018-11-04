@@ -26,20 +26,20 @@
 
 \item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character} or \code{NULL}. Groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
-recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
-To set the discrete color palette globally, use
-\code{options(bcbio.discrete.color = scale_color_viridis_d())}.}
+recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color
+palette globally, use
+\code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
 
 \item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
 
-\item{return}{\code{string}. Object class to return. Uses \code{\link[base:match.arg]{base::match.arg()}}
-internally and picks the first item in the vector by default.}
+\item{return}{\code{string}. Return type. Uses \code{\link[base:match.arg]{base::match.arg()}}
+internally and defaults to the first argument in the \code{character} vector.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 }

@@ -3,6 +3,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams params
+#' @inheritParams basejump.globals::params
 #'
 #' @seealso [plotMappingRate()].
 #'

@@ -3,6 +3,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
+#' @inheritParams basejump.globals::params
 #'
 #' @examples
 #' data(bcb)

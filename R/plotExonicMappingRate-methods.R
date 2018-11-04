@@ -6,6 +6,7 @@
 #' Ideally, at least 60 percent of total reads should map to exons for RNA-seq.
 #'
 #' @inheritParams params
+#' @inheritParams basejump.globals::params
 #'
 #' @examples
 #' data(bcb)

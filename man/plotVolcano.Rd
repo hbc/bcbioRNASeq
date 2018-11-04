@@ -30,12 +30,13 @@
 dynamic range for gene sets containing highly significant P values (e.g.
 \code{1e-100}).}
 
-\item{genes}{\code{character}. Genes to include. These must match the rownames of
-the object. It is best practice to use the stable gene identifiers from
-Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
+\item{genes}{\code{character}. Gene identifiers. It is considered better practice
+to input the stable gene identifiers from Ensembl (e.g. "ENSG00000000003")
+and not the (HGNC) gene symbols (e.g. "TSPN6"), if possible.}
 
-\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
-\code{geneID} and \code{geneName} columns, with rownames defined.}
+\item{gene2symbol}{\code{Gene2Symbol}. Gene-to-symbol mappings. Must contain
+\code{geneID} and \code{geneName} columns. See \code{\link[basejump.classes:Gene2Symbol]{basejump.classes::Gene2Symbol()}} for
+more information.}
 
 \item{ntop}{\code{scalar integer}. Number of top genes to label.}
 
@@ -49,8 +50,8 @@ with the same color, regardless of direction.}
 
 \item{histograms}{\code{boolean}. Show LFC and P value histograms.}
 
-\item{return}{\code{string}. Object class to return. Uses \code{\link[base:match.arg]{base::match.arg()}}
-internally and picks the first item in the vector by default.}
+\item{return}{\code{string}. Return type. Uses \code{\link[base:match.arg]{base::match.arg()}}
+internally and defaults to the first argument in the \code{character} vector.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 

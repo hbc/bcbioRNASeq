@@ -18,6 +18,7 @@
 #' @note We are not allowing post hoc `alpha` or `lfcThreshold` cutoffs here.
 #'
 #' @inheritParams params
+#' @inheritParams basejump.globals::params
 #'
 #' @return `ggplot`.
 #'

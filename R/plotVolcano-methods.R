@@ -3,6 +3,7 @@
 #' @author Michael Steinbaugh, John Hutchinson, Lorena Pantano
 #'
 #' @inheritParams params
+#' @inheritParams basejump.globals::params
 #' @param ylim `scalar numeric`. Upper boundary limit for y-axis. Helps preserve
 #'   dynamic range for gene sets containing highly significant P values (e.g.
 #'   `1e-100`).

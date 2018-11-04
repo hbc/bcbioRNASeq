@@ -5,6 +5,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
+#' @inheritParams basejump.globals::params
 #' @param counts `DESeqTransform`.
 #'
 #' @examples

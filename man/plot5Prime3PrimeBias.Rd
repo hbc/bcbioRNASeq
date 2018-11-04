@@ -14,8 +14,8 @@
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character} or \code{NULL}. Groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{limit}{\code{scalar numeric}. Threshold to denote on the plot, using a
 dashed line.}
@@ -23,12 +23,11 @@ dashed line.}
 \item{fill}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 fill scale.
 Must supply discrete values. When set to \code{NULL}, the default ggplot2 color
 palette will be used. If manual color definitions are desired, we recommend
-using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
-To set the discrete fill palette globally, use
-\code{options(bcbio.discrete.fill = scale_fill_viridis_d())}.}
+using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}. To set the discrete fill palette
+globally, use \code{options(bcbio.discrete.fill = scale_fill_viridis_d())}.}
 
-\item{flip}{\code{boolean}. Flip x and y axes. Recommended for quality control
-plots containing many samples.}
+\item{flip}{\code{boolean}. Flip x and y axes. Recommended for plots containing
+many samples.}
 
 \item{title}{\code{string} or \code{NULL}. Plot title.}
 }

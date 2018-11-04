@@ -11,6 +11,7 @@
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
 #' @inheritParams params
+#' @inheritParams basejump.globals::params
 #' @inheritParams bcbioRNASeq
 #'
 #' @seealso
