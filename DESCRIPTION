@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.99.2
-Date: 2018-11-03
+Version: 0.3.0
+Date: 2018-11-04
 Authors@R: c(
     person(
         given = "Michael",
@@ -115,19 +115,19 @@ Imports:
     assertive.strings,
     assertive.types,
     assertthat,
-    basejump.annotations,
-    basejump.assertions,
-    basejump.classes,
-    basejump.coercion,
-    basejump.developer,
-    basejump.experiment,
-    basejump.generics (>= 0.99.2),
-    basejump.globals,
-    basejump.io,
-    basejump.markdown,
-    basejump.plots,
-    basejump.sanitization,
-    bcbioBase (>= 0.99.1),
+    basejump.annotations (>= 0.8),
+    basejump.assertions (>= 0.8),
+    basejump.classes (>= 0.8),
+    basejump.coercion (>= 0.8),
+    basejump.developer (>= 0.8),
+    basejump.experiment (>= 0.8),
+    basejump.generics (>= 0.8),
+    basejump.globals (>= 0.8),
+    basejump.io (>= 0.8),
+    basejump.markdown (>= 0.8),
+    basejump.plots (>= 0.8),
+    basejump.sanitization (>= 0.8),
+    bcbioBase (>= 0.5),
     cowplot (>= 0.9),
     crayon,
     dplyr (>= 0.7),
@@ -153,7 +153,7 @@ Imports:
 Suggests:
     BiocStyle,
     EnsDb.Hsapiens.v75,
-    basejump,
+    basejump  (>= 0.8),
     fgsea,
     hexbin,
     patrick,
@@ -187,7 +187,7 @@ biocViews:
     Transcription,
     Visualization
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.0.9000
 VignetteBuilder: knitr
 Collate: 
     'AllClasses.R'

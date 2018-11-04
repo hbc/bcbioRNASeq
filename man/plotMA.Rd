@@ -34,7 +34,7 @@ to input the stable gene identifiers from Ensembl (e.g. "ENSG00000000003")
 and not the (HGNC) gene symbols (e.g. "TSPN6"), if possible.}
 
 \item{gene2symbol}{\code{Gene2Symbol}. Gene-to-symbol mappings. Must contain
-\code{geneID} and \code{geneName} columns. See \code{\link[basejump.classes:Gene2Symbol]{basejump.classes::Gene2Symbol()}} for
+\code{geneID} and \code{geneName} columns. See \code{basejump.classes::Gene2Symbol()} for
 more information.}
 
 \item{ntop}{\code{scalar integer}. Number of top genes to label.}
@@ -47,7 +47,7 @@ more information.}
 downregulated genes. Also supports a character string for labeling DEGs
 with the same color, regardless of direction.}
 
-\item{return}{\code{string}. Return type. Uses \code{\link[base:match.arg]{base::match.arg()}}
+\item{return}{\code{string}. Return type. Uses \code{base::match.arg()}
 internally and defaults to the first argument in the \code{character} vector.}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}

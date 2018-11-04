@@ -22,7 +22,8 @@
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{interestingGroups}{\code{character}. Groups of interest.}
+\item{interestingGroups}{\code{character} or \code{NULL}. Groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{medianLine}{\code{boolean}. Include median line for each group. Disabled if
 samples are colored by sample name.}
@@ -30,8 +31,9 @@ samples are colored by sample name.}
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
-recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color
-palette globally, use \code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
+recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
+palette globally, use
+\code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
 
 \item{legend}{\code{boolean}. Show plot legend.}
 

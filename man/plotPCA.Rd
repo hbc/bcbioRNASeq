@@ -32,7 +32,7 @@ Use \code{Inf} to include all genes (\emph{not recommended}).}
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
-recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color
+recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
 palette globally, use
 \code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
 
@@ -42,7 +42,7 @@ palette globally, use
 
 \item{subtitle}{\code{string} or \code{NULL}. Plot subtitle.}
 
-\item{return}{\code{string}. Return type. Uses \code{\link[base:match.arg]{base::match.arg()}}
+\item{return}{\code{string}. Return type. Uses \code{base::match.arg()}
 internally and defaults to the first argument in the \code{character} vector.}
 }
 \value{

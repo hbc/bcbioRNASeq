@@ -30,7 +30,7 @@ count matrix.}
 \item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
-recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}. To set the discrete color
+recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
 palette globally, use
 \code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
 

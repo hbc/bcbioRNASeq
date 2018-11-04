@@ -39,7 +39,8 @@ unscaled ("\code{none}").}
 
 \item{title}{\code{string} or \code{NULL}. Plot title.}
 
-\item{interestingGroups}{\code{character}. Groups of interest.}
+\item{interestingGroups}{\code{character} or \code{NULL}. Groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{clusterRows}{\code{boolean}. Arrange with hierarchical
 clustering.}

@@ -25,7 +25,8 @@
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{interestingGroups}{\code{character}. Groups of interest.}
+\item{interestingGroups}{\code{character} or \code{NULL}. Groups of interest that
+define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{method}{\code{string}. Correlation coefficient (or covariance) method to be
 computed. Defaults to "\code{pearson}" but "\code{spearman}" can also be used.

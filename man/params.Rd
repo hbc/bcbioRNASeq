@@ -22,7 +22,4 @@ No value.
 \description{
 Parameters
 }
-\seealso{
-\href{{https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html}{roxygen}}
-}
 \keyword{internal}
