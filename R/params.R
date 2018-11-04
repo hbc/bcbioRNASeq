@@ -1,8 +1,6 @@
-#' Parameters
-#'
 #' @name params
+#' @inherit basejump.globals::params
 #' @keywords internal
-#'
 #' @param lfcShrink `boolean`. Use shrunken log2 fold change (LFC) values.
 #' @param normalized `string`. Which normalization method to apply:
 #'   - "`tpm`": Transcripts per million (tximport).
@@ -10,6 +8,4 @@
 #'   - "`rlog`": DESeq2 **log2** regularized log transformation.
 #'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
 #' @param results `scalar`. Position or name of `DESeqResults`.
-#'
-#' @return No value.
 NULL
