@@ -1,6 +1,5 @@
 # TODO Add dropbox mode for all supported methods.
 # TODO Set `dropbox` as a boolean, instead of separate `dropboxDir` argument.
-
 # TODO Need to add a bcbioRNASeq method that also exports the on-the-fly
 # calculations (TMM, RLE).
 
@@ -160,11 +159,19 @@ setMethod(
     down <- deg[["down"]]
     both <- c(up, down)
 
+    results <- slot(object, "results")
+    rowData <- slot(object, "rowRanges") %>%
+        # Coerce to standard data.frame first, to collapse "X" ranges column.
+        as.data.frame() %>%
+        as("DataFrame")
+    counts <- slot(object, "counts")
+    sampleNames <- slot(object, "sampleNames")
+
     all <- .prepareDESeqResults(
-        object = slot(object, "results"),
-        rowData = as(slot(object, "rowRanges"), "DataFrame"),
-        counts = slot(object, "counts"),
-        sampleNames = slot(object, "sampleNames")
+        object = results,
+        rowData = rowData,
+        counts = counts,
+        sampleNames = sampleNames
     )
     assert_that(is(all, "DataFrame"))
 
@@ -199,12 +206,6 @@ export.DESeqResultsTables <-  # nolint
         # Prepare the subset tables.
         tables <- .prepareResultsTablesList(x)
         assert_is_list(tables)
-        lapply(
-            X = tables,
-            FUN = function(x) {
-                assert_is_all_of(x, "DESeqResults")
-            }
-        )
         assert_are_identical(
             x = names(tables),
             y = c("all", "up", "down", "both")
