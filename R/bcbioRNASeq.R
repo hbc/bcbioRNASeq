@@ -411,12 +411,11 @@ bcbioRNASeq <- function(
     #    complex datasets (e.g. multiple organisms).
 
     # Attempt to use bcbio GTF automatically.
+    # Consider warning the user here instead of messaging.
     if (is.null(gffFile)) {
         gffFile <- getGTFFileFromYAML(yaml)
         if (!file.exists(gffFile)) {
-            warning(paste0(
-                "bcbio GTF file missing:", "\n  ", gffFile
-            ), call. = FALSE)
+            message(paste0("bcbio GTF file missing:", "\n  ", gffFile))
         }
         gffFile <- NULL
     }
@@ -442,7 +441,7 @@ bcbioRNASeq <- function(
             release = ensemblRelease
         )
     } else {
-        warning("Slotting empty ranges into `rowRanges().", call. = FALSE)
+        message("Slotting empty ranges into `rowRanges().")
         rowRanges <- emptyRanges(rownames(assays[[1L]]))
     }
     assert_is_all_of(rowRanges, "GRanges")
@@ -470,7 +469,7 @@ bcbioRNASeq <- function(
                 warning(paste(
                     "Failed to detect organism automatically.",
                     "Specify with `organism` argument."
-                ), call. = FALSE)
+                ))
             }
         )
     }
@@ -537,10 +536,7 @@ bcbioRNASeq <- function(
         } else {
             # nocov start
             # This step is covered by bcbio pipeline tests.
-            warning(
-                "Data has no variation. Skipping transformations.",
-                call. = FALSE
-            )
+            message("Data has no variation. Skipping transformations.")
             # nocov end
         }
 
@@ -550,10 +546,10 @@ bcbioRNASeq <- function(
             message("Calculating FPKM.")
             assays(bcb)[["fpkm"]] <- fpkm(dds)
         } else {
-            warning(paste(
+            message(paste(
                 "`rowRanges()` contains empty ranges.",
                 "Skipping FPKM calculation."
-            ), call. = FALSE)
+            ))
         }
     }
 
@@ -576,8 +572,7 @@ bcbioRNASeq <- function(
     ) {
         new(
             Class = "bcbioRNASeq",
-            # TODO Make stricter.
-            # Error if there are any rowRanges mismatches.
+            # TODO Make stricter. Error if there are any rowRanges mismatches.
             makeSummarizedExperiment(
                 assays = assays,
                 rowRanges = rowRanges,
