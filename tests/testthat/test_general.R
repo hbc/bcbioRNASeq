@@ -7,34 +7,6 @@ assay <- SummarizedExperiment::assay
 
 
 
-# aggregateCols ================================================================
-test_that("aggregateCols", {
-    object <- bcb
-    # Assign groupings into `aggregate` column of `colData()`.
-    aggregate <- as.factor(sub(
-        pattern = "_rep[[:digit:]]$",
-        replacement = "",
-        x = colnames(object)
-    ))
-    names(aggregate) <- colnames(object)
-    object[["aggregate"]] <- aggregate
-    x <- aggregateCols(object)
-    expect_identical(
-        object = colnames(x),
-        expected = c("control", "fa_day7")
-    )
-    expect_identical(
-        object = sum(counts(x)),
-        expected = sum(counts(object))
-    )
-    expect_equal(
-        object = rowSums(counts(x)),
-        expected = rowSums(counts(object))
-    )
-})
-
-
-
 # counts =======================================================================
 with_parameters_test_that(
     "counts : Slotted assays", {
