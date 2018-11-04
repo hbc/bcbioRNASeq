@@ -61,7 +61,6 @@
 #'   readSampleData readTx2Gene runDate sampleDirs
 #' @importFrom BiocGenerics cbind colSums density design lapply sapply width
 #' @importFrom cowplot draw_plot ggdraw plot_grid
-#' @importFrom crayon bold italic
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
 #'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
 #'   estimateSizeFactors fpkm priorInfo results resultsNames rlog

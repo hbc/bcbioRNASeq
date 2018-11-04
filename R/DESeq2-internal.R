@@ -133,7 +133,7 @@
     assert_is_all_of(results, "DESeqResults")
 
     # Inform the user about which data we're using.
-    msg <- paste(bold("DESeqResults:"), contrastName(results))
+    msg <- paste("DESeqResults:", contrastName(results))
     if (isTRUE(lfcShrink)) {
         msg <- paste(msg, "(shrunken LFC)")
     }
