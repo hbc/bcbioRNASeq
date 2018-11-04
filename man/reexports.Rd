@@ -16,6 +16,9 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
+\alias{Gene2Symbol}
+\alias{sampleData}
+\alias{sampleData<-}
 \alias{\%>\%}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -24,6 +27,10 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{basejump.classes}{\code{\link[basejump.classes]{Gene2Symbol}}}
+
+  \item{basejump.experiment}{\code{\link[basejump.experiment]{sampleData}}, \code{\link[basejump.experiment]{sampleData<-}}}
+
   \item{basejump.generics}{\code{\link[basejump.generics]{alphaSummary}}, \code{\link[basejump.generics]{contrastName}}, \code{\link[basejump.generics]{markdown}}, \code{\link[basejump.generics]{plot5Prime3PrimeBias}}, \code{\link[basejump.generics]{plotCorrelationHeatmap}}, \code{\link[basejump.generics]{plotCountsPerGene}}, \code{\link[basejump.generics]{plotDEGHeatmap}}, \code{\link[basejump.generics]{plotDEGPCA}}, \code{\link[basejump.generics]{plotExonicMappingRate}}, \code{\link[basejump.generics]{plotGenderMarkers}}, \code{\link[basejump.generics]{plotGene}}, \code{\link[basejump.generics]{plotGeneSaturation}}, \code{\link[basejump.generics]{plotIntronicMappingRate}}, \code{\link[basejump.generics]{plotMappedReads}}, \code{\link[basejump.generics]{plotMappingRate}}, \code{\link[basejump.generics]{plotMeanSD}}, \code{\link[basejump.generics]{plotQC}}, \code{\link[basejump.generics]{plotRRNAMappingRate}}, \code{\link[basejump.generics]{plotTotalReads}}, \code{\link[basejump.generics]{plotVolcano}}, \code{\link[basejump.generics]{relativeLogExpression}}, \code{\link[basejump.generics]{sampleData}}, \code{\link[basejump.generics]{tmm}}, \code{\link[basejump.generics]{topTables}}}
 
   \item{basejump.io}{\code{\link[basejump.io]{export}}}

@@ -2,8 +2,10 @@
 
 export("%>%")
 export("counts<-")
+export("sampleData<-")
 export(DESeqAnalysis)
 export(DESeqResultsTables)
+export(Gene2Symbol)
 export(alphaSummary)
 export(bcbioRNASeq)
 export(bcbioRNASeqCacheURL)

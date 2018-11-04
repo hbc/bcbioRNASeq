@@ -25,11 +25,9 @@ basejump.generics::plotGenderMarkers
 
 
 
+# bcbioRNASeq ==================================================================
 plotGenderMarkers.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        normalized
-    ) {
+    function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
         counts <- counts(object, normalized = normalized)
