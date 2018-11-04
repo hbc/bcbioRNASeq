@@ -4,106 +4,17 @@
 \alias{params}
 \title{Parameters}
 \arguments{
-\item{object}{Object.}
-
-\item{i}{An integer or numeric scalar.}
-
-\item{value}{Value to assign.}
-
-\item{x}{Object.}
-
-\item{...}{Additional arguments.}
-
-\item{alpha}{\code{scalar numeric} or \code{NULL}. Adjusted P value ("alpha") cutoff.
-If left \code{NULL}, will use the cutoff defined in the object.}
-
-\item{assay}{\code{scalar}. Name or index of counts matrix slotted in \code{\link[=assays]{assays()}}.
-When passing in a \code{string}, the name must be defined in \code{\link[=assayNames]{assayNames()}}.}
-
-\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
-scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
-color palette will be used. If manual color definitions are desired, we
-recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
-To set the discrete color palette globally, use
-\code{options(bcbio.discrete.color = scale_color_viridis_d())}.}
-
-\item{counts}{\code{matrix}. Normalized counts.}
-
-\item{dir}{\code{string}. Local directory path.}
-
-\item{direction}{\code{string}. Plot "\code{both}", "\code{up}", or "\code{down}" directions.}
-
-\item{fill}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 fill scale.
-Must supply discrete values. When set to \code{NULL}, the default ggplot2 color
-palette will be used. If manual color definitions are desired, we recommend
-using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
-To set the discrete fill palette globally, use
-\code{options(bcbio.discrete.fill = scale_fill_viridis_d())}.}
-
-\item{flip}{\code{boolean}. Flip x and y axes. Recommended for quality control
-plots containing many samples.}
-
-\item{gene2symbol}{\code{gene2symbol}. Gene-to-symbol mappings. Must contain
-\code{geneID} and \code{geneName} columns, with rownames defined.}
-
-\item{genes}{\code{character}. Genes to include. These must match the rownames of
-the object. It is best practice to use the stable gene identifiers from
-Ensembl (e.g. "ENSG00000000003") and not the gene symbols.}
-
-\item{headerLevel}{\code{scalar integer} (\code{1}-\code{7}). R Markdown header level.}
-
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
-
-\item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
-
-\item{legend}{\code{boolean}. Show plot legend.}
-
 \item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
 
-\item{lfcThreshold}{\code{scalar numeric} or \code{NULL}. Log fold change ratio (base
-2) cutoff threshold. If left \code{NULL}, will use the cutoff defined in the
-object.}
-
-\item{limit}{\code{scalar numeric}. Threshold to denote on the plot, using a
-dashed line.}
-
-\item{minCounts}{\code{scalar integer}. Minimum number of counts per gene in the
-counts matrix.}
-
 \item{normalized}{\code{string}. Which normalization method to apply:
-- "\code{tpm}": Transcripts per million (tximport).
-- "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-- "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-- "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.}
-
-\item{ntop}{\code{scalar integer}. Number of top genes to label.}
-
-\item{passLimit}{\code{scalar numeric}. Threshold to plot pass color marker.}
-
-\item{perMillion}{\code{boolean}. Display as counts per million.}
-
-\item{pointColor}{\code{string}. Default point color for the plot.}
+\itemize{
+\item "\code{tpm}": Transcripts per million (tximport).
+\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
+\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
+\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+}}
 
 \item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
-
-\item{return}{\code{string}. Object class to return. Uses \code{\link[base:match.arg]{base::match.arg()}}
-internally and picks the first item in the vector by default.}
-
-\item{samples}{\code{character} or \code{NULL}. Samples to include.}
-
-\item{sigPointColor}{\code{character}. Color names for labeling upregulated and
-downregulated genes. Also supports a character string for labeling DEGs
-with the same color, regardless of direction.}
-
-\item{subtitle}{\code{string} or \code{NULL}. Plot subtitle.}
-
-\item{title}{\code{string} or \code{NULL}. Plot title.}
-
-\item{warnLimit}{\code{scalar numeric}. Threshold to plot warning color marker.}
-
-\item{withDimnames}{\code{boolean}. Whether dimnames should be applied to
-extracted assay elements.}
 }
 \value{
 No value.
