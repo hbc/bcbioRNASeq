@@ -1,3 +1,4 @@
+# TODO Add FPKM calculation if not defined.
 # TODO Consider a utility that we can use in `[` and `updateObject`.
 # TODO Coerce, remove, rename slot (add to basejump).
 # .updateMetadata <- function(metadata) {

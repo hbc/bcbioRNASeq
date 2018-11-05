@@ -2,17 +2,17 @@
 % Please edit documentation in R/alphaSummary-methods.R,
 %   R/contrastName-methods.R, R/counts-methods.R, R/export-methods.R,
 %   R/markdown-methods.R, R/package.R, R/plot5Prime3PrimeBias-methods.R,
-%   R/plotCorrelationHeatmap-methods.R, R/plotCountsPerGene-methods.R,
-%   R/plotDEGHeatmap-methods.R, R/plotPCA-methods.R, R/plotDEGPCA-methods.R,
-%   R/plotDispEsts-methods.R, R/plotExonicMappingRate-methods.R,
-%   R/plotGenderMarkers-methods.R, R/plotGene-methods.R,
-%   R/plotGeneSaturation-methods.R, R/plotIntronicMappingRate-methods.R,
-%   R/plotMA-methods.R, R/plotMappedReads-methods.R,
-%   R/plotMappingRate-methods.R, R/plotMeanSD-methods.R, R/plotQC-methods.R,
-%   R/plotRRNAMappingRate-methods.R, R/plotTotalReads-methods.R,
-%   R/plotVolcano-methods.R, R/relativeLogExpression-methods.R,
-%   R/sampleData-methods.R, R/show-methods.R, R/tmm-methods.R,
-%   R/topTables-methods.R, R/updateObject-methods.R
+%   R/plotCorrelationHeatmap-methods.R, R/plotCountsPerBiotype-methods.R,
+%   R/plotCountsPerGene-methods.R, R/plotDEGHeatmap-methods.R,
+%   R/plotPCA-methods.R, R/plotDEGPCA-methods.R, R/plotDispEsts-methods.R,
+%   R/plotExonicMappingRate-methods.R, R/plotGenderMarkers-methods.R,
+%   R/plotGene-methods.R, R/plotGeneSaturation-methods.R,
+%   R/plotIntronicMappingRate-methods.R, R/plotMA-methods.R,
+%   R/plotMappedReads-methods.R, R/plotMappingRate-methods.R,
+%   R/plotMeanSD-methods.R, R/plotQC-methods.R, R/plotRRNAMappingRate-methods.R,
+%   R/plotTotalReads-methods.R, R/plotVolcano-methods.R,
+%   R/relativeLogExpression-methods.R, R/sampleData-methods.R, R/show-methods.R,
+%   R/tmm-methods.R, R/topTables-methods.R, R/updateObject-methods.R
 \docType{import}
 \name{reexports}
 \alias{reexports}
@@ -31,7 +31,7 @@ below to see their documentation.
 
   \item{basejump.experiment}{\code{\link[basejump.experiment]{sampleData}}, \code{\link[basejump.experiment]{sampleData<-}}}
 
-  \item{basejump.generics}{\code{\link[basejump.generics]{alphaSummary}}, \code{\link[basejump.generics]{contrastName}}, \code{\link[basejump.generics]{markdown}}, \code{\link[basejump.generics]{plot5Prime3PrimeBias}}, \code{\link[basejump.generics]{plotCorrelationHeatmap}}, \code{\link[basejump.generics]{plotCountsPerGene}}, \code{\link[basejump.generics]{plotDEGHeatmap}}, \code{\link[basejump.generics]{plotDEGPCA}}, \code{\link[basejump.generics]{plotExonicMappingRate}}, \code{\link[basejump.generics]{plotGenderMarkers}}, \code{\link[basejump.generics]{plotGene}}, \code{\link[basejump.generics]{plotGeneSaturation}}, \code{\link[basejump.generics]{plotIntronicMappingRate}}, \code{\link[basejump.generics]{plotMappedReads}}, \code{\link[basejump.generics]{plotMappingRate}}, \code{\link[basejump.generics]{plotMeanSD}}, \code{\link[basejump.generics]{plotQC}}, \code{\link[basejump.generics]{plotRRNAMappingRate}}, \code{\link[basejump.generics]{plotTotalReads}}, \code{\link[basejump.generics]{plotVolcano}}, \code{\link[basejump.generics]{relativeLogExpression}}, \code{\link[basejump.generics]{sampleData}}, \code{\link[basejump.generics]{tmm}}, \code{\link[basejump.generics]{topTables}}}
+  \item{basejump.generics}{\code{\link[basejump.generics]{alphaSummary}}, \code{\link[basejump.generics]{contrastName}}, \code{\link[basejump.generics]{markdown}}, \code{\link[basejump.generics]{plot5Prime3PrimeBias}}, \code{\link[basejump.generics]{plotCorrelationHeatmap}}, \code{\link[basejump.generics]{plotCountsPerBiotype}}, \code{\link[basejump.generics]{plotCountsPerBroadClass}}, \code{\link[basejump.generics]{plotCountsPerGene}}, \code{\link[basejump.generics]{plotDEGHeatmap}}, \code{\link[basejump.generics]{plotDEGPCA}}, \code{\link[basejump.generics]{plotExonicMappingRate}}, \code{\link[basejump.generics]{plotGenderMarkers}}, \code{\link[basejump.generics]{plotGene}}, \code{\link[basejump.generics]{plotGeneSaturation}}, \code{\link[basejump.generics]{plotIntronicMappingRate}}, \code{\link[basejump.generics]{plotMappedReads}}, \code{\link[basejump.generics]{plotMappingRate}}, \code{\link[basejump.generics]{plotMeanSD}}, \code{\link[basejump.generics]{plotQC}}, \code{\link[basejump.generics]{plotRRNAMappingRate}}, \code{\link[basejump.generics]{plotTotalReads}}, \code{\link[basejump.generics]{plotVolcano}}, \code{\link[basejump.generics]{relativeLogExpression}}, \code{\link[basejump.generics]{sampleData}}, \code{\link[basejump.generics]{tmm}}, \code{\link[basejump.generics]{topTables}}}
 
   \item{basejump.io}{\code{\link[basejump.io]{export}}}
 
