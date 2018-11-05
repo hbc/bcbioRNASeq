@@ -1,4 +1,7 @@
 # TODO Don't message about gene symbol mappings.
+# TODO Add method to arrange the columns by interestingGroups (e.g. appy) rather
+# than using hierarchical clustering.
+# TODO Show lfcThreshold info on the plot.
 
 
 

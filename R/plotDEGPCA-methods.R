@@ -1,3 +1,7 @@
+# TODO Show lfcThreshold info on the plot.
+
+
+
 #' @name plotDEGPCA
 #' @inherit basejump.generics::plotDEGPCA
 #' @inherit plotPCA
