@@ -101,8 +101,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Depends:
     R (>= 3.5),
-    SummarizedExperiment (>= 1.12),
-    DESeq2 (>= 1.22)
+    SummarizedExperiment (>= 1.10),
+    DESeq2 (>= 1.20)
 Imports:
     BiocGenerics,
     GenomicFeatures,
@@ -130,7 +130,7 @@ Imports:
     bcbioBase (>= 0.5),
     cowplot (>= 0.9),
     dplyr (>= 0.7),
-    edgeR (>= 3.24),
+    edgeR (>= 3.22),
     ggplot2 (>= 3.0),
     ggrepel (>= 0.8),
     grid,
@@ -146,7 +146,7 @@ Imports:
     stringr (>= 1.3),
     tibble (>= 1.4),
     tidyverse (>= 1.2),
-    tximport (>= 1.10),
+    tximport (>= 1.8),
     utils,
     vsn
 Suggests:
