@@ -8,11 +8,17 @@
 
 [R][] package for [bcbio][] RNA-seq analysis.
 
+## Workflow paper
+
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][workflow paper] *F1000Research* 6:1976.
+
+```r
+citation("bcbioRNASeq")
+```
+
 ## Installation
 
-This is an [R][] package.
-
-### [Bioconductor][]
+### [Bioconductor][] method
 
 We recommend installing the package with [BiocManager][].
 
@@ -20,17 +26,8 @@ We recommend installing the package with [BiocManager][].
 if (!require("BiocManager")) {
     install.packages("BiocManager")
 }
-BiocManager::install(
-    pkgs = c(
-        "devtools",
-        "remotes",
-        "GenomeInfoDbData"
-    )
-)
-BiocManager::install(
-    pkgs = "hbc/bcbioRNASeq",
-    dependencies = c("Depends", "Imports", "Suggests")
-)
+BiocManager::install("remotes")
+BiocManager::install("hbc/bcbioRNASeq")
 ```
 
 For [R][] < 3.5, [BiocManager][] is not supported. Use `BiocInstaller::biocLite()` instead of `BiocManager::install()`. This requires sourcing the legacy [Bioconductor][] `biocLite.R` script.
@@ -40,29 +37,22 @@ For [R][] < 3.5, [BiocManager][] is not supported. Use `BiocInstaller::biocLite(
 source("https://bioconductor.org/biocLite.R")
 ```
 
-#### Pinned [workflow paper][] version
-
-```r
-# v0.2.4
-BiocManager::install("hbc/bcbioRNASeq", ref = "v0.2.4")
-```
-
-### [conda][]
+### [conda][] method
 
 Configure [conda][] to use the [bioconda][] channels.
 
 ```bash
 conda config --add channels defaults
-conda config --add channels conda-forge
 conda config --add channels bioconda
+conda config --add channels conda-forge
 ```
 
 To avoid version issues, your `.condarc` file should only contain the following channels, in this order:
 
 ```
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
   - defaults
 ```
 
@@ -87,7 +77,7 @@ Note that there is currently a bug with [conda][] and `libgfortran`. You may nee
 conda install libgfortran-ng
 ```
 
-## Load [bcbio][] run
+## Load [bcbio][] RNA-seq data
 
 ```r
 library(bcbioRNASeq)
@@ -96,9 +86,7 @@ bcb <- bcbioRNASeq(
     interestingGroups = c("genotype", "treatment"),
     organism = "Homo sapiens"
 )
-# Back up all data inside bcbioRNASeq object
-flat <- flatFiles(bcb)
-saveData(bcb, flat)
+saveData(bcb, dir = ".")
 ```
 
 This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class. Consult the `bcbioRNASeq()` constructor function documentation for detailed information on the supported parameters:
@@ -133,14 +121,6 @@ These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` ->
 - [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
 - [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
 - [Functional Analysis](http://bcb.io/bcbio_rnaseq_output_example/fa-master.html)
-
-## Citation
-
-```r
-citation("bcbioRNASeq")
-```
-
-Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][workflow paper] *F1000Research* 6:1976.
 
 ## References
 

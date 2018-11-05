@@ -271,11 +271,11 @@ setMethod(
         if (level == "genes") {
             # DESeq2 normalized counts
             if (is(assays(rse)[["normalized"]], "DESeqDataSet")) {
-                assays(rse)[["normalized"]] <-
-                    assay(assays(rse)[["normalized"]])
-            } else if (!"normalized" %in% names(assays)) {
+                dds <- assays(rse)[["normalized"]]
+                assays(rse)[["normalized"]] <- counts(dds, normalized = TRUE)
+            } else if (!"normalized" %in% assayNames(rse)) {
                 dds <- .regenerateDESeqDataSet(rse)
-                assays(rse)[["normalized"]] <- assay(dds)
+                assays(rse)[["normalized"]] <- counts(dds, normalized = TRUE)
             }
 
             # vst
