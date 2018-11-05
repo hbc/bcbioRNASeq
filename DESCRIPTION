@@ -161,7 +161,7 @@ Suggests:
     testthat (>= 2.0),
     viridis
 Remotes:
-    hbc/bcbioBase@bioconductor
+    hbc/bcbioBase@bioconductor,
     steinbaugh/basejump@bioconductor,
     steinbaugh/basejump.annotations,
     steinbaugh/basejump.assertions,
