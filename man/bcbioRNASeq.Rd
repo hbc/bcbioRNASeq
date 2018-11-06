@@ -130,7 +130,7 @@ requires either a CSV or Excel spreadsheet.
 
 The samples in the bcbio run must map to the \code{description} column. The values
 provided in \code{description} must be unique. These values will be sanitized into
-syntactically valid names (see \link[basejump.sanitization:makeNames]{basejump.sanitization::makeNames} for more
+syntactically valid names (see \link[basejump:makeNames]{basejump::makeNames} for more
 information), and assigned as the column names of the \code{bcbioRNASeq} object.
 The original values are stored as the \code{sampleName} column in
 \code{\link[SummarizedExperiment:colData]{SummarizedExperiment::colData()}}, and are used for all plotting functions.

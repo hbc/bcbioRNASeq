@@ -52,6 +52,8 @@ palette globally, use
 \item{style}{\code{string}. Plot style.}
 }
 \value{
+\code{ggplot}.
+
 \itemize{
 \item \code{style = "facet"}: \code{ggplot} grouped by \code{sampleName}, with
 \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}} applied to panel the samples.

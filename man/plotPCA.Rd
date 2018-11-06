@@ -8,8 +8,8 @@
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL, ntop = 500L,
-  color = getOption("basejump.discrete.color", NULL),
-  label = getOption("basejump.label", FALSE), title = "PCA",
+  color = getOption("basejump.color", NULL),
+  label = getOption("basejump", FALSE), title = "PCA",
   subtitle = NULL, return = c("ggplot", "DataFrame"))
 }
 \arguments{

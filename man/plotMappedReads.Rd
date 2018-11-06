@@ -7,8 +7,8 @@
 \title{Plot Mapped Reads}
 \usage{
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups = NULL,
-  limit = 10000000L, fill = getOption("basejump.discrete.fill", NULL),
-  flip = getOption("basejump.flip", TRUE), title = "mapped reads")
+  limit = 10000000L, fill = getOption("basejump.fill", NULL),
+  flip = getOption("basejump", TRUE), title = "mapped reads")
 }
 \arguments{
 \item{object}{Object.}

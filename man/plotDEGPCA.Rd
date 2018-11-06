@@ -9,14 +9,14 @@
 \usage{
 \S4method{plotDEGPCA}{DESeqResults}(object, counts, direction = c("both",
   "up", "down"), interestingGroups = NULL,
-  color = getOption("basejump.discrete.color", NULL),
-  label = getOption("basejump.label", FALSE), return = c("ggplot",
+  color = getOption("basejump.color", NULL),
+  label = getOption("basejump", FALSE), return = c("ggplot",
   "DataFrame"))
 
 \S4method{plotDEGPCA}{DESeqAnalysis}(object, counts = NULL, results,
   direction = c("both", "up", "down"), interestingGroups = NULL,
-  color = getOption("basejump.discrete.color", NULL),
-  label = getOption("basejump.label", FALSE), return = c("ggplot",
+  color = getOption("basejump.color", NULL),
+  label = getOption("basejump", FALSE), return = c("ggplot",
   "DataFrame"))
 }
 \arguments{

@@ -10,17 +10,17 @@
 \usage{
 \S4method{plotMA}{DESeqResults}(object, genes = NULL,
   gene2symbol = NULL, ntop = 0L, direction = c("both", "up", "down"),
-  pointColor = getOption("basejump.point.color", "gray50"),
-  sigPointColor = getOption("basejump.sig.point.color", c(upregulated =
+  pointColor = getOption("basejump.color", "gray50"),
+  sigPointColor = getOption("basejump.point.color", c(upregulated =
   "purple", downregulated = "orange")), return = c("ggplot",
   "DataFrame"))
 
 \S4method{plotMA}{DESeqAnalysis}(object, results = 1L,
   lfcShrink = TRUE, genes = NULL, ntop = 0L, direction = c("both",
-  "up", "down"), pointColor = getOption("basejump.point.color",
-  "gray50"), sigPointColor = getOption("basejump.sig.point.color",
-  c(upregulated = "purple", downregulated = "orange")),
-  return = c("ggplot", "DataFrame"))
+  "up", "down"), pointColor = getOption("basejump.color", "gray50"),
+  sigPointColor = getOption("basejump.point.color", c(upregulated =
+  "purple", downregulated = "orange")), return = c("ggplot",
+  "DataFrame"))
 
 plotMeanAverage(...)
 }
@@ -34,8 +34,7 @@ to input the stable gene identifiers from Ensembl (e.g. "ENSG00000000003")
 and not the (HGNC) gene symbols (e.g. "TSPN6"), if possible.}
 
 \item{gene2symbol}{\code{Gene2Symbol}. Gene-to-symbol mappings. Must contain
-\code{geneID} and \code{geneName} columns. See \code{basejump.classes::Gene2Symbol()} for
-more information.}
+\code{geneID} and \code{geneName} columns. See \code{Gene2Symbol()} for more information.}
 
 \item{ntop}{\code{scalar integer}. Number of top genes to label.}
 

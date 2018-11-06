@@ -8,11 +8,11 @@
 \alias{plotMeanSD,DESeqAnalysis-method}
 \title{Plot Row Standard Deviations vs. Row Means}
 \usage{
-\S4method{plotMeanSD}{bcbioRNASeq}(object,
-  legend = getOption("basejump.legend", FALSE))
+\S4method{plotMeanSD}{bcbioRNASeq}(object, legend = getOption("basejump",
+  FALSE))
 
 \S4method{plotMeanSD}{DESeqDataSet}(object, vst = TRUE, rlog = FALSE,
-  legend = getOption("basejump.legend", FALSE))
+  legend = getOption("basejump", FALSE))
 
 \S4method{plotMeanSD}{DESeqAnalysis}(object)
 }
