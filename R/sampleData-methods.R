@@ -1,6 +1,6 @@
 #' @name sampleData
-#' @author Michael Steinbaugh
 #' @inherit basejump::sampleData
+#' @author Michael Steinbaugh
 #'
 #' @inheritParams params
 #' @param clean `boolean`. Only return `factor` columns not defined in

@@ -1,5 +1,3 @@
-globalVariables(".")
-
 packageVersion <- packageVersion("bcbioRNASeq")
 
 #' Cache URL
