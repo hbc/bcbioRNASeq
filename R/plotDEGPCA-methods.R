@@ -3,13 +3,13 @@
 
 
 #' @name plotDEGPCA
-#' @inherit basejump.generics::plotDEGPCA
+#' @inherit basejump::plotDEGPCA
 #' @inherit plotPCA
 #' @include plotPCA-methods.R
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #' @param counts `DESeqTransform`.
 #'
 #' @examples
@@ -27,10 +27,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotDEGPCA
+#' @importFrom basejump plotDEGPCA
 #' @aliases NULL
 #' @export
-basejump.generics::plotDEGPCA
+basejump::plotDEGPCA
 
 
 

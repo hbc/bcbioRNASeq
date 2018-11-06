@@ -1,9 +1,9 @@
 #' @name plotVolcano
-#' @inherit basejump.generics::plotVolcano
+#' @inherit basejump::plotVolcano
 #' @author Michael Steinbaugh, John Hutchinson, Lorena Pantano
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #' @param ylim `scalar numeric`. Upper boundary limit for y-axis. Helps preserve
 #'   dynamic range for gene sets containing highly significant P values (e.g.
 #'   `1e-100`).
@@ -62,10 +62,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotVolcano
+#' @importFrom basejump plotVolcano
 #' @aliases NULL
 #' @export
-basejump.generics::plotVolcano
+basejump::plotVolcano
 
 
 
@@ -78,9 +78,9 @@ plotVolcano.DESeqResults <-  # nolint
         gene2symbol = NULL,
         ntop = 0L,
         direction = c("both", "up", "down"),
-        pointColor = getOption("basejump.point.color", "gray50"),
+        pointColor = getOption("basejump.color", "gray50"),
         sigPointColor = getOption(
-            "basejump.sig.point.color",
+            "basejump.point.color",
             c(
                 upregulated = "purple",
                 downregulated = "orange"

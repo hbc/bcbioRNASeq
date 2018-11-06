@@ -11,7 +11,7 @@
 #' method support for plotting dispersion, provided by the DESeq2 package.
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #' @param object Object.
 #'
 #' @seealso [DESeq2::plotDispEsts()].

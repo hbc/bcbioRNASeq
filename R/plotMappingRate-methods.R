@@ -1,9 +1,9 @@
 #' @name plotMappingRate
-#' @inherit basejump.generics::plotMappingRate
+#' @inherit basejump::plotMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #'
 #' @examples
 #' data(bcb)
@@ -12,10 +12,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotMappingRate
+#' @importFrom basejump plotMappingRate
 #' @aliases NULL
 #' @export
-basejump.generics::plotMappingRate
+basejump::plotMappingRate
 
 
 
@@ -25,8 +25,8 @@ plotMappingRate.bcbioRNASeq <-  # nolint
         object,
         interestingGroups = NULL,
         limit = 0.7,
-        fill = getOption("basejump.discrete.fill", NULL),
-        flip = getOption("basejump.flip", TRUE),
+        fill = getOption("basejump.fill", NULL),
+        flip = getOption("basejump", TRUE),
         title = "mapping rate"
     ) {
         validObject(object)

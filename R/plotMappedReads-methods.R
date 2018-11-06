@@ -1,9 +1,9 @@
 #' @name plotMappedReads
-#' @inherit basejump.generics::plotMappedReads
+#' @inherit basejump::plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #'
 #' @seealso [plotMappingRate()].
 #'
@@ -14,10 +14,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotMappedReads
+#' @importFrom basejump plotMappedReads
 #' @aliases NULL
 #' @export
-basejump.generics::plotMappedReads
+basejump::plotMappedReads
 
 
 
@@ -27,8 +27,8 @@ plotMappedReads.bcbioRNASeq <-  # nolint
         object,
         interestingGroups = NULL,
         limit = 10e6L,
-        fill = getOption("basejump.discrete.fill", NULL),
-        flip = getOption("basejump.flip", TRUE),
+        fill = getOption("basejump.fill", NULL),
+        flip = getOption("basejump", TRUE),
         title = "mapped reads"
     ) {
         validObject(object)

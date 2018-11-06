@@ -1,5 +1,5 @@
 #' @name plotMeanSD
-#' @inherit basejump.generics::plotMeanSD
+#' @inherit basejump::plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @details
@@ -11,7 +11,7 @@
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #' @inheritParams bcbioRNASeq
 #'
 #' @seealso
@@ -33,10 +33,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotMeanSD
+#' @importFrom basejump plotMeanSD
 #' @aliases NULL
 #' @export
-basejump.generics::plotMeanSD
+basejump::plotMeanSD
 
 
 
@@ -139,7 +139,7 @@ basejump.generics::plotMeanSD
 plotMeanSD.bcbioRNASeq <-  # nolint
     function(
         object,
-        legend = getOption("basejump.legend", FALSE)
+        legend = getOption("basejump", FALSE)
     ) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
@@ -168,7 +168,7 @@ plotMeanSD.DESeqDataSet <-  # nolint
         object,
         vst = TRUE,
         rlog = FALSE,
-        legend = getOption("basejump.legend", FALSE)
+        legend = getOption("basejump", FALSE)
     ) {
         validObject(object)
         assert_is_a_bool(vst)

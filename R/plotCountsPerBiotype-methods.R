@@ -1,9 +1,9 @@
 #' @name plotCountsPerBiotype
-#' @inherit basejump.plots::plotCountsPerBiotype
+#' @inherit basejump::plotCountsPerBiotype
 #' @author Michael Steinbaugh, Rory Kirchner
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #'
 #' @examples
 #' data(bcb)
@@ -12,15 +12,15 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotCountsPerBiotype
+#' @importFrom basejump plotCountsPerBiotype
 #' @aliases NULL
 #' @export
-basejump.generics::plotCountsPerBiotype
+basejump::plotCountsPerBiotype
 
-#' @importFrom basejump.generics plotCountsPerBroadClass
+#' @importFrom basejump plotCountsPerBroadClass
 #' @aliases NULL
 #' @export
-basejump.generics::plotCountsPerBroadClass
+basejump::plotCountsPerBroadClass
 
 
 
@@ -62,7 +62,7 @@ f1 <- formals(plotCountsPerBiotype.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCountsPerBiotype",
     signature = "SummarizedExperiment",
-    package = "basejump.plots"
+    package = "basejump"
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
@@ -120,7 +120,7 @@ f1 <- formals(plotCountsPerBroadClass.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCountsPerBroadClass",
     signature = "SummarizedExperiment",
-    package = "basejump.plots"
+    package = "basejump"
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)

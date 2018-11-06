@@ -1,6 +1,6 @@
 #' @name sampleData
 #' @author Michael Steinbaugh
-#' @inherit basejump.generics::sampleData
+#' @inherit basejump::sampleData
 #'
 #' @inheritParams params
 #' @param clean `boolean`. Only return `factor` columns not defined in
@@ -23,10 +23,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics sampleData
+#' @importFrom basejump sampleData
 #' @aliases NULL
 #' @export
-basejump.generics::sampleData
+basejump::sampleData
 
 
 

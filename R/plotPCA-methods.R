@@ -17,7 +17,7 @@
 #' a way to look at how samples are clustering.
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #' @param ntop `scalar integer` or `Inf`. Number of most variable genes to plot.
 #'   Use `Inf` to include all genes (*not recommended*).
 #'
@@ -51,8 +51,8 @@ plotPCA.SummarizedExperiment <-  # nolint
         object,
         interestingGroups = NULL,
         ntop = 500L,
-        color = getOption("basejump.discrete.color", NULL),
-        label = getOption("basejump.label", FALSE),
+        color = getOption("basejump.color", NULL),
+        label = getOption("basejump", FALSE),
         title = "PCA",
         subtitle = NULL,
         return = c("ggplot", "DataFrame")

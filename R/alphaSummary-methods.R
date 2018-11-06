@@ -1,5 +1,5 @@
 #' @name alphaSummary
-#' @inherit basejump.generics::alphaSummary
+#' @inherit basejump::alphaSummary
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @details
@@ -27,10 +27,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics alphaSummary
+#' @importFrom basejump alphaSummary
 #' @aliases NULL
 #' @export
-basejump.generics::alphaSummary
+basejump::alphaSummary
 
 
 

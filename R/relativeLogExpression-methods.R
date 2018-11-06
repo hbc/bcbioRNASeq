@@ -1,9 +1,9 @@
-# TODO Consider moving this to basejump.experiment.
+# TODO Consider moving this to basejump.
 
 
 
 #' @name relativeLogExpression
-#' @inherit basejump.generics::relativeLogExpression
+#' @inherit basejump::relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
 #'
 #' @inheritParams params
@@ -15,10 +15,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics relativeLogExpression
+#' @importFrom basejump relativeLogExpression
 #' @aliases NULL
 #' @export
-basejump.generics::relativeLogExpression
+basejump::relativeLogExpression
 
 
 

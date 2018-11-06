@@ -1,9 +1,9 @@
 #' @name plotCorrelationHeatmap
-#' @inherit basejump.plots::plotHeatmap
+#' @inherit basejump::plotHeatmap
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #'
 #' @examples
 #' data(bcb)
@@ -13,10 +13,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotCorrelationHeatmap
+#' @importFrom basejump plotCorrelationHeatmap
 #' @aliases NULL
 #' @export
-basejump.generics::plotCorrelationHeatmap
+basejump::plotCorrelationHeatmap
 
 
 
@@ -43,7 +43,7 @@ f1 <- formals(plotCorrelationHeatmap.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCorrelationHeatmap",
     signature = "SummarizedExperiment",
-    package = "basejump.plots"
+    package = "basejump"
 )
 f <- c(f1, f2[setdiff(names(f2), c(names(f1), "assay"))])
 f[["normalized"]] <- normalizedCounts

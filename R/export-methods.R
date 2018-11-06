@@ -6,7 +6,7 @@
 
 
 #' @name export
-#' @inherit basejump.io::export
+#' @inherit basejump::export
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams bcbioBase::copyToDropbox
@@ -58,10 +58,10 @@ NULL
 
 
 
-#' @importFrom basejump.io export
+#' @importFrom basejump export
 #' @aliases NULL
 #' @export
-basejump.io::export
+basejump::export
 
 
 

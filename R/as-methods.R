@@ -11,7 +11,7 @@
 #' 1. Coerces to `RangedSummarizedExperiment`.
 #' 2. Rounds raw counts to `integer matrix`.
 #' 3. Subsets [SummarizedExperiment::colData()] to include only clean factor
-#'    columns. See [basejump.experiment::sampleData()] for more details.
+#'    columns. See [basejump::sampleData()] for more details.
 #' 4. Simplifies [S4Vectors::metadata()] to include only relevant information
 #'    and updates `sessionInfo`.
 #'

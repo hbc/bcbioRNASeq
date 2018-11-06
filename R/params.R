@@ -1,5 +1,5 @@
 #' @name params
-#' @inherit basejump.globals::params
+#' @inherit basejump::params
 #' @keywords internal
 #' @param lfcShrink `boolean`. Use shrunken log2 fold change (LFC) values.
 #' @param normalized `string`. Which normalization method to apply:

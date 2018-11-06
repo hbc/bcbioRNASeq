@@ -12,7 +12,7 @@ bcbioRNASeqCacheURL <- paste0(
     "v", packageVersion$major, ".", packageVersion$minor  # nolint
 )
 
-lanePattern <- basejump.globals::lanePattern
+lanePattern <- basejump::lanePattern
 
 metadataBlacklist <- bcbioBase::metadataBlacklist
 projectDirPattern <- bcbioBase::projectDirPattern

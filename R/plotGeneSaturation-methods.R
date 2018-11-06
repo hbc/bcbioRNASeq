@@ -1,9 +1,9 @@
 #' @name plotGeneSaturation
-#' @inherit basejump.generics::plotGeneSaturation
+#' @inherit basejump::plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #' @param trendline `boolean`. Include a trendline for each group.
 #'
 #' @examples
@@ -14,10 +14,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotGeneSaturation
+#' @importFrom basejump plotGeneSaturation
 #' @aliases NULL
 #' @export
-basejump.generics::plotGeneSaturation
+basejump::plotGeneSaturation
 
 
 
@@ -29,8 +29,8 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         minCounts = 1L,
         perMillion = TRUE,
         trendline = FALSE,
-        label = getOption("basejump.label", FALSE),
-        color = getOption("basejump.discrete.color", NULL),
+        label = getOption("basejump", FALSE),
+        color = getOption("basejump.color", NULL),
         title = "gene saturation"
     ) {
         validObject(object)

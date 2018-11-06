@@ -1,9 +1,9 @@
 #' @name plot5Prime3PrimeBias
-#' @inherit basejump.generics::plot5Prime3PrimeBias
+#' @inherit basejump::plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #'
 #' @examples
 #' data(bcb)
@@ -12,10 +12,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plot5Prime3PrimeBias
+#' @importFrom basejump plot5Prime3PrimeBias
 #' @aliases NULL
 #' @export
-basejump.generics::plot5Prime3PrimeBias
+basejump::plot5Prime3PrimeBias
 
 
 
@@ -25,8 +25,8 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         object,
         interestingGroups = NULL,
         limit = 0L,
-        fill = getOption("basejump.discrete.fill", NULL),
-        flip = getOption("basejump.flip", TRUE),
+        fill = getOption("basejump.fill", NULL),
+        flip = getOption("basejump", TRUE),
         title = "5'->3' bias"
     ) {
         validObject(object)

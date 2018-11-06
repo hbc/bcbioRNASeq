@@ -1,9 +1,9 @@
 #' @name plotTotalReads
-#' @inherit basejump.generics::plotTotalReads
+#' @inherit basejump::plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #'
 #' @examples
 #' data(bcb)
@@ -12,10 +12,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotTotalReads
+#' @importFrom basejump plotTotalReads
 #' @aliases NULL
 #' @export
-basejump.generics::plotTotalReads
+basejump::plotTotalReads
 
 
 
@@ -26,8 +26,8 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         interestingGroups = NULL,
         limit = 10e6L,
         perMillion = TRUE,
-        fill = getOption("basejump.discrete.fill", NULL),
-        flip = getOption("basejump.flip", TRUE),
+        fill = getOption("basejump.fill", NULL),
+        flip = getOption("basejump", TRUE),
         title = "total reads"
     ) {
         validObject(object)

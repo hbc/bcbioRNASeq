@@ -1,5 +1,5 @@
 #' @name contrastName
-#' @inherit basejump.generics::contrastName
+#' @inherit basejump::contrastName
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
@@ -17,10 +17,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics contrastName
+#' @importFrom basejump contrastName
 #' @aliases NULL
 #' @export
-basejump.generics::contrastName
+basejump::contrastName
 
 
 

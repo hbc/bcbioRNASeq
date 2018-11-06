@@ -1,9 +1,9 @@
-# TODO Move these methods to basejump.experiment.
+# TODO Move these methods to basejump.
 
 
 
 #' @name tmm
-#' @inherit basejump.generics::tmm
+#' @inherit basejump::tmm
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
@@ -16,10 +16,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics tmm
+#' @importFrom basejump tmm
 #' @aliases NULL
 #' @export
-basejump.generics::tmm
+basejump::tmm
 
 
 

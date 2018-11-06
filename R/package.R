@@ -94,17 +94,17 @@
 
 
 
-#' @importFrom basejump.classes Gene2Symbol
+#' @importFrom basejump Gene2Symbol
 #' @export
-basejump.classes::Gene2Symbol
+basejump::Gene2Symbol
 
-#' @importFrom basejump.experiment sampleData
+#' @importFrom basejump sampleData
 #' @export
-basejump.experiment::sampleData
+basejump::sampleData
 
-#' @importFrom basejump.experiment sampleData<-
+#' @importFrom basejump sampleData<-
 #' @export
-basejump.experiment::`sampleData<-`
+basejump::`sampleData<-`
 
 #' @importFrom magrittr %>%
 #' @export

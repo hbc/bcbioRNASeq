@@ -1,9 +1,9 @@
 #' @name markdown
-#' @inherit basejump.generics::markdown
+#' @inherit basejump::markdown
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #'
 #' @examples
 #' data(deseq)
@@ -13,10 +13,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics markdown
+#' @importFrom basejump markdown
 #' @aliases NULL
 #' @export
-basejump.generics::markdown
+basejump::markdown
 
 
 

@@ -1,5 +1,5 @@
 #' @name plotQC
-#' @inherit basejump.generics::plotQC
+#' @inherit basejump::plotQC
 #' @author Michael Steinbaugh
 #'
 #' @examples
@@ -9,10 +9,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotQC
+#' @importFrom basejump plotQC
 #' @aliases NULL
 #' @export
-basejump.generics::plotQC
+basejump::plotQC
 
 
 

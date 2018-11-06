@@ -1,7 +1,7 @@
 #' @name DESeqResultsTables
 #' @inherit DESeqResultsTables-class
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #' @author Michael Steinbaugh
 #'
 #' @section Obtaining results from DESeq2:

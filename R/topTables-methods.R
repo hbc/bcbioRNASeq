@@ -1,5 +1,5 @@
 #' @name topTables
-#' @inherit basejump.generics::topTables
+#' @inherit basejump::topTables
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
@@ -12,10 +12,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics topTables
+#' @importFrom basejump topTables
 #' @aliases NULL
 #' @export
-basejump.generics::topTables
+basejump::topTables
 
 
 

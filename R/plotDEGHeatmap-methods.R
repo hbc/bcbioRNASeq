@@ -6,11 +6,11 @@
 
 
 #' @name plotDEGHeatmap
-#' @inherit basejump.plots::plotHeatmap
+#' @inherit basejump::plotHeatmap
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #' @param counts `DESeqTransform`.
 #'
 #' @examples
@@ -28,10 +28,10 @@ NULL
 
 
 
-#' @importFrom basejump.generics plotDEGHeatmap
+#' @importFrom basejump plotDEGHeatmap
 #' @aliases NULL
 #' @export
-basejump.generics::plotDEGHeatmap
+basejump::plotDEGHeatmap
 
 
 
@@ -116,7 +116,7 @@ f1 <- formals(plotDEGHeatmap.DESeqResults)
 f2 <- methodFormals(
     f = "plotHeatmap",
     signature = "SummarizedExperiment",
-    package = "basejump.plots"
+    package = "basejump"
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "object", "assay"))]
 f <- c(f1, f2)

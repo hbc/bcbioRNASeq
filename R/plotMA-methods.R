@@ -18,7 +18,7 @@
 #' @note We are not allowing post hoc `alpha` or `lfcThreshold` cutoffs here.
 #'
 #' @inheritParams params
-#' @inheritParams basejump.globals::params
+#' @inheritParams basejump::params
 #'
 #' @return `ggplot`.
 #'
@@ -82,9 +82,9 @@ plotMA.DESeqResults <-  # nolint
         gene2symbol = NULL,
         ntop = 0L,
         direction = c("both", "up", "down"),
-        pointColor = getOption("basejump.point.color", "gray50"),
+        pointColor = getOption("basejump.color", "gray50"),
         sigPointColor = getOption(
-            "basejump.sig.point.color",
+            "basejump.point.color",
             c(
                 upregulated = "purple",
                 downregulated = "orange"
