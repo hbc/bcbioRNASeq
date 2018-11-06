@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.3.0
-Date: 2018-11-04
+Date: 2018-11-06
 Authors@R: c(
     person(
         given = "Michael",
@@ -102,6 +102,7 @@ Encoding: UTF-8
 Depends:
     R (>= 3.5),
     SummarizedExperiment (>= 1.10),
+    basejump (>= 0.8),
     DESeq2 (>= 1.20)
 Imports:
     BiocGenerics,
@@ -115,18 +116,6 @@ Imports:
     assertive.strings,
     assertive.types,
     assertthat,
-    basejump.annotations (>= 0.8),
-    basejump.assertions (>= 0.8),
-    basejump.classes (>= 0.8),
-    basejump.coercion (>= 0.8),
-    basejump.developer (>= 0.8),
-    basejump.experiment (>= 0.8),
-    basejump.generics (>= 0.8),
-    basejump.globals (>= 0.8),
-    basejump.io (>= 0.8),
-    basejump.markdown (>= 0.8),
-    basejump.plots (>= 0.8),
-    basejump.sanitization (>= 0.8),
     bcbioBase (>= 0.5),
     cowplot (>= 0.9),
     dplyr (>= 0.7),
@@ -152,7 +141,6 @@ Imports:
 Suggests:
     BiocStyle,
     EnsDb.Hsapiens.v75,
-    basejump  (>= 0.8),
     fgsea,
     hexbin,
     patrick,
@@ -161,20 +149,8 @@ Suggests:
     testthat (>= 2.0),
     viridis
 Remotes:
-    hbc/bcbioBase@bioconductor,
-    steinbaugh/basejump@bioconductor,
-    steinbaugh/basejump.annotations,
-    steinbaugh/basejump.assertions,
-    steinbaugh/basejump.classes,
-    steinbaugh/basejump.coercion,
-    steinbaugh/basejump.developer,
-    steinbaugh/basejump.experiment,
-    steinbaugh/basejump.generics,
-    steinbaugh/basejump.globals,
-    steinbaugh/basejump.io,
-    steinbaugh/basejump.markdown,
-    steinbaugh/basejump.plots,
-    steinbaugh/basejump.sanitization
+    hbc/bcbioBase@develop,
+    steinbaugh/basejump@develop
 biocViews:
     DataImport,
     DataRepresentation,

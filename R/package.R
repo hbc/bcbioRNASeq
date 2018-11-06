@@ -9,9 +9,9 @@
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
-#' @importClassesFrom basejump.classes Tx2Gene
+#' @importClassesFrom basejump Tx2Gene
 #'
-#' @importMethodsFrom basejump.coercion coerce
+#' @importMethodsFrom basejump coerce
 #'
 #' @importFrom assertive.base assert_all_are_true assert_are_identical
 #' @importFrom assertive.files assert_all_are_dirs assert_all_are_existing_files
@@ -32,30 +32,22 @@
 #'   assert_is_integer assert_is_list assert_is_matrix assert_is_numeric
 #'   assert_is_tbl_df is_a_string
 #' @importFrom assertthat assert_that validate_that
-#' @importFrom basejump.annotations emptyRanges makeGRangesFromEnsembl
-#'   makeGRangesFromGFF
-#' @importFrom basejump.assertions assertAllAreValidNames
+#' @importFrom basejump Gene2Symbol Tx2Gene assertAllAreValidNames
 #'   assertAreGeneAnnotations assertFormalGene2Symbol assertHasRownames
 #'   assertHasValidDimnames assertIsAlpha assertIsAStringOrNULL
 #'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsHeaderLevel assertIsHexColorFunctionOrNULL assertIsImplicitInteger
-#'   hasRownames
-#' @importFrom basejump.classes Gene2Symbol Tx2Gene
-#' @importFrom basejump.coercion coerceS4ToList
-#' @importFrom basejump.developer checkClasses matchArgsToDoCall methodFormals
-#'   printString separator showSlotInfo standardizeCall
-#' @importFrom basejump.experiment convertGenesToSymbols detectLanes
-#'   detectOrganism interestingGroups interestingGroups<-
-#'   makeSummarizedExperiment mapGenesToRownames matchInterestingGroups
-#'   meltCounts metrics organism sampleData sampleData<- uniteInterestingGroups
-#' @importFrom basejump.io import initDir realpath
-#' @importFrom basejump.markdown markdownHeader markdownList markdownPlotlist
-#'   prepareTemplate
-#' @importFrom basejump.plots basejump_geom_abline basejump_geom_label
-#'   basejump_geom_label_repel plotGenesDetected plotHeatmap
-#' @importFrom basejump.sanitization camel makeNames removeNA sanitizeRowData
-#'   sanitizeSampleData snake stripTranscriptVersions
+#'   basejump_geom_abline basejump_geom_label basejump_geom_label_repel camel
+#'   checkClasses coerceS4ToList convertGenesToSymbols detectLanes
+#'   detectOrganism emptyRanges hasRownames import initDir interestingGroups
+#'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
+#'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
+#'   methodFormals metrics organism plotGenesDetected plotHeatmap
+#'   prepareTemplate printString realpath removeNA sampleData sampleData<-
+#'   sanitizeRowData sanitizeSampleData separator showSlotInfo snake
+#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
 #'   readSampleData readTx2Gene runDate sampleDirs
