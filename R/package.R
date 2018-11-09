@@ -32,7 +32,7 @@
 #'   assert_is_integer assert_is_list assert_is_matrix assert_is_numeric
 #'   assert_is_tbl_df is_a_string
 #' @importFrom assertthat assert_that validate_that
-#' @importFrom basejump Gene2Symbol Tx2Gene assertAllAreValidNames
+#' @importFrom basejump Gene2Symbol Tx2Gene assertAreValidNames
 #'   assertAreGeneAnnotations assertFormalGene2Symbol assertHasRownames
 #'   assertHasValidDimnames assertIsAlpha assertIsAStringOrNULL
 #'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL

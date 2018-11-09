@@ -329,7 +329,7 @@ bcbioRNASeq <- function(
     # Require at least 2 samples.
     assert_that(length(samples) >= 2L)
     assert_is_subset(samples, names(sampleDirs))
-    assertAllAreValidNames(samples)
+    assertAreValidNames(samples)
     if (length(samples) < length(sampleDirs)) {
         message(paste(
             "Loading a subset of samples:",
