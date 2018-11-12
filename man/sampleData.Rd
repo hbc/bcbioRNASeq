@@ -9,7 +9,7 @@
 \S4method{sampleData}{bcbioRNASeq}(object, clean = FALSE)
 }
 \arguments{
-\item{object}{Object.}
+\item{object}{Object that inherits from \code{SummarizedExperiment} class.}
 
 \item{clean}{\code{boolean}. Only return \code{factor} columns not defined in
 \link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}. This removes metrics columns used for

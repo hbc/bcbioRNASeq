@@ -13,6 +13,16 @@
 #'
 #' @importMethodsFrom basejump coerce
 #'
+#' @importFrom BiocGenerics cbind colSums density design lapply sapply width
+#' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
+#'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
+#'   estimateSizeFactors fpkm priorInfo results resultsNames rlog
+#'   varianceStabilizingTransformation
+#' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
+#' @importFrom S4Vectors as.data.frame complete.cases DataFrame head mcols
+#'   mcols<- metadata metadata<- na.omit
+#' @importFrom SummarizedExperiment assay assay<- assayNames assayNames<- assays
+#'   assays<- colData colData<- rowData rowRanges SummarizedExperiment
 #' @importFrom assertive.base assert_all_are_true assert_are_identical
 #' @importFrom assertive.files assert_all_are_dirs assert_all_are_existing_files
 #' @importFrom assertive.numbers assert_all_are_greater_than
@@ -32,15 +42,10 @@
 #'   assert_is_integer assert_is_list assert_is_matrix assert_is_numeric
 #'   assert_is_tbl_df is_a_string
 #' @importFrom assertthat assert_that validate_that
-#' @importFrom basejump Gene2Symbol Tx2Gene assertAreValidNames
-#'   assertAreGeneAnnotations assertFormalGene2Symbol assertHasRownames
-#'   assertHasValidDimnames assertIsAlpha assertIsAStringOrNULL
-#'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
-#'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
-#'   assertIsHeaderLevel assertIsHexColorFunctionOrNULL assertIsImplicitInteger
+#' @importFrom basejump Gene2Symbol Tx2Gene assertFormalGene2Symbol
 #'   basejump_geom_abline basejump_geom_label basejump_geom_label_repel camel
 #'   checkClasses coerceS4ToList convertGenesToSymbols detectLanes
-#'   detectOrganism emptyRanges hasRownames import initDir interestingGroups
+#'   detectOrganism emptyRanges import initDir interestingGroups
 #'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
@@ -51,17 +56,11 @@
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
 #'   readSampleData readTx2Gene runDate sampleDirs
-#' @importFrom BiocGenerics cbind colSums density design lapply sapply width
 #' @importFrom cowplot draw_plot ggdraw plot_grid
-#' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
-#'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
-#'   estimateSizeFactors fpkm priorInfo results resultsNames rlog
-#'   varianceStabilizingTransformation
 #' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
 #'   mutate mutate_all mutate_if pull rename row_number select select_if
 #'   starts_with
 #' @importFrom edgeR calcNormFactors cpm DGEList
-#' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
 #'   element_blank element_text expand_limits facet_wrap geom_bar geom_boxplot
 #'   geom_density geom_hline geom_jitter geom_point geom_polygon geom_ribbon
@@ -69,6 +68,12 @@
 #'   position_jitterdodge scale_color_manual scale_x_continuous
 #'   scale_y_continuous stat_summary theme xlab ylim
 #' @importFrom ggrepel geom_label_repel geom_text_repel
+#' @importFrom goalie assertAreValidNames assertHasRownames
+#'   assertHasValidDimnames assertIsAlpha assertIsAStringOrNULL
+#'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
+#'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
+#'   assertIsHeaderLevel assertIsHexColorFunctionOrNULL assertIsImplicitInteger
+#'   hasRownames
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
@@ -77,14 +82,9 @@
 #'   validObject
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom rlang := !! !!! has_length sym syms UQ
-#' @importFrom S4Vectors as.data.frame complete.cases DataFrame head mcols
-#'   mcols<- metadata metadata<- na.omit
 #' @importFrom scales pretty_breaks
 #' @importFrom sessioninfo session_info
 #' @importFrom stringr str_match str_trunc
-#' @importFrom SummarizedExperiment assay assay<- assayNames assayNames<- assays
-#'   assays<- colData colData<- rowData rowRanges
-#'   SummarizedExperiment
 #' @importFrom tibble as_tibble column_to_rownames remove_rownames
 #'   rownames_to_column tibble
 #' @importFrom tximport tximport
@@ -94,10 +94,22 @@
 
 
 
-#' @importFrom magrittr %>%
-#' @export
-magrittr::`%>%`
+#' @name params
+#' @inherit basejump::params
+#' @keywords internal
+#' @param lfcShrink `boolean`. Use shrunken log2 fold change (LFC) values.
+#' @param normalized `string`. Which normalization method to apply:
+#'   - "`tpm`": Transcripts per million (tximport).
+#'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+#'   - "`rlog`": DESeq2 **log2** regularized log transformation.
+#'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
+#' @param results `scalar`. Position or name of `DESeqResults`.
+NULL
 
 
 
 globalVariables(".")
+
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
