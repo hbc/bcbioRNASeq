@@ -243,7 +243,7 @@ plotMA.DESeqResults <-  # nolint
         if (!is.null(genes)) {
             validObject(gene2symbol)
             assertFormalGene2Symbol(
-                object = object,
+                x = object,
                 genes = genes,
                 gene2symbol = gene2symbol
             )
