@@ -129,6 +129,7 @@ setMethod(
         rowRanges <- rowRanges(rse)
         if (nrow(rse) < nrow(x)) {
             # Ensure factors get releveled.
+            # TODO Consider making this a function in basejump.
             mcols <- mcols(rowRanges)
             mcols <- DataFrame(lapply(
                 X = mcols,
