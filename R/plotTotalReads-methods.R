@@ -41,7 +41,7 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         assert_is_a_bool(perMillion)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
+        assertIsStringOrNULL(title)
 
         data <- metrics(object)
 

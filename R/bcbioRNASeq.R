@@ -231,13 +231,13 @@ bcbioRNASeq <- function(
     }
     assert_is_any_of(samples, c("character", "NULL"))
     assert_is_any_of(censorSamples, c("character", "NULL"))
-    assertIsAStringOrNULL(sampleMetadataFile)
-    assertIsAStringOrNULL(organism)
+    assertIsStringOrNULL(sampleMetadataFile)
+    assertIsStringOrNULL(organism)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
-    assertIsAStringOrNULL(genomeBuild)
+    assertIsStringOrNULL(genomeBuild)
     assert_is_any_of(transgeneNames, c("character", "NULL"))
     assert_is_any_of(spikeNames, c("character", "NULL"))
-    assertIsAStringOrNULL(gffFile)
+    assertIsStringOrNULL(gffFile)
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)
     }

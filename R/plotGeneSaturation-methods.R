@@ -45,7 +45,7 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         assert_is_a_bool(trendline)
         assert_is_a_bool(label)
         assertIsColorScaleDiscreteOrNULL(color)
-        assertIsAStringOrNULL(title)
+        assertIsStringOrNULL(title)
 
         counts <- counts(object, normalized = FALSE)
         data <- metrics(object)

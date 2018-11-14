@@ -87,7 +87,7 @@ plotPCA.SummarizedExperiment <-  # nolint
         assert_is_a_number(ntop)
         assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(label)
-        assertIsAStringOrNULL(title)
+        assertIsStringOrNULL(title)
         # `exists()` check here is needed for legacy `returnData` match above.
         if (!exists(return, inherits = FALSE)) {
             return <- match.arg(return)

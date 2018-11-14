@@ -39,7 +39,7 @@ plotIntronicMappingRate.bcbioRNASeq <-  # nolint
         assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
+        assertIsStringOrNULL(title)
 
         p <- ggplot(
             data = metrics(object),

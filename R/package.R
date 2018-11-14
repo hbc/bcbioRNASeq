@@ -69,7 +69,7 @@
 #'   scale_y_continuous stat_summary theme xlab ylim
 #' @importFrom ggrepel geom_label_repel geom_text_repel
 #' @importFrom goalie assertAreValidNames assertHasRownames
-#'   assertHasValidDimnames assertIsAlpha assertIsAStringOrNULL
+#'   assertHasValidDimnames assertIsAlpha assertIsStringOrNULL
 #'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsHeaderLevel assertIsHexColorFunctionOrNULL assertIsImplicitInteger

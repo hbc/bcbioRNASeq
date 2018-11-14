@@ -45,7 +45,7 @@ alphaSummary.DESeqDataSet <-  # nolint
         validObject(object)
         assert_is_numeric(alpha)
         assert_is_any_of(contrast, c("character", "NULL"))
-        assertIsAStringOrNULL(name)
+        assertIsStringOrNULL(name)
 
         # Either `contrast` or `name`.
         # If neither are defined, we're checking the intercept.
