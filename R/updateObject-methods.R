@@ -1,13 +1,3 @@
-# TODO Add FPKM calculation if not defined.
-# TODO Consider a utility that we can use in `[` and `updateObject`.
-# TODO Coerce, remove, rename slot (add to basejump).
-# .updateMetadata <- function(metadata) {
-#     metadata[["template"]] <- NULL
-#     metadata
-# }
-
-
-
 #' @name updateObject
 #' @inherit BiocGenerics::updateObject
 #' @author Michael Steinbaugh
@@ -339,9 +329,30 @@ updateObject.bcbioRNASeq <-  # nolint
         }
         assert_is_all_of(rowRanges, "GRanges")
 
+        # Use run-length encoding (Rle) for metadata columns.
+        # Recommended method as of v0.3.0 update.
+        mcols <- mcols(rowRanges)
+        if (any(vapply(
+            X = mcols,
+            FUN = is.atomic,
+            FUN.VALUE = logical(1L)
+        ))) {
+            message("Applying run-length encoding to rowRanges mcols.")
+            mcols(rowRanges) <- DataFrame(lapply(
+                X = mcols,
+                FUN = function(x) {
+                    if (is.atomic(x)) {
+                        Rle(x)
+                    } else {
+                        I(x)
+                    }
+                }
+            ))
+        }
+
         # rowRangesMetadata
         if ("rowRangesMetadata" %in% names(metadata)) {
-            message("Moving rowRangesMetadata into rowRanges().")
+            message("Moving rowRangesMetadata into rowRanges metadata slot.")
             metadata(rowRanges)[["ensembldb"]] <-
                 metadata[["rowRangesMetadata"]]
             metadata[["rowRangesMetadata"]] <- NULL

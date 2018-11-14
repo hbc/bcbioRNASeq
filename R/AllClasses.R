@@ -4,6 +4,17 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 
 
+.valid <- function(list) {
+    invalid <- Filter(f = Negate(isTRUE), x = list)
+    if (has_length(invalid)) {
+        unlist(invalid)
+    } else {
+        TRUE
+    }
+}
+
+
+
 # bcbioRNASeq ==================================================================
 #' bcbio RNA-Seq Data Set
 #'
@@ -29,31 +40,40 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #'
 #' @seealso [bcbioRNASeq()].
 setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
-
 setValidity(
     Class = "bcbioRNASeq",
     method = function(object) {
-        # Return invalid for all objects older than v0.2.
-        assert_that(metadata(object)[["version"]] >= 0.2)
-
-        assert_is_all_of(object, "RangedSummarizedExperiment")
-        assert_has_dimnames(object)
-
-        # Metadata -------------------------------------------------------------
-        # Require the user to update to Bioconductor version.
+        valid <- list()
         metadata <- metadata(object)
 
-        # Detect legacy metrics.
-        if (is.data.frame(metadata[["metrics"]])) {
-            stop(paste(
-                "`metrics` saved in `metadata()` instead of `colData()`."
-            ))
-        }
+        # Return invalid for all objects older than v0.2.
+        version <- metadata[["version"]]
+        valid[["version"]] <- validate_that(
+            is(version, "package_version"),
+            version >= 0.2
+        )
+
+        valid[["rse"]] <- validate_that(
+            is(object, "RangedSummarizedExperiment")
+        )
+
+        valid[["dimnames"]] <- validate_that(
+            has_dimnames(object)
+        )
+
+        # Metadata -------------------------------------------------------------
+        # Check for legacy metrics.
+        valid[["metrics"]] <- validate_that(
+            !is.data.frame(metadata[["metrics"]]),
+            msg = "`metrics` saved in `metadata()` instead of `colData()`."
+        )
 
         # Check that interesting groups defined in metadata are valid.
-        assert_is_subset(
-            x = metadata[["interestingGroups"]],
-            y = colnames(colData(object))
+        valid[["interestingGroups"]] <- validate_that(
+            is_subset(
+                x = metadata[["interestingGroups"]],
+                y = colnames(colData(object))
+            )
         )
 
         # Error on legacy slot detection.
@@ -73,18 +93,17 @@ setValidity(
                 "yamlFile"
             )
         )
-        if (has_length(intersect)) {
-            stop(paste(
-                paste(
-                    "Legacy metadata slots:",
-                    toString(sort(intersect))
-                ),
+        valid[["legacyMetadata"]] <- validate_that(
+            !has_length(intersect),
+            msg = paste(
+                "Legacy metadata slots:",
+                toString(sort(intersect)),
                 sep = "\n"
-            ))
-        }
+            )
+        )
 
         # Class checks (order independent).
-        checkClasses(
+        valid[["metadata"]] <- validateClasses(
             object = metadata,
             expected = list(
                 allSamples = "logical",
@@ -118,44 +137,55 @@ setValidity(
         )
 
         # Additional assert checks.
-        assert_is_subset(metadata[["caller"]], validCallers)
-        assert_is_subset(metadata[["level"]], validLevels)
+        valid[["metadata2"]] <- validate_that(
+            is_subset(metadata[["caller"]], validCallers),
+            is_subset(metadata[["level"]], validLevels)
+        )
+
         if (is.character(metadata[["countsFromAbundance"]])) {
-            assert_is_subset(
-                x = metadata[["countsFromAbundance"]],
-                y = eval(formals(tximport)[["countsFromAbundance"]])
+            valid[["countsFromAbundance"]] <- validate_that(
+                is_subset(
+                    x = metadata[["countsFromAbundance"]],
+                    y = eval(formals(tximport)[["countsFromAbundance"]])
+                )
             )
         }
 
         # Assays ---------------------------------------------------------------
         assayNames <- assayNames(object)
-        assert_is_subset(requiredAssays, assayNames)
+        valid[["assayNames"]] <- validate_that(
+            is_subset(requiredAssays, assayNames)
+        )
+
         # Check that all assays are matrices.
         # Note that in previous versions, we slotted `DESeqDataSet` and
         # `DESeqTransform`, which can result in metadata mismatches because
         # those objects contain their own `colData()` and `rowData()`.
-        valid <- vapply(
+        isMatrix <- vapply(
             X = assays(object),
             FUN = is.matrix,
             FUN.VALUE = logical(1L),
             USE.NAMES = TRUE
         )
-        if (!all(valid)) {
-            stop(paste(
-                paste(
-                    "Assays that are not matrix:",
-                    toString(names(valid[!valid]))
-                ),
+        valid[["assays"]] <- validate_that(
+            all(isMatrix),
+            msg = paste(
+                "Assays that are not matrix:",
+                toString(names(valid[!valid])),
                 sep = "\n"
-            ))
-        }
+            )
+        )
 
         # Caller-specific checks.
         caller <- metadata[["caller"]]
         if (caller %in% tximportCallers) {
-            assert_is_subset(tximportAssays, assayNames)
+            valid[["caller"]] <- validate_that(
+                is_subset(tximportAssays, assayNames)
+            )
         } else if (caller %in% featureCountsCallers) {
-            assert_is_subset(featureCountsAssays, assayNames)
+            valid[["caller"]] <- validate_that(
+                is_subset(featureCountsAssays, assayNames)
+            )
         }
 
         # Check for average transcript length matrix, if necessary.
@@ -163,21 +193,25 @@ setValidity(
             metadata[["caller"]] %in% tximportCallers &&
             metadata[["countsFromAbundance"]] == "no"
         ) {
-            assert_is_subset("avgTxLength", assayNames)
+            valid[["avgTxLength"]] <- validate_that(
+                is_subset("avgTxLength", assayNames)
+            )
         }
 
         # Row data -------------------------------------------------------------
-        assert_is_all_of(rowRanges(object), "GRanges")
+        valid[["rowRanges"]] <- validate_that(
+            is(rowRanges(object), "GRanges")
+        )
         rowData <- rowData(object)
         if (has_length(colnames(rowData))) {
             # Note that GTF/GFF annotations won't contain description.
-            checkClasses(
+            valid[["rowData"]] <- validateClasses(
                 object = rowData,
                 expected = list(
-                    broadClass = "factor",
-                    geneBiotype = "factor",
-                    geneID = c("character", "factor"),
-                    geneName = c("character", "factor")
+                    broadClass = Rle,
+                    geneBiotype = Rle,
+                    geneID = Rle,
+                    geneName = Rle
                 ),
                 subset = TRUE
             )
@@ -185,11 +219,12 @@ setValidity(
 
         # Column data ----------------------------------------------------------
         colData <- colData(object)
-        assert_is_subset("sampleName", colnames(colData))
-        # Error on legacy metrics columns.
-        assert_are_disjoint_sets(colnames(colData), legacyMetricsCols)
+        valid[["colData"]] <- validate_that(
+            is_subset("sampleName", colnames(colData)),
+            are_disjoint_sets(colnames(colData), legacyMetricsCols)
+        )
 
-        TRUE
+        .valid(list = valid)
     }
 )
 
@@ -238,7 +273,6 @@ setClass(
         lfcShrink = list()
     )
 )
-
 setValidity(
     Class = "DESeqAnalysis",
     method = function(object) {
@@ -335,7 +369,6 @@ setClass(
         metadata = list()
     )
 )
-
 # TODO Add assert check to ensure counts and rowRanges are identical.
 setValidity(
     Class = "DESeqResultsTables",

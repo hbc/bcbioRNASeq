@@ -11,7 +11,6 @@ bcbioRNASeqCacheURL <- paste0(
 )
 
 lanePattern <- basejump::lanePattern
-
 metadataBlacklist <- bcbioBase::metadataBlacklist
 projectDirPattern <- bcbioBase::projectDirPattern
 
@@ -28,3 +27,5 @@ validCallers <- c(tximportCallers, featureCountsCallers)
 normalizedCounts <- c("vst", "rlog", "tmm", "rle", "tpm", "fpkm")
 
 legacyMetricsCols <- c("name", "x53Bias")
+
+Rle <- structure("Rle", package = "S4Vectors")  # nolint
