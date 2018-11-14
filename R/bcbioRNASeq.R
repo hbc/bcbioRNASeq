@@ -561,6 +561,8 @@ bcbioRNASeq <- function(
 
 
 
+# TODO Make stricter. Error if there are any rowRanges mismatches during
+# `makeSummarizedExperiment()` call.
 .new.bcbioRNASeq <-  # nolint
     function(
         assays,
@@ -572,7 +574,6 @@ bcbioRNASeq <- function(
     ) {
         new(
             Class = "bcbioRNASeq",
-            # TODO Make stricter. Error if there are any rowRanges mismatches.
             makeSummarizedExperiment(
                 assays = assays,
                 rowRanges = rowRanges,

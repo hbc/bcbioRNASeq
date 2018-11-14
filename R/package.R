@@ -19,8 +19,8 @@
 #'   estimateSizeFactors fpkm priorInfo results resultsNames rlog
 #'   varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
-#' @importFrom S4Vectors DataFrame Rle as.data.frame complete.cases head mcols
-#'   mcols<- metadata metadata<- na.omit
+#' @importFrom S4Vectors DataFrame Rle as.data.frame complete.cases decode head
+#'   mcols mcols<- metadata metadata<- na.omit
 #' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
 #' @importFrom assertive.base assert_all_are_true assert_are_identical
