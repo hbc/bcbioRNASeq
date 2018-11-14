@@ -126,22 +126,39 @@ setMethod(
         }
 
         # Row data -------------------------------------------------------------
-        # Ensure factors get releveled.
         rowRanges <- rowRanges(rse)
-        mcols(rowRanges) <- mcols(rowRanges) %>%
-            as("tbl_df") %>%
-            mutate_if(is.factor, droplevels) %>%
-            as("DataFrame")
+        if (nrow(rse) < nrow(x)) {
+            # Ensure factors get releveled.
+            mcols <- mcols(rowRanges)
+            mcols <- DataFrame(lapply(
+                X = mcols,
+                FUN = function(x) {
+                    if (is(x, "Rle")) {
+                        x <- decode(x)
+                        if (is.factor(x)) {
+                            x <- droplevels(x)
+                        }
+                        Rle(x)
+                    } else {
+                        I(x)
+                    }
+                }
+            ))
+            mcols(rowRanges) <- mcols
+        }
 
         # Column data ----------------------------------------------------------
-        # Ensure factors get releveled.
-        colData <- colData(rse) %>%
-            as.data.frame() %>%
-            rownames_to_column() %>%
-            mutate_if(is.character, as.factor) %>%
-            mutate_if(is.factor, droplevels) %>%
-            column_to_rownames() %>%
-            as("DataFrame")
+        colData <- colData(rse)
+        if (ncol(rse) < ncol(x)) {
+            # Ensure factors get releveled.
+            colData <- colData %>%
+                as.data.frame() %>%
+                rownames_to_column() %>%
+                mutate_if(is.character, as.factor) %>%
+                mutate_if(is.factor, droplevels) %>%
+                column_to_rownames() %>%
+                as("DataFrame")
+        }
 
         # Metadata -------------------------------------------------------------
         metadata <- metadata(rse)
