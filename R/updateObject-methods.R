@@ -1,3 +1,7 @@
+# TODO Calculate FPKM automatically for gene-level counts if missing.
+
+
+
 #' @name updateObject
 #' @inherit BiocGenerics::updateObject
 #' @author Michael Steinbaugh
@@ -329,27 +333,6 @@ updateObject.bcbioRNASeq <-  # nolint
         }
         assert_is_all_of(rowRanges, "GRanges")
 
-        # Use run-length encoding (Rle) for metadata columns.
-        # Recommended method as of v0.3.0 update.
-        mcols <- mcols(rowRanges)
-        if (any(vapply(
-            X = mcols,
-            FUN = is.atomic,
-            FUN.VALUE = logical(1L)
-        ))) {
-            message("Applying run-length encoding to rowRanges mcols.")
-            mcols(rowRanges) <- DataFrame(lapply(
-                X = mcols,
-                FUN = function(x) {
-                    if (is.atomic(x)) {
-                        Rle(x)
-                    } else {
-                        I(x)
-                    }
-                }
-            ))
-        }
-
         # rowRangesMetadata
         if ("rowRangesMetadata" %in% names(metadata)) {
             message("Moving rowRangesMetadata into rowRanges metadata slot.")
@@ -390,6 +373,34 @@ updateObject.bcbioRNASeq <-  # nolint
             mcols(rowRanges)[["geneName"]] <-
                 as.factor(mcols(rowRanges)[["symbol"]])
             mcols(rowRanges)[["symbol"]] <- NULL
+        }
+
+        # Use run-length encoding (Rle) for metadata columns.
+        # Recommended method as of v0.3.0 update.
+        mcols <- mcols(rowRanges)
+        if (any(vapply(
+            X = mcols,
+            FUN = is.atomic,
+            FUN.VALUE = logical(1L)
+        ))) {
+            message("Applying run-length encoding to rowRanges mcols.")
+            # Here we are ensuring that any row metadata is properly set as
+            # factor and then run-length encoding is applied. Refer to
+            # `S4Vectors::Rle()` for more information on the memory benefits
+            # of this approach.
+            mcols(rowRanges) <- DataFrame(lapply(
+                X = mcols,
+                FUN = function(x) {
+                    if (is.atomic(x)) {
+                        if (!is.factor(x) && any(duplicated(x))) {
+                            x <- as.factor(x)
+                        }
+                        Rle(x)
+                    } else {
+                        I(x)
+                    }
+                }
+            ))
         }
 
         # Column data ----------------------------------------------------------
