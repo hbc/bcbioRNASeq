@@ -86,8 +86,6 @@ arguments should be formatted in camel case, not snake case.}
 }
 \value{
 \code{pheatmap}.
-
-\code{pheatmap}.
 }
 \description{
 Construct a simple heatmap.
