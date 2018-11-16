@@ -27,9 +27,6 @@ The \code{\link[S4Vectors:metadata]{S4Vectors::metadata()}} slot always contains
 
 \seealso{
 \code{\link[=bcbioRNASeq]{bcbioRNASeq()}}.
-
-Other S4 classes: \code{\link{DESeqAnalysis-class}},
-  \code{\link{DESeqResultsTables-class}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

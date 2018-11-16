@@ -40,7 +40,6 @@ BiocGenerics::plotDispEsts
 
 
 
-# bcbioRNASeq ==================================================================
 plotDispEsts.bcbioRNASeq <-  # nolint
     function() {
         validObject(object)
@@ -52,6 +51,7 @@ plotDispEsts.bcbioRNASeq <-  # nolint
             args = matchArgsToDoCall(args = list(object = dds))
         )
     }
+
 formals(plotDispEsts.bcbioRNASeq) <-
     methodFormals(
         f = "plotDispEsts",
@@ -67,23 +67,4 @@ setMethod(
     f = "plotDispEsts",
     signature = signature("bcbioRNASeq"),
     definition = plotDispEsts.bcbioRNASeq
-)
-
-
-
-# DESeqAnalysis ================================================================
-plotDispEsts.DESeqAnalysis <-  # nolint
-    function(object, ...) {
-        plotDispEsts(as(object, "DESeqDataSet"), ...)
-    }
-formals(plotDispEsts.DESeqAnalysis) <- formals(plotDispEsts.bcbioRNASeq)
-
-
-
-#' @rdname plotDispEsts
-#' @export
-setMethod(
-    f = "plotDispEsts",
-    signature = signature("DESeqAnalysis"),
-    definition = plotDispEsts.DESeqAnalysis
 )
