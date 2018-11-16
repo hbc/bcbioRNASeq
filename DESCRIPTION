@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.3.2
-Date: 2018-11-15
+Date: 2018-11-16
 Authors@R: c(
     person(
         given = "Michael",
@@ -94,9 +94,9 @@ Authors@R: c(
         role = c("cph", "fnd")
     ))
 URL:
-    http://bioinformatics.sph.harvard.edu/bcbioRNASeq,
-    https://github.com/hbc/bcbioRNASeq
-BugReports: https://github.com/hbc/bcbioRNASeq/issues
+    http://bioinformatics.sph.harvard.edu/bcbioRNASeq/,
+    https://github.com/hbc/bcbioRNASeq/
+BugReports: https://github.com/hbc/bcbioRNASeq/issues/
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
@@ -168,10 +168,7 @@ RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Collate: 
     'AllClasses.R'
-    'AllGenerics.R'
     'DESeq2-internal.R'
-    'DESeqAnalysis.R'
-    'DESeqResultsTables-methods.R'
     'alphaSummary-methods.R'
     'as-methods.R'
     'assert-internal.R'
