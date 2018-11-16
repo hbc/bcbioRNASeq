@@ -1,10 +1,8 @@
-library(basejump)
 library(bcbioRNASeq)
-library(DESeq2)
 library(knitr)
 library(tidyverse)
 
-# Set seed for reproducibility
+# Set seed for reproducibility.
 set.seed(1454944673L)
 
 opts_chunk[["set"]](
