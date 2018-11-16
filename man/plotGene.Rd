@@ -57,9 +57,8 @@ palette globally, use
 Plot Gene Expression
 }
 \examples{
-data(bcb, deseq)
+data(bcb)
 
-## bcbioRNASeq ====
 object <- bcb
 g2s <- Gene2Symbol(object)
 geneIDs <- head(g2s[["geneID"]])
@@ -79,11 +78,6 @@ plotGene(
     normalized = "vst",
     style = "wide"
 )
-
-## DESeqAnalysis ====
-object <- deseq
-plotGene(object, genes = geneIDs, style = "facet")
-plotGene(object, genes = geneNames, style = "wide")
 }
 \author{
 Michael Steinbaugh

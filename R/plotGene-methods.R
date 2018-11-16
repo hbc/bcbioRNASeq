@@ -6,9 +6,8 @@
 #' @inheritParams basejump::params
 #'
 #' @examples
-#' data(bcb, deseq)
+#' data(bcb)
 #'
-#' ## bcbioRNASeq ====
 #' object <- bcb
 #' g2s <- Gene2Symbol(object)
 #' geneIDs <- head(g2s[["geneID"]])
@@ -28,11 +27,6 @@
 #'     normalized = "vst",
 #'     style = "wide"
 #' )
-#'
-#' ## DESeqAnalysis ====
-#' object <- deseq
-#' plotGene(object, genes = geneIDs, style = "facet")
-#' plotGene(object, genes = geneNames, style = "wide")
 NULL
 
 
