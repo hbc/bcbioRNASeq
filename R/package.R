@@ -78,7 +78,7 @@
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
-#' @importFrom matrixStats colMedians
+#' @importFrom matrixStats colMedians rowVars
 #' @importFrom methods .hasSlot as as<- is new setAs show slot slot<-
 #'   validObject
 #' @importFrom readr read_csv read_tsv write_csv
@@ -92,25 +92,3 @@
 #' @importFrom utils capture.output globalVariables packageVersion
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
-
-
-
-#' @name params
-#' @inherit basejump::params
-#' @keywords internal
-#' @param lfcShrink `boolean`. Use shrunken log2 fold change (LFC) values.
-#' @param normalized `string`. Which normalization method to apply:
-#'   - "`tpm`": Transcripts per million (tximport).
-#'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
-#'   - "`rlog`": DESeq2 **log2** regularized log transformation.
-#'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
-#' @param results `scalar`. Position or name of `DESeqResults`.
-NULL
-
-
-
-globalVariables(".")
-
-#' @importFrom magrittr %>%
-#' @export
-magrittr::`%>%`

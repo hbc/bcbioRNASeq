@@ -1,5 +1,5 @@
 Package: bcbioRNASeq
-Title: RNA-Seq Utilities
+Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.3.2
 Date: 2018-11-16
@@ -94,7 +94,7 @@ Authors@R: c(
         role = c("cph", "fnd")
     ))
 URL:
-    http://bioinformatics.sph.harvard.edu/bcbioRNASeq/,
+    https://bioinformatics.sph.harvard.edu/bcbioRNASeq/,
     https://github.com/hbc/bcbioRNASeq/
 BugReports: https://github.com/hbc/bcbioRNASeq/issues/
 License: MIT + file LICENSE
