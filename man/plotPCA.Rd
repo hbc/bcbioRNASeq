@@ -8,20 +8,13 @@
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL, ntop = 500L,
-  color = getOption("basejump.color", NULL),
-  label = getOption("basejump", FALSE), title = "PCA",
-  subtitle = NULL, return = c("ggplot", "DataFrame"))
+  label = getOption("basejump.label", FALSE),
+  pointColor = getOption("basejump.color.discrete", NULL),
+  pointSize = getOption("basejump.point.size", 4L), title = "PCA",
+  subtitle = NULL, return = c("ggplot", "DataFrame"), ...)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{normalized}{\code{string}. Which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-}}
 
 \item{interestingGroups}{\code{character} or \code{NULL}. Groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
@@ -29,14 +22,11 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 \item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
 Use \code{Inf} to include all genes (\emph{not recommended}).}
 
-\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
-scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
-color palette will be used. If manual color definitions are desired, we
-recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
-palette globally, use
-\code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
-
 \item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
+
+\item{pointColor}{\code{string}. Default point color for the plot.}
+
+\item{pointSize}{\code{scalar numeric}. Cell point size.}
 
 \item{title}{\code{string} or \code{NULL}. Plot title.}
 
@@ -44,6 +34,8 @@ palette globally, use
 
 \item{return}{\code{string}. Return type. Uses \code{base::match.arg()}
 internally and defaults to the first argument in the \code{character} vector.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot} or \code{DataFrame}.
@@ -51,9 +43,9 @@ internally and defaults to the first argument in the \code{character} vector.}
 \description{
 Principal component analysis (PCA) plot.
 }
-\details{
-Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
-(PCA) sample coloring and labeling. Always plots using normalized counts.
+\section{Principal component analysis}{
+
+
 
 PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
 summarize the systematic patterns of variations in the data. PCA takes the
@@ -61,7 +53,9 @@ expression levels for genes and transforms it in principal component space,
 reducing each sample into one point. Thereby, we can separate samples by
 expression variation, and identify potential sample outliers. The PCA plot is
 a way to look at how samples are clustering.
+
 }
+
 \examples{
 data(bcb)
 plotPCA(bcb, label = FALSE)
@@ -71,9 +65,12 @@ plotPCA(bcb, label = TRUE)
 Jolliffe, et al., 2002.
 }
 \seealso{
-\itemize{
-\item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
-\item \code{getMethod("plotPCA", "DESeqTransform")}
+\code{DESeq2::plotPCA()}.
+We're using a modified version of the \code{DESeqTransform} method here.\preformatted{methodFunction(
+    f = "plotPCA",
+    signature = "DESeqTransform",
+    package = "DESeq2"
+)
 }
 }
 \author{

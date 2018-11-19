@@ -7,8 +7,8 @@
 \title{Plot Mapping Rate}
 \usage{
 \S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups = NULL,
-  limit = 0.7, fill = getOption("basejump.fill", NULL),
-  flip = getOption("basejump", TRUE), title = "mapping rate")
+  limit = 0.7, fill = getOption("basejump.fill.discrete", NULL),
+  flip = getOption("basejump.flip", TRUE), title = "mapping rate")
 }
 \arguments{
 \item{object}{Object.}

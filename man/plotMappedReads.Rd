@@ -7,8 +7,8 @@
 \title{Plot Mapped Reads}
 \usage{
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups = NULL,
-  limit = 10000000L, fill = getOption("basejump.fill", NULL),
-  flip = getOption("basejump", TRUE), title = "mapped reads")
+  limit = 10000000L, fill = getOption("basejump.fill.discrete", NULL),
+  flip = getOption("basejump.flip", TRUE), title = "mapped reads")
 }
 \arguments{
 \item{object}{Object.}
@@ -39,9 +39,6 @@ The number of mapped reads should correspond to the number of total reads.
 \examples{
 data(bcb)
 plotMappedReads(bcb)
-}
-\seealso{
-\code{\link[=plotMappingRate]{plotMappingRate()}}.
 }
 \author{
 Michael Steinbaugh, Rory Kirchner, Victor Barrera

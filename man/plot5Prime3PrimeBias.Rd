@@ -8,8 +8,8 @@
 \usage{
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object,
   interestingGroups = NULL, limit = 0L,
-  fill = getOption("basejump.fill", NULL), flip = getOption("basejump",
-  TRUE), title = "5'->3' bias")
+  fill = getOption("basejump.fill.discrete", NULL),
+  flip = getOption("basejump.flip", TRUE), title = "5'->3' bias")
 }
 \arguments{
 \item{object}{Object.}

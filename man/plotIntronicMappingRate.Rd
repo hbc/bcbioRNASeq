@@ -8,8 +8,9 @@
 \usage{
 \S4method{plotIntronicMappingRate}{bcbioRNASeq}(object,
   interestingGroups = NULL, limit = 0.2,
-  fill = getOption("basejump.fill", NULL), flip = getOption("basejump",
-  TRUE), title = "intronic mapping rate")
+  fill = getOption("basejump.fill.discrete", NULL),
+  flip = getOption("basejump.flip", TRUE),
+  title = "intronic mapping rate")
 }
 \arguments{
 \item{object}{Object.}

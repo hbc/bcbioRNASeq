@@ -8,8 +8,8 @@
 \usage{
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups = NULL,
   limit = 10000000L, perMillion = TRUE,
-  fill = getOption("basejump.fill", NULL), flip = getOption("basejump",
-  TRUE), title = "total reads")
+  fill = getOption("basejump.fill.discrete", NULL),
+  flip = getOption("basejump.flip", TRUE), title = "total reads")
 }
 \arguments{
 \item{object}{Object.}
