@@ -1,12 +1,8 @@
 #' @name plotRRNAMappingRate
-#' @inherit basejump::plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams params
+#' @inherit basejump::plotRRNAMappingRate
 #' @inheritParams basejump::params
-#'
-#' @return `ggplot`.
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotRRNAMappingRate(bcb)
@@ -21,7 +17,6 @@ basejump::plotRRNAMappingRate
 
 
 
-# bcbioRNASeq ==================================================================
 plotRRNAMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,

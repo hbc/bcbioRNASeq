@@ -1,13 +1,7 @@
-# TODO Consider moving this to basejump.
-
-
-
 #' @name relativeLogExpression
-#' @inherit basejump::relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
-#'
+#' @inherit basejump::relativeLogExpression
 #' @inheritParams params
-#'
 #' @examples
 #' data(bcb)
 #' relativeLogExpression(bcb)
@@ -22,9 +16,9 @@ basejump::relativeLogExpression
 
 
 
-# matrix =======================================================================
 relativeLogExpression.matrix <-  # nolint
     function(object) {
+        message("Applying relative log expression (RLE) normalization.")
         t(t(object) / colMedians(object))
     }
 
@@ -40,7 +34,6 @@ setMethod(
 
 
 
-# SummarizedExperiment =========================================================
 relativeLogExpression.SummarizedExperiment <-  # nolint
     function(object) {
         relativeLogExpression(counts(object))

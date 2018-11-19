@@ -1,6 +1,6 @@
 #' @name extract
-#' @inherit base::Extract title params references
 #' @author Michael Steinbaugh, Lorena Pantano
+#' @inherit base::Extract title params references
 #'
 #' @description Extract genes by row and samples by column.
 #'

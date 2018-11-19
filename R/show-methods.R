@@ -1,7 +1,6 @@
 #' @name show
 #' @author Michael Steinbuagh
 #' @inherit methods::show
-#'
 #' @examples
 #' data(bcb)
 #' show(bcb)
@@ -22,7 +21,6 @@ methods::show
 
 
 
-# bcbioRNASeq ==================================================================
 show.bcbioRNASeq <-  # nolint
     function(object) {
         validObject(object)

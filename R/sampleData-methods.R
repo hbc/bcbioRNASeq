@@ -1,14 +1,12 @@
 #' @name sampleData
-#' @inherit basejump::sampleData
 #' @author Michael Steinbaugh
-#'
+#' @inherit basejump::sampleData
 #' @inheritParams params
+#'
 #' @param clean `boolean`. Only return `factor` columns not defined in
 #'   [bcbioBase::metadataBlacklist]. This removes metrics columns used for
 #'   quality control analysis, which are often not informative as sample
 #'   metadata.
-#'
-#' @return `DataFrame`.
 #'
 #' @examples
 #' data(bcb)

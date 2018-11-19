@@ -1,10 +1,8 @@
 #' @name plotTotalReads
-#' @inherit basejump::plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams params
+#' @inherit basejump::plotTotalReads
 #' @inheritParams basejump::params
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotTotalReads(bcb)
@@ -19,7 +17,6 @@ basejump::plotTotalReads
 
 
 
-# bcbioRNASeq ==================================================================
 plotTotalReads.bcbioRNASeq <-  # nolint
     function(
         object,
