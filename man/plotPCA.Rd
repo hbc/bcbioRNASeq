@@ -9,8 +9,8 @@
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL, ntop = 500L,
   label = getOption("basejump.label", FALSE),
-  pointColor = getOption("basejump.color.discrete", NULL),
-  pointSize = getOption("basejump.point.size", 4L), title = "PCA",
+  color = getOption("basejump.color.discrete", NULL),
+  pointSize = getOption("basejump.point.size", 3L), title = "PCA",
   subtitle = NULL, return = c("ggplot", "DataFrame"), ...)
 }
 \arguments{
@@ -24,7 +24,12 @@ Use \code{Inf} to include all genes (\emph{not recommended}).}
 
 \item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
 
-\item{pointColor}{\code{string}. Default point color for the plot.}
+\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
+scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
+color palette will be used. If manual color definitions are desired, we
+recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
+palette globally, use
+\code{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())}.}
 
 \item{pointSize}{\code{scalar numeric}. Cell point size.}
 
