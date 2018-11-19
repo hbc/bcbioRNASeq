@@ -23,8 +23,8 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         interestingGroups = NULL,
         limit = 10e6L,
         perMillion = TRUE,
-        fill = getOption("basejump.fill", NULL),
-        flip = getOption("basejump", TRUE),
+        fill,
+        flip,
         title = "total reads"
     ) {
         validObject(object)
@@ -94,6 +94,8 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         p
     }
 
+formals(plotTotalReads.bcbioRNASeq)[["fill"]] <- fillDiscrete
+formals(plotTotalReads.bcbioRNASeq)[["flip"]] <- flip
 
 
 #' @rdname plotTotalReads
