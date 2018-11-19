@@ -1,9 +1,9 @@
 #' @name plotGeneSaturation
-#' @inherit basejump::plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams params
+#' @inherit basejump::plotGeneSaturation
 #' @inheritParams basejump::params
+#' @inheritParams params
+#'
 #' @param trendline `boolean`. Include a trendline for each group.
 #'
 #' @examples
@@ -21,7 +21,6 @@ basejump::plotGeneSaturation
 
 
 
-# bcbioRNASeq ==================================================================
 plotGeneSaturation.bcbioRNASeq <-  # nolint
     function(
         object,
@@ -29,8 +28,8 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         minCounts = 1L,
         perMillion = TRUE,
         trendline = FALSE,
-        label = getOption("basejump", FALSE),
-        color = getOption("basejump.color", NULL),
+        label,
+        color,
         title = "gene saturation"
     ) {
         validObject(object)
@@ -93,6 +92,9 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
 
         p
     }
+
+formals(plotGeneSaturation.bcbioRNASeq)[["color"]] <- colorDiscrete
+formals(plotGeneSaturation.bcbioRNASeq)[["label"]] <- label
 
 
 
