@@ -94,8 +94,10 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         p
     }
 
-formals(plotTotalReads.bcbioRNASeq)[["fill"]] <- fillDiscrete
-formals(plotTotalReads.bcbioRNASeq)[["flip"]] <- flip
+formals(plotTotalReads.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotTotalReads.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
 
 
 #' @rdname plotTotalReads

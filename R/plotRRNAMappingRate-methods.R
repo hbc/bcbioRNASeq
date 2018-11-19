@@ -86,8 +86,10 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
         p
     }
 
-formals(plotRRNAMappingRate.bcbioRNASeq)[["fill"]] <- fillDiscrete
-formals(plotRRNAMappingRate.bcbioRNASeq)[["flip"]] <- flip
+formals(plotRRNAMappingRate.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotRRNAMappingRate.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
 
 
 

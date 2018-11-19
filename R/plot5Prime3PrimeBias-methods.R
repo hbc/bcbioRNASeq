@@ -90,8 +90,10 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         p
     }
 
-formals(plot5Prime3PrimeBias.bcbioRNASeq)[["fill"]] <- fillDiscrete
-formals(plot5Prime3PrimeBias.bcbioRNASeq)[["flip"]] <- flip
+formals(plot5Prime3PrimeBias.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plot5Prime3PrimeBias.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
 
 
 

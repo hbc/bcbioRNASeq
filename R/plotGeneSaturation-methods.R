@@ -93,8 +93,10 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         p
     }
 
-formals(plotGeneSaturation.bcbioRNASeq)[["color"]] <- colorDiscrete
-formals(plotGeneSaturation.bcbioRNASeq)[["label"]] <- label
+formals(plotGeneSaturation.bcbioRNASeq)[["color"]] <-
+    formalsList[["color.discrete"]]
+formals(plotGeneSaturation.bcbioRNASeq)[["label"]] <-
+    formalsList[["label"]]
 
 
 

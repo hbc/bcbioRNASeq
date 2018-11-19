@@ -1,6 +1,9 @@
 #' @name plotMeanSD
-#' @inherit basejump::plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
+#' @inherit basejump::plotMeanSD
+#' @inheritParams basejump::params
+#' @inheritParams params
+#' @inheritParams bcbioRNASeq
 #'
 #' @details
 #' [vsn::meanSdPlot()] wrapper that plots count transformations on a log2 scale.
@@ -9,10 +12,6 @@
 #' - DESeq2 rlog: **r**egularized **log** transformation.
 #' - DESeq2 VST: **v**ariance-**s**tabilizing **t**ransformation.
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
-#'
-#' @inheritParams basejump::params
-#' @inheritParams params
-#' @inheritParams bcbioRNASeq
 #'
 #' @seealso
 #' - [vsn::meanSdPlot()].
@@ -140,7 +139,7 @@ plotMeanSD.bcbioRNASeq <-  # nolint
         )
     }
 
-formals(plotMeanSD.bcbioRNASeq)[["legend"]] <- legend
+formals(plotMeanSD.bcbioRNASeq)[["legend"]] <- formalsList[["legend"]]
 
 
 
