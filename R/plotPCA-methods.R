@@ -1,5 +1,6 @@
 #' @name plotPCA
 #' @author Michael Steinbaugh
+#' @importMethodsFrom basejump plotPCA
 #' @inherit basejump::plotPCA
 #' @examples
 #' data(bcb)
@@ -9,10 +10,10 @@ NULL
 
 
 
-#' @importFrom basejump plotPCA
+#' @importFrom BiocGenerics plotPCA
 #' @aliases NULL
 #' @export
-basejump::plotPCA
+BiocGenerics::plotPCA
 
 
 
@@ -38,7 +39,7 @@ f2 <- methodFormals(
     signature = "SummarizedExperiment",
     package = "basejump"
 )
-f2 <- f2[setdiff(names(f2), names(f1))]
+f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
 f[["normalized"]] <- normalizedCounts
 formals(plotPCA.bcbioRNASeq) <- f
