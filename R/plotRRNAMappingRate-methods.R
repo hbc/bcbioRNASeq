@@ -22,8 +22,8 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
         object,
         interestingGroups = NULL,
         limit = 0.1,
-        fill = getOption("basejump.fill", NULL),
-        flip = getOption("basejump", TRUE),
+        fill,
+        flip,
         title = "rRNA mapping rate"
     ) {
         validObject(object)
@@ -85,6 +85,9 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
 
         p
     }
+
+formals(plotRRNAMappingRate.bcbioRNASeq)[["fill"]] <- fillDiscrete
+formals(plotRRNAMappingRate.bcbioRNASeq)[["flip"]] <- flip
 
 
 

@@ -1,6 +1,8 @@
 #' @name plotCountsPerGene
-#' @inherit basejump::plotCountsPerGene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @inherit basejump::plotCountsPerGene
+#' @inheritParams basejump::params
+#' @inheritParams params
 #'
 #' @section Trimmed Mean of M-Values:
 #'
@@ -10,9 +12,6 @@
 #' majority of them are not differentially expressed. Therefore, by normalizing
 #' for total RNA expression by sample, we expect the spread of the
 #' TMM-normalized counts per gene to be similar for every sample.
-#'
-#' @inheritParams params
-#' @inheritParams basejump::params
 #'
 #' @references TMM: Robinson, et al., 2010.
 #'
@@ -30,12 +29,8 @@ basejump::plotCountsPerGene
 
 
 
-# bcbioRNASeq ==================================================================
 plotCountsPerGene.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        normalized
-    ) {
+    function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
 
@@ -64,6 +59,7 @@ plotCountsPerGene.bcbioRNASeq <-  # nolint
             )
         )
     }
+
 f1 <- formals(plotCountsPerGene.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCountsPerGene",

@@ -1,12 +1,8 @@
 #' @name plotMappedReads
-#' @inherit basejump::plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams params
+#' @inherit basejump::plotMappedReads
 #' @inheritParams basejump::params
-#'
-#' @seealso [plotMappingRate()].
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotMappedReads(bcb)
@@ -21,14 +17,13 @@ basejump::plotMappedReads
 
 
 
-# bcbioRNASeq ==================================================================
 plotMappedReads.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
         limit = 10e6L,
-        fill = getOption("basejump.fill", NULL),
-        flip = getOption("basejump", TRUE),
+        fill,
+        flip,
         title = "mapped reads"
     ) {
         validObject(object)
@@ -63,7 +58,7 @@ plotMappedReads.bcbioRNASeq <-  # nolint
             )
 
         if (is_positive(limit)) {
-            # Convert limit to per million
+            # Convert limit to per million.
             if (limit < 1e6L) {
                 # nocov start
                 warning("`limit`: Use absolute value, not per million.")
@@ -90,6 +85,9 @@ plotMappedReads.bcbioRNASeq <-  # nolint
 
         p
     }
+
+formals(plotMappedReads.bcbioRNASeq)[["fill"]] <- fillDiscrete
+formals(plotMappedReads.bcbioRNASeq)[["flip"]] <- flip
 
 
 

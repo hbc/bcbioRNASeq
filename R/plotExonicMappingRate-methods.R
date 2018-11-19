@@ -1,12 +1,11 @@
 #' @name plotExonicMappingRate
-#' @inherit basejump::plotExonicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @inherit basejump::plotExonicMappingRate
+#' @inheritParams basejump::params
+#' @inheritParams params
 #'
 #' @description
 #' Ideally, at least 60 percent of total reads should map to exons for RNA-seq.
-#'
-#' @inheritParams params
-#' @inheritParams basejump::params
 #'
 #' @examples
 #' data(bcb)
@@ -22,14 +21,13 @@ basejump::plotExonicMappingRate
 
 
 
-# bcbioRNASeq ==================================================================
 plotExonicMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
         limit = 0.6,
-        fill = getOption("basejump.fill", NULL),
-        flip = getOption("basejump", TRUE),
+        fill,
+        flip,
         title = "exonic mapping rate"
     ) {
         validObject(object)
@@ -91,6 +89,9 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
 
         p
     }
+
+formals(plotExonicMappingRate.bcbioRNASeq)[["fill"]] <- fillDiscrete
+formals(plotExonicMappingRate.bcbioRNASeq)[["flip"]] <- flip
 
 
 

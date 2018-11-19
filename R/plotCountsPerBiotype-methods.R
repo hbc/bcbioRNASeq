@@ -1,10 +1,8 @@
 #' @name plotCountsPerBiotype
-#' @inherit basejump::plotCountsPerBiotype
 #' @author Michael Steinbaugh, Rory Kirchner
-#'
-#' @inheritParams params
+#' @inherit basejump::plotCountsPerBiotype
 #' @inheritParams basejump::params
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotCountsPerBiotype(bcb)
@@ -24,7 +22,6 @@ basejump::plotCountsPerBroadClass
 
 
 
-# plotCountsPerBiotype =========================================================
 plotCountsPerBiotype.bcbioRNASeq <-  # nolint
     function(
         object,
@@ -58,6 +55,7 @@ plotCountsPerBiotype.bcbioRNASeq <-  # nolint
             )
         )
     }
+
 f1 <- formals(plotCountsPerBiotype.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCountsPerBiotype",
@@ -82,7 +80,6 @@ setMethod(
 
 
 
-# plotCountsPerBroadClass ======================================================
 plotCountsPerBroadClass.bcbioRNASeq <-  # nolint
     function(
         object,
@@ -116,6 +113,7 @@ plotCountsPerBroadClass.bcbioRNASeq <-  # nolint
             )
         )
     }
+
 f1 <- formals(plotCountsPerBroadClass.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCountsPerBroadClass",

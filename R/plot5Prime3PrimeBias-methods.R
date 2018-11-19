@@ -25,8 +25,8 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         object,
         interestingGroups = NULL,
         limit = 0L,
-        fill = getOption("basejump.fill", NULL),
-        flip = getOption("basejump", TRUE),
+        fill,
+        flip,
         title = "5'->3' bias"
     ) {
         validObject(object)
@@ -89,6 +89,10 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
 
         p
     }
+
+formals(plot5Prime3PrimeBias.bcbioRNASeq)[["fill"]] <- fillDiscrete
+formals(plot5Prime3PrimeBias.bcbioRNASeq)[["flip"]] <- flip
+
 
 
 #' @rdname plot5Prime3PrimeBias

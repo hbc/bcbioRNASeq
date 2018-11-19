@@ -1,16 +1,8 @@
-# TODO Unit test with rle -- need to handle non-finite values better.
-
-
-
 #' @name plotGenderMarkers
-#' @inherit basejump::plotGenderMarkers
 #' @author Michael Steinbaugh
-#'
-#' @inheritParams params
+#' @inherit basejump::plotGenderMarkers
 #' @inheritParams basejump::params
-#'
-#' @return `ggplot`.
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotGenderMarkers(bcb)
@@ -25,7 +17,6 @@ basejump::plotGenderMarkers
 
 
 
-# bcbioRNASeq ==================================================================
 plotGenderMarkers.bcbioRNASeq <-  # nolint
     function(object, normalized) {
         validObject(object)
@@ -49,6 +40,7 @@ plotGenderMarkers.bcbioRNASeq <-  # nolint
             )
         )
     }
+
 f1 <- formals(plotGenderMarkers.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotGenderMarkers",
