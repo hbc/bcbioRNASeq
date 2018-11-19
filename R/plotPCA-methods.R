@@ -2,6 +2,7 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom basejump plotPCA
 #' @inherit basejump::plotPCA
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotPCA(bcb, label = FALSE)
