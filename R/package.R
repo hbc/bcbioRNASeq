@@ -46,14 +46,15 @@
 #' @importFrom basejump Gene2Symbol Tx2Gene assertFormalGene2Symbol
 #'   basejump_geom_abline basejump_geom_label basejump_geom_label_repel camel
 #'   coerceS4ToList convertGenesToSymbols detectLanes detectOrganism emptyRanges
-#'   import initDir interestingGroups interestingGroups<- makeGRangesFromEnsembl
-#'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
-#'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
-#'   matchInterestingGroups meltCounts methodFormals metrics organism
-#'   plotGenesDetected plotHeatmap prepareTemplate printString realpath removeNA
-#'   sampleData sampleData<- sanitizeRowData sanitizeSampleData separator
-#'   showSlotInfo snake standardizeCall stripTranscriptVersions
-#'   uniteInterestingGroups validateClasses
+#'   formalsList import initDir interestingGroups interestingGroups<-
+#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
+#'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
+#'   methodFormals metrics organism plotGenesDetected plotHeatmap
+#'   prepareTemplate printString realpath removeNA sampleData sampleData<-
+#'   sanitizeRowData sanitizeSampleData separator showSlotInfo snake
+#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
+#'   validateClasses
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
 #'   readSampleData readTx2Gene runDate sampleDirs
