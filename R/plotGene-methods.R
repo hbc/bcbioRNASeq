@@ -1,10 +1,8 @@
 #' @name plotGene
-#' @inherit basejump::plotGene
 #' @author Michael Steinbaugh
-#'
-#' @inheritParams params
+#' @inherit basejump::plotGene
 #' @inheritParams basejump::params
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #'
@@ -39,11 +37,7 @@ basejump::plotGene
 
 
 plotGene.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        genes,
-        normalized
-    ) {
+    function(object, genes, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
         counts <- counts(object, normalized = normalized)
