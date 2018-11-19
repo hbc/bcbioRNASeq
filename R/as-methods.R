@@ -1,10 +1,10 @@
 #' @name as
 #' @aliases coerce
+#' @author Michael Steinbaugh
+#' @exportMethod coerce
 #' @importFrom methods coerce
 #' @inherit methods::as
 #' @inheritParams coerce
-#' @exportMethod coerce
-#' @author Michael Steinbaugh
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'
@@ -93,6 +93,3 @@ setAs(
         dt
     }
 )
-
-
-
