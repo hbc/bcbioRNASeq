@@ -10,8 +10,8 @@
 #' - DESeq2 VST: **v**ariance-**s**tabilizing **t**ransformation.
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
-#' @inheritParams params
 #' @inheritParams basejump::params
+#' @inheritParams params
 #' @inheritParams bcbioRNASeq
 #'
 #' @seealso
@@ -130,10 +130,7 @@ basejump::plotMeanSD
 # Require that the DESeq2 transformations are slotted.
 # If `transformationLimit` was applied, this function will error.
 plotMeanSD.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        legend = getOption("basejump", FALSE)
-    ) {
+    function(object, legend) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
@@ -142,6 +139,8 @@ plotMeanSD.bcbioRNASeq <-  # nolint
             legend = legend
         )
     }
+
+formals(plotMeanSD.bcbioRNASeq)[["legend"]] <- legend
 
 
 
