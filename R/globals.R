@@ -12,6 +12,11 @@ bcbioRNASeqCacheURL <- paste0(
     "v", packageVersion$major, ".", packageVersion$minor  # nolint
 )
 
+colorDiscrete <- quote(getOption("basejump.color.discrete", NULL))
+fillDiscrete <- quote(getOption("basejump.fill.discrete", NULL))
+flip <- quote(getOption("basejump.flip", TRUE))
+label <- quote(getOption("basejump.label", FALSE))
+
 lanePattern <- basejump::lanePattern
 metadataBlacklist <- bcbioBase::metadataBlacklist
 projectDirPattern <- bcbioBase::projectDirPattern
