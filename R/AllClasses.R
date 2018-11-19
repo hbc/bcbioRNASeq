@@ -37,7 +37,6 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #'
 #' @seealso [bcbioRNASeq()].
 setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
-# FIXME Require FPKM for gene-level counts.
 setValidity(
     Class = "bcbioRNASeq",
     method = function(object) {
