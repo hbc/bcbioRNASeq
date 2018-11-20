@@ -46,17 +46,19 @@
 #' @importFrom basejump Gene2Symbol Tx2Gene assertFormalGene2Symbol
 #'   basejump_geom_abline basejump_geom_label basejump_geom_label_repel camel
 #'   coerceS4ToList convertGenesToSymbols detectLanes detectOrganism emptyRanges
-#'   import initDir interestingGroups interestingGroups<- makeGRangesFromEnsembl
-#'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
-#'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
-#'   matchInterestingGroups meltCounts methodFormals metrics organism
-#'   plotGenesDetected plotHeatmap prepareTemplate printString realpath removeNA
-#'   sampleData sampleData<- sanitizeRowData sanitizeSampleData separator
-#'   showSlotInfo snake standardizeCall stripTranscriptVersions
-#'   uniteInterestingGroups validateClasses
+#'   formalsList import initDir interestingGroups interestingGroups<-
+#'   lanePattern makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
+#'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
+#'   methodFormals metrics organism plotGenesDetected plotHeatmap
+#'   prepareTemplate printString realpath removeNA sampleData sampleData<-
+#'   sanitizeRowData sanitizeSampleData separator showSlotInfo snake
+#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
+#'   validateClasses
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
-#'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
-#'   readSampleData readTx2Gene runDate sampleDirs
+#'   getSampleDataFromYAML metadataBlacklist projectDir projectDirPattern
+#'   readDataVersions readProgramVersions readSampleData readTx2Gene runDate
+#'   sampleDirs
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
 #'   mutate mutate_all mutate_if pull rename row_number select select_if
@@ -92,25 +94,3 @@
 #' @importFrom utils capture.output globalVariables packageVersion
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
-
-
-
-#' @name params
-#' @inherit basejump::params
-#' @keywords internal
-#' @param lfcShrink `boolean`. Use shrunken log2 fold change (LFC) values.
-#' @param normalized `string`. Which normalization method to apply:
-#'   - "`tpm`": Transcripts per million (tximport).
-#'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
-#'   - "`rlog`": DESeq2 **log2** regularized log transformation.
-#'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
-#' @param results `scalar`. Position or name of `DESeqResults`.
-NULL
-
-
-
-globalVariables(".")
-
-#' @importFrom magrittr %>%
-#' @export
-magrittr::`%>%`

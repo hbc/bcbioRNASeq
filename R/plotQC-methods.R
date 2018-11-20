@@ -1,7 +1,6 @@
 #' @name plotQC
-#' @inherit basejump::plotQC
 #' @author Michael Steinbaugh
-#'
+#' @inherit basejump::plotQC
 #' @examples
 #' data(bcb)
 #' plotQC(bcb)
@@ -16,7 +15,6 @@ basejump::plotQC
 
 
 
-# bcbioRNASeq ==================================================================
 plotQC.bcbioRNASeq <-  # nolint
     function(object) {
         validObject(object)

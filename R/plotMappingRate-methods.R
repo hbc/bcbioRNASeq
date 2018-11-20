@@ -1,10 +1,8 @@
 #' @name plotMappingRate
-#' @inherit basejump::plotMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams params
+#' @inherit basejump::plotMappingRate
 #' @inheritParams basejump::params
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotMappingRate(bcb)
@@ -19,14 +17,13 @@ basejump::plotMappingRate
 
 
 
-# bcbioRNASeq ==================================================================
 plotMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
         limit = 0.7,
-        fill = getOption("basejump.fill", NULL),
-        flip = getOption("basejump", TRUE),
+        fill,
+        flip,
         title = "mapping rate"
     ) {
         validObject(object)
@@ -62,7 +59,7 @@ plotMappingRate.bcbioRNASeq <-  # nolint
             )
 
         if (is_positive(limit)) {
-            # Convert to percentage
+            # Convert to percentage.
             if (limit > 1L) {
                 # nocov start
                 warning("`limit`: Use ratio (0-1) instead of percentage.")
@@ -89,6 +86,11 @@ plotMappingRate.bcbioRNASeq <-  # nolint
 
         p
     }
+
+formals(plotMappingRate.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotMappingRate.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
 
 
 

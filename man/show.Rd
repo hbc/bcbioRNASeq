@@ -4,15 +4,9 @@
 \name{show}
 \alias{show}
 \alias{show,bcbioRNASeq-method}
-\alias{show,DESeqAnalysis-method}
-\alias{show,DESeqResultsTables-method}
 \title{Show an Object}
 \usage{
 \S4method{show}{bcbioRNASeq}(object)
-
-\S4method{show}{DESeqAnalysis}(object)
-
-\S4method{show}{DESeqResultsTables}(object)
 }
 \arguments{
 \item{object}{Any R object}

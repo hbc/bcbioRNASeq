@@ -1,8 +1,6 @@
 context("General")
 
-data(bcb, deseq, envir = environment())
-dds_small <- as(deseq, "DESeqDataSet")
-
+data(bcb, envir = environment())
 assay <- SummarizedExperiment::assay
 
 
@@ -108,7 +106,6 @@ with_parameters_test_that(
     },
     object = list(
         bcbioRNASeq = bcb,
-        DESeqDataSet = dds_small,
         matrix = assay(bcb)
     )
 )

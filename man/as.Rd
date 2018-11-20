@@ -5,9 +5,6 @@
 \alias{coerce}
 \alias{coerce,bcbioRNASeq,DESeqDataSet-method}
 \alias{coerce,bcbioRNASeq,DESeqTransform-method}
-\alias{coerce,DESeqAnalysis,DESeqDataSet-method}
-\alias{coerce,DESeqAnalysis,DESeqTransform-method}
-\alias{coerce,DESeqAnalysis,DESeqResults-method}
 \title{Force an Object to Belong to a Class}
 \description{
 Coerce an object to a given class.
@@ -22,6 +19,13 @@ columns. See \code{\link[basejump:sampleData]{basejump::sampleData()}} for more 
 \item Simplifies \code{\link[S4Vectors:metadata]{S4Vectors::metadata()}} to include only relevant information
 and updates \code{sessionInfo}.
 }
+
+Note that gene-level counts are required. Alternatively
+\code{tximport::summarizeToGene()} can be called to convert transcript-level
+counts to gene-level. By default, we're using length-scaled TPM, so a
+corresponding average transcript length matrix isn't necessary. The average
+transcript length matrix is only necessary when raw counts matrix isn't
+scaled during tximport call (see \code{countsFromAbundance} in tximport).
 }
 
 \section{bcbioRNASeq to DESeqTransform}{
@@ -30,19 +34,6 @@ and updates \code{sessionInfo}.
 \item Coerces to \code{DESeqDataSet}.
 \item Calls \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
 \item Calls \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
-}
-}
-
-\section{DESeqAnalysis}{
-
-
-Supported coercion methods will extract any of these internal objects:
-\itemize{
-\item \code{DESeqDataSet}.
-\item \code{DESeqTransform}.
-\item \code{DESeqResults}. Extracts the first results slotted. Note that this
-corresponds to results containing log2 fold change (LFC) values that
-\emph{have not been shrunken} using \code{\link[DESeq2:lfcShrink]{DESeq2::lfcShrink()}}.
 }
 }
 
@@ -82,7 +73,7 @@ corresponds to results containing log2 fold change (LFC) values that
 }
 
 \examples{
-data(bcb, deseq)
+data(bcb)
 
 ## bcbioRNASeq to DESeqDataSet ====
 x <- as(bcb, "DESeqDataSet")
@@ -102,16 +93,6 @@ x <- as(x, "SummarizedExperiment")
 class(x)
 slotNames(x)
 show(x)
-
-## DESeqAnalysis ====
-dds <- as(deseq, "DESeqDataSet")
-print(dds)
-dt <- as(deseq, "DESeqTransform")
-print(dt)
-## Pulls the first results slotted.
-res <- as(deseq, "DESeqResults")
-contrastName(res)
-summary(res)
 }
 \references{
 Chambers, John M. (2016)
@@ -120,8 +101,10 @@ Chambers, John M. (2016)
 (Chapters 9 and 10.)
 }
 \seealso{
-If you think of using \code{try(as(x, cl))}, consider
-  \code{\link{canCoerce}(x, cl)} instead.
+\itemize{
+\item \code{tximport::tximport}
+\item \code{DESeq2::DESeqDataSetFromTximport()}.
+}
 }
 \author{
 Michael Steinbaugh

@@ -4,7 +4,6 @@
 \name{plotGene}
 \alias{plotGene}
 \alias{plotGene,bcbioRNASeq-method}
-\alias{plotGene,DESeqAnalysis-method}
 \title{Plot Gene Expression}
 \usage{
 \S4method{plotGene}{bcbioRNASeq}(object, genes, normalized = c("vst",
@@ -12,12 +11,6 @@
   medianLine = TRUE, color = getOption("basejump.discrete.color",
   NULL), legend = getOption("basejump.legend", TRUE),
   style = c("facet", "wide"))
-
-\S4method{plotGene}{DESeqAnalysis}(object, genes,
-  interestingGroups = NULL, medianLine = TRUE,
-  color = getOption("basejump.discrete.color", NULL),
-  legend = getOption("basejump.legend", TRUE), style = c("facet",
-  "wide"))
 }
 \arguments{
 \item{object}{Object.}
@@ -45,7 +38,7 @@ scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
 recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
 palette globally, use
-\code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
+\code{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())}.}
 
 \item{legend}{\code{boolean}. Show plot legend.}
 
@@ -64,9 +57,8 @@ palette globally, use
 Plot Gene Expression
 }
 \examples{
-data(bcb, deseq)
+data(bcb)
 
-## bcbioRNASeq ====
 object <- bcb
 g2s <- Gene2Symbol(object)
 geneIDs <- head(g2s[["geneID"]])
@@ -86,11 +78,6 @@ plotGene(
     normalized = "vst",
     style = "wide"
 )
-
-## DESeqAnalysis ====
-object <- deseq
-plotGene(object, genes = geneIDs, style = "facet")
-plotGene(object, genes = geneNames, style = "wide")
 }
 \author{
 Michael Steinbaugh

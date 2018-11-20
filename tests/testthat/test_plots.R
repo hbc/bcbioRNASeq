@@ -1,8 +1,9 @@
+# TODO Parameterize the functions that support `normalized` argument?
+
 context("Plots : Quality Control")
 
-data(bcb, deseq, envir = environment())
-dds_small <- as(deseq, "DESeqDataSet")
-vst_small <- as(deseq, "DESeqTransform")
+data(bcb, envir = environment())
+object <- bcb
 
 
 
@@ -10,10 +11,10 @@ vst_small <- as(deseq, "DESeqTransform")
 with_parameters_test_that(
     "Plots supporting interesting groups", {
         expect_is(fun, "function")
-        object <- fun(object = bcb)
-        expect_is(object, "ggplot")
-        object <- fun(object = bcb, interestingGroups = "sampleName")
-        expect_is(object, "ggplot")
+        x <- fun(object)
+        expect_s3_class(x, "ggplot")
+        x <- fun(object, interestingGroups = "sampleName")
+        expect_s3_class(x, "ggplot")
     },
     fun = list(
         plot5Prime3PrimeBias,
@@ -33,39 +34,31 @@ with_parameters_test_that(
 
 
 # plotCorrelationHeatmap =======================================================
-with_parameters_test_that(
-    "plotCorrelationHeatmap", {
-        # Pearson
-        expect_is(
-            object = plotCorrelationHeatmap(object, method = "pearson"),
-            class = "pheatmap"
-        )
-        # Spearman
-        expect_is(
-            object = plotCorrelationHeatmap(object, method = "spearman"),
-            class = "pheatmap"
-        )
-        # Bad method
-        expect_error(
-            object = plotCorrelationHeatmap(object, method = "XXX"),
-            regexp = "'arg' should be one of"
-        )
-    },
-    object = list(
-        bcbioRNASeq = bcb,
-        DESeqDataSet = dds_small,
-        DESeqResults = vst_small
+test_that("plotCorrelationHeatmap", {
+    # Pearson.
+    expect_s3_class(
+        object = plotCorrelationHeatmap(object, method = "pearson"),
+        class = "pheatmap"
     )
-)
+    # Spearman.
+    expect_s3_class(
+        object = plotCorrelationHeatmap(object, method = "spearman"),
+        class = "pheatmap"
+    )
+    # Bad method.
+    expect_error(
+        object = plotCorrelationHeatmap(object, method = "XXX"),
+        regexp = "'arg' should be one of"
+    )
+})
 
 
 
 # plotCountsPerGene ============================================================
-# FIXME Can we parameterize the functions that support normalized?
 test_that("plotCountsPerGene", {
-    expect_is(
+    expect_s3_class(
         object = plotCountsPerGene(
-            object = bcb,
+            object = object,
             normalized = "vst",
             title = NULL,
             interestingGroups = "sampleName"
@@ -79,16 +72,15 @@ test_that("plotCountsPerGene", {
 # plotCountsPerGene ============================================================
 with_parameters_test_that(
     "plotCountsPerGene", {
-        x <- plotCountsPerGene(bcb, geom = geom)
-        expect_is(x, "ggplot")
-
+        x <- plotCountsPerGene(object, geom = geom)
+        expect_s3_class(x, "ggplot")
         x <- plotCountsPerGene(
-            object = bcb,
+            object = object,
             normalized = "vst",
             interestingGroups = "sampleName",
             title = NULL
         )
-        expect_is(x, "ggplot")
+        expect_s3_class(x, "ggplot")
     },
     geom = methodFormals(
         f = "plotCountsPerGene",
@@ -103,40 +95,34 @@ with_parameters_test_that(
 # plotGeneSaturation ===========================================================
 test_that("plotGeneSaturation", {
     object <- plotGeneSaturation(
-        object = bcb,
+        object = object,
         trendline = TRUE,
         label = TRUE
     )
-    expect_is(object, "ggplot")
+    expect_s3_class(object, "ggplot")
 })
 
 
 
 # plotMeanSD ===================================================================
-with_parameters_test_that(
-    "plotMeanSD", {
-        x <- plotMeanSD(object)
-        expect_is(x, "ggplot")
-    },
-    object = list(
-        bcbioRNASeq = bcb,
-        DESeqDataSet = dds_small
-    )
-)
+test_that("plotMeanSD", {
+    x <- plotMeanSD(object)
+    expect_s3_class(x, "ggplot")
+})
 
 
 
 # plotPCA ======================================================================
 test_that("plotPCA : Label", {
     object <- plotPCA(bcb, label = FALSE)
-    expect_is(object, "ggplot")
+    expect_s3_class(object, "ggplot")
     object <- plotPCA(bcb, label = TRUE)
-    expect_is(object, "ggplot")
+    expect_s3_class(object, "ggplot")
 })
 
 test_that("plotPCA : DataFrame", {
     object <- plotPCA(bcb, return = "DataFrame")
-    expect_is(object, "DataFrame")
+    expect_s4_class(object, "DataFrame")
 })
 
 
@@ -144,10 +130,10 @@ test_that("plotPCA : DataFrame", {
 # plotDispEsts =================================================================
 test_that("plotDispEsts", {
     object <- plotDispEsts(bcb)
-    expect_is(object, "list")
+    expect_type(object, "list")
     expect_identical(
-        names(object),
-        c("rect", "text")
+        object = names(object),
+        expected = c("rect", "text")
     )
 })
 
@@ -162,25 +148,17 @@ geneNames <- head(g2s[["geneName"]])
 
 
 # plotGenderMarkers ============================================================
-with_parameters_test_that(
-    "plotGenderMarkers", {
-        expect_is(
-            object = plotGenderMarkers(object),
-            class = "ggplot"
-        )
-    },
-    object = list(
-        bcbioRNASeq = bcb,
-        DESeqDataSet = dds_small,
-        DESeqTransform = vst_small
+test_that("plotGenderMarkers", {
+    expect_s3_class(
+        object = plotGenderMarkers(object),
+        class = "ggplot"
     )
-)
+})
 
 
 
 # plotGene =====================================================================
-with_parameters_test_that(
-    "plotGene", {
+test_that("plotGene", {
     # Facet wrapped.
     p <- plotGene(
         object = object,
@@ -197,26 +175,13 @@ with_parameters_test_that(
         style = "wide"
     )
     expect_s3_class(p, "ggplot")
-},
-    object = list(
-        bcbioRNASeq = bcb,
-        DESeqDataSet = dds_small,
-        DESeqTransform = vst_small,
-        DESeqAnalysis = deseq
-    )
-)
+})
 
 
 
 # plotHeatmap ==================================================================
-test_that("plotHeatmap : bcbioRNASeq", {
+test_that("plotHeatmap", {
     genes <- head(rownames(bcb), n = 100L)
     p <- plotHeatmap(bcb[genes, ])
-    expect_is(p, "pheatmap")
-})
-
-test_that("plotHeatmap : DESeqDataSet", {
-    genes <- head(rownames(dds_small), n = 20L)
-    p <- plotHeatmap(dds_small[genes, ])
-    expect_is(p, "pheatmap")
+    expect_s3_class(p, "pheatmap")
 })

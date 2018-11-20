@@ -9,8 +9,8 @@
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, normalized = c("tmm",
   "vst", "rlog", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   geom = c("boxplot", "density", "violin"), trans = c("identity",
-  "log2", "log10"), color = getOption("basejump.discrete.color", NULL),
-  fill = getOption("basejump.discrete.fill", NULL),
+  "log2", "log10"), color = getOption("basejump.color.discrete", NULL),
+  fill = getOption("basejump.fill.discrete", NULL),
   flip = getOption("basejump.flip", TRUE), countsAxisLabel = "counts",
   title = "counts per gene")
 }
@@ -38,13 +38,13 @@ scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
 recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
 palette globally, use
-\code{options(basejump.discrete.color = ggplot2::scale_color_viridis_d())}.}
+\code{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())}.}
 
 \item{fill}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 fill scale.
 Must supply discrete values. When set to \code{NULL}, the default ggplot2 color
 palette will be used. If manual color definitions are desired, we recommend
 using \code{ggplot2::scale_fill_manual()}. To set the discrete fill palette
-globally, use \code{options(bcbio.discrete.fill = scale_fill_viridis_d())}.}
+globally, use \code{options(basejump.fill.discrete = scale_fill_viridis_d())}.}
 
 \item{flip}{\code{boolean}. Flip x and y axes. Recommended for plots containing
 many samples.}

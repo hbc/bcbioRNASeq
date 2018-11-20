@@ -7,8 +7,8 @@
 \title{Plot Mapping Rate}
 \usage{
 \S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups = NULL,
-  limit = 0.7, fill = getOption("basejump.fill", NULL),
-  flip = getOption("basejump", TRUE), title = "mapping rate")
+  limit = 0.7, fill = getOption("basejump.fill.discrete", NULL),
+  flip = getOption("basejump.flip", TRUE), title = "mapping rate")
 }
 \arguments{
 \item{object}{Object.}
@@ -23,7 +23,7 @@ dashed line.}
 Must supply discrete values. When set to \code{NULL}, the default ggplot2 color
 palette will be used. If manual color definitions are desired, we recommend
 using \code{ggplot2::scale_fill_manual()}. To set the discrete fill palette
-globally, use \code{options(bcbio.discrete.fill = scale_fill_viridis_d())}.}
+globally, use \code{options(basejump.fill.discrete = scale_fill_viridis_d())}.}
 
 \item{flip}{\code{boolean}. Flip x and y axes. Recommended for plots containing
 many samples.}

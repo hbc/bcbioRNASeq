@@ -121,17 +121,17 @@ The package provides multiple [R Markdown][] templates, including quality contro
 
 The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 
-[bcbio]: https://github.com/chapmanb/bcbio-nextgen
-[bcbioRNASeq]: http://bioinformatics.sph.harvard.edu/bcbioRNASeq
+[bcbio]: https://github.com/chapmanb/bcbio-nextgen/
+[bcbioRNASeq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
 [BiocManager]: https://cran.r-project.org/package=BiocManager
-[bioconda]: https://bioconda.github.io
-[Bioconductor]: https://bioconductor.org
-[conda]: https://conda.io
-[DESeq2]: https://doi.org/doi:10.18129/B9.bioc.DESeq2
+[bioconda]: https://bioconda.github.io/
+[Bioconductor]: https://bioconductor.org/
+[conda]: https://conda.io/
+[DESeq2]: https://bioconductor.org/packages/DESeq2/
 [devtools]: https://cran.r-project.org/package=devtools
 [F1000]: https://f1000research.com/articles/6-1976/v2
-[Paperpile]: https://paperpile.com
-[R]: https://www.r-project.org
-[R Markdown]: http://rmarkdown.rstudio.com
-[RStudio]: https://www.rstudio.com
-[RangedSummarizedExperiment]: https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment
+[Paperpile]: https://paperpile.com/
+[R]: https://www.r-project.org/
+[R Markdown]: https://rmarkdown.rstudio.com/
+[RStudio]: https://www.rstudio.com/
+[RangedSummarizedExperiment]: https://bioconductor.org/packages/SummarizedExperiment/

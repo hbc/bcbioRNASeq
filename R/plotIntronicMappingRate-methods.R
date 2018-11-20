@@ -1,10 +1,8 @@
 #' @name plotIntronicMappingRate
-#' @inherit basejump::plotIntronicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams params
+#' @inherit basejump::plotIntronicMappingRate
 #' @inheritParams basejump::params
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotIntronicMappingRate(bcb)
@@ -19,14 +17,13 @@ basejump::plotIntronicMappingRate
 
 
 
-# bcbioRNASeq ==================================================================
 plotIntronicMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
         limit = 0.2,
-        fill = getOption("basejump.fill", NULL),
-        flip = getOption("basejump", TRUE),
+        fill,
+        flip,
         title = "intronic mapping rate"
     ) {
         validObject(object)
@@ -88,6 +85,11 @@ plotIntronicMappingRate.bcbioRNASeq <-  # nolint
 
         p
     }
+
+formals(plotIntronicMappingRate.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotIntronicMappingRate.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
 
 
 

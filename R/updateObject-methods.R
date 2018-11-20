@@ -1,10 +1,6 @@
-# TODO Calculate FPKM automatically for gene-level counts if missing.
-
-
-
 #' @name updateObject
-#' @inherit BiocGenerics::updateObject
 #' @author Michael Steinbaugh
+#' @inherit BiocGenerics::updateObject
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session

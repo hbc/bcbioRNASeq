@@ -1,6 +1,9 @@
 #' @name plotMeanSD
-#' @inherit basejump::plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
+#' @inherit basejump::plotMeanSD
+#' @inheritParams basejump::params
+#' @inheritParams params
+#' @inheritParams bcbioRNASeq
 #'
 #' @details
 #' [vsn::meanSdPlot()] wrapper that plots count transformations on a log2 scale.
@@ -10,10 +13,6 @@
 #' - DESeq2 VST: **v**ariance-**s**tabilizing **t**ransformation.
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
-#' @inheritParams params
-#' @inheritParams basejump::params
-#' @inheritParams bcbioRNASeq
-#'
 #' @seealso
 #' - [vsn::meanSdPlot()].
 #' - [DESeq2::DESeq()].
@@ -22,13 +21,8 @@
 #' - [edgeR::calcNormFactors()].
 #'
 #' @examples
-#' data(bcb, deseq)
-#'
-#' ## bcbioRNASeq ====
+#' data(bcb)
 #' plotMeanSD(bcb)
-#'
-#' ## DESeqAnalysis ====
-#' plotMeanSD(deseq)
 NULL
 
 
@@ -40,7 +34,6 @@ basejump::plotMeanSD
 
 
 
-# Internal plot grid constructor ===============================================
 # Match the vst, rlog conventions to `bcbioRNASeq()` generator.
 .plotMeanSD <- function(
     raw,
@@ -133,14 +126,10 @@ basejump::plotMeanSD
 
 
 
-# bcbioRNASeq ==================================================================
 # Require that the DESeq2 transformations are slotted.
 # If `transformationLimit` was applied, this function will error.
 plotMeanSD.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        legend = getOption("basejump", FALSE)
-    ) {
+    function(object, legend) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
@@ -150,6 +139,8 @@ plotMeanSD.bcbioRNASeq <-  # nolint
         )
     }
 
+formals(plotMeanSD.bcbioRNASeq)[["legend"]] <- formalsList[["legend"]]
+
 
 
 #' @rdname plotMeanSD
@@ -158,59 +149,4 @@ setMethod(
     f = "plotMeanSD",
     signature = signature("bcbioRNASeq"),
     definition = plotMeanSD.bcbioRNASeq
-)
-
-
-
-# DESeqDataSet =================================================================
-plotMeanSD.DESeqDataSet <-  # nolint
-    function(
-        object,
-        vst = TRUE,
-        rlog = FALSE,
-        legend = getOption("basejump", FALSE)
-    ) {
-        validObject(object)
-        assert_is_a_bool(vst)
-        if (isTRUE(vst)) {
-            vst <- assay(varianceStabilizingTransformation(object))
-        } else {
-            vst <- NULL
-        }
-        assert_is_a_bool(rlog)
-        if (isTRUE(rlog)) {
-            rlog <- assay(rlog(object))
-        } else {
-            rlog <- NULL
-        }
-        .plotMeanSD(
-            raw = counts(object, normalized = FALSE),
-            normalized = counts(object, normalized = TRUE),
-            vst = vst,
-            rlog = rlog,
-            legend = legend
-        )
-    }
-
-
-
-#' @rdname plotMeanSD
-#' @export
-setMethod(
-    f = "plotMeanSD",
-    signature = signature("DESeqDataSet"),
-    definition = plotMeanSD.DESeqDataSet
-)
-
-
-
-# DESeqAnalysis ================================================================
-#' @rdname plotMeanSD
-#' @export
-setMethod(
-    f = "plotMeanSD",
-    signature = signature("DESeqAnalysis"),
-    definition = function(object) {
-        plotMeanSD(as(object, "DESeqDataSet"))
-    }
 )

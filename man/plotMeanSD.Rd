@@ -4,30 +4,15 @@
 \name{plotMeanSD}
 \alias{plotMeanSD}
 \alias{plotMeanSD,bcbioRNASeq-method}
-\alias{plotMeanSD,DESeqDataSet-method}
-\alias{plotMeanSD,DESeqAnalysis-method}
 \title{Plot Row Standard Deviations vs. Row Means}
 \usage{
-\S4method{plotMeanSD}{bcbioRNASeq}(object, legend = getOption("basejump",
-  FALSE))
-
-\S4method{plotMeanSD}{DESeqDataSet}(object, vst = TRUE, rlog = FALSE,
-  legend = getOption("basejump", FALSE))
-
-\S4method{plotMeanSD}{DESeqAnalysis}(object)
+\S4method{plotMeanSD}{bcbioRNASeq}(object,
+  legend = getOption("basejump.legend", TRUE))
 }
 \arguments{
 \item{object}{Object.}
 
 \item{legend}{\code{boolean}. Show plot legend.}
-
-\item{vst}{\code{boolean}. Calculate variance-stabilizing transformation using
-\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. Recommended by default
-for visualization.}
-
-\item{rlog}{\code{boolean}. Calcualte regularized log transformation using
-\code{\link[DESeq2:rlog]{DESeq2::rlog()}}. This calculation is slow for large datasets and now
-discouraged by default for visualization.}
 }
 \value{
 \code{ggplot}.
@@ -45,13 +30,8 @@ Plot Row Standard Deviations vs. Row Means
 }
 }
 \examples{
-data(bcb, deseq)
-
-## bcbioRNASeq ====
+data(bcb)
 plotMeanSD(bcb)
-
-## DESeqAnalysis ====
-plotMeanSD(deseq)
 }
 \seealso{
 \itemize{

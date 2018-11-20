@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
-Title: RNA-Seq Utilities
+Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.3.1
-Date: 2018-11-13
+Version: 0.3.3
+Date: 2018-11-20
 Authors@R: c(
     person(
         given = "Michael",
@@ -94,15 +94,16 @@ Authors@R: c(
         role = c("cph", "fnd")
     ))
 URL:
-    http://bioinformatics.sph.harvard.edu/bcbioRNASeq,
-    https://github.com/hbc/bcbioRNASeq
-BugReports: https://github.com/hbc/bcbioRNASeq/issues
+    https://bioinformatics.sph.harvard.edu/bcbioRNASeq/,
+    https://github.com/hbc/bcbioRNASeq/
+BugReports: https://github.com/hbc/bcbioRNASeq/issues/
 License: MIT + file LICENSE
 Encoding: UTF-8
+LazyData: false
 Depends:
     R (>= 3.5),
     SummarizedExperiment (>= 1.10),
-    basejump (>= 0.8),
+    basejump (>= 0.8.2),
     DESeq2 (>= 1.20)
 Imports:
     BiocGenerics,
@@ -116,13 +117,13 @@ Imports:
     assertive.strings,
     assertive.types,
     assertthat,
-    bcbioBase (>= 0.5),
+    bcbioBase (>= 0.5.2),
     cowplot (>= 0.9),
     dplyr (>= 0.7),
     edgeR (>= 3.22),
     ggplot2 (>= 3.0),
     ggrepel (>= 0.8),
-    goalie (>= 0.1),
+    goalie (>= 0.1.1),
     grid,
     knitr (>= 1.20),
     magrittr (>= 1.5),
@@ -165,52 +166,3 @@ biocViews:
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
-Collate: 
-    'AllClasses.R'
-    'AllGenerics.R'
-    'DESeq2-internal.R'
-    'DESeqAnalysis.R'
-    'DESeqResultsTables-methods.R'
-    'alphaSummary-methods.R'
-    'as-methods.R'
-    'assert-internal.R'
-    'bcbioRNASeq.R'
-    'contrastName-methods.R'
-    'counts-methods.R'
-    'data.R'
-    'deprecated.R'
-    'export-methods.R'
-    'extract-methods.R'
-    'globals.R'
-    'markdown-methods.R'
-    'meltCounts-internal.R'
-    'package.R'
-    'plot5Prime3PrimeBias-methods.R'
-    'plotCorrelationHeatmap-methods.R'
-    'plotCountsPerBiotype-methods.R'
-    'plotCountsPerGene-methods.R'
-    'plotDEGHeatmap-methods.R'
-    'plotPCA-methods.R'
-    'plotDEGPCA-methods.R'
-    'plotDispEsts-methods.R'
-    'plotExonicMappingRate-methods.R'
-    'plotGenderMarkers-methods.R'
-    'plotGene-methods.R'
-    'plotGeneSaturation-methods.R'
-    'plotIntronicMappingRate-methods.R'
-    'plotMA-methods.R'
-    'plotMappedReads-methods.R'
-    'plotMappingRate-methods.R'
-    'plotMeanSD-methods.R'
-    'plotQC-methods.R'
-    'plotRRNAMappingRate-methods.R'
-    'plotTotalReads-methods.R'
-    'plotVolcano-methods.R'
-    'prepareRNASeqTemplate.R'
-    'relativeLogExpression-methods.R'
-    'sampleData-methods.R'
-    'show-methods.R'
-    'tmm-methods.R'
-    'topTables-methods.R'
-    'tximport-internal.R'
-    'updateObject-methods.R'

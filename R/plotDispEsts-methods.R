@@ -1,7 +1,9 @@
 #' Plot Dispersion Estimates
 #' @name plotDispEsts
-#' @inherit DESeq2::plotDispEsts
 #' @author Michael Steinbaugh
+#' @inherit DESeq2::plotDispEsts
+#' @inheritParams basejump::params
+#' @inheritParams params
 #'
 #' @details
 #' This plot shows the dispersion by mean of normalized counts. We expect the
@@ -10,8 +12,6 @@
 #' Here we're generating a `DESeqDataSet` object on the fly, which already has
 #' method support for plotting dispersion, provided by the DESeq2 package.
 #'
-#' @inheritParams params
-#' @inheritParams basejump::params
 #' @param object Object.
 #'
 #' @seealso [DESeq2::plotDispEsts()].
@@ -40,7 +40,6 @@ BiocGenerics::plotDispEsts
 
 
 
-# bcbioRNASeq ==================================================================
 plotDispEsts.bcbioRNASeq <-  # nolint
     function() {
         validObject(object)
@@ -52,6 +51,7 @@ plotDispEsts.bcbioRNASeq <-  # nolint
             args = matchArgsToDoCall(args = list(object = dds))
         )
     }
+
 formals(plotDispEsts.bcbioRNASeq) <-
     methodFormals(
         f = "plotDispEsts",
@@ -67,23 +67,4 @@ setMethod(
     f = "plotDispEsts",
     signature = signature("bcbioRNASeq"),
     definition = plotDispEsts.bcbioRNASeq
-)
-
-
-
-# DESeqAnalysis ================================================================
-plotDispEsts.DESeqAnalysis <-  # nolint
-    function(object, ...) {
-        plotDispEsts(as(object, "DESeqDataSet"), ...)
-    }
-formals(plotDispEsts.DESeqAnalysis) <- formals(plotDispEsts.bcbioRNASeq)
-
-
-
-#' @rdname plotDispEsts
-#' @export
-setMethod(
-    f = "plotDispEsts",
-    signature = signature("DESeqAnalysis"),
-    definition = plotDispEsts.DESeqAnalysis
 )

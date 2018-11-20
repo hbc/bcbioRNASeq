@@ -1,37 +1,35 @@
 authors:
   Michael Steinbaugh:
-    href: https://steinbaugh.com
+    href: https://steinbaugh.com/
   Lorena Pantano:
-    href: https://lpantano.github.io
+    href: https://lpantano.github.io/
   Rory Kirchner:
-    href: https://github.com/roryk
+    href: https://github.com/roryk/
   Victor Barrera:
-    href: https://github.com/vbarrera
+    href: https://github.com/vbarrera/
   Brad Chapman:
-    href: https://github.com/chapmanb
+    href: https://github.com/chapmanb/
   Mary Piper:
-    href: https://github.com/marypiper
+    href: https://github.com/marypiper/
   Meeta Mistry:
-    href: https://github.com/mistrm82
+    href: https://github.com/mistrm82/
   Radhika Khetani:
-    href: https://github.com/rkhetani
+    href: https://github.com/rkhetani/
   Kayleigh Rutherford:
-    href: https://github.com/KayleighRutherford
+    href: https://github.com/KayleighRutherford/
   Oliver Hofmann:
-    href: https://github.com/ohofmann
+    href: https://github.com/ohofmann/
   John Hutchinson:
-    href: https://github.com/jnhutchinson
+    href: https://github.com/jnhutchinson/
   Shannan Ho Sui:
-    href: https://github.com/sjhosui
+    href: https://github.com/sjhosui/
   Harvard Chan Bioinformatics Core:
-    href: http://bioinformatics.sph.harvard.edu
+    href: https://bioinformatics.sph.harvard.edu/
 
 reference:
   - title: S4 classes
     contents:
     - starts_with("bcbioRNASeq")
-    - starts_with("DESeqAnalysis")
-    - starts_with("DESeqResultsTables")
     - as
     - extract
     - show
@@ -59,4 +57,3 @@ reference:
     desc: GSE65267
     contents:
     - bcb
-    - deseq

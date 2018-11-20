@@ -1,13 +1,7 @@
-# TODO Move these methods to basejump.
-
-
-
 #' @name tmm
-#' @inherit basejump::tmm
 #' @author Michael Steinbaugh
-#'
+#' @inherit basejump::tmm
 #' @inheritParams params
-#'
 #' @examples
 #' data(bcb)
 #' x <- tmm(bcb)
@@ -23,7 +17,6 @@ basejump::tmm
 
 
 
-# matrix =======================================================================
 tmm.matrix <-  # nolint
     function(object) {
         message("Applying trimmed mean of M-values (TMM) normalization.")
@@ -45,7 +38,6 @@ setMethod(
 
 
 
-# SummarizedExperiment =========================================================
 tmm.SummarizedExperiment <-  # nolint
     function(object) {
         validObject(object)

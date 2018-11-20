@@ -10,9 +10,9 @@ Quality control and differential expression for
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://bioinformatics.sph.harvard.edu/bcbioRNASeq}
-  \item \url{https://github.com/hbc/bcbioRNASeq}
-  \item Report bugs at \url{https://github.com/hbc/bcbioRNASeq/issues}
+  \item \url{https://bioinformatics.sph.harvard.edu/bcbioRNASeq/}
+  \item \url{https://github.com/hbc/bcbioRNASeq/}
+  \item Report bugs at \url{https://github.com/hbc/bcbioRNASeq/issues/}
 }
 
 }

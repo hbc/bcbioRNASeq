@@ -1,10 +1,8 @@
 #' @name plotTotalReads
-#' @inherit basejump::plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams params
+#' @inherit basejump::plotTotalReads
 #' @inheritParams basejump::params
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotTotalReads(bcb)
@@ -19,15 +17,14 @@ basejump::plotTotalReads
 
 
 
-# bcbioRNASeq ==================================================================
 plotTotalReads.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
         limit = 10e6L,
         perMillion = TRUE,
-        fill = getOption("basejump.fill", NULL),
-        flip = getOption("basejump", TRUE),
+        fill,
+        flip,
         title = "total reads"
     ) {
         validObject(object)
@@ -97,6 +94,10 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         p
     }
 
+formals(plotTotalReads.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotTotalReads.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
 
 
 #' @rdname plotTotalReads

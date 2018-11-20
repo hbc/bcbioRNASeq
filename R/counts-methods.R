@@ -7,9 +7,8 @@
 #'
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
-#'
-#' @inheritParams params
 #' @inheritParams basejump::params
+#' @inheritParams params
 #'
 #' @param normalized `string` or `boolean`. Which normalization method to apply:
 #'

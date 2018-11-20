@@ -1,14 +1,11 @@
 #' @name plotGene
-#' @inherit basejump::plotGene
 #' @author Michael Steinbaugh
-#'
-#' @inheritParams params
+#' @inherit basejump::plotGene
 #' @inheritParams basejump::params
-#'
+#' @inheritParams params
 #' @examples
-#' data(bcb, deseq)
+#' data(bcb)
 #'
-#' ## bcbioRNASeq ====
 #' object <- bcb
 #' g2s <- Gene2Symbol(object)
 #' geneIDs <- head(g2s[["geneID"]])
@@ -28,11 +25,6 @@
 #'     normalized = "vst",
 #'     style = "wide"
 #' )
-#'
-#' ## DESeqAnalysis ====
-#' object <- deseq
-#' plotGene(object, genes = geneIDs, style = "facet")
-#' plotGene(object, genes = geneNames, style = "wide")
 NULL
 
 
@@ -45,11 +37,7 @@ basejump::plotGene
 
 
 plotGene.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        genes,
-        normalized
-    ) {
+    function(object, genes, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
         counts <- counts(object, normalized = normalized)
@@ -71,6 +59,7 @@ plotGene.bcbioRNASeq <-  # nolint
             )
         )
     }
+
 f1 <- formals(plotGene.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotGene",
@@ -84,51 +73,10 @@ formals(plotGene.bcbioRNASeq) <- f
 
 
 
-plotGene.DESeqAnalysis <-  # nolint
-    function(object) {
-        validObject(object)
-        # Using DESeqTransform
-        dt <- slot(object, "transform")
-        if ("rlogIntercept" %in% colnames(dt)) {
-            countsAxisLabel <- "rlog counts (log2)"
-        } else {
-            countsAxisLabel <- "vst counts (log2)"
-        }
-        do.call(
-            what = plotGene,
-            args = matchArgsToDoCall(
-                args = list(
-                    object = dt,
-                    genes = genes,
-                    countsAxisLabel = countsAxisLabel
-                )
-            )
-        )
-    }
-f <- methodFormals(
-    f = "plotGene",
-    signature = "SummarizedExperiment",
-    package = "basejump"
-)
-f <- f[setdiff(names(f), c("assay", "countsAxisLabel"))]
-formals(plotGene.DESeqAnalysis) <- f
-
-
-
 #' @rdname plotGene
 #' @export
 setMethod(
     f = "plotGene",
     signature = signature("bcbioRNASeq"),
     definition = plotGene.bcbioRNASeq
-)
-
-
-
-#' @rdname plotGene
-#' @export
-setMethod(
-    f = "plotGene",
-    signature = signature("DESeqAnalysis"),
-    definition = plotGene.DESeqAnalysis
 )

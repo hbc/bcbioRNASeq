@@ -1,12 +1,8 @@
 #' @name plotRRNAMappingRate
-#' @inherit basejump::plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams params
+#' @inherit basejump::plotRRNAMappingRate
 #' @inheritParams basejump::params
-#'
-#' @return `ggplot`.
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotRRNAMappingRate(bcb)
@@ -21,14 +17,13 @@ basejump::plotRRNAMappingRate
 
 
 
-# bcbioRNASeq ==================================================================
 plotRRNAMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
         limit = 0.1,
-        fill = getOption("basejump.fill", NULL),
-        flip = getOption("basejump", TRUE),
+        fill,
+        flip,
         title = "rRNA mapping rate"
     ) {
         validObject(object)
@@ -90,6 +85,11 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
 
         p
     }
+
+formals(plotRRNAMappingRate.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotRRNAMappingRate.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
 
 
 

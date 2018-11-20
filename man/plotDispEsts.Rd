@@ -4,14 +4,9 @@
 \name{plotDispEsts}
 \alias{plotDispEsts}
 \alias{plotDispEsts,bcbioRNASeq-method}
-\alias{plotDispEsts,DESeqAnalysis-method}
 \title{Plot Dispersion Estimates}
 \usage{
 \S4method{plotDispEsts}{bcbioRNASeq}(object, ymin, CV = FALSE,
-  genecol = "black", fitcol = "red", finalcol = "dodgerblue",
-  legend = TRUE, xlab, ylab, log = "xy", cex = 0.45, ...)
-
-\S4method{plotDispEsts}{DESeqAnalysis}(object, ymin, CV = FALSE,
   genecol = "black", fitcol = "red", finalcol = "dodgerblue",
   legend = TRUE, xlab, ylab, log = "xy", cex = 0.45, ...)
 }

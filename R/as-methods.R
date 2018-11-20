@@ -1,10 +1,10 @@
 #' @name as
 #' @aliases coerce
+#' @author Michael Steinbaugh
+#' @exportMethod coerce
 #' @importFrom methods coerce
 #' @inherit methods::as
 #' @inheritParams coerce
-#' @exportMethod coerce
-#' @author Michael Steinbaugh
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'
@@ -15,24 +15,25 @@
 #' 4. Simplifies [S4Vectors::metadata()] to include only relevant information
 #'    and updates `sessionInfo`.
 #'
+#' Note that gene-level counts are required. Alternatively
+#' `tximport::summarizeToGene()` can be called to convert transcript-level
+#' counts to gene-level. By default, we're using length-scaled TPM, so a
+#' corresponding average transcript length matrix isn't necessary. The average
+#' transcript length matrix is only necessary when raw counts matrix isn't
+#' scaled during tximport call (see `countsFromAbundance` in tximport).
+#'
 #' @section bcbioRNASeq to DESeqTransform:
 #'
 #' 1. Coerces to `DESeqDataSet`.
 #' 2. Calls [DESeq2::DESeq()].
 #' 3. Calls [DESeq2::varianceStabilizingTransformation()].
 #'
-#' @section DESeqAnalysis:
-#'
-#' Supported coercion methods will extract any of these internal objects:
-#'
-#' - `DESeqDataSet`.
-#' - `DESeqTransform`.
-#' - `DESeqResults`. Extracts the first results slotted. Note that this
-#'   corresponds to results containing log2 fold change (LFC) values that
-#'   *have not been shrunken* using [DESeq2::lfcShrink()].
+#' @seealso
+#' - `tximport::tximport`
+#' - `DESeq2::DESeqDataSetFromTximport()`.
 #'
 #' @examples
-#' data(bcb, deseq)
+#' data(bcb)
 #'
 #' ## bcbioRNASeq to DESeqDataSet ====
 #' x <- as(bcb, "DESeqDataSet")
@@ -52,26 +53,9 @@
 #' class(x)
 #' slotNames(x)
 #' show(x)
-#'
-#' ## DESeqAnalysis ====
-#' dds <- as(deseq, "DESeqDataSet")
-#' print(dds)
-#' dt <- as(deseq, "DESeqTransform")
-#' print(dt)
-#' ## Pulls the first results slotted.
-#' res <- as(deseq, "DESeqResults")
-#' contrastName(res)
-#' summary(res)
 NULL
 
 
-
-# Note that gene-level counts are required. Mention `summarizeToGene()`.
-# By default, we're using length-scaled TPM, so a corresponding average
-# transcript length matrix isn't necessary. The average transcript length matrix
-# is only necessary when raw counts matrix isn't scaled during tximport call
-# (see `countsFromAbundance`).
-# @seealso `tximport::tximport`, `DESeq2::DESeqDataSetFromTximport()`.
 
 #' @rdname as
 #' @name coerce,bcbioRNASeq,DESeqDataSet-method
@@ -107,50 +91,5 @@ setAs(
         dt <- varianceStabilizingTransformation(dds)
         validObject(dt)
         dt
-    }
-)
-
-
-
-#' @rdname as
-#' @name coerce,DESeqAnalysis,DESeqDataSet-method
-setAs(
-    from = "DESeqAnalysis",
-    to = "DESeqDataSet",
-    function(from) {
-        validObject(from)
-        to <- slot(from, "data")
-        validObject(to)
-        to
-    }
-)
-
-
-
-#' @rdname as
-#' @name coerce,DESeqAnalysis,DESeqTransform-method
-setAs(
-    from = "DESeqAnalysis",
-    to = "DESeqTransform",
-    function(from) {
-        validObject(from)
-        to <- slot(from, "transform")
-        validObject(to)
-        to
-    }
-)
-
-
-
-#' @rdname as
-#' @name coerce,DESeqAnalysis,DESeqResults-method
-setAs(
-    from = "DESeqAnalysis",
-    to = "DESeqResults",
-    function(from) {
-        validObject(from)
-        to <- slot(from, "results")[[1L]]
-        validObject(to)
-        to
     }
 )

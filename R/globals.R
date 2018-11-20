@@ -1,3 +1,5 @@
+globalVariables(".")
+
 packageVersion <- packageVersion("bcbioRNASeq")
 
 #' Cache URL
@@ -9,10 +11,6 @@ bcbioRNASeqCacheURL <- paste0(
     "http://bcbiornaseq.seq.cloud/",
     "v", packageVersion$major, ".", packageVersion$minor  # nolint
 )
-
-lanePattern <- basejump::lanePattern
-metadataBlacklist <- bcbioBase::metadataBlacklist
-projectDirPattern <- bcbioBase::projectDirPattern
 
 validLevels <- c("genes", "transcripts")
 

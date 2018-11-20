@@ -1,10 +1,8 @@
 #' @name plotCorrelationHeatmap
-#' @inherit basejump::plotHeatmap
 #' @author Michael Steinbaugh
-#'
-#' @inheritParams params
+#' @inherit basejump::plotHeatmap
 #' @inheritParams basejump::params
-#'
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plotCorrelationHeatmap(bcb, method = "pearson")
@@ -20,7 +18,6 @@ basejump::plotCorrelationHeatmap
 
 
 
-# bcbioRNASeq ==================================================================
 plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
     function(object, normalized) {
         validObject(object)
@@ -39,6 +36,7 @@ plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
             )
         )
     }
+
 f1 <- formals(plotCorrelationHeatmap.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCorrelationHeatmap",
