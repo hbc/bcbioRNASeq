@@ -1,9 +1,10 @@
 # bcbioRNASeq Example
-# 2018-10-20
+# 2018-11-19
+
+library(pryr)
 
 # Restrict to 2 MB.
 # Use `pryr::object_size()` instead of `utils::object.size()`.
-library(pryr)
 limit <- structure(2e6, class = "object_size")
 
 # GSE65267 =====================================================================
@@ -86,5 +87,4 @@ stopifnot(object_size(bcb) < limit)
 stopifnot(is(bcb, "bcbioRNASeq"))
 stopifnot(validObject(bcb))
 
-bcb <- bcb
 usethis::use_data(bcb, overwrite = TRUE, compress = "xz")
