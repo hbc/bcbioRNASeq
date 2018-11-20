@@ -1,7 +1,6 @@
 # AppVeyor-CI configuration for Bioconductor packages
 # https://github.com/krlmlr/r-appveyor
 
-# Download script file from GitHub.
 init:
   ps: |
         $ErrorActionPreference = "Stop"
@@ -13,9 +12,8 @@ install:
 
 platform: x64
 
-# Cache size limit is currently too small for R packages.
-# cache:
-#   - C:\RLibrary
+cache:
+  - C:\RLibrary
 
 environment:
   global:
