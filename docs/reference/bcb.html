@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Contrast Name — contrastName • bcbioRNASeq</title>
+<title>bcbio RNA-Seq Example Data — bcb • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Contrast Name — contrastName" />
+<meta property="og:title" content="bcbio RNA-Seq Example Data — bcb" />
 
-<meta property="og:description" content="Contrast Name" />
+<meta property="og:description" content="bcbio RNA-Seq Example Data" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.2</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hbc/bcbioRNASeq">
+  <a href="https://github.com/hbc/bcbioRNASeq/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -105,79 +105,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Contrast Name</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/contrastName-methods.R'><code>R/contrastName-methods.R</code></a></small>
-    <div class="hidden name"><code>contrastName.Rd</code></div>
+    <h1>bcbio RNA-Seq Example Data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq//blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>bcb.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Contrast Name</p>
+    <p>bcbio RNA-Seq Example Data</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>contrastName</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='no'>bcb</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-<span class='co'># S4 method for DESeqAnalysis</span>
-<span class='fu'>contrastName</span>(<span class='no'>object</span>, <span class='no'>results</span>)
-
-<span class='co'># S4 method for DESeqResults</span>
-<span class='fu'>contrastName</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for DESeqResultsTables</span>
-<span class='fu'>contrastName</span>(<span class='no'>object</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>object</th>
-      <td><p>Object.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
-    </tr>
-    <tr>
-      <th>results</th>
-      <td><p><code>scalar</code>. Position or name of <code>DESeqResults</code>.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>string</code>. Contrast name.</p>
+    <p>An object of class <code>bcbioRNASeq</code> with 500 rows and 6 columns.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>deseq_small</span>)
-
-<span class='co'>## DESeqAnalysis ====</span>
-<span class='fu'>contrastName</span>(<span class='no'>deseq_small</span>, <span class='kw'>results</span> <span class='kw'>=</span> <span class='fl'>1L</span>)</div><div class='output co'>#&gt; <span class='message'>DESeqResults: treatment folic acid vs control</span></div><div class='output co'>#&gt; [1] "treatment folic acid vs control"</div><div class='input'>
-<span class='co'>## DESeqResults ====</span>
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>deseq_small</span>, <span class='st'>"DESeqResults"</span>)
-<span class='fu'>contrastName</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; [1] "treatment folic acid vs control"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
+<span class='no'>bcb</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.1
+#&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-11-13
+#&gt; level: genes
+#&gt; caller: salmon
+#&gt; organism: Mus musculus
+#&gt; interestingGroups: treatment
+#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 500 6 
+#&gt; metadata(28): version level ... subset previousVersion
+#&gt; assays(6): counts tpm ... vst fpkm
+#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
+#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
+#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#format">Format</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
     
-Michael Steinbaugh
+Michael Steinbaugh, Lorena Pantano
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io/'>Lorena Pantano</a>, <a href='https://github.com/roryk/'>Rory Kirchner</a>, <a href='https://github.com/vbarrera/'>Victor Barrera</a>, <a href='https://github.com/chapmanb/'>Brad Chapman</a>, <a href='https://github.com/marypiper/'>Mary Piper</a>, <a href='https://github.com/mistrm82/'>Meeta Mistry</a>, <a href='https://github.com/rkhetani/'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford/'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann/'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson/'>John Hutchinson</a>, <a href='https://github.com/sjhosui/'>Shannan Ho Sui</a>, <a href='https://bioinformatics.sph.harvard.edu/'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

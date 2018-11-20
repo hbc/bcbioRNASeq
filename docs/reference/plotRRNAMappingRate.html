@@ -67,7 +67,7 @@ best avoided." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.2</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@ best avoided." />
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hbc/bcbioRNASeq">
+  <a href="https://github.com/hbc/bcbioRNASeq/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -110,7 +110,7 @@ best avoided." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Ribosomal RNA (rRNA) Mapping Rate</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotRRNAMappingRate-methods.R'><code>R/plotRRNAMappingRate-methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq//blob/master/R/plotRRNAMappingRate-methods.R'><code>R/plotRRNAMappingRate-methods.R</code></a></small>
     <div class="hidden name"><code>plotRRNAMappingRate.Rd</code></div>
     </div>
 
@@ -124,12 +124,10 @@ best avoided.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotRRNAMappingRate</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for bcbioRNASeq</span>
+    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotRRNAMappingRate</span>(<span class='no'>object</span>,
   <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.fill"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.fill.discrete"</span>, <span class='kw'>NULL</span>),
   <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.flip"</span>, <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"rRNA mapping rate"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -140,13 +138,9 @@ best avoided.</p>
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional arguments.</p></td>
-    </tr>
-    <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that define the
-samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <td><p><code>character</code> or <code>NULL</code>. Groups of interest that
+define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>limit</th>
@@ -158,14 +152,13 @@ dashed line.</p></td>
       <td><p><code>ggproto</code>/<code>ScaleDiscrete</code> or <code>NULL</code>. Desired ggplot2 fill scale.
 Must supply discrete values. When set to <code>NULL</code>, the default ggplot2 color
 palette will be used. If manual color definitions are desired, we recommend
-using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_fill_manual()</a></code>.
-To set the discrete fill palette globally, use
-<code>options(bcbio.discrete.fill = scale_fill_viridis_d())</code>.</p></td>
+using <code><a href='ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_fill_manual()</a></code>. To set the discrete fill palette
+globally, use <code>options(basejump.fill.discrete = scale_fill_viridis_d())</code>.</p></td>
     </tr>
     <tr>
       <th>flip</th>
-      <td><p><code>boolean</code>. Flip x and y axes. Recommended for quality control
-plots containing many samples.</p></td>
+      <td><p><code>boolean</code>. Flip x and y axes. Recommended for plots containing
+many samples.</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -179,8 +172,8 @@ plots containing many samples.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
-<span class='fu'>plotRRNAMappingRate</span>(<span class='no'>bcb_small</span>)</div><div class='img'><img src='plotRRNAMappingRate-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
+<span class='fu'>plotRRNAMappingRate</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotRRNAMappingRate-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -201,7 +194,7 @@ Michael Steinbaugh, Rory Kirchner, Victor Barrera
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io/'>Lorena Pantano</a>, <a href='https://github.com/roryk/'>Rory Kirchner</a>, <a href='https://github.com/vbarrera/'>Victor Barrera</a>, <a href='https://github.com/chapmanb/'>Brad Chapman</a>, <a href='https://github.com/marypiper/'>Mary Piper</a>, <a href='https://github.com/mistrm82/'>Meeta Mistry</a>, <a href='https://github.com/rkhetani/'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford/'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann/'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson/'>John Hutchinson</a>, <a href='https://github.com/sjhosui/'>Shannan Ho Sui</a>, <a href='https://bioinformatics.sph.harvard.edu/'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

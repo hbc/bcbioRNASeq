@@ -64,7 +64,7 @@ and this generator function will take care of the rest." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.2</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ and this generator function will take care of the rest." />
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hbc/bcbioRNASeq">
+  <a href="https://github.com/hbc/bcbioRNASeq/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -107,7 +107,7 @@ and this generator function will take care of the rest." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>bcbio RNA-Seq Data Set</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/bcbioRNASeq-generator.R'><code>R/bcbioRNASeq-generator.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq//blob/master/R/bcbioRNASeq.R'><code>R/bcbioRNASeq.R</code></a></small>
     <div class="hidden name"><code>bcbioRNASeq.Rd</code></div>
     </div>
 
@@ -247,8 +247,8 @@ discouraged by default for visualization.</p></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that define the
-samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <td><p><code>character</code> or <code>NULL</code>. Groups of interest that
+define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -277,9 +277,9 @@ these can be corrected by editing the YAML file.</p>
 requires either a CSV or Excel spreadsheet.</p>
 <p>The samples in the bcbio run must map to the <code>description</code> column. The values
 provided in <code>description</code> must be unique. These values will be sanitized into
-syntactically valid names (see <a href='http://www.rdocumentation.org/packages/basejump/topics/makeNames'>basejump::makeNames</a> for more information),
-and assigned as the column names of the <code>bcbioRNASeq</code> object. The original
-values are stored as the <code>sampleName</code> column in
+syntactically valid names (see <a href='http://www.rdocumentation.org/packages/basejump/topics/makeNames'>basejump::makeNames</a> for more
+information), and assigned as the column names of the <code>bcbioRNASeq</code> object.
+The original values are stored as the <code>sampleName</code> column in
 <code><a href='http://www.rdocumentation.org/packages/SummarizedExperiment/topics/SummarizedExperiment-class'>SummarizedExperiment::colData()</a></code>, and are used for all plotting functions.
 Do not attempt to set a <code>sampleID</code> column, as this is used internally by the
 package.</p>
@@ -365,7 +365,7 @@ possible.</p>
     <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"Mus musculus"</span>,
     <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='fl'>87L</span>
 )</div><div class='output co'>#&gt; <span class='message'>Dated project directory: 2018-03-18_GSE65267-merged</span></div><div class='output co'>#&gt; <span class='message'>6 sample(s) detected:</span>
-#&gt; <span class='message'>control_rep1, control_rep2, control_rep3, fa_day7_rep1, fa_day7_rep2, fa_day7...</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml.</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Reading bcbio-nextgen.log.</span></div><div class='output co'>#&gt; <span class='message'>Importing using `read_lines()`.</span></div><div class='output co'>#&gt; <span class='message'>Reading bcbio-nextgen-commands.log.</span></div><div class='output co'>#&gt; <span class='message'>Importing using `read_lines()`.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport 1.9.12.</span></div><div class='output co'>#&gt; <span class='message'>Reading from quant.sf files.</span></div><div class='output co'>#&gt; <span class='message'>Scaling using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>control_rep1, control_rep2, control_rep3, fa_day7_rep1, fa_day7_rep2, fa_day7...</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport 1.10.0.</span></div><div class='output co'>#&gt; <span class='message'>Reading from quant.sf files.</span></div><div class='output co'>#&gt; <span class='message'>Scaling using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  Name = col_character(),</span>
 #&gt; <span class='message'>  Length = col_integer(),</span>
@@ -407,15 +407,13 @@ possible.</p>
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='warning'>Warning: bcbio GTF file missing:</span>
-#&gt; <span class='warning'>  /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf</span></div><div class='output co'>#&gt; <span class='message'>Using `makeGRangesFromEnsembl()` for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.13.8 (2018-10-18).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>bcbio GTF file missing:</span>
+#&gt; <span class='message'>  /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf</span></div><div class='output co'>#&gt; <span class='message'>Using `makeGRangesFromEnsembl()` for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.14.1 (2018-10-24).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
-#&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.21.23.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.99.0
-#&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
-#&gt; citation("bcbioRNASeq")
+#&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.1.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.2
 #&gt; uploadDir: /Users/mike/git/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-21
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-11-19
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -438,7 +436,7 @@ possible.</p>
     <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"Mus musculus"</span>,
     <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='fl'>87L</span>
 )</div><div class='output co'>#&gt; <span class='message'>Dated project directory: 2018-03-18_GSE65267-merged</span></div><div class='output co'>#&gt; <span class='message'>6 sample(s) detected:</span>
-#&gt; <span class='message'>control_rep1, control_rep2, control_rep3, fa_day7_rep1, fa_day7_rep2, fa_day7...</span></div><div class='output co'>#&gt; <span class='message'>Reading project-summary.yaml.</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Reading bcbio-nextgen.log.</span></div><div class='output co'>#&gt; <span class='message'>Importing using `read_lines()`.</span></div><div class='output co'>#&gt; <span class='message'>Reading bcbio-nextgen-commands.log.</span></div><div class='output co'>#&gt; <span class='message'>Importing using `read_lines()`.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport 1.9.12.</span></div><div class='output co'>#&gt; <span class='message'>Reading from quant.sf files.</span></div><div class='output co'>#&gt; <span class='message'>Scaling using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>control_rep1, control_rep2, control_rep3, fa_day7_rep1, fa_day7_rep2, fa_day7...</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport 1.10.0.</span></div><div class='output co'>#&gt; <span class='message'>Reading from quant.sf files.</span></div><div class='output co'>#&gt; <span class='message'>Scaling using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  Name = col_character(),</span>
 #&gt; <span class='message'>  Length = col_integer(),</span>
@@ -480,15 +478,13 @@ possible.</p>
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='warning'>Warning: bcbio GTF file missing:</span>
-#&gt; <span class='warning'>  /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf</span></div><div class='output co'>#&gt; <span class='message'>Using `makeGRangesFromEnsembl()` for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.13.8 (2018-10-18).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>bcbio GTF file missing:</span>
+#&gt; <span class='message'>  /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf</span></div><div class='output co'>#&gt; <span class='message'>Using `makeGRangesFromEnsembl()` for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.14.1 (2018-10-24).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
-#&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, transcriptBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.99.0
-#&gt; http://bioinformatics.sph.harvard.edu/bcbioRNASeq
-#&gt; citation("bcbioRNASeq")
+#&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, transcriptBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='input'><span class='fu'>print</span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.2
 #&gt; uploadDir: /Users/mike/git/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-10-21
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-11-19
 #&gt; level: transcripts
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -540,7 +536,7 @@ Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io/'>Lorena Pantano</a>, <a href='https://github.com/roryk/'>Rory Kirchner</a>, <a href='https://github.com/vbarrera/'>Victor Barrera</a>, <a href='https://github.com/chapmanb/'>Brad Chapman</a>, <a href='https://github.com/marypiper/'>Mary Piper</a>, <a href='https://github.com/mistrm82/'>Meeta Mistry</a>, <a href='https://github.com/rkhetani/'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford/'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann/'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson/'>John Hutchinson</a>, <a href='https://github.com/sjhosui/'>Shannan Ho Sui</a>, <a href='https://bioinformatics.sph.harvard.edu/'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

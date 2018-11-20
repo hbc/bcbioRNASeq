@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.2</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hbc/bcbioRNASeq">
+  <a href="https://github.com/hbc/bcbioRNASeq/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -106,7 +106,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Gene Expression</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotGene-methods.R'><code>R/plotGene-methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq//blob/master/R/plotGene-methods.R'><code>R/plotGene-methods.R</code></a></small>
     <div class="hidden name"><code>plotGene.Rd</code></div>
     </div>
 
@@ -121,14 +121,7 @@
   <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>,
   <span class='kw'>NULL</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>TRUE</span>),
-  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"facet"</span>, <span class='st'>"wide"</span>))
-
-<span class='co'># S4 method for DESeqAnalysis</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.discrete.color"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>TRUE</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"facet"</span>,
-  <span class='st'>"wide"</span>))</pre>
+  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"facet"</span>, <span class='st'>"wide"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,19 +132,23 @@
     </tr>
     <tr>
       <th>genes</th>
-      <td><p><code>character</code>. Gene identifiers.</p></td>
+      <td><p><code>character</code>. Gene identifiers. It is considered better practice
+to input the stable gene identifiers from Ensembl (e.g. "ENSG00000000003")
+and not the (HGNC) gene symbols (e.g. "TSPN6"), if possible.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p><code>string</code>. Which normalization method to apply:
-- "<code>tpm</code>": Transcripts per million (tximport).
-- "<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.
-- "<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.
-- "<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></td>
+      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest.</p></td>
+      <td><p><code>character</code> or <code>NULL</code>. Groups of interest that
+define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>medianLine</th>
@@ -163,8 +160,9 @@ samples are colored by sample name.</p></td>
       <td><p><code>ggproto</code>/<code>ScaleDiscrete</code> or <code>NULL</code>. Desired ggplot2 color
 scale. Must supply discrete values. When set to <code>NULL</code>, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
-recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>. To set the discrete color
-palette globally, use <code>options(basejump.discrete.color = ggplot2::scale_color_viridis_d())</code>.</p></td>
+recommend using <code><a href='ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual()</a></code>. To set the discrete color
+palette globally, use
+<code>options(basejump.color.discrete = ggplot2::scale_color_viridis_d())</code>.</p></td>
     </tr>
     <tr>
       <th>legend</th>
@@ -178,20 +176,19 @@ palette globally, use <code>options(basejump.discrete.color = ggplot2::scale_col
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p><code>ggplot</code>.</p>
 <ul>
 <li><p><code>style = "facet"</code>: <code>ggplot</code> grouped by <code>sampleName</code>, with
-<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap'>ggplot2::facet_wrap()</a></code> applied to panel the samples.</p></li>
+<code><a href='ggplot2.tidyverse.org/reference/facet_wrap.html'>ggplot2::facet_wrap()</a></code> applied to panel the samples.</p></li>
 <li><p><code>style = "wide"</code>: <code>ggplot</code> in wide format, with genes on the x-axis.</p></li>
 </ul>
 
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>, <span class='no'>deseq_small</span>)
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
 
-<span class='co'>## bcbioRNASeq ====</span>
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='no'>bcb_small</span>
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='no'>bcb</span>
 <span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='fu'>Gene2Symbol</span>(<span class='no'>object</span>)
 <span class='no'>geneIDs</span> <span class='kw'>&lt;-</span> <span class='fu'>head</span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneID"</span>]])
 <span class='fu'>print</span>(<span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346"
@@ -207,10 +204,7 @@ palette globally, use <code>options(basejump.discrete.color = ggplot2::scale_col
     <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneNames</span>,
     <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
     <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"wide"</span>
-)</div><div class='img'><img src='plotGene-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## DESeqAnalysis ====</span>
-<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='no'>deseq_small</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneIDs</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"facet"</span>)</div><div class='img'><img src='plotGene-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneNames</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</div><div class='img'><img src='plotGene-4.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='img'><img src='plotGene-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -231,7 +225,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io/'>Lorena Pantano</a>, <a href='https://github.com/roryk/'>Rory Kirchner</a>, <a href='https://github.com/vbarrera/'>Victor Barrera</a>, <a href='https://github.com/chapmanb/'>Brad Chapman</a>, <a href='https://github.com/marypiper/'>Mary Piper</a>, <a href='https://github.com/mistrm82/'>Meeta Mistry</a>, <a href='https://github.com/rkhetani/'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford/'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann/'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson/'>John Hutchinson</a>, <a href='https://github.com/sjhosui/'>Shannan Ho Sui</a>, <a href='https://bioinformatics.sph.harvard.edu/'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">

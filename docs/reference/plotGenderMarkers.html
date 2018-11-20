@@ -36,8 +36,7 @@
 
 <meta property="og:description" content="This is a convenience function that wraps plotGene() to quickly plot known
 sexually dimorphic genes, and overall gene experssion for the X and Y
-chromosomes. Currently only Homo sapiens and Mus musculus
-genomes are supported." />
+chromosomes." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -66,7 +65,7 @@ genomes are supported." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.99.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.2</span>
       </span>
     </div>
 
@@ -91,7 +90,7 @@ genomes are supported." />
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hbc/bcbioRNASeq">
+  <a href="https://github.com/hbc/bcbioRNASeq/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -109,7 +108,7 @@ genomes are supported." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot Sexually Dimorphic Gender Marker Genes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotGenderMarkers-methods.R'><code>R/plotGenderMarkers-methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq//blob/master/R/plotGenderMarkers-methods.R'><code>R/plotGenderMarkers-methods.R</code></a></small>
     <div class="hidden name"><code>plotGenderMarkers.Rd</code></div>
     </div>
 
@@ -117,8 +116,7 @@ genomes are supported." />
     
     <p>This is a convenience function that wraps <code><a href='plotGene.html'>plotGene()</a></code> to quickly plot known
 sexually dimorphic genes, and overall gene experssion for the X and Y
-chromosomes. Currently only <em>Homo sapiens</em> and <em>Mus musculus</em>
-genomes are supported.</p>
+chromosomes.</p>
     
     </div>
 
@@ -137,15 +135,17 @@ genomes are supported.</p>
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p><code>string</code>. Which normalization method to apply:
-- "<code>tpm</code>": Transcripts per million (tximport).
-- "<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.
-- "<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.
-- "<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></td>
+      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest.</p></td>
+      <td><p><code>character</code> or <code>NULL</code>. Groups of interest that
+define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>medianLine</th>
@@ -157,8 +157,9 @@ samples are colored by sample name.</p></td>
       <td><p><code>ggproto</code>/<code>ScaleDiscrete</code> or <code>NULL</code>. Desired ggplot2 color
 scale. Must supply discrete values. When set to <code>NULL</code>, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
-recommend using <code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>. To set the discrete color
-palette globally, use <code>options(basejump.discrete.color = ggplot2::scale_color_viridis_d())</code>.</p></td>
+recommend using <code><a href='ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual()</a></code>. To set the discrete color
+palette globally, use
+<code>options(basejump.color.discrete = ggplot2::scale_color_viridis_d())</code>.</p></td>
     </tr>
     <tr>
       <th>legend</th>
@@ -174,14 +175,18 @@ palette globally, use <code>options(basejump.discrete.color = ggplot2::scale_col
 
     <p><code>ggplot</code>.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Currently only <em>Homo sapiens</em> and <em>Mus musculus</em> genomes are supported.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='plotGene.html'>plotGene()</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb_small</span>)
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb_small</span>)</div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>bcb</span>)
+<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -189,6 +194,8 @@ palette globally, use <code>options(basejump.discrete.color = ggplot2::scale_col
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
@@ -204,7 +211,7 @@ Michael Steinbaugh
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://steinbaugh.com'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io'>Lorena Pantano</a>, <a href='https://github.com/roryk'>Rory Kirchner</a>, <a href='https://github.com/vbarrera'>Victor Barrera</a>, <a href='https://github.com/chapmanb'>Brad Chapman</a>, <a href='https://github.com/marypiper'>Mary Piper</a>, <a href='https://github.com/mistrm82'>Meeta Mistry</a>, <a href='https://github.com/rkhetani'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson'>John Hutchinson</a>, <a href='https://github.com/sjhosui'>Shannan Ho Sui</a>, <a href='http://bioinformatics.sph.harvard.edu'>Harvard Chan Bioinformatics Core</a>.</p>
+  <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io/'>Lorena Pantano</a>, <a href='https://github.com/roryk/'>Rory Kirchner</a>, <a href='https://github.com/vbarrera/'>Victor Barrera</a>, <a href='https://github.com/chapmanb/'>Brad Chapman</a>, <a href='https://github.com/marypiper/'>Mary Piper</a>, <a href='https://github.com/mistrm82/'>Meeta Mistry</a>, <a href='https://github.com/rkhetani/'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford/'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann/'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson/'>John Hutchinson</a>, <a href='https://github.com/sjhosui/'>Shannan Ho Sui</a>, <a href='https://bioinformatics.sph.harvard.edu/'>Harvard Chan Bioinformatics Core</a>.</p>
 </div>
 
 <div class="pkgdown">
