@@ -4,8 +4,6 @@
 \alias{params}
 \title{Parameters}
 \arguments{
-\item{lfcShrink}{\code{boolean}. Use shrunken log2 fold change (LFC) values.}
-
 \item{normalized}{\code{string}. Which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
@@ -13,8 +11,6 @@
 \item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
-
-\item{results}{\code{scalar}. Position or name of \code{DESeqResults}.}
 }
 \value{
 No value.
