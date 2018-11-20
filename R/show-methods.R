@@ -47,12 +47,9 @@ show.bcbioRNASeq <-  # nolint
             genomeBuild = rrm[["build"]],
             interestingGroups = m[["interestingGroups"]]
         ))
-
         # Extend the standard RangedSummarizedExperiment method.
-        cat(
-            capture.output(show(as(object, "RangedSummarizedExperiment"))),
-            sep = "\n"
-        )
+        rse <- as(object, "RangedSummarizedExperiment")
+        cat(capture.output(show(rse)), sep = "\n")
     }
 
 
