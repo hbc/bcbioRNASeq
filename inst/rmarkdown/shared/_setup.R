@@ -1,5 +1,7 @@
-library(bcbioRNASeq)
 library(knitr)
+library(basejump)
+library(bcbioRNASeq)
+library(DESeq2)
 library(tidyverse)
 
 # Set seed for reproducibility.

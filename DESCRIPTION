@@ -102,11 +102,10 @@ Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 3.5),
-    SummarizedExperiment (>= 1.10),
-    basejump (>= 0.8.2),
-    DESeq2 (>= 1.20)
+    SummarizedExperiment (>= 1.10)
 Imports:
     BiocGenerics,
+    DESeq2 (>= 1.20),
     GenomicFeatures,
     S4Vectors,
     assertive.base,
@@ -117,6 +116,7 @@ Imports:
     assertive.strings,
     assertive.types,
     assertthat,
+    basejump (>= 0.8.2),
     bcbioBase (>= 0.5.2),
     cowplot (>= 0.9),
     dplyr (>= 0.7),
