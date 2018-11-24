@@ -59,21 +59,20 @@ Plot Gene Expression
 \examples{
 data(bcb)
 
-object <- bcb
-g2s <- Gene2Symbol(object)
+g2s <- basejump::Gene2Symbol(bcb)
 geneIDs <- head(g2s[["geneID"]])
 print(geneIDs)
 geneNames <- head(g2s[["geneName"]])
 print(geneNames)
 
 plotGene(
-    object = object,
+    object = bcb,
     genes = geneIDs,
     normalized = "vst",
     style = "facet"
 )
 plotGene(
-    object = object,
+    object = bcb,
     genes = geneNames,
     normalized = "vst",
     style = "wide"
