@@ -16,9 +16,9 @@ matrix:
     fortran: false
     latex: false
     warnings_are_errors: true
-  # - os: linux
-  #   r: bioc-release
-  #   warnings_are_errors: true
+  - os: linux
+    r: bioc-release
+    warnings_are_errors: true
   # - os: linux
   #   r: bioc-devel
   #   latex: false
@@ -45,6 +45,8 @@ after_success:
   - Rscript -e 'lintr::lint_package()'
   - Rscript -e 'covr::codecov()'
   - R CMD BiocCheck .
+  # Render R Markdown templates
+  # https://github.com/bcbio/bcbio_rnaseq_output_example
   # - chmod +x travis_render.sh
   # - ./travis_render.sh
 
