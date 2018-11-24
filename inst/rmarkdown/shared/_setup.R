@@ -1,4 +1,5 @@
 library(knitr)
+library(rmarkdown)
 library(basejump)
 library(bcbioRNASeq)
 library(DESeq2)

@@ -7,11 +7,13 @@
 %   R/plotGeneSaturation-methods.R, R/plotIntronicMappingRate-methods.R,
 %   R/plotMappedReads-methods.R, R/plotMappingRate-methods.R,
 %   R/plotMeanSD-methods.R, R/plotPCA-methods.R, R/plotQC-methods.R,
-%   R/plotRRNAMappingRate-methods.R, R/plotTotalReads-methods.R,
+%   R/plotRRNAMappingRate-methods.R, R/plotTotalReads-methods.R, R/reexports.R,
 %   R/relativeLogExpression-methods.R, R/sampleData-methods.R, R/show-methods.R,
 %   R/tmm-methods.R, R/updateObject-methods.R
 \docType{import}
 \name{reexports}
+\alias{reexports}
+\alias{\%>\%}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -22,6 +24,8 @@ below to see their documentation.
   \item{basejump}{\code{\link[basejump]{plot5Prime3PrimeBias}}, \code{\link[basejump]{plotCorrelationHeatmap}}, \code{\link[basejump]{plotCountsPerBiotype}}, \code{\link[basejump]{plotCountsPerBroadClass}}, \code{\link[basejump]{plotCountsPerGene}}, \code{\link[basejump]{plotExonicMappingRate}}, \code{\link[basejump]{plotGenderMarkers}}, \code{\link[basejump]{plotGene}}, \code{\link[basejump]{plotGeneSaturation}}, \code{\link[basejump]{plotIntronicMappingRate}}, \code{\link[basejump]{plotMappedReads}}, \code{\link[basejump]{plotMappingRate}}, \code{\link[basejump]{plotMeanSD}}, \code{\link[basejump]{plotQC}}, \code{\link[basejump]{plotRRNAMappingRate}}, \code{\link[basejump]{plotTotalReads}}, \code{\link[basejump]{relativeLogExpression}}, \code{\link[basejump]{sampleData}}, \code{\link[basejump]{tmm}}}
 
   \item{BiocGenerics}{\code{\link[BiocGenerics]{counts}}, \code{\link[BiocGenerics]{counts<-}}, \code{\link[BiocGenerics]{plotDispEsts}}, \code{\link[BiocGenerics]{plotPCA}}, \code{\link[BiocGenerics]{updateObject}}}
+
+  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
   \item{methods}{\code{\link[methods]{show}}}
 }}
