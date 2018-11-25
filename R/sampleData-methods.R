@@ -26,6 +26,10 @@ NULL
 #' @export
 basejump::sampleData
 
+#' @importFrom basejump sampleData<-
+#' @export
+basejump::`sampleData<-`
+
 
 
 sampleData.bcbioRNASeq <-  # nolint
