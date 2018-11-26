@@ -418,7 +418,7 @@ bcbioRNASeq <- function(
     # Fetch the genomic ranges.
     if (is_a_string(gffFile)) {
         # GTF/GFF file.
-        message("Using `makeGRangesFromGFF()` for annotations.")
+        message("Using makeGRangesFromGFF() for annotations.")
         if (file.exists(gffFile)) {
             gffFile <- realpath(gffFile)
         }
@@ -428,7 +428,7 @@ bcbioRNASeq <- function(
         is.numeric(ensemblRelease)
     ) {
         # AnnotationHub (ensembldb).
-        message("Using `makeGRangesFromEnsembl()` for annotations.")
+        message("Using makeGRangesFromEnsembl() for annotations.")
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
