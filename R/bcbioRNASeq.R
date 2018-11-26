@@ -233,13 +233,31 @@ bcbioRNASeq <- function(
     assert_is_any_of(censorSamples, c("character", "NULL"))
     assertIsStringOrNULL(sampleMetadataFile)
     assertIsStringOrNULL(organism)
-    assertIsAnImplicitIntegerOrNULL(ensemblRelease)
     assertIsStringOrNULL(genomeBuild)
+    assertIsAnImplicitIntegerOrNULL(ensemblRelease)
+    # Organism is required for AnnotationHub, if genome build or Ensembl release
+    # version are declared.
+    if (
+        !is.null(genomeBuild) ||
+        !is.null(ensemblRelease)
+    ) {
+        assert_is_a_string(organism)
+    }
     assert_is_any_of(transgeneNames, c("character", "NULL"))
     assert_is_any_of(spikeNames, c("character", "NULL"))
     assertIsStringOrNULL(gffFile)
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)
+    }
+    # Check for either AnnotationHub or GFF file (but not both).
+    if (!is.null(organism)) {
+        assert_is_null(gffFile)
+    }
+    if (!is.null(gffFile)) {
+        assert_that(
+            is.null(genomeBuild),
+            is.null(ensemblRelease)
+        )
     }
     match.arg(
         arg = countsFromAbundance,
@@ -403,30 +421,14 @@ bcbioRNASeq <- function(
 
     # Row data -----------------------------------------------------------------
     # Annotation priority:
-    # 1. GTF/GFF file. Use the bcbio GTF if possible.
-    # 2. AnnotationHub.
+    # 1. AnnotationHub.
     #    - Requires `organism` to be declared.
     #    - Ensure that Ensembl release and genome build match.
+    # 2. GTF/GFF file. Use the bcbio GTF if possible.
     # 3. Fall back to slotting empty ranges. This is offered as support for
     #    complex datasets (e.g. multiple organisms).
 
-    # Attempt to use bcbio GTF automatically.
-    if (is.null(gffFile)) {
-        gffFile <- getGTFFileFromYAML(yaml)
-    }
-
-    # Fetch the genomic ranges.
-    if (is_a_string(gffFile)) {
-        # GTF/GFF file.
-        message("Using makeGRangesFromGFF() for annotations.")
-        if (file.exists(gffFile)) {
-            gffFile <- realpath(gffFile)
-        }
-        rowRanges <- makeGRangesFromGFF(file = gffFile, level = level)
-    } else if (
-        is_a_string(organism) &&
-        is.numeric(ensemblRelease)
-    ) {
+    if (is_a_string(organism) && is.numeric(ensemblRelease)) {
         # AnnotationHub (ensembldb).
         message("Using makeGRangesFromEnsembl() for annotations.")
         rowRanges <- makeGRangesFromEnsembl(
@@ -436,8 +438,19 @@ bcbioRNASeq <- function(
             release = ensemblRelease
         )
     } else {
-        message("Slotting empty ranges into rowRanges().")
-        rowRanges <- emptyRanges(rownames(assays[[1L]]))
+        # GTF/GFF file.
+        if (is.null(gffFile)) {
+            # Attempt to use bcbio GTF automatically.
+            gffFile <- getGTFFileFromYAML(yaml)
+        }
+        if (!is.null(gffFile)) {
+            message("Using makeGRangesFromGFF() for annotations.")
+            gffFile <- realpath(gffFile)
+            rowRanges <- makeGRangesFromGFF(file = gffFile, level = level)
+        } else {
+            message("Slotting empty ranges into rowRanges().")
+            rowRanges <- emptyRanges(rownames(assays[[1L]]))
+        }
     }
     assert_is_all_of(rowRanges, "GRanges")
 
@@ -556,8 +569,6 @@ bcbioRNASeq <- function(
 
 
 
-# TODO Make stricter. Error if there are any rowRanges mismatches during
-# `makeSummarizedExperiment()` call.
 .new.bcbioRNASeq <-  # nolint
     function(
         assays,
