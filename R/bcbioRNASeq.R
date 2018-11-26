@@ -441,7 +441,7 @@ bcbioRNASeq <- function(
             release = ensemblRelease
         )
     } else {
-        message("Slotting empty ranges into `rowRanges().")
+        message("Slotting empty ranges into rowRanges().")
         rowRanges <- emptyRanges(rownames(assays[[1L]]))
     }
     assert_is_all_of(rowRanges, "GRanges")
@@ -547,7 +547,7 @@ bcbioRNASeq <- function(
             assays(bcb)[["fpkm"]] <- fpkm(dds)
         } else {
             message(paste(
-                "`rowRanges()` contains empty ranges.",
+                "rowRanges() contains empty ranges.",
                 "Skipping FPKM calculation."
             ))
         }
