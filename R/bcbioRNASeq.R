@@ -235,29 +235,27 @@ bcbioRNASeq <- function(
     assertIsStringOrNULL(organism)
     assertIsStringOrNULL(genomeBuild)
     assertIsAnImplicitIntegerOrNULL(ensemblRelease)
-    # Organism is required for AnnotationHub, if genome build or Ensembl release
-    # version are declared.
-    if (
-        !is.null(genomeBuild) ||
-        !is.null(ensemblRelease)
-    ) {
-        assert_is_a_string(organism)
-    }
     assert_is_any_of(transgeneNames, c("character", "NULL"))
     assert_is_any_of(spikeNames, c("character", "NULL"))
     assertIsStringOrNULL(gffFile)
+    # Check that the GFF file exists when declared.
     if (is_a_string(gffFile)) {
         assert_all_are_existing_files(gffFile)
     }
-    # Check for either AnnotationHub or GFF file (but not both).
-    if (!is.null(organism)) {
-        assert_is_null(gffFile)
-    }
+    # Don't allow AnnotationHub formals when specifying GFF file.
     if (!is.null(gffFile)) {
         assert_that(
             is.null(genomeBuild),
             is.null(ensemblRelease)
         )
+    }
+    # Organism is required when we're defining the genome.
+    if (
+        !is.null(genomeBuild) ||
+        !is.null(ensemblRelease) ||
+        !is.null(gffFile)
+    ) {
+        assert_is_a_string(organism)
     }
     match.arg(
         arg = countsFromAbundance,
