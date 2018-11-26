@@ -411,13 +411,8 @@ bcbioRNASeq <- function(
     #    complex datasets (e.g. multiple organisms).
 
     # Attempt to use bcbio GTF automatically.
-    # Consider warning the user here instead of messaging.
     if (is.null(gffFile)) {
         gffFile <- getGTFFileFromYAML(yaml)
-        if (!file.exists(gffFile)) {
-            message(paste0("bcbio GTF file missing:", "\n  ", gffFile))
-        }
-        gffFile <- NULL
     }
 
     # Fetch the genomic ranges.
