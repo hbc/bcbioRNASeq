@@ -2,7 +2,6 @@
 
 export("%>%")
 export("counts<-")
-export("sampleData<-")
 export(Gene2Symbol)
 export(bcbioRNASeq)
 export(bcbioRNASeqCacheURL)
