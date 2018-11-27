@@ -1,16 +1,16 @@
 ---
-title: "Quality Control"
+params:
+  title: Quality Control
+  bcbioRNASeq_file: "data/YYYY-MM-DD/bcb.rds"
+  results_dir: !r file.path("results", Sys.Date(), "quality_control")
+title: "`r params$title`"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
-params:
-  bcbioRNASeq_file: "data/YYYY-MM-DD/bcb.rds"
-  results_dir: !r file.path("results", Sys.Date(), "quality_control")
-  dropbox: FALSE
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-11-16
+# Last modified 2018-11-27
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 ```
@@ -22,14 +22,18 @@ invisible(validObject(object))
 print(object)
 ```
 
-```{r identical_samples, echo=FALSE, message=FALSE, results="hide"}
-# If there are no replicates, or samples are identical, don't plot dispersions
-# PCA, or heatmap.
-identical_samples <-
-    all(rowSums(assay(object) == assay(object)[, 1]) == ncol(object))
+```{r header, child="_header.Rmd"}
 ```
 
-```{r header, child="_header.Rmd"}
+```{r identical_samples}
+identical_samples <-
+    all(rowSums(assay(object) == assay(object)[, 1]) == ncol(object))
+if (isTRUE(identical_samples)) {
+    message(paste(
+        "Identical samples lacking replicates detected.",
+        "Skipping dispersion, PCA, and correlation heatmap."
+    ))
+}
 ```
 
 ```{r sample_data}
