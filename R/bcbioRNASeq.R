@@ -1,3 +1,7 @@
+# FIXME Add a step to check and see if we need to pad the zeros in sample IDs.
+
+
+
 #' @inherit bcbioRNASeq-class
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #' @export
