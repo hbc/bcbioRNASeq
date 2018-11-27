@@ -24,83 +24,58 @@ at transcript level. Aligned counts from featureCounts-compatible callers
 
 \item{caller}{\code{string}. Expression caller:
 \itemize{
-\item "\code{salmon}" (\emph{default}): \href{https://combine-lab.github.io/salmon}{Salmon}
-alignment-free, quasi-mapped counts.
-\item "\code{kallisto}". \href{https://pachterlab.github.io/kallisto}{Kallisto}
-alignment-free, pseudo-aligned counts.
-\item "\code{sailfish}".
-\href{http://www.cs.cmu.edu/~ckingsf/software/sailfish}{Sailfish}
-alignment-free, lightweight counts.
-\item "\code{star}": \href{https://github.com/alexdobin/STAR}{STAR}
-(Spliced Transcripts Alignment to a Reference) aligned counts.
-\item "\code{hisat2}": \href{https://ccb.jhu.edu/software/hisat2}{HISAT2}
-(Hierarchical Indexing for Spliced Alignment of Transcripts) graph-based
-aligned counts.
+\item "\code{salmon}" (\emph{default}): \href{https://combine-lab.github.io/salmon/}{Salmon} alignment-free, quasi-mapped counts.
+\item "\code{kallisto}": \href{https://pachterlab.github.io/kallisto/}{Kallisto} alignment-free, pseudo-aligned counts.
+\item "\code{sailfish}": \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{Sailfish} alignment-free, lightweight counts.
+\item "\code{star}": \href{https://github.com/alexdobin/STAR/}{STAR} (Spliced Transcripts Alignment to a Reference) aligned
+counts.
+\item "\code{hisat2}": \href{https://ccb.jhu.edu/software/hisat2/}{HISAT2} (Hierarchical Indexing for Spliced Alignment of
+Transcripts) graph-based aligned counts.
 }}
 
-\item{samples}{\code{character} or \code{NULL}. Specify a subset of samples to load.
-The names must match the \code{description} specified in the bcbio YAML
-metadata. If a \code{sampleMetadataFile} is provided, that will take priority
-for sample selection. Typically this can be left unset.}
+\item{samples}{\code{character}. Specify a subset of samples to include.}
 
-\item{censorSamples}{\code{character} or \code{NULL}. Samples to exclude from the
-analysis.}
+\item{censorSamples}{\code{character}. Specify a subset of samples to censor.}
 
-\item{sampleMetadataFile}{\code{string} or \code{NULL}. Custom metadata file containing
-sample information. Otherwise defaults to sample metadata saved in the YAML
-file. Remote URLs are supported. Typically this can be left unset.}
+\item{sampleMetadataFile}{\code{string}. Sample metadata file path. CSV
+or TSV is preferred, but Excel worksheets are also supported. Check the
+documentation for conventions and required columns.}
 
-\item{organism}{\code{string} or \code{NULL}. Organism name. Use the full Latin name
-(e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
-and ensembldb, unless \code{gffFile} is set. If left \code{NULL} (\emph{not recommended}),
-the function call will skip loading gene/transcript-level annotations into
-\code{\link[=rowRanges]{rowRanges()}}. This can be useful for poorly annotation genomes or
-experiments involving multiple genomes.}
+\item{organism}{\code{string}. Full Latin organism name (e.g. "\code{Homo sapiens}").}
 
-\item{genomeBuild}{\code{string} or \code{NULL}. Ensembl genome build name (e.g.
-"GRCh38"). This will be passed to AnnotationHub for \code{EnsDb} annotation
-matching, unless \code{gffFile} is set.}
+\item{ensemblRelease}{\code{scalar integer}. Ensembl release version (e.g. \code{90}).
+We recommend setting this value if possible, for improved reproducibility.
+When left unset, the latest release available via AnnotationHub/ensembldb
+is used. Note that the latest version available can vary, depending on the
+versions of AnnotationHub and ensembldb in use.}
 
-\item{ensemblRelease}{\code{scalar integer} or \code{NULL}. Ensembl release version. If
-unset, defaults to current release, and does not typically need to be
-user-defined. Passed to AnnotationHub for \code{EnsDb} annotation matching,
-unless \code{gffFile} is set.}
+\item{gffFile}{\code{string}. GFF/GTF (General Feature Format) file.
+Generally, we recommend using a GTF (GFFv2) instead of a GFFv3 file if
+possible.}
 
-\item{gffFile}{\code{string} or \code{NULL}. By default, we recommend leaving this
-\code{NULL} for genomes that are supported on Ensembl. In this case, the row
-annotations (\code{\link[SummarizedExperiment:rowRanges]{SummarizedExperiment::rowRanges()}}) will be obtained
-automatically from Ensembl by passing the \code{organism}, \code{genomeBuild}, and
-\code{ensemblRelease} arguments to AnnotationHub and ensembldb. For a genome
-that is not supported on Ensembl and/or AnnotationHub, a GFF/GTF (General
-Feature Format) file is required. Generally, we recommend using a GTF
-(GFFv2) file here over a GFF3 file if possible, although all GFF formats
-are supported. The function will internally generate a \code{TxDb} containing
-transcript-to-gene mappings and construct a \code{GRanges} object containing the
-genomic ranges.}
+\item{transgeneNames}{\code{character}. Vector indicating which assay
+rows denote transgenes (e.g. EGFP, TDTOMATO).}
 
-\item{transgeneNames}{\code{character} or \code{NULL}. Vector indicating which
-\code{\link[=assay]{assay()}} rows denote transgenes (e.g. EGFP, TDTOMATO).}
-
-\item{spikeNames}{\code{character} or \code{NULL}. Vector indicating which \code{\link[=assay]{assay()}}
-rows denote spike-in sequences (e.g. ERCCs).}
+\item{spikeNames}{\code{character}. Vector indicating which assay rows denote
+spike-in sequences (e.g. ERCCs).}
 
 \item{countsFromAbundance}{\code{string}. Whether to generate estimated counts
 using abundance estimates (\emph{recommended by default}). \code{lengthScaledTPM} is
 a suitable default, and counts are scaled using the average transcript
 length over samples and then the library size. Refer to
-\code{\link[tximport:tximport]{tximport::tximport()}} for more information on this parameter, but it
+\code{tximport::tximport()} for more information on this parameter, but it
 should only ever be changed when loading some datasets at transcript level
 (e.g. for DTU analsyis).}
 
 \item{vst}{\code{boolean}. Calculate variance-stabilizing transformation using
-\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. Recommended by default
+\code{DESeq2::varianceStabilizingTransformation()}. Recommended by default
 for visualization.}
 
 \item{rlog}{\code{boolean}. Calcualte regularized log transformation using
-\code{\link[DESeq2:rlog]{DESeq2::rlog()}}. This calculation is slow for large datasets and now
+\code{DESeq2::rlog()}. This calculation is slow for large datasets and now
 discouraged by default for visualization.}
 
-\item{interestingGroups}{\code{character} or \code{NULL}. Groups of interest that
+\item{interestingGroups}{\code{character}. Groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{...}{Additional arguments.}
@@ -113,7 +88,7 @@ Simply point to the final upload directory generated by bcbio,
 and this generator function will take care of the rest.
 }
 \details{
-The \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} generator function automatically imports RNA-seq counts,
+The \code{bcbioRNASeq()} generator function automatically imports RNA-seq counts,
 metadata, and the program versions used from a \href{https://bcbio-nextgen.readthedocs.io}{bcbio} RNA-seq run.
 }
 \section{Sample metadata}{
@@ -125,17 +100,16 @@ directory. If you notice any typos in your metadata after completing the run,
 these can be corrected by editing the YAML file.
 
 Alternatively, you can pass in a sample metadata file into the
-\code{\link[=bcbioRNASeq]{bcbioRNASeq()}} function call using the \code{sampleMetadataFile} argument. This
+\code{bcbioRNASeq()} function call using the \code{sampleMetadataFile} argument. This
 requires either a CSV or Excel spreadsheet.
 
 The samples in the bcbio run must map to the \code{description} column. The values
 provided in \code{description} must be unique. These values will be sanitized into
-syntactically valid names (see \link[basejump:makeNames]{basejump::makeNames} for more
-information), and assigned as the column names of the \code{bcbioRNASeq} object.
-The original values are stored as the \code{sampleName} column in
-\code{\link[SummarizedExperiment:colData]{SummarizedExperiment::colData()}}, and are used for all plotting functions.
-Do not attempt to set a \code{sampleID} column, as this is used internally by the
-package.
+syntactically valid names (see \code{basejump::makeNames} for more information),
+and assigned as the column names of the \code{bcbioRNASeq} object. The original
+values are stored as the \code{sampleName} column in \code{colData()}, and are used for
+all plotting functions. Do not attempt to set a \code{sampleID} column, as this is
+used internally by the package.
 
 Here is a minimal example of a properly formatted sample metadata file:
 
@@ -151,15 +125,54 @@ sample4 \tab knockout
 \section{Valid names}{
 
 
-R is strict about values that are considered valid for use in \code{\link[base:names]{base::names()}}
-and \code{\link[base:dimnames]{base::dimnames()}} (i.e. \code{\link[base:rownames]{base::rownames()}} and \code{\link[base:colnames]{base::colnames()}}).
-Non-alphanumeric characters, spaces, and \strong{dashes} are not valid. Use either
-underscores or periods in place of dashes when working in R. Also note that
-names should \strong{not begin with a number}, and will be prefixed with an \code{X}
-when sanitized. Consult the documentation in the \code{\link[base:make.names]{base::make.names()}}
-function for more information. We strongly recommend adhering to these
-conventions when labeling samples, to help avoid unexpected downstream
-behavior in R due to \code{\link[base:dimnames]{base::dimnames()}} mismatches.
+R is strict about values that are considered valid for use in \code{names()} and
+\code{dimnames()} (i.e. \code{rownames()} and \code{colnames()}). Non-alphanumeric
+characters, spaces, and \strong{dashes} are not valid. Use either underscores or
+periods in place of dashes when working in R. Also note that names should
+\strong{not begin with a number}, and will be prefixed with an \code{X} when sanitized.
+Consult the documentation in the \code{make.names()} function for more
+information. We strongly recommend adhering to these conventions when
+labeling samples, to help avoid unexpected downstream behavior in R due to
+\code{dimnames()} mismatches.
+}
+
+\section{Genome annotations}{
+
+
+\code{bcbioRNASeq()} provides support for automatic import of genome annotations,
+which internally get processed into genomic ranges (\code{GRanges}) and are
+slotted into the \code{rowRanges()} of the S4 object. Currently, we offer support
+for (1) \href{https://ensembl.org/}{Ensembl} genome annotations from \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub} via
+\href{https://bioconductor.org/packages/ensembldb/}{ensembldb} (\emph{recommended}); or (2) direct import from a GTF/GFF file using
+\href{https://bioconductor.org/packages/rtracklayer/}{rtracklayer}.
+
+\href{https://bioconductor.org/packages/ensembldb/}{ensembldb} requires the \code{organism} and \code{ensemblRelease} arguments to be
+defined. When both of these are set, \code{bcbioRNASeq()} will attempt to
+download and use the pre-built \href{https://ensembl.org/}{Ensembl} genome annotations from
+\href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub}. This method is preferred over direct loading of a GTF/GFF
+file because the \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub} annotations contain additional rich
+metadata not defined in a GFF file, specifically \code{description} and \code{entrezID}
+values.
+
+Alternatively, if you are working with a non-standard or poorly annotated
+genome that isn't available on \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub}, we provide fall back
+support for loading the genome annotations directly from the GTF file used by
+the bcbio RNA-seq pipeline. This should be fully automatic for an R session
+active on the same server used to run \href{https://bcbio-nextgen.readthedocs.io/}{bcbio}.
+
+Example bcbio GTF path: \code{genomes/Hsapiens/hg38/rnaseq/ref-transcripts.gtf}.
+
+In the event that you are working from a remote environment that doesn't
+have file system access to the \href{https://bcbio-nextgen.readthedocs.io/}{bcbio} \code{genomes} directory, we provide
+additional fall back support for importing genome annotations from a GTF/GFF
+directly with the \code{gffFile} argument.
+
+Internally, genome annotations are imported via the \href{https://steinbaugh.com/basejump/}{basejump} package,
+specifically with either of these functions:
+\itemize{
+\item \code{basejump::makeGRangesFromEnsembl()}
+\item \code{basejump::makeGRangesFromGFF()}
+}
 }
 
 \section{Genome build}{
@@ -168,7 +181,7 @@ behavior in R due to \code{\link[base:dimnames]{base::dimnames()}} mismatches.
 Ensure that the organism and genome build used with bcio match correctly here
 in the function call. In particular, for the legacy \emph{Homo sapiens}
 GRCh37/hg19 genome build, ensure that \code{genomeBuild = "GRCh37"}. Otherwise,
-the genomic ranges set in \code{\link[SummarizedExperiment:rowRanges]{SummarizedExperiment::rowRanges()}} will mismatch.
+the genomic ranges set in \code{rowRanges()} will mismatch.
 It is recommended for current projects that GRCh38/hg38 is used in place of
 GRCh37/hg19 if possible.
 }
@@ -177,11 +190,11 @@ GRCh37/hg19 if possible.
 
 
 DESeq2 is run automatically when \code{bcbioRNASeq()} is called. Internally, this
-automatically slots normalized counts into \code{\link[SummarizedExperiment:assays]{SummarizedExperiment::assays()}},
-and optionally generates variance-stabilized \code{rlog} or \code{vst} counts,
-depending on the call. When loading a dataset with a large number of samples
-(i.e. > 50), we recommend disabling the \code{rlog} transformation, since it can
-take a long time to compute.
+automatically slots normalized counts into \code{assays()}, and optionally
+generates variance-stabilized \code{rlog} or \code{vst} counts, depending on the call.
+When loading a dataset with a large number of samples (i.e. > 50), we
+recommend disabling the \code{rlog} transformation, since it can take a long time
+to compute.
 }
 
 \section{Remote connections}{
@@ -189,7 +202,7 @@ take a long time to compute.
 
 When working on a local machine, it is possible to load bcbio run data over a
 remote connection using \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}. When loading a large number of samples, it
-is preferable to call \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} directly in R on the remote server, if
+is preferable to call \code{bcbioRNASeq()} directly in R on the remote server, if
 possible.
 }
 
@@ -231,10 +244,10 @@ print(object)
 \seealso{
 \itemize{
 \item \code{.S4methods(class = "bcbioRNASeq")}.
-\item \code{\link[SummarizedExperiment:SummarizedExperiment]{SummarizedExperiment::SummarizedExperiment()}}.
-\item \code{\link[methods:initialize]{methods::initialize()}}.
-\item \code{\link[methods:validObject]{methods::validObject()}}.
-\item \code{\link[BiocGenerics:updateObject]{BiocGenerics::updateObject()}}.
+\item \code{SummarizedExperiment::SummarizedExperiment()}.
+\item \code{methods::initialize()}.
+\item \code{methods::validObject()}.
+\item \code{BiocGenerics::updateObject()}.
 }
 }
 \author{
