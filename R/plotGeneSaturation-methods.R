@@ -63,7 +63,7 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
             mapping = aes(
                 x = !!sym("mappedReads"),
                 y = !!sym("geneCount"),
-                color = !!sym("interestingGroups")
+                colour = !!sym("interestingGroups")
             )
         ) +
             geom_point(size = 3L) +
@@ -73,7 +73,7 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
                 title = title,
                 x = xLab,
                 y = "gene count",
-                color = paste(interestingGroups, collapse = ":\n")
+                colour = paste(interestingGroups, collapse = ":\n")
             )
 
         if (isTRUE(trendline)) {
