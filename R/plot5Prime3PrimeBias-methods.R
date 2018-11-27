@@ -1,3 +1,8 @@
+# FIXME Don't use a bar graph for this.
+# Set the midpoint at 1 on the x-axis.
+
+
+
 #' @name plot5Prime3PrimeBias
 #' @inherit basejump::plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
@@ -19,13 +24,11 @@ basejump::plot5Prime3PrimeBias
 
 
 
-# bcbioRNASeq ==================================================================
 plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
-        limit = 0L,
-        fill,
+        color,
         flip,
         title = "5'->3' bias"
     ) {
@@ -35,8 +38,6 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
             interestingGroups = interestingGroups
         )
         interestingGroups(object) <- interestingGroups
-        assert_is_a_number(limit)
-        assert_all_are_non_negative(limit)
         assertIsFillScaleDiscreteOrNULL(fill)
         assert_is_a_bool(flip)
         assertIsStringOrNULL(title)
@@ -44,7 +45,7 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         data <- metrics(object)
 
         # The formatting of this column can vary depending on the version of
-        # `camel()` used. This change was added in v0.2.7.
+        # `camel()` used. This grep match fix was added in v0.2.7.
         yCol <- grep(
             pattern = ".+5.+3bias$",
             x = colnames(data),
@@ -57,23 +58,17 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
             mapping = aes(
                 x = !!sym("sampleName"),
                 y = !!sym(yCol),
-                fill = !!sym("interestingGroups")
+                colour = !!sym("interestingGroups")
             )
         ) +
-            geom_bar(
-                color = "black",
-                stat = "identity"
-            ) +
+            geom_point(size = 3L) +
             labs(
                 title = title,
                 x = NULL,
                 y = "5'->3' bias",
-                fill = paste(interestingGroups, collapse = ":\n")
-            )
-
-        if (is_positive(limit)) {
-            p <- p + basejump_geom_abline(yintercept = limit)  # nocov
-        }
+                colour = paste(interestingGroups, collapse = ":\n")
+            ) +
+            basejump_geom_abline(yintercept = 1L)
 
         if (is(fill, "ScaleDiscrete")) {
             p <- p + fill
@@ -90,8 +85,8 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         p
     }
 
-formals(plot5Prime3PrimeBias.bcbioRNASeq)[["fill"]] <-
-    formalsList[["fill.discrete"]]
+formals(plot5Prime3PrimeBias.bcbioRNASeq)[["color"]] <-
+    formalsList[["color.discrete"]]
 formals(plot5Prime3PrimeBias.bcbioRNASeq)[["flip"]] <-
     formalsList[["flip"]]
 
