@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.4</span>
       </span>
     </div>
 
@@ -204,7 +204,7 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
 #&gt;   ENSMUSG00000114367 ENSMUSG00000114458
 #&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(7): sampleName day ... treatment interestingGroups</div><div class='input'>
+#&gt; colData names(9): qualityFormat sampleName ... tissue treatment</div><div class='input'>
 <span class='co'>## bcbioRNASeq to RangedSummarizedExperiment ====</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
 <span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
