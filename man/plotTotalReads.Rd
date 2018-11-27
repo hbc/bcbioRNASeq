@@ -7,7 +7,7 @@
 \title{Plot Total Reads}
 \usage{
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups = NULL,
-  limit = 10000000L, perMillion = TRUE,
+  limit = 20000000L, perMillion = TRUE,
   fill = getOption("basejump.fill.discrete", NULL),
   flip = getOption("basejump.flip", TRUE), title = "total reads")
 }
