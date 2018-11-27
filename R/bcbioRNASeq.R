@@ -6,7 +6,7 @@
 #'   and this generator function will take care of the rest.
 #'
 #' @details
-#' The [bcbioRNASeq()] generator function automatically imports RNA-seq counts,
+#' The `bcbioRNASeq()` generator function automatically imports RNA-seq counts,
 #' metadata, and the program versions used from a [bcbio][] RNA-seq run.
 #'
 #' [bcbio]: https://bcbio-nextgen.readthedocs.io
@@ -19,17 +19,16 @@
 #' these can be corrected by editing the YAML file.
 #'
 #' Alternatively, you can pass in a sample metadata file into the
-#' [bcbioRNASeq()] function call using the `sampleMetadataFile` argument. This
+#' `bcbioRNASeq()` function call using the `sampleMetadataFile` argument. This
 #' requires either a CSV or Excel spreadsheet.
 #'
 #' The samples in the bcbio run must map to the `description` column. The values
 #' provided in `description` must be unique. These values will be sanitized into
-#' syntactically valid names (see [basejump::makeNames] for more
-#' information), and assigned as the column names of the `bcbioRNASeq` object.
-#' The original values are stored as the `sampleName` column in
-#' [SummarizedExperiment::colData()], and are used for all plotting functions.
-#' Do not attempt to set a `sampleID` column, as this is used internally by the
-#' package.
+#' syntactically valid names (see `basejump::makeNames` for more information),
+#' and assigned as the column names of the `bcbioRNASeq` object. The original
+#' values are stored as the `sampleName` column in `colData()`, and are used for
+#' all plotting functions. Do not attempt to set a `sampleID` column, as this is
+#' used internally by the package.
 #'
 #' Here is a minimal example of a properly formatted sample metadata file:
 #'
@@ -43,121 +42,131 @@
 #'
 #' @section Valid names:
 #'
-#' R is strict about values that are considered valid for use in [base::names()]
-#' and [base::dimnames()] (i.e. [base::rownames()] and [base::colnames()]).
-#' Non-alphanumeric characters, spaces, and **dashes** are not valid. Use either
-#' underscores or periods in place of dashes when working in R. Also note that
-#' names should **not begin with a number**, and will be prefixed with an `X`
-#' when sanitized. Consult the documentation in the [base::make.names()]
-#' function for more information. We strongly recommend adhering to these
-#' conventions when labeling samples, to help avoid unexpected downstream
-#' behavior in R due to [base::dimnames()] mismatches.
+#' R is strict about values that are considered valid for use in `names()` and
+#' `dimnames()` (i.e. `rownames()` and `colnames()`). Non-alphanumeric
+#' characters, spaces, and **dashes** are not valid. Use either underscores or
+#' periods in place of dashes when working in R. Also note that names should
+#' **not begin with a number**, and will be prefixed with an `X` when sanitized.
+#' Consult the documentation in the `make.names()` function for more
+#' information. We strongly recommend adhering to these conventions when
+#' labeling samples, to help avoid unexpected downstream behavior in R due to
+#' `dimnames()` mismatches.
+#'
+#' @section Genome annotations:
+#'
+#' `bcbioRNASeq()` provides support for automatic import of genome annotations,
+#' which internally get processed into genomic ranges (`GRanges`) and are
+#' slotted into the `rowRanges()` of the S4 object. Currently, we offer support
+#' for (1) [Ensembl][] genome annotations from [AnnotationHub][] via
+#' [ensembldb][] (*recommended*); or (2) direct import from a GTF/GFF file using
+#' [rtracklayer][].
+#'
+#' [ensembldb][] requires the `organism` and `ensemblRelease` arguments to be
+#' defined. When both of these are set, `bcbioRNASeq()` will attempt to
+#' download and use the pre-built [Ensembl][] genome annotations from
+#' [AnnotationHub][]. This method is preferred over direct loading of a GTF/GFF
+#' file because the [AnnotationHub][] annotations contain additional rich
+#' metadata not defined in a GFF file, specifically `description` and `entrezID`
+#' values.
+#'
+#' Alternatively, if you are working with a non-standard or poorly annotated
+#' genome that isn't available on [AnnotationHub][], we provide fall back
+#' support for loading the genome annotations directly from the GTF file used by
+#' the bcbio RNA-seq pipeline. This should be fully automatic for an R session
+#' active on the same server used to run [bcbio][].
+#'
+#' Example bcbio GTF path: `genomes/Hsapiens/hg38/rnaseq/ref-transcripts.gtf`.
+#'
+#' In the event that you are working from a remote environment that doesn't
+#' have file system access to the [bcbio][] `genomes` directory, we provide
+#' additional fall back support for importing genome annotations from a GTF/GFF
+#' directly with the `gffFile` argument.
+#'
+#' Internally, genome annotations are imported via the [basejump][] package,
+#' specifically with either of these functions:
+#'
+#' - `basejump::makeGRangesFromEnsembl()`
+#' - `basejump::makeGRangesFromGFF()`
+#'
+#' [AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
+#' [basejump]: https://steinbaugh.com/basejump/
+#' [bcbio]: https://bcbio-nextgen.readthedocs.io/
+#' [Ensembl]: https://ensembl.org/
+#' [ensembldb]: https://bioconductor.org/packages/ensembldb/
+#' [rtracklayer]: https://bioconductor.org/packages/rtracklayer/
 #'
 #' @section Genome build:
 #'
 #' Ensure that the organism and genome build used with bcio match correctly here
 #' in the function call. In particular, for the legacy *Homo sapiens*
 #' GRCh37/hg19 genome build, ensure that `genomeBuild = "GRCh37"`. Otherwise,
-#' the genomic ranges set in [SummarizedExperiment::rowRanges()] will mismatch.
+#' the genomic ranges set in `rowRanges()` will mismatch.
 #' It is recommended for current projects that GRCh38/hg38 is used in place of
 #' GRCh37/hg19 if possible.
 #'
 #' @section DESeq2:
 #'
 #' DESeq2 is run automatically when `bcbioRNASeq()` is called. Internally, this
-#' automatically slots normalized counts into [SummarizedExperiment::assays()],
-#' and optionally generates variance-stabilized `rlog` or `vst` counts,
-#' depending on the call. When loading a dataset with a large number of samples
-#' (i.e. > 50), we recommend disabling the `rlog` transformation, since it can
-#' take a long time to compute.
+#' automatically slots normalized counts into `assays()`, and optionally
+#' generates variance-stabilized `rlog` or `vst` counts, depending on the call.
+#' When loading a dataset with a large number of samples (i.e. > 50), we
+#' recommend disabling the `rlog` transformation, since it can take a long time
+#' to compute.
 #'
 #' @section Remote connections:
 #'
 #' When working on a local machine, it is possible to load bcbio run data over a
 #' remote connection using [sshfs][]. When loading a large number of samples, it
-#' is preferable to call [bcbioRNASeq()] directly in R on the remote server, if
+#' is preferable to call `bcbioRNASeq()` directly in R on the remote server, if
 #' possible.
 #'
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
-#' @inheritParams params
 #' @inheritParams basejump::params
-#' @inheritParams basejump::makeSummarizedExperiment
-#' @param uploadDir `string`. Path to final upload directory. This path is set
-#'   when running "`bcbio_nextgen -w template`".
+#' @inheritParams bcbioBase::params
+#' @inheritParams params
+#'
 #' @param level `string`. Import counts at gene level ("`genes`"; *default*) or
 #'   transcript level ("`transcripts`"; *advanced use*). Only
 #'   tximport-compatible callers (e.g. salmon, kallisto, sailfish) can be loaded
 #'   at transcript level. Aligned counts from featureCounts-compatible callers
 #'   (e.g. STAR, HISAT2) can only be loaded at gene level.
 #' @param caller `string`. Expression caller:
-#'   - "`salmon`" (*default*): [Salmon](https://combine-lab.github.io/salmon)
-#'     alignment-free, quasi-mapped counts.
-#'   - "`kallisto`". [Kallisto](https://pachterlab.github.io/kallisto)
-#'     alignment-free, pseudo-aligned counts.
-#'   - "`sailfish`".
-#'     [Sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish)
-#'     alignment-free, lightweight counts.
-#'   - "`star`": [STAR](https://github.com/alexdobin/STAR)
-#'     (Spliced Transcripts Alignment to a Reference) aligned counts.
-#'   - "`hisat2`": [HISAT2](https://ccb.jhu.edu/software/hisat2)
-#'     (Hierarchical Indexing for Spliced Alignment of Transcripts) graph-based
-#'     aligned counts.
-#' @param samples `character` or `NULL`. Specify a subset of samples to load.
-#'   The names must match the `description` specified in the bcbio YAML
-#'   metadata. If a `sampleMetadataFile` is provided, that will take priority
-#'   for sample selection. Typically this can be left unset.
-#' @param censorSamples `character` or `NULL`. Samples to exclude from the
-#'   analysis.
-#' @param sampleMetadataFile `string` or `NULL`. Custom metadata file containing
-#'   sample information. Otherwise defaults to sample metadata saved in the YAML
-#'   file. Remote URLs are supported. Typically this can be left unset.
-#' @param organism `string` or `NULL`. Organism name. Use the full Latin name
-#'   (e.g. "Homo sapiens"), since this will be input downstream to AnnotationHub
-#'   and ensembldb, unless `gffFile` is set. If left `NULL` (*not recommended*),
-#'   the function call will skip loading gene/transcript-level annotations into
-#'   [rowRanges()]. This can be useful for poorly annotation genomes or
-#'   experiments involving multiple genomes.
-#' @param genomeBuild `string` or `NULL`. Ensembl genome build name (e.g.
-#'   "GRCh38"). This will be passed to AnnotationHub for `EnsDb` annotation
-#'   matching, unless `gffFile` is set.
-#' @param ensemblRelease `scalar integer` or `NULL`. Ensembl release version. If
-#'   unset, defaults to current release, and does not typically need to be
-#'   user-defined. Passed to AnnotationHub for `EnsDb` annotation matching,
-#'   unless `gffFile` is set.
-#' @param gffFile `string` or `NULL`. By default, we recommend leaving this
-#'   `NULL` for genomes that are supported on Ensembl. In this case, the row
-#'   annotations ([SummarizedExperiment::rowRanges()]) will be obtained
-#'   automatically from Ensembl by passing the `organism`, `genomeBuild`, and
-#'   `ensemblRelease` arguments to AnnotationHub and ensembldb. For a genome
-#'   that is not supported on Ensembl and/or AnnotationHub, a GFF/GTF (General
-#'   Feature Format) file is required. Generally, we recommend using a GTF
-#'   (GFFv2) file here over a GFF3 file if possible, although all GFF formats
-#'   are supported. The function will internally generate a `TxDb` containing
-#'   transcript-to-gene mappings and construct a `GRanges` object containing the
-#'   genomic ranges.
+#'   - "`salmon`" (*default*): [Salmon][] alignment-free, quasi-mapped counts.
+#'   - "`kallisto`": [Kallisto][] alignment-free, pseudo-aligned counts.
+#'   - "`sailfish`": [Sailfish][] alignment-free, lightweight counts.
+#'   - "`star`": [STAR][] (Spliced Transcripts Alignment to a Reference) aligned
+#'     counts.
+#'   - "`hisat2`": [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
+#'     Transcripts) graph-based aligned counts.
+#'
+#'     [HISAT2]: https://ccb.jhu.edu/software/hisat2/
+#'     [Kallisto]: https://pachterlab.github.io/kallisto/
+#'     [Sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
+#'     [Salmon]: https://combine-lab.github.io/salmon/
+#'     [STAR]: https://github.com/alexdobin/STAR/
 #' @param countsFromAbundance `string`. Whether to generate estimated counts
 #'   using abundance estimates (*recommended by default*). `lengthScaledTPM` is
 #'   a suitable default, and counts are scaled using the average transcript
 #'   length over samples and then the library size. Refer to
-#'   [tximport::tximport()] for more information on this parameter, but it
+#'   `tximport::tximport()` for more information on this parameter, but it
 #'   should only ever be changed when loading some datasets at transcript level
 #'   (e.g. for DTU analsyis).
 #' @param vst `boolean`. Calculate variance-stabilizing transformation using
-#'   [DESeq2::varianceStabilizingTransformation()]. Recommended by default
+#'   `DESeq2::varianceStabilizingTransformation()`. Recommended by default
 #'   for visualization.
 #' @param rlog `boolean`. Calcualte regularized log transformation using
-#'   [DESeq2::rlog()]. This calculation is slow for large datasets and now
+#'   `DESeq2::rlog()`. This calculation is slow for large datasets and now
 #'   discouraged by default for visualization.
 #'
 #' @return `bcbioRNASeq`.
 #'
 #' @seealso
 #' - `.S4methods(class = "bcbioRNASeq")`.
-#' - [SummarizedExperiment::SummarizedExperiment()].
-#' - [methods::initialize()].
-#' - [methods::validObject()].
-#' - [BiocGenerics::updateObject()].
+#' - `SummarizedExperiment::SummarizedExperiment()`.
+#' - `methods::initialize()`.
+#' - `methods::validObject()`.
+#' - `BiocGenerics::updateObject()`.
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
@@ -570,23 +579,6 @@ bcbioRNASeq <- function(
 
 
 .new.bcbioRNASeq <-  # nolint
-    function(
-        assays,
-        rowRanges,
-        colData,
-        metadata,
-        transgeneNames = NULL,
-        spikeNames = NULL
-    ) {
-        new(
-            Class = "bcbioRNASeq",
-            makeSummarizedExperiment(
-                assays = assays,
-                rowRanges = rowRanges,
-                colData = colData,
-                metadata = metadata,
-                transgeneNames = transgeneNames,
-                spikeNames = spikeNames
-            )
-        )
+    function(...) {
+        new(Class = "bcbioRNASeq", makeSummarizedExperiment(...))
     }
