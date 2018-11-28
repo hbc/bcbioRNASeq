@@ -88,7 +88,9 @@ setMethod(
             x = dim(x),
             y = c(length(i), length(j))
         )) {
-            recalculate <- FALSE
+            subset <- FALSE
+        } else {
+            subset <- TRUE
         }
 
         # Regenerate RangedSummarizedExperiment.
@@ -98,38 +100,41 @@ setMethod(
         # Assays ---------------------------------------------------------------
         assays <- assays(rse)
 
-        # Recalculate DESeq2 normalized counts and variance stabilizations.
-        if (isTRUE(recalculate)) {
-            message("Recalculating DESeq2 normalizations.")
-            dds <- .new.DESeqDataSet(se = rse)
-            dds <- DESeq(dds)
-            # Normalized counts.
-            assays[["normalized"]] <- counts(dds, normalized = TRUE)
-            # vst: variance-stabilizing transformation.
-            if ("vst" %in% names(assays)) {
-                message("Applying variance-stabilizing transformation.")
-                assays[["vst"]] <-
-                    assay(varianceStabilizingTransformation(dds))
+        if (isTRUE(subset)) {
+            # Recalculate DESeq2 normalized counts and variance stabilizations
+            # if the number of samples and/or genes change.
+            if (isTRUE(recalculate)) {
+                message("Recalculating DESeq2 normalizations.")
+                dds <- .new.DESeqDataSet(se = rse)
+                dds <- DESeq(dds)
+                # Normalized counts.
+                assays[["normalized"]] <- counts(dds, normalized = TRUE)
+                # vst: variance-stabilizing transformation.
+                if ("vst" %in% names(assays)) {
+                    message("Applying variance-stabilizing transformation.")
+                    assays[["vst"]] <-
+                        assay(varianceStabilizingTransformation(dds))
+                }
+                # rlog: regularized log transformation.
+                if ("rlog" %in% names(assays)) {
+                    message("Applying rlog transformation.")
+                    assays[["rlog"]] <- assay(rlog(dds))
+                }
+            } else {
+                # Otherwise, remove previous calculations.
+                message("Skipping DESeq2 normalizations.")
+                assays[["normalized"]] <- NULL
+                assays[["rlog"]] <- NULL
+                assays[["vst"]] <- NULL
+                assays[["fpkm"]] <- NULL
             }
-            # rlog: regularized log transformation.
-            if ("rlog" %in% names(assays)) {
-                message("Applying rlog transformation.")
-                assays[["rlog"]] <- assay(rlog(dds))
-            }
-        } else {
-            # Otherwise, ensure previous calculations are removed from assays.
-            message("Skipping DESeq2 normalizations.")
-            assays[["normalized"]] <- NULL
-            assays[["rlog"]] <- NULL
-            assays[["vst"]] <- NULL
-            assays[["fpkm"]] <- NULL
         }
 
         # Row data -------------------------------------------------------------
         rowRanges <- rowRanges(rse)
+        # Ensure factors get releveled, if necessary.
+        # TODO Consider making this a function in basejump.
         if (nrow(rse) < nrow(x)) {
-            # Ensure factors get releveled.
-            # TODO Consider making this a function in basejump.
             mcols <- mcols(rowRanges)
             mcols <- DataFrame(lapply(
                 X = mcols,
@@ -150,8 +155,8 @@ setMethod(
 
         # Column data ----------------------------------------------------------
         colData <- colData(rse)
+        # Ensure factors get releveled, if necessary.
         if (ncol(rse) < ncol(x)) {
-            # Ensure factors get releveled.
             colData <- colData %>%
                 as.data.frame() %>%
                 rownames_to_column() %>%
