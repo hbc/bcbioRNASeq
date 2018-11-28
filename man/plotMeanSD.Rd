@@ -21,7 +21,7 @@
 Plot Row Standard Deviations vs. Row Means
 }
 \details{
-\code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}} wrapper that plots count transformations on a log2 scale.
+\code{vsn::meanSdPlot()} wrapper that plots count transformations on a log2 scale.
 \itemize{
 \item DESeq2 log2: log2 size factor-adjusted normalized counts.
 \item DESeq2 rlog: \strong{r}egularized \strong{log} transformation.
@@ -35,11 +35,11 @@ plotMeanSD(bcb)
 }
 \seealso{
 \itemize{
-\item \code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}}.
-\item \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
-\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
-\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
-\item \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}}.
+\item \code{vsn::meanSdPlot()}.
+\item \code{DESeq2::DESeq()}.
+\item \code{DESeq2::rlog()}.
+\item \code{DESeq2::varianceStabilizingTransformation()}.
+\item \code{edgeR::calcNormFactors()}.
 }
 }
 \author{

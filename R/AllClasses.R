@@ -24,7 +24,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #'
 #' @section Automatic metadata:
 #'
-#' The [S4Vectors::metadata()] slot always contains:
+#' The `metadata()` slot always contains:
 #'
 #' - Object version.
 #' - bcbio data provenance information.
@@ -35,7 +35,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
 #'
-#' @seealso [bcbioRNASeq()].
+#' @seealso `bcbioRNASeq()`.
 setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
 setValidity(
     Class = "bcbioRNASeq",

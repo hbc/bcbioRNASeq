@@ -10,10 +10,10 @@
 #'
 #' 1. Coerces to `RangedSummarizedExperiment`.
 #' 2. Rounds raw counts to `integer matrix`.
-#' 3. Subsets [SummarizedExperiment::colData()] to include only clean factor
-#'    columns. See [basejump::sampleData()] for more details.
-#' 4. Simplifies [S4Vectors::metadata()] to include only relevant information
-#'    and updates `sessionInfo`.
+#' 3. Subsets `colData()` to include only clean factor columns.
+#'    See `basejump::sampleData()` for more details.
+#' 4. Simplifies `metadata()` to include only relevant information and updates
+#'    `sessionInfo` slot.
 #'
 #' Note that gene-level counts are required. Alternatively
 #' `tximport::summarizeToGene()` can be called to convert transcript-level
@@ -25,8 +25,8 @@
 #' @section bcbioRNASeq to DESeqTransform:
 #'
 #' 1. Coerces to `DESeqDataSet`.
-#' 2. Calls [DESeq2::DESeq()].
-#' 3. Calls [DESeq2::varianceStabilizingTransformation()].
+#' 2. Calls `DESeq2::DESeq()`.
+#' 3. Calls `DESeq2::varianceStabilizingTransformation()`.
 #'
 #' @seealso
 #' - `tximport::tximport`

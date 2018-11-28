@@ -18,7 +18,7 @@
 #' @param sampleDirs `character`. Sample directories to import.
 #' @param type `string`. Expression caller to use.
 #'
-#' @seealso [tximport::tximport()].
+#' @seealso `tximport::tximport()`.
 #'
 #' @return `list`.
 .tximport <- function(
