@@ -156,6 +156,7 @@ setMethod(
         # Column data ----------------------------------------------------------
         colData <- colData(rse)
         # Ensure factors get releveled, if necessary.
+        # TODO Consider making this a function in basejump.
         if (ncol(rse) < ncol(x)) {
             colData <- colData %>%
                 as.data.frame() %>%
@@ -168,7 +169,9 @@ setMethod(
 
         # Metadata -------------------------------------------------------------
         metadata <- metadata(rse)
-        metadata[["subset"]] <- TRUE
+        if (isTRUE(subset)) {
+            metadata[["subset"]] <- TRUE
+        }
 
         # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
