@@ -16,7 +16,7 @@ Invisible \code{logical}. Was the file copied?.
 If the required template dependency files aren't present, copy them from the
 requested package. Existing files are not overwritten by default. This
 function will copy dependency files from a requested package inside the
-\code{rmarkdown/shared} directory. If a package doesn't contain this
+\code{rmarkdown/shared/} directory. If a package doesn't contain this
 subdirectory, the function will return an error.
 }
 \details{

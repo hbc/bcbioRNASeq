@@ -43,7 +43,7 @@ palette globally, use
 \code{ggplot}.
 }
 \description{
-This is a convenience function that wraps \code{\link[=plotGene]{plotGene()}} to quickly plot known
+This is a convenience function that wraps \code{plotGene()} to quickly plot known
 sexually dimorphic genes, and overall gene experssion for the X and Y
 chromosomes.
 }
@@ -55,7 +55,7 @@ data(bcb)
 plotGenderMarkers(bcb)
 }
 \seealso{
-\code{\link[=plotGene]{plotGene()}}.
+\code{plotGene()}.
 }
 \author{
 Michael Steinbaugh

@@ -30,10 +30,10 @@ define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{method}{\code{string}. Correlation coefficient (or covariance) method to be
 computed. Defaults to "\code{pearson}" but "\code{spearman}" can also be used.
-Consult the \code{\link[stats:cor]{stats::cor()}} documentation for more information.}
+Consult the \code{stats::cor()} documentation for more information.}
 
 \item{clusteringMethod}{\code{string}. Clustering method. Accepts the same values
-as \code{\link[stats:hclust]{stats::hclust()}}.}
+as \code{stats::hclust()}.}
 
 \item{showRownames}{\code{boolean}. Show row or column names.}
 
@@ -49,10 +49,10 @@ column dendrograms. Use \code{0} to disable.}
 or values to use for plot. We generally recommend these hexadecimal
 functions from the viridis package:
 \itemize{
-\item \code{\link[viridis:viridis]{viridis::viridis()}} (\emph{default}).
-\item \code{\link[viridis:inferno]{viridis::inferno()}}.
-\item \code{\link[viridis:magma]{viridis::magma()}}.
-\item \code{\link[viridis:plasma]{viridis::plasma()}}.
+\item \code{viridis::viridis()} (\emph{default}).
+\item \code{viridis::inferno()}.
+\item \code{viridis::magma()}.
+\item \code{viridis::plasma()}.
 Alternatively, colors can be defined manually using hexadecimal values
 (e.g. \code{c("#FF0000", "#0000FF")}), but this is not generally recommended.
 Refer to the RColorBrewer package for hexadecimal color palettes that may
@@ -68,7 +68,7 @@ improved aesthetics.}
 
 \item{title}{\code{string} or \code{NULL}. Plot title.}
 
-\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}. The names of the
+\item{...}{Passthrough arguments to \code{pheatmap::pheatmap()}. The names of the
 arguments should be formatted in camel case, not snake case.}
 }
 \value{
@@ -104,14 +104,14 @@ plotCorrelationHeatmap(bcb, method = "spearman")
 }
 \seealso{
 \itemize{
-\item \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
-\item \code{\link[RColorBrewer:brewer.pal]{RColorBrewer::brewer.pal()}}.
+\item \code{pheatmap::pheatmap()}.
+\item \code{RColorBrewer::brewer.pal()}.
 }
 
 \itemize{
-\item \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
-\item \code{\link[stats:cor]{stats::cor()}}.
-\item \code{\link[stats:hclust]{stats::hclust()}}.
+\item \code{pheatmap::pheatmap()}.
+\item \code{stats::cor()}.
+\item \code{stats::hclust()}.
 }
 }
 \author{
