@@ -1,8 +1,3 @@
-# FIXME Don't use a bar graph for this.
-# Set the midpoint at 1 on the x-axis.
-
-
-
 #' @name plot5Prime3PrimeBias
 #' @inherit basejump::plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
@@ -38,7 +33,7 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
             interestingGroups = interestingGroups
         )
         interestingGroups(object) <- interestingGroups
-        assertIsFillScaleDiscreteOrNULL(fill)
+        assertIsColorScaleDiscreteOrNULL(color)
         assert_is_a_bool(flip)
         assertIsStringOrNULL(title)
 
@@ -70,8 +65,8 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
             ) +
             basejump_geom_abline(yintercept = 1L)
 
-        if (is(fill, "ScaleDiscrete")) {
-            p <- p + fill
+        if (is(color, "ScaleDiscrete")) {
+            p <- p + color
         }
 
         if (isTRUE(flip)) {
@@ -79,7 +74,7 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         }
 
         if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(fill = FALSE)
+            p <- p + guides(color = FALSE)
         }
 
         p
