@@ -131,46 +131,23 @@ setMethod(
         }
 
         # Row data -------------------------------------------------------------
-        rowRanges <- rowRanges(rse)
         # Ensure factors get releveled, if necessary.
+        rowRanges <- rowRanges(rse)
         if (
             ncol(mcols(rowRanges)) > 0L &&
             !identical(rownames(rse), rownames(x))
         ) {
-            message("Releveling factors in rowRanges.")
-            mcols <- mcols(rowRanges)
-            mcols <- DataFrame(lapply(
-                X = mcols,
-                FUN = function(x) {
-                    if (is(x, "Rle")) {
-                        x <- decode(x)
-                        if (is.factor(x)) {
-                            x <- droplevels(x)
-                        }
-                        Rle(x)
-                    } else {
-                        I(x)
-                    }
-                }
-            ))
-            mcols(rowRanges) <- mcols
+            rowRanges <- relevelRowRanges(rowRanges)
         }
 
         # Column data ----------------------------------------------------------
-        colData <- colData(rse)
         # Ensure factors get releveled, if necessary.
+        colData <- colData(rse)
         if (
             ncol(colData) > 0L &&
             !identical(colnames(rse), colnames(x))
         ) {
-            message("Releveling factors in colData.")
-            colData <- colData %>%
-                as.data.frame() %>%
-                rownames_to_column() %>%
-                mutate_if(is.character, as.factor) %>%
-                mutate_if(is.factor, droplevels) %>%
-                column_to_rownames() %>%
-                as("DataFrame")
+            colData <- relevelColData(colData)
         }
 
         # Metadata -------------------------------------------------------------

@@ -51,10 +51,10 @@
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
 #'   methodFormals metrics organism plotGenesDetected plotHeatmap
-#'   prepareTemplate printString realpath removeNA sampleData sampleData<-
-#'   sanitizeRowData sanitizeSampleData separator showSlotInfo snake
-#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
-#'   validateClasses
+#'   prepareTemplate printString realpath relevelColData relevelRowRanges
+#'   removeNA sampleData sampleData<- sanitizeRowData sanitizeSampleData
+#'   separator showSlotInfo snake standardizeCall stripTranscriptVersions
+#'   uniteInterestingGroups validateClasses
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML metadataBlacklist projectDir projectDirPattern
 #'   readDataVersions readProgramVersions readSampleData readTx2Gene runDate
