@@ -82,12 +82,13 @@ setMethod(
         # Require at least 2 samples.
         assert_all_are_in_range(length(j), lower = 2L, upper = Inf)
 
-        # Early return if dimensions are unmodified.
+        # Don't attempt to recalculate normalizations if the dimensions remain
+        # unchanged.
         if (identical(
             x = dim(x),
             y = c(length(i), length(j))
         )) {
-            return(x)
+            recalculate <- FALSE
         }
 
         # Regenerate RangedSummarizedExperiment.
