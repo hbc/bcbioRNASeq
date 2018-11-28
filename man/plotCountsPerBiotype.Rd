@@ -8,12 +8,12 @@
 \title{Plot Counts per Biotype}
 \usage{
 \S4method{plotCountsPerBiotype}{bcbioRNASeq}(object,
-  normalized = c("tpm", "vst", "rlog", "tmm", "rle", "fpkm"), n = 9L,
+  normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"), n = 9L,
   interestingGroups = NULL, trans = "log2",
   countsAxisLabel = "counts")
 
 \S4method{plotCountsPerBroadClass}{bcbioRNASeq}(object,
-  normalized = c("tpm", "vst", "rlog", "tmm", "rle", "fpkm"),
+  normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"),
   interestingGroups = NULL, trans = "log2",
   countsAxisLabel = "counts")
 }

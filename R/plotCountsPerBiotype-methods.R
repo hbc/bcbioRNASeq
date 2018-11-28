@@ -64,8 +64,7 @@ f2 <- methodFormals(
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
-# Ensure TPM is set first.
-f[["normalized"]] <- unique(c("tpm", normalizedCounts))
+f[["normalized"]] <- normalizedCounts
 formals(plotCountsPerBiotype.bcbioRNASeq) <- f
 
 
@@ -122,8 +121,7 @@ f2 <- methodFormals(
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
-# Ensure TPM is set first.
-f[["normalized"]] <- unique(c("tpm", normalizedCounts))
+f[["normalized"]] <- normalizedCounts
 formals(plotCountsPerBroadClass.bcbioRNASeq) <- f
 
 
