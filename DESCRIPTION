@@ -103,7 +103,7 @@ LazyData: false
 Depends:
     R (>= 3.5),
     SummarizedExperiment (>= 1.10),
-    basejump (>= 0.8.3)
+    basejump (>= 0.8.4)
 Imports:
     BiocGenerics,
     DESeq2 (>= 1.20),
@@ -117,7 +117,7 @@ Imports:
     assertive.strings,
     assertive.types,
     assertthat,
-    bcbioBase (>= 0.5.4),
+    bcbioBase (>= 0.5.5),
     cowplot (>= 0.9),
     dplyr (>= 0.7),
     edgeR (>= 3.22),
