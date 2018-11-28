@@ -13,7 +13,8 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   interestingGroups = "sampleName", ...)
 }
 \arguments{
-\item{uploadDir}{\code{string}. File path to bcbio run upload directory.}
+\item{uploadDir}{\code{string}. Path to final upload directory. This path is set
+when running "\code{bcbio_nextgen -w template}".}
 
 \item{level}{\code{string}. Import counts at gene level ("\code{genes}"; \emph{default}) or
 transcript level ("\code{transcripts}"; \emph{advanced use}). Only
