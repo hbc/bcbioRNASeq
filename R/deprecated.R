@@ -3,22 +3,14 @@
 
 
 
-#' Deprecated Functions
-#' @name deprecated
-#' @author Michael Steinbaugh
+#' @name defunct
+#' @inherit basejump::defunct
 #' @keywords internal
-#' @inheritParams basejump::params
-#' @return [.Deprecated()].
 NULL
 
-
-
-#' Defunct Functions
-#' @name defunct
-#' @author Michael Steinbaugh
+#' @name deprecated
+#' @inherit basejump::deprecated
 #' @keywords internal
-#' @inheritParams basejump::params
-#' @return [.Defunct()].
 NULL
 
 

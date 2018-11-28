@@ -30,16 +30,11 @@ loadRNASeq(...)
 \item{...}{Additional arguments.}
 
 \item{object}{Object.}
-
-\item{value}{Value to assign.}
 }
 \value{
-\code{\link[=.Deprecated]{.Deprecated()}}.
+\code{.Deprecated()}.
 }
 \description{
 Deprecated Functions
-}
-\author{
-Michael Steinbaugh
 }
 \keyword{internal}
