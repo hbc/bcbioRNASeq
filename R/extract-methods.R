@@ -133,8 +133,11 @@ setMethod(
         # Row data -------------------------------------------------------------
         rowRanges <- rowRanges(rse)
         # Ensure factors get releveled, if necessary.
-        # TODO Consider making this a function in basejump.
-        if (nrow(rse) < nrow(x)) {
+        if (
+            ncol(mcols(rowRanges)) > 0L &&
+            !identical(rownames(rse), rownames(x))
+        ) {
+            message("Releveling factors in rowRanges.")
             mcols <- mcols(rowRanges)
             mcols <- DataFrame(lapply(
                 X = mcols,
@@ -156,8 +159,11 @@ setMethod(
         # Column data ----------------------------------------------------------
         colData <- colData(rse)
         # Ensure factors get releveled, if necessary.
-        # TODO Consider making this a function in basejump.
-        if (ncol(rse) < ncol(x)) {
+        if (
+            ncol(colData) > 0L &&
+            !identical(colnames(rse), colnames(x))
+        ) {
+            message("Releveling factors in colData.")
             colData <- colData %>%
                 as.data.frame() %>%
                 rownames_to_column() %>%
