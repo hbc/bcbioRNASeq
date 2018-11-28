@@ -1,3 +1,16 @@
+# FIXME Check for identical samples and warn.
+
+# identical_samples <-
+#     all(rowSums(assay(object) == assay(object)[, 1]) == ncol(object))
+# if (isTRUE(identical_samples)) {
+#     message(paste(
+#         "Identical samples lacking replicates detected.",
+#         "Skipping dispersion, PCA, and correlation heatmap."
+#     ))
+# }
+
+
+
 #' Plot Dispersion Estimates
 #' @name plotDispEsts
 #' @author Michael Steinbaugh

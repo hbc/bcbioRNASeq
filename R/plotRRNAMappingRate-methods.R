@@ -1,3 +1,12 @@
+# FIXME Warn if the required column is missing.
+# if ("rrnaRate" %in% colnames(metrics(object))) {
+#     plotRRNAMappingRate(object)
+# } else {
+#     warning("rRNA mapping rate was not calculated.")
+# }
+
+
+
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit basejump::plotRRNAMappingRate
