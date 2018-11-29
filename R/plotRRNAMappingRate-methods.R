@@ -1,12 +1,3 @@
-# FIXME Warn if the required column is missing.
-# if ("rrnaRate" %in% colnames(metrics(object))) {
-#     plotRRNAMappingRate(object)
-# } else {
-#     warning("rRNA mapping rate was not calculated.")
-# }
-
-
-
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit basejump::plotRRNAMappingRate
@@ -36,10 +27,7 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
         title = "rRNA mapping rate"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
-        )
+        interestingGroups <- matchInterestingGroups(object, interestingGroups)
         interestingGroups(object) <- interestingGroups
         assert_is_a_number(limit)
         assert_all_are_non_negative(limit)
@@ -47,8 +35,16 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
         assert_is_a_bool(flip)
         assertIsStringOrNULL(title)
 
+        data <- metrics(object)
+
+        # Warn and early return if rRNA rate was not calculated.
+        if (!"rrnaRate" %in% colnames(data)) {
+            warning("rRNA mapping rate was not calculated. Skipping plot.")
+            return(invisible())
+        }
+
         p <- ggplot(
-            data = metrics(object),
+            data = data,
             mapping = aes(
                 x = !!sym("sampleName"),
                 y = !!sym("rrnaRate") * 100L,
