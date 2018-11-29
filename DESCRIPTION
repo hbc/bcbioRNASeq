@@ -142,7 +142,6 @@ Imports:
     vsn
 Suggests:
     BiocStyle,
-    EnsDb.Hsapiens.v75,
     hexbin,
     patrick,
     rhdf5,
