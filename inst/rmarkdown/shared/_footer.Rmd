@@ -18,7 +18,7 @@ markdownHeader("`utils::sessionInfo()`", level = 2)
 utils::sessionInfo()
 ```
 
-[bcbio]: https://github.com/bcbio/bcbio-nextgen/
+[bcbio]: https://bcbio-nextgen.readthedocs.io/
 [bcbioRNASeq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
 [Bioconductor]: https://bioconductor.org/
 [clusterProfiler]: https://bioconductor.org/packages/clusterProfiler/
