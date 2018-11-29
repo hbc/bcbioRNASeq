@@ -71,7 +71,7 @@
 #'   position_jitterdodge scale_color_manual scale_x_continuous
 #'   scale_y_continuous stat_summary theme xlab ylim
 #' @importFrom ggrepel geom_label_repel geom_text_repel
-#' @importFrom goalie assertAreValidNames assertHasRownames
+#' @importFrom goalie areSamplesUnique assertAreValidNames assertHasRownames
 #'   assertHasValidDimnames assertIsAlpha assertIsStringOrNULL
 #'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
