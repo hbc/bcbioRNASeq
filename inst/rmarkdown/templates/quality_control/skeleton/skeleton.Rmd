@@ -28,10 +28,10 @@ print(object)
 
 [bcbio][] run data was imported from **`r metadata(object)$uploadDir`**.
 
-# Metrics
+# Sample metadata
 
-```{r metrics}
-metrics(object)
+```{r sample_data}
+sampleData(object, clean = TRUE) %>% as.data.frame()
 ```
 
 # Export results
