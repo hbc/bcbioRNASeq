@@ -39,15 +39,15 @@ metrics(object)
 files <- export(object, dir = params$results_dir)
 ```
 
-The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [LibreOffice][], [Excel][], or [RStudio][].
-
-- [`r basename(files$assays$counts)`](`r files$assays$counts`): Raw counts. Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and are not normalized.
-
-These normalized matrices are suitable for comparison across samples, and to generate plots:
+These normalized matrices are suitable for comparison across samples, and to generate plots.
 
 - [`r basename(files$assays$tpm)`](`r files$assays$tpm`): Transcripts per million, scaled by length.
 - [`r basename(files$assays$normalized)`](`r files$assays$normalized`): DESeq2 size factor adjusted counts.
 - [`r basename(files$assays$vst)`](`r files$assays$vst`): DESeq2 variance-stabilized counts (log2).
+
+Only use the raw counts to perform a new differential expression analysis. These are *not suitable* for plots.
+
+- [`r basename(files$assays$counts)`](`r files$assays$counts`): Raw counts. These counts will vary across samples due to differences in sequencing depth, and are not size factor adjusted.
 
 # Read metrics {.tabset}
 
