@@ -25,11 +25,13 @@ invisible(validObject(object))
 print(object)
 ```
 
-```{r sample_data}
-sampleData(object, clean = TRUE)
-```
-
 [bcbio][] run data was imported from **`r metadata(object)$uploadDir`**.
+
+# Metrics
+
+```{r metrics}
+metrics(object)
+```
 
 # Export results
 
@@ -135,7 +137,7 @@ plotCountsPerGene(object, normalized = "tmm")
 Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA. Here we make boxplots of the TPM for the top 12 biotypes with the most genes assigned to them for each sample.
 
 ```{r plot_counts_per_biotype}
-plotCountsPerBiotype(object)
+plotCountsPerBiotype(object, normalized = "tpm")
 ```
 
 ## Counts per broad biotype class
@@ -143,7 +145,7 @@ plotCountsPerBiotype(object)
 The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes and plot boxplots of the TPM for each sample.
 
 ```{r plot_counts_per_broad_class}
-plotCountsPerBroadClass(object)
+plotCountsPerBroadClass(object, normalized = "tpm")
 ```
 
 ## Count counts per gene
