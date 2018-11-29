@@ -1,17 +1,5 @@
-# FIXME Check for identical samples and warn.
-
-# identical_samples <-
-#     all(rowSums(assay(object) == assay(object)[, 1]) == ncol(object))
-# if (isTRUE(identical_samples)) {
-#     message(paste(
-#         "Identical samples lacking replicates detected.",
-#         "Skipping dispersion, PCA, and correlation heatmap."
-#     ))
-# }
-
-
-
 #' Plot Dispersion Estimates
+#'
 #' @name plotDispEsts
 #' @author Michael Steinbaugh
 #' @inherit DESeq2::plotDispEsts
@@ -56,6 +44,11 @@ BiocGenerics::plotDispEsts
 plotDispEsts.bcbioRNASeq <-  # nolint
     function() {
         validObject(object)
+        # Warn and early return if any samples are duplicated.
+        if (!areSamplesUnique(object)) {
+            warning("Duplicate samples detected. Skipping plot.")
+            return(invisible())
+        }
         dds <- as(object, "DESeqDataSet")
         # Expecting warning about empty design formula.
         dds <- suppressWarnings(DESeq(dds))
