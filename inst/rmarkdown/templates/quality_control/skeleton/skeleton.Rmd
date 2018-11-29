@@ -10,9 +10,12 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-11-27
+# Last modified 2018-11-29
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
+```
+
+```{r header, child="_header.Rmd"}
 ```
 
 ```{r object}
@@ -20,23 +23,6 @@ object <- readRDS(file = params$bcbioRNASeq_file)
 stopifnot(is(object, "bcbioRNASeq"))
 invisible(validObject(object))
 print(object)
-```
-
-```{r header, child="_header.Rmd"}
-```
-
-```{r identical_samples}
-identical_samples <-
-    all(rowSums(assay(object) == assay(object)[, 1]) == ncol(object))
-if (isTRUE(identical_samples)) {
-    message(paste(
-        "Identical samples lacking replicates detected.",
-        "Skipping dispersion, PCA, and correlation heatmap."
-    ))
-}
-```
-
-```{r sample_data}
 markdown(object)
 ```
 
@@ -45,11 +31,7 @@ markdown(object)
 # Export results
 
 ```{r export}
-files <- export(
-    x = object,
-    dir = params$results_dir,
-    dropbox = params$dropbox
-)
+files <- export(object, dir = params$results_dir)
 ```
 
 The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [LibreOffice][], [Excel][], or [RStudio][].
@@ -124,11 +106,7 @@ plotIntronicMappingRate(object)
 Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 
 ```{r plot_rrna_mapping_rate}
-if ("rrnaRate" %in% colnames(metrics(object))) {
-    plotRRNAMappingRate(object)
-} else {
-    warning("rRNA mapping rate was not calculated.")
-}
+plotRRNAMappingRate(object)
 ```
 
 ## 5'->3' bias
@@ -154,11 +132,7 @@ plotCountsPerGene(object, normalized = "tmm")
 Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA. Here we make boxplots of the TPM for the top 12 biotypes with the most genes assigned to them for each sample.
 
 ```{r plot_counts_per_biotype}
-if ("geneBiotype" %in% colnames(rowData(object))) {
-    plotCountsPerBiotype(object, normalized = "tpm")
-} else {
-    warning("Biotypes are not defined in `rowData()`.")
-}
+plotCountsPerBiotype(object)
 ```
 
 ## Counts per broad biotype class
@@ -166,11 +140,7 @@ if ("geneBiotype" %in% colnames(rowData(object))) {
 The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes and plot boxplots of the TPM for each sample.
 
 ```{r plot_counts_per_broad_class}
-if (!"broadClass" %in% colnames(rowData(object))) {
-    plotCountsPerBroadClass(object, normalized = "tpm")
-} else {
-    warning("Broad class biotypes are not defined in `rowData()`.")
-}
+plotCountsPerBroadClass(object)
 ```
 
 ## Count counts per gene
@@ -191,11 +161,7 @@ Several quality metrics are first assessed to explore the fit of the model, befo
 The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
 
 ```{r plot_disp_ests}
-if (isTRUE(identical_samples)) {
-    warning("Samples are identical. Skipping dispersion plot.")
-} else {
-    plotDispEsts(object)
-}
+plotDispEsts(object)
 ```
 
 ## Variance stabilization
@@ -215,12 +181,8 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
 
 ```{r plot_pca}
-if (isTRUE(identical_samples)) {
-    warning("Samples are identical. Skipping PCA.")
-} else {
-    plotPCA(object, label = FALSE)
-    plotPCA(object, label = TRUE)
-}
+plotPCA(object, label = FALSE)
+plotPCA(object, label = TRUE)
 ```
 
 ## Hierarchical clustering
@@ -228,11 +190,7 @@ if (isTRUE(identical_samples)) {
 Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
 
 ```{r plot_correlation_heatmap}
-if (isTRUE(identical_samples)) {
-    warning("Samples are identical. Skipping correlation heatmap.")
-} else {
-    plotCorrelationHeatmap(object)
-}
+plotCorrelationHeatmap(object)
 ```
 
 ```{r footer, child="_footer.Rmd"}
