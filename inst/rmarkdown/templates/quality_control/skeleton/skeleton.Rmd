@@ -23,7 +23,10 @@ object <- readRDS(file = params$bcbioRNASeq_file)
 stopifnot(is(object, "bcbioRNASeq"))
 invisible(validObject(object))
 print(object)
-markdown(object)
+```
+
+```{r sample_data}
+sampleData(object, clean = TRUE)
 ```
 
 [bcbio][] run data was imported from **`r metadata(object)$uploadDir`**.
