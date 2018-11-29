@@ -1,15 +1,15 @@
 ---
 params:
   title: Quality Control
-  bcbioRNASeq_file: "data/YYYY-MM-DD/bcb.rds"
-  results_dir: !r file.path("results", Sys.Date(), "quality_control")
+  object_file: "data/YYYY-MM-DD/object.rds"
+  output_dir: !r file.path("results", Sys.Date(), "quality_control")
 title: "`r params$title`"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 ---
 
-```{r setup, message=FALSE}
+```{r setup, cache=FALSE, message=FALSE}
 # Last modified 2018-11-29
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
@@ -19,7 +19,8 @@ source("_setup.R")
 ```
 
 ```{r object}
-object <- readRDS(file = params$bcbioRNASeq_file)
+name <- basenameSansExt(params$object_file)
+object <- readRDS(file = params$object_file)
 stopifnot(is(object, "bcbioRNASeq"))
 invisible(validObject(object))
 print(object)
@@ -36,7 +37,7 @@ metrics(object)
 # Export results
 
 ```{r export}
-files <- export(object, dir = params$results_dir)
+files <- export(object, name = name, dir = params$output_dir)
 ```
 
 These normalized matrices are suitable for comparison across samples, and to generate plots.
@@ -149,11 +150,7 @@ The Ensembl biotype clasifications are too specific to plot them all. Here we ha
 plotCountsPerBroadClass(object)
 ```
 
-# Fit modeling
-
-Several quality metrics are first assessed to explore the fit of the model, before differential expression analysis is performed.
-
-## Variance stabilization
+# Variance stabilization
 
 These plots show the standard deviation of normalized counts using `log2()`, `varianceStabilizingTransform()`, `rlog()`, and `tmm()` by `rank(mean)`. Note that all counts shown are log2 scale.
 
