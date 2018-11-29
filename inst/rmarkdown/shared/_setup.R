@@ -11,8 +11,9 @@ set.seed(1454944673L)
 opts_chunk[["set"]](
     autodep = TRUE,
     bootstrap.show.code = FALSE,
-    cache = TRUE,
-    cache.lazy = TRUE,
+    # Enable caching with caution.
+    cache = FALSE,
+    cache.lazy = FALSE,
     dev = c("png", "pdf"),
     fig.height = 10L,
     fig.retina = 2L,
