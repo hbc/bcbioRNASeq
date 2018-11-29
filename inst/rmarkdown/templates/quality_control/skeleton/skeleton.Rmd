@@ -129,7 +129,8 @@ Generally, we expect similar count spreads for all genes between samples unless 
 We recommend visualizing counts normalized with the Trimmed Mean of M-Values (TMM) method here [@Robinson2010-np]. TMM normalization equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot_counts_per_gene}
-plotCountsPerGene(object, normalized = "tmm")
+plotCountsPerGene(object, normalized = "tmm", geom = "boxplot")
+plotCountsPerGene(object, normalized = "tmm", geom = "density")
 ```
 
 ## Counts per biotype
@@ -146,15 +147,6 @@ The Ensembl biotype clasifications are too specific to plot them all. Here we ha
 
 ```{r plot_counts_per_broad_class}
 plotCountsPerBroadClass(object)
-```
-
-## Count counts per gene
-
-Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
-
-```{r plot_counts_per_gene}
-plotCountsPerGene(object, geom = "boxplot")
-plotCountsPerGene(object, geom = "density")
 ```
 
 # Fit modeling
