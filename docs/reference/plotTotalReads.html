@@ -66,7 +66,7 @@ per sample." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@ per sample.</p>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotTotalReads</span>(<span class='no'>object</span>, <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>10000000L</span>, <span class='kw'>perMillion</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>20000000L</span>, <span class='kw'>perMillion</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"basejump.fill.discrete"</span>, <span class='kw'>NULL</span>),
   <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"basejump.flip"</span>, <span class='fl'>TRUE</span>), <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"total reads"</span>)</pre>
     
@@ -135,7 +135,7 @@ per sample.</p>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code> or <code>NULL</code>. Groups of interest that
+      <td><p><code>character</code>. Groups of interest that
 define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
@@ -149,8 +149,8 @@ dashed line.</p></td>
     </tr>
     <tr>
       <th>fill</th>
-      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code> or <code>NULL</code>. Desired ggplot2 fill scale.
-Must supply discrete values. When set to <code>NULL</code>, the default ggplot2 color
+      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code>. Desired ggplot2 fill scale. Must
+supply discrete values. When set to <code>NULL</code>, the default ggplot2 color
 palette will be used. If manual color definitions are desired, we recommend
 using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_fill_manual()</a></code>. To set the discrete fill palette
 globally, use <code><a href='https://www.rdocumentation.org/packages/base/topics/options'>options(basejump.fill.discrete = scale_fill_viridis_d())</a></code>.</p></td>
@@ -162,7 +162,7 @@ many samples.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><code>string</code> or <code>NULL</code>. Plot title.</p></td>
+      <td><p><code>string</code>. Plot title.</p></td>
     </tr>
     </table>
     
