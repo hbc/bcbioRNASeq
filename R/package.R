@@ -71,12 +71,12 @@
 #'   position_jitterdodge scale_color_manual scale_x_continuous
 #'   scale_y_continuous stat_summary theme xlab ylim
 #' @importFrom ggrepel geom_label_repel geom_text_repel
-#' @importFrom goalie areSamplesUnique assertAreValidNames assertHasRownames
+#' @importFrom goalie assertAreValidNames assertHasRownames
 #'   assertHasValidDimnames assertIsAlpha assertIsStringOrNULL
 #'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsHeaderLevel assertIsHexColorFunctionOrNULL assertIsImplicitInteger
-#'   hasRownames
+#'   hasRownames hasUniqueCols
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames

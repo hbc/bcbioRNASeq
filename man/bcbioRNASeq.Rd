@@ -43,6 +43,10 @@ documentation for conventions and required columns.}
 
 \item{organism}{\code{string}. Full Latin organism name (e.g. "\code{Homo sapiens}").}
 
+\item{genomeBuild}{\code{string}. Ensembl genome build assembly nam (e.g.
+\code{"GRCh38"}). If set \code{NULL}, defaults to the most recent build available.
+Note: don't pass in UCSC build IDs (e.g. \code{"hg38"}).}
+
 \item{ensemblRelease}{\code{scalar integer}. Ensembl release version (e.g. \code{90}).
 We recommend setting this value if possible, for improved reproducibility.
 When left unset, the latest release available via AnnotationHub/ensembldb
