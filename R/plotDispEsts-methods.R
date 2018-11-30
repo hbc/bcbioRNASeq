@@ -45,7 +45,7 @@ plotDispEsts.bcbioRNASeq <-  # nolint
     function() {
         validObject(object)
         # Warn and early return if any samples are duplicated.
-        if (!areSamplesUnique(object)) {
+        if (!hasUniqueCols(object)) {
             warning("Duplicate samples detected. Skipping plot.")
             return(invisible())
         }
