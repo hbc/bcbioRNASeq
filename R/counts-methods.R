@@ -24,21 +24,21 @@
 #' Additional gene-level-specific normalizations:
 #'
 #'   - `TRUE`: Size factor-adjusted counts.\cr
-#'     See [DESeq2::sizeFactors()] for more information.
+#'     See `DESeq2::sizeFactors()` for more information.
 #'   - `"vst"`: **V**ariance-**s**tabilizing **t**ransformation.\cr
-#'     Requires `vst = TRUE` to be set during [bcbioRNASeq()] call.\cr
-#'     See [DESeq2::varianceStabilizingTransformation()] for more information.
+#'     Requires `vst = TRUE` to be set during `bcbioRNASeq()` call.\cr
+#'     See `DESeq2::varianceStabilizingTransformation()` for more information.
 #'   - `"rlog"`: **R**egularized **log** transformation (log2).\cr
-#'     Requires `rlog = TRUE` to be set during [bcbioRNASeq()] call.\cr
-#'     See [DESeq2::rlog()] for more information.
+#'     Requires `rlog = TRUE` to be set during `bcbioRNASeq()` call.\cr
+#'     See `DESeq2::rlog()` for more information.
 #'   - `"tmm"`: **T**rimmed **m**ean of **M**-values.\cr
-#'     See [edgeR::calcNormFactors()] for more information.
+#'     See `edgeR::calcNormFactors()` for more information.
 #'   - `"rle"`: **R**elative **l**og **e**xpression transformation.
 #'   - `"fpkm"`: **F**ragments **p**er **k**ilobase per **m**illion mapped
 #'     fragments.\cr
-#'     Requires annotations in [rowRanges()] with defined `width`; otherwise,
-#'     will be skipped during the [bcbioRNASeq()] load call.\cr
-#'     See [BiocGenerics::width()] and [DESeq2::fpkm()] for more information.
+#'     Requires annotations in `rowRanges()` with defined `width`; otherwise,
+#'     will be skipped during the `bcbioRNASeq()` load call.\cr
+#'     See `BiocGenerics::width()` and `DESeq2::fpkm()` for more information.
 #'
 #' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
 #' [tximport]: https://bioconductor.org/packages/release/bioc/html/tximport.html
@@ -50,14 +50,15 @@
 #' - RLE: Anders and Huber (2010).
 #'
 #' @seealso
-#' - [tximport::tximport()].
-#' - [DESeq2::counts()].
-#' - [DESeq2::sizeFactors()].
-#' - [DESeq2::varianceStabilizingTransformation()].
-#' - [DESeq2::rlog()].
-#' - [DESeq2::fpkm()].
-#' - [edgeR::calcNormFactors()].
-#' - [tmm()], [relativeLogExpression()].
+#' - `tximport::tximport()`.
+#' - `DESeq2::counts()`.
+#' - `DESeq2::sizeFactors()`.
+#' - `DESeq2::varianceStabilizingTransformation()`.
+#' - `DESeq2::rlog()`.
+#' - `DESeq2::fpkm()`.
+#' - `edgeR::calcNormFactors()`.
+#' - `tmm()`.
+#' - `relativeLogExpression()`.
 #'
 #' @examples
 #' data(bcb)

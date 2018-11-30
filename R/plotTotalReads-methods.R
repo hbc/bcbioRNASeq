@@ -21,7 +21,7 @@ plotTotalReads.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups = NULL,
-        limit = 10e6L,
+        limit = 20e6L,
         perMillion = TRUE,
         fill,
         flip,

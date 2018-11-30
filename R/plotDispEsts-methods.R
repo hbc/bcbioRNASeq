@@ -1,4 +1,5 @@
 #' Plot Dispersion Estimates
+#'
 #' @name plotDispEsts
 #' @author Michael Steinbaugh
 #' @inherit DESeq2::plotDispEsts
@@ -14,7 +15,7 @@
 #'
 #' @param object Object.
 #'
-#' @seealso [DESeq2::plotDispEsts()].
+#' @seealso `DESeq2::plotDispEsts()`.
 #'
 #' @return `ggplot`.
 #'
@@ -43,6 +44,11 @@ BiocGenerics::plotDispEsts
 plotDispEsts.bcbioRNASeq <-  # nolint
     function() {
         validObject(object)
+        # Warn and early return if any samples are duplicated.
+        if (!areSamplesUnique(object)) {
+            warning("Duplicate samples detected. Skipping plot.")
+            return(invisible())
+        }
         dds <- as(object, "DESeqDataSet")
         # Expecting warning about empty design formula.
         dds <- suppressWarnings(DESeq(dds))

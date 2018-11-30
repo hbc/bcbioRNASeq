@@ -30,7 +30,7 @@
 
 \item{n}{\code{scalar integer}. Number to include.}
 
-\item{interestingGroups}{\code{character} or \code{NULL}. Groups of interest that
+\item{interestingGroups}{\code{character}. Groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{trans}{\code{string}. Name of the axis scale transformation to apply. See

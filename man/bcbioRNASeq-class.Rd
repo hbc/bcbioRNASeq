@@ -16,7 +16,7 @@ migrated to \code{RangedSummarizedExperiment}.
 \section{Automatic metadata}{
 
 
-The \code{\link[S4Vectors:metadata]{S4Vectors::metadata()}} slot always contains:
+The \code{metadata()} slot always contains:
 \itemize{
 \item Object version.
 \item bcbio data provenance information.
@@ -26,7 +26,7 @@ The \code{\link[S4Vectors:metadata]{S4Vectors::metadata()}} slot always contains
 }
 
 \seealso{
-\code{\link[=bcbioRNASeq]{bcbioRNASeq()}}.
+\code{bcbioRNASeq()}.
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

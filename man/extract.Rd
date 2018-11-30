@@ -67,9 +67,8 @@
   }
 
 \item{recalculate}{\code{boolean}. Recalculate DESeq2 normalized counts and
-variance-stabilizing transformations defined in
-\code{\link[SummarizedExperiment:assays]{SummarizedExperiment::assays()}}. Recommended by default, but can take a
-long time for large datasets.}
+variance-stabilizing transformations defined in \code{assays()}. Recommended by
+default, but can take a long time for large datasets.}
 }
 \value{
 \code{bcbioRNASeq}.
@@ -80,7 +79,7 @@ Extract genes by row and samples by column.
 \details{
 Internal count transformations are rescaled automatically, if defined. DESeq2
 transformations will only be updated when \code{recalculate = TRUE} and either
-\code{rlog} or \code{vst} counts are defined in \code{\link[SummarizedExperiment:assays]{SummarizedExperiment::assays()}}.
+\code{rlog} or \code{vst} counts are defined in \code{assays()}.
 }
 \examples{
 data(bcb)

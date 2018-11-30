@@ -7,13 +7,12 @@
 #' @details
 #' Internal count transformations are rescaled automatically, if defined. DESeq2
 #' transformations will only be updated when `recalculate = TRUE` and either
-#' `rlog` or `vst` counts are defined in [SummarizedExperiment::assays()].
+#' `rlog` or `vst` counts are defined in `assays()`.
 #
 #' @inheritParams params
 #' @param recalculate `boolean`. Recalculate DESeq2 normalized counts and
-#'   variance-stabilizing transformations defined in
-#'   [SummarizedExperiment::assays()]. Recommended by default, but can take a
-#'   long time for large datasets.
+#'   variance-stabilizing transformations defined in `assays()`. Recommended by
+#'   default, but can take a long time for large datasets.
 #'
 #' @return `bcbioRNASeq`.
 #'
@@ -83,12 +82,15 @@ setMethod(
         # Require at least 2 samples.
         assert_all_are_in_range(length(j), lower = 2L, upper = Inf)
 
-        # Early return if dimensions are unmodified.
+        # Don't attempt to recalculate normalizations if the dimensions remain
+        # unchanged.
         if (identical(
             x = dim(x),
             y = c(length(i), length(j))
         )) {
-            return(x)
+            subset <- FALSE
+        } else {
+            subset <- TRUE
         }
 
         # Regenerate RangedSummarizedExperiment.
@@ -98,72 +100,61 @@ setMethod(
         # Assays ---------------------------------------------------------------
         assays <- assays(rse)
 
-        # Recalculate DESeq2 normalized counts and variance stabilizations.
-        if (isTRUE(recalculate)) {
-            message("Recalculating DESeq2 normalizations.")
-            dds <- .new.DESeqDataSet(se = rse)
-            dds <- DESeq(dds)
-            # Normalized counts.
-            assays[["normalized"]] <- counts(dds, normalized = TRUE)
-            # vst: variance-stabilizing transformation.
-            if ("vst" %in% names(assays)) {
-                message("Applying variance-stabilizing transformation.")
-                assays[["vst"]] <-
-                    assay(varianceStabilizingTransformation(dds))
+        if (isTRUE(subset)) {
+            # Recalculate DESeq2 normalized counts and variance stabilizations
+            # if the number of samples and/or genes change.
+            if (isTRUE(recalculate)) {
+                message("Recalculating DESeq2 normalizations.")
+                dds <- .new.DESeqDataSet(se = rse)
+                dds <- DESeq(dds)
+                # Normalized counts.
+                assays[["normalized"]] <- counts(dds, normalized = TRUE)
+                # vst: variance-stabilizing transformation.
+                if ("vst" %in% names(assays)) {
+                    message("Applying variance-stabilizing transformation.")
+                    assays[["vst"]] <-
+                        assay(varianceStabilizingTransformation(dds))
+                }
+                # rlog: regularized log transformation.
+                if ("rlog" %in% names(assays)) {
+                    message("Applying rlog transformation.")
+                    assays[["rlog"]] <- assay(rlog(dds))
+                }
+            } else {
+                # Otherwise, remove previous calculations.
+                message("Skipping DESeq2 normalizations.")
+                assays[["normalized"]] <- NULL
+                assays[["rlog"]] <- NULL
+                assays[["vst"]] <- NULL
+                assays[["fpkm"]] <- NULL
             }
-            # rlog: regularized log transformation.
-            if ("rlog" %in% names(assays)) {
-                message("Applying rlog transformation.")
-                assays[["rlog"]] <- assay(rlog(dds))
-            }
-        } else {
-            # Otherwise, ensure previous calculations are removed from assays.
-            message("Skipping DESeq2 normalizations.")
-            assays[["normalized"]] <- NULL
-            assays[["rlog"]] <- NULL
-            assays[["vst"]] <- NULL
-            assays[["fpkm"]] <- NULL
         }
 
         # Row data -------------------------------------------------------------
+        # Ensure factors get releveled, if necessary.
         rowRanges <- rowRanges(rse)
-        if (nrow(rse) < nrow(x)) {
-            # Ensure factors get releveled.
-            # TODO Consider making this a function in basejump.
-            mcols <- mcols(rowRanges)
-            mcols <- DataFrame(lapply(
-                X = mcols,
-                FUN = function(x) {
-                    if (is(x, "Rle")) {
-                        x <- decode(x)
-                        if (is.factor(x)) {
-                            x <- droplevels(x)
-                        }
-                        Rle(x)
-                    } else {
-                        I(x)
-                    }
-                }
-            ))
-            mcols(rowRanges) <- mcols
+        if (
+            ncol(mcols(rowRanges)) > 0L &&
+            !identical(rownames(rse), rownames(x))
+        ) {
+            rowRanges <- relevelRowRanges(rowRanges)
         }
 
         # Column data ----------------------------------------------------------
+        # Ensure factors get releveled, if necessary.
         colData <- colData(rse)
-        if (ncol(rse) < ncol(x)) {
-            # Ensure factors get releveled.
-            colData <- colData %>%
-                as.data.frame() %>%
-                rownames_to_column() %>%
-                mutate_if(is.character, as.factor) %>%
-                mutate_if(is.factor, droplevels) %>%
-                column_to_rownames() %>%
-                as("DataFrame")
+        if (
+            ncol(colData) > 0L &&
+            !identical(colnames(rse), colnames(x))
+        ) {
+            colData <- relevelColData(colData)
         }
 
         # Metadata -------------------------------------------------------------
         metadata <- metadata(rse)
-        metadata[["subset"]] <- TRUE
+        if (isTRUE(subset)) {
+            metadata[["subset"]] <- TRUE
+        }
 
         # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(

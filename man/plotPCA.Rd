@@ -24,7 +24,7 @@
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{interestingGroups}{\code{character} or \code{NULL}. Groups of interest that
+\item{interestingGroups}{\code{character}. Groups of interest that
 define the samples. If left unset, defaults to \code{sampleName}.}
 
 \item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
@@ -32,7 +32,7 @@ Use \code{Inf} to include all genes (\emph{not recommended}).}
 
 \item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
 
-\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
+\item{color}{\code{ggproto}/\code{ScaleDiscrete}. Desired ggplot2 color
 scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
 color palette will be used. If manual color definitions are desired, we
 recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
@@ -41,9 +41,9 @@ palette globally, use
 
 \item{pointSize}{\code{scalar numeric}. Point size for dots in the plot.}
 
-\item{title}{\code{string} or \code{NULL}. Plot title.}
+\item{title}{\code{string}. Plot title.}
 
-\item{subtitle}{\code{string} or \code{NULL}. Plot subtitle.}
+\item{subtitle}{\code{string}. Plot subtitle.}
 
 \item{return}{\code{string}. Return type. Uses \code{base::match.arg()}
 internally and defaults to the first argument in the \code{character} vector.}

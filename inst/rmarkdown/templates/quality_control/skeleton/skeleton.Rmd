@@ -1,62 +1,54 @@
 ---
-title: "Quality Control"
+params:
+  title: Quality Control
+  object_file: "data/YYYY-MM-DD/object.rds"
+  output_dir: !r file.path("results", Sys.Date(), "quality_control")
+title: "`r params$title`"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
-params:
-  bcbioRNASeq_file: "data/YYYY-MM-DD/bcb.rds"
-  results_dir: !r file.path("results", Sys.Date(), "quality_control")
-  dropbox: FALSE
 ---
 
-```{r setup, message=FALSE}
-# Last modified 2018-11-16
+```{r setup, cache=FALSE, message=FALSE}
+# Last modified 2018-11-29
 bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
-```
-
-```{r object}
-object <- readRDS(file = params$bcbioRNASeq_file)
-stopifnot(is(object, "bcbioRNASeq"))
-invisible(validObject(object))
-print(object)
-```
-
-```{r identical_samples, echo=FALSE, message=FALSE, results="hide"}
-# If there are no replicates, or samples are identical, don't plot dispersions
-# PCA, or heatmap.
-identical_samples <-
-    all(rowSums(assay(object) == assay(object)[, 1]) == ncol(object))
 ```
 
 ```{r header, child="_header.Rmd"}
 ```
 
-```{r sample_data}
-markdown(object)
+```{r object}
+name <- basenameSansExt(params$object_file)
+object <- readRDS(file = params$object_file)
+stopifnot(is(object, "bcbioRNASeq"))
+invisible(validObject(object))
+print(object)
 ```
 
 [bcbio][] run data was imported from **`r metadata(object)$uploadDir`**.
 
+# Sample metadata
+
+```{r sample_data}
+sampleData(object, clean = TRUE) %>% as.data.frame()
+```
+
 # Export results
 
 ```{r export}
-files <- export(
-    x = object,
-    dir = params$results_dir,
-    dropbox = params$dropbox
-)
+files <- export(object, name = name, dir = params$output_dir)
 ```
 
-The results are saved as gzip-compressed comma separated values (CSV). Gzip compression is natively supported on [macOS][] and Linux-based operating systems. If you're running Windows, we recommend installing [7-Zip][]. CSV files can be opened in [LibreOffice][], [Excel][], or [RStudio][].
-
-- [`r basename(files$assays$counts)`](`r files$assays$counts`): Raw counts. Only use to perform a new differential expression analysis. These counts will vary across samples due to differences in sequencing depth, and are not normalized.
-
-These normalized matrices are suitable for comparison across samples, and to generate plots:
+These normalized matrices are suitable for comparison across samples, and to generate plots.
 
 - [`r basename(files$assays$tpm)`](`r files$assays$tpm`): Transcripts per million, scaled by length.
 - [`r basename(files$assays$normalized)`](`r files$assays$normalized`): DESeq2 size factor adjusted counts.
 - [`r basename(files$assays$vst)`](`r files$assays$vst`): DESeq2 variance-stabilized counts (log2).
+
+Only use the raw counts to perform a new differential expression analysis. These are *not suitable* for plots.
+
+- [`r basename(files$assays$counts)`](`r files$assays$counts`): Raw counts. These counts will vary across samples due to differences in sequencing depth, and are not size factor adjusted.
 
 # Read metrics {.tabset}
 
@@ -120,11 +112,7 @@ plotIntronicMappingRate(object)
 Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 
 ```{r plot_rrna_mapping_rate}
-if ("rrnaRate" %in% colnames(metrics(object))) {
-    plotRRNAMappingRate(object)
-} else {
-    warning("rRNA mapping rate was not calculated.")
-}
+plotRRNAMappingRate(object)
 ```
 
 ## 5'->3' bias
@@ -142,59 +130,27 @@ Generally, we expect similar count spreads for all genes between samples unless 
 We recommend visualizing counts normalized with the Trimmed Mean of M-Values (TMM) method here [@Robinson2010-np]. TMM normalization equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot_counts_per_gene}
-plotCountsPerGene(object, normalized = "tmm")
+plotCountsPerGene(object, normalized = "tmm", geom = "boxplot")
+plotCountsPerGene(object, normalized = "tmm", geom = "density")
 ```
 
 ## Counts per biotype
 
-Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA. Here we make boxplots of the TPM for the top 12 biotypes with the most genes assigned to them for each sample.
+Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA.
 
 ```{r plot_counts_per_biotype}
-if ("geneBiotype" %in% colnames(rowData(object))) {
-    plotCountsPerBiotype(object, normalized = "tpm")
-} else {
-    warning("Biotypes are not defined in `rowData()`.")
-}
+plotCountsPerBiotype(object)
 ```
 
 ## Counts per broad biotype class
 
-The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes and plot boxplots of the TPM for each sample.
+The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes.
 
 ```{r plot_counts_per_broad_class}
-if (!"broadClass" %in% colnames(rowData(object))) {
-    plotCountsPerBroadClass(object, normalized = "tpm")
-} else {
-    warning("Broad class biotypes are not defined in `rowData()`.")
-}
+plotCountsPerBroadClass(object)
 ```
 
-## Count counts per gene
-
-Generally, we expect similar count spreads for all genes between samples unless the total expressed RNA per sample is different.
-
-```{r plot_counts_per_gene}
-plotCountsPerGene(object, geom = "boxplot")
-plotCountsPerGene(object, geom = "density")
-```
-
-# Fit modeling
-
-Several quality metrics are first assessed to explore the fit of the model, before differential expression analysis is performed.
-
-## Dispersion
-
-The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
-
-```{r plot_disp_ests}
-if (isTRUE(identical_samples)) {
-    warning("Samples are identical. Skipping dispersion plot.")
-} else {
-    plotDispEsts(object)
-}
-```
-
-## Variance stabilization
+# Variance stabilization
 
 These plots show the standard deviation of normalized counts using `log2()`, `varianceStabilizingTransform()`, `rlog()`, and `tmm()` by `rank(mean)`. Note that all counts shown are log2 scale.
 
@@ -211,12 +167,8 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
 
 ```{r plot_pca}
-if (isTRUE(identical_samples)) {
-    warning("Samples are identical. Skipping PCA.")
-} else {
-    plotPCA(object, label = FALSE)
-    plotPCA(object, label = TRUE)
-}
+plotPCA(object, label = FALSE)
+plotPCA(object, label = TRUE)
 ```
 
 ## Hierarchical clustering
@@ -224,11 +176,7 @@ if (isTRUE(identical_samples)) {
 Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
 
 ```{r plot_correlation_heatmap}
-if (isTRUE(identical_samples)) {
-    warning("Samples are identical. Skipping correlation heatmap.")
-} else {
-    plotCorrelationHeatmap(object)
-}
+plotCorrelationHeatmap(object)
 ```
 
 ```{r footer, child="_footer.Rmd"}

@@ -14,10 +14,10 @@ Coerce an object to a given class.
 \enumerate{
 \item Coerces to \code{RangedSummarizedExperiment}.
 \item Rounds raw counts to \code{integer matrix}.
-\item Subsets \code{\link[SummarizedExperiment:colData]{SummarizedExperiment::colData()}} to include only clean factor
-columns. See \code{\link[basejump:sampleData]{basejump::sampleData()}} for more details.
-\item Simplifies \code{\link[S4Vectors:metadata]{S4Vectors::metadata()}} to include only relevant information
-and updates \code{sessionInfo}.
+\item Subsets \code{colData()} to include only clean factor columns.
+See \code{basejump::sampleData()} for more details.
+\item Simplifies \code{metadata()} to include only relevant information and updates
+\code{sessionInfo} slot.
 }
 
 Note that gene-level counts are required. Alternatively
@@ -32,8 +32,8 @@ scaled during tximport call (see \code{countsFromAbundance} in tximport).
 
 \enumerate{
 \item Coerces to \code{DESeqDataSet}.
-\item Calls \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
-\item Calls \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+\item Calls \code{DESeq2::DESeq()}.
+\item Calls \code{DESeq2::varianceStabilizingTransformation()}.
 }
 }
 

@@ -29,21 +29,21 @@ by default (see \code{countsFromAbundance} argument).
 Additional gene-level-specific normalizations:
 \itemize{
 \item \code{TRUE}: Size factor-adjusted counts.\cr
-See \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}} for more information.
+See \code{DESeq2::sizeFactors()} for more information.
 \item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation.\cr
-Requires \code{vst = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
-See \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}} for more information.
+Requires \code{vst = TRUE} to be set during \code{bcbioRNASeq()} call.\cr
+See \code{DESeq2::varianceStabilizingTransformation()} for more information.
 \item \code{"rlog"}: \strong{R}egularized \strong{log} transformation (log2).\cr
-Requires \code{rlog = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
-See \code{\link[DESeq2:rlog]{DESeq2::rlog()}} for more information.
+Requires \code{rlog = TRUE} to be set during \code{bcbioRNASeq()} call.\cr
+See \code{DESeq2::rlog()} for more information.
 \item \code{"tmm"}: \strong{T}rimmed \strong{m}ean of \strong{M}-values.\cr
-See \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}} for more information.
+See \code{edgeR::calcNormFactors()} for more information.
 \item \code{"rle"}: \strong{R}elative \strong{l}og \strong{e}xpression transformation.
 \item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
 fragments.\cr
-Requires annotations in \code{\link[=rowRanges]{rowRanges()}} with defined \code{width}; otherwise,
-will be skipped during the \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} load call.\cr
-See \code{\link[BiocGenerics:width]{BiocGenerics::width()}} and \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}} for more information.
+Requires annotations in \code{rowRanges()} with defined \code{width}; otherwise,
+will be skipped during the \code{bcbioRNASeq()} load call.\cr
+See \code{BiocGenerics::width()} and \code{DESeq2::fpkm()} for more information.
 }}
 }
 \value{
@@ -68,14 +68,15 @@ counts(bcb) \%>\% summary()
 }
 \seealso{
 \itemize{
-\item \code{\link[tximport:tximport]{tximport::tximport()}}.
-\item \code{\link[DESeq2:counts]{DESeq2::counts()}}.
-\item \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}}.
-\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
-\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
-\item \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}}.
-\item \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}}.
-\item \code{\link[=tmm]{tmm()}}, \code{\link[=relativeLogExpression]{relativeLogExpression()}}.
+\item \code{tximport::tximport()}.
+\item \code{DESeq2::counts()}.
+\item \code{DESeq2::sizeFactors()}.
+\item \code{DESeq2::varianceStabilizingTransformation()}.
+\item \code{DESeq2::rlog()}.
+\item \code{DESeq2::fpkm()}.
+\item \code{edgeR::calcNormFactors()}.
+\item \code{tmm()}.
+\item \code{relativeLogExpression()}.
 }
 }
 \author{

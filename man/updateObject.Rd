@@ -19,9 +19,8 @@
 
 \item{rowRanges}{\code{GRanges} or \code{NULL}. Row annotations. Since we converted to
 \code{RangedSummarizedExperiment} in v0.2.0, this option had to be added to
-enable updating of newly required \code{\link[SummarizedExperiment:rowRanges]{SummarizedExperiment::rowRanges()}} slot.
-Objects that are >= v0.2 don't require this argument and it can be left
-\code{NULL}.}
+enable updating of newly required \code{rowRanges()} slot. Objects that are >=
+v0.2 don't require this argument and it can be left \code{NULL}.}
 }
 \value{
 \code{bcbioRNASeq}.

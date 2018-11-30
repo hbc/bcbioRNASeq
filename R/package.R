@@ -30,8 +30,8 @@
 #'   assert_all_are_non_negative assert_all_are_positive is_positive
 #' @importFrom assertive.properties assert_has_colnames assert_has_dimnames
 #'   assert_has_dims assert_has_names assert_has_no_duplicates assert_has_rows
-#'   assert_is_non_empty assert_is_of_length assert_is_scalar assert_is_vector
-#'   has_dimnames has_dims has_names
+#'   assert_is_non_empty assert_is_null assert_is_of_length assert_is_scalar
+#'   assert_is_vector has_dimnames has_dims has_names
 #' @importFrom assertive.sets are_disjoint_sets assert_are_disjoint_sets
 #'   assert_are_intersecting_sets assert_are_set_equal assert_is_subset
 #'   is_subset
@@ -51,10 +51,10 @@
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups meltCounts
 #'   methodFormals metrics organism plotGenesDetected plotHeatmap
-#'   prepareTemplate printString realpath removeNA sampleData sampleData<-
-#'   sanitizeRowData sanitizeSampleData separator showSlotInfo snake
-#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
-#'   validateClasses
+#'   prepareTemplate printString realpath relevelColData relevelRowRanges
+#'   removeNA sampleData sampleData<- sanitizeRowData sanitizeSampleData
+#'   separator showSlotInfo snake standardizeCall stripTranscriptVersions
+#'   uniteInterestingGroups validateClasses
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML metadataBlacklist projectDir projectDirPattern
 #'   readDataVersions readProgramVersions readSampleData readTx2Gene runDate
@@ -71,7 +71,7 @@
 #'   position_jitterdodge scale_color_manual scale_x_continuous
 #'   scale_y_continuous stat_summary theme xlab ylim
 #' @importFrom ggrepel geom_label_repel geom_text_repel
-#' @importFrom goalie assertAreValidNames assertHasRownames
+#' @importFrom goalie areSamplesUnique assertAreValidNames assertHasRownames
 #'   assertHasValidDimnames assertIsAlpha assertIsStringOrNULL
 #'   assertIsAnImplicitInteger assertIsAnImplicitIntegerOrNULL
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
