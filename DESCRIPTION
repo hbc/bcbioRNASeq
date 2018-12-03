@@ -155,7 +155,6 @@ Remotes:
 biocViews:
     DataImport,
     DataRepresentation,
-    DifferentialExpression,
     GeneExpression,
     QualityControl,
     ReportWriting,
