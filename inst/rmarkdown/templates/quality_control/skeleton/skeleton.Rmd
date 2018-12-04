@@ -1,6 +1,6 @@
 ---
 params:
-  title: Quality Control
+  title: "Quality Control"
   object_file: "data/YYYY-MM-DD/object.rds"
   output_dir: !r file.path("results", Sys.Date(), "quality_control")
 title: "`r params$title`"
