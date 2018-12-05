@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
       </span>
     </div>
 
@@ -125,10 +125,10 @@
     <ol>
 <li><p>Coerces to <code>RangedSummarizedExperiment</code>.</p></li>
 <li><p>Rounds raw counts to <code>integer matrix</code>.</p></li>
-<li><p>Subsets <code><a href='https://www.rdocumentation.org/packages/SummarizedExperiment/topics/SummarizedExperiment-class'>SummarizedExperiment::colData()</a></code> to include only clean factor
-columns. See <code><a href='https://www.rdocumentation.org/packages/basejump/topics/sampleData'>basejump::sampleData()</a></code> for more details.</p></li>
-<li><p>Simplifies <code><a href='https://www.rdocumentation.org/packages/S4Vectors/topics/Annotated-class'>S4Vectors::metadata()</a></code> to include only relevant information
-and updates <code>sessionInfo</code>.</p></li>
+<li><p>Subsets <code>colData()</code> to include only clean factor columns.
+See <code><a href='https://www.rdocumentation.org/packages/basejump/topics/sampleData'>basejump::sampleData()</a></code> for more details.</p></li>
+<li><p>Simplifies <code>metadata()</code> to include only relevant information and updates
+<code>sessionInfo</code> slot.</p></li>
 </ol>
     <p>Note that gene-level counts are required. Alternatively
 <code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::summarizeToGene()</a></code> can be called to convert transcript-level

@@ -97,6 +97,12 @@ setMethod(
         rse <- as(x, "RangedSummarizedExperiment")
         rse <- rse[i, j, drop = FALSE]
 
+        # Early return original object, if unmodified.
+        if (identical(assay(rse), assay(x))) {
+            message("Returning unmodified.")
+            return(x)
+        }
+
         # Assays ---------------------------------------------------------------
         assays <- assays(rse)
 
