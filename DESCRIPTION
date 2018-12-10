@@ -151,7 +151,7 @@ Suggests:
 Remotes:
     hbc/bcbioBase@develop,
     steinbaugh/basejump@develop,
-    steinbaugh/goalie
+    steinbaugh/goalie@develop
 biocViews:
     DataImport,
     DataRepresentation,
