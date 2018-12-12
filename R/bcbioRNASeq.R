@@ -252,7 +252,7 @@ bcbioRNASeq <- function(
     )
 
     if (isString(gffFile)) {
-        assert(isAFile(gffFile) || isAURL(gffFile))
+        assert(isAFile(gffFile) || containsAURL(gffFile))
     }
     # Don't allow AnnotationHub formals when specifying GFF file.
     if (!is.null(gffFile)) {

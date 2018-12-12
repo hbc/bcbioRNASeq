@@ -51,11 +51,11 @@
 #'   position_jitterdodge scale_color_manual scale_x_continuous
 #'   scale_y_continuous stat_summary theme xlab ylim
 #' @importFrom ggrepel geom_label_repel geom_text_repel
-#' @importFrom goalie areDisjointSets areIntersectingSets assert hasDimnames
-#'   hasLength hasRownames hasUniqueCols hasValidDimnames isADirectory isAFile
-#'   isAny isCharacter isDirectory isFile isFlag isGGScale isInt isInRange
-#'   isNonEmpty isNonNegative isNumber isPositive isProportion isString isSubset
-#'   validNames validate validateClasses
+#' @importFrom goalie areDisjointSets areIntersectingSets assert containsAURL
+#'   hasDimnames hasLength hasRownames hasUniqueCols hasValidDimnames
+#'   isADirectory isAFile isAny isCharacter isDirectory isFile isFlag isGGScale
+#'   isInt isInRange isNonEmpty isNonNegative isNumber isPositive isProportion
+#'   isString isSubset validNames validate validateClasses
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
