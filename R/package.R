@@ -51,7 +51,9 @@
 #'   position_jitterdodge scale_color_manual scale_x_continuous
 #'   scale_y_continuous stat_summary theme xlab ylim
 #' @importFrom ggrepel geom_label_repel geom_text_repel
-#' @importFrom goalie assert hasRownames hasUniqueCols validateClasses
+#' @importFrom goalie areDisjointSets areIntersectingSets assert hasLength
+#'   hasRownames hasUniqueCols isADirectory isAny isDirectory isFile isFlag
+#'   isInRange isNonEmpty isSubset validateClasses
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames

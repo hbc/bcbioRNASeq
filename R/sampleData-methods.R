@@ -3,7 +3,7 @@
 #' @inherit basejump::sampleData
 #' @inheritParams params
 #'
-#' @param clean `boolean`. Only return `factor` columns not defined in
+#' @param clean `logical(1)`. Only return `factor` columns not defined in
 #'   [bcbioBase::metadataBlacklist]. This removes metrics columns used for
 #'   quality control analysis, which are often not informative as sample
 #'   metadata.
@@ -30,7 +30,7 @@ basejump::sampleData
 
 sampleData.bcbioRNASeq <-  # nolint
     function(object, clean = FALSE) {
-        assert_is_a_bool(clean)
+        assert(isFlag(clean))
         rse <- as(object, "RangedSummarizedExperiment")
         data <- sampleData(rse)
         # Only return whitelisted factor columns, if desired.
