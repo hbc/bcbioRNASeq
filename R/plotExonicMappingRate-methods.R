@@ -35,7 +35,7 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
             matchInterestingGroups(object, interestingGroups)
         assert(
             isNumber(limit),
-            isInRange(limit, lower = 0L, upper = 1L),
+            isProportion(limit),
             isGGScale(fill, scale = "discrete", aes = "fill") || is.null(fill),
             isFlag(flip),
             isString(title) || is.null(title)

@@ -31,7 +31,8 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         assert(
-            isInt(limit) && isNonNegative(limit),
+            isInt(limit),
+            isNonNegative(limit),
             isFlag(perMillion),
             isGGScale(fill, scale = "discrete", aes = "fill") || is.null(fill),
             isFlag(flip),

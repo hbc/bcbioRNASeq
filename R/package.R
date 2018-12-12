@@ -54,7 +54,7 @@
 #' @importFrom goalie areDisjointSets areIntersectingSets assert hasDimnames
 #'   hasLength hasRownames hasUniqueCols isADirectory isAny isDirectory isFile
 #'   isFlag isGGScale isInt isInRange isNonEmpty isNonNegative isNumber
-#'   isPositive isString isSubset validate validateClasses
+#'   isPositive isProportion isString isSubset validate validateClasses
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
