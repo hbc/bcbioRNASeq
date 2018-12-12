@@ -13,8 +13,8 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   interestingGroups = "sampleName", ...)
 }
 \arguments{
-\item{uploadDir}{\code{string}. Path to final upload directory. This path is set
-when running "\code{bcbio_nextgen -w template}".}
+\item{uploadDir}{\code{character(1)}. Path to final upload directory. This path is
+set when running "\code{bcbio_nextgen -w template}".}
 
 \item{level}{\code{string}. Import counts at gene level ("\code{genes}"; \emph{default}) or
 transcript level ("\code{transcripts}"; \emph{advanced use}). Only
@@ -37,28 +37,29 @@ Transcripts) graph-based aligned counts.
 
 \item{censorSamples}{\code{character}. Specify a subset of samples to censor.}
 
-\item{sampleMetadataFile}{\code{string}. Sample metadata file path. CSV
+\item{sampleMetadataFile}{\code{character(1)}. Sample metadata file path. CSV
 or TSV is preferred, but Excel worksheets are also supported. Check the
 documentation for conventions and required columns.}
 
-\item{organism}{\code{string}. Full Latin organism name (e.g. "\code{Homo sapiens}").}
+\item{organism}{\code{character(1)}. Full Latin organism name
+(e.g. "\code{Homo sapiens}").}
 
-\item{genomeBuild}{\code{string}. Ensembl genome build assembly nam (e.g.
+\item{genomeBuild}{\code{character(1)}. Ensembl genome build assembly name (e.g.
 \code{"GRCh38"}). If set \code{NULL}, defaults to the most recent build available.
 Note: don't pass in UCSC build IDs (e.g. \code{"hg38"}).}
 
-\item{ensemblRelease}{\code{scalar integer}. Ensembl release version (e.g. \code{90}).
+\item{ensemblRelease}{\code{integer(1)}. Ensembl release version (e.g. \code{90}).
 We recommend setting this value if possible, for improved reproducibility.
 When left unset, the latest release available via AnnotationHub/ensembldb
 is used. Note that the latest version available can vary, depending on the
 versions of AnnotationHub and ensembldb in use.}
 
-\item{gffFile}{\code{string}. GFF/GTF (General Feature Format) file.
+\item{gffFile}{\code{character(1)}. GFF/GTF (General Feature Format) file.
 Generally, we recommend using a GTF (GFFv2) instead of a GFFv3 file if
 possible.}
 
-\item{transgeneNames}{\code{character}. Vector indicating which assay
-rows denote transgenes (e.g. EGFP, TDTOMATO).}
+\item{transgeneNames}{\code{character}. Vector indicating which assay rows denote
+transgenes (e.g. EGFP, TDTOMATO).}
 
 \item{spikeNames}{\code{character}. Vector indicating which assay rows denote
 spike-in sequences (e.g. ERCCs).}
@@ -79,8 +80,8 @@ for visualization.}
 \code{DESeq2::rlog()}. This calculation is slow for large datasets and now
 discouraged by default for visualization.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
 \item{...}{Additional arguments.}
 }

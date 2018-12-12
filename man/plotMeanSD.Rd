@@ -12,7 +12,7 @@
 \arguments{
 \item{object}{Object.}
 
-\item{legend}{\code{boolean}. Show plot legend.}
+\item{legend}{\code{logical(1)}. Show plot legend.}
 }
 \value{
 \code{ggplot}.

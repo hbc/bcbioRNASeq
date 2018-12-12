@@ -32,7 +32,7 @@ loadRNASeq(...)
 \item{object}{Object.}
 }
 \value{
-\code{.Deprecated()}.
+\code{.Deprecated}.
 }
 \description{
 Deprecated Functions

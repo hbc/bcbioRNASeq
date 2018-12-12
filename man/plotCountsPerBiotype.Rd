@@ -20,7 +20,7 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{\code{string}. Which normalization method to apply:
+\item{normalized}{\code{character(1)}. Which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
@@ -28,15 +28,17 @@
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{n}{\code{scalar integer}. Number to include.}
+\item{n}{\code{integer(1)}. Number to include.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
-\item{trans}{\code{string}. Name of the axis scale transformation to apply. See
-\code{help("scale_x_continuous", "ggplot2")} for more information.}
+\item{trans}{\code{character(1)}. Name of the axis scale transformation to apply.
 
-\item{countsAxisLabel}{\code{string}. Counts axis label.}
+For more information:\preformatted{help(topic = "scale_x_continuous", package = "ggplot2")
+}}
+
+\item{countsAxisLabel}{\code{character(1)}. Counts axis label.}
 }
 \value{
 \code{ggplot}.
