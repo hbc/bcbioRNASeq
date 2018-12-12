@@ -15,7 +15,7 @@
 #'
 #' @param object Object.
 #'
-#' @seealso `DESeq2::plotDispEsts()`.
+#' @seealso `DESeq2::plotDispEsts`.
 #'
 #' @return `ggplot`.
 #'

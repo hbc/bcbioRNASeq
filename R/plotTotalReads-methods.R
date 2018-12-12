@@ -28,17 +28,15 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         title = "total reads"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        assert(
+            isInt(limit) && isNonNegative(limit),
+            isFlag(perMillion),
+            isGGScale(fill, scale = "discrete", aes = "fill") || is.null(fill),
+            isFlag(flip),
+            isString(title) || is.null(title)
         )
-        interestingGroups(object) <- interestingGroups
-        assertIsAnImplicitInteger(limit)
-        assert_all_are_non_negative(limit)
-        assert_is_a_bool(perMillion)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsStringOrNULL(title)
 
         data <- metrics(object)
 
@@ -68,7 +66,7 @@ plotTotalReads.bcbioRNASeq <-  # nolint
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(limit)) {
+        if (isPositive(limit)) {
             if (isTRUE(perMillion)) {
                 if (limit < 1e6L) {
                     warning("`limit`: Use absolute value, not per million.")
