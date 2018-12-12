@@ -42,18 +42,20 @@ basejump::plotMeanSD
     rlog = NULL,
     legend = FALSE
 ) {
-    assert_is_matrix(raw)
-    assert_is_matrix(normalized)
-    assert_are_identical(dimnames(normalized), dimnames(raw))
-    assert_is_any_of(vst, c("matrix", "NULL"))
+    assert(
+        is.matrix(raw),
+        is.matrix(normalized),
+        identical(dimnames(normalized), dimnames(raw)),
+        isAny(vst, classes = c("matrix", "NULL")),
+        isAny(rlog, classes = c("matrix", "NULL")),
+        isFlag(legend)
+    )
     if (is.matrix(vst)) {
-        assert_are_identical(dimnames(vst), dimnames(raw))
+        assert(identical(dimnames(vst), dimnames(raw)))
     }
-    assert_is_any_of(rlog, c("matrix", "NULL"))
     if (is.matrix(rlog)) {
-        assert_are_identical(dimnames(rlog), dimnames(raw))
+        assert(identical(dimnames(rlog), dimnames(raw)))
     }
-    assert_is_a_bool(legend)
 
     xlab <- "rank (mean)"
     nonzero <- rowSums(raw) > 0L
@@ -77,7 +79,10 @@ basejump::plotMeanSD
             ggtitle("DESeq2 rlog") +
             xlab(xlab)
     } else {
-        message("Skipping regularized log.")
+        message(paste(
+            "Regularized log (rlog) was not calculated.",
+            "Skipping."
+        ))
         ggrlog <- NULL
     }
 
@@ -90,7 +95,10 @@ basejump::plotMeanSD
             ggtitle("DESeq2 vst") +
             xlab(xlab)
     } else {
-        message("Skipping variance stabilizing transformation.")
+        message(paste(
+            "Variance-stabilizing transformation (vst) was not calculated.",
+            "Skipping."
+        ))
         ggvst <- NULL
     }
 
