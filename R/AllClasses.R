@@ -4,7 +4,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 .valid <- function(list) {
     invalid <- Filter(f = Negate(isTRUE), x = list)
-    if (has_length(invalid)) {
+    if (hasLength(invalid)) {
         unlist(invalid)
     } else {
         TRUE
@@ -24,7 +24,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #'
 #' @section Automatic metadata:
 #'
-#' The `metadata()` slot always contains:
+#' The `metadata` slot always contains:
 #'
 #' - Object version.
 #' - bcbio data provenance information.
@@ -35,7 +35,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
 #'
-#' @seealso `bcbioRNASeq()`.
+#' @seealso `bcbioRNASeq`.
 setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
 setValidity(
     Class = "bcbioRNASeq",
@@ -62,7 +62,7 @@ setValidity(
         # Check for legacy metrics.
         valid[["metrics"]] <- validate_that(
             !is.data.frame(metadata[["metrics"]]),
-            msg = "`metrics` saved in `metadata()` instead of `colData()`."
+            msg = "`metrics` saved in `metadata` instead of `colData`."
         )
 
         # Check that interesting groups defined in metadata are valid.
@@ -91,7 +91,7 @@ setValidity(
             )
         )
         valid[["legacyMetadata"]] <- validate_that(
-            !has_length(intersect),
+            !hasLength(intersect),
             msg = paste(
                 "Legacy metadata slots:",
                 toString(sort(intersect)),
@@ -157,7 +157,7 @@ setValidity(
         # Check that all assays are matrices.
         # Note that in previous versions, we slotted `DESeqDataSet` and
         # `DESeqTransform`, which can result in metadata mismatches because
-        # those objects contain their own `colData()` and `rowData()`.
+        # those objects contain their own `colData` and `rowData`.
         isMatrix <- vapply(
             X = assays(object),
             FUN = is.matrix,
@@ -200,7 +200,7 @@ setValidity(
             is(rowRanges(object), "GRanges")
         )
         rowData <- rowData(object)
-        if (has_length(colnames(rowData))) {
+        if (hasLength(colnames(rowData))) {
             # Note that GTF/GFF annotations won't contain description.
             valid[["rowData"]] <- validateClasses(
                 object = rowData,

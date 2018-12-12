@@ -7,11 +7,11 @@
 #' @details
 #' Internal count transformations are rescaled automatically, if defined. DESeq2
 #' transformations will only be updated when `recalculate = TRUE` and either
-#' `rlog` or `vst` counts are defined in `assays()`.
+#' `rlog` or `vst` counts are defined in `assays`.
 #
 #' @inheritParams params
-#' @param recalculate `boolean`. Recalculate DESeq2 normalized counts and
-#'   variance-stabilizing transformations defined in `assays()`. Recommended by
+#' @param recalculate `logical(1)`. Recalculate DESeq2 normalized counts and
+#'   variance-stabilizing transformations defined in `assays`. Recommended by
 #'   default, but can take a long time for large datasets.
 #'
 #' @return `bcbioRNASeq`.
@@ -64,23 +64,25 @@ setMethod(
         recalculate = TRUE
     ) {
         validObject(x)
-        # Never allow the user to drop on extraction.
-        assert_that(!isTRUE(drop))
-        assert_is_a_bool(recalculate)
+        assert(
+            # Not currently allowing the user to drop on extraction.
+            identical(drop, FALSE),
+            isFlag(recalculate)
+        )
 
         # Genes (rows)
         if (missing(i)) {
             i <- seq_len(nrow(x))
         }
         # Require at least 50 genes.
-        assert_all_are_in_range(length(i), lower = 50L, upper = Inf)
+        assert(isInRange(length(i), lower = 50L, upper = Inf))
 
         # Samples (columns)
         if (missing(j)) {
             j <- seq_len(ncol(x))
         }
         # Require at least 2 samples.
-        assert_all_are_in_range(length(j), lower = 2L, upper = Inf)
+        assert(isInRange(length(j), lower = 2L, upper = Inf))
 
         # Don't attempt to recalculate normalizations if the dimensions remain
         # unchanged.
