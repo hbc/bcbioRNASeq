@@ -27,16 +27,15 @@ plotMappingRate.bcbioRNASeq <-  # nolint
         title = "mapping rate"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        assert(
+            isNumber(limit),
+            isProportion(limit),
+            isGGScale(fill, scale = "discrete", aes = "fill") || is.null(fill),
+            isFlag(flip),
+            isString(title) || is.null(title)
         )
-        interestingGroups(object) <- interestingGroups
-        assert_is_a_number(limit)
-        assert_all_are_non_negative(limit)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsStringOrNULL(title)
 
         p <- ggplot(
             data = metrics(object),
@@ -58,7 +57,7 @@ plotMappingRate.bcbioRNASeq <-  # nolint
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(limit)) {
+        if (isPositive(limit)) {
             # Convert to percentage.
             if (limit > 1L) {
                 # nocov start

@@ -4,7 +4,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 .valid <- function(list) {
     invalid <- Filter(f = Negate(isTRUE), x = list)
-    if (has_length(invalid)) {
+    if (hasLength(invalid)) {
         unlist(invalid)
     } else {
         TRUE
@@ -24,7 +24,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #'
 #' @section Automatic metadata:
 #'
-#' The `metadata()` slot always contains:
+#' The `metadata` slot always contains:
 #'
 #' - Object version.
 #' - bcbio data provenance information.
@@ -35,7 +35,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
 #'
-#' @seealso `bcbioRNASeq()`.
+#' @seealso `bcbioRNASeq`.
 setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
 setValidity(
     Class = "bcbioRNASeq",
@@ -45,29 +45,29 @@ setValidity(
 
         # Return invalid for all objects older than v0.2.
         version <- metadata[["version"]]
-        valid[["version"]] <- validate_that(
+        valid[["version"]] <- validate(
             is(version, "package_version"),
             version >= 0.2
         )
 
-        valid[["rse"]] <- validate_that(
+        valid[["rse"]] <- validate(
             is(object, "RangedSummarizedExperiment")
         )
 
-        valid[["dimnames"]] <- validate_that(
-            has_dimnames(object)
+        valid[["dimnames"]] <- validate(
+            hasDimnames(object)
         )
 
         # Metadata -------------------------------------------------------------
         # Check for legacy metrics.
-        valid[["metrics"]] <- validate_that(
+        valid[["metrics"]] <- validate(
             !is.data.frame(metadata[["metrics"]]),
-            msg = "`metrics` saved in `metadata()` instead of `colData()`."
+            msg = "`metrics` saved in `metadata` instead of `colData`."
         )
 
         # Check that interesting groups defined in metadata are valid.
-        valid[["interestingGroups"]] <- validate_that(
-            is_subset(
+        valid[["interestingGroups"]] <- validate(
+            isSubset(
                 x = metadata[["interestingGroups"]],
                 y = colnames(colData(object))
             )
@@ -90,8 +90,8 @@ setValidity(
                 "yamlFile"
             )
         )
-        valid[["legacyMetadata"]] <- validate_that(
-            !has_length(intersect),
+        valid[["legacyMetadata"]] <- validate(
+            !hasLength(intersect),
             msg = paste(
                 "Legacy metadata slots:",
                 toString(sort(intersect)),
@@ -134,14 +134,14 @@ setValidity(
         )
 
         # Additional assert checks.
-        valid[["metadata2"]] <- validate_that(
-            is_subset(metadata[["caller"]], validCallers),
-            is_subset(metadata[["level"]], validLevels)
+        valid[["metadata2"]] <- validate(
+            isSubset(metadata[["caller"]], validCallers),
+            isSubset(metadata[["level"]], validLevels)
         )
 
         if (is.character(metadata[["countsFromAbundance"]])) {
-            valid[["countsFromAbundance"]] <- validate_that(
-                is_subset(
+            valid[["countsFromAbundance"]] <- validate(
+                isSubset(
                     x = metadata[["countsFromAbundance"]],
                     y = eval(formals(tximport)[["countsFromAbundance"]])
                 )
@@ -150,21 +150,21 @@ setValidity(
 
         # Assays ---------------------------------------------------------------
         assayNames <- assayNames(object)
-        valid[["assayNames"]] <- validate_that(
-            is_subset(requiredAssays, assayNames)
+        valid[["assayNames"]] <- validate(
+            isSubset(requiredAssays, assayNames)
         )
 
         # Check that all assays are matrices.
         # Note that in previous versions, we slotted `DESeqDataSet` and
         # `DESeqTransform`, which can result in metadata mismatches because
-        # those objects contain their own `colData()` and `rowData()`.
+        # those objects contain their own `colData` and `rowData`.
         isMatrix <- vapply(
             X = assays(object),
             FUN = is.matrix,
             FUN.VALUE = logical(1L),
             USE.NAMES = TRUE
         )
-        valid[["assays"]] <- validate_that(
+        valid[["assays"]] <- validate(
             all(isMatrix),
             msg = paste(
                 "Assays that are not matrix:",
@@ -176,12 +176,12 @@ setValidity(
         # Caller-specific checks.
         caller <- metadata[["caller"]]
         if (caller %in% tximportCallers) {
-            valid[["caller"]] <- validate_that(
-                is_subset(tximportAssays, assayNames)
+            valid[["caller"]] <- validate(
+                isSubset(tximportAssays, assayNames)
             )
         } else if (caller %in% featureCountsCallers) {
-            valid[["caller"]] <- validate_that(
-                is_subset(featureCountsAssays, assayNames)
+            valid[["caller"]] <- validate(
+                isSubset(featureCountsAssays, assayNames)
             )
         }
 
@@ -190,17 +190,17 @@ setValidity(
             metadata[["caller"]] %in% tximportCallers &&
             metadata[["countsFromAbundance"]] == "no"
         ) {
-            valid[["avgTxLength"]] <- validate_that(
-                is_subset("avgTxLength", assayNames)
+            valid[["avgTxLength"]] <- validate(
+                isSubset("avgTxLength", assayNames)
             )
         }
 
         # Row data -------------------------------------------------------------
-        valid[["rowRanges"]] <- validate_that(
+        valid[["rowRanges"]] <- validate(
             is(rowRanges(object), "GRanges")
         )
         rowData <- rowData(object)
-        if (has_length(colnames(rowData))) {
+        if (hasLength(colnames(rowData))) {
             # Note that GTF/GFF annotations won't contain description.
             valid[["rowData"]] <- validateClasses(
                 object = rowData,
@@ -216,9 +216,9 @@ setValidity(
 
         # Column data ----------------------------------------------------------
         colData <- colData(object)
-        valid[["colData"]] <- validate_that(
-            is_subset("sampleName", colnames(colData)),
-            are_disjoint_sets(colnames(colData), legacyMetricsCols)
+        valid[["colData"]] <- validate(
+            isSubset("sampleName", colnames(colData)),
+            areDisjointSets(colnames(colData), legacyMetricsCols)
         )
 
         .valid(list = valid)

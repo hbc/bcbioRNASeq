@@ -12,7 +12,7 @@
 \arguments{
 \item{object}{Object.}
 
-\item{legend}{\code{boolean}. Show plot legend.}
+\item{legend}{\code{logical(1)}. Show plot legend.}
 }
 \value{
 \code{ggplot}.
@@ -21,7 +21,7 @@
 Plot Row Standard Deviations vs. Row Means
 }
 \details{
-\code{vsn::meanSdPlot()} wrapper that plots count transformations on a log2 scale.
+\code{vsn::meanSdPlot} wrapper that plots count transformations on a log2 scale.
 \itemize{
 \item DESeq2 log2: log2 size factor-adjusted normalized counts.
 \item DESeq2 rlog: \strong{r}egularized \strong{log} transformation.
@@ -35,11 +35,11 @@ plotMeanSD(bcb)
 }
 \seealso{
 \itemize{
-\item \code{vsn::meanSdPlot()}.
-\item \code{DESeq2::DESeq()}.
-\item \code{DESeq2::rlog()}.
-\item \code{DESeq2::varianceStabilizingTransformation()}.
-\item \code{edgeR::calcNormFactors()}.
+\item \code{vsn::meanSdPlot}.
+\item \code{DESeq2::DESeq}.
+\item \code{DESeq2::rlog}.
+\item \code{DESeq2::varianceStabilizingTransformation}.
+\item \code{edgeR::calcNormFactors}.
 }
 }
 \author{

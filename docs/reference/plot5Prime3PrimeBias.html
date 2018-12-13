@@ -135,26 +135,26 @@ fragments.</p>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that
-define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <td><p><code>character</code>. Groups of interest that define the
+samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code>. Desired ggplot2 color
-scale. Must supply discrete values. When set to <code>NULL</code>, the default ggplot2
-color palette will be used. If manual color definitions are desired, we
-recommend using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual()</a></code>. To set the discrete color
-palette globally, use
-<code><a href='https://www.rdocumentation.org/packages/base/topics/options'>options(basejump.color.discrete = ggplot2::scale_color_viridis_d())</a></code>.</p></td>
+      <td><p><code>ScaleDiscrete</code>. Desired ggplot2 color scale. Must supply
+discrete values. When set to <code>NULL</code>, the default ggplot2 color palette will
+be used. If manual color definitions are desired, we recommend using
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual</a></code>.</p>
+<p>To set the discrete color palette globally, use:</p><pre>options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
+</pre></td>
     </tr>
     <tr>
       <th>flip</th>
-      <td><p><code>boolean</code>. Flip x and y axes. Recommended for plots containing
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Flip x and y axes. Recommended for plots containing
 many samples.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><code>string</code>. Plot title.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Plot title.</p></td>
     </tr>
     </table>
     
@@ -164,10 +164,10 @@ many samples.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>It is common to see a small amount of bias, especially if polyA
-enrichment was performed, or if there is any sample degradation. If a large
-amount of bias is observed here, be sure to analyze the samples with a
-Bioanalyzer and check the RIN scores.</p>
+    <p>It is common to see a small amount of bias, especially if polyA enrichment
+was performed, or if there is any sample degradation. If a large amount of
+bias is observed here, be sure to analyze the samples with a Bioanalyzer and
+check the RIN scores.</p>
 <p>5' (3') bias is generally calculated as the median of the following ratio:</p><pre>[mean expression of 5' (3')] / [mean expression of whole transcript]
 </pre>
     <p>For example:</p><ul>
@@ -206,7 +206,7 @@ transcript.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

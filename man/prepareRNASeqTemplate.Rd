@@ -7,7 +7,7 @@
 prepareRNASeqTemplate(overwrite = FALSE)
 }
 \arguments{
-\item{overwrite}{\code{boolean}. Should existing destination files be overwritten?}
+\item{overwrite}{\code{logical(1)}. Should existing destination files be overwritten?}
 }
 \value{
 Invisible \code{logical}. Was the file copied?.
@@ -22,8 +22,8 @@ subdirectory, the function will return an error.
 \details{
 This code is used internally by:
 \itemize{
-\item \code{bcbioRNASeq::prepareRNASeqTemplate()}.
-\item \code{bcbioSingleCell::prepareSingleCellTemplate()}.
+\item \code{bcbioRNASeq::prepareRNASeqTemplate}.
+\item \code{bcbioSingleCell::prepareSingleCellTemplate}.
 }
 }
 \examples{

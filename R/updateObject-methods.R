@@ -21,7 +21,7 @@
 #' @inheritParams params
 #' @param rowRanges `GRanges` or `NULL`. Row annotations. Since we converted to
 #'   `RangedSummarizedExperiment` in v0.2.0, this option had to be added to
-#'   enable updating of newly required `rowRanges()` slot. Objects that are >=
+#'   enable updating of newly required `rowRanges` slot. Objects that are >=
 #'   v0.2 don't require this argument and it can be left `NULL`.
 #'
 #' @return `bcbioRNASeq`.
@@ -46,10 +46,8 @@ updateObject.bcbioRNASeq <-  # nolint
         rowRanges = NULL
     ) {
         version <- slot(object, "metadata")[["version"]]
-        assert_is_all_of(version, c("package_version", "numeric_version"))
-        message(paste0(
-            "Updating from ", version, " to ", packageVersion, "."
-        ))
+        assert(is(version, c("package_version", "numeric_version")))
+        message(paste0("Updating from ", version, " to ", packageVersion, "."))
 
         # Check for legacy bcbio slot.
         if (.hasSlot(object, "bcbio")) {
@@ -193,7 +191,7 @@ updateObject.bcbioRNASeq <-  # nolint
         tx2gene <- metadata[["tx2gene"]]
         if (!is(tx2gene, "Tx2Gene")) {
             message("Coercing tx2gene to Tx2Gene class.")
-            assert_is_data.frame(tx2gene)
+            assert(is.data.frame(tx2gene))
             tx2gene <- as(tx2gene, "DataFrame")
             colnames(tx2gene) <- c("transcriptID", "geneID")
             rownames(tx2gene) <- NULL
@@ -231,12 +229,16 @@ updateObject.bcbioRNASeq <-  # nolint
         names(assays) <- assayNames(object)
 
         caller <- metadata[["caller"]]
-        assert_is_a_string(caller)
-        assert_is_subset(caller, validCallers)
+        assert(
+            isString(caller),
+            isSubset(caller, validCallers)
+        )
 
         level <- metadata[["level"]]
-        assert_is_a_string(level)
-        assert_is_subset(level, validLevels)
+        assert(
+            isString(level),
+            isSubset(level, validLevels)
+        )
 
         # Ensure raw counts are always named "counts".
         if ("raw" %in% names(assays)) {
@@ -298,13 +300,13 @@ updateObject.bcbioRNASeq <-  # nolint
 
         # Always put the required assays first.
         assays <- assays[unique(c(requiredAssays, names(assays)))]
-        assert_is_subset(requiredAssays, names(assays))
+        assert(isSubset(requiredAssays, names(assays)))
 
         # Check for required caller-specific assays.
         if (caller %in% tximportCallers) {
-            assert_is_subset(tximportAssays, names(assays))
+            assert(isSubset(tximportAssays, names(assays)))
         } else if (caller %in% featureCountsCallers) {
-            assert_is_subset(featureCountsAssays, names(assays))
+            assert(isSubset(featureCountsAssays, names(assays)))
         }
 
         # Row ranges -----------------------------------------------------------
@@ -326,7 +328,7 @@ updateObject.bcbioRNASeq <-  # nolint
             rowData <- slot(object, "elementMetadata")
             mcols(rowRanges) <- rowData
         }
-        assert_is_all_of(rowRanges, "GRanges")
+        assert(is(rowRanges, "GRanges"))
 
         # rowRangesMetadata
         if ("rowRangesMetadata" %in% names(metadata)) {
@@ -381,7 +383,7 @@ updateObject.bcbioRNASeq <-  # nolint
             message("Applying run-length encoding to rowRanges mcols.")
             # Here we are ensuring that any row metadata is properly set as
             # factor and then run-length encoding is applied. Refer to
-            # `S4Vectors::Rle()` for more information on the memory benefits
+            # `S4Vectors::Rle` for more information on the memory benefits
             # of this approach.
             mcols(rowRanges) <- DataFrame(lapply(
                 X = mcols,
@@ -405,7 +407,7 @@ updateObject.bcbioRNASeq <-  # nolint
         metrics <- metadata[["metrics"]]
         if (!is.null(metrics)) {
             message("Moving metrics from metadata() into colData().")
-            assert_is_data.frame(metrics)
+            assert(is.data.frame(metrics))
 
             # Always remove legacy name column.
             metrics[["name"]] <- NULL
@@ -425,7 +427,7 @@ updateObject.bcbioRNASeq <-  # nolint
                     ignore.case = TRUE,
                     value = TRUE
                 )
-                assert_is_a_string(col)
+                assert(isString(col))
                 message(paste("Renaming", col, "to rrnaRate."))
                 metrics[["rrnaRate"]] <- metrics[[col]]
                 metrics[[col]] <- NULL

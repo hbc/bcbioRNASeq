@@ -17,11 +17,11 @@
 .new.DESeqDataSet <-  # nolint
     function(se) {
         .ddsMsg()
-        assert_that(is(se, "SummarizedExperiment"))
+        assert(is(se, "SummarizedExperiment"))
 
         # Assert that counts are gene level.
         level <- metadata(se)[["level"]]
-        assert_is_a_string(level)
+        assert(isString(level))
         if (level != "genes") {
             stop("Gene-level counts are required.")
         }
@@ -75,7 +75,7 @@
 .new.DESeqDataSetFromMatrix <-  # nolint
     function(countData) {
         .ddsMsg()
-        assert_is_matrix(countData)
+        assert(is.matrix(countData))
         # Integer counts are required.
         countData <- round(countData, digits = 0L)
         mode(countData) <- "integer"

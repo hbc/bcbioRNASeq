@@ -4,7 +4,7 @@
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'
-#' @param trendline `boolean`. Include a trendline for each group.
+#' @param trendline `logical(1)`. Include a trendline for each group.
 #'
 #' @examples
 #' data(bcb)
@@ -33,22 +33,22 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         title = "gene saturation"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        assert(
+            isInt(minCounts),
+            isInRange(minCounts, lower = 1L, upper = Inf),
+            isFlag(perMillion),
+            isFlag(trendline),
+            isFlag(label),
+            isGGScale(color, scale = "discrete", aes = "colour") ||
+                is.null(color),
+            isString(title) || is.null(title)
         )
-        interestingGroups(object) <- interestingGroups
-        assertIsAnImplicitInteger(minCounts)
-        assert_all_are_in_range(minCounts, lower = 1L, upper = Inf)
-        assert_is_a_bool(perMillion)
-        assert_is_a_bool(trendline)
-        assert_is_a_bool(label)
-        assertIsColorScaleDiscreteOrNULL(color)
-        assertIsStringOrNULL(title)
 
         counts <- counts(object, normalized = FALSE)
         data <- metrics(object)
-        assert_are_identical(colnames(counts), data[["sampleID"]])
+        assert(identical(colnames(counts), data[["sampleID"]]))
         data[["geneCount"]] <- colSums(counts >= minCounts)
 
         # Convert to per million, if desired.

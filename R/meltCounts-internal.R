@@ -1,6 +1,8 @@
 .meltCounts <- function(object, normalized) {
-    assert_is_all_of(object, "bcbioRNASeq")
-    assert_is_a_string(normalized)
+    assert(
+        is(object, "bcbioRNASeq"),
+        isString(normalized)
+    )
 
     # Generate a SummarizedExperiment subset with only non-zero counts.
     # We're coercing to RSE here to enable fast subsetting on the object.
@@ -23,7 +25,7 @@
 
     # Using our SummarizedExperiment method to return melted counts.
     data <- meltCounts(object = rse, trans = trans)
-    assert_is_all_of(data, "grouped_df")
+    assert(is(data, "grouped_df"))
 
     data
 }
