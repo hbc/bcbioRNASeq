@@ -10,8 +10,9 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2018-11-29
-bcbioRNASeq::prepareRNASeqTemplate()
+# Last modified 2018-12-13
+library(bcbioRNASeq)
+prepareRNASeqTemplate()
 source("_setup.R")
 ```
 
