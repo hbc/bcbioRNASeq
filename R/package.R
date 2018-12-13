@@ -43,7 +43,7 @@
 #'   assert_is_integer assert_is_list assert_is_matrix assert_is_numeric
 #'   assert_is_tbl_df is_a_string
 #' @importFrom assertthat assert_that validate_that
-#' @importFrom basejump Gene2Symbol Tx2Gene assertFormalGene2Symbol
+#' @importFrom basejump Gene2Symbol Tx2Gene
 #'   basejump_geom_abline basejump_geom_label basejump_geom_label_repel camel
 #'   coerceS4ToList convertGenesToSymbols detectLanes detectOrganism emptyRanges
 #'   formalsList import initDir interestingGroups interestingGroups<-
@@ -84,7 +84,7 @@
 #' @importFrom methods .hasSlot as as<- is new setAs show slot slot<-
 #'   validObject
 #' @importFrom readr read_csv read_tsv write_csv
-#' @importFrom rlang !! !!! := UQ has_length sym syms
+#' @importFrom rlang !! !!! := UQ sym syms
 #' @importFrom scales pretty_breaks
 #' @importFrom sessioninfo session_info
 #' @importFrom stringr str_match str_trunc

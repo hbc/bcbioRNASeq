@@ -4,7 +4,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 .valid <- function(list) {
     invalid <- Filter(f = Negate(isTRUE), x = list)
-    if (has_length(invalid)) {
+    if (length(invalid) > 0L) {
         unlist(invalid)
     } else {
         TRUE
@@ -91,7 +91,7 @@ setValidity(
             )
         )
         valid[["legacyMetadata"]] <- validate_that(
-            !has_length(intersect),
+            length(intersect) == 0L,
             msg = paste(
                 "Legacy metadata slots:",
                 toString(sort(intersect)),
@@ -200,7 +200,7 @@ setValidity(
             is(rowRanges(object), "GRanges")
         )
         rowData <- rowData(object)
-        if (has_length(colnames(rowData))) {
+        if (length(colnames(rowData)) > 0L) {
             # Note that GTF/GFF annotations won't contain description.
             valid[["rowData"]] <- validateClasses(
                 object = rowData,

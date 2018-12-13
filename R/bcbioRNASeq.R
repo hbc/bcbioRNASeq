@@ -372,7 +372,7 @@ bcbioRNASeq <- function(
     # currently generated when using fast RNA-seq workflow. This depends upon
     # MultiQC and aligned counts generated with STAR.
     colData <- getMetricsFromYAML(yaml)
-    if (has_length(colData)) {
+    if (length(colData) > 0L) {
         assert_are_disjoint_sets(colnames(colData), colnames(sampleData))
         assert_is_subset(rownames(sampleData), rownames(colData))
         colData <- colData[rownames(sampleData), , drop = FALSE]

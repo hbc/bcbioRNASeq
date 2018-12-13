@@ -85,6 +85,6 @@ stopifnot(object_size(bcb) < limit)
 
 # Check that object is valid.
 stopifnot(is(bcb, "bcbioRNASeq"))
-stopifnot(validObject(bcb))
+validObject(bcb)
 
 usethis::use_data(bcb, overwrite = TRUE, compress = "xz")
