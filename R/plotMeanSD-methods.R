@@ -6,7 +6,7 @@
 #' @inheritParams bcbioRNASeq
 #'
 #' @details
-#' `vsn::meanSdPlot()` wrapper that plots count transformations on a log2 scale.
+#' `vsn::meanSdPlot` wrapper that plots count transformations on a log2 scale.
 #'
 #' - DESeq2 log2: log2 size factor-adjusted normalized counts.
 #' - DESeq2 rlog: **r**egularized **log** transformation.
@@ -14,11 +14,11 @@
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
 #' @seealso
-#' - `vsn::meanSdPlot()`.
-#' - `DESeq2::DESeq()`.
-#' - `DESeq2::rlog()`.
-#' - `DESeq2::varianceStabilizingTransformation()`.
-#' - `edgeR::calcNormFactors()`.
+#' - `vsn::meanSdPlot`.
+#' - `DESeq2::DESeq`.
+#' - `DESeq2::rlog`.
+#' - `DESeq2::varianceStabilizingTransformation`.
+#' - `edgeR::calcNormFactors`.
 #'
 #' @examples
 #' data(bcb)
@@ -34,7 +34,7 @@ basejump::plotMeanSD
 
 
 
-# Match the vst, rlog conventions to `bcbioRNASeq()` generator.
+# Match the vst, rlog conventions to `bcbioRNASeq` generator.
 .plotMeanSD <- function(
     raw,
     normalized,
@@ -42,18 +42,20 @@ basejump::plotMeanSD
     rlog = NULL,
     legend = FALSE
 ) {
-    assert_is_matrix(raw)
-    assert_is_matrix(normalized)
-    assert_are_identical(dimnames(normalized), dimnames(raw))
-    assert_is_any_of(vst, c("matrix", "NULL"))
+    assert(
+        is.matrix(raw),
+        is.matrix(normalized),
+        identical(dimnames(normalized), dimnames(raw)),
+        isAny(vst, classes = c("matrix", "NULL")),
+        isAny(rlog, classes = c("matrix", "NULL")),
+        isFlag(legend)
+    )
     if (is.matrix(vst)) {
-        assert_are_identical(dimnames(vst), dimnames(raw))
+        assert(identical(dimnames(vst), dimnames(raw)))
     }
-    assert_is_any_of(rlog, c("matrix", "NULL"))
     if (is.matrix(rlog)) {
-        assert_are_identical(dimnames(rlog), dimnames(raw))
+        assert(identical(dimnames(rlog), dimnames(raw)))
     }
-    assert_is_a_bool(legend)
 
     xlab <- "rank (mean)"
     nonzero <- rowSums(raw) > 0L
@@ -77,7 +79,10 @@ basejump::plotMeanSD
             ggtitle("DESeq2 rlog") +
             xlab(xlab)
     } else {
-        message("Skipping regularized log.")
+        message(paste(
+            "Regularized log (rlog) was not calculated.",
+            "Skipping."
+        ))
         ggrlog <- NULL
     }
 
@@ -90,7 +95,10 @@ basejump::plotMeanSD
             ggtitle("DESeq2 vst") +
             xlab(xlab)
     } else {
-        message("Skipping variance stabilizing transformation.")
+        message(paste(
+            "Variance-stabilizing transformation (vst) was not calculated.",
+            "Skipping."
+        ))
         ggvst <- NULL
     }
 

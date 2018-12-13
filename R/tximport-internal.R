@@ -16,9 +16,9 @@
 #'
 #' @inheritParams tximport::tximport
 #' @param sampleDirs `character`. Sample directories to import.
-#' @param type `string`. Expression caller to use.
+#' @param type `character(1)`. Expression caller to use.
 #'
-#' @seealso `tximport::tximport()`.
+#' @seealso `tximport::tximport`.
 #'
 #' @return `list`.
 .tximport <- function(
@@ -29,23 +29,28 @@
     tx2gene,
     ignoreTxVersion = TRUE
 ) {
-    assert_all_are_dirs(sampleDirs)
-    assert_are_identical(names(sampleDirs), basename(sampleDirs))
+    assert(
+        all(isDirectory(sampleDirs)),
+        identical(names(sampleDirs), basename(sampleDirs)),
+        isFlag(txOut),
+        is(tx2gene, "Tx2Gene")
+    )
     type <- match.arg(type)
-    assert_is_a_bool(txOut)
-    assert_is_a_string(countsFromAbundance)
-    assert_is_all_of(tx2gene, "Tx2Gene")
+    countsFromAbundance <- match.arg(
+        arg = countsFromAbundance,
+        choices = eval(formals(tximport)[["countsFromAbundance"]])
+    )
 
     # Locate the counts files --------------------------------------------------
     subdirs <- file.path(sampleDirs, type)
-    assert_all_are_dirs(subdirs)
+    assert(all(isDirectory(subdirs)))
     if (type %in% c("salmon", "sailfish")) {
         basename <- "quant.sf"
     } else if (type == "kallisto") {
         basename <- "abundance.h5"
     }
     files <- file.path(subdirs, basename)
-    assert_all_are_existing_files(files)
+    assert(all(isFile(files)))
     names(files) <- names(sampleDirs)
 
     # tx2gene ------------------------------------------------------------------
@@ -87,31 +92,32 @@
             "length"
         )],
         FUN = function(x) {
-            assert_is_matrix(x)
-            assert_are_identical(
-                x = colnames(x),
-                y = names(sampleDirs)
+            assert(
+                is.matrix(x),
+                identical(colnames(x), names(sampleDirs))
             )
         }
     ))
-    .assertIsTximport(txi)
+    assert(.isTximport(txi))
 
     txi
 }
 
 
 
-.assertIsTximport <- function(txi) {
-    assert_is_list(txi)
-    assert_are_intersecting_sets(
-        x = c(
-            "abundance",
-            "counts",
-            "infReps",  # v1.9+
-            "length",
-            "countsFromAbundance"
-        ),
-        y = names(txi)
+.isTximport <- function(txi) {
+    assert(
+        is.list(txi),
+        areIntersectingSets(
+            x = c(
+                "abundance",
+                "counts",
+                "infReps",  # v1.9+
+                "length",
+                "countsFromAbundance"
+            ),
+            y = names(txi)
+        )
     )
 
     abundance <- txi[["abundance"]]
@@ -120,18 +126,23 @@
     length <- txi[["length"]]
     countsFromAbundance <- txi[["countsFromAbundance"]]
 
-    assert_are_identical(dimnames(abundance), dimnames(counts))
-    assert_are_identical(dimnames(abundance), dimnames(length))
+    assert(
+        identical(dimnames(abundance), dimnames(counts)),
+        identical(dimnames(abundance), dimnames(length))
+    )
 
     # Inferential replicates added in v1.9.
-    if (
-        is.list(infReps) &&
-        length(infReps) > 0L
-    ) {
-        assert_are_identical(names(infReps), colnames(abundance))
-        assert_are_identical(rownames(infReps[[1L]]), rownames(abundance))
+    if (is.list(infReps) && hasLength(infReps)) {
+        assert(
+            identical(names(infReps), colnames(abundance)),
+            identical(rownames(infReps[[1L]]), rownames(abundance))
+        )
     }
 
-    assert_is_a_string(countsFromAbundance)
-    assert_is_non_empty(countsFromAbundance)
+    assert(
+        isString(countsFromAbundance),
+        isNonEmpty(countsFromAbundance)
+    )
+
+    TRUE
 }

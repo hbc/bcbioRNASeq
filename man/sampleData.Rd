@@ -11,7 +11,7 @@
 \arguments{
 \item{object}{Object that inherits from \code{SummarizedExperiment} class.}
 
-\item{clean}{\code{boolean}. Only return \code{factor} columns not defined in
+\item{clean}{\code{logical(1)}. Only return \code{factor} columns not defined in
 \link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}. This removes metrics columns used for
 quality control analysis, which are often not informative as sample
 metadata.}
@@ -23,7 +23,7 @@ metadata.}
 Metadata that describes the samples.
 }
 \details{
-This is a complement to the standard \code{SummarizedExperiment::colData()}
+This is a complement to the standard \code{SummarizedExperiment::colData}
 function, but improves support for accessing sample metadata for datasets
 where multiple items in the columns map to a single sample (e.g. cells for a
 single-cell RNA-seq experiment).

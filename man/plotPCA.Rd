@@ -16,7 +16,7 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{\code{string}. Which normalization method to apply:
+\item{normalized}{\code{character(1)}. Which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
@@ -24,29 +24,30 @@
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{interestingGroups}{\code{character}. Groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
 \item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
 Use \code{Inf} to include all genes (\emph{not recommended}).}
 
-\item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
+\item{label}{\code{logical(1)}. Superimpose sample text labels on the plot.}
 
-\item{color}{\code{ggproto}/\code{ScaleDiscrete}. Desired ggplot2 color
-scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
-color palette will be used. If manual color definitions are desired, we
-recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
-palette globally, use
-\code{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())}.}
+\item{color}{\code{ScaleDiscrete}. Desired ggplot2 color scale. Must supply
+discrete values. When set to \code{NULL}, the default ggplot2 color palette will
+be used. If manual color definitions are desired, we recommend using
+\code{ggplot2::scale_color_manual}.
 
-\item{pointSize}{\code{scalar numeric}. Point size for dots in the plot.}
+To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
+}}
 
-\item{title}{\code{string}. Plot title.}
+\item{pointSize}{\code{numeric(1)}. Point size for dots in the plot.}
 
-\item{subtitle}{\code{string}. Plot subtitle.}
+\item{title}{\code{character(1)}. Plot title.}
 
-\item{return}{\code{string}. Return type. Uses \code{base::match.arg()}
-internally and defaults to the first argument in the \code{character} vector.}
+\item{subtitle}{\code{character(1)}. Plot subtitle.}
+
+\item{return}{\code{character(1)}. Return type. Uses \code{match.arg} internally and
+defaults to the first argument in the \code{character} vector.}
 
 \item{...}{Additional arguments.}
 }
@@ -78,7 +79,7 @@ plotPCA(bcb, label = TRUE)
 Jolliffe, et al., 2002.
 }
 \seealso{
-\code{DESeq2::plotPCA()}.
+\code{DESeq2::plotPCA}.
 We're using a modified version of the \code{DESeqTransform} method here.\preformatted{methodFunction(
     f = "plotPCA",
     signature = "DESeqTransform",

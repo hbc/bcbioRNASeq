@@ -133,20 +133,20 @@ and this generator function will take care of the rest.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>uploadDir</th>
-      <td><p><code>string</code>. Path to final upload directory. This path is set
-when running "<code>bcbio_nextgen -w template</code>".</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Path to final upload directory. This path is
+set when running "<code>bcbio_nextgen -w template</code>".</p></td>
     </tr>
     <tr>
       <th>level</th>
-      <td><p><code>string</code>. Import counts at gene level ("<code>genes</code>"; <em>default</em>) or
-transcript level ("<code>transcripts</code>"; <em>advanced use</em>). Only
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Import counts at gene level ("<code>genes</code>";
+<em>default</em>) or transcript level ("<code>transcripts</code>"; <em>advanced use</em>). Only
 tximport-compatible callers (e.g. salmon, kallisto, sailfish) can be loaded
 at transcript level. Aligned counts from featureCounts-compatible callers
 (e.g. STAR, HISAT2) can only be loaded at gene level.</p></td>
     </tr>
     <tr>
       <th>caller</th>
-      <td><p><code>string</code>. Expression caller:</p><ul>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Expression caller:</p><ul>
 <li><p>"<code>salmon</code>" (<em>default</em>): <a href='https://combine-lab.github.io/salmon/'>Salmon</a> alignment-free, quasi-mapped counts.</p></li>
 <li><p>"<code>kallisto</code>": <a href='https://pachterlab.github.io/kallisto/'>Kallisto</a> alignment-free, pseudo-aligned counts.</p></li>
 <li><p>"<code>sailfish</code>": <a href='http://www.cs.cmu.edu/~ckingsf/software/sailfish/'>Sailfish</a> alignment-free, lightweight counts.</p></li>
@@ -166,23 +166,24 @@ Transcripts) graph-based aligned counts.</p></li>
     </tr>
     <tr>
       <th>sampleMetadataFile</th>
-      <td><p><code>string</code>. Sample metadata file path. CSV
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Sample metadata file path. CSV
 or TSV is preferred, but Excel worksheets are also supported. Check the
 documentation for conventions and required columns.</p></td>
     </tr>
     <tr>
       <th>organism</th>
-      <td><p><code>string</code>. Full Latin organism name (e.g. "<code>Homo sapiens</code>").</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Full Latin organism name
+(e.g. "<code>Homo sapiens</code>").</p></td>
     </tr>
     <tr>
       <th>genomeBuild</th>
-      <td><p><code>string</code>. Ensembl genome build assembly nam (e.g.
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Ensembl genome build assembly name (e.g.
 <code>"GRCh38"</code>). If set <code>NULL</code>, defaults to the most recent build available.
 Note: don't pass in UCSC build IDs (e.g. <code>"hg38"</code>).</p></td>
     </tr>
     <tr>
       <th>ensemblRelease</th>
-      <td><p><code>scalar integer</code>. Ensembl release version (e.g. <code>90</code>).
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer(1)</a></code>. Ensembl release version (e.g. <code>90</code>).
 We recommend setting this value if possible, for improved reproducibility.
 When left unset, the latest release available via AnnotationHub/ensembldb
 is used. Note that the latest version available can vary, depending on the
@@ -190,14 +191,14 @@ versions of AnnotationHub and ensembldb in use.</p></td>
     </tr>
     <tr>
       <th>gffFile</th>
-      <td><p><code>string</code>. GFF/GTF (General Feature Format) file.
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. GFF/GTF (General Feature Format) file.
 Generally, we recommend using a GTF (GFFv2) instead of a GFFv3 file if
 possible.</p></td>
     </tr>
     <tr>
       <th>transgeneNames</th>
-      <td><p><code>character</code>. Vector indicating which assay
-rows denote transgenes (e.g. EGFP, TDTOMATO).</p></td>
+      <td><p><code>character</code>. Vector indicating which assay rows denote
+transgenes (e.g. EGFP, TDTOMATO).</p></td>
     </tr>
     <tr>
       <th>spikeNames</th>
@@ -206,30 +207,30 @@ spike-in sequences (e.g. ERCCs).</p></td>
     </tr>
     <tr>
       <th>countsFromAbundance</th>
-      <td><p><code>string</code>. Whether to generate estimated counts
-using abundance estimates (<em>recommended by default</em>). <code>lengthScaledTPM</code> is
-a suitable default, and counts are scaled using the average transcript
-length over samples and then the library size. Refer to
-<code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport()</a></code> for more information on this parameter, but it
-should only ever be changed when loading some datasets at transcript level
-(e.g. for DTU analsyis).</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Whether to generate estimated
+counts using abundance estimates (<em>recommended by default</em>).
+<code>lengthScaledTPM</code> is a suitable default, and counts are scaled using the
+average transcript length over samples and then the library size. Refer to
+<code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport</a></code> for more information on this parameter, but it should
+only ever be changed when loading some datasets at transcript level (e.g.
+for DTU analsyis).</p></td>
     </tr>
     <tr>
       <th>vst</th>
-      <td><p><code>boolean</code>. Calculate variance-stabilizing transformation using
-<code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>. Recommended by default
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Calculate variance-stabilizing transformation using
+<code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation</a></code>. Recommended by default
 for visualization.</p></td>
     </tr>
     <tr>
       <th>rlog</th>
-      <td><p><code>boolean</code>. Calcualte regularized log transformation using
-<code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>. This calculation is slow for large datasets and now
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Calcualte regularized log transformation using
+<code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog</a></code>. This calculation is slow for large datasets and now
 discouraged by default for visualization.</p></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that
-define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <td><p><code>character</code>. Groups of interest that define the
+samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -243,7 +244,7 @@ define the samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>bcbioRNASeq()</code> generator function automatically imports RNA-seq counts,
+    <p>The <code>bcbioRNASeq</code> generator function automatically imports RNA-seq counts,
 metadata, and the program versions used from a <a href='https://bcbio-nextgen.readthedocs.io'>bcbio</a> RNA-seq run.</p>
     
     <h2 class="hasAnchor" id="sample-metadata"><a class="anchor" href="#sample-metadata"></a>Sample metadata</h2>
@@ -254,13 +255,13 @@ automatically from the <code>project-summary.yaml</code> file in the final uploa
 directory. If you notice any typos in your metadata after completing the run,
 these can be corrected by editing the YAML file.</p>
 <p>Alternatively, you can pass in a sample metadata file into the
-<code>bcbioRNASeq()</code> function call using the <code>sampleMetadataFile</code> argument. This
+<code>bcbioRNASeq</code> function call using the <code>sampleMetadataFile</code> argument. This
 requires either a CSV or Excel spreadsheet.</p>
 <p>The samples in the bcbio run must map to the <code>description</code> column. The values
 provided in <code>description</code> must be unique. These values will be sanitized into
 syntactically valid names (see <code><a href='https://www.rdocumentation.org/packages/basejump/topics/makeNames'>basejump::makeNames</a></code> for more information),
 and assigned as the column names of the <code>bcbioRNASeq</code> object. The original
-values are stored as the <code>sampleName</code> column in <code>colData()</code>, and are used for
+values are stored as the <code>sampleName</code> column in <code>colData</code>, and are used for
 all plotting functions. Do not attempt to set a <code>sampleID</code> column, as this is
 used internally by the package.</p>
 <p>Here is a minimal example of a properly formatted sample metadata file:</p>
@@ -278,27 +279,27 @@ used internally by the package.</p>
     <h2 class="hasAnchor" id="valid-names"><a class="anchor" href="#valid-names"></a>Valid names</h2>
 
     
-    <p>R is strict about values that are considered valid for use in <code><a href='https://www.rdocumentation.org/packages/base/topics/names'>names()</a></code> and
-<code><a href='https://www.rdocumentation.org/packages/base/topics/dimnames'>dimnames()</a></code> (i.e. <code><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames()</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>colnames()</a></code>). Non-alphanumeric
+    <p>R is strict about values that are considered valid for use in <code>names</code> and
+<code>dimnames</code> (i.e. <code>rownames</code> and <code>colnames</code>). Non-alphanumeric
 characters, spaces, and <strong>dashes</strong> are not valid. Use either underscores or
 periods in place of dashes when working in R. Also note that names should
 <strong>not begin with a number</strong>, and will be prefixed with an <code>X</code> when sanitized.
-Consult the documentation in the <code><a href='https://www.rdocumentation.org/packages/base/topics/make.names'>make.names()</a></code> function for more
+Consult the documentation in the <code>make.names</code> function for more
 information. We strongly recommend adhering to these conventions when
 labeling samples, to help avoid unexpected downstream behavior in R due to
-<code><a href='https://www.rdocumentation.org/packages/base/topics/dimnames'>dimnames()</a></code> mismatches.</p>
+<code>dimnames</code> mismatches.</p>
     
     <h2 class="hasAnchor" id="genome-annotations"><a class="anchor" href="#genome-annotations"></a>Genome annotations</h2>
 
     
-    <p><code>bcbioRNASeq()</code> provides support for automatic import of genome annotations,
+    <p><code>bcbioRNASeq</code> provides support for automatic import of genome annotations,
 which internally get processed into genomic ranges (<code>GRanges</code>) and are
-slotted into the <code>rowRanges()</code> of the S4 object. Currently, we offer support
+slotted into the <code>rowRanges</code> of the S4 object. Currently, we offer support
 for (1) <a href='https://ensembl.org/'>Ensembl</a> genome annotations from <a href='https://bioconductor.org/packages/AnnotationHub/'>AnnotationHub</a> via
 <a href='https://bioconductor.org/packages/ensembldb/'>ensembldb</a> (<em>recommended</em>); or (2) direct import from a GTF/GFF file using
 <a href='https://bioconductor.org/packages/rtracklayer/'>rtracklayer</a>.</p>
 <p><a href='https://bioconductor.org/packages/ensembldb/'>ensembldb</a> requires the <code>organism</code> and <code>ensemblRelease</code> arguments to be
-defined. When both of these are set, <code>bcbioRNASeq()</code> will attempt to
+defined. When both of these are set, <code>bcbioRNASeq</code> will attempt to
 download and use the pre-built <a href='https://ensembl.org/'>Ensembl</a> genome annotations from
 <a href='https://bioconductor.org/packages/AnnotationHub/'>AnnotationHub</a>. This method is preferred over direct loading of a GTF/GFF
 file because the <a href='https://bioconductor.org/packages/AnnotationHub/'>AnnotationHub</a> annotations contain additional rich
@@ -316,8 +317,8 @@ additional fall back support for importing genome annotations from a GTF/GFF
 directly with the <code>gffFile</code> argument.</p>
 <p>Internally, genome annotations are imported via the <a href='https://steinbaugh.com/basejump/'>basejump</a> package,
 specifically with either of these functions:</p><ul>
-<li><p><code><a href='https://www.rdocumentation.org/packages/basejump/topics/makeGRanges'>basejump::makeGRangesFromEnsembl()</a></code></p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/basejump/topics/makeGRanges'>basejump::makeGRangesFromGFF()</a></code></p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/basejump/topics/makeGRanges'>basejump::makeGRangesFromEnsembl</a></code></p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/basejump/topics/makeGRanges'>basejump::makeGRangesFromGFF</a></code></p></li>
 </ul>
     
     <h2 class="hasAnchor" id="genome-build"><a class="anchor" href="#genome-build"></a>Genome build</h2>
@@ -326,15 +327,15 @@ specifically with either of these functions:</p><ul>
     <p>Ensure that the organism and genome build used with bcio match correctly here
 in the function call. In particular, for the legacy <em>Homo sapiens</em>
 GRCh37/hg19 genome build, ensure that <code>genomeBuild = "GRCh37"</code>. Otherwise,
-the genomic ranges set in <code>rowRanges()</code> will mismatch.
+the genomic ranges set in <code>rowRanges</code> will mismatch.
 It is recommended for current projects that GRCh38/hg38 is used in place of
 GRCh37/hg19 if possible.</p>
     
     <h2 class="hasAnchor" id="deseq-"><a class="anchor" href="#deseq-"></a>DESeq2</h2>
 
     
-    <p>DESeq2 is run automatically when <code>bcbioRNASeq()</code> is called. Internally, this
-automatically slots normalized counts into <code>assays()</code>, and optionally
+    <p>DESeq2 is run automatically when <code>bcbioRNASeq</code> is called. Internally, this
+automatically slots normalized counts into <code>assays</code>, and optionally
 generates variance-stabilized <code>rlog</code> or <code>vst</code> counts, depending on the call.
 When loading a dataset with a large number of samples (i.e. &gt; 50), we
 recommend disabling the <code>rlog</code> transformation, since it can take a long time
@@ -345,13 +346,13 @@ to compute.</p>
     
     <p>When working on a local machine, it is possible to load bcbio run data over a
 remote connection using <a href='https://github.com/osxfuse/osxfuse/wiki/SSHFS'>sshfs</a>. When loading a large number of samples, it
-is preferable to call <code>bcbioRNASeq()</code> directly in R on the remote server, if
+is preferable to call <code>bcbioRNASeq</code> directly in R on the remote server, if
 possible.</p>
     
     <h2 class="hasAnchor" id="automatic-metadata"><a class="anchor" href="#automatic-metadata"></a>Automatic metadata</h2>
 
     
-    <p>The <code>metadata()</code> slot always contains:</p><ul>
+    <p>The <code>metadata</code> slot always contains:</p><ul>
 <li><p>Object version.</p></li>
 <li><p>bcbio data provenance information.</p></li>
 <li><p>File paths and timestamps.</p></li>
@@ -362,10 +363,10 @@ possible.</p>
 
     <div class='dont-index'><ul>
 <li><p><code>.S4methods(class = "bcbioRNASeq")</code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/SummarizedExperiment/topics/RangedSummarizedExperiment-class'>SummarizedExperiment::SummarizedExperiment()</a></code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/methods/topics/new'>methods::initialize()</a></code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/methods/topics/validObject'>methods::validObject()</a></code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/BiocGenerics/topics/updateObject'>BiocGenerics::updateObject()</a></code>.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/SummarizedExperiment/topics/RangedSummarizedExperiment-class'>SummarizedExperiment::SummarizedExperiment</a></code>.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/methods/topics/new'>methods::initialize</a></code>.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/methods/topics/validObject'>methods::validObject</a></code>.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/BiocGenerics/topics/updateObject'>BiocGenerics::updateObject</a></code>.</p></li>
 </ul></div>
     
 
@@ -380,7 +381,7 @@ possible.</p>
     <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"Mus musculus"</span>,
     <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='fl'>87L</span>
 )</div><div class='output co'>#&gt; <span class='message'>Dated project directory: 2018-03-18_GSE65267-merged</span></div><div class='output co'>#&gt; <span class='message'>6 sample(s) detected:</span>
-#&gt; <span class='message'>control_rep1, control_rep2, control_rep3, fa_day7_rep1, fa_day7_rep2, fa_day7...</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport 1.10.0.</span></div><div class='output co'>#&gt; <span class='message'>Reading from quant.sf files.</span></div><div class='output co'>#&gt; <span class='message'>Scaling using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>control_rep1, control_rep2, control_rep3, fa_day7_rep1, fa_day7_rep2, fa_day7...</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport 1.10.0.</span></div><div class='output co'>#&gt; <span class='message'>Reading from quant.sf files.</span></div><div class='output co'>#&gt; <span class='message'>Scaling using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  Name = col_character(),</span>
 #&gt; <span class='message'>  Length = col_double(),</span>
@@ -422,12 +423,12 @@ possible.</p>
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Using makeGRangesFromEnsembl() for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.14.1 (2018-10-24).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Using makeGRangesFromEnsembl() for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.14.2 (2018-10-24).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
 #&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Using `geneName` column instead of `symbol`.</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.1.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.5
-#&gt; uploadDir: /Users/mike/git/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-11-30
+#&gt; uploadDir: /data01/git/bcbioRNASeq/inst/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-12-12
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -450,7 +451,7 @@ possible.</p>
     <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"Mus musculus"</span>,
     <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='fl'>87L</span>
 )</div><div class='output co'>#&gt; <span class='message'>Dated project directory: 2018-03-18_GSE65267-merged</span></div><div class='output co'>#&gt; <span class='message'>6 sample(s) detected:</span>
-#&gt; <span class='message'>control_rep1, control_rep2, control_rep3, fa_day7_rep1, fa_day7_rep2, fa_day7...</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport 1.10.0.</span></div><div class='output co'>#&gt; <span class='message'>Reading from quant.sf files.</span></div><div class='output co'>#&gt; <span class='message'>Scaling using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>control_rep1, control_rep2, control_rep3, fa_day7_rep1, fa_day7_rep2, fa_day7...</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon counts using tximport 1.10.0.</span></div><div class='output co'>#&gt; <span class='message'>Reading from quant.sf files.</span></div><div class='output co'>#&gt; <span class='message'>Scaling using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
 #&gt; <span class='message'>cols(</span>
 #&gt; <span class='message'>  Name = col_character(),</span>
 #&gt; <span class='message'>  Length = col_double(),</span>
@@ -492,12 +493,12 @@ possible.</p>
 #&gt; <span class='message'>  EffectiveLength = col_double(),</span>
 #&gt; <span class='message'>  TPM = col_double(),</span>
 #&gt; <span class='message'>  NumReads = col_double()</span>
-#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>Using makeGRangesFromEnsembl() for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.14.1 (2018-10-24).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>Using makeGRangesFromEnsembl() for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.14.2 (2018-10-24).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
 #&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Using `geneName` column instead of `symbol`.</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, transcriptBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.5
-#&gt; uploadDir: /Users/mike/git/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-11-30
+#&gt; uploadDir: /data01/git/bcbioRNASeq/inst/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-12-12
 #&gt; level: transcripts
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -553,7 +554,7 @@ possible.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

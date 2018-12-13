@@ -15,26 +15,27 @@
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
-\item{minCounts}{\code{scalar integer}. Minimum number of counts per gene in the
+\item{minCounts}{\code{integer(1)}. Minimum number of counts per gene in the
 count matrix.}
 
-\item{perMillion}{\code{boolean}. Display as counts per million.}
+\item{perMillion}{\code{logical(1)}. Display as counts per million.}
 
-\item{trendline}{\code{boolean}. Include a trendline for each group.}
+\item{trendline}{\code{logical(1)}. Include a trendline for each group.}
 
-\item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
+\item{label}{\code{logical(1)}. Superimpose sample text labels on the plot.}
 
-\item{color}{\code{ggproto}/\code{ScaleDiscrete}. Desired ggplot2 color
-scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
-color palette will be used. If manual color definitions are desired, we
-recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
-palette globally, use
-\code{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())}.}
+\item{color}{\code{ScaleDiscrete}. Desired ggplot2 color scale. Must supply
+discrete values. When set to \code{NULL}, the default ggplot2 color palette will
+be used. If manual color definitions are desired, we recommend using
+\code{ggplot2::scale_color_manual}.
 
-\item{title}{\code{string}. Plot title.}
+To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
+}}
+
+\item{title}{\code{character(1)}. Plot title.}
 }
 \value{
 \code{ggplot}.

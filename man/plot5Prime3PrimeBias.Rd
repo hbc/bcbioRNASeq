@@ -14,20 +14,21 @@
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that
-define the samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}. Groups of interest that define the
+samples. If left unset, defaults to \code{sampleName}.}
 
-\item{color}{\code{ggproto}/\code{ScaleDiscrete}. Desired ggplot2 color
-scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
-color palette will be used. If manual color definitions are desired, we
-recommend using \code{ggplot2::scale_color_manual()}. To set the discrete color
-palette globally, use
-\code{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())}.}
+\item{color}{\code{ScaleDiscrete}. Desired ggplot2 color scale. Must supply
+discrete values. When set to \code{NULL}, the default ggplot2 color palette will
+be used. If manual color definitions are desired, we recommend using
+\code{ggplot2::scale_color_manual}.
 
-\item{flip}{\code{boolean}. Flip x and y axes. Recommended for plots containing
+To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
+}}
+
+\item{flip}{\code{logical(1)}. Flip x and y axes. Recommended for plots containing
 many samples.}
 
-\item{title}{\code{string}. Plot title.}
+\item{title}{\code{character(1)}. Plot title.}
 }
 \value{
 \code{ggplot}.
@@ -37,10 +38,10 @@ RNA-seq data can have specific biases at either the 5’ or 3’ end of sequence
 fragments.
 }
 \details{
-It is common to see a small amount of bias, especially if polyA
-enrichment was performed, or if there is any sample degradation. If a large
-amount of bias is observed here, be sure to analyze the samples with a
-Bioanalyzer and check the RIN scores.
+It is common to see a small amount of bias, especially if polyA enrichment
+was performed, or if there is any sample degradation. If a large amount of
+bias is observed here, be sure to analyze the samples with a Bioanalyzer and
+check the RIN scores.
 
 5' (3') bias is generally calculated as the median of the following ratio:\preformatted{[mean expression of 5' (3')] / [mean expression of whole transcript]
 }

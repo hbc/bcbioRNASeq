@@ -28,19 +28,21 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         title = "5'->3' bias"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        # TODO Update isGGScale and isString assertions to optionally allow
+        # NULL for convenience. This should be FALSE by default.
+        assert(
+            isGGScale(color, scale = "discrete", aes = "colour") ||
+                is.null(color),
+            isFlag(flip),
+            isString(title) || is.null(title)
         )
-        interestingGroups(object) <- interestingGroups
-        assertIsColorScaleDiscreteOrNULL(color)
-        assert_is_a_bool(flip)
-        assertIsStringOrNULL(title)
 
         data <- metrics(object)
 
         # The formatting of this column can vary depending on the version of
-        # `camel()` used. This grep match fix was added in v0.2.7.
+        # `camel` used. This grep match fix was added in v0.2.7.
         yCol <- grep(
             pattern = ".+5.+3bias$",
             x = colnames(data),

@@ -67,7 +67,7 @@ plotDispEsts(
 )
 }
 \seealso{
-\code{DESeq2::plotDispEsts()}.
+\code{DESeq2::plotDispEsts}.
 }
 \author{
 Michael Steinbaugh
