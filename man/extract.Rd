@@ -66,9 +66,10 @@
     \code{\link{drop}} for further details.
   }
 
-\item{recalculate}{\code{logical(1)}. Recalculate DESeq2 normalized counts and
-variance-stabilizing transformations defined in \code{assays}. Recommended by
-default, but can take a long time for large datasets.}
+\item{recalculate}{\code{logical(1)}.
+Recalculate DESeq2 normalized counts and variance-stabilizing
+transformations defined in \code{assays}. Recommended by default, but can take a
+long time for large datasets.}
 }
 \value{
 \code{bcbioRNASeq}.

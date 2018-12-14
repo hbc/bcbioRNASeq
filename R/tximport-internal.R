@@ -15,8 +15,10 @@
 #' @noRd
 #'
 #' @inheritParams tximport::tximport
-#' @param sampleDirs `character`. Sample directories to import.
-#' @param type `character(1)`. Expression caller to use.
+#' @param sampleDirs `character`.
+#'   Sample directories to import.
+#' @param type `character(1)`.
+#'   Expression caller to use.
 #'
 #' @seealso `tximport::tximport`.
 #'

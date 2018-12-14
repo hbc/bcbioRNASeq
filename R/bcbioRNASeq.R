@@ -126,12 +126,15 @@
 #' @inheritParams bcbioBase::params
 #' @inheritParams params
 #'
-#' @param level `character(1)`. Import counts at gene level ("`genes`";
-#'   *default*) or transcript level ("`transcripts`"; *advanced use*). Only
-#'   tximport-compatible callers (e.g. salmon, kallisto, sailfish) can be loaded
-#'   at transcript level. Aligned counts from featureCounts-compatible callers
-#'   (e.g. STAR, HISAT2) can only be loaded at gene level.
-#' @param caller `character(1)`. Expression caller:
+#' @param level `character(1)`.
+#'   Import counts at gene level ("`genes`"; *default*) or transcript level
+#'   ("`transcripts`"; *advanced use*). Only tximport-compatible callers (e.g.
+#'   salmon, kallisto, sailfish) can be loaded at transcript level. Aligned
+#'   counts from featureCounts-compatible callers (e.g. STAR, HISAT2) can only
+#'   be loaded at gene level.
+#' @param caller `character(1)`.
+#'   Expression caller:
+#'
 #'   - "`salmon`" (*default*): [Salmon][] alignment-free, quasi-mapped counts.
 #'   - "`kallisto`": [Kallisto][] alignment-free, pseudo-aligned counts.
 #'   - "`sailfish`": [Sailfish][] alignment-free, lightweight counts.
@@ -145,19 +148,21 @@
 #'     [Sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
 #'     [Salmon]: https://combine-lab.github.io/salmon/
 #'     [STAR]: https://github.com/alexdobin/STAR/
-#' @param countsFromAbundance `character(1)`. Whether to generate estimated
-#'   counts using abundance estimates (*recommended by default*).
-#'   `lengthScaledTPM` is a suitable default, and counts are scaled using the
-#'   average transcript length over samples and then the library size. Refer to
-#'   `tximport::tximport` for more information on this parameter, but it should
-#'   only ever be changed when loading some datasets at transcript level (e.g.
-#'   for DTU analsyis).
-#' @param vst `logical(1)`. Calculate variance-stabilizing transformation using
-#'   `DESeq2::varianceStabilizingTransformation`. Recommended by default
-#'   for visualization.
-#' @param rlog `logical(1)`. Calcualte regularized log transformation using
-#'   `DESeq2::rlog`. This calculation is slow for large datasets and now
-#'   discouraged by default for visualization.
+#' @param countsFromAbundance `character(1)`.
+#'   Whether to generate estimated counts using abundance estimates
+#'   (*recommended by default*). `lengthScaledTPM` is a suitable default, and
+#'   counts are scaled using the average transcript length over samples and then
+#'   the library size. Refer to `tximport::tximport` for more information on
+#'   this parameter, but it should only ever be changed when loading some
+#'   datasets at transcript level (e.g. for DTU analsyis).
+#' @param vst `logical(1)`.
+#'   Calculate variance-stabilizing transformation using
+#'   `DESeq2::varianceStabilizingTransformation`. Recommended by default for
+#'   visualization.
+#' @param rlog `logical(1)`.
+#'   Calcualte regularized log transformation using `DESeq2::rlog`. This
+#'   calculation is slow for large datasets and now discouraged by default for
+#'   visualization.
 #'
 #' @return `bcbioRNASeq`.
 #'

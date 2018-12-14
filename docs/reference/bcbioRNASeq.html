@@ -138,15 +138,17 @@ set when running "<code>bcbio_nextgen -w template</code>".</p></td>
     </tr>
     <tr>
       <th>level</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Import counts at gene level ("<code>genes</code>";
-<em>default</em>) or transcript level ("<code>transcripts</code>"; <em>advanced use</em>). Only
-tximport-compatible callers (e.g. salmon, kallisto, sailfish) can be loaded
-at transcript level. Aligned counts from featureCounts-compatible callers
-(e.g. STAR, HISAT2) can only be loaded at gene level.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Import counts at gene level ("<code>genes</code>"; <em>default</em>) or transcript level
+("<code>transcripts</code>"; <em>advanced use</em>). Only tximport-compatible callers (e.g.
+salmon, kallisto, sailfish) can be loaded at transcript level. Aligned
+counts from featureCounts-compatible callers (e.g. STAR, HISAT2) can only
+be loaded at gene level.</p></td>
     </tr>
     <tr>
       <th>caller</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Expression caller:</p><ul>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Expression caller:</p><ul>
 <li><p>"<code>salmon</code>" (<em>default</em>): <a href='https://combine-lab.github.io/salmon/'>Salmon</a> alignment-free, quasi-mapped counts.</p></li>
 <li><p>"<code>kallisto</code>": <a href='https://pachterlab.github.io/kallisto/'>Kallisto</a> alignment-free, pseudo-aligned counts.</p></li>
 <li><p>"<code>sailfish</code>": <a href='http://www.cs.cmu.edu/~ckingsf/software/sailfish/'>Sailfish</a> alignment-free, lightweight counts.</p></li>
@@ -207,25 +209,27 @@ spike-in sequences (e.g. ERCCs).</p></td>
     </tr>
     <tr>
       <th>countsFromAbundance</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Whether to generate estimated
-counts using abundance estimates (<em>recommended by default</em>).
-<code>lengthScaledTPM</code> is a suitable default, and counts are scaled using the
-average transcript length over samples and then the library size. Refer to
-<code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport</a></code> for more information on this parameter, but it should
-only ever be changed when loading some datasets at transcript level (e.g.
-for DTU analsyis).</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Whether to generate estimated counts using abundance estimates
+(<em>recommended by default</em>). <code>lengthScaledTPM</code> is a suitable default, and
+counts are scaled using the average transcript length over samples and then
+the library size. Refer to <code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport</a></code> for more information on
+this parameter, but it should only ever be changed when loading some
+datasets at transcript level (e.g. for DTU analsyis).</p></td>
     </tr>
     <tr>
       <th>vst</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Calculate variance-stabilizing transformation using
-<code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation</a></code>. Recommended by default
-for visualization.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Calculate variance-stabilizing transformation using
+<code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation</a></code>. Recommended by default for
+visualization.</p></td>
     </tr>
     <tr>
       <th>rlog</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Calcualte regularized log transformation using
-<code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog</a></code>. This calculation is slow for large datasets and now
-discouraged by default for visualization.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Calcualte regularized log transformation using <code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog</a></code>. This
+calculation is slow for large datasets and now discouraged by default for
+visualization.</p></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
@@ -427,8 +431,8 @@ possible.</p>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
 #&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Using `geneName` column instead of `symbol`.</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, geneBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.1.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.5
-#&gt; uploadDir: /data01/git/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-12-12
+#&gt; uploadDir: /Users/mike/git/bcbioRNASeq/inst/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-12-13
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -497,8 +501,8 @@ possible.</p>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
 #&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Using `geneName` column instead of `symbol`.</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, transcriptBiotype, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.5
-#&gt; uploadDir: /data01/git/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-12-12
+#&gt; uploadDir: /Users/mike/git/bcbioRNASeq/inst/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-12-13
 #&gt; level: transcripts
 #&gt; caller: salmon
 #&gt; organism: Mus musculus

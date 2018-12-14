@@ -132,11 +132,10 @@
       <th>normalized</th>
       <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
 Which normalization method to apply:</p><ul>
-<li><p><code>FALSE</code>: Raw counts.</p><ul>
-<li><p>When using a <a href='https://bioconductor.org/packages/tximport/'>tximport</a>-compatible caller, these are length scaled
-by default (see <code>countsFromAbundance</code> argument).</p></li>
-<li><p>When using a <a href='http://bioinf.wehi.edu.au/featureCounts/'>featureCounts</a>-compatible caller, these are <code>integer</code>.</p></li>
-</ul></li>
+<li><p><code>FALSE</code>: Raw counts.
+When using a <a href='https://bioconductor.org/packages/tximport/'>tximport</a>-compatible caller, these are length scaled
+by default (see <code>countsFromAbundance</code> argument).
+When using a <a href='http://bioinf.wehi.edu.au/featureCounts/'>featureCounts</a>-compatible caller, these are <code>integer</code>.</p></li>
 </ul>
 
 <p><a href='https://bioconductor.org/packages/tximport/'>tximport</a> caller-specific normalizations:</p><ul>

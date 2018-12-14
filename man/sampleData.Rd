@@ -11,10 +11,10 @@
 \arguments{
 \item{object}{Object that inherits from \code{SummarizedExperiment} class.}
 
-\item{clean}{\code{logical(1)}. Only return \code{factor} columns not defined in
-\link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}. This removes metrics columns used for
-quality control analysis, which are often not informative as sample
-metadata.}
+\item{clean}{\code{logical(1)}.
+Only return \code{factor} columns not defined in \link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.
+This removes metrics columns used for quality control analysis, which are
+often not informative as sample metadata.}
 }
 \value{
 \code{DataFrame}.

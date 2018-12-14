@@ -19,7 +19,8 @@
 to input the stable gene identifiers from Ensembl (e.g. "ENSG00000000003")
 and not the (HGNC) gene symbols (e.g. "TSPN6"), if possible.}
 
-\item{normalized}{\code{character(1)}. Which normalization method to apply:
+\item{normalized}{\code{character(1)}.
+Which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.

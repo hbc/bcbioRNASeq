@@ -150,11 +150,7 @@ subdirectory, the function will return an error.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>prepareRNASeqTemplate</span>()
-<span class='no'>x</span></div><div class='output co'>#&gt;      _footer.Rmd      _header.Rmd     _output.yaml         _setup.R 
-#&gt;             TRUE             TRUE             TRUE             TRUE 
-#&gt; bibliography.bib 
-#&gt;             TRUE </div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>prepareRNASeqTemplate</span>()</div><div class='output co'>#&gt; <span class='error'>Error in system.file("rmarkdown/shared", package = package, mustWork = TRUE): no file found</span></div><div class='input'><span class='no'>x</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'x' not found</span></div><div class='input'>
 <span class='co'>## Clean up.</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/unlink'>unlink</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
     <span class='st'>"_footer.Rmd"</span>,

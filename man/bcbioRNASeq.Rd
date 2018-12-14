@@ -16,13 +16,15 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
 \item{uploadDir}{\code{character(1)}. Path to final upload directory. This path is
 set when running "\code{bcbio_nextgen -w template}".}
 
-\item{level}{\code{character(1)}. Import counts at gene level ("\code{genes}";
-\emph{default}) or transcript level ("\code{transcripts}"; \emph{advanced use}). Only
-tximport-compatible callers (e.g. salmon, kallisto, sailfish) can be loaded
-at transcript level. Aligned counts from featureCounts-compatible callers
-(e.g. STAR, HISAT2) can only be loaded at gene level.}
+\item{level}{\code{character(1)}.
+Import counts at gene level ("\code{genes}"; \emph{default}) or transcript level
+("\code{transcripts}"; \emph{advanced use}). Only tximport-compatible callers (e.g.
+salmon, kallisto, sailfish) can be loaded at transcript level. Aligned
+counts from featureCounts-compatible callers (e.g. STAR, HISAT2) can only
+be loaded at gene level.}
 
-\item{caller}{\code{character(1)}. Expression caller:
+\item{caller}{\code{character(1)}.
+Expression caller:
 \itemize{
 \item "\code{salmon}" (\emph{default}): \href{https://combine-lab.github.io/salmon/}{Salmon} alignment-free, quasi-mapped counts.
 \item "\code{kallisto}": \href{https://pachterlab.github.io/kallisto/}{Kallisto} alignment-free, pseudo-aligned counts.
@@ -64,21 +66,23 @@ transgenes (e.g. EGFP, TDTOMATO).}
 \item{spikeNames}{\code{character}. Vector indicating which assay rows denote
 spike-in sequences (e.g. ERCCs).}
 
-\item{countsFromAbundance}{\code{character(1)}. Whether to generate estimated
-counts using abundance estimates (\emph{recommended by default}).
-\code{lengthScaledTPM} is a suitable default, and counts are scaled using the
-average transcript length over samples and then the library size. Refer to
-\code{tximport::tximport} for more information on this parameter, but it should
-only ever be changed when loading some datasets at transcript level (e.g.
-for DTU analsyis).}
+\item{countsFromAbundance}{\code{character(1)}.
+Whether to generate estimated counts using abundance estimates
+(\emph{recommended by default}). \code{lengthScaledTPM} is a suitable default, and
+counts are scaled using the average transcript length over samples and then
+the library size. Refer to \code{tximport::tximport} for more information on
+this parameter, but it should only ever be changed when loading some
+datasets at transcript level (e.g. for DTU analsyis).}
 
-\item{vst}{\code{logical(1)}. Calculate variance-stabilizing transformation using
-\code{DESeq2::varianceStabilizingTransformation}. Recommended by default
-for visualization.}
+\item{vst}{\code{logical(1)}.
+Calculate variance-stabilizing transformation using
+\code{DESeq2::varianceStabilizingTransformation}. Recommended by default for
+visualization.}
 
-\item{rlog}{\code{logical(1)}. Calcualte regularized log transformation using
-\code{DESeq2::rlog}. This calculation is slow for large datasets and now
-discouraged by default for visualization.}
+\item{rlog}{\code{logical(1)}.
+Calcualte regularized log transformation using \code{DESeq2::rlog}. This
+calculation is slow for large datasets and now discouraged by default for
+visualization.}
 
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}

@@ -10,9 +10,10 @@
 #' `rlog` or `vst` counts are defined in `assays`.
 #
 #' @inheritParams params
-#' @param recalculate `logical(1)`. Recalculate DESeq2 normalized counts and
-#'   variance-stabilizing transformations defined in `assays`. Recommended by
-#'   default, but can take a long time for large datasets.
+#' @param recalculate `logical(1)`.
+#'   Recalculate DESeq2 normalized counts and variance-stabilizing
+#'   transformations defined in `assays`. Recommended by default, but can take a
+#'   long time for large datasets.
 #'
 #' @return `bcbioRNASeq`.
 #'
