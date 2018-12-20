@@ -49,7 +49,7 @@ setMethod(
         factors <- select_if(metadata, is.factor)
         numerics <- select_if(metadata, is.numeric) %>%
             # Drop columns that are all zeroes (not useful to plot)
-            .[, colSums(.) > 0L, drop = FALSE]
+            .[, colSums(., na.rm=TRUE) > 0L, drop = FALSE]
         metadata <- cbind(factors, numerics)
 
         # Select the metrics to use for plot
