@@ -8,9 +8,6 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' is designed to store a [bcbio](https://bcbio-nextgen.readthedocs.org) RNA-seq
 #' analysis.
 #'
-#' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
-#'   migrated to `RangedSummarizedExperiment`.
-#'
 #' @section Automatic metadata:
 #'
 #' The `metadata` slot always contains:
@@ -23,6 +20,9 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' @family S4 classes
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
+#'
+#' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
+#'   migrated to `RangedSummarizedExperiment`.
 #'
 #' @seealso `bcbioRNASeq`.
 setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
