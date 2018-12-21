@@ -1,7 +1,7 @@
 #' bcbioRNASeq
 #'
 #' Quality control and differential expression for
-#' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
+#' [bcbio](http://bcbio-nextgen.readthedocs.io/) RNA-seq experiments.
 #'
 #' @aliases NULL
 #' @keywords internal
@@ -62,8 +62,8 @@
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
 #' @importFrom matrixStats colMedians
-#' @importFrom methods .hasSlot as as<- is new setAs show slot slot<-
-#'   validObject
+#' @importFrom methods as as<- is new setAs setClass show slot slot<-
+#'   validObject .hasSlot
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom rlang !! !!! := UQ sym syms
 #' @importFrom scales pretty_breaks

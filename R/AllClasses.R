@@ -25,10 +25,10 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #'   migrated to `RangedSummarizedExperiment`.
 #'
 #' @seealso `bcbioRNASeq`.
-setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
-setValidity(
+setClass(
     Class = "bcbioRNASeq",
-    method = function(object) {
+    contains = "RangedSummarizedExperiment",
+    validity = function(object) {
         metadata <- metadata(object)
 
         # Return invalid for all objects older than v0.2.
