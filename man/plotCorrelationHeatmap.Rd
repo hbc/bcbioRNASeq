@@ -4,7 +4,7 @@
 \name{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap,bcbioRNASeq-method}
-\title{Heatmap}
+\title{Correlation heatmap}
 \usage{
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
   normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"),

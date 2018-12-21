@@ -105,17 +105,11 @@ loadRNASeq <- function(...) {
 
 
 
-# v0.99.0 ======================================================================
+# v0.3.0 =======================================================================
 #' @rdname defunct
 #' @export
 plotCountDensity <- function(...) {
     .Defunct("plotCountsPerGene(object, geom = \"density\")")
-}
-
-#' @rdname defunct
-#' @export
-plotPCACovariates <- function(...) {
-    .Deprecated("DEGreport::degCovariates")
 }
 
 #' @rdname defunct

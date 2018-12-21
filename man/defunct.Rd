@@ -5,7 +5,6 @@
 \alias{plotGeneHeatmap}
 \alias{txi}
 \alias{plotCountDensity}
-\alias{plotPCACovariates}
 \alias{resultsTables}
 \title{Defunct Functions}
 \usage{
@@ -15,14 +14,10 @@ txi(...)
 
 plotCountDensity(...)
 
-plotPCACovariates(object, ...)
-
 resultsTables(...)
 }
 \arguments{
 \item{...}{Additional arguments.}
-
-\item{object}{Object.}
 }
 \value{
 \code{.Defunct}.
