@@ -14,6 +14,7 @@
 #' @importMethodsFrom basejump coerce
 #'
 #' @importFrom BiocGenerics cbind colSums density design lapply sapply width
+#' @importFrom DEGreport degCovariates
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
 #'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
 #'   estimateSizeFactors fpkm priorInfo results resultsNames rlog
@@ -74,3 +75,11 @@
 #' @importFrom utils capture.output globalVariables packageVersion
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
+
+#' @importFrom basejump Gene2Symbol
+#' @export
+basejump::Gene2Symbol
+
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
