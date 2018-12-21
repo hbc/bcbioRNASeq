@@ -14,11 +14,11 @@
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
 #' @seealso
-#' - `vsn::meanSdPlot`.
-#' - `DESeq2::DESeq`.
-#' - `DESeq2::rlog`.
-#' - `DESeq2::varianceStabilizingTransformation`.
-#' - `edgeR::calcNormFactors`.
+#' - `vsn::meanSdPlot()`.
+#' - `DESeq2::DESeq()`.
+#' - `DESeq2::rlog()`.
+#' - `DESeq2::varianceStabilizingTransformation()`.
+#' - `edgeR::calcNormFactors()`.
 #'
 #' @examples
 #' data(bcb)

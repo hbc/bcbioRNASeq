@@ -1,4 +1,4 @@
-#' Prepare RNA-Seq R Markdown Template
+#' Prepare RNA-Seq R Markdown template
 #'
 #' @name prepareRNASeqTemplate
 #' @author Michael Steinbaugh
@@ -8,15 +8,6 @@
 #' @examples
 #' x <- prepareRNASeqTemplate()
 #' x
-#'
-#' ## Clean up.
-#' unlink(c(
-#'     "_footer.Rmd",
-#'     "_header.Rmd",
-#'     "_output.yaml",
-#'     "_setup.R",
-#'     "bibliography.bib"
-#' ))
 prepareRNASeqTemplate <- function(overwrite = FALSE) {
     prepareTemplate(package = "bcbioRNASeq", overwrite = overwrite)
 }
