@@ -106,6 +106,7 @@ Depends:
     basejump (>= 0.9.1)
 Imports:
     BiocGenerics,
+    DEGreport (>= 1.16),
     DESeq2 (>= 1.20),
     GenomicFeatures,
     S4Vectors,
