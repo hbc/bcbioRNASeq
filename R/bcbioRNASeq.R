@@ -290,29 +290,26 @@ bcbioRNASeq <- function(
     assert(is.list(yaml))
 
     # bcbio run information ----------------------------------------------------
-    dataVersions <-
-        readDataVersions(file.path(projectDir, "data_versions.csv"))
+    dataVersions <- readDataVersions(file.path(projectDir, "data_versions.csv"))
     assert(is(dataVersions, "DataFrame"))
 
     programVersions <-
         readProgramVersions(file.path(projectDir, "programs.txt"))
     assert(is(programVersions, "DataFrame"))
 
-    bcbioLog <-
-        import(file.path(projectDir, "bcbio-nextgen.log"))
+    log <- import(file.path(projectDir, "bcbio-nextgen.log"))
     # This step enables our minimal dataset inside the package to pass checks.
     tryCatch(
-        expr = assert(isCharacter(bcbioLog)),
+        expr = assert(isCharacter(log)),
         error = function(e) {
             message("bcbio-nextgen.log file is empty.")
         }
     )
 
-    bcbioCommandsLog <-
-        import(file.path(projectDir, "bcbio-nextgen-commands.log"))
+    commandsLog <- import(file.path(projectDir, "bcbio-nextgen-commands.log"))
     # This step enables our minimal dataset inside the package to pass checks.
     tryCatch(
-        expr = assert(isCharacter(bcbioCommandsLog)),
+        expr = assert(isCharacter(commandsLog)),
         error = function(e) {
             message("bcbio-nextgen-commands.log file is empty.")
         }
@@ -463,7 +460,6 @@ bcbioRNASeq <- function(
     # 2. GTF/GFF file. Use the bcbio GTF if possible.
     # 3. Fall back to slotting empty ranges. This is offered as support for
     #    complex datasets (e.g. multiple organisms).
-
     if (isString(organism) && is.numeric(ensemblRelease)) {
         # AnnotationHub (ensembldb).
         message("Using makeGRangesFromEnsembl() for annotations.")
@@ -538,8 +534,8 @@ bcbioRNASeq <- function(
         yaml = yaml,
         dataVersions = dataVersions,
         programVersions = programVersions,
-        bcbioLog = bcbioLog,
-        bcbioCommandsLog = bcbioCommandsLog,
+        bcbioLog = log,
+        bcbioCommandsLog = commandsLog,
         allSamples = allSamples,
         call = match.call()
     )
