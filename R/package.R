@@ -1,7 +1,7 @@
 #' bcbioRNASeq
 #'
-#' Quality control and differential expression for
-#' [bcbio](http://bcbio-nextgen.readthedocs.io) RNA-seq experiments.
+#' Import and analyze [bcbio](https://bcbio-nextgen.readthedocs.io/) RNA-seq
+#' data.
 #'
 #' @aliases NULL
 #' @keywords internal
