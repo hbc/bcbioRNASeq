@@ -2,25 +2,11 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 
 
 
-.valid <- function(list) {
-    invalid <- Filter(f = Negate(isTRUE), x = list)
-    if (hasLength(invalid)) {
-        unlist(invalid)
-    } else {
-        TRUE
-    }
-}
-
-
-
-#' bcbio RNA-Seq Data Set
+#' bcbio RNA-Seq data set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
 #' is designed to store a [bcbio](https://bcbio-nextgen.readthedocs.org) RNA-seq
 #' analysis.
-#'
-#' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
-#'   migrated to `RangedSummarizedExperiment`.
 #'
 #' @section Automatic metadata:
 #'
@@ -35,43 +21,42 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
 #'
+#' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
+#'   migrated to `RangedSummarizedExperiment`.
+#'
 #' @seealso `bcbioRNASeq`.
-setClass(Class = "bcbioRNASeq", contains = "RangedSummarizedExperiment")
-setValidity(
+setClass(
     Class = "bcbioRNASeq",
-    method = function(object) {
-        valid <- list()
+    contains = "RangedSummarizedExperiment",
+    validity = function(object) {
         metadata <- metadata(object)
 
         # Return invalid for all objects older than v0.2.
         version <- metadata[["version"]]
-        valid[["version"]] <- validate(
+        ok <- validate(
             is(version, "package_version"),
             version >= 0.2
         )
+        if (!isTRUE(ok)) return(ok)
 
-        valid[["rse"]] <- validate(
-            is(object, "RangedSummarizedExperiment")
-        )
-
-        valid[["dimnames"]] <- validate(
+        ok <- validate(
+            is(object, "RangedSummarizedExperiment"),
             hasDimnames(object)
         )
+        if (!isTRUE(ok)) return(ok)
 
         # Metadata -------------------------------------------------------------
-        # Check for legacy metrics.
-        valid[["metrics"]] <- validate(
-            !is.data.frame(metadata[["metrics"]]),
-            msg = "`metrics` saved in `metadata` instead of `colData`."
-        )
-
-        # Check that interesting groups defined in metadata are valid.
-        valid[["interestingGroups"]] <- validate(
+        ok <- validate(
+            # Check for legacy metrics stashed in metadata, rather than defined
+            # in colData.
+            is.null(metadata[["metrics"]]),
+            # Check that interesting groups defined in metadata are valid.
             isSubset(
                 x = metadata[["interestingGroups"]],
                 y = colnames(colData(object))
             )
         )
+        if (!isTRUE(ok)) return(ok)
 
         # Error on legacy slot detection.
         intersect <- intersect(
@@ -90,17 +75,14 @@ setValidity(
                 "yamlFile"
             )
         )
-        valid[["legacyMetadata"]] <- validate(
+        ok <- validate(
             !hasLength(intersect),
-            msg = paste(
-                "Legacy metadata slots:",
-                toString(sort(intersect)),
-                sep = "\n"
-            )
+            msg = sprintf("Legacy metadata: %s", toString(intersect))
         )
+        if (!isTRUE(ok)) return(ok)
 
         # Class checks (order independent).
-        valid[["metadata"]] <- validateClasses(
+        ok <- validateClasses(
             object = metadata,
             expected = list(
                 allSamples = "logical",
@@ -132,77 +114,66 @@ setValidity(
             ),
             subset = TRUE
         )
+        if (!isTRUE(ok)) return(ok)
 
-        # Additional assert checks.
-        valid[["metadata2"]] <- validate(
+        # tximport checks.
+        ok <- validate(
             isSubset(metadata[["caller"]], validCallers),
-            isSubset(metadata[["level"]], validLevels)
-        )
-
-        if (is.character(metadata[["countsFromAbundance"]])) {
-            valid[["countsFromAbundance"]] <- validate(
-                isSubset(
-                    x = metadata[["countsFromAbundance"]],
-                    y = eval(formals(tximport)[["countsFromAbundance"]])
-                )
+            isSubset(metadata[["level"]], validLevels),
+            isSubset(
+                x = metadata[["countsFromAbundance"]],
+                y = eval(formals(tximport)[["countsFromAbundance"]])
             )
-        }
+        )
+        if (!isTRUE(ok)) return(ok)
 
         # Assays ---------------------------------------------------------------
         assayNames <- assayNames(object)
-        valid[["assayNames"]] <- validate(
-            isSubset(requiredAssays, assayNames)
-        )
+        ok <- validate(isSubset(requiredAssays, assayNames))
+        if (!isTRUE(ok)) return(ok)
 
         # Check that all assays are matrices.
         # Note that in previous versions, we slotted `DESeqDataSet` and
         # `DESeqTransform`, which can result in metadata mismatches because
         # those objects contain their own `colData` and `rowData`.
-        isMatrix <- vapply(
-            X = assays(object),
-            FUN = is.matrix,
-            FUN.VALUE = logical(1L),
-            USE.NAMES = TRUE
-        )
-        valid[["assays"]] <- validate(
-            all(isMatrix),
-            msg = paste(
-                "Assays that are not matrix:",
-                toString(names(valid[!valid])),
-                sep = "\n"
-            )
-        )
+        ok <- validate(all(bapply(assays(object), is.matrix)))
+        if (!isTRUE(ok)) return(ok)
 
         # Caller-specific checks.
         caller <- metadata[["caller"]]
+        ok <- validate(isString(caller))
+        if (!isTRUE(ok)) return(ok)
         if (caller %in% tximportCallers) {
-            valid[["caller"]] <- validate(
-                isSubset(tximportAssays, assayNames)
-            )
+            ok <- validate(isSubset(tximportAssays, assayNames))
         } else if (caller %in% featureCountsCallers) {
-            valid[["caller"]] <- validate(
-                isSubset(featureCountsAssays, assayNames)
-            )
+            ok <- validate(isSubset(featureCountsAssays, assayNames))
         }
+        if (!isTRUE(ok)) return(ok)
 
         # Check for average transcript length matrix, if necessary.
         if (
             metadata[["caller"]] %in% tximportCallers &&
             metadata[["countsFromAbundance"]] == "no"
         ) {
-            valid[["avgTxLength"]] <- validate(
-                isSubset("avgTxLength", assayNames)
-            )
+            ok <- validate(isSubset("avgTxLength", assayNames))
+            if (!isTRUE(ok)) return(ok)
         }
 
         # Row data -------------------------------------------------------------
-        valid[["rowRanges"]] <- validate(
-            is(rowRanges(object), "GRanges")
-        )
+        rowRanges <- rowRanges(object)
         rowData <- rowData(object)
+        ok <- validate(
+            is(rowRanges, "GRanges"),
+            is(rowData, "DataFrame")
+        )
+        if (!isTRUE(ok)) return(ok)
+
         if (hasLength(colnames(rowData))) {
             # Note that GTF/GFF annotations won't contain description.
-            valid[["rowData"]] <- validateClasses(
+            # The description column only gets returned via ensembldb.
+            # This check will fail for bcbioRNASeq objects created prior to v0.3
+            # update because we didn't use S4 Rle run-length encoding.
+            ok <- validateClasses(
                 object = rowData,
                 expected = list(
                     broadClass = Rle,
@@ -212,15 +183,17 @@ setValidity(
                 ),
                 subset = TRUE
             )
+            if (!isTRUE(ok)) return(ok)
         }
 
         # Column data ----------------------------------------------------------
         colData <- colData(object)
-        valid[["colData"]] <- validate(
+        ok <- validate(
             isSubset("sampleName", colnames(colData)),
             areDisjointSets(colnames(colData), legacyMetricsCols)
         )
+        if (!isTRUE(ok)) return(ok)
 
-        .valid(list = valid)
+        TRUE
     }
 )

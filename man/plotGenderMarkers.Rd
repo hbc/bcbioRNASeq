@@ -4,7 +4,7 @@
 \name{plotGenderMarkers}
 \alias{plotGenderMarkers}
 \alias{plotGenderMarkers,bcbioRNASeq-method}
-\title{Plot Sexually Dimorphic Gender Marker Genes}
+\title{Plot sexually dimorphic gender marker genes}
 \usage{
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("vst",
   "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
@@ -14,49 +14,49 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{\code{character(1)}. Which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+\item{normalized}{\code{character(1)}.
+Which normalization method to apply:\preformatted{- "`tpm`": Transcripts per million (tximport).
+- "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+- "`rlog`": DESeq2 **log2** regularized log transformation.
+- "`vst`": DESeq2 **log2** variance stabilizing transformation.
 }}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}.
+Groups of interest that define the samples. If left unset, defaults to
+\code{sampleName}.}
 
-\item{medianLine}{\code{logical(1)}. Include median line for each group. Disabled if
-samples are colored by sample name.}
+\item{medianLine}{\code{logical(1)}.
+Include median line for each group. Disabled if samples are colored by
+sample name.}
 
-\item{color}{\code{ScaleDiscrete}. Desired ggplot2 color scale. Must supply
-discrete values. When set to \code{NULL}, the default ggplot2 color palette will
-be used. If manual color definitions are desired, we recommend using
-\code{ggplot2::scale_color_manual}.
+\item{color}{\code{ScaleDiscrete}.
+Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
 
 To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
 }}
 
-\item{legend}{\code{logical(1)}. Show plot legend.}
+\item{legend}{\code{logical(1)}.
+Show plot legend.}
 
-\item{style}{\code{character(1)}. Plot style.}
+\item{style}{\code{character(1)}.
+Plot style.}
 }
 \value{
 \code{ggplot}.
 }
 \description{
-This is a convenience function that wraps \code{plotGene} to quickly plot known
+This is a convenience function that wraps \code{plotGene()} to quickly plot known
 sexually dimorphic genes, and overall gene experssion for the X and Y
 chromosomes.
-}
-\details{
-Currently only \emph{Homo sapiens} and \emph{Mus musculus} genomes are supported.
 }
 \examples{
 data(bcb)
 plotGenderMarkers(bcb)
 }
 \seealso{
-\code{plotGene}.
+\code{plotGene()}.
 }
 \author{
 Michael Steinbaugh

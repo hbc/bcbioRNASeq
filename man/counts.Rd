@@ -15,11 +15,9 @@
 Which normalization method to apply:
 \itemize{
 \item \code{FALSE}: Raw counts.
-\itemize{
-\item When using a \href{https://bioconductor.org/packages/tximport/}{tximport}-compatible caller, these are length scaled
+When using a \href{https://bioconductor.org/packages/tximport/}{tximport}-compatible caller, these are length scaled
 by default (see \code{countsFromAbundance} argument).
-\item When using a \href{http://bioinf.wehi.edu.au/featureCounts/}{featureCounts}-compatible caller, these are \code{integer}.
-}
+When using a \href{http://bioinf.wehi.edu.au/featureCounts/}{featureCounts}-compatible caller, these are \code{integer}.
 }
 
 \href{https://bioconductor.org/packages/tximport/}{tximport} caller-specific normalizations:
@@ -69,15 +67,15 @@ summary(counts(bcb))
 }
 \seealso{
 \itemize{
-\item \code{tximport::tximport}.
-\item \code{DESeq2::counts}.
-\item \code{DESeq2::sizeFactors}.
-\item \code{DESeq2::varianceStabilizingTransformation}.
-\item \code{DESeq2::rlog}.
-\item \code{DESeq2::fpkm}.
-\item \code{edgeR::calcNormFactors}.
-\item \code{tmm}.
-\item \code{relativeLogExpression}.
+\item \code{tximport::tximport()}.
+\item \code{DESeq2::counts()}.
+\item \code{DESeq2::sizeFactors()}.
+\item \code{DESeq2::varianceStabilizingTransformation()}.
+\item \code{DESeq2::rlog()}.
+\item \code{DESeq2::fpkm()}.
+\item \code{edgeR::calcNormFactors()}.
+\item \code{tmm()}.
+\item \code{relativeLogExpression()}.
 }
 }
 \author{

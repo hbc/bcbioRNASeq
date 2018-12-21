@@ -1,6 +1,6 @@
 #' @name plotIntronicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit basejump::plotIntronicMappingRate
+#' @inherit bioverbs::plotIntronicMappingRate
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -10,10 +10,10 @@ NULL
 
 
 
-#' @importFrom basejump plotIntronicMappingRate
+#' @importFrom bioverbs plotIntronicMappingRate
 #' @aliases NULL
 #' @export
-basejump::plotIntronicMappingRate
+bioverbs::plotIntronicMappingRate
 
 
 

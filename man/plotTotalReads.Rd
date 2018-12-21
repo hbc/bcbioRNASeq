@@ -4,7 +4,7 @@
 \name{plotTotalReads}
 \alias{plotTotalReads}
 \alias{plotTotalReads,bcbioRNASeq-method}
-\title{Plot Total Reads}
+\title{Plot total reads}
 \usage{
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups = NULL,
   limit = 20000000L, perMillion = TRUE,
@@ -14,26 +14,29 @@
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}.
+Groups of interest that define the samples. If left unset, defaults to
+\code{sampleName}.}
 
-\item{limit}{\code{numeric(1)}. Threshold to denote on the plot, using a dashed
-line.}
+\item{limit}{\code{numeric(1)}.
+Threshold to denote on the plot, using a dashed line.}
 
-\item{perMillion}{\code{logical(1)}. Display as counts per million.}
+\item{perMillion}{\code{logical(1)}.
+Display as counts per million.}
 
-\item{fill}{\code{ggproto}/\code{ScaleDiscrete}. Desired ggplot2 fill scale. Must
-supply discrete values. When set to \code{NULL}, the default ggplot2 color
-palette will be used. If manual color definitions are desired, we recommend
-using \code{ggplot2::scale_fill_manual}.
+\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
+Desired ggplot2 fill scale. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
 
 To set the discrete fill palette globally, use:\preformatted{options(basejump.fill.discrete = ggplot2::scale_fill_viridis_d())
 }}
 
-\item{flip}{\code{logical(1)}. Flip x and y axes. Recommended for plots containing
-many samples.}
+\item{flip}{\code{logical(1)}.
+Flip x and y axes. Recommended for plots containing many samples.}
 
-\item{title}{\code{character(1)}. Plot title.}
+\item{title}{\code{character(1)}.
+Plot title.}
 }
 \value{
 \code{ggplot}.

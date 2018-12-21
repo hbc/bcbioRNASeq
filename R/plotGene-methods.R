@@ -28,10 +28,10 @@ NULL
 
 
 
-#' @importFrom basejump plotGene
+#' @importFrom bioverbs plotGene
 #' @aliases NULL
 #' @export
-basejump::plotGene
+bioverbs::plotGene
 
 
 

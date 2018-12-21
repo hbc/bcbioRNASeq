@@ -1,4 +1,4 @@
-#' bcbio RNA-Seq Example Data
+#' bcbio RNA-Seq example data set
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @examples
 #' data(bcb)

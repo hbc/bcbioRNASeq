@@ -5,7 +5,7 @@
 \title{bcbioRNASeq}
 \description{
 Quality control and differential expression for
-\href{http://bcbio-nextgen.readthedocs.io}{bcbio} RNA-seq experiments.
+\href{http://bcbio-nextgen.readthedocs.io/}{bcbio} RNA-seq experiments.
 }
 \seealso{
 Useful links:

@@ -4,7 +4,7 @@
 \name{plotQC}
 \alias{plotQC}
 \alias{plotQC,bcbioRNASeq-method}
-\title{Plot Quality Control}
+\title{Quality control}
 \usage{
 \S4method{plotQC}{bcbioRNASeq}(object)
 }
@@ -15,7 +15,7 @@
 \code{ggplot}.
 }
 \description{
-Plot Quality Control
+Quality control
 }
 \examples{
 data(bcb)

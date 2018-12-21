@@ -1,10 +1,8 @@
 #' @name plot5Prime3PrimeBias
-#' @inherit basejump::plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
-#'
+#' @inherit bioverbs::plot5Prime3PrimeBias
 #' @inheritParams params
 #' @inheritParams basejump::params
-#'
 #' @examples
 #' data(bcb)
 #' plot5Prime3PrimeBias(bcb)
@@ -12,10 +10,10 @@ NULL
 
 
 
-#' @importFrom basejump plot5Prime3PrimeBias
+#' @importFrom bioverbs plot5Prime3PrimeBias
 #' @aliases NULL
 #' @export
-basejump::plot5Prime3PrimeBias
+bioverbs::plot5Prime3PrimeBias
 
 
 

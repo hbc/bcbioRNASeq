@@ -14,6 +14,7 @@
 #' @importMethodsFrom basejump coerce
 #'
 #' @importFrom BiocGenerics cbind colSums density design lapply sapply width
+#' @importFrom DEGreport degCovariates
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
 #'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
 #'   estimateSizeFactors fpkm priorInfo results resultsNames rlog
@@ -42,7 +43,7 @@
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
 #'   mutate mutate_all mutate_if pull rename row_number select select_if
-#'   starts_with
+#'   starts_with ungroup
 #' @importFrom edgeR DGEList calcNormFactors cpm
 #' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
 #'   element_blank element_text expand_limits facet_wrap geom_bar geom_boxplot
@@ -51,17 +52,18 @@
 #'   position_jitterdodge scale_color_manual scale_x_continuous
 #'   scale_y_continuous stat_summary theme xlab ylim
 #' @importFrom ggrepel geom_label_repel geom_text_repel
-#' @importFrom goalie areDisjointSets areIntersectingSets assert containsAURL
-#'   hasDimnames hasLength hasRownames hasUniqueCols hasValidDimnames
-#'   isADirectory isAFile isAny isCharacter isDirectory isFile isFlag isGGScale
-#'   isInt isInRange isNonEmpty isNonNegative isNumber isPositive isProportion
-#'   isString isSubset validNames validate validateClasses
+#' @importFrom goalie areDisjointSets areIntersectingSets assert bapply
+#'   containsAURL hasDimnames hasLength hasRownames hasUniqueCols
+#'   hasValidDimnames isADirectory isAFile isAny isCharacter isDirectory isFile
+#'   isFlag isGGScale isInt isInRange isNonEmpty isNonNegative isNumber
+#'   isPositive isProportion isString isSubset validNames validate
+#'   validateClasses
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
 #' @importFrom matrixStats colMedians
-#' @importFrom methods .hasSlot as as<- is new setAs show slot slot<-
-#'   validObject
+#' @importFrom methods as as<- is new setAs setClass show slot slot<-
+#'   validObject .hasSlot
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom rlang !! !!! := UQ sym syms
 #' @importFrom scales pretty_breaks
@@ -73,3 +75,11 @@
 #' @importFrom utils capture.output globalVariables packageVersion
 #' @importFrom vsn meanSdPlot
 "_PACKAGE"
+
+#' @importFrom basejump Gene2Symbol
+#' @export
+basejump::Gene2Symbol
+
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`

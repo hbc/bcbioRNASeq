@@ -1,6 +1,6 @@
 #' @name plotCountsPerBiotype
 #' @author Michael Steinbaugh, Rory Kirchner
-#' @inherit basejump::plotCountsPerBiotype
+#' @inherit bioverbs::plotCountsPerBiotype
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -10,15 +10,15 @@ NULL
 
 
 
-#' @importFrom basejump plotCountsPerBiotype
+#' @importFrom bioverbs plotCountsPerBiotype
 #' @aliases NULL
 #' @export
-basejump::plotCountsPerBiotype
+bioverbs::plotCountsPerBiotype
 
-#' @importFrom basejump plotCountsPerBroadClass
+#' @importFrom bioverbs plotCountsPerBroadClass
 #' @aliases NULL
 #' @export
-basejump::plotCountsPerBroadClass
+bioverbs::plotCountsPerBroadClass
 
 
 

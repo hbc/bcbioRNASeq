@@ -5,7 +5,7 @@
 \alias{plotCountsPerBiotype}
 \alias{plotCountsPerBiotype,bcbioRNASeq-method}
 \alias{plotCountsPerBroadClass,bcbioRNASeq-method}
-\title{Plot Counts per Biotype}
+\title{Plot counts per biotype}
 \usage{
 \S4method{plotCountsPerBiotype}{bcbioRNASeq}(object,
   normalized = c("tpm", "vst", "rlog", "tmm", "rle", "fpkm"), n = 9L,
@@ -20,31 +20,34 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{\code{character(1)}. Which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+\item{normalized}{\code{character(1)}.
+Which normalization method to apply:\preformatted{- "`tpm`": Transcripts per million (tximport).
+- "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+- "`rlog`": DESeq2 **log2** regularized log transformation.
+- "`vst`": DESeq2 **log2** variance stabilizing transformation.
 }}
 
-\item{n}{\code{integer(1)}. Number to include.}
+\item{n}{\code{integer(1)}.
+Number to include.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}.
+Groups of interest that define the samples. If left unset, defaults to
+\code{sampleName}.}
 
-\item{trans}{\code{character(1)}. Name of the axis scale transformation to apply.
+\item{trans}{\code{character(1)}.
+Name of the axis scale transformation to apply.
 
 For more information:\preformatted{help(topic = "scale_x_continuous", package = "ggplot2")
 }}
 
-\item{countsAxisLabel}{\code{character(1)}. Counts axis label.}
+\item{countsAxisLabel}{\code{character(1)}.
+Counts axis label.}
 }
 \value{
 \code{ggplot}.
 }
 \description{
-Plot Counts per Biotype
+Plot counts per biotype
 }
 \examples{
 data(bcb)

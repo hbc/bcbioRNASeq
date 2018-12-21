@@ -4,7 +4,7 @@
 \name{plotCountsPerGene}
 \alias{plotCountsPerGene}
 \alias{plotCountsPerGene,bcbioRNASeq-method}
-\title{Plot Counts Per Gene}
+\title{Plot counts per gene}
 \usage{
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, normalized = c("tmm",
   "vst", "rlog", "rle", "tpm", "fpkm"), interestingGroups = NULL,
@@ -17,46 +17,52 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{\code{character(1)}. Which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+\item{normalized}{\code{character(1)}.
+Which normalization method to apply:\preformatted{- "`tpm`": Transcripts per million (tximport).
+- "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+- "`rlog`": DESeq2 **log2** regularized log transformation.
+- "`vst`": DESeq2 **log2** variance stabilizing transformation.
 }}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}.
+Groups of interest that define the samples. If left unset, defaults to
+\code{sampleName}.}
 
-\item{geom}{\code{character(1)}. Type of ggplot2 geometric object to use.}
+\item{geom}{\code{character(1)}.
+Plot type.
+Uses \link[base:match.arg]{match.arg()} internally and defaults to the first
+argument in the \code{character} vector.}
 
-\item{trans}{\code{character(1)}. Name of the axis scale transformation to apply.
+\item{trans}{\code{character(1)}.
+Name of the axis scale transformation to apply.
 
 For more information:\preformatted{help(topic = "scale_x_continuous", package = "ggplot2")
 }}
 
-\item{color}{\code{ScaleDiscrete}. Desired ggplot2 color scale. Must supply
-discrete values. When set to \code{NULL}, the default ggplot2 color palette will
-be used. If manual color definitions are desired, we recommend using
-\code{ggplot2::scale_color_manual}.
+\item{color}{\code{ScaleDiscrete}.
+Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
 
 To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
 }}
 
-\item{fill}{\code{ggproto}/\code{ScaleDiscrete}. Desired ggplot2 fill scale. Must
-supply discrete values. When set to \code{NULL}, the default ggplot2 color
-palette will be used. If manual color definitions are desired, we recommend
-using \code{ggplot2::scale_fill_manual}.
+\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
+Desired ggplot2 fill scale. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
 
 To set the discrete fill palette globally, use:\preformatted{options(basejump.fill.discrete = ggplot2::scale_fill_viridis_d())
 }}
 
-\item{flip}{\code{logical(1)}. Flip x and y axes. Recommended for plots containing
-many samples.}
+\item{flip}{\code{logical(1)}.
+Flip x and y axes. Recommended for plots containing many samples.}
 
-\item{countsAxisLabel}{\code{character(1)}. Counts axis label.}
+\item{countsAxisLabel}{\code{character(1)}.
+Counts axis label.}
 
-\item{title}{\code{character(1)}. Plot title.}
+\item{title}{\code{character(1)}.
+Plot title.}
 }
 \value{
 \code{ggplot}.

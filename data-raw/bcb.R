@@ -4,7 +4,7 @@
 library(pryr)
 
 # Restrict to 2 MB.
-# Use `pryr::object_size()` instead of `utils::object.size()`.
+# Use `pryr::object_size` instead of `utils::object.size`.
 limit <- structure(2e6, class = "object_size")
 
 # GSE65267 =====================================================================
@@ -85,6 +85,6 @@ stopifnot(object_size(bcb) < limit)
 
 # Check that object is valid.
 stopifnot(is(bcb, "bcbioRNASeq"))
-stopifnot(validObject(bcb))
+validObject(bcb)
 
 usethis::use_data(bcb, overwrite = TRUE, compress = "xz")

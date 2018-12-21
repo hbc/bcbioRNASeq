@@ -1,6 +1,6 @@
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit basejump::plotRRNAMappingRate
+#' @inherit bioverbs::plotRRNAMappingRate
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -10,10 +10,10 @@ NULL
 
 
 
-#' @importFrom basejump plotRRNAMappingRate
+#' @importFrom bioverbs plotRRNAMappingRate
 #' @aliases NULL
 #' @export
-basejump::plotRRNAMappingRate
+bioverbs::plotRRNAMappingRate
 
 
 

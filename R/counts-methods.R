@@ -14,9 +14,9 @@
 #'   Which normalization method to apply:
 #'
 #'   - `FALSE`: Raw counts.
-#'     - When using a [tximport][]-compatible caller, these are length scaled
-#'       by default (see `countsFromAbundance` argument).
-#'     - When using a [featureCounts][]-compatible caller, these are `integer`.
+#'     When using a [tximport][]-compatible caller, these are length scaled
+#'     by default (see `countsFromAbundance` argument).
+#'     When using a [featureCounts][]-compatible caller, these are `integer`.
 #'
 #' [tximport][] caller-specific normalizations:
 #'
@@ -51,15 +51,15 @@
 #' - RLE: Anders and Huber (2010).
 #'
 #' @seealso
-#' - `tximport::tximport`.
-#' - `DESeq2::counts`.
-#' - `DESeq2::sizeFactors`.
-#' - `DESeq2::varianceStabilizingTransformation`.
-#' - `DESeq2::rlog`.
-#' - `DESeq2::fpkm`.
-#' - `edgeR::calcNormFactors`.
-#' - `tmm`.
-#' - `relativeLogExpression`.
+#' - `tximport::tximport()`.
+#' - `DESeq2::counts()`.
+#' - `DESeq2::sizeFactors()`.
+#' - `DESeq2::varianceStabilizingTransformation()`.
+#' - `DESeq2::rlog()`.
+#' - `DESeq2::fpkm()`.
+#' - `edgeR::calcNormFactors()`.
+#' - `tmm()`.
+#' - `relativeLogExpression()`.
 #'
 #' @examples
 #' data(bcb)

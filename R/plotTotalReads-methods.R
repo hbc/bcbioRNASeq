@@ -1,6 +1,6 @@
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit basejump::plotTotalReads
+#' @inherit bioverbs::plotTotalReads
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -10,10 +10,10 @@ NULL
 
 
 
-#' @importFrom basejump plotTotalReads
+#' @importFrom bioverbs plotTotalReads
 #' @aliases NULL
 #' @export
-basejump::plotTotalReads
+bioverbs::plotTotalReads
 
 
 

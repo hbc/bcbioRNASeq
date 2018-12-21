@@ -4,7 +4,7 @@
 \name{extract}
 \alias{extract}
 \alias{[,bcbioRNASeq,ANY,ANY,ANY-method}
-\title{Extract or Replace Parts of an Object}
+\title{Extract or replace parts of an object}
 \usage{
 \S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, drop = FALSE,
   recalculate = TRUE)

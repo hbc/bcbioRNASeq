@@ -1,6 +1,6 @@
 #' @name tmm
 #' @author Michael Steinbaugh
-#' @inherit basejump::tmm
+#' @inherit bioverbs::tmm
 #' @inheritParams params
 #' @examples
 #' data(bcb)
@@ -10,10 +10,10 @@ NULL
 
 
 
-#' @importFrom basejump tmm
+#' @importFrom bioverbs tmm
 #' @aliases NULL
 #' @export
-basejump::tmm
+bioverbs::tmm
 
 
 

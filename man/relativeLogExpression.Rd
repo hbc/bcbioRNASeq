@@ -5,7 +5,7 @@
 \alias{relativeLogExpression}
 \alias{relativeLogExpression,matrix-method}
 \alias{relativeLogExpression,SummarizedExperiment-method}
-\title{Relative Log Expression}
+\title{Relative log expression}
 \usage{
 \S4method{relativeLogExpression}{matrix}(object)
 
@@ -18,7 +18,7 @@
 \code{matrix}.
 }
 \description{
-Relative Log Expression
+Relative log expression
 }
 \examples{
 data(bcb)

@@ -1,6 +1,6 @@
 #' @name plotQC
 #' @author Michael Steinbaugh
-#' @inherit basejump::plotQC
+#' @inherit bioverbs::plotQC
 #' @examples
 #' data(bcb)
 #' plotQC(bcb)
@@ -8,10 +8,10 @@ NULL
 
 
 
-#' @importFrom basejump plotQC
+#' @importFrom bioverbs plotQC
 #' @aliases NULL
 #' @export
-basejump::plotQC
+bioverbs::plotQC
 
 
 

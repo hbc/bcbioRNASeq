@@ -1,4 +1,4 @@
-#' Import Transcript-Level Abundances and Counts
+#' Import transcript-level abundances and counts
 #'
 #' Import RNA-seq counts using
 #' [tximport](https://doi.org/doi:10.18129/B9.bioc.tximport).
@@ -15,8 +15,10 @@
 #' @noRd
 #'
 #' @inheritParams tximport::tximport
-#' @param sampleDirs `character`. Sample directories to import.
-#' @param type `character(1)`. Expression caller to use.
+#' @param sampleDirs `character`.
+#'   Sample directories to import.
+#' @param type `character(1)`.
+#'   Expression caller to use.
 #'
 #' @seealso `tximport::tximport`.
 #'
@@ -132,10 +134,7 @@
     )
 
     # Inferential replicates added in v1.9.
-    if (
-        is.list(infReps) &&
-        hasLength(infReps)
-    ) {
+    if (is.list(infReps) && hasLength(infReps)) {
         assert(
             identical(names(infReps), colnames(abundance)),
             identical(rownames(infReps[[1L]]), rownames(abundance))

@@ -15,13 +15,13 @@ Coerce an object to a given class.
 \item Coerces to \code{RangedSummarizedExperiment}.
 \item Rounds raw counts to \code{integer matrix}.
 \item Subsets \code{colData} to include only clean factor columns.
-See \code{basejump::sampleData} for more details.
+See \code{\link[basejump:sampleData]{sampleData()}} for more details.
 \item Simplifies \code{metadata} to include only relevant information and updates
 \code{sessionInfo} slot.
 }
 
 Note that gene-level counts are required. Alternatively
-\code{tximport::summarizeToGene} can be called to convert transcript-level
+\code{\link[tximport:summarizeToGene]{tximport::summarizeToGene()}} can be called to convert transcript-level
 counts to gene-level. By default, we're using length-scaled TPM, so a
 corresponding average transcript length matrix isn't necessary. The average
 transcript length matrix is only necessary when raw counts matrix isn't
@@ -32,8 +32,8 @@ scaled during tximport call (see \code{countsFromAbundance} in tximport).
 
 \enumerate{
 \item Coerces to \code{DESeqDataSet}.
-\item Calls \code{DESeq2::DESeq}.
-\item Calls \code{DESeq2::varianceStabilizingTransformation}.
+\item Calls \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
+\item Calls \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
 }
 }
 
@@ -102,8 +102,8 @@ Chambers, John M. (2016)
 }
 \seealso{
 \itemize{
-\item \code{tximport::tximport}
-\item \code{DESeq2::DESeqDataSetFromTximport}.
+\item \code{tximport::tximport()}
+\item \code{DESeq2::DESeqDataSetFromTximport()}.
 }
 }
 \author{

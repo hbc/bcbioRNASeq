@@ -1,6 +1,6 @@
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
-#' @inherit basejump::plotMeanSD
+#' @inherit bioverbs::plotMeanSD
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @inheritParams bcbioRNASeq
@@ -14,11 +14,11 @@
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
 #' @seealso
-#' - `vsn::meanSdPlot`.
-#' - `DESeq2::DESeq`.
-#' - `DESeq2::rlog`.
-#' - `DESeq2::varianceStabilizingTransformation`.
-#' - `edgeR::calcNormFactors`.
+#' - `vsn::meanSdPlot()`.
+#' - `DESeq2::DESeq()`.
+#' - `DESeq2::rlog()`.
+#' - `DESeq2::varianceStabilizingTransformation()`.
+#' - `edgeR::calcNormFactors()`.
 #'
 #' @examples
 #' data(bcb)
@@ -27,10 +27,10 @@ NULL
 
 
 
-#' @importFrom basejump plotMeanSD
+#' @importFrom bioverbs plotMeanSD
 #' @aliases NULL
 #' @export
-basejump::plotMeanSD
+bioverbs::plotMeanSD
 
 
 

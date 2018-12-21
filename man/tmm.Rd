@@ -5,7 +5,7 @@
 \alias{tmm}
 \alias{tmm,matrix-method}
 \alias{tmm,SummarizedExperiment-method}
-\title{Trimmed Mean of M-Values}
+\title{Trimmed mean of M-values}
 \usage{
 \S4method{tmm}{matrix}(object)
 
