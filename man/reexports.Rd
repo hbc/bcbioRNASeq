@@ -22,9 +22,11 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{basejump}{\code{\link[basejump]{plot5Prime3PrimeBias}}, \code{\link[basejump]{plotCorrelationHeatmap}}, \code{\link[basejump]{plotCountsPerBiotype}}, \code{\link[basejump]{plotCountsPerBroadClass}}, \code{\link[basejump]{plotCountsPerGene}}, \code{\link[basejump]{plotExonicMappingRate}}, \code{\link[basejump]{plotGenderMarkers}}, \code{\link[basejump]{plotGene}}, \code{\link[basejump]{plotGeneSaturation}}, \code{\link[basejump]{plotIntronicMappingRate}}, \code{\link[basejump]{plotMappedReads}}, \code{\link[basejump]{plotMappingRate}}, \code{\link[basejump]{plotMeanSD}}, \code{\link[basejump]{plotQC}}, \code{\link[basejump]{plotRRNAMappingRate}}, \code{\link[basejump]{plotTotalReads}}, \code{\link[basejump]{Gene2Symbol}}, \code{\link[basejump]{relativeLogExpression}}, \code{\link[basejump]{sampleData}}, \code{\link[basejump]{tmm}}}
+  \item{basejump}{\code{\link[basejump]{plotCorrelationHeatmap}}, \code{\link[basejump]{plotCountsPerBiotype}}, \code{\link[basejump]{plotCountsPerBroadClass}}, \code{\link[basejump]{plotCountsPerGene}}, \code{\link[basejump]{plotGenderMarkers}}, \code{\link[basejump]{plotGene}}, \code{\link[basejump]{plotQC}}, \code{\link[basejump]{Gene2Symbol}}, \code{\link[basejump]{sampleData}}}
 
   \item{BiocGenerics}{\code{\link[BiocGenerics]{counts}}, \code{\link[BiocGenerics]{counts<-}}, \code{\link[BiocGenerics]{plotDispEsts}}, \code{\link[BiocGenerics]{plotPCA}}, \code{\link[BiocGenerics]{updateObject}}}
+
+  \item{bioverbs}{\code{\link[bioverbs]{plot5Prime3PrimeBias}}, \code{\link[bioverbs]{plotExonicMappingRate}}, \code{\link[bioverbs]{plotGeneSaturation}}, \code{\link[bioverbs]{plotIntronicMappingRate}}, \code{\link[bioverbs]{plotMappedReads}}, \code{\link[bioverbs]{plotMappingRate}}, \code{\link[bioverbs]{plotMeanSD}}, \code{\link[bioverbs]{plotRRNAMappingRate}}, \code{\link[bioverbs]{plotTotalReads}}, \code{\link[bioverbs]{relativeLogExpression}}, \code{\link[bioverbs]{tmm}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 

@@ -69,15 +69,15 @@ summary(counts(bcb))
 }
 \seealso{
 \itemize{
-\item \code{tximport::tximport}.
-\item \code{DESeq2::counts}.
-\item \code{DESeq2::sizeFactors}.
-\item \code{DESeq2::varianceStabilizingTransformation}.
-\item \code{DESeq2::rlog}.
-\item \code{DESeq2::fpkm}.
-\item \code{edgeR::calcNormFactors}.
-\item \code{tmm}.
-\item \code{relativeLogExpression}.
+\item \code{tximport::tximport()}.
+\item \code{DESeq2::counts()}.
+\item \code{DESeq2::sizeFactors()}.
+\item \code{DESeq2::varianceStabilizingTransformation()}.
+\item \code{DESeq2::rlog()}.
+\item \code{DESeq2::fpkm()}.
+\item \code{edgeR::calcNormFactors()}.
+\item \code{tmm()}.
+\item \code{relativeLogExpression()}.
 }
 }
 \author{

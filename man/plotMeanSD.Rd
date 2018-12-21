@@ -4,7 +4,7 @@
 \name{plotMeanSD}
 \alias{plotMeanSD}
 \alias{plotMeanSD,bcbioRNASeq-method}
-\title{Plot Row Standard Deviations vs. Row Means}
+\title{Plot row standard deviations vs. row means}
 \usage{
 \S4method{plotMeanSD}{bcbioRNASeq}(object,
   legend = getOption("basejump.legend", TRUE))
@@ -12,13 +12,14 @@
 \arguments{
 \item{object}{Object.}
 
-\item{legend}{\code{logical(1)}. Show plot legend.}
+\item{legend}{\code{logical(1)}.
+Show plot legend.}
 }
 \value{
 \code{ggplot}.
 }
 \description{
-Plot Row Standard Deviations vs. Row Means
+Plot row standard deviations vs. row means
 }
 \details{
 \code{vsn::meanSdPlot} wrapper that plots count transformations on a log2 scale.

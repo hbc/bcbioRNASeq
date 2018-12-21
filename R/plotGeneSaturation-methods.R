@@ -1,6 +1,6 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit basejump::plotGeneSaturation
+#' @inherit bioverbs::plotGeneSaturation
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'
@@ -14,10 +14,10 @@ NULL
 
 
 
-#' @importFrom basejump plotGeneSaturation
+#' @importFrom bioverbs plotGeneSaturation
 #' @aliases NULL
 #' @export
-basejump::plotGeneSaturation
+bioverbs::plotGeneSaturation
 
 
 

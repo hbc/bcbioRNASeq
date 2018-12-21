@@ -1,6 +1,6 @@
 #' @name relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
-#' @inherit basejump::relativeLogExpression
+#' @inherit bioverbs::relativeLogExpression
 #' @inheritParams params
 #' @examples
 #' data(bcb)
@@ -9,10 +9,10 @@ NULL
 
 
 
-#' @importFrom basejump relativeLogExpression
+#' @importFrom bioverbs relativeLogExpression
 #' @aliases NULL
 #' @export
-basejump::relativeLogExpression
+bioverbs::relativeLogExpression
 
 
 

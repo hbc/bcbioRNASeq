@@ -13,75 +13,84 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   interestingGroups = "sampleName", ...)
 }
 \arguments{
-\item{uploadDir}{\code{character(1)}. Path to final upload directory. This path is
-set when running "\code{bcbio_nextgen -w template}".}
+\item{uploadDir}{\code{character(1)}.
+Path to final upload directory.
+This path is set when running "\code{bcbio_nextgen -w template}".}
 
-\item{level}{\code{character(1)}. Import counts at gene level ("\code{genes}";
-\emph{default}) or transcript level ("\code{transcripts}"; \emph{advanced use}). Only
-tximport-compatible callers (e.g. salmon, kallisto, sailfish) can be loaded
-at transcript level. Aligned counts from featureCounts-compatible callers
-(e.g. STAR, HISAT2) can only be loaded at gene level.}
+\item{level}{\code{character(1)}.
+Import counts at gene level ("\code{genes}"; \emph{default}) or transcript level
+("\code{transcripts}"; \emph{advanced use}). Only tximport-compatible callers (e.g.
+salmon, kallisto, sailfish) can be loaded at transcript level. Aligned
+counts from featureCounts-compatible callers (e.g. STAR, HISAT2) can only
+be loaded at gene level.}
 
-\item{caller}{\code{character(1)}. Expression caller:
-\itemize{
-\item "\code{salmon}" (\emph{default}): \href{https://combine-lab.github.io/salmon/}{Salmon} alignment-free, quasi-mapped counts.
-\item "\code{kallisto}": \href{https://pachterlab.github.io/kallisto/}{Kallisto} alignment-free, pseudo-aligned counts.
-\item "\code{sailfish}": \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{Sailfish} alignment-free, lightweight counts.
-\item "\code{star}": \href{https://github.com/alexdobin/STAR/}{STAR} (Spliced Transcripts Alignment to a Reference) aligned
-counts.
-\item "\code{hisat2}": \href{https://ccb.jhu.edu/software/hisat2/}{HISAT2} (Hierarchical Indexing for Spliced Alignment of
-Transcripts) graph-based aligned counts.
+\item{caller}{\code{character(1)}.
+Expression caller:\preformatted{- "`salmon`" (*default*): [Salmon][] alignment-free, quasi-mapped counts.
+- "`kallisto`": [Kallisto][] alignment-free, pseudo-aligned counts.
+- "`sailfish`": [Sailfish][] alignment-free, lightweight counts.
+- "`star`": [STAR][] (Spliced Transcripts Alignment to a Reference)
+  aligned counts.
+- "`hisat2`": [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
+  Transcripts) graph-based aligned counts.
 }}
 
-\item{samples}{\code{character}. Specify a subset of samples to include.}
+\item{samples}{\code{character}.
+Specify a subset of samples to include.}
 
-\item{censorSamples}{\code{character}. Specify a subset of samples to censor.}
+\item{censorSamples}{\code{character}.
+Specify a subset of samples to censor.}
 
-\item{sampleMetadataFile}{\code{character(1)}. Sample metadata file path. CSV
-or TSV is preferred, but Excel worksheets are also supported. Check the
-documentation for conventions and required columns.}
+\item{sampleMetadataFile}{\code{character(1)}.
+Sample metadata file path. CSV or TSV is preferred, but Excel worksheets
+are also supported. Check the documentation for conventions and required
+columns.}
 
-\item{organism}{\code{character(1)}. Full Latin organism name
-(e.g. "\code{Homo sapiens}").}
+\item{organism}{\code{character(1)}.
+Full Latin organism name (e.g. "\code{Homo sapiens}").}
 
-\item{genomeBuild}{\code{character(1)}. Ensembl genome build assembly name (e.g.
-\code{"GRCh38"}). If set \code{NULL}, defaults to the most recent build available.
-Note: don't pass in UCSC build IDs (e.g. \code{"hg38"}).}
+\item{genomeBuild}{\code{character(1)}.
+Ensembl genome build assembly name (e.g. \code{"GRCh38"}). If set \code{NULL},
+defaults to the most recent build available. Note: don't pass in UCSC build
+IDs (e.g. \code{"hg38"}).}
 
-\item{ensemblRelease}{\code{integer(1)}. Ensembl release version (e.g. \code{90}).
-We recommend setting this value if possible, for improved reproducibility.
-When left unset, the latest release available via AnnotationHub/ensembldb
-is used. Note that the latest version available can vary, depending on the
-versions of AnnotationHub and ensembldb in use.}
+\item{ensemblRelease}{\code{integer(1)}.
+Ensembl release version (e.g. \code{90}). We recommend setting this value if
+possible, for improved reproducibility. When left unset, the latest release
+available via AnnotationHub/ensembldb is used. Note that the latest version
+available can vary, depending on the versions of AnnotationHub and
+ensembldb in use.}
 
-\item{gffFile}{\code{character(1)}. GFF/GTF (General Feature Format) file.
-Generally, we recommend using a GTF (GFFv2) instead of a GFFv3 file if
-possible.}
+\item{gffFile}{\code{character(1)}.
+GFF/GTF (General Feature Format) file. Generally, we recommend using a GTF
+(GFFv2) instead of a GFFv3 file if possible.}
 
-\item{transgeneNames}{\code{character}. Vector indicating which assay rows denote
-transgenes (e.g. EGFP, TDTOMATO).}
+\item{transgeneNames}{\code{character}.
+Vector indicating which assay rows denote transgenes (e.g. EGFP, TDTOMATO).}
 
-\item{spikeNames}{\code{character}. Vector indicating which assay rows denote
-spike-in sequences (e.g. ERCCs).}
+\item{spikeNames}{\code{character}.
+Vector indicating which assay rows denote spike-in sequences (e.g. ERCCs).}
 
-\item{countsFromAbundance}{\code{character(1)}. Whether to generate estimated
-counts using abundance estimates (\emph{recommended by default}).
-\code{lengthScaledTPM} is a suitable default, and counts are scaled using the
-average transcript length over samples and then the library size. Refer to
-\code{tximport::tximport} for more information on this parameter, but it should
-only ever be changed when loading some datasets at transcript level (e.g.
-for DTU analsyis).}
+\item{countsFromAbundance}{\code{character(1)}.
+Whether to generate estimated counts using abundance estimates
+(\emph{recommended by default}). \code{lengthScaledTPM} is a suitable default, and
+counts are scaled using the average transcript length over samples and then
+the library size. Refer to \code{\link[tximport:tximport]{tximport::tximport()}} for more information on
+this parameter, but it should only ever be changed when loading some
+datasets at transcript level (e.g. for DTU analsyis).}
 
-\item{vst}{\code{logical(1)}. Calculate variance-stabilizing transformation using
-\code{DESeq2::varianceStabilizingTransformation}. Recommended by default
-for visualization.}
+\item{vst}{\code{logical(1)}.
+Calculate variance-stabilizing transformation using
+\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. Recommended by default for
+visualization.}
 
-\item{rlog}{\code{logical(1)}. Calcualte regularized log transformation using
-\code{DESeq2::rlog}. This calculation is slow for large datasets and now
-discouraged by default for visualization.}
+\item{rlog}{\code{logical(1)}.
+Calcualte regularized log transformation using \code{\link[DESeq2:rlog]{DESeq2::rlog()}}. This
+calculation is slow for large datasets and now discouraged by default for
+visualization.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}.
+Groups of interest that define the samples. If left unset, defaults to
+\code{sampleName}.}
 
 \item{...}{Additional arguments.}
 }
@@ -175,8 +184,8 @@ directly with the \code{gffFile} argument.
 Internally, genome annotations are imported via the \href{https://steinbaugh.com/basejump/}{basejump} package,
 specifically with either of these functions:
 \itemize{
-\item \code{basejump::makeGRangesFromEnsembl}
-\item \code{basejump::makeGRangesFromGFF}
+\item \code{\link[basejump:makeGRangesFromEnsembl]{basejump::makeGRangesFromEnsembl()}}.
+\item \code{\link[basejump:makeGRangesFromGFF]{basejump::makeGRangesFromGFF()}}.
 }
 }
 
@@ -194,12 +203,13 @@ GRCh37/hg19 if possible.
 \section{DESeq2}{
 
 
-DESeq2 is run automatically when \code{bcbioRNASeq} is called. Internally, this
-automatically slots normalized counts into \code{assays}, and optionally
-generates variance-stabilized \code{rlog} or \code{vst} counts, depending on the call.
-When loading a dataset with a large number of samples (i.e. > 50), we
-recommend disabling the \code{rlog} transformation, since it can take a long time
-to compute.
+DESeq2 is run automatically when \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} is called. Internally, this
+automatically slots normalized counts into
+\code{\link[SummarizedExperiment:assays]{assays()}}, and optionally generates
+variance-stabilized counts (e.g. \code{vst}, \code{rlog}), depending on the call. When
+loading a dataset with a large number of samples (i.e. > 50), we recommend
+disabling the \code{rlog} transformation, since it can take a long time to
+compute.
 }
 
 \section{Remote connections}{
@@ -207,7 +217,7 @@ to compute.
 
 When working on a local machine, it is possible to load bcbio run data over a
 remote connection using \href{https://github.com/osxfuse/osxfuse/wiki/SSHFS}{sshfs}. When loading a large number of samples, it
-is preferable to call \code{bcbioRNASeq} directly in R on the remote server, if
+is preferable to call \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} directly in R on the remote server, if
 possible.
 }
 
@@ -249,10 +259,10 @@ print(object)
 \seealso{
 \itemize{
 \item \code{.S4methods(class = "bcbioRNASeq")}.
-\item \code{SummarizedExperiment::SummarizedExperiment}.
-\item \code{methods::initialize}.
-\item \code{methods::validObject}.
-\item \code{BiocGenerics::updateObject}.
+\item \code{SummarizedExperiment::SummarizedExperiment()}.
+\item \code{methods::initialize()}.
+\item \code{methods::validObject()}.
+\item \code{BiocGenerics::updateObject()}.
 }
 }
 \author{

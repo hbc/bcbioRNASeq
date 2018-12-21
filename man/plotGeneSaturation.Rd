@@ -4,7 +4,7 @@
 \name{plotGeneSaturation}
 \alias{plotGeneSaturation}
 \alias{plotGeneSaturation,bcbioRNASeq-method}
-\title{Plot Gene Detection Saturation}
+\title{Plot gene detection saturation}
 \usage{
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object,
   interestingGroups = NULL, minCounts = 1L, perMillion = TRUE,
@@ -15,27 +15,31 @@
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}.
+Groups of interest that define the samples. If left unset, defaults to
+\code{sampleName}.}
 
-\item{minCounts}{\code{integer(1)}. Minimum number of counts per gene in the
-count matrix.}
+\item{minCounts}{\code{integer(1)}.
+Minimum number of counts per gene in the count matrix.}
 
-\item{perMillion}{\code{logical(1)}. Display as counts per million.}
+\item{perMillion}{\code{logical(1)}.
+Display as counts per million.}
 
 \item{trendline}{\code{logical(1)}. Include a trendline for each group.}
 
-\item{label}{\code{logical(1)}. Superimpose sample text labels on the plot.}
+\item{label}{\code{logical(1)}.
+Superimpose sample text labels on the plot.}
 
-\item{color}{\code{ScaleDiscrete}. Desired ggplot2 color scale. Must supply
-discrete values. When set to \code{NULL}, the default ggplot2 color palette will
-be used. If manual color definitions are desired, we recommend using
-\code{ggplot2::scale_color_manual}.
+\item{color}{\code{ScaleDiscrete}.
+Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
 
 To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
 }}
 
-\item{title}{\code{character(1)}. Plot title.}
+\item{title}{\code{character(1)}.
+Plot title.}
 }
 \value{
 \code{ggplot}.

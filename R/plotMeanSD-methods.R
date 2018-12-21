@@ -1,6 +1,6 @@
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
-#' @inherit basejump::plotMeanSD
+#' @inherit bioverbs::plotMeanSD
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @inheritParams bcbioRNASeq
@@ -27,10 +27,10 @@ NULL
 
 
 
-#' @importFrom basejump plotMeanSD
+#' @importFrom bioverbs plotMeanSD
 #' @aliases NULL
 #' @export
-basejump::plotMeanSD
+bioverbs::plotMeanSD
 
 
 

@@ -1,6 +1,6 @@
 #' @name plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit basejump::plotMappedReads
+#' @inherit bioverbs::plotMappedReads
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -10,10 +10,10 @@ NULL
 
 
 
-#' @importFrom basejump plotMappedReads
+#' @importFrom bioverbs plotMappedReads
 #' @aliases NULL
 #' @export
-basejump::plotMappedReads
+bioverbs::plotMappedReads
 
 
 

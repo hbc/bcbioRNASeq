@@ -85,8 +85,8 @@
 #' Internally, genome annotations are imported via the [basejump][] package,
 #' specifically with either of these functions:
 #'
-#' - `basejump::makeGRangesFromEnsembl`
-#' - `basejump::makeGRangesFromGFF`
+#' - [basejump::makeGRangesFromEnsembl()].
+#' - [basejump::makeGRangesFromGFF()].
 #'
 #' [AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
 #' [basejump]: https://steinbaugh.com/basejump/
@@ -106,18 +106,19 @@
 #'
 #' @section DESeq2:
 #'
-#' DESeq2 is run automatically when `bcbioRNASeq` is called. Internally, this
-#' automatically slots normalized counts into `assays`, and optionally
-#' generates variance-stabilized `rlog` or `vst` counts, depending on the call.
-#' When loading a dataset with a large number of samples (i.e. > 50), we
-#' recommend disabling the `rlog` transformation, since it can take a long time
-#' to compute.
+#' DESeq2 is run automatically when [bcbioRNASeq()] is called. Internally, this
+#' automatically slots normalized counts into
+#' [`assays()`][SummarizedExperiment::assays], and optionally generates
+#' variance-stabilized counts (e.g. `vst`, `rlog`), depending on the call. When
+#' loading a dataset with a large number of samples (i.e. > 50), we recommend
+#' disabling the `rlog` transformation, since it can take a long time to
+#' compute.
 #'
 #' @section Remote connections:
 #'
 #' When working on a local machine, it is possible to load bcbio run data over a
 #' remote connection using [sshfs][]. When loading a large number of samples, it
-#' is preferable to call `bcbioRNASeq` directly in R on the remote server, if
+#' is preferable to call [bcbioRNASeq()] directly in R on the remote server, if
 #' possible.
 #'
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
@@ -126,47 +127,52 @@
 #' @inheritParams bcbioBase::params
 #' @inheritParams params
 #'
-#' @param level `character(1)`. Import counts at gene level ("`genes`";
-#'   *default*) or transcript level ("`transcripts`"; *advanced use*). Only
-#'   tximport-compatible callers (e.g. salmon, kallisto, sailfish) can be loaded
-#'   at transcript level. Aligned counts from featureCounts-compatible callers
-#'   (e.g. STAR, HISAT2) can only be loaded at gene level.
-#' @param caller `character(1)`. Expression caller:
-#'   - "`salmon`" (*default*): [Salmon][] alignment-free, quasi-mapped counts.
-#'   - "`kallisto`": [Kallisto][] alignment-free, pseudo-aligned counts.
-#'   - "`sailfish`": [Sailfish][] alignment-free, lightweight counts.
-#'   - "`star`": [STAR][] (Spliced Transcripts Alignment to a Reference) aligned
-#'     counts.
-#'   - "`hisat2`": [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
-#'     Transcripts) graph-based aligned counts.
+#' @param level `character(1)`.
+#'   Import counts at gene level ("`genes`"; *default*) or transcript level
+#'   ("`transcripts`"; *advanced use*). Only tximport-compatible callers (e.g.
+#'   salmon, kallisto, sailfish) can be loaded at transcript level. Aligned
+#'   counts from featureCounts-compatible callers (e.g. STAR, HISAT2) can only
+#'   be loaded at gene level.
+#' @param caller `character(1)`.
+#'   Expression caller:
 #'
-#'     [HISAT2]: https://ccb.jhu.edu/software/hisat2/
-#'     [Kallisto]: https://pachterlab.github.io/kallisto/
-#'     [Sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
-#'     [Salmon]: https://combine-lab.github.io/salmon/
-#'     [STAR]: https://github.com/alexdobin/STAR/
-#' @param countsFromAbundance `character(1)`. Whether to generate estimated
-#'   counts using abundance estimates (*recommended by default*).
-#'   `lengthScaledTPM` is a suitable default, and counts are scaled using the
-#'   average transcript length over samples and then the library size. Refer to
-#'   `tximport::tximport` for more information on this parameter, but it should
-#'   only ever be changed when loading some datasets at transcript level (e.g.
-#'   for DTU analsyis).
-#' @param vst `logical(1)`. Calculate variance-stabilizing transformation using
-#'   `DESeq2::varianceStabilizingTransformation`. Recommended by default
-#'   for visualization.
-#' @param rlog `logical(1)`. Calcualte regularized log transformation using
-#'   `DESeq2::rlog`. This calculation is slow for large datasets and now
-#'   discouraged by default for visualization.
+#'     - "`salmon`" (*default*): [Salmon][] alignment-free, quasi-mapped counts.
+#'     - "`kallisto`": [Kallisto][] alignment-free, pseudo-aligned counts.
+#'     - "`sailfish`": [Sailfish][] alignment-free, lightweight counts.
+#'     - "`star`": [STAR][] (Spliced Transcripts Alignment to a Reference)
+#'       aligned counts.
+#'     - "`hisat2`": [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
+#'       Transcripts) graph-based aligned counts.
+#'
+#'   [HISAT2]: https://ccb.jhu.edu/software/hisat2/
+#'   [Kallisto]: https://pachterlab.github.io/kallisto/
+#'   [Sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
+#'   [Salmon]: https://combine-lab.github.io/salmon/
+#'   [STAR]: https://github.com/alexdobin/STAR/
+#' @param countsFromAbundance `character(1)`.
+#'   Whether to generate estimated counts using abundance estimates
+#'   (*recommended by default*). `lengthScaledTPM` is a suitable default, and
+#'   counts are scaled using the average transcript length over samples and then
+#'   the library size. Refer to [tximport::tximport()] for more information on
+#'   this parameter, but it should only ever be changed when loading some
+#'   datasets at transcript level (e.g. for DTU analsyis).
+#' @param vst `logical(1)`.
+#'   Calculate variance-stabilizing transformation using
+#'   [DESeq2::varianceStabilizingTransformation()]. Recommended by default for
+#'   visualization.
+#' @param rlog `logical(1)`.
+#'   Calcualte regularized log transformation using [DESeq2::rlog()]. This
+#'   calculation is slow for large datasets and now discouraged by default for
+#'   visualization.
 #'
 #' @return `bcbioRNASeq`.
 #'
 #' @seealso
 #' - `.S4methods(class = "bcbioRNASeq")`.
-#' - `SummarizedExperiment::SummarizedExperiment`.
-#' - `methods::initialize`.
-#' - `methods::validObject`.
-#' - `BiocGenerics::updateObject`.
+#' - `SummarizedExperiment::SummarizedExperiment()`.
+#' - `methods::initialize()`.
+#' - `methods::validObject()`.
+#' - `BiocGenerics::updateObject()`.
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")

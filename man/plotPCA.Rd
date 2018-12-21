@@ -4,7 +4,7 @@
 \name{plotPCA}
 \alias{plotPCA}
 \alias{plotPCA,bcbioRNASeq-method}
-\title{Plot PCA}
+\title{Principal component analysis plot}
 \usage{
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL, ntop = 500L,
@@ -16,38 +16,45 @@
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{\code{character(1)}. Which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+\item{normalized}{\code{character(1)}.
+Which normalization method to apply:\preformatted{- "`tpm`": Transcripts per million (tximport).
+- "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+- "`rlog`": DESeq2 **log2** regularized log transformation.
+- "`vst`": DESeq2 **log2** variance stabilizing transformation.
 }}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
+\item{interestingGroups}{\code{character}.
+Groups of interest that define the samples. If left unset, defaults to
+\code{sampleName}.}
 
-\item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
+\item{ntop}{\code{integer(1)} or \code{Inf}.
+Number of most variable genes to plot.
 Use \code{Inf} to include all genes (\emph{not recommended}).}
 
-\item{label}{\code{logical(1)}. Superimpose sample text labels on the plot.}
+\item{label}{\code{logical(1)}.
+Superimpose sample text labels on the plot.}
 
-\item{color}{\code{ScaleDiscrete}. Desired ggplot2 color scale. Must supply
-discrete values. When set to \code{NULL}, the default ggplot2 color palette will
-be used. If manual color definitions are desired, we recommend using
-\code{ggplot2::scale_color_manual}.
+\item{color}{\code{ScaleDiscrete}.
+Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
 
 To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
 }}
 
-\item{pointSize}{\code{numeric(1)}. Point size for dots in the plot.}
+\item{pointSize}{\code{numeric(1)}.
+Point size for dots in the plot.}
 
-\item{title}{\code{character(1)}. Plot title.}
+\item{title}{\code{character(1)}.
+Plot title.}
 
-\item{subtitle}{\code{character(1)}. Plot subtitle.}
+\item{subtitle}{\code{character(1)}.
+Plot subtitle.}
 
-\item{return}{\code{character(1)}. Return type. Uses \code{match.arg} internally and
-defaults to the first argument in the \code{character} vector.}
+\item{return}{\code{character(1)}.
+Return type.
+Uses \link[base:match.arg]{match.arg()} internally and defaults to the first
+argument in the \code{character} vector.}
 
 \item{...}{Additional arguments.}
 }
@@ -55,7 +62,7 @@ defaults to the first argument in the \code{character} vector.}
 \code{ggplot} or \code{DataFrame}.
 }
 \description{
-Principal component analysis (PCA) plot.
+Principal component analysis plot
 }
 \section{Principal component analysis}{
 
@@ -80,6 +87,7 @@ Jolliffe, et al., 2002.
 }
 \seealso{
 \code{DESeq2::plotPCA}.
+
 We're using a modified version of the \code{DESeqTransform} method here.\preformatted{methodFunction(
     f = "plotPCA",
     signature = "DESeqTransform",
