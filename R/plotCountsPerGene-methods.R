@@ -1,6 +1,6 @@
 #' @name plotCountsPerGene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit basejump::plotCountsPerGene
+#' @inherit bioverbs::plotCountsPerGene
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'
@@ -22,10 +22,10 @@ NULL
 
 
 
-#' @importFrom basejump plotCountsPerGene
+#' @importFrom bioverbs plotCountsPerGene
 #' @aliases NULL
 #' @export
-basejump::plotCountsPerGene
+bioverbs::plotCountsPerGene
 
 
 

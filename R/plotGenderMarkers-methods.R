@@ -10,10 +10,10 @@ NULL
 
 
 
-#' @importFrom basejump plotGenderMarkers
+#' @importFrom bioverbs plotGenderMarkers
 #' @aliases NULL
 #' @export
-basejump::plotGenderMarkers
+bioverbs::plotGenderMarkers
 
 
 

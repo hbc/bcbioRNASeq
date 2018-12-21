@@ -23,11 +23,11 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{basejump}{\code{\link[basejump]{Gene2Symbol}}, \code{\link[basejump]{plotCorrelationHeatmap}}, \code{\link[basejump]{plotCountsPerBiotype}}, \code{\link[basejump]{plotCountsPerBroadClass}}, \code{\link[basejump]{plotCountsPerGene}}, \code{\link[basejump]{plotGenderMarkers}}, \code{\link[basejump]{plotGene}}, \code{\link[basejump]{plotQC}}, \code{\link[basejump]{sampleData}}}
+  \item{basejump}{\code{\link[basejump]{Gene2Symbol}}, \code{\link[basejump]{sampleData}}}
 
   \item{BiocGenerics}{\code{\link[BiocGenerics]{counts}}, \code{\link[BiocGenerics]{counts<-}}, \code{\link[BiocGenerics]{plotDispEsts}}, \code{\link[BiocGenerics]{plotPCA}}, \code{\link[BiocGenerics]{updateObject}}}
 
-  \item{bioverbs}{\code{\link[bioverbs]{plot5Prime3PrimeBias}}, \code{\link[bioverbs]{plotExonicMappingRate}}, \code{\link[bioverbs]{plotGeneSaturation}}, \code{\link[bioverbs]{plotIntronicMappingRate}}, \code{\link[bioverbs]{plotMappedReads}}, \code{\link[bioverbs]{plotMappingRate}}, \code{\link[bioverbs]{plotMeanSD}}, \code{\link[bioverbs]{plotPCACovariates}}, \code{\link[bioverbs]{plotRRNAMappingRate}}, \code{\link[bioverbs]{plotTotalReads}}, \code{\link[bioverbs]{relativeLogExpression}}, \code{\link[bioverbs]{tmm}}}
+  \item{bioverbs}{\code{\link[bioverbs]{plot5Prime3PrimeBias}}, \code{\link[bioverbs]{plotCorrelationHeatmap}}, \code{\link[bioverbs]{plotCountsPerBiotype}}, \code{\link[bioverbs]{plotCountsPerBroadClass}}, \code{\link[bioverbs]{plotCountsPerGene}}, \code{\link[bioverbs]{plotExonicMappingRate}}, \code{\link[bioverbs]{plotGenderMarkers}}, \code{\link[bioverbs]{plotGene}}, \code{\link[bioverbs]{plotGeneSaturation}}, \code{\link[bioverbs]{plotIntronicMappingRate}}, \code{\link[bioverbs]{plotMappedReads}}, \code{\link[bioverbs]{plotMappingRate}}, \code{\link[bioverbs]{plotMeanSD}}, \code{\link[bioverbs]{plotPCACovariates}}, \code{\link[bioverbs]{plotQC}}, \code{\link[bioverbs]{plotRRNAMappingRate}}, \code{\link[bioverbs]{plotTotalReads}}, \code{\link[bioverbs]{relativeLogExpression}}, \code{\link[bioverbs]{tmm}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
