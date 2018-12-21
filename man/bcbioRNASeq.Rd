@@ -2,7 +2,7 @@
 % Please edit documentation in R/bcbioRNASeq.R
 \name{bcbioRNASeq}
 \alias{bcbioRNASeq}
-\title{bcbio RNA-Seq Data Set}
+\title{bcbio RNA-Seq data set}
 \usage{
 bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
