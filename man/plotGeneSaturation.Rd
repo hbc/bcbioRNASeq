@@ -25,7 +25,8 @@ Minimum number of counts per gene in the count matrix.}
 \item{perMillion}{\code{logical(1)}.
 Display as counts per million.}
 
-\item{trendline}{\code{logical(1)}. Include a trendline for each group.}
+\item{trendline}{\code{logical(1)}.
+Include a trendline for each group.}
 
 \item{label}{\code{logical(1)}.
 Superimpose sample text labels on the plot.}

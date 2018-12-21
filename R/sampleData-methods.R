@@ -4,10 +4,10 @@
 #' @inheritParams params
 #'
 #' @param clean `logical(1)`.
-#' Only return `factor` columns not defined in
-#' [metadataBlacklist][bcbioBase::metadataBlacklist]. This removes metrics
-#' columns used for quality control analysis, which are often not informative
-#' as sample metadata.
+#'   Only return `factor` columns not defined in
+#'   [metadataBlacklist][bcbioBase::metadataBlacklist]. This removes metrics
+#'   columns used for quality control analysis, which are often not informative
+#'   as sample metadata.
 #'
 #' @examples
 #' data(bcb)

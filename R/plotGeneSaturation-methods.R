@@ -4,7 +4,8 @@
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'
-#' @param trendline `logical(1)`. Include a trendline for each group.
+#' @param trendline `logical(1)`.
+#'   Include a trendline for each group.
 #'
 #' @examples
 #' data(bcb)

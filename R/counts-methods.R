@@ -14,9 +14,9 @@
 #'   Which normalization method to apply:
 #'
 #'   - `FALSE`: Raw counts.
-#'     - When using a [tximport][]-compatible caller, these are length scaled
-#'       by default (see `countsFromAbundance` argument).
-#'     - When using a [featureCounts][]-compatible caller, these are `integer`.
+#'     When using a [tximport][]-compatible caller, these are length scaled
+#'     by default (see `countsFromAbundance` argument).
+#'     When using a [featureCounts][]-compatible caller, these are `integer`.
 #'
 #' [tximport][] caller-specific normalizations:
 #'
