@@ -36,11 +36,11 @@ plotMeanSD(bcb)
 }
 \seealso{
 \itemize{
-\item \code{vsn::meanSdPlot}.
-\item \code{DESeq2::DESeq}.
-\item \code{DESeq2::rlog}.
-\item \code{DESeq2::varianceStabilizingTransformation}.
-\item \code{edgeR::calcNormFactors}.
+\item \code{vsn::meanSdPlot()}.
+\item \code{DESeq2::DESeq()}.
+\item \code{DESeq2::rlog()}.
+\item \code{DESeq2::varianceStabilizingTransformation()}.
+\item \code{edgeR::calcNormFactors()}.
 }
 }
 \author{

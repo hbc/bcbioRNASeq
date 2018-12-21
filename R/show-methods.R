@@ -1,3 +1,4 @@
+#' Show an object
 #' @name show
 #' @author Michael Steinbuagh
 #' @inherit methods::show

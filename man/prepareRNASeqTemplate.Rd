@@ -2,7 +2,7 @@
 % Please edit documentation in R/prepareRNASeqTemplate.R
 \name{prepareRNASeqTemplate}
 \alias{prepareRNASeqTemplate}
-\title{Prepare RNA-Seq R Markdown Template}
+\title{Prepare RNA-Seq R Markdown template}
 \usage{
 prepareRNASeqTemplate(overwrite = FALSE)
 }
@@ -31,15 +31,6 @@ This code is used internally by:
 \examples{
 x <- prepareRNASeqTemplate()
 x
-
-## Clean up.
-unlink(c(
-    "_footer.Rmd",
-    "_header.Rmd",
-    "_output.yaml",
-    "_setup.R",
-    "bibliography.bib"
-))
 }
 \author{
 Michael Steinbaugh

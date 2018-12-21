@@ -15,12 +15,14 @@ txi(...)
 
 plotCountDensity(...)
 
-plotPCACovariates(...)
+plotPCACovariates(object, ...)
 
 resultsTables(...)
 }
 \arguments{
 \item{...}{Additional arguments.}
+
+\item{object}{Object.}
 }
 \value{
 \code{.Defunct}.

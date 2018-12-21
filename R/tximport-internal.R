@@ -1,4 +1,4 @@
-#' Import Transcript-Level Abundances and Counts
+#' Import transcript-level abundances and counts
 #'
 #' Import RNA-seq counts using
 #' [tximport](https://doi.org/doi:10.18129/B9.bioc.tximport).
