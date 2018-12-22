@@ -243,18 +243,16 @@ bcbioRNASeq <- function(
     if (level == "transcripts") {
         assert(isSubset(caller, tximportCallers))
     }
-    # TODO Add `allowNULL` options for some of these asserts:
-    # isString, isCharacter, isInt, and isGGScale
     assert(
         isAny(samples, classes = c("character", "NULL")),
         isAny(censorSamples, classes = c("character", "NULL")),
-        isString(sampleMetadataFile) || is.null(sampleMetadataFile),
-        isString(organism) || is.null(organism),
-        isString(genomeBuild) || is.null(genomeBuild),
-        isInt(ensemblRelease) || is.null(ensemblRelease),
+        isString(sampleMetadataFile, nullOK = TRUE),
+        isString(organism, nullOK = TRUE),
+        isString(genomeBuild, nullOK = TRUE),
+        isInt(ensemblRelease, nullOK = TRUE),
         isAny(transgeneNames, classes = c("character", "NULL")),
         isAny(spikeNames, classes = c("character", "NULL")),
-        isString(gffFile) || is.null(gffFile)
+        isString(gffFile, nullOK = TRUE)
     )
 
     if (isString(gffFile)) {

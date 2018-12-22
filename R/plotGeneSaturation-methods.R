@@ -42,9 +42,8 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
             isFlag(perMillion),
             isFlag(trendline),
             isFlag(label),
-            isGGScale(color, scale = "discrete", aes = "colour") ||
-                is.null(color),
-            isString(title) || is.null(title)
+            isGGScale(color, scale = "discrete", aes = "colour", nullOK = TRUE),
+            isString(title, nullOK = TRUE)
         )
 
         counts <- counts(object, normalized = FALSE)

@@ -4,8 +4,8 @@
 \name{bcbioRNASeq-package}
 \title{bcbioRNASeq}
 \description{
-Quality control and differential expression for
-\href{http://bcbio-nextgen.readthedocs.io/}{bcbio} RNA-seq experiments.
+Import and analyze \href{https://bcbio-nextgen.readthedocs.io/}{bcbio} RNA-seq
+data.
 }
 \seealso{
 Useful links:

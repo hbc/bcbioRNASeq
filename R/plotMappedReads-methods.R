@@ -32,9 +32,9 @@ plotMappedReads.bcbioRNASeq <-  # nolint
         assert(
             isInt(limit),
             isNonNegative(limit),
-            isGGScale(fill, scale = "discrete", aes = "fill") || is.null(fill),
+            isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
             isFlag(flip),
-            isString(title) || is.null(title)
+            isString(title, nullOK = TRUE)
         )
 
         p <- ggplot(

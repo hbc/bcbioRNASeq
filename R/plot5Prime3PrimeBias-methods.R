@@ -28,13 +28,10 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         validObject(object)
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
-        # TODO Update isGGScale and isString assertions to optionally allow
-        # NULL for convenience. This should be FALSE by default.
         assert(
-            isGGScale(color, scale = "discrete", aes = "colour") ||
-                is.null(color),
+            isGGScale(color, scale = "discrete", aes = "colour", nullOK = TRUE),
             isFlag(flip),
-            isString(title) || is.null(title)
+            isString(title, nullOK = TRUE)
         )
 
         data <- metrics(object)

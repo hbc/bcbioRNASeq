@@ -34,9 +34,9 @@ plotTotalReads.bcbioRNASeq <-  # nolint
             isInt(limit),
             isNonNegative(limit),
             isFlag(perMillion),
-            isGGScale(fill, scale = "discrete", aes = "fill") || is.null(fill),
+            isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
             isFlag(flip),
-            isString(title) || is.null(title)
+            isString(title, nullOK = TRUE)
         )
 
         data <- metrics(object)
