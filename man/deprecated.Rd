@@ -10,7 +10,7 @@
 \alias{design,bcbioRNASeq-method}
 \alias{design<-,bcbioRNASeq,formula-method}
 \alias{loadRNASeq}
-\title{Deprecated Functions}
+\title{Deprecated functions}
 \usage{
 plotGeneDetectionSaturation(...)
 
@@ -35,6 +35,6 @@ loadRNASeq(...)
 \code{.Deprecated}.
 }
 \description{
-Deprecated Functions
+Deprecated functions
 }
 \keyword{internal}

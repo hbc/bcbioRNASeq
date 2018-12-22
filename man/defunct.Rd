@@ -6,7 +6,7 @@
 \alias{txi}
 \alias{plotCountDensity}
 \alias{resultsTables}
-\title{Defunct Functions}
+\title{Defunct functions}
 \usage{
 plotGeneHeatmap(...)
 
@@ -23,6 +23,6 @@ resultsTables(...)
 \code{.Defunct}.
 }
 \description{
-Defunct Functions
+Defunct functions
 }
 \keyword{internal}
