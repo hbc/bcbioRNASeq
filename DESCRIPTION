@@ -102,7 +102,7 @@ LazyData: TRUE
 Depends:
     R (>= 3.4),
     SummarizedExperiment,
-    bcbioBase (>= 0.4.1),
+    bcbioBase (== 0.4.1),
     DESeq2 (>= 1.18)
 Imports:
     assertive.base,
@@ -112,7 +112,7 @@ Imports:
     assertive.sets,
     assertive.strings,
     assertive.types,
-    basejump (>= 0.7.1),
+    basejump (== 0.7.2),
     BiocGenerics,
     cowplot (>= 0.9),
     DEGreport (>= 1.14),
@@ -151,8 +151,8 @@ Suggests:
     testthat (>= 2.0),
     viridis
 Remotes:
-    hbc/bcbioBase,
-    steinbaugh/basejump
+    hbc/bcbioBase@v0.4.1,
+    steinbaugh/basejump@v0.7.2
 biocViews:
     DataImport,
     DataRepresentation,
