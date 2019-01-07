@@ -11,7 +11,7 @@
 #'   SummarizedExperiment
 #' @importClassesFrom basejump Tx2Gene
 #'
-#' @importMethodsFrom basejump coerce
+#' @importMethodsFrom S4Transformer coerce
 #'
 #' @importFrom BiocGenerics cbind colSums density design lapply sapply width
 #' @importFrom DEGreport degCovariates
@@ -26,13 +26,12 @@
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
 #' @importFrom basejump Gene2Symbol Tx2Gene basejump_geom_abline
 #'   basejump_geom_label basejump_geom_label_repel camel coerceS4ToList
-#'   convertGenesToSymbols detectLanes detectOrganism emptyRanges formalsList
-#'   import initDir interestingGroups interestingGroups<- lanePattern
-#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
-#'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
-#'   markdownPlotlist matchArgsToDoCall matchInterestingGroups
-#'   matchesGene2Symbol meltCounts methodFormals metrics organism
-#'   plotGenesDetected plotHeatmap prepareTemplate printString realpath
+#'   convertGenesToSymbols detectLanes detectOrganism emptyRanges import initDir
+#'   interestingGroups interestingGroups<- lanePattern makeGRangesFromEnsembl
+#'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
+#'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
+#'   matchInterestingGroups matchesGene2Symbol meltCounts methodFormals metrics
+#'   organism plotGenesDetected plotHeatmap prepareTemplate printString realpath
 #'   relevelColData relevelRowRanges removeNA sampleData sampleData<-
 #'   sanitizeRowData sanitizeSampleData separator showSlotInfo snake
 #'   standardizeCall stripTranscriptVersions uniteInterestingGroups
