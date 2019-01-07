@@ -12,6 +12,9 @@ bcbioRNASeqCacheURL <- paste0(
     "v", packageVersion$major, ".", packageVersion$minor  # nolint
 )
 
+# Using internal list defined in basejump.
+formalsList <- basejump:::formalsList
+
 validLevels <- c("genes", "transcripts")
 
 requiredAssays <- "counts"
