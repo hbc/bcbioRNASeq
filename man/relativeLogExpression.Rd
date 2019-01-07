@@ -28,7 +28,7 @@ relativeLogExpression(bcb)
 Anders and Huber (2010).
 }
 \seealso{
-\code{edgeR::calcNormFactors}.
+\code{edgeR::calcNormFactors()}.
 }
 \author{
 Lorena Pantano, Michael Steinbaugh
