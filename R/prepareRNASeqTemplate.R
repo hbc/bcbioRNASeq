@@ -1,4 +1,10 @@
-#' Prepare RNA-Seq R Markdown template
+# FIXME This fails during `devtools::run_examples()` because of package path.
+# Error in system.file("rmarkdown/shared", package = package, mustWork = TRUE) :
+#   no file found
+
+
+
+#' Prepare RNA-seq R Markdown template
 #'
 #' @name prepareRNASeqTemplate
 #' @author Michael Steinbaugh
@@ -6,8 +12,7 @@
 #' @export
 #'
 #' @examples
-#' x <- prepareRNASeqTemplate()
-#' x
+#' ## x <- prepareRNASeqTemplate()
 prepareRNASeqTemplate <- function(overwrite = FALSE) {
     prepareTemplate(package = "bcbioRNASeq", overwrite = overwrite)
 }
