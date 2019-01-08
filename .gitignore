@@ -1,6 +1,9 @@
+Meta
+doc
 .Rproj.user
 .Rhistory
 .RData
 .httr-oauth
 data-raw/*.rda
 inst/doc/
+*.pdf

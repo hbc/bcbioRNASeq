@@ -1,51 +1,52 @@
-#' Plot Ribosomal RNA (rRNA) Mapping Rate
-#'
-#' Clean, high-quality samples should have an rRNA mapping rate below 10%.
-#' Higher rates are likely indicative of the polyA enrichment or ribo depletion
-#' protocol not having removed all ribosomal RNA (rRNA) transcripts. This will
-#' reduce the number of biologically meaningful reads in the experiment and is
-#' best avoided.
-#'
 #' @name plotRRNAMappingRate
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams general
-#'
-#' @return `ggplot`.
-#'
+#' @inherit bioverbs::plotRRNAMappingRate
+#' @inheritParams basejump::params
+#' @inheritParams params
 #' @examples
-#' plotRRNAMappingRate(bcb_small)
+#' data(bcb)
+#' plotRRNAMappingRate(bcb)
 NULL
 
 
 
-#' @rdname plotRRNAMappingRate
+#' @importFrom bioverbs plotRRNAMappingRate
+#' @aliases NULL
 #' @export
-setMethod(
-    "plotRRNAMappingRate",
-    signature("bcbioRNASeq"),
+bioverbs::plotRRNAMappingRate
+
+
+
+plotRRNAMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 0.1,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        fill,
+        flip,
         title = "rRNA mapping rate"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        assert(
+            isNumber(limit),
+            isProportion(limit),
+            isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
+            isFlag(flip),
+            isString(title, nullOK = TRUE)
         )
-        assert_is_a_number(limit)
-        assert_all_are_non_negative(limit)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
+
+        data <- metrics(object)
+
+        # Warn and early return if rRNA rate was not calculated.
+        if (!"rrnaRate" %in% colnames(data)) {
+            warning("rRNA mapping rate was not calculated. Skipping plot.")
+            return(invisible())
+        }
 
         p <- ggplot(
-            data = metrics(object),
+            data = data,
             mapping = aes(
                 x = !!sym("sampleName"),
                 y = !!sym("rrnaRate") * 100L,
@@ -63,17 +64,17 @@ setMethod(
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(limit)) {
+        if (isPositive(limit)) {
             # Convert to percentage
             if (limit > 1L) {
                 # nocov start
-                warning("`limit`: Use ratio (0-1) instead of percentage")
+                warning("`limit`: Use ratio (0-1) instead of percentage.")
                 # nocov end
             } else {
                 limit <- limit * 100L
             }
             if (limit < 100L) {
-                p <- p + bcbio_geom_abline(yintercept = limit)
+                p <- p + basejump_geom_abline(yintercept = limit)
             }
         }
 
@@ -91,4 +92,18 @@ setMethod(
 
         p
     }
+
+formals(plotRRNAMappingRate.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotRRNAMappingRate.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
+
+
+
+#' @rdname plotRRNAMappingRate
+#' @export
+setMethod(
+    f = "plotRRNAMappingRate",
+    signature = signature("bcbioRNASeq"),
+    definition = plotRRNAMappingRate.bcbioRNASeq
 )

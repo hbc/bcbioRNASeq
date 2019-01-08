@@ -1,46 +1,41 @@
-#' Plot Mapped Reads
-#'
-#' The number of mapped reads should correspond to the number of total reads.
-#'
 #' @name plotMappedReads
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams general
-#'
-#' @return `ggplot`.
-#'
-#' @seealso [plotMappingRate()].
-#'
+#' @inherit bioverbs::plotMappedReads
+#' @inheritParams basejump::params
+#' @inheritParams params
 #' @examples
-#' plotMappedReads(bcb_small)
+#' data(bcb)
+#' plotMappedReads(bcb)
 NULL
 
 
 
-#' @rdname plotMappedReads
+#' @importFrom bioverbs plotMappedReads
+#' @aliases NULL
 #' @export
-setMethod(
-    "plotMappedReads",
-    signature("bcbioRNASeq"),
+bioverbs::plotMappedReads
+
+
+
+plotMappedReads.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 10e6L,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        fill,
+        flip,
         title = "mapped reads"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        assert(
+            isInt(limit),
+            isNonNegative(limit),
+            isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
+            isFlag(flip),
+            isString(title, nullOK = TRUE)
         )
-        assertIsAnImplicitInteger(limit)
-        assert_all_are_non_negative(limit)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
 
         p <- ggplot(
             data = metrics(object),
@@ -61,17 +56,17 @@ setMethod(
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(limit)) {
-            # Convert limit to per million
+        if (isPositive(limit)) {
+            # Convert limit to per million.
             if (limit < 1e6L) {
                 # nocov start
-                warning("`limit`: Use absolute value, not per million")
+                warning("`limit`: Use absolute value, not per million.")
                 # nocov end
             } else {
                 limit <- limit / 1e6L
             }
             if (limit >= 1L) {
-                p <- p + bcbio_geom_abline(yintercept = limit)
+                p <- p + basejump_geom_abline(yintercept = limit)
             }
         }
 
@@ -89,4 +84,18 @@ setMethod(
 
         p
     }
+
+formals(plotMappedReads.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotMappedReads.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
+
+
+
+#' @rdname plotMappedReads
+#' @export
+setMethod(
+    f = "plotMappedReads",
+    signature = signature("bcbioRNASeq"),
+    definition = plotMappedReads.bcbioRNASeq
 )

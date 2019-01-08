@@ -1,75 +1,59 @@
-#' Plot Correlation Heatmap
-#'
-#' This function calculates a correlation matrix based on feature expression per
-#' sample.
-#'
 #' @name plotCorrelationHeatmap
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh
-#'
-#' @importFrom basejump plotCorrelationHeatmap
-#' @export
-#'
-#' @inherit basejump::plotCorrelationHeatmap
-#'
-#' @inheritParams general
-#' @param ... Passthrough arguments to `SummarizedExperiment` method.
-#'
-#' @seealso
-#' - `help("plotCorrelationHeatmap", "bcbioBase")`.
-#' - `findMethod("plotCorrelationHeatmap", "SummarizedExperiment")`.
-#'
+#' @inherit bioverbs::plotCorrelationHeatmap title
+#' @inherit basejump::plotHeatmap
+#' @inheritParams basejump::params
+#' @inheritParams params
 #' @examples
-#' # bcbioRNASeq ====
-#' # Pearson correlation
-#' plotCorrelationHeatmap(bcb_small, method = "pearson")
-#'
-#' # Spearman correlation
-#' plotCorrelationHeatmap(bcb_small, method = "spearman")
+#' data(bcb)
+#' plotCorrelationHeatmap(bcb, method = "pearson")
+#' plotCorrelationHeatmap(bcb, method = "spearman")
 NULL
 
 
 
-#' @rdname plotCorrelationHeatmap
+#' @importFrom bioverbs plotCorrelationHeatmap
+#' @aliases NULL
 #' @export
-setMethod(
-    "plotCorrelationHeatmap",
-    signature("bcbioRNASeq"),
-    function(
-        object,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
-        ...
-    ) {
+bioverbs::plotCorrelationHeatmap
+
+
+
+plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
+    function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
-        message(paste("Using", normalized, "counts"))
-        counts <- counts(object, normalized = normalized)
-
-        # Coerce to RangedSummarizedExperiment
+        # Coerce to RangedSummarizedExperiment.
         rse <- as(object, "RangedSummarizedExperiment")
-        assays(rse) <- list(counts = counts)
-        validObject(rse)
-
-        plotCorrelationHeatmap(rse, ...)
+        message(paste("Using", normalized, "counts."))
+        counts <- counts(object, normalized = normalized)
+        assays(rse) <- list(counts)
+        assayNames(rse) <- normalized
+        do.call(
+            what = plotCorrelationHeatmap,
+            args = matchArgsToDoCall(
+                args = list(object = rse),
+                removeFormals = "normalized"
+            )
+        )
     }
+
+f1 <- formals(plotCorrelationHeatmap.bcbioRNASeq)
+f2 <- methodFormals(
+    f = "plotCorrelationHeatmap",
+    signature = "SummarizedExperiment",
+    package = "basejump"
 )
+f <- c(f1, f2[setdiff(names(f2), c(names(f1), "assay"))])
+f[["normalized"]] <- normalizedCounts
+formals(plotCorrelationHeatmap.bcbioRNASeq) <- f
 
 
 
 #' @rdname plotCorrelationHeatmap
 #' @export
 setMethod(
-    "plotCorrelationHeatmap",
-    signature("DESeqTransform"),
-    function(object, ...) {
-        validObject(object)
-        counts <- assay(object)
-
-        # Coerce to RangedSummarizedExperiment
-        rse <- as(object, "RangedSummarizedExperiment")
-        assays(rse) <- list(counts = counts)
-        validObject(rse)
-
-        plotCorrelationHeatmap(rse, ...)
-    }
+    f = "plotCorrelationHeatmap",
+    signature = signature("bcbioRNASeq"),
+    definition = plotCorrelationHeatmap.bcbioRNASeq
 )

@@ -1,44 +1,45 @@
-#' Plot Exonic Mapping Rate
-#'
-#' Ideally, at least 60 percent of total reads should map to exons.
-#'
 #' @name plotExonicMappingRate
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @inherit bioverbs::plotExonicMappingRate
+#' @inheritParams basejump::params
+#' @inheritParams params
 #'
-#' @inheritParams general
-#'
-#' @return `ggplot`.
+#' @description
+#' Ideally, at least 60 percent of total reads should map to exons for RNA-seq.
 #'
 #' @examples
-#' plotExonicMappingRate(bcb_small)
+#' data(bcb)
+#' plotExonicMappingRate(bcb)
 NULL
 
 
 
-#' @rdname plotExonicMappingRate
+#' @importFrom bioverbs plotExonicMappingRate
+#' @aliases NULL
 #' @export
-setMethod(
-    "plotExonicMappingRate",
-    signature("bcbioRNASeq"),
+bioverbs::plotExonicMappingRate
+
+
+
+plotExonicMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 0.6,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        fill,
+        flip,
         title = "exonic mapping rate"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        assert(
+            isNumber(limit),
+            isProportion(limit),
+            isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
+            isFlag(flip),
+            isString(title, nullOK = TRUE)
         )
-        assert_is_a_number(limit)
-        assert_all_are_non_negative(limit)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
 
         p <- metrics(object) %>%
             ggplot(
@@ -59,17 +60,17 @@ setMethod(
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(limit)) {
+        if (isPositive(limit)) {
             # Convert to percentage
             if (limit > 1L) {
                 # nocov start
-                warning("`limit`: Use ratio (0-1) instead of percentage")
+                warning("`limit`: Use ratio (0-1) instead of percentage.")
                 # nocov end
             } else {
                 limit <- limit * 100L
             }
             if (limit < 100L) {
-                p <- p + bcbio_geom_abline(yintercept = limit)
+                p <- p + basejump_geom_abline(yintercept = limit)
             }
         }
 
@@ -87,4 +88,18 @@ setMethod(
 
         p
     }
+
+formals(plotExonicMappingRate.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotExonicMappingRate.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
+
+
+
+#' @rdname plotExonicMappingRate
+#' @export
+setMethod(
+    f = "plotExonicMappingRate",
+    signature = signature("bcbioRNASeq"),
+    definition = plotExonicMappingRate.bcbioRNASeq
 )

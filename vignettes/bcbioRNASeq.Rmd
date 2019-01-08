@@ -20,8 +20,9 @@ abstract: >
 ---
 
 ```{r setup, include=FALSE, message=FALSE}
-library("bcbioRNASeq")
-ggplot2::theme_set(theme_paperwhite())
+library(bcbioRNASeq)
+ggplot2::theme_set(basejump::theme_paperwhite())
+knitr::opts_chunk$set(message = FALSE)
 ```
 
 # Introduction
@@ -38,10 +39,6 @@ citation("bcbioRNASeq")
 
 The `bcbioRNASeq()` constructor function is the main interface connecting [bcbio][] output data to interactive use in [R][]. It is highly customizable and supports a number of options for advanced use cases. Consult the documentation available at `help(topic = "bcbioRNASeq", package = "bcbioRNASeq")` for additional details.
 
-```{r formals}
-formals("bcbioRNASeq") %>% str()
-```
-
 ## Upload directory
 
 We have designed the constructor to work as simply as possible by default. The only required argument is `uploadDir`, the path to the [bcbio][] final upload directory specified with `upload:` in the YAML configuration. Refer to the [bcbio configuration](https://bcbio-nextgen.readthedocs.io/en/latest/contents/configuration.html) documentation for detailed information on how to set up a [bcbio][] run, which is outside the scope of this vignette.
@@ -49,30 +46,29 @@ We have designed the constructor to work as simply as possible by default. The o
 For example, let's load up the example [bcbio][] dataset stored internally in the package.
 
 ```{r}
-upload_dir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-stopifnot(file.exists(upload_dir))
-print(upload_dir)
+uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+stopifnot(file.exists(uploadDir))
 ```
 
 [bcbio][] outputs RNA-seq data in a standardized directory structure, which is described in detail in our [workflow paper][].
 
 ```{r}
-dir(path = upload_dir, full.names = FALSE, recursive = TRUE)
+list.files(path = uploadDir, full.names = FALSE, recursive = TRUE)
 ```
 
 ## Counts level
 
 By default, [bcbioRNASeq][] imports counts at gene level, which are required for standard differential expression analysis (`level = "genes"`). For pseudo-aligned counts (e.g. [Salmon][], [Kallisto][], [Sailfish][]) [@Bray2016-me; @Patro2014-qz; @Patro2017-pi], [tximport][] [@Soneson2016-tu] is used internally to aggregate transcript-level counts to gene-level counts, and generates length-scaled transcripts per million (TPM) values. For aligned counts processed with [featureCounts][] [@Liao2014-js] (e.g. [STAR][], [HISAT2][]) [@Dobin2013-hr; @Dobin2016-qj; @Kim2015-rr], these values are already returned at gene level, and therefore not handled by [tximport][]. Once the gene-level counts are imported during the `bcbioRNASeq()` call, the [DESeq2][] package [@Love2014-sq] is then used to generate an internal `DESeqDataSet` from which we derive normalized and variance-stabilized counts.
 
-```{r, message=FALSE}
-bcb <- bcbioRNASeq(uploadDir = upload_dir, level = "genes")
+```{r}
+bcb <- bcbioRNASeq(uploadDir = uploadDir, level = "genes")
 print(bcb)
 ```
 
 Alternatively, if you want to perform transcript-aware analysis, such as differential exon usage or splicing analysis, transcript-level counts can be obtained using `level = "transcripts"`. Note that when counts are loaded at transcript level, TPMs are generated with [tximport][] internally, but no additional normalizations or transformations normally calculated for gene-level counts with [DESeq2][] are generated.
 
-```{r, message=FALSE}
-bcb <- bcbioRNASeq(uploadDir = upload_dir, level = "transcripts")
+```{r}
+bcb <- bcbioRNASeq(uploadDir = uploadDir, level = "transcripts")
 print(bcb)
 ```
 
@@ -82,64 +78,40 @@ Since [bcbio][] is flexible and supports a number of expression callers, we have
 
 [Salmon][], [Kallisto][], and [Sailfish][] counts are supported at either gene or transcript level. Internally, these are loaded using [tximport][].
 
-```{r, message=FALSE}
-salmon_genes <- bcbioRNASeq(uploadDir = upload_dir, caller = "salmon")
-print(salmon_genes)
+```{r}
+salmon_genes <- bcbioRNASeq(uploadDir = uploadDir, caller = "salmon")
 assayNames(salmon_genes)
 ```
 
-```{r, message=FALSE}
-salmon_tx <- bcbioRNASeq(uploadDir = upload_dir, level = "transcripts")
-print(salmon_tx)
+```{r}
+salmon_tx <- bcbioRNASeq(uploadDir = uploadDir, level = "transcripts")
 assayNames(salmon_tx)
 ```
 
 [STAR][] and [HISAT2][] aligned counts processed with [featureCounts][] are also supported, but only at gene level.
 
-```{r, message=FALSE}
-star <- bcbioRNASeq(uploadDir = upload_dir, caller = "star")
-print(star)
+```{r}
+star <- bcbioRNASeq(uploadDir = uploadDir, caller = "star")
 assayNames(star)
 ```
 
 ## Sample selection and metadata
 
-If you'd like to load up only a subset of samples, this can be done easily using the `samples` argument. Note that the `character` vector declared here must match the `description` column specified in the sample metadata. For example, let's create a `bcbioRNASeq` object containing only the `group1_1` and `group1_2` samples.
+If you'd like to load up only a subset of samples, this can be done easily using the `samples` argument. Note that the `character` vector declared here must match the `description` column specified in the sample metadata. Conversely, if you're working with a large dataset and you simply want to drop a few samples, this can be accomplished with the `censorSamples` argument.
 
-```{r, message=FALSE}
-bcb <- bcbioRNASeq(
-    uploadDir = upload_dir,
-    samples = c("group1_1", "group1_2")
-)
-print(bcb)
-sampleNames(bcb)
-```
-
-Conversely, if you're working with a large dataset and you simply want to drop a few samples, this can be accomplished with the `censorSamples` argument. Note that the `samples` argument takes priority if both are declared. For example, let's drop the `group2_2` sample from our minimal dataset.
-
-```{r, message=FALSE}
-bcb <- bcbioRNASeq(
-    uploadDir = upload_dir,
-    censorSamples = "group2_2"
-)
-print(bcb)
-sampleNames(bcb)
-```
-
-If you're working with a bcbio run that has incorrect or outdated metadata, the simplest way to fix this issue is to pass in new metadata from an external spreadsheet (CSV or Excel) using the `sampleMetadataFile` argument. Note that this can also be used to subset the bcbio dataset, similar to the `samples` argument (see above), based on the rows that are included in the spreadsheet.
+When working with a bcbio run that has incorrect or outdated metadata, the simplest way to fix this issue is to pass in new metadata from an external spreadsheet (CSV or Excel) using the `sampleMetadataFile` argument. Note that this can also be used to subset the bcbio dataset, similar to the `samples` argument (see above), based on the rows that are included in the spreadsheet.
 
 ```{r}
-sample_metadata_file <- file.path(upload_dir, "sample_metadata.csv")
-stopifnot(file.exists(sample_metadata_file))
-readSampleData(sample_metadata_file)
+sampleMetadataFile <- file.path(uploadDir, "sample_metadata.csv")
+stopifnot(file.exists(sampleMetadataFile))
+import(file = sampleMetadataFile)
 ```
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(
-    uploadDir = upload_dir,
-    sampleMetadataFile = sample_metadata_file
+    uploadDir = uploadDir,
+    sampleMetadataFile = sampleMetadataFile
 )
-print(bcb)
 sampleData(bcb, clean = TRUE)
 ```
 
@@ -149,31 +121,28 @@ When analyzing a dataset against a well-annotated genome, we recommend importing
 
 For example, with our internal [bcbio][] dataset, we're analyzing counts generated against the [Ensembl][] *Mus musculus* GRCm38 genome build (release 87). These parameters can be defined in the object load call to ensure that the annotations match up exactly with the genome used.
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(
-    uploadDir = upload_dir,
+    uploadDir = uploadDir,
     level = "genes",
     organism = "Mus musculus",
     genomeBuild = "GRCm38",
     ensemblRelease = 87
 )
-print(bcb)
-metadata(bcb)$rowRangesMetadata
-rowRanges(bcb) %>% as.data.frame() %>% glimpse()
+print(rowRanges(bcb))
 ```
 
 Alternatively, transcript-level annotations can also be obtained automatically using this method.
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(
-    uploadDir = upload_dir,
+    uploadDir = uploadDir,
     level = "transcripts",
     organism = "Mus musculus",
     genomeBuild = "GRCm38",
     ensemblRelease = 87
 )
-print(bcb)
-rowRanges(bcb) %>% as.data.frame() %>% glimpse()
+print(rowRanges(bcb))
 ```
 
 When working with a dataset generated against a poorly-annotated or non-standard genome, we provide a fallback method for loading gene annotations from a [general feature format (GFF)][GFF] file with the `gffFile` argument. If possible, we recommend providing a general transfer format (GTF) file, which is identical to GFF version 2. GFFv3 is more complicated and non-standard, but [Ensembl][] GFFv3 files are also supported.
@@ -182,8 +151,8 @@ If your dataset contains transgenes (e.g. EGFP, TDTOMATO) or spike-ins (e.g. ERC
 
 We recommend loading up data per genome in its own `bcbioRNASeq` object when possible, so that rich metadata can be imported easily. In the edge case where you need to look at multiple genomes simultaneously, set `organism = NULL`, and bcbioRNASeq will skip the gene annotation acquisition step.
 
-```{r, message=FALSE}
-bcb <- bcbioRNASeq(uploadDir = upload_dir, organism = NULL)
+```{r}
+bcb <- bcbioRNASeq(uploadDir = uploadDir, organism = NULL)
 print(bcb)
 ```
 
@@ -191,15 +160,15 @@ print(bcb)
 
 During the `bcbioRNASeq()` constructor call, variance stabilizaton of gene-level counts can be calculated automatically, and is recommended. This is performed internally by the [DESeq2][] package. These transformations will be slotted into `assays()` as `vst` and/or `rlog` matrices. The `vst` matrix is calculated by `DESeq2::varianceStabilizingTransformation()` and `rlog` by `DESeq2::rlog()`. For large datasets, `rlog` calculation can take a long time, so we are currently recommending calculation of only `vst` by default.
 
-```{r, message=FALSE}
+```{r}
 bcb <- bcbioRNASeq(
-    uploadDir = upload_dir,
+    uploadDir = uploadDir,
     vst = TRUE,
     rlog = TRUE
 )
 assayNames(bcb)
-counts(bcb, normalized = "vst") %>% summary()
-counts(bcb, normalized = "rlog") %>% summary()
+summary(counts(bcb, normalized = "vst"))
+summary(counts(bcb, normalized = "rlog"))
 rm(bcb)
 ```
 
@@ -209,8 +178,10 @@ To demonstrate the functionality and configuration of the package, we have taken
 
 For the vignette, we are loading a pre-computed version of the example `bcbioRNASeq` object used in our [workflow paper][].
 
-```{r, message=FALSE}
+```{r}
 loadRemoteData("https://github.com/hbc/bcbioRNASeq/raw/f1000v2/data/bcb.rda")
+# Ensure the object is up to date.
+bcb <- updateObject(bcb)
 print(bcb)
 ```
 
@@ -234,7 +205,6 @@ This approach was inspired by the [DESeq2][] package, which uses the argument `i
 
 ```{r}
 interestingGroups(bcb) <- c("treatment", "day")
-interestingGroups(bcb)
 ```
 
 # Quality control
@@ -286,20 +256,8 @@ plotGeneSaturation(bcb, label = TRUE)
 ```
 
 ```{r}
-plotCountsPerGene(bcb)
-plotCountDensity(
-    object = bcb,
-    interestingGroups = "sampleName",
-    style = "line"
-)
-```
-
-## Dispersion
-
-The following plot shows the dispersion by mean of normalized counts. We expect the dispersion to decrease as the mean of normalized counts increases.
-
-```{r}
-plotDispEsts(bcb)
+plotCountsPerGene(bcb, geom = "boxplot")
+plotCountsPerGene(bcb, geom = "density")
 ```
 
 ## Variance stabilization
@@ -312,83 +270,36 @@ plotMeanSD(bcb)
 
 ## Sample similarity
 
-We can visualize sample similarity with principal component analysis (PCA) and hierarchical clustering of sample correlations. These functions support multiple normalization methods with the `normalized` argument. We recommend using `normalized = "vst"` by default.
-
-Let's plot the PCA using our `vst` counts, the current recommended default.
+We can visualize sample similarity with principal component analysis (PCA) and hierarchical clustering of sample correlations. These functions support multiple normalization methods with the `normalized` argument.
 
 ```{r}
-plotPCA(bcb, normalized = "vst", label = FALSE)
-plotPCA(bcb, normalized = "vst", label = TRUE)
-```
-
-Let's visualize the `rlog` counts for comparison. The performance is similar overall, with some slight differences, but the grouping more or less remains the same.
-
-```{r}
-plotPCA(
-    object = bcb,
-    normalized = "rlog",
-    label = FALSE
-)
-plotPCA(
-    object = bcb,
-    normalized = "rlog",
-    label = TRUE
-)
-```
-
-Generally, the `varianceStabilizationTransformation()` and `rlog()` functions provide similar performance, as seen here.
-
-```{r}
-plotCorrelationHeatmap(
-    bcb,
-    method = "pearson",
-    normalized = "vst",
-    color = viridis::viridis
-)
-plotCorrelationHeatmap(
-    bcb,
-    method = "spearman",
-    normalized = "vst",
-    color = viridis::plasma
-)
+plotPCA(bcb, label = FALSE)
+plotPCA(bcb, label = TRUE)
 ```
 
 ```{r}
-plotCorrelationHeatmap(
-    object = bcb,
-    method = "pearson",
-    normalized = "rlog",
-    color = viridis::viridis
-)
-plotCorrelationHeatmap(
-    object = bcb,
-    method = "spearman",
-    normalized = "rlog",
-    color = viridis::plasma
-)
+plotCorrelationHeatmap(bcb, method = "pearson")
+plotCorrelationHeatmap(bcb, method = "spearman")
 ```
 
 # Saving counts
 
-The `counts()` function returns the abundance estimates generated by Salmon. Read counts for each sample in the dataset are aggregated into a matrix, in which columns correspond to samples and rows represent genes. Multiple normalized counts matrices are saved in the bcbioRNASeq object, and are accessible with `normalized` argument:
+The `counts()` accessor function returns raw counts by default. Multiple normalization methods are accessible with the `normalized` argument:
 
-- `FALSE`: Raw counts (*default*).
-- `TRUE`: [DESeq2][] normalized counts.
+- `FALSE`: Raw counts. When importing using a [tximport][]-compatible caller (e.g. salmon, kallisto), these are length scaled by default (see `countsFromAbundance`). When importing using a [featureCounts][]-compatible caller (e.g. HISAT2, STAR), these are integer counts.
+- `TRUE`: [DESeq2][] size factor adjusted counts.
 - `"tpm"`: Transcripts per million, calculated by [tximport][].
 - `"tmm"`: Trimmed mean of M-values normalization method.
 - `"vst"`: Variance stabilization transformation.
 - `"rlog"`: Regularized log transformation.
 - `"rle"`: Relative log expression transformation.
 
-We recommend saving the raw counts, normalized counts, TPMs, and variance-stabilized counts to disk both in binary R Data and CSV formats.
+We are providing `bcbioRNASeq` method support for the `export()` function, which can automatically write these counts and corresponding metadata (e.g. `rowData`, `colData`) to disk in a single call.
 
-```{r, message=FALSE}
-raw <- counts(bcb, normalized = FALSE)
-normalized <- counts(bcb, normalized = TRUE)
-tpm <- counts(bcb, normalized = "tpm")
-vst <- counts(bcb, normalized = "vst")
-saveData(raw, normalized, tpm, vst, dir = ".")
-writeCounts(raw, normalized, tpm, vst, dir = ".")
+```{r}
+# `export()` invisibly returns a character vector containing file paths.
+x <- export(bcb, dir = "export")
+print(x)
 ```
 
 # Differential expression
@@ -402,15 +313,12 @@ print(dds)
 
 Since both `bcbioRNASeq` and `DESeqDataSet` classes extend `RangedSummarizedExperiment`, internally we coerce the original `bcbioRNASeq` object to a `RangedSummarizedExperiment` and then use the `DESeqDataSet()` constructor, which requires a `SummarizedExperiment` with integer counts.
 
-Here is the source code responsible for handing off the data to [DESeq2][].
+The source code for our `bcbioRNASeq` to `DESeqDataSet` coercion is accessible with `getMethod()`.
 
-```{r}
+```{r, eval=FALSE}
 getMethod(
     f = "coerce",
-    signature(
-        from = "bcbioRNASeq",
-        to = "DESeqDataSet"
-    )
+    signature = signature(from = "bcbioRNASeq", to = "DESeqDataSet")
 )
 ```
 
@@ -424,27 +332,27 @@ We also provide a parameterized [R Markdown][] template for standard [DESeq2][] 
 
 # Functional analysis
 
-We provide an [R Markdown][] template for [gene set enrichment analysis (GSEA)][GSEA] and [Kyoto Encyclopedia of Genes and Genomes (KEGG)][KEGG] pathway enrichment analysis [@Kanehisa2000-hk; @Subramanian2005-zk], which leverages the functionality of the [clusterProfiler][] package [@Yu2012-ae]. This workflow is described in detail in our [workflow paper][], and is outside the scope of this advanced use vignette. For more information on functional analysis, consult the [clusterProfiler][] vignette, which is extremely detailed and thorough.
+We provide an [R Markdown][] template for [gene set enrichment analysis (GSEA)][GSEA] and [Kyoto Encyclopedia of Genes and Genomes (KEGG)][KEGG] pathway enrichment analysis [@Kanehisa2000-hk; @Subramanian2005-zk], which leverages the functionality of the [clusterProfiler][] package [@Yu2012-ae]. This workflow is described in detail in our [workflow paper][], and is outside the scope of this advanced use vignette. For more information on functional analysis, consult the [clusterProfiler][] vignette or Stephen Turner's excellent [DESeq2 to fgsea workflow](https://stephenturner.github.io/deseq-to-fgsea/).
 
 # R session information
 
 ```{r}
-sessionInfo()
+sessioninfo::session_info()
 ```
 
 # References
 
 The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 
-[AnnotationHub]: https://doi.org/doi:10.18129/B9.bioc.AnnotationHub
+[AnnotationHub]: https://bioconductor.org/packages/release/bioc/html/AnnotationHub.html
 [bcbio]: https://bcbio-nextgen.readthedocs.io
 [bcbioRNASeq]: http://bioinformatics.sph.harvard.edu/bcbioRNASeq
-[clusterProfiler]: https://doi.org/doi:10.18129/B9.bioc.clusterProfiler
-[DESeq2]: https://doi.org/doi:10.18129/B9.bioc.DESeq2
+[clusterProfiler]: https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html
+[DESeq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 [Ensembl]: https://www.ensembl.org
-[ensembldb]: https://doi.org/doi:10.18129/B9.bioc.ensembldb
+[ensembldb]: https://bioconductor.org/packages/release/bioc/html/ensembldb.html
 [featureCounts]: http://bioinf.wehi.edu.au/featureCounts
-[GenomicRanges]: https://doi.org/doi:10.18129/B9.bioc.GenomicRanges
+[GenomicRanges]: https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html
 [GFF]: https://useast.ensembl.org/info/website/upload/gff.html
 [GEO]: https://www.ncbi.nlm.nih.gov/geo
 [GSE65267]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
@@ -459,6 +367,6 @@ The papers and software cited in our workflows are available as a [shared librar
 [Salmon]: https://combine-lab.github.io/salmon
 [Sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish
 [STAR]: https://github.com/alexdobin/STAR
-[SummarizedExperiment]: https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment
-[tximport]: https://doi.org/doi:10.18129/B9.bioc.tximport
+[SummarizedExperiment]: https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html
+[tximport]: https://bioconductor.org/packages/release/bioc/html/tximport.html
 [Workflow paper]: http://dx.doi.org/10.12688/f1000research.12093.2

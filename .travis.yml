@@ -1,52 +1,33 @@
 # Travis-CI configuration for Bioconductor packages
 # https://docs.travis-ci.com/user/languages/r
 
+# Temporarily enable when caching package library.
+# script: true
+
 language: r
 cache: packages
-
-r:
-  - bioc-release
-  # - bioc-devel
-
-os:
-  # - linux
-  - osx
+sudo: false
+bioc_required: true
 
 matrix:
-  exclude:
+  include:
   - os: osx
+    r: bioc-release
+    fortran: false
+    latex: false
+    warnings_are_errors: false
+  - os: linux
+    r: bioc-release
+    warnings_are_errors: true
+  - os: linux
     r: bioc-devel
-
-# blocklist
-# branches:
-#   except:
-#  - develop
-
-# safelist
-# branches:
-#   only:
-#   - master
-
-# External dependencies
-# dependency for clusterProfiler > enrichplot > udunits2
-addons:
-  apt:
-    update: true
-    packages:
-      - libudunits2-dev
+    latex: false
+    warnings_are_errors: true
+  fast_finish: true
 
 env:
   global:
     - LINTR_COMMENT_BOT=true
-
-# r_build_args: "--no-build-vignettes"
-# r_check_args: "--no-vignettes"
-
-# Set true before submission to Bioconductor
-warnings_are_errors: false
-
-# Temporarily enable when caching Bioconductor packages
-# script: true
 
 r_packages:
   - covr
@@ -57,14 +38,6 @@ bioc_packages:
   - S4Vectors
   - DelayedArray
   - EnsDb.Hsapiens.v75
-  - DEGreport
-  # clusterProfiler dependencies
-  - ALL
-  - DO.db
-  - GO.db
-  - enrichplot
-  - org.Hs.eg.db
-  - org.Mm.eg.db
 r_github_packages:
   - jimhester/lintr
 
@@ -72,8 +45,10 @@ after_success:
   - Rscript -e 'lintr::lint_package()'
   - Rscript -e 'covr::codecov()'
   - R CMD BiocCheck .
-  - chmod +x travis_render.sh
-  - ./travis_render.sh
+  # Render R Markdown templates
+  # https://github.com/bcbio/bcbio_rnaseq_output_example
+  # - chmod +x travis_render.sh
+  # - ./travis_render.sh
 
 notifications:
   email:

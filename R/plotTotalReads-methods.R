@@ -1,51 +1,58 @@
-#' Plot Total Reads
-#'
-#' High quality RNA-seq samples ideally should have at least 10 million reads
-#' per sample.
-#'
 #' @name plotTotalReads
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams general
-#'
-#' @return `ggplot`.
-#'
+#' @inherit bioverbs::plotTotalReads
+#' @inheritParams basejump::params
+#' @inheritParams params
 #' @examples
-#' plotTotalReads(bcb_small)
+#' data(bcb)
+#' plotTotalReads(bcb)
 NULL
 
 
 
-#' @rdname plotTotalReads
+#' @importFrom bioverbs plotTotalReads
+#' @aliases NULL
 #' @export
-setMethod(
-    "plotTotalReads",
-    signature("bcbioRNASeq"),
+bioverbs::plotTotalReads
+
+
+
+plotTotalReads.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
-        limit = 10e6L,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        interestingGroups = NULL,
+        limit = 20e6L,
+        perMillion = TRUE,
+        fill,
+        flip,
         title = "total reads"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        assert(
+            isInt(limit),
+            isNonNegative(limit),
+            isFlag(perMillion),
+            isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
+            isFlag(flip),
+            isString(title, nullOK = TRUE)
         )
-        assertIsAnImplicitInteger(limit)
-        assert_all_are_non_negative(limit)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
 
-        p <- metrics(object) %>%
-            ggplot(
+        data <- metrics(object)
+
+        # Convert to per million, if desired.
+        yLab <- "reads"
+        if (isTRUE(perMillion)) {
+            data <- mutate(data, totalReads = !!sym("totalReads") / 1e6L)
+            yLab <- paste(yLab, "per million")
+        }
+
+        p <- ggplot(
+                data = data,
                 mapping = aes(
                     x = !!sym("sampleName"),
-                    y = !!sym("totalReads") / 1e6L,
+                    y = !!sym("totalReads"),
                     fill = !!sym("interestingGroups")
                 )
             ) +
@@ -56,22 +63,19 @@ setMethod(
             labs(
                 title = title,
                 x = NULL,
-                y = "reads per million",
+                y = yLab,
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(limit)) {
-            # Convert limit to per million
-            if (limit < 1e6L) {
-                # nocov start
-                warning("`limit`: Use absolute value, not per million")
-                # nocov end
-            } else {
-                limit <- limit / 1e6L
+        if (isPositive(limit)) {
+            if (isTRUE(perMillion)) {
+                if (limit < 1e6L) {
+                    warning("`limit`: Use absolute value, not per million.")
+                } else {
+                    limit <- limit / 1e6L
+                }
             }
-            if (limit > 1L) {
-                p <- p + bcbio_geom_abline(yintercept = limit)
-            }
+            p <- p + basejump_geom_abline(yintercept = limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {
@@ -88,4 +92,17 @@ setMethod(
 
         p
     }
+
+formals(plotTotalReads.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotTotalReads.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
+
+
+#' @rdname plotTotalReads
+#' @export
+setMethod(
+    f = "plotTotalReads",
+    signature = signature("bcbioRNASeq"),
+    definition = plotTotalReads.bcbioRNASeq
 )

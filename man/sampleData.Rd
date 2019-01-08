@@ -3,58 +3,43 @@
 \docType{methods}
 \name{sampleData}
 \alias{sampleData}
-\alias{sampleData<-}
 \alias{sampleData,bcbioRNASeq-method}
-\alias{sampleData<-,bcbioRNASeq,DataFrame-method}
-\title{Sample Data}
+\title{Sample data}
 \usage{
-\S4method{sampleData}{bcbioRNASeq}(object, interestingGroups,
-  clean = FALSE)
-
-\S4method{sampleData}{bcbioRNASeq,DataFrame}(object) <- value
+\S4method{sampleData}{bcbioRNASeq}(object, clean = FALSE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
-
-\item{clean}{\code{boolean}. Only return \code{factor} columns not defined in
-\link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.}
-
-\item{value}{Value to assign.}
+\item{clean}{\code{logical(1)}.
+Only return \code{factor} columns not defined in
+\link[bcbioBase:metadataBlacklist]{metadataBlacklist}. This removes metrics
+columns used for quality control analysis, which are often not informative
+as sample metadata.}
 }
 \value{
 \code{DataFrame}.
 }
 \description{
-Return the sample metadata. Columns are always sanitized to factor.
+Metadata that describes the samples.
 }
-\note{
-This is a complement to the standard \code{\link[=colData]{colData()}} function, but improves
-support for accessing sample metadata for datasets where multiple items in
-the columns map to a single sample (e.g. cells for a single-cell RNA-seq
+\details{
+This is a complement to the standard
+\code{\link[SummarizedExperiment:colData]{colData()}} function, but improves support
+for accessing sample metadata for datasets where multiple items in the
+columns map to a single sample (e.g. cells for a single-cell RNA-seq
 experiment).
 }
 \examples{
-# SummarizedExperiment ====
-sampleData(bcb_small, clean = TRUE) \%>\% glimpse()
-sampleData(bcb_small, clean = FALSE) \%>\% glimpse()
+data(bcb)
+sampleData(bcb, clean = TRUE) \%>\% lapply(head)
 
-# Assignment support
-x <- bcb_small
+## Assignment support.
+x <- bcb
 sampleData(x)[["test"]] <- seq_len(ncol(x))
-# `test` column should be now defined
+## `test` column should be now defined.
 "test" \%in\% colnames(sampleData(x))
-}
-\seealso{
-\link[bcbioBase:metadataBlacklist]{bcbioBase::metadataBlacklist}.
-
-Other Data Functions: \code{\link{aggregateReplicates}},
-  \code{\link{counts}}, \code{\link{metrics}},
-  \code{\link{tmm}}, \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Data Functions}

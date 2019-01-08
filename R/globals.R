@@ -1,15 +1,32 @@
 globalVariables(".")
 
 packageVersion <- packageVersion("bcbioRNASeq")
-legacyMetricsCols <- c("name", "x53Bias")
 
-# v0.2.6: tpm and length are now optional, since we're supporting featureCounts
+#' Cache URL
+#' @keywords internal
+#' @export
+#' @examples
+#' bcbioRNASeqCacheURL
+bcbioRNASeqCacheURL <- paste0(
+    "http://bcbiornaseq.seq.cloud/",
+    "v", packageVersion$major, ".", packageVersion$minor  # nolint
+)
+
+# Using internal list defined in basejump.
+formalsList <- basejump:::formalsList
+
+validLevels <- c("genes", "transcripts")
+
 requiredAssays <- "counts"
-
-# v0.2.6: added STAR and HISAT2 support
-tximportAssays <- c("counts", "length", "tpm")
-tximportCallers <- c("salmon", "kallisto", "sailfish")
+tximportAssays <- c(requiredAssays, "tpm")
 featureCountsAssays <- requiredAssays
+
+tximportCallers <- c("salmon", "kallisto", "sailfish")
 featureCountsCallers <- c("star", "hisat2")
 validCallers <- c(tximportCallers, featureCountsCallers)
-validLevels <- c("genes", "transcripts")
+
+normalizedCounts <- c("vst", "rlog", "tmm", "rle", "tpm", "fpkm")
+
+legacyMetricsCols <- c("name", "x53Bias")
+
+Rle <- structure("Rle", package = "S4Vectors")  # nolint

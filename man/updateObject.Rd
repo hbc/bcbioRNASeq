@@ -4,33 +4,46 @@
 \name{updateObject}
 \alias{updateObject}
 \alias{updateObject,bcbioRNASeq-method}
-\title{Update an Object to Its Current Class Definition}
+\title{Update an object to its current class definition}
 \usage{
 \S4method{updateObject}{bcbioRNASeq}(object, rowRanges = NULL)
 }
 \arguments{
-\item{object}{Object.}
+\item{object}{
+    Object to be updated for \code{updateObject} and
+    \code{updateObjectFromSlots}.
 
-\item{rowRanges}{\code{GRanges} or \code{NULL}. Row annotations. Since we converted to
-\code{RangedSummarizedExperiment} in v0.2.0, this option had to be added to
-enable updating of newly required \code{\link[=rowRanges]{rowRanges()}} slot. Objects that are >=
-v0.2 don't require this argument and it can be left \code{NULL}.}
+    Object for slot information to be extracted from for
+    \code{getObjectSlots}.
+  }
+
+\item{rowRanges}{\code{GRanges} or \code{NULL}.
+Row annotations. Since we converted to \code{RangedSummarizedExperiment} in
+v0.2.0, this option had to be added to enable updating of newly required
+\code{rowRanges} slot. Objects that are >= v0.2 don't require this argument and
+it can be left \code{NULL}.}
 }
 \value{
 \code{bcbioRNASeq}.
 }
 \description{
+\code{updateObject} is a generic function that returns an instance
+  of \code{object} updated to its current class definition.
+}
+\details{
 Update old objects created by the bcbioRNASeq package. The session
 information metadata is preserved from the time when the bcbio data was
 originally loaded into R.
 }
 \section{Legacy \code{bcbioRNADataSet} class}{
 
+
 Support for \code{bcbioRNADataSet} objects was dropped in v0.2.0 of the package.
 If you need to load one of these objects, please install an older release.
 }
 
-\section{Legacy objects created with \code{bcbioRnaseq}}{
+\section{Legacy \code{bcbioRnaseq} package}{
+
 
 The previous \code{bcbioRnaseq} package (note case) must be reinstalled to load
 objects from versions <= 0.0.20. We changed the name of the package to
@@ -38,14 +51,28 @@ objects from versions <= 0.0.20. We changed the name of the package to
 }
 
 \examples{
-updateObject(bcb_small)
+data(bcb)
+updateObject(bcb)
 }
 \seealso{
-Other S4 Object: \code{\link{bcbioRNASeq}},
-  \code{\link{coerce}}, \code{\link{extract}},
-  \code{\link{show}}
+\itemize{
+    \item \code{\link[Biobase]{updateObjectTo}} in the \pkg{Biobase} package
+          for updating an object to the class definition of a template (might
+          be useful for updating a virtual superclass).
+
+    \item \code{\link[methods]{validObject}} for testing the validity of an
+          object.
+
+    \item \code{\link[methods]{showMethods}} for displaying a summary of the
+          methods defined for a given generic function.
+
+    \item \code{\link[methods]{selectMethod}} for getting the definition of
+          a specific method.
+
+    \item \link{BiocGenerics} for a summary of all the generics defined
+          in the \pkg{BiocGenerics} package.
+  }
 }
 \author{
 Michael Steinbaugh
 }
-\concept{S4 Object}

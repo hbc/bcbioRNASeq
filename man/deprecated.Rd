@@ -3,49 +3,38 @@
 \docType{methods}
 \name{deprecated}
 \alias{deprecated}
-\alias{download}
 \alias{plotGeneDetectionSaturation}
 \alias{plotDispersion}
 \alias{loadRNASeqRun}
-\alias{plotGeneHeatmap}
-\alias{txi}
 \alias{meltLog10}
-\alias{plot53Bias}
 \alias{design,bcbioRNASeq-method}
 \alias{design<-,bcbioRNASeq,formula-method}
-\title{Defunct or Deprecated Functions}
+\alias{loadRNASeq}
+\title{Deprecated functions}
 \usage{
-download(...)
-
 plotGeneDetectionSaturation(...)
 
 plotDispersion(...)
 
 loadRNASeqRun(...)
 
-plotGeneHeatmap(...)
-
-txi(...)
-
 meltLog10(object, ...)
-
-plot53Bias(...)
 
 \S4method{design}{bcbioRNASeq}(object, ...)
 
 \S4method{design}{bcbioRNASeq,formula}(object, ...) <- value
+
+loadRNASeq(...)
 }
 \arguments{
 \item{...}{Additional arguments.}
 
 \item{object}{Object.}
-
-\item{value}{Value to assign.}
 }
 \value{
-No value.
+\code{.Deprecated}.
 }
 \description{
-Defunct or Deprecated Functions
+Deprecated functions
 }
 \keyword{internal}

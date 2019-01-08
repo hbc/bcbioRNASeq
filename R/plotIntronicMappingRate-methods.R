@@ -1,44 +1,41 @@
-#' Plot Intronic Mapping Rate
-#'
-#' The majority of reads should map to exons and not introns.
-#'
 #' @name plotIntronicMappingRate
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams general
-#'
-#' @return `ggplot`.
-#'
+#' @inherit bioverbs::plotIntronicMappingRate
+#' @inheritParams basejump::params
+#' @inheritParams params
 #' @examples
-#' plotIntronicMappingRate(bcb_small)
+#' data(bcb)
+#' plotIntronicMappingRate(bcb)
 NULL
 
 
 
-#' @rdname plotIntronicMappingRate
+#' @importFrom bioverbs plotIntronicMappingRate
+#' @aliases NULL
 #' @export
-setMethod(
-    "plotIntronicMappingRate",
-    signature("bcbioRNASeq"),
+bioverbs::plotIntronicMappingRate
+
+
+
+plotIntronicMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 0.2,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        fill,
+        flip,
         title = "intronic mapping rate"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        assert(
+            isNumber(limit),
+            isProportion(limit),
+            isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
+            isFlag(flip),
+            isString(title, nullOK = TRUE)
         )
-        assert_is_a_number(limit)
-        assert_all_are_non_negative(limit)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
 
         p <- ggplot(
             data = metrics(object),
@@ -59,17 +56,17 @@ setMethod(
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(limit)) {
+        if (isPositive(limit)) {
             # Convert to percentage
             if (limit > 1L) {
                 # nocov start
-                warning("`limit`: Use ratio (0-1) instead of percentage")
+                warning("`limit`: Use ratio (0-1) instead of percentage.")
                 # nocov end
             } else {
                 limit <- limit * 100L
             }
             if (limit < 100L) {
-                p <- p + bcbio_geom_abline(yintercept = limit)
+                p <- p + basejump_geom_abline(yintercept = limit)
             }
         }
 
@@ -87,4 +84,18 @@ setMethod(
 
         p
     }
+
+formals(plotIntronicMappingRate.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotIntronicMappingRate.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
+
+
+
+#' @rdname plotIntronicMappingRate
+#' @export
+setMethod(
+    f = "plotIntronicMappingRate",
+    signature = signature("bcbioRNASeq"),
+    definition = plotIntronicMappingRate.bcbioRNASeq
 )

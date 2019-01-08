@@ -3,105 +3,98 @@
 \docType{methods}
 \name{plotPCA}
 \alias{plotPCA}
-\alias{plotPCA,SummarizedExperiment-method}
 \alias{plotPCA,bcbioRNASeq-method}
-\title{Sample PCA Plot for Transformed Data}
+\title{Principal component analysis plot}
 \usage{
-\S4method{plotPCA}{SummarizedExperiment}(object, interestingGroups,
-  ntop = 500L, color = getOption("bcbio.discrete.color", NULL),
-  label = getOption("bcbio.label", FALSE), title = "pca",
-  subtitle = NULL, return = c("ggplot", "data.frame"))
-
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
-  "tmm", "tpm", "rle"), ...)
+  "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL, ntop = 500L,
+  label = getOption("basejump.label", FALSE),
+  color = getOption("basejump.color.discrete", NULL),
+  pointSize = getOption("basejump.point.size", 3L), title = "PCA",
+  subtitle = NULL, return = c("ggplot", "DataFrame"), ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
-
-\item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
-Use \code{Inf} to include all genes.}
-
-\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
-scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
-color palette will be used. If manual color definitions are desired, we
-recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
-To set the discrete color palette globally, use
-\code{options(bcbio.discrete.color = scale_color_viridis_d())}.}
-
-\item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
-
-\item{title}{\code{string} or \code{NULL}. Plot title.}
-
-\item{subtitle}{\code{string} or \code{NULL}. Plot subtitle.}
-
-\item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
-and picks the first item in the vector by default.}
-
-\item{normalized}{\code{string}. Which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+\item{normalized}{\code{character(1)}.
+Which normalization method to apply:\preformatted{- "`tpm`": Transcripts per million (tximport).
+- "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+- "`rlog`": DESeq2 **log2** regularized log transformation.
+- "`vst`": DESeq2 **log2** variance stabilizing transformation.
 }}
+
+\item{interestingGroups}{\code{character}.
+Groups of interest that define the samples. If left unset, defaults to
+\code{sampleName}.}
+
+\item{ntop}{\code{integer(1)} or \code{Inf}.
+Number of most variable genes to plot.
+Use \code{Inf} to include all genes (\emph{not recommended}).}
+
+\item{label}{\code{logical(1)}.
+Superimpose sample text labels on the plot.}
+
+\item{color}{\code{ScaleDiscrete}.
+Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
+
+To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
+}}
+
+\item{pointSize}{\code{numeric(1)}.
+Point size for dots in the plot.}
+
+\item{title}{\code{character(1)}.
+Plot title.}
+
+\item{subtitle}{\code{character(1)}.
+Plot subtitle.}
+
+\item{return}{\code{character(1)}.
+Return type.
+Uses \link[base:match.arg]{match.arg()} internally and defaults to the first
+argument in the \code{character} vector.}
 
 \item{...}{Additional arguments.}
 }
 \value{
-\code{ggplot} or \code{data.frame}.
+\code{ggplot} or \code{DataFrame}.
 }
 \description{
-Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
-(PCA) sample coloring and labeling.
+Principal component analysis plot
 }
-\details{
+\section{Principal component analysis}{
+
+
+
 PCA (Jolliffe, et al., 2002) is a multivariate technique that allows us to
 summarize the systematic patterns of variations in the data. PCA takes the
 expression levels for genes and transforms it in principal component space,
 reducing each sample into one point. Thereby, we can separate samples by
 expression variation, and identify potential sample outliers. The PCA plot is
 a way to look at how samples are clustering.
-}
-\examples{
-# bcbioRNASeq ====
-plotPCA(
-    object = bcb_small,
-    normalized = "vst",
-    label = TRUE
-)
-plotPCA(
-    object = bcb_small,
-    normalized = "rlog",
-    interestingGroups = "sampleName",
-    label = FALSE
-)
-}
-\seealso{
-\itemize{
-\item \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}}.
-\item \code{getMethod("plotPCA", "DESeqTransform")}
+
 }
 
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotCountDensity}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotDispEsts}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotPCACovariates}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
+\examples{
+data(bcb)
+plotPCA(bcb, label = FALSE)
+plotPCA(bcb, label = TRUE)
+}
+\references{
+Jolliffe, et al., 2002.
+}
+\seealso{
+\code{DESeq2::plotPCA}.
+
+We're using a modified version of the \code{DESeqTransform} method here.\preformatted{methodFunction(
+    f = "plotPCA",
+    signature = "DESeqTransform",
+    package = "DESeq2"
+)
+}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Functions}

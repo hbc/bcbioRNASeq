@@ -1,67 +1,55 @@
-#' **T**rimmed **M**ean of **M**-Values (TMM) Normalization
-#'
-#' TMM normalization is recommended for RNA-seq data generally when the majority
-#' of genes are not differentially expressed. We use this as a quality control
-#' tool when plotting counts per gene.
-#'
 #' @name tmm
-#' @family Data Functions
 #' @author Michael Steinbaugh
-#'
-#' @inheritParams general
-#'
-#' @return `matrix`.
-#' @export
-#'
+#' @inherit bioverbs::tmm
+#' @inheritParams params
 #' @examples
-#' # bcbioRNASeq ====
-#' tmm(bcb_small) %>% summary()
-#'
-#' # DESeqDataSet ====
-#' tmm(dds_small) %>% summary()
-#'
-#' # matrix ====
-#' counts(bcb_small) %>% tmm() %>% summary()
+#' data(bcb)
+#' x <- tmm(bcb)
+#' summary(x)
 NULL
 
 
 
-#' @rdname tmm
+#' @importFrom bioverbs tmm
+#' @aliases NULL
 #' @export
-setMethod(
-    "tmm",
-    signature("bcbioRNASeq"),
+bioverbs::tmm
+
+
+
+tmm.matrix <-  # nolint
     function(object) {
-        validObject(object)
-        tmm(assay(object))
-    }
-)
-
-
-
-#' @rdname tmm
-#' @export
-setMethod(
-    "tmm",
-    signature("DESeqDataSet"),
-    function(object) {
-        validObject(object)
-        tmm(assay(object))
-    }
-)
-
-
-
-#' @rdname tmm
-#' @export
-setMethod(
-    "tmm",
-    signature("matrix"),
-    function(object) {
-        message("Applying trimmed mean of M-values (TMM) normalization")
+        message("Applying trimmed mean of M-values (TMM) normalization.")
         object %>%
             DGEList() %>%
             calcNormFactors() %>%
             cpm(normalized.lib.sizes = TRUE)
     }
+
+
+
+#' @rdname tmm
+#' @export
+setMethod(
+    f = "tmm",
+    signature = signature("matrix"),
+    definition = tmm.matrix
+)
+
+
+
+tmm.SummarizedExperiment <-  # nolint
+    function(object) {
+        validObject(object)
+        tmm(counts(object))
+    }
+
+
+
+#' @rdname tmm
+#' @export
+setMethod(
+    f = "tmm",
+    signature = signature("SummarizedExperiment"),
+    definition = tmm.SummarizedExperiment
 )

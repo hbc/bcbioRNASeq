@@ -1,0 +1,310 @@
+date: '2018-03-18 02:35:10.332478'
+upload: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
+bcbio_system: /n/app/bcbio/dev/galaxy/bcbio_system.yaml
+samples:
+- description: control_rep1
+  dirs:
+    config: /n/app/bcbio/dev/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/app/bcbio/dev/galaxy
+    work: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/work
+  genome_build: GRCm38_90
+  genome_resources:
+    rnaseq:
+      dexseq: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/tophat/GRCm38_90_transcriptome.ver
+      transcripts: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      cosmic: null
+      dbsnp: null
+    version: 1
+  metadata:
+    batch: null
+    day: 0
+    phenotype: ''
+    replicate: 1
+    strain: Balb/c
+    tissue: kidney
+    treatment: control
+  sam_ref: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/seq/GRCm38_90.fa
+  summary:
+    metrics:
+      '%GC': '46'
+      5'-3' bias: 0.88
+      Average_insert_size: 243.3
+      Average_read_length: 50.0
+      Duplicates: 0.0
+      Duplication Rate of Mapped: 0.5392178833668394
+      Exonic Rate: 0.7339
+      Intergenic Rate: 0.0634
+      Intronic Rate: 0.2027
+      Mapped_paired_reads: 59384400.0
+      Mapped_reads: 59384400.0
+      Name: control_rep1
+      Quality format: standard
+      Sequence length: '50'
+      Sequences flagged as poor quality: '0'
+      Total_reads: 97249196.0
+      rRNA: '16412534.9222'
+      rRNA_rate: '0.613504727864'
+- description: control_rep2
+  dirs:
+    config: /n/app/bcbio/dev/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/app/bcbio/dev/galaxy
+    work: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/work
+  genome_build: GRCm38_90
+  genome_resources:
+    rnaseq:
+      dexseq: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/tophat/GRCm38_90_transcriptome.ver
+      transcripts: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      cosmic: null
+      dbsnp: null
+    version: 1
+  metadata:
+    batch: null
+    day: 0
+    phenotype: ''
+    replicate: 2
+    strain: Balb/c
+    tissue: kidney
+    treatment: control
+  sam_ref: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/seq/GRCm38_90.fa
+  summary:
+    metrics:
+      '%GC': '45'
+      5'-3' bias: 0.77
+      Average_insert_size: 254.2
+      Average_read_length: 50.0
+      Duplicates: 0.0
+      Duplication Rate of Mapped: 0.5416344431362747
+      Exonic Rate: 0.7175
+      Intergenic Rate: 0.0655
+      Intronic Rate: 0.217
+      Mapped_paired_reads: 123430360.0
+      Mapped_reads: 123430360.0
+      Name: control_rep2
+      Quality format: standard
+      Sequence length: '50'
+      Sequences flagged as poor quality: '0'
+      Total_reads: 178892010.0
+      rRNA: '31779475.69'
+      rRNA_rate: '0.584569901302'
+- description: control_rep3
+  dirs:
+    config: /n/app/bcbio/dev/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/app/bcbio/dev/galaxy
+    work: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/work
+  genome_build: GRCm38_90
+  genome_resources:
+    rnaseq:
+      dexseq: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/tophat/GRCm38_90_transcriptome.ver
+      transcripts: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      cosmic: null
+      dbsnp: null
+    version: 1
+  metadata:
+    batch: null
+    day: 0
+    phenotype: ''
+    replicate: 3
+    strain: Balb/c
+    tissue: kidney
+    treatment: control
+  sam_ref: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/seq/GRCm38_90.fa
+  summary:
+    metrics:
+      '%GC': '43'
+      5'-3' bias: 0.91
+      Average_insert_size: 238.0
+      Average_read_length: 50.0
+      Duplicates: 0.0
+      Duplication Rate of Mapped: 0.56590887249516
+      Exonic Rate: 0.7870999999999999
+      Intergenic Rate: 0.0461
+      Intronic Rate: 0.16690000000000002
+      Mapped_paired_reads: 53150852.0
+      Mapped_reads: 53150852.0
+      Name: control_rep3
+      Quality format: standard
+      Sequence length: '50'
+      Sequences flagged as poor quality: '0'
+      Total_reads: 76818864.0
+      rRNA: '15967974.1682'
+      rRNA_rate: '0.644881375772'
+- description: fa_day7_rep1
+  dirs:
+    config: /n/app/bcbio/dev/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/app/bcbio/dev/galaxy
+    work: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/work
+  genome_build: GRCm38_90
+  genome_resources:
+    rnaseq:
+      dexseq: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/tophat/GRCm38_90_transcriptome.ver
+      transcripts: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      cosmic: null
+      dbsnp: null
+    version: 1
+  metadata:
+    batch: null
+    day: 7
+    phenotype: ''
+    replicate: 1
+    strain: Balb/c
+    tissue: kidney
+    treatment: folic acid
+  sam_ref: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/seq/GRCm38_90.fa
+  summary:
+    metrics:
+      '%GC': '40'
+      5'-3' bias: 0.45
+      Average_insert_size: 235.2
+      Average_read_length: 50.0
+      Duplicates: 0.0
+      Duplication Rate of Mapped: 0.4532072711162312
+      Exonic Rate: 0.6553
+      Intergenic Rate: 0.0487
+      Intronic Rate: 0.29600000000000004
+      Mapped_paired_reads: 67871932.0
+      Mapped_reads: 67871932.0
+      Name: fa_day7_rep1
+      Quality format: standard
+      Sequence length: '50'
+      Sequences flagged as poor quality: '0'
+      Total_reads: 81067454.0
+      rRNA: '14933147.7738'
+      rRNA_rate: '0.554567389868'
+- description: fa_day7_rep2
+  dirs:
+    config: /n/app/bcbio/dev/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/app/bcbio/dev/galaxy
+    work: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/work
+  genome_build: GRCm38_90
+  genome_resources:
+    rnaseq:
+      dexseq: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/tophat/GRCm38_90_transcriptome.ver
+      transcripts: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      cosmic: null
+      dbsnp: null
+    version: 1
+  metadata:
+    batch: null
+    day: 7
+    phenotype: ''
+    replicate: 2
+    strain: Balb/c
+    tissue: kidney
+    treatment: folic acid
+  sam_ref: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/seq/GRCm38_90.fa
+  summary:
+    metrics:
+      '%GC': '41'
+      5'-3' bias: 0.76
+      Average_insert_size: 248.1
+      Average_read_length: 50.0
+      Duplicates: 0.0
+      Duplication Rate of Mapped: 0.4421218873074282
+      Exonic Rate: 0.6456999999999999
+      Intergenic Rate: 0.058600000000000006
+      Intronic Rate: 0.2958
+      Mapped_paired_reads: 59400314.0
+      Mapped_reads: 59400314.0
+      Name: fa_day7_rep2
+      Quality format: standard
+      Sequence length: '50'
+      Sequences flagged as poor quality: '0'
+      Total_reads: 74089116.0
+      rRNA: '13229239.7469'
+      rRNA_rate: '0.557679786693'
+- description: fa_day7_rep3
+  dirs:
+    config: /n/app/bcbio/dev/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/app/bcbio/dev/galaxy
+    work: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/work
+  genome_build: GRCm38_90
+  genome_resources:
+    rnaseq:
+      dexseq: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/tophat/GRCm38_90_transcriptome.ver
+      transcripts: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      cosmic: null
+      dbsnp: null
+    version: 1
+  metadata:
+    batch: null
+    day: 7
+    phenotype: ''
+    replicate: 3
+    strain: Balb/c
+    tissue: kidney
+    treatment: folic acid
+  sam_ref: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/seq/GRCm38_90.fa
+  summary:
+    metrics:
+      '%GC': '46'
+      5'-3' bias: 0.65
+      Average_insert_size: 234.8
+      Average_read_length: 50.0
+      Duplicates: 0.0
+      Duplication Rate of Mapped: 0.4825410599513829
+      Exonic Rate: 0.657
+      Intergenic Rate: 0.0702
+      Intronic Rate: 0.2728
+      Mapped_paired_reads: 68116588.0
+      Mapped_reads: 68116588.0
+      Name: fa_day7_rep3
+      Quality format: standard
+      Sequence length: '50'
+      Sequences flagged as poor quality: '0'
+      Total_reads: 112989834.0
+      rRNA: '16484135.0163'
+      rRNA_rate: '0.586973574093'

@@ -1,53 +1,66 @@
-#' Plot Row Standard Deviations vs. Row Means
+#' @name plotMeanSD
+#' @author Michael Steinbaugh, Lorena Patano
+#' @inherit bioverbs::plotMeanSD
+#' @inheritParams basejump::params
+#' @inheritParams params
+#' @inheritParams bcbioRNASeq
 #'
-#' [vsn::meanSdPlot()] wrapper that plots count transformations on a log2 scale.
+#' @details
+#' `vsn::meanSdPlot` wrapper that plots count transformations on a log2 scale.
 #'
-#' - **DESeq2 log2**: log2 normalized counts.
-#' - **DESeq2 rlog**: regularized log transformation.
-#' - **DESeq2 vst**: variance stabilizing transformation.
-#' - **edgeR log2 tmm**: log2 trimmed mean of M-values transformation.
+#' - DESeq2 log2: log2 size factor-adjusted normalized counts.
+#' - DESeq2 rlog: **r**egularized **log** transformation.
+#' - DESeq2 VST: **v**ariance-**s**tabilizing **t**ransformation.
+#' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
 #' @seealso
-#' - [vsn::meanSdPlot()].
-#' - [DESeq2::DESeq()].
-#' - [DESeq2::rlog()].
-#' - [DESeq2::varianceStabilizingTransformation()].
-#' - [tmm()].
-#'
-#' @name plotMeanSD
-#' @family Quality Control Functions
-#' @author Michael Steinbaugh, Lorena Patano
-#'
-#' @inheritParams general
-#'
-#' @return `ggplot` grid.
+#' - `vsn::meanSdPlot()`.
+#' - `DESeq2::DESeq()`.
+#' - `DESeq2::rlog()`.
+#' - `DESeq2::varianceStabilizingTransformation()`.
+#' - `edgeR::calcNormFactors()`.
 #'
 #' @examples
-#' # bcbioRNASeq ====
-#' plotMeanSD(bcb_small)
-#'
-#' # DESeqDataSet ====
-#' plotMeanSD(dds_small)
+#' data(bcb)
+#' plotMeanSD(bcb)
 NULL
 
 
 
+#' @importFrom bioverbs plotMeanSD
+#' @aliases NULL
+#' @export
+bioverbs::plotMeanSD
+
+
+
+# Match the vst, rlog conventions to `bcbioRNASeq` generator.
 .plotMeanSD <- function(
     raw,
     normalized,
-    rlog,
-    vst,
+    vst = NULL,
+    rlog = NULL,
     legend = FALSE
 ) {
-    assert_is_matrix(raw)
-    assert_is_matrix(normalized)
-    # rlog and vst are optional (transformationLimit)
-    assert_is_a_bool(legend)
+    assert(
+        is.matrix(raw),
+        is.matrix(normalized),
+        identical(dimnames(normalized), dimnames(raw)),
+        isAny(vst, classes = c("matrix", "NULL")),
+        isAny(rlog, classes = c("matrix", "NULL")),
+        isFlag(legend)
+    )
+    if (is.matrix(vst)) {
+        assert(identical(dimnames(vst), dimnames(raw)))
+    }
+    if (is.matrix(rlog)) {
+        assert(identical(dimnames(rlog), dimnames(raw)))
+    }
 
     xlab <- "rank (mean)"
     nonzero <- rowSums(raw) > 0L
 
-    # DESeq2 log2 normalized
+    # DESeq2 log2 normalized.
     gglog2 <- normalized %>%
         .[nonzero, , drop = FALSE] %>%
         `+`(1L) %>%
@@ -57,7 +70,7 @@ NULL
         ggtitle("DESeq2 log2") +
         xlab(xlab)
 
-    # DESeq2 regularized log
+    # DESeq2 regularized log.
     if (is.matrix(rlog)) {
         ggrlog <- rlog %>%
             .[nonzero, , drop = FALSE] %>%
@@ -66,11 +79,14 @@ NULL
             ggtitle("DESeq2 rlog") +
             xlab(xlab)
     } else {
-        message("Skipping regularized log")
+        message(paste(
+            "Regularized log (rlog) was not calculated.",
+            "Skipping."
+        ))
         ggrlog <- NULL
     }
 
-    # DESeq2 variance stabilizing transformation
+    # DESeq2 variance stabilizing transformation.
     if (is.matrix(vst)) {
         ggvst <- vst %>%
             .[nonzero, , drop = FALSE] %>%
@@ -79,13 +95,16 @@ NULL
             ggtitle("DESeq2 vst") +
             xlab(xlab)
     } else {
-        message("Skipping variance stabilizing transformation")
+        message(paste(
+            "Variance-stabilizing transformation (vst) was not calculated.",
+            "Skipping."
+        ))
         ggvst <- NULL
     }
 
-    # edgeR log2 tmm
-    tmm <- suppressMessages(tmm(raw))
-    ggtmm <- tmm %>%
+    # edgeR log2 tmm.
+    ggtmm <- raw %>%
+        tmm() %>%
         .[nonzero, , drop = FALSE] %>%
         `+`(1L) %>%
         log2() %>%
@@ -100,10 +119,10 @@ NULL
         vst = ggvst,
         tmm = ggtmm
     )
-    # Remove NULL assays if present (e.g. rlog, vst)
+    # Remove NULL assays if present (e.g. rlog, vst).
     plotlist <- Filter(Negate(is.null), plotlist)
 
-    # Remove the plot (color) legend, if desired
+    # Remove the plot (color) legend, if desired.
     if (!isTRUE(legend)) {
         plotlist <- lapply(plotlist, function(p) {
             p <- p + theme(legend.position = "none")
@@ -117,15 +136,8 @@ NULL
 
 # Require that the DESeq2 transformations are slotted.
 # If `transformationLimit` was applied, this function will error.
-#' @rdname plotMeanSD
-#' @export
-setMethod(
-    "plotMeanSD",
-    signature("bcbioRNASeq"),
-    function(
-        object,
-        legend = getOption("bcbio.legend", FALSE)
-    ) {
+plotMeanSD.bcbioRNASeq <-  # nolint
+    function(object, legend) {
         .plotMeanSD(
             raw = counts(object, normalized = FALSE),
             normalized = counts(object, normalized = TRUE),
@@ -134,25 +146,15 @@ setMethod(
             legend = legend
         )
     }
-)
+
+formals(plotMeanSD.bcbioRNASeq)[["legend"]] <- formalsList[["legend"]]
 
 
 
 #' @rdname plotMeanSD
 #' @export
 setMethod(
-    "plotMeanSD",
-    signature("DESeqDataSet"),
-    function(
-        object,
-        legend = getOption("bcbio.legend", FALSE)
-    ) {
-        .plotMeanSD(
-            raw = counts(object, normalized = FALSE),
-            normalized = counts(object, normalized = TRUE),
-            rlog = assay(rlog(object)),
-            vst = assay(varianceStabilizingTransformation(object)),
-            legend = legend
-        )
-    }
+    f = "plotMeanSD",
+    signature = signature("bcbioRNASeq"),
+    definition = plotMeanSD.bcbioRNASeq
 )

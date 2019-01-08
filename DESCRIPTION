@@ -1,7 +1,8 @@
 Package: bcbioRNASeq
-Title: RNA-Seq Utilities
+Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.2.7
+Version: 0.3.5
+Date: 2019-01-08
 Authors@R: c(
     person(
         given = "Michael",
@@ -93,70 +94,35 @@ Authors@R: c(
         role = c("cph", "fnd")
     ))
 URL:
-    http://bioinformatics.sph.harvard.edu/bcbioRNASeq,
-    https://github.com/hbc/bcbioRNASeq
-BugReports: https://github.com/hbc/bcbioRNASeq/issues
+    https://bioinformatics.sph.harvard.edu/bcbioRNASeq/,
+    https://github.com/hbc/bcbioRNASeq/
+BugReports: https://github.com/hbc/bcbioRNASeq/issues/
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: TRUE
-Depends:
-    R (>= 3.4),
-    SummarizedExperiment,
-    bcbioBase (== 0.4.1),
-    DESeq2 (>= 1.18)
+LazyData: false
+Depends: R (>= 3.5), SummarizedExperiment, basejump (>= 0.9.3)
 Imports:
-    assertive.base,
-    assertive.files,
-    assertive.numbers,
-    assertive.properties,
-    assertive.sets,
-    assertive.strings,
-    assertive.types,
-    basejump (== 0.7.2),
-    BiocGenerics,
-    cowplot (>= 0.9),
-    DEGreport (>= 1.14),
-    dplyr (>= 0.7),
-    edgeR (>= 3.20),
-    GenomicFeatures,
-    ggplot2 (>= 3.0),
-    ggrepel (>= 0.8),
-    grid,
-    knitr (>= 1.20),
-    magrittr (>= 1.5),
-    matrixStats,
-    methods,
-    readr (>= 1.1),
-    reshape2 (>= 1.4),
-    rlang (>= 0.2),
-    rmarkdown (>= 1.10),
-    S4Vectors,
-    scales,
-    sessioninfo (>= 1.0),
-    stringr (>= 1.3),
-    tibble (>= 1.4),
-    tidyverse (>= 1.2),
-    tximport (>= 1.6),
-    utils,
-    vsn
+    S4Transformer (>= 0.1), bioverbs (>= 0.1), bcbioBase (>= 0.5.8),
+        goalie (>= 0.2.4),
+    BiocGenerics, DEGreport (>= 1.16), DESeq2 (>= 1.20), GenomicFeatures,
+        S4Vectors, edgeR (>= 3.22), tximport (>= 1.8), vsn,
+    cowplot (>= 0.9), dplyr (>= 0.7), ggplot2 (>= 3.0), ggrepel (>= 0.8),
+        knitr (>= 1.20), magrittr (>= 1.5), matrixStats (>= 0.54),
+        readr (>= 1.1), rlang (>= 0.3), rmarkdown (>= 1.10), scales (>= 1.0),
+        sessioninfo (>= 1.1), stringr (>= 1.3), tibble (>= 1.4),
+        tidyverse (>= 1.2),
+    grid, methods, utils
 Suggests:
-    BiocStyle,
-    clusterProfiler (>= 3.8),
-    DOSE (>= 3.6),
-    EnsDb.Hsapiens.v75,
-    org.Hs.eg.db,
-    org.Mm.eg.db,
-    pathview (>= 1.20),
-    roxygen2,
-    testthat (>= 2.0),
-    viridis
+    BiocStyle, rhdf5,
+    hexbin, patrick, roxygen2, testthat (>= 2.0), viridis
 Remotes:
-    hbc/bcbioBase@v0.4.1,
-    steinbaugh/basejump@v0.7.2
+    steinbaugh/basejump,
+    steinbaugh/bcbioBase,
+    steinbaugh/bioverbs,
+    steinbaugh/goalie
 biocViews:
     DataImport,
     DataRepresentation,
-    DifferentialExpression,
     GeneExpression,
     QualityControl,
     ReportWriting,
@@ -164,5 +130,5 @@ biocViews:
     Transcription,
     Visualization
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr

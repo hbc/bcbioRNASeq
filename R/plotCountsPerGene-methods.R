@@ -1,105 +1,83 @@
-#' Plot Counts Per Gene
+#' @name plotCountsPerGene
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @inherit bioverbs::plotCountsPerGene
+#' @inheritParams basejump::params
+#' @inheritParams params
 #'
-#' Generally, we expect similar count spreads for all genes between samples
-#' unless the library sizes or total RNA expression are different.
+#' @section Trimmed Mean of M-Values:
 #'
-#' @section TMM:
-#' We recommend visualizing counts normalized with the Trimmed Mean of M-Values
-#' (TMM) method here (Robinson, et al., 2010). TMM normalization equates the
-#' overall expression levels of genes between samples under the assumption that
-#' the majority of them are not differentially expressed. Therefore, by
-#' normalizing for total RNA expression by sample, we expect the spread of the
+#' We recommend visualizing counts normalized with the **T**rimmed **M**ean of
+#' **M**-Values (TMM) method here. TMM normalization equates the overall
+#' expression levels of genes between samples under the assumption that the
+#' majority of them are not differentially expressed. Therefore, by normalizing
+#' for total RNA expression by sample, we expect the spread of the
 #' TMM-normalized counts per gene to be similar for every sample.
 #'
-#' @name plotCountsPerGene
-#' @family Quality Control Functions
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams general
-#'
-#' @return `ggplot`.
+#' @references TMM: Robinson, et al., 2010.
 #'
 #' @examples
-#' plotCountsPerGene(bcb_small)
+#' data(bcb)
+#' plotCountsPerGene(bcb)
 NULL
+
+
+
+#' @importFrom bioverbs plotCountsPerGene
+#' @aliases NULL
+#' @export
+bioverbs::plotCountsPerGene
+
+
+
+plotCountsPerGene.bcbioRNASeq <-  # nolint
+    function(object, normalized) {
+        validObject(object)
+        normalized <- match.arg(normalized)
+
+        # Coerce to RSE.
+        rse <- as(object, "RangedSummarizedExperiment")
+        counts <- counts(object, normalized = normalized)
+        assays(rse) <- list(counts)
+        assayNames(rse) <- normalized
+
+        # Set the counts axis label.
+        countsAxisLabel <- paste(normalized, "counts")
+        trans <- .normalizedTrans(normalized)
+        if (trans != "identity") {
+            countsAxisLabel <- paste(trans, countsAxisLabel)
+        }
+
+        do.call(
+            what = plotCountsPerGene,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = rse,
+                    trans = trans,
+                    countsAxisLabel = countsAxisLabel
+                ),
+                removeFormals = "normalized"
+            )
+        )
+    }
+
+f1 <- formals(plotCountsPerGene.bcbioRNASeq)
+f2 <- methodFormals(
+    f = "plotCountsPerGene",
+    signature = "SummarizedExperiment",
+    package = "basejump"
+)
+f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
+f <- c(f1, f2)
+# Ensure TMM is set first.
+f[["normalized"]] <- unique(c("tmm", normalizedCounts))
+formals(plotCountsPerGene.bcbioRNASeq) <- f
 
 
 
 #' @rdname plotCountsPerGene
 #' @export
 setMethod(
-    "plotCountsPerGene",
-    signature("bcbioRNASeq"),
-    function(
-        object,
-        interestingGroups,
-        normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
-        title = "counts per gene"
-    ) {
-        # Passthrough: fill, flip, title
-        validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
-        )
-        normalized <- match.arg(normalized)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
-
-        # Subset the counts matrix to only include non-zero genes
-        nonzero <- .nonzeroGenes(object)
-        counts <- counts(object, normalized = normalized)
-        counts <- counts[nonzero, , drop = FALSE]
-
-        # Apply log2 transformation, if  necessary
-        if (normalized %in% c("rlog", "vst")) {
-            # Already log2
-            fxn <- .meltCounts
-        } else {
-            fxn <- .meltLog2Counts
-        }
-
-        data <- fxn(counts, sampleData = sampleData(object))
-
-        # Subtitle
-        if (is_a_string(title)) {
-            subtitle <- paste(nrow(counts), "non-zero genes")
-        } else {
-            subtitle <- NULL
-        }
-
-        p <- ggplot(
-            data = data,
-            mapping = aes(
-                x = !!sym("sampleName"),
-                y = !!sym("counts"),
-                fill = !!sym("interestingGroups")
-            )
-        ) +
-            geom_boxplot(color = "black", outlier.shape = NA) +
-            labs(
-                title = title,
-                subtitle = subtitle,
-                x = NULL,
-                y = paste(normalized, "counts (log2)"),
-                fill = paste(interestingGroups, collapse = ":\n")
-            )
-
-        if (is(fill, "ScaleDiscrete")) {
-            p <- p + fill
-        }
-
-        if (isTRUE(flip)) {
-            p <- p + coord_flip()
-        }
-
-        if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(fill = FALSE)
-        }
-
-        p
-    }
+    f = "plotCountsPerGene",
+    signature = signature("bcbioRNASeq"),
+    definition = plotCountsPerGene.bcbioRNASeq
 )

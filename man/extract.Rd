@@ -4,10 +4,10 @@
 \name{extract}
 \alias{extract}
 \alias{[,bcbioRNASeq,ANY,ANY,ANY-method}
-\title{Extract or Replace Parts of an Object}
+\title{Extract or replace parts of an object}
 \usage{
 \S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, drop = FALSE,
-  transform = TRUE)
+  recalculate = TRUE)
 }
 \arguments{
 \item{x}{
@@ -66,54 +66,53 @@
     \code{\link{drop}} for further details.
   }
 
-\item{transform}{\code{boolean}. Recalculate slotted DESeq2 transformations.
-Recommended by default but can take a while for large datasets.}
+\item{recalculate}{\code{logical(1)}. Recalculate DESeq2 normalized counts and
+variance-stabilizing transformations defined in \code{assays}. Recommended by
+default, but can take a long time for large datasets.}
 }
 \value{
 \code{bcbioRNASeq}.
 }
 \description{
-Extract genes by row and samples by column from a \code{bcbioRNASeq} object.
-Internal count transformations are rescaled automatically, if defined.
+Extract genes by row and samples by column.
 }
-\note{
-DESeq2 transformations will only be calculated when \code{transform = TRUE}
-and either \code{rlog} or \code{vst} counts are defined in \code{\link[=assays]{assays()}}.
+\details{
+Internal count transformations are rescaled automatically, if defined. DESeq2
+transformations will only be updated when \code{recalculate = TRUE} and either
+\code{rlog} or \code{vst} counts are defined in \code{assays}.
 }
 \examples{
-object <- bcb_small
+data(bcb)
+object <- bcb
 
-# Minimum of 100 genes, 2 samples
+## Minimum of 100 genes, 2 samples.
 genes <- head(rownames(object), 100L)
 head(genes)
 samples <- head(colnames(object), 2L)
 head(samples)
 
-# Extract by sample name
+## Extract by sample name.
 object[, samples]
 
-# Extract by gene list
+## Extract by gene list.
 object[genes, ]
 
-# Extract by both genes and samples
+## Extract by both genes and samples.
 x <- object[genes, samples]
 print(x)
 assayNames(x)
 
-# Fast subsetting, by skipping DESeq2 transformations
-# Note that rlog and vst counts will not be defined
-x <- object[, samples, transform = FALSE]
+## Fast subsetting, by skipping DESeq2 recalculations.
+## Note that `normalized`, `rlog`, and `vst` assays will not be defined.
+x <- object[, samples, recalculate = FALSE]
 print(x)
 names(assays(x))
 }
-\seealso{
-\code{help("[", "base")}.
-
-Other S4 Object: \code{\link{bcbioRNASeq}},
-  \code{\link{coerce}}, \code{\link{show}},
-  \code{\link{updateObject}}
+\references{
+Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988)
+  \emph{The New S Language}.
+  Wadsworth & Brooks/Cole.
 }
 \author{
-Lorena Pantano, Michael Steinbaugh
+Michael Steinbaugh, Lorena Pantano
 }
-\concept{S4 Object}

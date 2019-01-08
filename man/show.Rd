@@ -4,7 +4,7 @@
 \name{show}
 \alias{show}
 \alias{show,bcbioRNASeq-method}
-\title{Show an Object}
+\title{Show an object}
 \usage{
 \S4method{show}{bcbioRNASeq}(object)
 }
@@ -37,14 +37,13 @@ complete, original object, with misleading results.  See the
 the discussion in \code{\link{setIs}} for the general concept.
 }
 \examples{
-show(bcb_small)
+data(bcb)
+show(bcb)
 }
 \seealso{
-Other S4 Object: \code{\link{bcbioRNASeq}},
-  \code{\link{coerce}}, \code{\link{extract}},
-  \code{\link{updateObject}}
+\code{\link{showMethods}} prints all the methods for one or more
+  functions.
 }
 \author{
 Michael Steinbuagh
 }
-\concept{S4 Object}

@@ -4,53 +4,80 @@
 \name{counts}
 \alias{counts}
 \alias{counts,bcbioRNASeq-method}
-\title{Count Matrix Accessors}
+\title{Counts}
 \usage{
 \S4method{counts}{bcbioRNASeq}(object, normalized = FALSE)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{\code{string} or \code{boolean}. Which normalization method to apply:
+\item{normalized}{\code{character(1)} or \code{logical(1)}.
+Which normalization method to apply:
 \itemize{
-\item \code{FALSE}: Raw counts (tximport).
-\item \code{TRUE}: DESeq2 normalized counts. Calculated on the fly.
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rle}": Relative log expression transformation.
+\item \code{FALSE}: Raw counts.
+When using a \href{https://bioconductor.org/packages/tximport/}{tximport}-compatible caller, these are length scaled
+by default (see \code{countsFromAbundance} argument).
+When using a \href{http://bioinf.wehi.edu.au/featureCounts/}{featureCounts}-compatible caller, these are \code{integer}.
+}
+
+\href{https://bioconductor.org/packages/tximport/}{tximport} caller-specific normalizations:
+\itemize{
+\item \code{"tpm"}: \strong{T}ranscripts \strong{p}er \strong{m}illion.
+}
+
+Additional gene-level-specific normalizations:
+\itemize{
+\item \code{TRUE}: Size factor-adjusted counts.\cr
+See \code{DESeq2::sizeFactors} for more information.
+\item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation.\cr
+Requires \code{vst = TRUE} to be set during \code{bcbioRNASeq} call.\cr
+See \code{DESeq2::varianceStabilizingTransformation} for more information.
+\item \code{"rlog"}: \strong{R}egularized \strong{log} transformation (log2).\cr
+Requires \code{rlog = TRUE} to be set during \code{bcbioRNASeq} call.\cr
+See \code{DESeq2::rlog} for more information.
+\item \code{"tmm"}: \strong{T}rimmed \strong{m}ean of \strong{M}-values.\cr
+See \code{edgeR::calcNormFactors} for more information.
+\item \code{"rle"}: \strong{R}elative \strong{l}og \strong{e}xpression transformation.
+\item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
+fragments.\cr
+Requires annotations in \code{rowRanges} with defined \code{width}; otherwise,
+will be skipped during the \code{bcbioRNASeq} load call.\cr
+See \code{BiocGenerics::width} and \code{DESeq2::fpkm} for more information.
 }}
 }
 \value{
 \code{matrix}.
 }
 \description{
-By default, \code{\link[=counts]{counts()}} returns the raw counts. Normalized counts, including
-transcripts per million (TPM) can be accessed using the "\code{normalized}"
-argument.
+Count matrix.
+}
+\details{
+By default, return the raw counts. Normalized counts in a variety of formats
+can be accessed using the \code{normalized} argument.
 }
 \examples{
-# bcbioRNASeq ====
-counts(bcb_small, normalized = FALSE) \%>\% summary()
-counts(bcb_small, normalized = TRUE) \%>\% summary()
-counts(bcb_small, normalized = "tpm") \%>\% summary()
-counts(bcb_small, normalized = "vst") \%>\% summary()
+data(bcb)
+summary(counts(bcb))
+}
+\references{
+\itemize{
+\item TMM: Robinson and Oshlack (2010).
+\item RLE: Anders and Huber (2010).
+}
 }
 \seealso{
 \itemize{
-\item \code{\link[=tpm]{tpm()}}.
-\item \code{\link[=tmm]{tmm()}}.
-\item \code{\link[DESeq2:counts]{DESeq2::counts()}}.
-\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
-\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+\item \code{tximport::tximport()}.
+\item \code{DESeq2::counts()}.
+\item \code{DESeq2::sizeFactors()}.
+\item \code{DESeq2::varianceStabilizingTransformation()}.
+\item \code{DESeq2::rlog()}.
+\item \code{DESeq2::fpkm()}.
+\item \code{edgeR::calcNormFactors()}.
+\item \code{tmm()}.
+\item \code{relativeLogExpression()}.
 }
-
-Other Data Functions: \code{\link{aggregateReplicates}},
-  \code{\link{metrics}}, \code{\link{sampleData}},
-  \code{\link{tmm}}, \code{\link{tpm}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano
 }
-\concept{Data Functions}

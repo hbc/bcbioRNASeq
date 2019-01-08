@@ -1,46 +1,41 @@
-#' Plot Mapping Rate
-#'
-#' The genomic mapping rate represents the percentage of reads mapping to the
-#' reference genome. Low mapping rates are indicative of sample contamination,
-#' poor sequencing quality or other artifacts.
-#'
 #' @name plotMappingRate
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
-#' @inheritParams general
-#'
-#' @return `ggplot`.
-#'
+#' @inherit bioverbs::plotMappingRate
+#' @inheritParams basejump::params
+#' @inheritParams params
 #' @examples
-#' plotMappingRate(bcb_small)
+#' data(bcb)
+#' plotMappingRate(bcb)
 NULL
 
 
 
-#' @rdname plotMappingRate
+#' @importFrom bioverbs plotMappingRate
+#' @aliases NULL
 #' @export
-setMethod(
-    "plotMappingRate",
-    signature("bcbioRNASeq"),
+bioverbs::plotMappingRate
+
+
+
+plotMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
-        limit = 0.9,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        interestingGroups = NULL,
+        limit = 0.7,
+        fill,
+        flip,
         title = "mapping rate"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        assert(
+            isNumber(limit),
+            isProportion(limit),
+            isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
+            isFlag(flip),
+            isString(title, nullOK = TRUE)
         )
-        assert_is_a_number(limit)
-        assert_all_are_non_negative(limit)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
 
         p <- ggplot(
             data = metrics(object),
@@ -62,17 +57,17 @@ setMethod(
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
-        if (is_positive(limit)) {
-            # Convert to percentage
+        if (isPositive(limit)) {
+            # Convert to percentage.
             if (limit > 1L) {
                 # nocov start
-                warning("`limit`: Use ratio (0-1) instead of percentage")
+                warning("`limit`: Use ratio (0-1) instead of percentage.")
                 # nocov end
             } else {
                 limit <- limit * 100L
             }
             if (limit < 100L) {
-                p <- p + bcbio_geom_abline(yintercept = limit)
+                p <- p + basejump_geom_abline(yintercept = limit)
             }
         }
 
@@ -90,4 +85,18 @@ setMethod(
 
         p
     }
+
+formals(plotMappingRate.bcbioRNASeq)[["fill"]] <-
+    formalsList[["fill.discrete"]]
+formals(plotMappingRate.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
+
+
+
+#' @rdname plotMappingRate
+#' @export
+setMethod(
+    f = "plotMappingRate",
+    signature = signature("bcbioRNASeq"),
+    definition = plotMappingRate.bcbioRNASeq
 )

@@ -1,48 +1,46 @@
-#' Extract or Replace Parts of an Object
+#' Extract or replace parts of an object
 #'
-#' Extract genes by row and samples by column from a `bcbioRNASeq` object.
-#' Internal count transformations are rescaled automatically, if defined.
+#' Extract genes by row and samples by column.
 #'
-#' @note DESeq2 transformations will only be calculated when `transform = TRUE`
-#'   and either `rlog` or `vst` counts are defined in [assays()].
+#' Internal count transformations are rescaled automatically, if defined. DESeq2
+#' transformations will only be updated when `recalculate = TRUE` and either
+#' `rlog` or `vst` counts are defined in `assays`.
 #'
 #' @name extract
-#' @family S4 Object
-#' @author Lorena Pantano, Michael Steinbaugh
+#' @author Michael Steinbaugh, Lorena Pantano
+#' @inherit base::Extract params references
+#' @inheritParams params
 #'
-#' @inheritParams base::`[`
-#' @inheritParams general
-#'
-#' @param transform `boolean`. Recalculate slotted DESeq2 transformations.
-#'   Recommended by default but can take a while for large datasets.
+#' @param recalculate `logical(1)`. Recalculate DESeq2 normalized counts and
+#'   variance-stabilizing transformations defined in `assays`. Recommended by
+#'   default, but can take a long time for large datasets.
 #'
 #' @return `bcbioRNASeq`.
 #'
-#' @seealso `help("[", "base")`.
-#'
 #' @examples
-#' object <- bcb_small
+#' data(bcb)
+#' object <- bcb
 #'
-#' # Minimum of 100 genes, 2 samples
+#' ## Minimum of 100 genes, 2 samples.
 #' genes <- head(rownames(object), 100L)
 #' head(genes)
 #' samples <- head(colnames(object), 2L)
 #' head(samples)
 #'
-#' # Extract by sample name
+#' ## Extract by sample name.
 #' object[, samples]
 #'
-#' # Extract by gene list
+#' ## Extract by gene list.
 #' object[genes, ]
 #'
-#' # Extract by both genes and samples
+#' ## Extract by both genes and samples.
 #' x <- object[genes, samples]
 #' print(x)
 #' assayNames(x)
 #'
-#' # Fast subsetting, by skipping DESeq2 transformations
-#' # Note that rlog and vst counts will not be defined
-#' x <- object[, samples, transform = FALSE]
+#' ## Fast subsetting, by skipping DESeq2 recalculations.
+#' ## Note that `normalized`, `rlog`, and `vst` assays will not be defined.
+#' x <- object[, samples, recalculate = FALSE]
 #' print(x)
 #' names(assays(x))
 NULL
@@ -52,107 +50,125 @@ NULL
 #' @rdname extract
 #' @export
 setMethod(
-    "[",
-    signature(
+    f = "[",
+    signature = signature(
         x = "bcbioRNASeq",
         i = "ANY",
         j = "ANY",
-        drop = "ANY"
+        drop = "ANY"  # Don't use logical here.
     ),
-    function(
+    definition = function(
         x,
         i,
         j,
         drop = FALSE,
-        transform = TRUE
+        recalculate = TRUE
     ) {
         validObject(x)
+        assert(
+            # Not currently allowing the user to drop on extraction.
+            identical(drop, FALSE),
+            isFlag(recalculate)
+        )
 
         # Genes (rows)
         if (missing(i)) {
-            i <- 1L:nrow(x)
+            i <- seq_len(nrow(x))
         }
-        # Require at least 100 genes
-        assert_all_are_in_range(length(i), lower = 100L, upper = Inf)
+        # Require at least 50 genes.
+        assert(isInRange(length(i), lower = 50L, upper = Inf))
 
         # Samples (columns)
         if (missing(j)) {
-            j <- 1L:ncol(x)
+            j <- seq_len(ncol(x))
         }
-        # Require at least 2 samples
-        assert_all_are_in_range(length(j), lower = 2L, upper = Inf)
+        # Require at least 2 samples.
+        assert(isInRange(length(j), lower = 2L, upper = Inf))
 
-        # Regenerate RangedSummarizedExperiment
+        # Don't attempt to recalculate normalizations if the dimensions remain
+        # unchanged.
+        if (identical(
+            x = dim(x),
+            y = c(length(i), length(j))
+        )) {
+            subset <- FALSE
+        } else {
+            subset <- TRUE
+        }
+
+        # Regenerate RangedSummarizedExperiment.
         rse <- as(x, "RangedSummarizedExperiment")
-        rse <- rse[i, j, drop = drop]
+        rse <- rse[i, j, drop = FALSE]
 
-        # Early return if dimensions are unmodified
-        if (identical(dim(rse), dim(x))) {
+        # Early return original object, if unmodified.
+        if (identical(assay(rse), assay(x))) {
+            message("Returning unmodified.")
             return(x)
         }
 
         # Assays ---------------------------------------------------------------
         assays <- assays(rse)
 
-        # Always recalculate DESeq2 normalized counts
-        message("Updating normalized counts")
-        dds <- .regenerateDESeqDataSet(rse)
-        assays[["normalized"]] <- counts(dds, normalized = TRUE)
+        if (isTRUE(subset)) {
+            # Recalculate DESeq2 normalized counts and variance stabilizations
+            # if the number of samples and/or genes change.
+            if (isTRUE(recalculate)) {
+                message("Recalculating DESeq2 normalizations.")
+                dds <- .new.DESeqDataSet(se = rse)
+                dds <- DESeq(dds)
+                # Normalized counts.
+                assays[["normalized"]] <- counts(dds, normalized = TRUE)
+                # vst: variance-stabilizing transformation.
+                if ("vst" %in% names(assays)) {
+                    message("Applying variance-stabilizing transformation.")
+                    assays[["vst"]] <-
+                        assay(varianceStabilizingTransformation(dds))
+                }
+                # rlog: regularized log transformation.
+                if ("rlog" %in% names(assays)) {
+                    message("Applying rlog transformation.")
+                    assays[["rlog"]] <- assay(rlog(dds))
+                }
+            } else {
+                # Otherwise, remove previous calculations.
+                message("Skipping DESeq2 normalizations.")
+                assays[["normalized"]] <- NULL
+                assays[["rlog"]] <- NULL
+                assays[["vst"]] <- NULL
+                assays[["fpkm"]] <- NULL
+            }
+        }
 
-        # Optionally, recalculate DESeq2 transformations (rlog, vst)
+        # Row data -------------------------------------------------------------
+        # Ensure factors get releveled, if necessary.
+        rowRanges <- rowRanges(rse)
         if (
-            any(c("rlog", "vst") %in% names(assays)) &&
-            isTRUE(transform)
+            ncol(mcols(rowRanges)) > 0L &&
+            !identical(rownames(rse), rownames(x))
         ) {
-            # Update DESeq2 transformations by default, but only if they are
-            # already defined in assays (rlog, vst)
-            message(paste(
-                "Recalculating DESeq2 variance stabilizations",
-                "(transform = TRUE)"
-            ))
-            # vst
-            if ("vst" %in% names(assays)) {
-                message("Applying variance-stabilizing transformation")
-                assays[["vst"]] <- assay(varianceStabilizingTransformation(dds))
-            }
-            # rlog
-            if ("rlog" %in% names(assays)) {
-                message("Applying rlog transformation")
-                assays[["rlog"]] <- assay(rlog(dds))
-            }
-        } else {
-            # Otherwise, ensure previous calculations are removed from assays
-            message(paste(
-                "Skipping DESeq2 variance stabilizations",
-                "(transform = FALSE)"
-            ))
-            assays[["rlog"]] <- NULL
-            assays[["vst"]] <- NULL
+            rowRanges <- relevelRowRanges(rowRanges)
         }
 
         # Column data ----------------------------------------------------------
-        # Ensure factors get releveled
-        colData <- colData(rse) %>%
-            as.data.frame() %>%
-            rownames_to_column() %>%
-            mutate_if(is.character, as.factor) %>%
-            mutate_if(is.factor, droplevels) %>%
-            column_to_rownames() %>%
-            as("DataFrame")
+        # Ensure factors get releveled, if necessary.
+        colData <- colData(rse)
+        if (
+            ncol(colData) > 0L &&
+            !identical(colnames(rse), colnames(x))
+        ) {
+            colData <- relevelColData(colData)
+        }
 
         # Metadata -------------------------------------------------------------
         metadata <- metadata(rse)
-        metadata[["subset"]] <- TRUE
-        # Update version, if necessary
-        if (!identical(metadata[["version"]], packageVersion)) {
-            metadata[["originalVersion"]] <- metadata[["version"]]
-            metadata[["version"]] <- packageVersion
+        if (isTRUE(subset)) {
+            metadata[["subset"]] <- TRUE
         }
 
         # Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
             assays = assays,
-            rowRanges = rowRanges(rse),
+            rowRanges = rowRanges,
             colData = colData,
             metadata = metadata
         )

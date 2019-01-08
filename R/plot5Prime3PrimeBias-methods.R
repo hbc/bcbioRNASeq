@@ -1,74 +1,69 @@
-#' Plot 5'->3' Bias
-#'
-#' RNA-seq data can have specific biases at either the 5’ or 3’ end of sequenced
-#' fragments. It is common to see a small amount of bias, especially if polyA
-#' enrichment was performed, or if there is any sample degradation. If a large
-#' amount of bias is observed here, be sure to analyze the samples with a
-#' Bioanalyzer and check the RIN scores.
-#'
 #' @name plot5Prime3PrimeBias
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh
-#'
-#' @inheritParams general
-#'
-#' @return `ggplot`.
-#'
+#' @inherit bioverbs::plot5Prime3PrimeBias
+#' @inheritParams params
+#' @inheritParams basejump::params
 #' @examples
-#' plot5Prime3PrimeBias(bcb_small)
+#' data(bcb)
+#' plot5Prime3PrimeBias(bcb)
 NULL
 
 
 
-#' @rdname plot5Prime3PrimeBias
+#' @importFrom bioverbs plot5Prime3PrimeBias
+#' @aliases NULL
 #' @export
-setMethod(
-    "plot5Prime3PrimeBias",
-    signature("bcbioRNASeq"),
+bioverbs::plot5Prime3PrimeBias
+
+
+
+plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
-        limit = 0L,
-        fill = getOption("bcbio.discrete.fill", NULL),
-        flip = getOption("bcbio.flip", TRUE),
+        interestingGroups = NULL,
+        color,
+        flip,
         title = "5'->3' bias"
     ) {
         validObject(object)
-        interestingGroups <- matchInterestingGroups(
-            object = object,
-            interestingGroups = interestingGroups
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        assert(
+            isGGScale(color, scale = "discrete", aes = "colour", nullOK = TRUE),
+            isFlag(flip),
+            isString(title, nullOK = TRUE)
         )
-        assert_is_a_number(limit)
-        assert_all_are_non_negative(limit)
-        assertIsFillScaleDiscreteOrNULL(fill)
-        assert_is_a_bool(flip)
-        assertIsAStringOrNULL(title)
+
+        data <- metrics(object)
+
+        # The formatting of this column can vary depending on the version of
+        # `camel` used. This grep match fix was added in v0.2.7.
+        yCol <- grep(
+            pattern = ".+5.+3bias$",
+            x = colnames(data),
+            ignore.case = TRUE,
+            value = TRUE
+        )
 
         p <- ggplot(
-                data = metrics(object),
-                mapping = aes(
-                    x = !!sym("sampleName"),
-                    y = !!sym("x5x3Bias"),
-                    fill = !!sym("interestingGroups")
-                )
-            ) +
-            geom_bar(
-                color = "black",
-                stat = "identity"
-            ) +
+            data = data,
+            mapping = aes(
+                x = !!sym("sampleName"),
+                y = !!sym(yCol),
+                colour = !!sym("interestingGroups")
+            )
+        ) +
+            geom_point(size = 3L) +
             labs(
                 title = title,
                 x = NULL,
                 y = "5'->3' bias",
-                fill = paste(interestingGroups, collapse = ":\n")
-            )
+                colour = paste(interestingGroups, collapse = ":\n")
+            ) +
+            basejump_geom_abline(yintercept = 1L)
 
-        if (is_positive(limit)) {
-            p <- p + bcbio_geom_abline(yintercept = limit)  # nocov
-        }
-
-        if (is(fill, "ScaleDiscrete")) {
-            p <- p + fill
+        if (is(color, "ScaleDiscrete")) {
+            p <- p + color
         }
 
         if (isTRUE(flip)) {
@@ -76,9 +71,23 @@ setMethod(
         }
 
         if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(fill = FALSE)
+            p <- p + guides(color = FALSE)
         }
 
         p
     }
+
+formals(plot5Prime3PrimeBias.bcbioRNASeq)[["color"]] <-
+    formalsList[["color.discrete"]]
+formals(plot5Prime3PrimeBias.bcbioRNASeq)[["flip"]] <-
+    formalsList[["flip"]]
+
+
+
+#' @rdname plot5Prime3PrimeBias
+#' @export
+setMethod(
+    f = "plot5Prime3PrimeBias",
+    signature = signature("bcbioRNASeq"),
+    definition = plot5Prime3PrimeBias.bcbioRNASeq
 )

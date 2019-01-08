@@ -6,58 +6,69 @@
 \alias{plotDispEsts,bcbioRNASeq-method}
 \title{Plot Dispersion Estimates}
 \usage{
-\S4method{plotDispEsts}{bcbioRNASeq}(object, ...)
+\S4method{plotDispEsts}{bcbioRNASeq}(object, ymin, CV = FALSE,
+  genecol = "black", fitcol = "red", finalcol = "dodgerblue",
+  legend = TRUE, xlab, ylab, log = "xy", cex = 0.45, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough arguments to \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.}
+\item{ymin}{the lower bound for points on the plot, points beyond this
+are drawn as triangles at ymin}
+
+\item{CV}{logical, whether to plot the asymptotic or biological
+coefficient of variation (the square root of dispersion) on the y-axis.
+As the mean grows to infinity, the square root of dispersion gives
+the coefficient of variation for the counts. Default is \code{FALSE},
+plotting dispersion.}
+
+\item{genecol}{the color for gene-wise dispersion estimates}
+
+\item{fitcol}{the color of the fitted estimates}
+
+\item{finalcol}{the color of the final estimates used for testing}
+
+\item{legend}{logical, whether to draw a legend}
+
+\item{xlab}{xlab}
+
+\item{ylab}{ylab}
+
+\item{log}{log}
+
+\item{cex}{cex}
+
+\item{...}{further arguments to \code{plot}}
 }
 \value{
 \code{ggplot}.
 }
 \description{
+A simple helper function that plots the per-gene dispersion
+estimates together with the fitted mean-dispersion relationship.
+}
+\details{
 This plot shows the dispersion by mean of normalized counts. We expect the
 dispersion to decrease as the mean of normalized counts increases.
-}
-\note{
-Here we're generating a \code{DESeqDataSet} object on the fly, which already
-has method support for plotting dispersion, provided by the DESeq2 package.
+
+Here we're generating a \code{DESeqDataSet} object on the fly, which already has
+method support for plotting dispersion, provided by the DESeq2 package.
 }
 \examples{
-# bcbioRNASeq ====
-plotDispEsts(bcb_small)
+data(bcb)
+plotDispEsts(bcb)
 
-# Custom colors, using DESeq2 parameters
+## Custom colors, using DESeq2 parameters.
 plotDispEsts(
-    bcb_small,
+    object = bcb,
     genecol = "gray",
     fitcol = "purple",
     finalcol = "orange"
 )
 }
 \seealso{
-\itemize{
-\item \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.
-\item \code{getMethod("plotDispEsts", "DESeqDataSet")}.
-}
-
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCorrelationHeatmap}},
-  \code{\link{plotCountDensity}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
+\code{DESeq2::plotDispEsts()}.
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Functions}

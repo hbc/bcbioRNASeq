@@ -1,89 +1,128 @@
-#' Count Matrix Accessors
+#' Counts
 #'
-#' By default, [counts()] returns the raw counts. Normalized counts, including
-#' transcripts per million (TPM) can be accessed using the "`normalized`"
-#' argument.
+#' Count matrix.
+#'
+#' By default, return the raw counts. Normalized counts in a variety of formats
+#' can be accessed using the `normalized` argument.
 #'
 #' @name counts
-#' @family Data Functions
 #' @author Michael Steinbaugh, Lorena Pantano
+#' @inheritParams basejump::params
+#' @inheritParams params
 #'
-#' @importFrom BiocGenerics counts
-#' @export
+#' @param normalized `character(1)` or `logical(1)`.
+#'   Which normalization method to apply:
 #'
-#' @inheritParams general
-#' @param normalized `string` or `boolean`. Which normalization method to apply:
-#'   - `FALSE`: Raw counts (tximport).
-#'   - `TRUE`: DESeq2 normalized counts. Calculated on the fly.
-#'   - "`tpm`": Transcripts per million (tximport).
-#'   - "`vst`": DESeq2 **log2** variance stabilizing transformation.
-#'   - "`rlog`": DESeq2 **log2** regularized log transformation.
-#'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
-#'   - "`rle`": Relative log expression transformation.
+#'   - `FALSE`: Raw counts.
+#'     When using a [tximport][]-compatible caller, these are length scaled
+#'     by default (see `countsFromAbundance` argument).
+#'     When using a [featureCounts][]-compatible caller, these are `integer`.
+#'
+#' [tximport][] caller-specific normalizations:
+#'
+#'   - `"tpm"`: **T**ranscripts **p**er **m**illion.
+#'
+#' Additional gene-level-specific normalizations:
+#'
+#'   - `TRUE`: Size factor-adjusted counts.\cr
+#'     See `DESeq2::sizeFactors` for more information.
+#'   - `"vst"`: **V**ariance-**s**tabilizing **t**ransformation.\cr
+#'     Requires `vst = TRUE` to be set during `bcbioRNASeq` call.\cr
+#'     See `DESeq2::varianceStabilizingTransformation` for more information.
+#'   - `"rlog"`: **R**egularized **log** transformation (log2).\cr
+#'     Requires `rlog = TRUE` to be set during `bcbioRNASeq` call.\cr
+#'     See `DESeq2::rlog` for more information.
+#'   - `"tmm"`: **T**rimmed **m**ean of **M**-values.\cr
+#'     See `edgeR::calcNormFactors` for more information.
+#'   - `"rle"`: **R**elative **l**og **e**xpression transformation.
+#'   - `"fpkm"`: **F**ragments **p**er **k**ilobase per **m**illion mapped
+#'     fragments.\cr
+#'     Requires annotations in `rowRanges` with defined `width`; otherwise,
+#'     will be skipped during the `bcbioRNASeq` load call.\cr
+#'     See `BiocGenerics::width` and `DESeq2::fpkm` for more information.
+#'
+#' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
+#' [tximport]: https://bioconductor.org/packages/tximport/
 #'
 #' @return `matrix`.
 #'
+#' @references
+#' - TMM: Robinson and Oshlack (2010).
+#' - RLE: Anders and Huber (2010).
+#'
 #' @seealso
-#' - [tpm()].
-#' - [tmm()].
-#' - [DESeq2::counts()].
-#' - [DESeq2::rlog()].
-#' - [DESeq2::varianceStabilizingTransformation()].
+#' - `tximport::tximport()`.
+#' - `DESeq2::counts()`.
+#' - `DESeq2::sizeFactors()`.
+#' - `DESeq2::varianceStabilizingTransformation()`.
+#' - `DESeq2::rlog()`.
+#' - `DESeq2::fpkm()`.
+#' - `edgeR::calcNormFactors()`.
+#' - `tmm()`.
+#' - `relativeLogExpression()`.
 #'
 #' @examples
-#' # bcbioRNASeq ====
-#' counts(bcb_small, normalized = FALSE) %>% summary()
-#' counts(bcb_small, normalized = TRUE) %>% summary()
-#' counts(bcb_small, normalized = "tpm") %>% summary()
-#' counts(bcb_small, normalized = "vst") %>% summary()
+#' data(bcb)
+#' summary(counts(bcb))
 NULL
+
+
+
+#' @importFrom BiocGenerics counts
+#' @aliases NULL
+#' @export
+BiocGenerics::counts
+
+#' @importFrom BiocGenerics counts<-
+#' @aliases NULL
+#' @export
+BiocGenerics::`counts<-`
+
+
+
+counts.bcbioRNASeq <-  # nolint
+    function(object, normalized = FALSE) {
+        validObject(object)
+        assert(
+            isAny(normalized, classes = c("character", "logical")),
+            # Ensure that primary assay matches counts.
+            identical(assayNames(object)[[1L]], "counts")
+        )
+
+        # Restrict the `normalized` arguments for transcript-level objects.
+        if (.isTranscriptLevel(object)) {
+            assert(isSubset(normalized, list(FALSE, "tpm")))
+        }
+
+        if (identical(normalized, FALSE)) {
+            assayName <- "counts"
+        } else if (identical(normalized, TRUE)) {
+            assayName <- "normalized"
+        } else {
+            assayName <- match.arg(arg = normalized, choices = normalizedCounts)
+        }
+
+        if (assayName == "tmm") {
+            counts <- assays(object)[["counts"]]
+            counts <- tmm(counts)
+        } else if (assayName == "rle") {
+            counts <- assays(object)[["counts"]]
+            counts <- relativeLogExpression(counts)
+        } else {
+            assert(isSubset(assayName, assayNames(object)))
+            counts <- assays(object)[[assayName]]
+        }
+
+        assert(is.matrix(counts))
+        counts
+    }
 
 
 
 #' @rdname counts
 #' @export
 setMethod(
-    "counts",
-    signature("bcbioRNASeq"),
-    function(object, normalized = FALSE) {
-        validObject(object)
-        assert_is_any_of(normalized, c("character", "logical"))
-
-        if (is.logical(normalized)) {
-            if (identical(normalized, FALSE)) {
-                counts <- assay(object)
-            } else if (identical(normalized, TRUE)) {
-                counts <- assays(object)[["normalized"]]
-            }
-        } else if (is.character(normalized)) {
-            assert_is_a_string(normalized)
-            assert_is_subset(
-                x = normalized,
-                y = c("tpm", "vst", "rlog", "tmm", "rle")
-            )
-            if (normalized == "tmm") {
-                # Calculate TMM on the fly
-                counts <- tmm(assay(object))
-            } else if (normalized == "rle") {
-                # Calculate RLE on the fly
-                counts <- t(t(assay(object)) / colMedians(assay(object)))
-            } else {
-                # Use matrices slotted into `assays()`
-                counts <- assays(object)[[normalized]]
-            }
-            if (!is.matrix(counts)) {
-                # Support for skipped DESeq2 transforms: log2 TMM
-                warning(paste(
-                    normalized, "not present in assays.",
-                    "Calculating log2 TMM counts instead."
-                ), call. = FALSE)
-                counts <- tmm(assay(object))
-                message("Applying log2 transformation to TMM values")
-                counts <- log2(counts + 1L)
-            }
-        }
-
-        assert_is_matrix(counts)
-        counts
-    }
+    f = "counts",
+    signature = signature("bcbioRNASeq"),
+    definition = counts.bcbioRNASeq
 )

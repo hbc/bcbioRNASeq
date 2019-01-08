@@ -4,64 +4,155 @@
 \name{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap,bcbioRNASeq-method}
-\alias{plotCorrelationHeatmap,DESeqTransform-method}
-\title{Plot Correlation Heatmap}
+\title{Correlation heatmap}
 \usage{
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
-  normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
-
-\S4method{plotCorrelationHeatmap}{DESeqTransform}(object, ...)
+  normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"),
+  interestingGroups = NULL, method = c("pearson", "spearman"),
+  clusteringMethod = "ward.D2", showRownames = TRUE,
+  showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
+  color = viridis::viridis, legendColor = viridis::viridis,
+  borderColor = NULL, title = TRUE, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{\code{string}. Which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+\item{normalized}{\code{character(1)}.
+Which normalization method to apply:\preformatted{- "`tpm`": Transcripts per million (tximport).
+- "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+- "`rlog`": DESeq2 **log2** regularized log transformation.
+- "`vst`": DESeq2 **log2** variance stabilizing transformation.
 }}
 
-\item{...}{Passthrough arguments to \code{SummarizedExperiment} method.}
+\item{interestingGroups}{\code{character}.
+Groups of interest that define the samples. If left unset, defaults to
+\code{sampleName}.}
+
+\item{method}{\code{character(1)}.
+Correlation coefficient (or covariance) method to be computed. Defaults to
+"\code{pearson}" but "\code{spearman}" can also be used. Consult the \code{\link[stats:cor]{stats::cor()}}
+documentation for more information.}
+
+\item{clusteringMethod}{\code{character(1)}.
+Clustering method. Accepts the same values as \code{stats::hclust}.}
+
+\item{showRownames}{\code{logical(1)}.
+Show row or column names.}
+
+\item{showColnames}{\code{logical(1)}.
+Show row or column names.}
+
+\item{treeheightRow}{\code{integer(1)}.
+Size of the row and column dendrograms. Use \code{0} to disable.}
+
+\item{treeheightCol}{\code{integer(1)}.
+Size of the row and column dendrograms. Use \code{0} to disable.}
+
+\item{color}{\code{function}, \code{character}, or \code{NULL}.
+Hexadecimal color function or values to use for plot.
+
+We generally recommend these hexadecimal functions from the viridis
+package:
+\itemize{
+\item \code{viridis::viridis()} (\emph{default}).
+\item \code{viridis::inferno()}.
+\item \code{viridis::magma()}.
+\item \code{viridis::plasma()}.
+}
+
+Alternatively, colors can be defined manually using hexadecimal values
+(e.g. \code{c("#FF0000", "#0000FF")}), but this is not generally recommended.
+Refer to the RColorBrewer package for hexadecimal color palettes that may
+be suitable. If set \code{NULL}, will use the default pheatmap colors.}
+
+\item{legendColor}{\code{function} or \code{NULL}.
+Hexadecimal color function to use for legend labels. Note that hexadecimal
+values are not supported. If set \code{NULL}, will use the default pheatmap
+colors.}
+
+\item{borderColor}{\code{character(1)} or \code{NULL}.
+Border color. Disabled by default for improved aesthetics.}
+
+\item{title}{\code{character(1)} or \code{NULL}.
+Plot title.}
+
+\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
+The argument names must be formatted in camel case, not snake case.}
 }
 \value{
-Show heatmap and invisibly return a \code{list} of the components.
+\code{pheatmap}.
 }
 \description{
-This function calculates a correlation matrix based on feature expression per
-sample.
+Construct a simple heatmap.
 }
-\examples{
-# bcbioRNASeq ====
-# Pearson correlation
-plotCorrelationHeatmap(bcb_small, method = "pearson")
+\section{Methods (by class)}{
 
-# Spearman correlation
-plotCorrelationHeatmap(bcb_small, method = "spearman")
+\itemize{
+\item \code{SummarizedExperiment}: Construct a correlation heatmap comparing the columns
+of the matrix.
+
+\item \code{SummarizedExperiment}: Scale the heatmap by applying quantile breaks.
+}
+}
+
+\section{Scaling}{
+
+
+
+Here we're scaling simply by calculating the standard score (z-score).
+\itemize{
+\item mu: mean.
+\item sigma: standard deviation.
+\item x: raw score (e.g. count matrix).
+\item z: standard score (z-score).
+}\preformatted{z = (x - mu) / sigma
+}
+
+See also:
+\itemize{
+\item \code{pheatmap:::scale_rows()}.
+\item \code{scale()} for additional scaling approaches.
+}
+
+}
+
+\section{Hierarchical clustering}{
+
+
+
+Row- and column-wise hierarchical clustering is performed when \code{clusterRows}
+and/or \code{clusterCols} are set to \code{TRUE}. Internally, this calls
+\code{\link[stats:hclust]{stats::hclust()}}, and defaults to the Ward method.
+
+Automatic hierarchical clustering of rows and/or columns can error for some
+datasets. When this occurs, you'll likely see this error:\preformatted{Error in hclust(d, method = method) :
+NA/NaN/Inf in foreign function call
+}
+
+In this case, either set \code{clusterRows} and/or \code{clusterCols} to \code{FALSE}, or
+you can attempt to pass an \code{hclust} object to these arguments. This is
+recommended as an alternate approach to be used with \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}},
+which is called internally by our plotting code. Here's how this can be
+accomplished:\preformatted{mat <- assay(mat)
+dist <- dist(mat)
+hclust <- hclust(dist, method = "ward.D2")
+}
+
+}
+
+\examples{
+data(bcb)
+plotCorrelationHeatmap(bcb, method = "pearson")
+plotCorrelationHeatmap(bcb, method = "spearman")
 }
 \seealso{
 \itemize{
-\item \code{help("plotCorrelationHeatmap", "bcbioBase")}.
-\item \code{findMethod("plotCorrelationHeatmap", "SummarizedExperiment")}.
+\item \code{pheatmap::pheatmap()}.
+\item \code{RColorBrewer::brewer.pal()}.
+\item \code{stats::cor()}.
+\item \code{stats::hclust()}.
 }
-
-Other Quality Control Functions: \code{\link{plot5Prime3PrimeBias}},
-  \code{\link{plotCountDensity}},
-  \code{\link{plotCountsPerGene}},
-  \code{\link{plotDispEsts}},
-  \code{\link{plotExonicMappingRate}},
-  \code{\link{plotGenderMarkers}},
-  \code{\link{plotGeneSaturation}},
-  \code{\link{plotGenesDetected}},
-  \code{\link{plotIntronicMappingRate}},
-  \code{\link{plotMappedReads}},
-  \code{\link{plotMappingRate}}, \code{\link{plotMeanSD}},
-  \code{\link{plotPCACovariates}}, \code{\link{plotPCA}},
-  \code{\link{plotRRNAMappingRate}},
-  \code{\link{plotTotalReads}}
 }
 \author{
 Michael Steinbaugh
 }
-\concept{Quality Control Functions}

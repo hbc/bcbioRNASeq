@@ -1,146 +1,66 @@
-#' Plot Sexually Dimorphic Gender Markers
-#'
-#' This is a convenience function that wraps [plotGene()] to quickly plot known
-#' sexually dimorphic genes. Currently only *Homo sapiens* and *Mus musculus*
-#' genomes are supported.
-#'
 #' @name plotGenderMarkers
-#' @family Quality Control Functions
 #' @author Michael Steinbaugh
-#'
-#' @inheritParams plotGene
-#' @inheritParams general
-#'
-#' @seealso [plotGene()].
-#'
-#' @return `ggplot`.
-#'
+#' @inherit basejump::plotGenderMarkers
+#' @inheritParams basejump::params
+#' @inheritParams params
 #' @examples
-#' # bcbioRNASeq ====
-#' plotGenderMarkers(bcb_small, normalized = "vst")
-#'
-#' # DESeqTransform ====
-#' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
-#' plotGenderMarkers(vst_small)
+#' data(bcb)
+#' plotGenderMarkers(bcb)
 NULL
 
 
 
-#' @rdname plotGenderMarkers
+#' @importFrom bioverbs plotGenderMarkers
+#' @aliases NULL
 #' @export
-setMethod(
-    "plotGenderMarkers",
-    signature("SummarizedExperiment"),
-    function(object, ...) {
-        validObject(object)
-        # Load the relevant internal gender markers data
-        organism <- metadata(object)[["organism"]]
-        assert_is_a_string(organism)
-        markers <- bcbioRNASeq::gender_markers
-        assert_is_subset(camel(organism), names(markers))
-        markers <- markers[[camel(organism)]]
-
-        # Get the X and Y chromosome marker genes
-        xGenes <- markers %>%
-            filter(!!sym("chromosome") == "X") %>%
-            pull("geneID")
-        yGenes <- markers %>%
-            filter(!!sym("chromosome") == "Y") %>%
-            pull("geneID")
-
-        rse <- as(object, "RangedSummarizedExperiment")
-        return <- "wide"
-        xPlot <- plotGene(
-            object = rse,
-            genes = xGenes,
-            return = return,
-            ...
-        ) +
-            ggtitle("X chromosome")
-        yPlot <- plotGene(
-            object = rse,
-            genes = yGenes,
-            return = return,
-            ...
-        ) +
-            ggtitle("Y chromosome")
-
-        plotlist <- list(x = xPlot, y = yPlot)
-        plot_grid(plotlist = plotlist)
-    }
-)
+bioverbs::plotGenderMarkers
 
 
 
-#' @rdname plotGenderMarkers
-#' @export
-setMethod(
-    "plotGenderMarkers",
-    signature("bcbioRNASeq"),
-    function(
-        object,
-        normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
-        ...
-    ) {
+plotGenderMarkers.bcbioRNASeq <-  # nolint
+    function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
         counts <- counts(object, normalized = normalized)
-        # Ensure counts are log2 scale
+        # Ensure counts are log2 scale.
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
         }
         countsAxisLabel <- paste(normalized, "counts (log2)")
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-        plotGenderMarkers(
-            object = rse,
-            countsAxisLabel = countsAxisLabel,
-            ...
+        do.call(
+            what = plotGenderMarkers,
+            args = matchArgsToDoCall(
+                args = list(
+                    object = rse,
+                    countsAxisLabel = countsAxisLabel
+                ),
+                removeFormals = "normalized"
+            )
         )
     }
+
+f1 <- formals(plotGenderMarkers.bcbioRNASeq)
+f2 <- methodFormals(
+    f = "plotGenderMarkers",
+    signature = "SummarizedExperiment",
+    package = "basejump"
 )
+f2 <- f2[setdiff(
+    x = names(f2),
+    y = c(names(f1), "assay", "countsAxisLabel")
+)]
+f <- c(f1, f2)
+f[["normalized"]] <- normalizedCounts
+formals(plotGenderMarkers.bcbioRNASeq) <- f
 
 
 
 #' @rdname plotGenderMarkers
 #' @export
 setMethod(
-    "plotGenderMarkers",
-    signature("DESeqDataSet"),
-    function(object, ...) {
-        validObject(object)
-        counts <- log2(counts(object, normalized = TRUE) + 1L)
-        countsAxisLabel <- "normalized counts (log2)"
-        rse <- as(object, "RangedSummarizedExperiment")
-        assay(rse) <- counts
-        plotGenderMarkers(
-            object = rse,
-            countsAxisLabel = countsAxisLabel,
-            ...
-        )
-    }
-)
-
-
-
-#' @rdname plotGenderMarkers
-#' @export
-setMethod(
-    "plotGenderMarkers",
-    signature("DESeqTransform"),
-    function(object, ...) {
-        validObject(object)
-        if ("rlogIntercept" %in% colnames(mcols(object))) {
-            normalized <- "rlog"
-        } else {
-            normalized <- "vst"
-        }
-        countsAxisLabel <- paste(normalized, "counts (log2)")
-        rse <- as(object, "RangedSummarizedExperiment")
-        plotGenderMarkers(
-            object = rse,
-            countsAxisLabel = countsAxisLabel,
-            ...
-        )
-    }
+    f = "plotGenderMarkers",
+    signature = signature("bcbioRNASeq"),
+    definition = plotGenderMarkers.bcbioRNASeq
 )
