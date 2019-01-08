@@ -100,7 +100,10 @@ BugReports: https://github.com/hbc/bcbioRNASeq/issues/
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
-Depends: R (>= 3.5), SummarizedExperiment, basejump (>= 0.9.3)
+Depends:
+    R (>= 3.5),
+    SummarizedExperiment,
+    basejump (>= 0.9.3)
 Imports:
     S4Transformer (>= 0.1), bioverbs (>= 0.1), bcbioBase (>= 0.5.8),
         goalie (>= 0.2.4),
