@@ -1,28 +1,19 @@
 # Travis-CI configuration for Bioconductor packages
 # https://docs.travis-ci.com/user/languages/r
 
-# Temporarily enable when caching package library.
-# script: true
-
 language: r
 cache: packages
-sudo: false
-bioc_required: true
 
 matrix:
   include:
+  - os: linux
+    r: bioc-release
+    warnings_are_errors: true
   - os: osx
     r: bioc-release
     fortran: false
     latex: false
     warnings_are_errors: false
-  - os: linux
-    r: bioc-release
-    warnings_are_errors: true
-  - os: linux
-    r: bioc-devel
-    latex: false
-    warnings_are_errors: true
   fast_finish: true
 
 env:
@@ -39,7 +30,7 @@ bioc_packages:
   - DelayedArray
   - EnsDb.Hsapiens.v75
 r_github_packages:
-  - jimhester/lintr
+  - mjsteinbaugh/lintr
 
 after_success:
   - Rscript -e 'lintr::lint_package()'
