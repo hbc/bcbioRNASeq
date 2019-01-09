@@ -12,8 +12,12 @@ install:
 
 platform: x64
 
-cache:
-  - C:\RLibrary
+# cache:
+#   - C:\RLibrary
+
+branches:
+  only:
+    - master
 
 environment:
   global:
