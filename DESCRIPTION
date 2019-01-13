@@ -118,6 +118,7 @@ Suggests:
     BiocStyle, rhdf5,
     hexbin, patrick, roxygen2, testthat, viridis
 Remotes:
+    steinbaugh/S4Transformer,
     steinbaugh/basejump,
     steinbaugh/bcbioBase,
     steinbaugh/bioverbs,
