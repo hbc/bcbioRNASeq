@@ -42,17 +42,9 @@ reference:
   - title: Plots
     contents:
     - starts_with("plot")
-  - title: Differential expression
-    contents:
-    - alphaSummary
-    - contrastName
-    - topTables
   - title: Miscellaneous
     contents:
-    - export
-    - markdown
     - prepareRNASeqTemplate
-    - sampleData
   - title: Example data
     desc: GSE65267
     contents:
