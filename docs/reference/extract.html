@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract or Replace Parts of an Object — extract • bcbioRNASeq</title>
+<title>Extract or replace parts of an object — extract • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Extract or Replace Parts of an Object — extract" />
+<meta property="og:title" content="Extract or replace parts of an object — extract" />
 
 <meta property="og:description" content="Extract genes by row and samples by column." />
 <meta name="twitter:card" content="summary" />
@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract or Replace Parts of an Object</h1>
+    <h1>Extract or replace parts of an object</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/extract-methods.R'><code>R/extract-methods.R</code></a></small>
     <div class="hidden name"><code>extract.Rd</code></div>
     </div>
@@ -178,10 +178,9 @@
     </tr>
     <tr>
       <th>recalculate</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
-Recalculate DESeq2 normalized counts and variance-stabilizing
-transformations defined in <code>assays</code>. Recommended by default, but can take a
-long time for large datasets.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Recalculate DESeq2 normalized counts and
+variance-stabilizing transformations defined in <code>assays</code>. Recommended by
+default, but can take a long time for large datasets.</p></td>
     </tr>
     </table>
     
@@ -212,9 +211,9 @@ transformations will only be updated when <code>recalculate = TRUE</code> and ei
 #&gt; [4] "ENSMUSG00000000740" "ENSMUSG00000001175" "ENSMUSG00000001666"</div><div class='input'><span class='no'>samples</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>colnames</a></span>(<span class='no'>object</span>), <span class='fl'>2L</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>samples</span>)</div><div class='output co'>#&gt; [1] "control_rep1" "control_rep2"</div><div class='input'>
 <span class='co'>## Extract by sample name.</span>
-<span class='no'>object</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.1.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in colData.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.1
+<span class='no'>object</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.2.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in colData.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.1
 #&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-12-13
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-01-13
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -230,9 +229,9 @@ transformations will only be updated when <code>recalculate = TRUE</code> and ei
 #&gt; colData names(25): averageInsertSize averageReadLength ... tissue
 #&gt;   treatment</div><div class='input'>
 <span class='co'>## Extract by gene list.</span>
-<span class='no'>object</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.1.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in rowRanges.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.1
+<span class='no'>object</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.2.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in rowRanges.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.1
 #&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-12-13
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-01-13
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -248,9 +247,9 @@ transformations will only be updated when <code>recalculate = TRUE</code> and ei
 #&gt; colData names(25): averageInsertSize averageReadLength ... tissue
 #&gt;   treatment</div><div class='input'>
 <span class='co'>## Extract by both genes and samples.</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.1.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in rowRanges.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in colData.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.1
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.2.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in rowRanges.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in colData.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.1
 #&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-12-13
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-01-13
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -270,7 +269,7 @@ transformations will only be updated when <code>recalculate = TRUE</code> and ei
 <span class='co'>## Note that `normalized`, `rlog`, and `vst` assays will not be defined.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[, <span class='no'>samples</span>, <span class='kw'>recalculate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in colData.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.1
 #&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-12-13
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-01-13
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus

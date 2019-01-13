@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Mapped Reads — plotMappedReads • bcbioRNASeq</title>
+<title>Plot mapped reads — plotMappedReads • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot Mapped Reads — plotMappedReads" />
+<meta property="og:title" content="Plot mapped reads — plotMappedReads" />
 
 <meta property="og:description" content="The number of mapped reads should correspond to the number of total reads." />
 <meta name="twitter:card" content="summary" />
@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Mapped Reads</h1>
+    <h1>Plot mapped reads</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotMappedReads-methods.R'><code>R/plotMappedReads-methods.R</code></a></small>
     <div class="hidden name"><code>plotMappedReads.Rd</code></div>
     </div>
@@ -132,31 +132,33 @@
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that define the
-samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <td><p><code>character</code>.
+Groups of interest that define the samples. If left unset, defaults to
+<code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>limit</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric(1)</a></code>. Threshold to denote on the plot, using a dashed
-line.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric(1)</a></code>.
+Threshold to denote on the plot, using a dashed line.</p></td>
     </tr>
     <tr>
       <th>fill</th>
-      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code>. Desired ggplot2 fill scale. Must
-supply discrete values. When set to <code>NULL</code>, the default ggplot2 color
-palette will be used. If manual color definitions are desired, we recommend
-using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_fill_manual</a></code>.</p>
+      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code>.
+Desired ggplot2 fill scale. Must supply discrete values. When set to
+<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_fill_manual()</a></code>.</p>
 <p>To set the discrete fill palette globally, use:</p><pre>options(basejump.fill.discrete = ggplot2::scale_fill_viridis_d())
 </pre></td>
     </tr>
     <tr>
       <th>flip</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Flip x and y axes. Recommended for plots containing
-many samples.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Flip x and y axes. Recommended for plots containing many samples.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Plot title.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Plot title.</p></td>
     </tr>
     </table>
     

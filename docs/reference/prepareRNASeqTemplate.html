@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prepare RNA-Seq R Markdown Template — prepareRNASeqTemplate • bcbioRNASeq</title>
+<title>Prepare RNA-seq R Markdown template — prepareRNASeqTemplate • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Prepare RNA-Seq R Markdown Template — prepareRNASeqTemplate" />
+<meta property="og:title" content="Prepare RNA-seq R Markdown template — prepareRNASeqTemplate" />
 
 <meta property="og:description" content="If the required template dependency files aren't present, copy them from the
 requested package. Existing files are not overwritten by default. This
@@ -69,7 +69,7 @@ subdirectory, the function will return an error." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -111,7 +111,7 @@ subdirectory, the function will return an error." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prepare RNA-Seq R Markdown Template</h1>
+    <h1>Prepare RNA-seq R Markdown template</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/prepareRNASeqTemplate.R'><code>R/prepareRNASeqTemplate.R</code></a></small>
     <div class="hidden name"><code>prepareRNASeqTemplate.Rd</code></div>
     </div>
@@ -133,32 +133,27 @@ subdirectory, the function will return an error.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>overwrite</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Should existing destination files be overwritten?</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Should existing destination files be overwritten?</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Invisible <code>logical</code>. Was the file copied?.</p>
+    <p>Invisible <code>logical</code>.
+Was the file copied?.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This code is used internally by:</p><ul>
-<li><p><code>bcbioRNASeq::prepareRNASeqTemplate</code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/bcbioSingleCell/topics/prepareSingleCellTemplate'>bcbioSingleCell::prepareSingleCellTemplate</a></code>.</p></li>
+<li><p><code>bcbioRNASeq::prepareRNASeqTemplate()</code>.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/bcbioSingleCell/topics/prepareSingleCellTemplate'>bcbioSingleCell::prepareSingleCellTemplate()</a></code>.</p></li>
 </ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>prepareRNASeqTemplate</span>()</div><div class='output co'>#&gt; <span class='error'>Error in system.file("rmarkdown/shared", package = package, mustWork = TRUE): no file found</span></div><div class='input'><span class='no'>x</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'x' not found</span></div><div class='input'>
-<span class='co'>## Clean up.</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/unlink'>unlink</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
-    <span class='st'>"_footer.Rmd"</span>,
-    <span class='st'>"_header.Rmd"</span>,
-    <span class='st'>"_output.yaml"</span>,
-    <span class='st'>"_setup.R"</span>,
-    <span class='st'>"bibliography.bib"</span>
-))</div></pre>
+    <pre class="examples"><div class='input'>## x <- prepareRNASeqTemplate()
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

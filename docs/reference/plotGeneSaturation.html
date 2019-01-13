@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Gene Detection Saturation — plotGeneSaturation • bcbioRNASeq</title>
+<title>Plot gene detection saturation — plotGeneSaturation • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot Gene Detection Saturation — plotGeneSaturation" />
+<meta property="og:title" content="Plot gene detection saturation — plotGeneSaturation" />
 
 <meta property="og:description" content="We should observe a linear trend in the number of genes detected with the
 number of mapped reads, which indicates that the sample input was not
@@ -67,7 +67,7 @@ overloaded." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@ overloaded." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Gene Detection Saturation</h1>
+    <h1>Plot gene detection saturation</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotGeneSaturation-methods.R'><code>R/plotGeneSaturation-methods.R</code></a></small>
     <div class="hidden name"><code>plotGeneSaturation.Rd</code></div>
     </div>
@@ -138,17 +138,19 @@ overloaded.</p>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that define the
-samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <td><p><code>character</code>.
+Groups of interest that define the samples. If left unset, defaults to
+<code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>minCounts</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer(1)</a></code>. Minimum number of counts per gene in the
-count matrix.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer(1)</a></code>.
+Minimum number of counts per gene in the count matrix.</p></td>
     </tr>
     <tr>
       <th>perMillion</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Display as counts per million.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Display as counts per million.</p></td>
     </tr>
     <tr>
       <th>trendline</th>
@@ -157,20 +159,22 @@ Include a trendline for each group.</p></td>
     </tr>
     <tr>
       <th>label</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Superimpose sample text labels on the plot.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Superimpose sample text labels on the plot.</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p><code>ScaleDiscrete</code>. Desired ggplot2 color scale. Must supply
-discrete values. When set to <code>NULL</code>, the default ggplot2 color palette will
-be used. If manual color definitions are desired, we recommend using
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual</a></code>.</p>
+      <td><p><code>ScaleDiscrete</code>.
+Desired ggplot2 color scale. Must supply discrete values. When set <code>NULL</code>,
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual()</a></code>.</p>
 <p>To set the discrete color palette globally, use:</p><pre>options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
 </pre></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Plot title.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Plot title.</p></td>
     </tr>
     </table>
     

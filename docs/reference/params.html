@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -125,12 +125,11 @@
     <tr>
       <th>normalized</th>
       <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
-Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
+Which normalization method to apply:</p><pre>- "`tpm`": Transcripts per million (tximport).
+- "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+- "`rlog`": DESeq2 **log2** regularized log transformation.
+- "`vst`": DESeq2 **log2** variance stabilizing transformation.
+</pre></td>
     </tr>
     </table>
     
