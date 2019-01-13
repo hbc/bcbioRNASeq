@@ -29,7 +29,7 @@ authors:
 reference:
   - title: S4 classes
     contents:
-    - starts_with("bcbioRNASeq")
+    - ends_with("-class")
     - as
     - extract
     - show
@@ -39,6 +39,9 @@ reference:
     - counts
     - relativeLogExpression
     - tmm
+  - title: Metadata
+    contents:
+    - sampleData
   - title: Plots
     contents:
     - starts_with("plot")

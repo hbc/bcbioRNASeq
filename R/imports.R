@@ -3,7 +3,7 @@
 #'   SummarizedExperiment
 #' @importClassesFrom basejump Tx2Gene
 #'
-#' @importMethodsFrom S4Transformer coerce
+#' @importMethodsFrom basejump coerce
 #'
 #' @importFrom BiocGenerics cbind colSums density design lapply sapply width
 #' @importFrom DEGreport degCovariates

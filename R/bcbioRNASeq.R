@@ -1,3 +1,7 @@
+# FIXME Add option to disable DESeq2 normalization?
+
+
+
 #' @inherit bcbioRNASeq-class
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #' @export
