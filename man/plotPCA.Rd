@@ -52,9 +52,8 @@ Plot title.}
 Plot subtitle.}
 
 \item{return}{\code{character(1)}.
-Return type.
-Uses \link[base:match.arg]{match.arg()} internally and defaults to the first
-argument in the \code{character} vector.}
+Return type. Uses \code{\link[base:match.arg]{match.arg()}} internally and defaults
+to the first argument in the \code{character} vector.}
 
 \item{...}{Additional arguments.}
 }
@@ -86,7 +85,7 @@ plotPCA(bcb, label = TRUE)
 Jolliffe, et al., 2002.
 }
 \seealso{
-\code{DESeq2::plotPCA}.
+\code{DESeq2::plotPCA()}.
 
 We're using a modified version of the \code{DESeqTransform} method here.\preformatted{methodFunction(
     f = "plotPCA",
