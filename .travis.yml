@@ -6,9 +6,9 @@ cache: packages
 
 matrix:
   include:
-  # - os: linux
-  #   r: bioc-release
-  #   warnings_are_errors: true
+  - os: linux
+    r: bioc-release
+    warnings_are_errors: true
   - os: osx
     r: bioc-release
     fortran: false
