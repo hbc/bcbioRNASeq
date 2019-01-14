@@ -8,12 +8,9 @@ matrix:
   include:
   - os: linux
     r: bioc-release
-    warnings_are_errors: true
-  - os: osx
-    r: bioc-release
-    fortran: false
-    latex: false
-    warnings_are_errors: false
+  # Diabled until binary release of data.table gets updated.
+  # - os: osx
+  #   r: bioc-release
   fast_finish: true
 
 branches:
@@ -34,6 +31,7 @@ bioc_packages:
   - DelayedArray
   - EnsDb.Hsapiens.v75
 r_github_packages:
+  - lpantano/DEGreport
   - mjsteinbaugh/lintr
 
 after_success:
