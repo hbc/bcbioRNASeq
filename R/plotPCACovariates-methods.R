@@ -59,7 +59,6 @@ setMethod(
             select_if(is.numeric) %>%
             .[, colSums(., na.rm = TRUE) > 0L, drop = FALSE]
         metadata <- cbind(factors, numerics)
-        rownames(metadata) <- data[["sampleID"]]
 
         # Select the metrics to use for plot.
         if (identical(metrics, TRUE)) {
