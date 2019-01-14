@@ -230,8 +230,8 @@ bcbioRNASeq <- function(
         full.names = FALSE,
         recursive = FALSE
     )
-    # if there are multiple project directories, choose the most recent one
-    projectDir = sort(projectDir, decreasing=TRUE)[1]
+    # If there are multiple project directories, choose the most recent one.
+    projectDir <- sort(projectDir, decreasing = TRUE)[[1L]]
     assert_is_a_string(projectDir)
     message(projectDir)
     match <- str_match(projectDir, bcbioBase::projectDirPattern)
