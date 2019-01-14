@@ -51,7 +51,7 @@
 #'   estimateSizeFactors results rlog varianceStabilizingTransformation
 #' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
 #'   mutate mutate_all mutate_if pull rename row_number select select_if
-#'   starts_with
+#'   starts_with ungroup
 #' @importFrom edgeR calcNormFactors cpm DGEList
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
