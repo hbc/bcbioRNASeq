@@ -49,6 +49,5 @@ reference:
     contents:
     - prepareRNASeqTemplate
   - title: Example data
-    desc: GSE65267
     contents:
     - bcb
