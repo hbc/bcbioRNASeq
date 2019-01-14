@@ -157,17 +157,17 @@ test_that("plotPCA : transformationLimit", {
 # plotPCACovariates ============================================================
 test_that("plotPCACovariates", {
     # BioC 3.6 version of DEGreport returns warnings.
-    # Test against GitHub version >= 1.15
     p <- plotPCACovariates(bcb_small)
     expect_is(p, "list")
     expect_identical(
         names(p),
-        c("significantCovars",
-          "plot",
-          "corMatrix",
-          "pcsMatrix",
-          "scatterPlot",
-          "effectsSignificantCovars")
+        c(
+            "plot",
+            "corMatrix",
+            "pcsMatrix",
+            "scatterPlot",
+            "significants"
+        )
     )
 })
 
@@ -176,16 +176,16 @@ test_that("plotPCACovariates : Metrics", {
         object = bcb_small,
         metrics = c("exonicRate", "intronicRate")
     )
-    # Don't expect these to be significant with the example dataset
+    # Don't expect these to be significant with the example dataset.
     expect_identical(
         as.character(p[["significantCovars"]]),
         character()
     )
 
-    # If metrics = FALSE, we require at least 2 interesting groups
+    # If metrics = FALSE, we require at least 2 interesting groups.
     expect_error(
-        p <- plotPCACovariates(bcb_small, metrics = FALSE),
-        "`plotPCACovariates\\(\\)` requires >= 2 metrics"
+        object = plotPCACovariates(bcb_small, metrics = FALSE),
+        regexp = "2 metrics"
     )
 })
 
