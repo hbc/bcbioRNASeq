@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Sexually Dimorphic Gender Marker Genes — plotGenderMarkers • bcbioRNASeq</title>
+<title>Plot sexually dimorphic gender marker genes — plotGenderMarkers • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot Sexually Dimorphic Gender Marker Genes — plotGenderMarkers" />
+<meta property="og:title" content="Plot sexually dimorphic gender marker genes — plotGenderMarkers" />
 
-<meta property="og:description" content="This is a convenience function that wraps plotGene to quickly plot known
+<meta property="og:description" content="This is a convenience function that wraps plotGene() to quickly plot known
 sexually dimorphic genes, and overall gene experssion for the X and Y
 chromosomes." />
 <meta name="twitter:card" content="summary" />
@@ -67,7 +67,7 @@ chromosomes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -109,14 +109,14 @@ chromosomes." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Sexually Dimorphic Gender Marker Genes</h1>
+    <h1>Plot sexually dimorphic gender marker genes</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotGenderMarkers-methods.R'><code>R/plotGenderMarkers-methods.R</code></a></small>
     <div class="hidden name"><code>plotGenderMarkers.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This is a convenience function that wraps <code>plotGene</code> to quickly plot known
+    <p>This is a convenience function that wraps <code><a href='plotGene.html'>plotGene()</a></code> to quickly plot known
 sexually dimorphic genes, and overall gene experssion for the X and Y
 chromosomes.</p>
     
@@ -138,39 +138,42 @@ chromosomes.</p>
     <tr>
       <th>normalized</th>
       <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
-Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
+Which normalization method to apply:</p><pre>- "`tpm`": Transcripts per million (tximport).
+- "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+- "`rlog`": DESeq2 **log2** regularized log transformation.
+- "`vst`": DESeq2 **log2** variance stabilizing transformation.
+</pre></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that define the
-samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <td><p><code>character</code>.
+Groups of interest that define the samples. If left unset, defaults to
+<code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>medianLine</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Include median line for each group. Disabled if
-samples are colored by sample name.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Include median line for each group. Disabled if samples are colored by
+sample name.</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p><code>ScaleDiscrete</code>. Desired ggplot2 color scale. Must supply
-discrete values. When set to <code>NULL</code>, the default ggplot2 color palette will
-be used. If manual color definitions are desired, we recommend using
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual</a></code>.</p>
+      <td><p><code>ScaleDiscrete</code>.
+Desired ggplot2 color scale. Must supply discrete values. When set <code>NULL</code>,
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual()</a></code>.</p>
 <p>To set the discrete color palette globally, use:</p><pre>options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
 </pre></td>
     </tr>
     <tr>
       <th>legend</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Show plot legend.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Show plot legend.</p></td>
     </tr>
     <tr>
       <th>style</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Plot style.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Plot style.</p></td>
     </tr>
     </table>
     
@@ -178,13 +181,9 @@ be used. If manual color definitions are desired, we recommend using
 
     <p><code>ggplot</code>.</p>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Currently only <em>Homo sapiens</em> and <em>Mus musculus</em> genomes are supported.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>plotGene</code>.</p></div>
+    <div class='dont-index'><p><code><a href='plotGene.html'>plotGene()</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -197,8 +196,6 @@ be used. If manual color definitions are desired, we recommend using
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

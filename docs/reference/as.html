@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -126,12 +126,12 @@
 <li><p>Coerces to <code>RangedSummarizedExperiment</code>.</p></li>
 <li><p>Rounds raw counts to <code>integer matrix</code>.</p></li>
 <li><p>Subsets <code>colData</code> to include only clean factor columns.
-See <code><a href='https://www.rdocumentation.org/packages/basejump/topics/sampleData'>basejump::sampleData</a></code> for more details.</p></li>
+See <code><a href='https://www.rdocumentation.org/packages/basejump/topics/sampleData'>sampleData()</a></code> for more details.</p></li>
 <li><p>Simplifies <code>metadata</code> to include only relevant information and updates
 <code>sessionInfo</code> slot.</p></li>
 </ol>
     <p>Note that gene-level counts are required. Alternatively
-<code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::summarizeToGene</a></code> can be called to convert transcript-level
+<code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::summarizeToGene()</a></code> can be called to convert transcript-level
 counts to gene-level. By default, we're using length-scaled TPM, so a
 corresponding average transcript length matrix isn't necessary. The average
 transcript length matrix is only necessary when raw counts matrix isn't
@@ -142,8 +142,8 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
     
     <ol>
 <li><p>Coerces to <code>DESeqDataSet</code>.</p></li>
-<li><p>Calls <code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq2::DESeq</a></code>.</p></li>
-<li><p>Calls <code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation</a></code>.</p></li>
+<li><p>Calls <code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/DESeq'>DESeq2::DESeq()</a></code>.</p></li>
+<li><p>Calls <code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
 </ol>
     
     <h2 class="hasAnchor" id="description"><a class="anchor" href="#description"></a>Description</h2>
@@ -184,8 +184,8 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p><code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport</a></code></p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeq2::DESeqDataSetFromTximport</a></code>.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport()</a></code></p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeq2::DESeqDataSetFromTximport()</a></code>.</p></li>
 </ul></div>
     
 
@@ -193,7 +193,7 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>bcb</span>)
 
 <span class='co'>## bcbioRNASeq to DESeqDataSet ====</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.1.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/S4Vectors/topics/Vector-class'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.2.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/S4Vectors/topics/Vector-class'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
 #&gt; [5] "geneID"         "geneName"       "seqCoordSystem"</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/class'>class</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
 #&gt; attr(,"package")
 #&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot 5'-&gt;3' Bias — plot5Prime3PrimeBias • bcbioRNASeq</title>
+<title>Plot 5' to 3' bias — plot5Prime3PrimeBias • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot 5'-&gt;3' Bias — plot5Prime3PrimeBias" />
+<meta property="og:title" content="Plot 5' to 3' bias — plot5Prime3PrimeBias" />
 
 <meta property="og:description" content="RNA-seq data can have specific biases at either the 5’ or 3’ end of sequenced
 fragments." />
@@ -66,7 +66,7 @@ fragments." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
       </span>
     </div>
 
@@ -108,7 +108,7 @@ fragments." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot 5'-&gt;3' Bias</h1>
+    <h1>Plot 5' to 3' bias</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plot5Prime3PrimeBias-methods.R'><code>R/plot5Prime3PrimeBias-methods.R</code></a></small>
     <div class="hidden name"><code>plot5Prime3PrimeBias.Rd</code></div>
     </div>
@@ -135,26 +135,28 @@ fragments.</p>
     </tr>
     <tr>
       <th>interestingGroups</th>
-      <td><p><code>character</code>. Groups of interest that define the
-samples. If left unset, defaults to <code>sampleName</code>.</p></td>
+      <td><p><code>character</code>.
+Groups of interest that define the samples. If left unset, defaults to
+<code>sampleName</code>.</p></td>
     </tr>
     <tr>
       <th>color</th>
-      <td><p><code>ScaleDiscrete</code>. Desired ggplot2 color scale. Must supply
-discrete values. When set to <code>NULL</code>, the default ggplot2 color palette will
-be used. If manual color definitions are desired, we recommend using
-<code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual</a></code>.</p>
+      <td><p><code>ScaleDiscrete</code>.
+Desired ggplot2 color scale. Must supply discrete values. When set <code>NULL</code>,
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual()</a></code>.</p>
 <p>To set the discrete color palette globally, use:</p><pre>options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
 </pre></td>
     </tr>
     <tr>
       <th>flip</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>. Flip x and y axes. Recommended for plots containing
-many samples.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Flip x and y axes. Recommended for plots containing many samples.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>. Plot title.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Plot title.</p></td>
     </tr>
     </table>
     
@@ -168,7 +170,8 @@ many samples.</p></td>
 was performed, or if there is any sample degradation. If a large amount of
 bias is observed here, be sure to analyze the samples with a Bioanalyzer and
 check the RIN scores.</p>
-<p>5' (3') bias is generally calculated as the median of the following ratio:</p><pre>[mean expression of 5' (3')] / [mean expression of whole transcript]
+<p>5' (3') bias is generally calculated as the median of the following ratio:</p><pre>[mean expression of 5' (3')] /
+    [mean expression of whole transcript]
 </pre>
     <p>For example:</p><ul>
 <li><p>Mean expression for 5' (3') is calculated as mean coverage of first (last)

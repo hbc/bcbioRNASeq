@@ -24,8 +24,8 @@ subdirectory, the function will return an error.
 \details{
 This code is used internally by:
 \itemize{
-\item \code{bcbioRNASeq::prepareRNASeqTemplate}.
-\item \code{bcbioSingleCell::prepareSingleCellTemplate}.
+\item \code{bcbioRNASeq::prepareRNASeqTemplate()}.
+\item \code{bcbioSingleCell::prepareSingleCellTemplate()}.
 }
 }
 \examples{

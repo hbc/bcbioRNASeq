@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Show an object — show • bcbioRNASeq</title>
+<title>Find correlation between principal components (PCs) and covariates — plotPCACovariates • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,13 +32,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Show an object — show" />
+<meta property="og:title" content="Find correlation between principal components (PCs) and covariates — plotPCACovariates" />
 
-<meta property="og:description" content="Display the object, by printing, plotting or whatever suits its
-  class.  This function exists to be specialized by methods.  The
-  default method calls showDefault.
-Formal methods for show will
-  usually be invoked for automatic printing (see the details)." />
+<meta property="og:description" content="DEGreport::degCovariates() wrapper supporting bcbioRNASeq
+class." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,76 +108,63 @@ Formal methods for show will
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Show an object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/show-methods.R'><code>R/show-methods.R</code></a></small>
-    <div class="hidden name"><code>show.Rd</code></div>
+    <h1>Find correlation between principal components (PCs) and covariates</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotPCACovariates-methods.R'><code>R/plotPCACovariates-methods.R</code></a></small>
+    <div class="hidden name"><code>plotPCACovariates.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Display the object, by printing, plotting or whatever suits its
-  class.  This function exists to be specialized by methods.  The
-  default method calls <code>showDefault</code>.</p>
-<p>Formal methods for <code>show</code> will
-  usually be invoked for automatic printing (see the details).</p>
+    <p><code><a href='http://lpantano.github.io/DEGreport/reference/degCovariates.html'>DEGreport::degCovariates()</a></code> wrapper supporting <code>bcbioRNASeq</code>
+class.</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)</pre>
+<span class='fu'>plotPCACovariates</span>(<span class='no'>object</span>, <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Any R object</p></td>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>metrics</th>
+      <td><p><code>boolean</code>. Include sample summary metrics as covariates.
+Defaults to include all metrics columns (<code>TRUE</code>), but desired columns can
+be specified here as a character vector.</p></td>
+    </tr>
+    <tr>
+      <th>normalized</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Which normalization method to apply:</p><pre>- "`tpm`": Transcripts per million (tximport).
+- "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
+- "`rlog`": DESeq2 **log2** regularized log transformation.
+- "`vst`": DESeq2 **log2** variance stabilizing transformation.
+</pre></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments, passed to <code><a href='http://lpantano.github.io/DEGreport/reference/degCovariates.html'>DEGreport::degCovariates()</a></code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>show</code> returns an invisible <code>NULL</code>.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Objects from an S4 class (a class defined by a call to
-  <code>setClass</code>) will be displayed automatically is if by a
-  call to <code>show</code>.  S4 objects that occur as attributes of S3
-objects will also be displayed in this form; conversely, S3 objects
-encountered as slots in S4 objects will be printed using the S3
-convention, as if by a call to <code><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></code>.</p>
-<p>Methods defined for <code>show</code> will only be inherited  by simple
-inheritance, since otherwise the method would not receive the
-complete, original object, with misleading results.  See the
-<code>simpleInheritanceOnly</code> argument to <code>setGeneric</code> and
-the discussion in <code>setIs</code> for the general concept.</p>
+    <p><code>ggplot</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>showMethods</code> prints all the methods for one or more
-  functions.</p></div>
+    <div class='dont-index'><ul>
+<li><p><code><a href='http://lpantano.github.io/DEGreport/reference/degCovariates.html'>DEGreport::degCovariates()</a></code>.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
+</ul></div>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>show</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.1
-#&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2018-11-13
-#&gt; level: genes
-#&gt; caller: salmon
-#&gt; organism: Mus musculus
-#&gt; interestingGroups: treatment
-#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 500 6 
-#&gt; metadata(28): version level ... subset previousVersion
-#&gt; assays(6): counts tpm ... vst fpkm
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
-#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -189,15 +173,11 @@ the discussion in <code>setIs</code> for the general concept.</p>
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
     <h2>Author</h2>
-    <p>Michael Steinbuagh</p>
+    <p>Lorena Pantano, Michael Steinbaugh, Rory Kirchner</p>
   </div>
 </div>
 

@@ -10,21 +10,18 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #'
 #' @section Automatic metadata:
 #'
-#' The `metadata` slot always contains:
+#' The [`metadata()`][SummarizedExperiment::metadata] slot always contains:
 #'
 #' - Object version.
 #' - bcbio data provenance information.
 #' - File paths and timestamps.
 #' - R session information.
 #'
-#' @family S4 classes
-#' @author Michael Steinbaugh, Lorena Pantano
+#' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #' @export
 #'
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
-#'
-#' @seealso `bcbioRNASeq`.
 setClass(
     Class = "bcbioRNASeq",
     contains = "RangedSummarizedExperiment",
