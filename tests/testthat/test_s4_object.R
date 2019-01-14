@@ -100,7 +100,6 @@ test_that("Row data", {
 })
 
 test_that("Metadata", {
-    tibble <- c("tbl_df", "tbl", "data.frame")
     expect_identical(
         lapply(metadata(bcb), class),
         list(
@@ -118,13 +117,14 @@ test_that("Metadata", {
             organism = "character",
             genomeBuild = "character",
             ensemblRelease = "integer",
-            rowRangesMetadata = tibble,
+            rowRangesMetadata = c("tbl_df", "tbl", "data.frame"),
             gffFile = "character",
-            "tx2gene" = "data.frame",
+            tx2gene = "data.frame",
             lanes = "integer",
             yaml = "list",
-            dataVersions = tibble,
-            programVersions = tibble,
+            dataVersions = c("tbl_df", "tbl", "data.frame"),
+            # `spec_tbl_df` is a new virtual class in tibble v2.0 update.
+            programVersions = c("spec_tbl_df", "tbl_df", "tbl", "data.frame"),
             bcbioLog = "character",
             bcbioCommandsLog = "character",
             allSamples = "logical",
