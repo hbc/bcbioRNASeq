@@ -1,4 +1,4 @@
-# TODO Parameterize the functions that support `normalized` argument?
+# FIXME Parameterize the functions that support `normalized` argument?
 
 context("Plots : Quality Control")
 
