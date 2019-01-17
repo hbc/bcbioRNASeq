@@ -72,7 +72,7 @@ plotPCACovariates.bcbioRNASeq <-  # nolint
         assert(isSubset(col, colnames(metadata)))
         metadata <- metadata[, col, drop = FALSE]
 
-        # DEGreport v1.18 has issues joining character vector and factor columns:
+        # DEGreport v1.18 has issues joining character and factor columns.
         # - Warning: Column `compare`/`PC`
         # - Warning: Column `covar`/`term`
         suppressWarnings(
