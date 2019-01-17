@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.8</span>
       </span>
     </div>
 
@@ -74,7 +74,7 @@
     <div class="page-header toc-ignore">
       <h1>bcbioRNASeq</h1>
             
-            <h4 class="date">13 January 2019</h4>
+            <h4 class="date">17 January 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hbc/bcbioRNASeq/blob/master/vignettes/bcbioRNASeq.Rmd"><code>vignettes/bcbioRNASeq.Rmd</code></a></small>
       <div class="hidden name"><code>bcbioRNASeq.Rmd</code></div>
@@ -119,7 +119,7 @@
 <div id="loading-bcbio-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#loading-bcbio-data" class="anchor"></a>Loading bcbio data</h1>
-<p>The <code><a href="../reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor function is the main interface connecting <a href="https://bcbio-nextgen.readthedocs.io">bcbio</a> output data to interactive use in <a href="https://www.r-project.org">R</a>. It is highly customizable and supports a number of options for advanced use cases. Consult the documentation available at <code><a href="https://www.rdocumentation.org/packages/utils/topics/help">help(topic = "bcbioRNASeq", package = "bcbioRNASeq")</a></code> for additional details.</p>
+<p>The <code><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> constructor function is the main interface connecting <a href="https://bcbio-nextgen.readthedocs.io">bcbio</a> output data to interactive use in <a href="https://www.r-project.org">R</a>. It is highly customizable and supports a number of options for advanced use cases. Consult the documentation available at <code><a href="https://www.rdocumentation.org/packages/utils/topics/help">help(topic = "bcbioRNASeq", package = "bcbioRNASeq")</a></code> for additional details.</p>
 <div id="upload-directory" class="section level2">
 <h2 class="hasAnchor">
 <a href="#upload-directory" class="anchor"></a>Upload directory</h2>
@@ -146,12 +146,12 @@
 <div id="counts-level" class="section level2">
 <h2 class="hasAnchor">
 <a href="#counts-level" class="anchor"></a>Counts level</h2>
-<p>By default, <a href="http://bioinformatics.sph.harvard.edu/bcbioRNASeq">bcbioRNASeq</a> imports counts at gene level, which are required for standard differential expression analysis (<code>level = "genes"</code>). For pseudo-aligned counts (e.g. <a href="https://combine-lab.github.io/salmon">Salmon</a>, <a href="https://pachterlab.github.io/kallisto">Kallisto</a>, <a href="http://www.cs.cmu.edu/~ckingsf/software/sailfish">Sailfish</a>) <span class="citation">(Bray et al. 2016; Patro, Mount, and Kingsford 2014; Patro et al. 2017)</span>, <a href="https://bioconductor.org/packages/release/bioc/html/tximport.html">tximport</a> <span class="citation">(Soneson, Love, and Robinson 2016)</span> is used internally to aggregate transcript-level counts to gene-level counts, and generates length-scaled transcripts per million (TPM) values. For aligned counts processed with <a href="http://bioinf.wehi.edu.au/featureCounts">featureCounts</a> <span class="citation">(Liao, Smyth, and Shi 2014)</span> (e.g. <a href="https://github.com/alexdobin/STAR">STAR</a>, <a href="https://ccb.jhu.edu/software/hisat2">HISAT2</a>) <span class="citation">(Dobin et al. 2013; Dobin and Gingeras 2016; Kim, Langmead, and Salzberg 2015)</span>, these values are already returned at gene level, and therefore not handled by <a href="https://bioconductor.org/packages/release/bioc/html/tximport.html">tximport</a>. Once the gene-level counts are imported during the <code><a href="../reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> call, the <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a> package <span class="citation">(Love, Huber, and Anders 2014)</span> is then used to generate an internal <code>DESeqDataSet</code> from which we derive normalized and variance-stabilized counts.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">level =</span> <span class="st">"genes"</span>)
+<p>By default, <a href="http://bioinformatics.sph.harvard.edu/bcbioRNASeq">bcbioRNASeq</a> imports counts at gene level, which are required for standard differential expression analysis (<code>level = "genes"</code>). For pseudo-aligned counts (e.g. <a href="https://combine-lab.github.io/salmon">Salmon</a>, <a href="https://pachterlab.github.io/kallisto">Kallisto</a>, <a href="http://www.cs.cmu.edu/~ckingsf/software/sailfish">Sailfish</a>) <span class="citation">(Bray et al. 2016; Patro, Mount, and Kingsford 2014; Patro et al. 2017)</span>, <a href="https://bioconductor.org/packages/release/bioc/html/tximport.html">tximport</a> <span class="citation">(Soneson, Love, and Robinson 2016)</span> is used internally to aggregate transcript-level counts to gene-level counts, and generates length-scaled transcripts per million (TPM) values. For aligned counts processed with <a href="http://bioinf.wehi.edu.au/featureCounts">featureCounts</a> <span class="citation">(Liao, Smyth, and Shi 2014)</span> (e.g. <a href="https://github.com/alexdobin/STAR">STAR</a>, <a href="https://ccb.jhu.edu/software/hisat2">HISAT2</a>) <span class="citation">(Dobin et al. 2013; Dobin and Gingeras 2016; Kim, Langmead, and Salzberg 2015)</span>, these values are already returned at gene level, and therefore not handled by <a href="https://bioconductor.org/packages/release/bioc/html/tximport.html">tximport</a>. Once the gene-level counts are imported during the <code><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> call, the <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a> package <span class="citation">(Love, Huber, and Anders 2014)</span> is then used to generate an internal <code>DESeqDataSet</code> from which we derive normalized and variance-stabilized counts.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">level =</span> <span class="st">"genes"</span>)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bcb)</code></pre></div>
 <pre><code>## bcbioRNASeq 0.3.7
-## uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.5/bioc-3.8-release/bcbioRNASeq/extdata/bcbio
-## dates(2): [bcbio] 2018-03-18; [R] 2019-01-13
+## uploadDir: /data01/home/bioinfo/R/x86_64-redhat-linux-gnu-library/3.5/bioc-3.8-release/bcbioRNASeq/extdata/bcbio
+## dates(2): [bcbio] 2018-03-18; [R] 2019-01-17
 ## level: genes
 ## caller: salmon
 ## organism: Mus musculus
@@ -168,11 +168,11 @@
 ## colData names(26): averageInsertSize averageReadLength ... tissue
 ##   treatment</code></pre>
 <p>Alternatively, if you want to perform transcript-aware analysis, such as differential exon usage or splicing analysis, transcript-level counts can be obtained using <code>level = "transcripts"</code>. Note that when counts are loaded at transcript level, TPMs are generated with <a href="https://bioconductor.org/packages/release/bioc/html/tximport.html">tximport</a> internally, but no additional normalizations or transformations normally calculated for gene-level counts with <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a> are generated.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">level =</span> <span class="st">"transcripts"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">level =</span> <span class="st">"transcripts"</span>)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bcb)</code></pre></div>
 <pre><code>## bcbioRNASeq 0.3.7
-## uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.5/bioc-3.8-release/bcbioRNASeq/extdata/bcbio
-## dates(2): [bcbio] 2018-03-18; [R] 2019-01-13
+## uploadDir: /data01/home/bioinfo/R/x86_64-redhat-linux-gnu-library/3.5/bioc-3.8-release/bcbioRNASeq/extdata/bcbio
+## dates(2): [bcbio] 2018-03-18; [R] 2019-01-17
 ## level: transcripts
 ## caller: salmon
 ## organism: Mus musculus
@@ -192,16 +192,16 @@
 <div id="expression-callers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#expression-callers" class="anchor"></a>Expression callers</h2>
-<p>Since <a href="https://bcbio-nextgen.readthedocs.io">bcbio</a> is flexible and supports a number of expression callers, we have provided advanced options in the <code><a href="../reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor to support a variety of workflows using the <code>caller</code> argument.</p>
+<p>Since <a href="https://bcbio-nextgen.readthedocs.io">bcbio</a> is flexible and supports a number of expression callers, we have provided advanced options in the <code><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> constructor to support a variety of workflows using the <code>caller</code> argument.</p>
 <p><a href="https://combine-lab.github.io/salmon">Salmon</a>, <a href="https://pachterlab.github.io/kallisto">Kallisto</a>, and <a href="http://www.cs.cmu.edu/~ckingsf/software/sailfish">Sailfish</a> counts are supported at either gene or transcript level. Internally, these are loaded using <a href="https://bioconductor.org/packages/release/bioc/html/tximport.html">tximport</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">salmon_genes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">caller =</span> <span class="st">"salmon"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">salmon_genes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">caller =</span> <span class="st">"salmon"</span>)
 <span class="kw">assayNames</span>(salmon_genes)</code></pre></div>
 <pre><code>## [1] "counts"      "tpm"         "avgTxLength" "normalized"  "vst"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">salmon_tx &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">level =</span> <span class="st">"transcripts"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">salmon_tx &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">level =</span> <span class="st">"transcripts"</span>)
 <span class="kw">assayNames</span>(salmon_tx)</code></pre></div>
 <pre><code>## [1] "counts"      "tpm"         "avgTxLength"</code></pre>
 <p><a href="https://github.com/alexdobin/STAR">STAR</a> and <a href="https://ccb.jhu.edu/software/hisat2">HISAT2</a> aligned counts processed with <a href="http://bioinf.wehi.edu.au/featureCounts">featureCounts</a> are also supported, but only at gene level.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">star &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">caller =</span> <span class="st">"star"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">star &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">caller =</span> <span class="st">"star"</span>)
 <span class="kw">assayNames</span>(star)</code></pre></div>
 <pre><code>## [1] "counts"     "normalized" "vst"</code></pre>
 </div>
@@ -220,7 +220,7 @@
 ## 4 fa_day7_rep1_R1.fastq.gz fa_day7_rep1 folic acid   7
 ## 5 fa_day7_rep2_R1.fastq.gz fa_day7_rep2 folic acid   7
 ## 6 fa_day7_rep3_R1.fastq.gz fa_day7_rep3 folic acid   7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(
     <span class="dt">uploadDir =</span> uploadDir,
     <span class="dt">sampleMetadataFile =</span> sampleMetadataFile
 )
@@ -246,9 +246,9 @@
 <div id="genome-annotations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#genome-annotations" class="anchor"></a>Genome annotations</h2>
-<p>When analyzing a dataset against a well-annotated genome, we recommend importing the corresponding metadata using <a href="https://bioconductor.org/packages/release/bioc/html/AnnotationHub.html">AnnotationHub</a> and <a href="https://bioconductor.org/packages/release/bioc/html/ensembldb.html">ensembldb</a>. This functionality is natively supported in the <code><a href="../reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor with using the <code>organism</code>, <code>ensemblRelease</code>, and <code>genomeBuild</code> arguments. This will return a <code>GRanges</code> object using the <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a> package <span class="citation">(Lawrence et al. 2013)</span>, which contains coordinates and rich metadata for each gene or transcript. These annotations are accessible with the <code>rowRanges()</code> and <code>rowData()</code> functions defined in the <a href="https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">SummarizedExperiment</a> package <span class="citation">(Huber et al. 2015)</span>.</p>
+<p>When analyzing a dataset against a well-annotated genome, we recommend importing the corresponding metadata using <a href="https://bioconductor.org/packages/release/bioc/html/AnnotationHub.html">AnnotationHub</a> and <a href="https://bioconductor.org/packages/release/bioc/html/ensembldb.html">ensembldb</a>. This functionality is natively supported in the <code><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> constructor with using the <code>organism</code>, <code>ensemblRelease</code>, and <code>genomeBuild</code> arguments. This will return a <code>GRanges</code> object using the <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a> package <span class="citation">(Lawrence et al. 2013)</span>, which contains coordinates and rich metadata for each gene or transcript. These annotations are accessible with the <code>rowRanges()</code> and <code>rowData()</code> functions defined in the <a href="https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html">SummarizedExperiment</a> package <span class="citation">(Huber et al. 2015)</span>.</p>
 <p>For example, with our internal <a href="https://bcbio-nextgen.readthedocs.io">bcbio</a> dataset, we’re analyzing counts generated against the <a href="https://www.ensembl.org">Ensembl</a> <em>Mus musculus</em> GRCm38 genome build (release 87). These parameters can be defined in the object load call to ensure that the annotations match up exactly with the genome used.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(
     <span class="dt">uploadDir =</span> uploadDir,
     <span class="dt">level =</span> <span class="st">"genes"</span>,
     <span class="dt">organism =</span> <span class="st">"Mus musculus"</span>,
@@ -312,7 +312,7 @@
 ##   -------
 ##   seqinfo: 86 sequences from GRCm38 genome</code></pre>
 <p>Alternatively, transcript-level annotations can also be obtained automatically using this method.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(
     <span class="dt">uploadDir =</span> uploadDir,
     <span class="dt">level =</span> <span class="st">"transcripts"</span>,
     <span class="dt">organism =</span> <span class="st">"Mus musculus"</span>,
@@ -404,11 +404,11 @@
 <p>When working with a dataset generated against a poorly-annotated or non-standard genome, we provide a fallback method for loading gene annotations from a <a href="https://useast.ensembl.org/info/website/upload/gff.html">general feature format (GFF)</a> file with the <code>gffFile</code> argument. If possible, we recommend providing a general transfer format (GTF) file, which is identical to GFF version 2. GFFv3 is more complicated and non-standard, but <a href="https://www.ensembl.org">Ensembl</a> GFFv3 files are also supported.</p>
 <p>If your dataset contains transgenes (e.g. EGFP, TDTOMATO) or spike-ins (e.g. ERCCs), these features can be defined with the <code>transgeneNames</code> and <code>spikeNames</code> arguments, which will automatically populate the <code>rowRanges()</code> slot with placeholder metadata.</p>
 <p>We recommend loading up data per genome in its own <code>bcbioRNASeq</code> object when possible, so that rich metadata can be imported easily. In the edge case where you need to look at multiple genomes simultaneously, set <code>organism = NULL</code>, and bcbioRNASeq will skip the gene annotation acquisition step.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">organism =</span> <span class="ot">NULL</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">organism =</span> <span class="ot">NULL</span>)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bcb)</code></pre></div>
 <pre><code>## bcbioRNASeq 0.3.7
-## uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.5/bioc-3.8-release/bcbioRNASeq/extdata/bcbio
-## dates(2): [bcbio] 2018-03-18; [R] 2019-01-13
+## uploadDir: /data01/home/bioinfo/R/x86_64-redhat-linux-gnu-library/3.5/bioc-3.8-release/bcbioRNASeq/extdata/bcbio
+## dates(2): [bcbio] 2018-03-18; [R] 2019-01-17
 ## level: genes
 ## caller: salmon
 ## organism: Mus musculus
@@ -428,8 +428,8 @@
 <div id="variance-stabilization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#variance-stabilization" class="anchor"></a>Variance stabilization</h2>
-<p>During the <code><a href="../reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor call, variance stabilizaton of gene-level counts can be calculated automatically, and is recommended. This is performed internally by the <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a> package. These transformations will be slotted into <code>assays()</code> as <code>vst</code> and/or <code>rlog</code> matrices. The <code>vst</code> matrix is calculated by <code><a href="https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation">DESeq2::varianceStabilizingTransformation()</a></code> and <code>rlog</code> by <code><a href="https://www.rdocumentation.org/packages/DESeq2/topics/rlog">DESeq2::rlog()</a></code>. For large datasets, <code>rlog</code> calculation can take a long time, so we are currently recommending calculation of only <code>vst</code> by default.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(
+<p>During the <code><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> constructor call, variance stabilizaton of gene-level counts can be calculated automatically, and is recommended. This is performed internally by the <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a> package. These transformations will be slotted into <code>assays()</code> as <code>vst</code> and/or <code>rlog</code> matrices. The <code>vst</code> matrix is calculated by <code><a href="https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation">DESeq2::varianceStabilizingTransformation()</a></code> and <code>rlog</code> by <code><a href="https://www.rdocumentation.org/packages/DESeq2/topics/rlog">DESeq2::rlog()</a></code>. For large datasets, <code>rlog</code> calculation can take a long time, so we are currently recommending calculation of only <code>vst</code> by default.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(
     <span class="dt">uploadDir =</span> uploadDir,
     <span class="dt">vst =</span> <span class="ot">TRUE</span>,
     <span class="dt">rlog =</span> <span class="ot">TRUE</span>
@@ -481,7 +481,7 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/updateO
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bcb)</code></pre></div>
 <pre><code>## bcbioRNASeq 0.3.7
 ## uploadDir: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
-## dates(2): [bcbio] 2018-03-18; [R] 2019-01-13
+## dates(2): [bcbio] 2018-03-18; [R] 2019-01-17
 ## level: genes
 ## caller: salmon
 ## organism: Mus musculus
@@ -546,7 +546,7 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/updateO
 <div id="interesting-groups" class="section level1">
 <h1 class="hasAnchor">
 <a href="#interesting-groups" class="anchor"></a>Interesting groups</h1>
-<p>Groups of interest to be used for coloring and sample grouping in the quality control plots can be defined in the <code>bcbioRNASeq</code> object using the <code>interestingGroups</code> argument in the <code><a href="../reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor call. Assignment method support with the <code>interestingGroups()</code> function is also provided, which can modify the groups of interest after the object has been created.</p>
+<p>Groups of interest to be used for coloring and sample grouping in the quality control plots can be defined in the <code>bcbioRNASeq</code> object using the <code>interestingGroups</code> argument in the <code><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> constructor call. Assignment method support with the <code>interestingGroups()</code> function is also provided, which can modify the groups of interest after the object has been created.</p>
 <p>The <code>interestingGroups</code> definition defaults to <code>sampleName</code>, which is automatically generated from the <a href="https://bcbio-nextgen.readthedocs.io">bcbio</a> <code>description</code> metadata for demultiplexed bulk RNA-seq samples. In this case, the samples will be grouped and colored uniquely.</p>
 <p>Interesting groups must be defined using a <code>character</code> vector and refer to column names defined in the <code>colData()</code> slot of the object. Note that the <a href="http://bioinformatics.sph.harvard.edu/bcbioRNASeq">bcbioRNASeq</a> packages uses lower camel case formatting for column names (e.g. “sampleName”), so the interesting groups should be defined using camel case, not snake (e.g. “sample_name”) or dotted case (e.g. “sample.name”).</p>
 <p>This approach was inspired by the <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a> package, which uses the argument <code>intgroup</code> in some functions, such as <code><a href="../reference/plotPCA.html">plotPCA()</a></code> for labeling groups of interest. We took this idea and ran with it for a number of our quality control functions, which are described in detail below.</p>
@@ -650,29 +650,29 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(x)</code></pre></div>
 <pre><code>## $assays
 ## $assays$counts
-## [1] "/Users/mike/git/bcbioRNASeq/vignettes/export/bcb/assays/counts.csv"
+## [1] "/data01/home/bioinfo/git/bcbioRNASeq/vignettes/export/bcb/assays/counts.csv"
 ## 
 ## $assays$tpm
-## [1] "/Users/mike/git/bcbioRNASeq/vignettes/export/bcb/assays/tpm.csv"
+## [1] "/data01/home/bioinfo/git/bcbioRNASeq/vignettes/export/bcb/assays/tpm.csv"
 ## 
 ## $assays$normalized
-## [1] "/Users/mike/git/bcbioRNASeq/vignettes/export/bcb/assays/normalized.csv"
+## [1] "/data01/home/bioinfo/git/bcbioRNASeq/vignettes/export/bcb/assays/normalized.csv"
 ## 
 ## $assays$rlog
-## [1] "/Users/mike/git/bcbioRNASeq/vignettes/export/bcb/assays/rlog.csv"
+## [1] "/data01/home/bioinfo/git/bcbioRNASeq/vignettes/export/bcb/assays/rlog.csv"
 ## 
 ## $assays$vst
-## [1] "/Users/mike/git/bcbioRNASeq/vignettes/export/bcb/assays/vst.csv"
+## [1] "/data01/home/bioinfo/git/bcbioRNASeq/vignettes/export/bcb/assays/vst.csv"
 ## 
 ## $assays$avgTxLength
-## [1] "/Users/mike/git/bcbioRNASeq/vignettes/export/bcb/assays/avgTxLength.csv"
+## [1] "/data01/home/bioinfo/git/bcbioRNASeq/vignettes/export/bcb/assays/avgTxLength.csv"
 ## 
 ## 
 ## $colData
-## [1] "/Users/mike/git/bcbioRNASeq/vignettes/export/bcb/colData.csv"
+## [1] "/data01/home/bioinfo/git/bcbioRNASeq/vignettes/export/bcb/colData.csv"
 ## 
 ## $rowData
-## [1] "/Users/mike/git/bcbioRNASeq/vignettes/export/bcb/rowData.csv"</code></pre>
+## [1] "/data01/home/bioinfo/git/bcbioRNASeq/vignettes/export/bcb/rowData.csv"</code></pre>
 </div>
 <div id="differential-expression" class="section level1">
 <h1 class="hasAnchor">
@@ -718,15 +718,15 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sessioninfo<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sessioninfo/topics/session_info">session_info</a></span>()</code></pre></div>
 <pre><code>## ─ Session info ──────────────────────────────────────────────────────────
 ##  setting  value                       
-##  version  R version 3.5.2 (2018-12-20)
-##  os       macOS Mojave 10.14.2        
-##  system   x86_64, darwin15.6.0        
+##  version  R version 3.5.1 (2018-07-02)
+##  os       Red Hat Enterprise Linux    
+##  system   x86_64, linux-gnu           
 ##  ui       X11                         
 ##  language (EN)                        
 ##  collate  en_US.UTF-8                 
 ##  ctype    en_US.UTF-8                 
 ##  tz       America/New_York            
-##  date     2019-01-13                  
+##  date     2019-01-17                  
 ## 
 ## ─ Packages ──────────────────────────────────────────────────────────────
 ##  package                * version   date       lib
@@ -740,26 +740,28 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 ##  assertthat               0.2.0     2017-04-11 [1]
 ##  backports                1.1.3     2018-12-14 [1]
 ##  base64enc                0.1-3     2015-07-28 [1]
-##  basejump               * 0.9.4     2019-01-13 [1]
-##  bcbioBase                0.5.9     2019-01-13 [1]
-##  bcbioRNASeq            * 0.3.7     2019-01-13 [1]
+##  basejump               * 0.9.4     2019-01-14 [1]
+##  bcbioBase                0.5.10    2019-01-17 [1]
+##  bcbioRNASeq            * 0.3.7     2019-01-17 [1]
+##  bindr                    0.1.1     2018-03-13 [1]
+##  bindrcpp               * 0.2.2     2018-03-29 [1]
 ##  Biobase                * 2.42.0    2018-10-30 [1]
 ##  BiocGenerics           * 0.28.0    2018-10-30 [1]
 ##  BiocManager              1.30.4    2018-11-13 [1]
-##  BiocParallel           * 1.16.5    2019-01-05 [1]
+##  BiocParallel           * 1.16.5    2019-01-04 [1]
 ##  BiocStyle              * 2.10.0    2018-10-30 [1]
 ##  biomaRt                  2.38.0    2018-10-30 [1]
 ##  Biostrings               2.50.2    2019-01-03 [1]
-##  bioverbs                 0.1.3     2019-01-12 [1]
+##  bioverbs                 0.1.3     2019-01-14 [1]
 ##  bit                      1.1-14    2018-05-29 [1]
 ##  bit64                    0.9-7     2017-05-08 [1]
 ##  bitops                   1.0-6     2013-08-17 [1]
 ##  blob                     1.1.1     2018-03-25 [1]
 ##  bookdown                 0.9       2018-12-21 [1]
-##  brio                     0.1.4     2019-01-13 [1]
+##  brio                     0.1.4     2019-01-14 [1]
 ##  broom                    0.5.1     2018-12-05 [1]
 ##  cellranger               1.1.0     2016-07-27 [1]
-##  checkmate                1.9.0     2019-01-09 [1]
+##  checkmate                1.9.1     2019-01-15 [1]
 ##  circlize                 0.4.5     2018-11-21 [1]
 ##  cli                      1.0.1     2018-09-25 [1]
 ##  cluster                  2.0.7-1   2018-04-13 [2]
@@ -777,7 +779,7 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 ##  desc                     1.2.0     2018-05-01 [1]
 ##  DESeq2                   1.22.2    2019-01-04 [1]
 ##  digest                   0.6.18    2018-10-10 [1]
-##  dplyr                    0.8.0     2019-01-12 [1]
+##  dplyr                    0.7.8     2018-11-10 [1]
 ##  edgeR                    3.24.3    2019-01-02 [1]
 ##  ensembldb                2.6.3     2018-11-21 [1]
 ##  evaluate                 0.12      2018-10-09 [1]
@@ -789,7 +791,7 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 ##  geneplotter              1.60.0    2018-10-30 [1]
 ##  generics                 0.0.2     2018-11-29 [1]
 ##  GenomeInfoDb           * 1.18.1    2018-11-12 [1]
-##  GenomeInfoDbData         1.2.0     2018-11-04 [1]
+##  GenomeInfoDbData         1.2.0     2019-01-07 [1]
 ##  GenomicAlignments        1.18.1    2019-01-04 [1]
 ##  GenomicFeatures          1.34.1    2018-11-03 [1]
 ##  GenomicRanges          * 1.34.0    2018-10-30 [1]
@@ -799,7 +801,7 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 ##  ggrepel                  0.8.0     2018-05-09 [1]
 ##  GlobalOptions            0.1.0     2018-06-09 [1]
 ##  glue                     1.3.0     2018-07-17 [1]
-##  goalie                   0.2.4     2019-01-10 [1]
+##  goalie                   0.2.5     2019-01-17 [1]
 ##  gridExtra                2.3       2017-09-09 [1]
 ##  grr                      0.9.5     2016-08-26 [1]
 ##  gtable                   0.2.0     2016-02-26 [1]
@@ -824,7 +826,7 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 ##  lazyeval                 0.2.1     2017-10-29 [1]
 ##  limma                    3.38.3    2018-12-02 [1]
 ##  locfit                   1.5-9.1   2013-04-20 [1]
-##  logging                  0.8-104   2018-11-30 [1]
+##  logging                  0.9-105   2019-01-16 [1]
 ##  magrittr                 1.5       2014-11-22 [1]
 ##  MASS                     7.3-51.1  2018-11-01 [1]
 ##  Matrix                   1.2-15    2018-11-01 [1]
@@ -872,7 +874,7 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 ##  Rsamtools                1.34.0    2018-10-30 [1]
 ##  RSQLite                  2.1.1     2018-05-06 [1]
 ##  rstudioapi               0.9.0     2019-01-09 [1]
-##  rtracklayer              1.42.1    2018-11-21 [1]
+##  rtracklayer              1.42.1    2018-11-22 [1]
 ##  S4Vectors              * 0.20.1    2018-11-09 [1]
 ##  scales                   1.0.0     2018-08-09 [1]
 ##  sessioninfo              1.1.1     2018-11-05 [1]
@@ -887,7 +889,7 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 ##  tibble                   2.0.1     2019-01-12 [1]
 ##  tidyr                    0.8.2     2018-10-28 [1]
 ##  tidyselect               0.2.5     2018-10-11 [1]
-##  transformer              0.1.1     2019-01-12 [1]
+##  transformer              0.1.1     2019-01-14 [1]
 ##  tximport                 1.10.1    2019-01-04 [1]
 ##  viridis                  0.5.1     2018-03-29 [1]
 ##  viridisLite              0.3.0     2018-02-01 [1]
@@ -902,19 +904,21 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 ##  zip                      1.0.0     2017-04-25 [1]
 ##  zlibbioc                 1.28.0    2018-10-30 [1]
 ##  source                                 
-##  CRAN (R 3.5.0)                         
+##  CRAN (R 3.5.1)                         
 ##  Bioconductor                           
 ##  Bioconductor                           
 ##  Bioconductor                           
 ##  Bioconductor                           
 ##  Bioconductor                           
 ##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  Github (steinbaugh/basejump@358c4b6)   
-##  Bioconductor                           
-##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Github (steinbaugh/basejump@f5e0857)   
+##  Github (steinbaugh/bcbioBase@27f7458)  
+##  Github (steinbaugh/bcbioRNASeq@7f92729)
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
 ##  Bioconductor                           
 ##  Bioconductor                           
 ##  CRAN (R 3.5.1)                         
@@ -923,159 +927,160 @@ x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class=
 ##  Bioconductor                           
 ##  Bioconductor                           
 ##  Github (steinbaugh/bioverbs@fa69f03)   
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.1)                         
-##  Github (steinbaugh/brio@f85d954)       
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.0)                         
-##  Bioconductor                           
-##  Bioconductor                           
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.0)                         
-##  Bioconductor                           
-##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  Github (tidyverse/dplyr@d71c52b)       
-##  Bioconductor                           
-##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  Bioconductor                           
-##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  Bioconductor                           
-##  Bioconductor                           
-##  Bioconductor                           
-##  Bioconductor                           
-##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  Github (steinbaugh/goalie@38d67d2)     
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  Bioconductor                           
-##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.1)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.1)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
 ##  CRAN (R 3.5.1)                         
 ##  CRAN (R 3.5.1)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  Bioconductor                           
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
 ##  CRAN (R 3.5.1)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.2)                         
 ##  CRAN (R 3.5.1)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.0)                         
-##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.2)                         
-##  Bioconductor                           
-##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
 ##  CRAN (R 3.5.1)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
+##  Github (steinbaugh/brio@16523ec)       
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
 ##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
 ##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  Bioconductor                           
+##  Bioconductor                           
+##  Bioconductor                           
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Github (steinbaugh/goalie@36a9787)     
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  Bioconductor                           
+##  CRAN (R 3.5.1)                         
 ##  Github (steinbaugh/syntactic@39be5ad)  
-##  CRAN (R 3.5.2)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
 ##  Github (steinbaugh/transformer@52b97c9)
 ##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
 ##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
 ##  Bioconductor                           
-##  CRAN (R 3.5.0)                         
-##  CRAN (R 3.5.0)                         
+##  CRAN (R 3.5.1)                         
+##  CRAN (R 3.5.1)                         
 ##  Bioconductor                           
 ## 
-## [1] /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.5/bioc-3.8-release
-## [2] /Library/Frameworks/R.framework/Versions/3.5/Resources/library</code></pre>
+## [1] /data01/home/bioinfo/R/x86_64-redhat-linux-gnu-library/3.5/bioc-3.8-release
+## [2] /usr/lib64/R/library
+## [3] /usr/share/R/library</code></pre>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.8</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
 }
 BiocManager<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(<span class="st">"remotes"</span>)
 BiocManager<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>, <span class="dt">ref =</span> <span class="st">"bioconductor"</span>)</code></pre></div>
-<p>For <a href="https://www.r-project.org/">R</a> &lt; 3.5, <a href="https://cran.r-project.org/package=BiocManager">BiocManager</a> is not supported. Use <code>BiocInstaller::biocLite()</code> instead of <code><a href="https://www.rdocumentation.org/packages/BiocManager/topics/install">BiocManager::install()</a></code>. This requires sourcing the legacy <a href="https://bioconductor.org/">Bioconductor</a> <code>biocLite.R</code> script.</p>
+<p>For <a href="https://www.r-project.org/">R</a> &lt; 3.5, <a href="https://cran.r-project.org/package=BiocManager">BiocManager</a> is not supported. Use <code><a href="https://www.rdocumentation.org/packages/BiocInstaller/topics/biocLite">BiocInstaller::biocLite()</a></code> instead of <code><a href="https://www.rdocumentation.org/packages/BiocManager/topics/install">BiocManager::install()</a></code>. This requires sourcing the legacy <a href="https://bioconductor.org/">Bioconductor</a> <code>biocLite.R</code> script.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Try `http://` if `https://` URLs are not supported.</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)</code></pre></div>
 </div>
@@ -134,9 +134,9 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <h2 class="hasAnchor">
 <a href="#loading-bcbio-rna-seq-data" class="anchor"></a>Loading <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> RNA-seq data</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bcbioRNASeq)
-bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> <span class="st">"bcbio/final"</span>)
+bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> <span class="st">"bcbio/final"</span>)
 <span class="kw">saveData</span>(bcb, <span class="dt">dir =</span> <span class="st">"."</span>)</code></pre></div>
-<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org/">Bioconductor</a> <a href="https://bioconductor.org/packages/SummarizedExperiment/">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> generator function documentation for detailed information on the supported parameters.</p>
+<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org/">Bioconductor</a> <a href="https://bioconductor.org/packages/SummarizedExperiment/">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> generator function documentation for detailed information on the supported parameters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/help">help</a></span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</code></pre></div>
 </div>
 <div id="r-markdown-templates" class="section level2">

@@ -33,7 +33,7 @@
 ) {
     assert(
         all(isDirectory(sampleDirs)),
-        identical(names(sampleDirs), basename(sampleDirs)),
+        identical(names(sampleDirs), makeNames(basename(sampleDirs))),
         isFlag(txOut),
         is(tx2gene, "Tx2Gene")
     )
