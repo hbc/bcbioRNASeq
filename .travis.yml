@@ -1,6 +1,8 @@
 # Travis-CI configuration for Bioconductor packages
 # https://docs.travis-ci.com/user/languages/r
 
+script: true
+
 language: r
 cache: packages
 
