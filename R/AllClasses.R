@@ -10,7 +10,7 @@ setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
 #'
 #' @section Automatic metadata:
 #'
-#' The [`metadata()`][SummarizedExperiment::metadata] slot always contains:
+#' The [`metadata()`][S4Vectors::metadata] slot always contains:
 #'
 #' - Object version.
 #' - bcbio data provenance information.
