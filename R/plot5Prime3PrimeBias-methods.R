@@ -28,6 +28,7 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         validObject(object)
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
         assert(
             isGGScale(color, scale = "discrete", aes = "colour", nullOK = TRUE),
             isFlag(flip),

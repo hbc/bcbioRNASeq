@@ -33,6 +33,7 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
         validObject(object)
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
         assert(
             isNumber(limit),
             isProportion(limit),
