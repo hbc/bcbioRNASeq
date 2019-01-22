@@ -24,9 +24,9 @@
 #'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
 #'   matchInterestingGroups matchesGene2Symbol meltCounts methodFormals metrics
 #'   organism plotGenesDetected plotHeatmap prepareTemplate printString realpath
-#'   relevelColData relevelRowRanges removeNA sampleData sampleData<-
-#'   sanitizeRowData sanitizeSampleData separator showSlotInfo snake
-#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
+#'   relevelColData relevelRowRanges removeNA sampleData sampleData<- separator
+#'   showSlotInfo snake standardizeCall stripTranscriptVersions
+#'   uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML metadataBlacklist projectDir projectDirPattern
 #'   readDataVersions readProgramVersions readSampleData readTx2Gene runDate
