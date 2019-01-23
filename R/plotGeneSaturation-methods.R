@@ -36,6 +36,7 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         validObject(object)
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
         assert(
             isInt(minCounts),
             isInRange(minCounts, lower = 1L, upper = Inf),

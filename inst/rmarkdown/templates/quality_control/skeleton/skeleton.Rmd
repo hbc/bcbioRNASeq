@@ -10,7 +10,7 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2018-12-13
+# Last modified 2019-01-23
 library(bcbioRNASeq)
 prepareRNASeqTemplate()
 source("_setup.R")
@@ -143,7 +143,8 @@ plotCountsPerGene(object, normalized = "tmm", geom = "density")
 Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA.
 
 ```{r plot_counts_per_biotype}
-plotCountsPerBiotype(object)
+plotCountsPerBiotype(object) +
+    theme(legend.position = "bottom")
 ```
 
 ## Counts per broad biotype class
@@ -151,7 +152,8 @@ plotCountsPerBiotype(object)
 The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes.
 
 ```{r plot_counts_per_broad_class}
-plotCountsPerBroadClass(object)
+plotCountsPerBroadClass(object) +
+    theme(legend.position = "bottom")
 ```
 
 # Variance stabilization
