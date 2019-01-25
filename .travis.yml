@@ -6,15 +6,15 @@ cache: packages
 
 matrix:
   include:
-  - os: linux
-    r: bioc-release
-  - os: osx
-    r: bioc-release
+    - os: linux
+      r: bioc-release
+    - os: osx
+      r: bioc-release
   fast_finish: true
 
 branches:
   only:
-  - master
+    - master
 
 env:
   global:
@@ -31,7 +31,7 @@ bioc_packages:
   - EnsDb.Hsapiens.v75
 r_github_packages:
   - lpantano/DEGreport
-  - mjsteinbaugh/lintr
+  - steinbaugh/lintr
 
 after_success:
   - Rscript -e 'lintr::lint_package()'
@@ -47,4 +47,4 @@ notifications:
     recipients:
       - mike@steinbaugh.com
     on_success: change
-    on_failure: always
+    on_failure: change
