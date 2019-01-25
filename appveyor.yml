@@ -58,3 +58,9 @@ artifacts:
 
   - path: '\*_*.zip'
     name: Bits
+
+notifications:
+  - provider: Email
+    to:
+      - mike@steinbaugh.com
+    on_build_status_changed: true
