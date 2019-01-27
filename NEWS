@@ -1,3 +1,10 @@
+## bcbioRNASeq 0.2.8 (2019-01-27)
+
+### Minor changes
+
+- Handle correlation of PCA covariates when a numerical covariate has no variation.
+- Handle NA in ribosomal RNA calculations.
+
 ## bcbioRNASeq 0.2.7 (2018-08-22)
 
 ### Minor changes
