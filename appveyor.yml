@@ -28,6 +28,7 @@ build_script:
   - travis-tool.sh install_bioc GenomeInfoDbData
   - travis-tool.sh install_bioc DelayedArray
   - travis-tool.sh install_github jotsetung/ensembldb
+  - travis-tool.sh install_github lpantano/DEGreport
   - travis-tool.sh install_bioc EnsDb.Hsapiens.v75
   # clusterProfiler dependencies
   - travis-tool.sh install_bioc ALL
