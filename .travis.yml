@@ -30,8 +30,7 @@ bioc_packages:
   - DelayedArray
   - EnsDb.Hsapiens.v75
 r_github_packages:
-  - lpantano/DEGreport
-  - mjsteinbaugh/lintr
+  - steinbaugh/lintr
 
 after_success:
   - Rscript -e 'lintr::lint_package()'
