@@ -1,9 +1,15 @@
-source("https://bioconductor.org/biocLite.R")
-biocLite(c(
+# sudo apt-get install libudunits2-dev
+library(BiocManager)
+
+BiocManager::install(c(
+    "gtools",
+    "hexbin",
     "ggplot2",
     "cowplot",
     "DESeq2",
     "DEGreport",
+    "clusterProfiler",
+    "org.Mm.eg.db",
     "hbc/bcbioRNASeq"
 ))
 
@@ -67,7 +73,7 @@ dev.off()
 
 
 # Figure 3 ====
-pdf("figures/plotMeanSD.pdf", width = 7, height = 4)
+pdf("figures/plotMeanSD.pdf", width = 8, height = 4)
 plotMeanSD(bcb)
 dev.off()
 
@@ -95,7 +101,7 @@ dev.off()
 
 
 # Figure 7 ====
-pdf("figures/plotPCACovariates.pdf", width = 6, height = 4.5)
+pdf("figures/plotPCACovariates.pdf", width = 8, height = 5)
 plotPCACovariates(bcb)
 dev.off()
 
@@ -138,10 +144,10 @@ dev.off()
 # Figure 11 ====
 pdf("figures/degPlot.pdf", width = 6, height = 3)
 degPlot(
-    bcb,
+    object = bcb,
     res = res,
     n = 3,
-    slot = "rlog",
+    slot = "vst",
     log = FALSE,
     # Use the 'ann' argument for gene to symbol mapping
     ann = c("geneID", "geneName"),
@@ -150,7 +156,7 @@ dev.off()
 
 
 
-dds_lrt <- DESeq(dds, reduced = ~1, test = "LRT")
+dds_lrt <- DESeq(dds, test = "LRT", reduced = ~1)
 res_lrt <- results(dds_lrt)
 saveData(dds_lrt, res_lrt)
 
@@ -159,8 +165,9 @@ saveData(dds_lrt, res_lrt)
 theme_set(
     theme_gray(base_size = 5)
 )
+ma <- counts(bcb, "rlog")[significants(res, fc = 2), ]
 res_patterns <- degPatterns(
-    counts(bcb, "rlog")[significants(res, fc = 2), ],
+    ma,
     metadata = colData(bcb),
     time = "day",
     minc = 60)
@@ -169,7 +176,7 @@ saveData(dds_lrt, res_lrt, res_patterns)
 
 # Figure 12 ====
 
-pdf("figures/degPatterns.pdf", width = 6, height = 4)
+pdf("figures/degPatterns.pdf", width = 8, height = 4)
 res_patterns[["plot"]]
 dev.off()
 
@@ -182,13 +189,13 @@ res_tbl <- resultsTables(res, lfc = 1)
 topTables(res_tbl, n = 5)
 
 # FA analysis
+library(clusterProfiler)
 sigGenes <- significants(res, fc = 1, padj = 0.05)
 allGenes <- rownames(res)[!is.na(res[["padj"]])]
 sigResults <- as.data.frame(res)[sigGenes, ]
 foldChanges <- sigResults$log2FoldChange
 names(foldChanges) <- rownames(sigResults)
 
-library(clusterProfiler)
 ego <- enrichGO(
     gene = sigGenes,
     OrgDb = "org.Mm.eg.db",
@@ -203,7 +210,7 @@ pdf("figures/dot_plot.pdf", width = 7, height = 5)
 dotplot(ego, showCategory = 25)
 dev.off()
 pdf("figures/enrich_map.pdf", width = 6, height = 6)
-enrichMap(ego, n = 25, vertex.label.cex = 0.5)
+emapplot(ego, n = 25)
 dev.off()
 pdf("figures/cnet_plot.pdf", width = 6, height = 6)
 cnetplot(
@@ -211,6 +218,6 @@ cnetplot(
     categorySize = "pvalue",
     showCategory = 5,
     foldChange = foldChanges,
-    vertex.label.cex = 0.5
+    node_label = FALSE,
 )
 dev.off()
