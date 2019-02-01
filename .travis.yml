@@ -6,15 +6,15 @@ cache: packages
 
 matrix:
   include:
-  - os: linux
-    r: bioc-release
-  - os: osx
-    r: bioc-release
+    - os: linux
+      r: bioc-release
+    - os: osx
+      r: bioc-release
   fast_finish: true
 
 branches:
   only:
-  - master
+    - master
 
 env:
   global:
@@ -43,5 +43,7 @@ after_success:
 
 notifications:
   email:
+    recipients:
+      - mike@steinbaugh.com
     on_success: change
     on_failure: change
