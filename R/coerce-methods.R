@@ -1,10 +1,11 @@
-#' @name as
-#' @aliases coerce
+#' Methods for coercing an object to a class
+#'
+#' Force an object to belong to a class.
+#'
+#' @name coerce
 #' @author Michael Steinbaugh
-#' @exportMethod coerce
 #' @importFrom methods coerce
-#' @inherit methods::as
-#' @inheritParams coerce
+#' @exportMethod coerce
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'
@@ -29,8 +30,8 @@
 #' 3. Calls [DESeq2::varianceStabilizingTransformation()].
 #'
 #' @seealso
-#' - `tximport::tximport()`
-#' - `DESeq2::DESeqDataSetFromTximport()`.
+#' - [tximport::tximport()].
+#' - [DESeq2::DESeqDataSetFromTximport()].
 #'
 #' @examples
 #' data(bcb)
@@ -57,7 +58,7 @@ NULL
 
 
 
-#' @rdname as
+#' @rdname coerce
 #' @name coerce,bcbioRNASeq,DESeqDataSet-method
 setAs(
     from = "bcbioRNASeq",
@@ -76,7 +77,7 @@ setAs(
 
 
 
-#' @rdname as
+#' @rdname coerce
 #' @name coerce,bcbioRNASeq,DESeqTransform-method
 setAs(
     from = "bcbioRNASeq",
