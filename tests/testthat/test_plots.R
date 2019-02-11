@@ -1,4 +1,4 @@
-# FIXME Parameterize the functions that support `normalized` argument?
+# TODO Parameterize the functions that support `normalized` argument.
 
 context("Plots : Quality Control")
 
@@ -147,20 +147,10 @@ geneNames <- head(g2s[["geneName"]])
 
 
 
-# plotGenderMarkers ============================================================
-test_that("plotGenderMarkers", {
-    expect_s3_class(
-        object = plotGenderMarkers(object),
-        class = "ggplot"
-    )
-})
-
-
-
-# plotGene =====================================================================
-test_that("plotGene", {
+# plotCounts ===================================================================
+test_that("plotCounts", {
     # Facet wrapped.
-    p <- plotGene(
+    p <- plotCounts(
         object = object,
         genes = geneNames,
         interestingGroups = "sampleName",
@@ -169,12 +159,22 @@ test_that("plotGene", {
     expect_s3_class(p, "ggplot")
 
     # Wide format.
-    p <- plotGene(
+    p <- plotCounts(
         object = bcb,
         genes = geneNames,
         style = "wide"
     )
     expect_s3_class(p, "ggplot")
+})
+
+
+
+# plotGenderMarkers ============================================================
+test_that("plotGenderMarkers", {
+    expect_s3_class(
+        object = plotGenderMarkers(object),
+        class = "ggplot"
+    )
 })
 
 
