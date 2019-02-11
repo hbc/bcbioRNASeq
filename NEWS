@@ -4,6 +4,8 @@
 
 - Renamed `plotGene()` to `plotCounts()`, to match consistency in [basejump][]
   and [DESeqAnalysis][] package updates.
+- Updated dependencies to provide improved backwards compatibility support for
+  R 3.4 / Bioconductor 3.6.
 
 
 ## bcbioRNASeq 0.3.10 (2019-02-01)
