@@ -101,13 +101,13 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
 Depends:
-    R (>= 3.5),
+    R (>= 3.4),
     SummarizedExperiment,
-    basejump (>= 0.9.5)
+    basejump (>= 0.9.9)
 Imports:
-    bcbioBase (>= 0.5.11), bioverbs (>= 0.1.3), goalie (>= 0.2.5),
-    BiocGenerics, DEGreport (>= 1.16), DESeq2 (>= 1.20), GenomicFeatures,
-        S4Vectors, edgeR (>= 3.22), tximport (>= 1.8), vsn,
+    bcbioBase (>= 0.5.12), bioverbs (>= 0.1.6), goalie (>= 0.2.8),
+    BiocGenerics, DEGreport, DESeq2, GenomicFeatures, S4Vectors, edgeR,
+        tximport, vsn,
     cowplot (>= 0.9), dplyr (>= 0.7), ggplot2 (>= 3.0), ggrepel (>= 0.8),
         knitr (>= 1.20), magrittr (>= 1.5), matrixStats (>= 0.54),
         readr (>= 1.1), rlang (>= 0.3), rmarkdown (>= 1.10), scales (>= 1.0),
