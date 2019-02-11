@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot gene expression — plotGene • bcbioRNASeq</title>
+<title>Plot counts — plotCounts • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot gene expression — plotGene" />
+<meta property="og:title" content="Plot counts — plotCounts" />
 
-<meta property="og:description" content="Plot gene expression" />
+<meta property="og:description" content="Plot counts" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.11</span>
       </span>
     </div>
 
@@ -107,19 +107,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot gene expression</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotGene-methods.R'><code>R/plotGene-methods.R</code></a></small>
-    <div class="hidden name"><code>plotGene.Rd</code></div>
+    <h1>Plot counts</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotCounts-methods.R'><code>R/plotCounts-methods.R</code></a></small>
+    <div class="hidden name"><code>plotCounts.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot gene expression</p>
+    <p>Plot counts</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGene</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"vst"</span>,
+<span class='fu'>plotCounts</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"vst"</span>,
   <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"basejump.discrete.color"</span>,
   <span class='kw'>NULL</span>), <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"basejump.legend"</span>, <span class='fl'>TRUE</span>),
@@ -193,6 +193,12 @@ Plot style.</p></td>
 </ul>
 
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><ul>
+<li><p><code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/plotCounts'>DESeq2::plotCounts()</a></code>.</p></li>
+</ul></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>bcb</span>)
@@ -202,17 +208,17 @@ Plot style.</p></td>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346"
 #&gt; [4] "ENSMUSG00000000740" "ENSMUSG00000001175" "ENSMUSG00000001666"</div><div class='input'><span class='no'>geneNames</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneName"</span>]])
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>geneNames</span>)</div><div class='output co'>#&gt; [1] "Cox5a"  "Comt"   "Dazap2" "Rpl13"  "Calm1"  "Ddt"   </div><div class='input'>
-<span class='fu'>plotGene</span>(
+<span class='fu'>plotCounts</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb</span>,
     <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneIDs</span>,
     <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
     <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"facet"</span>
-)</div><div class='img'><img src='plotGene-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGene</span>(
+)</div><div class='img'><img src='plotCounts-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCounts</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb</span>,
     <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneNames</span>,
     <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
     <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"wide"</span>
-)</div><div class='img'><img src='plotGene-2.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='img'><img src='plotCounts-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -220,6 +226,8 @@ Plot style.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
