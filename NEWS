@@ -1,3 +1,46 @@
+## bcbioRNASeq 0.3.11 (2019-02-12)
+
+### Minor changes
+
+- Renamed `plotGene()` to `plotCounts()`, to match consistency in [basejump][]
+  and [DESeqAnalysis][] package updates.
+- Updated dependencies to provide improved backwards compatibility support for
+  R 3.4 / Bioconductor 3.6.
+
+
+## bcbioRNASeq 0.3.10 (2019-02-01)
+
+
+## bcbioRNASeq 0.3.9 (2019-01-23)
+
+
+## bcbioRNASeq 0.3.8 (2019-01-17)
+
+
+## bcbioRNASeq 0.3.7 (2019-01-13)
+
+
+## bcbioRNASeq 0.3.6 (2018-12-12)
+
+
+## bcbioRNASeq 0.3.5 (2018-12-01)
+
+
+## bcbioRNASeq 0.3.4 (2018-11-29)
+
+
+## bcbioRNASeq 0.3.3 (2018-11-25)
+
+
+## bcbioRNASeq 0.3.2 (2018-11-19)
+
+
+## bcbioRNASeq 0.3.1 (2018-11-14)
+
+
+## bcbioRNASeq 0.3.0 (2018-11-06)
+
+
 ## bcbioRNASeq 0.2.7 (2018-08-22)
 
 ### Minor changes
@@ -599,6 +642,7 @@ Last set of code fixes before F1000v2 resubmission.
 [covr]: https://github.com/jimhester/covr/
 [DEGreport]: https://bioconductor.org/packages/DEGreport/
 [DESeq2]: https://bioconductor.org/packages/DESeq2/
+[DESeqAnalysis]: http://steinbaugh.com/DESeqAnalysis/
 [dplyr]: https://dplyr.tidyverse.org/
 [Dropbox]: https://dropbox.com/
 [edgeR]: https://bioconductor.org/packages/edgeR/

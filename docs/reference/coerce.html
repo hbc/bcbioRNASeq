@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Force an Object to Belong to a Class — as • bcbioRNASeq</title>
+<title>Methods for coercing an object to a class — coerce • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Force an Object to Belong to a Class — as" />
+<meta property="og:title" content="Methods for coercing an object to a class — coerce" />
 
-<meta property="og:description" content="Coerce an object to a given class." />
+<meta property="og:description" content="Force an object to belong to a class." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.11</span>
       </span>
     </div>
 
@@ -107,14 +107,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Force an Object to Belong to a Class</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/as-methods.R'><code>R/as-methods.R</code></a></small>
-    <div class="hidden name"><code>as.Rd</code></div>
+    <h1>Methods for coercing an object to a class</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/coerce-methods.R'><code>R/coerce-methods.R</code></a></small>
+    <div class="hidden name"><code>coerce.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Coerce an object to a given class.</p>
+    <p>Force an object to belong to a class.</p>
     
     </div>
 
@@ -146,45 +146,10 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
 <li><p>Calls <code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
 </ol>
     
-    <h2 class="hasAnchor" id="description"><a class="anchor" href="#description"></a>Description</h2>
-
-    
-    <p><code>as(object)</code>
-      returns the version of this object coerced to be the given
-      <code>Class</code>.  When used in the replacement form on the left of
-      an assignment, the portion of the object corresponding to
-      <code>Class</code> is replaced by <code>value</code>.</p>
-<p>The operation of <code>as()</code> in either form depends on the
-      definition of coerce methods.  Methods are defined automatically
-      when the two classes are related by inheritance; that is, when
-      one of the classes is a subclass of the other.</p>
-<p>Coerce methods are also predefined for basic classes (including all
-      the types of vectors, functions and a few others).</p>
-<p>Beyond these two sources of methods, further methods are defined
-      by calls to the <code>setAs</code> function.  See that
-      documentation also for details of how coerce methods work. Use
-      <code>showMethods(coerce)</code> for a list of all currently defined methods, as in the
-      example below.</p>
-    
-    <h2 class="hasAnchor" id="basic-coercion-methods"><a class="anchor" href="#basic-coercion-methods"></a>Basic Coercion Methods</h2>
-
-    
-    <p>Methods are pre-defined for coercing any object to one of the basic
-  datatypes.  For example, <code>as(x, "numeric")</code> uses the existing
-  <code>as.numeric</code> function.  These and all other existing methods
-  can be listed as shown in the example.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Chambers, John M. (2016)
- <em>Extending R</em>,
-  Chapman &amp; Hall.
-(Chapters 9 and 10.)</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><ul>
-<li><p><code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport()</a></code></p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport()</a></code>.</p></li>
 <li><p><code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/DESeqDataSet'>DESeq2::DESeqDataSetFromTximport()</a></code>.</p></li>
 </ul></div>
     
@@ -243,12 +208,6 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
       <li><a href="#bcbiornaseq-to-deseqdataset">bcbioRNASeq to DESeqDataSet</a></li>
 
       <li><a href="#bcbiornaseq-to-deseqtransform">bcbioRNASeq to DESeqTransform</a></li>
-
-      <li><a href="#description">Description</a></li>
-
-      <li><a href="#basic-coercion-methods">Basic Coercion Methods</a></li>
-
-      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
