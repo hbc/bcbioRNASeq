@@ -35,7 +35,7 @@ print(object)
 # Sample metadata
 
 ```{r sample_data}
-sampleData(object, clean = TRUE) %>% as.data.frame()
+sampleData(object, clean = TRUE)
 ```
 
 # Export results
