@@ -28,6 +28,8 @@ env:
 r_packages:
   - covr
   - hexbin
+  - rmarkdown
+  - tidyverse
 bioc_packages:
   - BiocCheck
   - GenomeInfoDbData
