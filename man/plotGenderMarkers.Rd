@@ -47,16 +47,15 @@ Plot style.}
 \code{ggplot}.
 }
 \description{
-This is a convenience function that wraps \code{\link[=plotGene]{plotGene()}} to quickly plot known
-sexually dimorphic genes, and overall gene experssion for the X and Y
-chromosomes.
+This is a convenience function that quickly plots known sexually dimorphic
+genes, and overall gene experssion for the X and Y chromosomes.
 }
 \examples{
 data(bcb)
 plotGenderMarkers(bcb)
 }
 \seealso{
-\code{plotGene()}.
+\code{plotCounts()}.
 }
 \author{
 Michael Steinbaugh

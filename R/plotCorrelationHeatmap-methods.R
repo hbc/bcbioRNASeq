@@ -1,7 +1,7 @@
 #' @name plotCorrelationHeatmap
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::plotCorrelationHeatmap title
-#' @inherit basejump::plotHeatmap
+#' @inherit basejump::plotCorrelationHeatmap
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
