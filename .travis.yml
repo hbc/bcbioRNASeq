@@ -21,8 +21,9 @@ env:
     - LINTR_COMMENT_BOT=true
 
 # Skipping vignettes, which can cause the build to time out.
-r_build_args: "--no-build-vignettes --no-manual"
-r_check_args: "--no-build-vignettes --no-manual --timings"
+# r_build_args: "--no-build-vignettes --no-manual"
+# r_check_args: "--no-build-vignettes --no-manual --timings"
+# warnings_are_errors: false
 
 r_packages:
   - covr
