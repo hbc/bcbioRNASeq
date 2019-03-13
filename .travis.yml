@@ -20,6 +20,10 @@ env:
   global:
     - LINTR_COMMENT_BOT=true
 
+# Skipping vignettes, which can cause the build to time out.
+r_build_args: "--no-build-vignettes --no-manual"
+r_check_args: "--no-build-vignettes --no-manual --timings"
+
 r_packages:
   - covr
   - hexbin
@@ -33,9 +37,10 @@ r_github_packages:
   - steinbaugh/lintr
 
 after_success:
-  - Rscript -e 'lintr::lint_package()'
-  - Rscript -e 'covr::codecov()'
   - R CMD BiocCheck .
+  # Only check lints and coverage against linux bioc-release.
+  - test $TRAVIS_OS_NAME = 'linux' && $TRAVIS_R_VERSION_STRING = 'bioc-release' && Rscript -e 'lintr::lint_package()'
+  - test $TRAVIS_OS_NAME = 'linux' && $TRAVIS_R_VERSION_STRING = 'bioc-release' && Rscript -e 'covr::codecov()'
   # Render R Markdown templates
   # https://github.com/bcbio/bcbio_rnaseq_output_example
   # - chmod +x travis_render.sh
