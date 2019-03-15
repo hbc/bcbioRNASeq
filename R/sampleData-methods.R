@@ -29,6 +29,7 @@ basejump::sampleData
 
 
 
+# FIXME Move `metadataBlacklist` to basejump.
 sampleData.bcbioRNASeq <-  # nolint
     function(object, clean = FALSE) {
         assert(isFlag(clean))
