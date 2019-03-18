@@ -8,8 +8,8 @@
 \usage{
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
   normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"),
-  interestingGroups = NULL, method = c("pearson", "spearman"),
-  clusteringMethod = "ward.D2", showRownames = TRUE,
+  interestingGroups = NULL, method = c("pearson", "kendall",
+  "spearman"), clusteringMethod = "ward.D2", showRownames = TRUE,
   showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
   color = viridis::viridis, legendColor = viridis::viridis,
   borderColor = NULL, title = TRUE, ...)
@@ -30,8 +30,8 @@ Groups of interest that define the samples. If left unset, defaults to
 
 \item{method}{\code{character(1)}.
 Correlation coefficient (or covariance) method to be computed. Defaults to
-"\code{pearson}" but "\code{spearman}" can also be used. Consult the \code{\link[stats:cor]{stats::cor()}}
-documentation for more information.}
+"\code{pearson}" but "\code{spearman}" or "\code{kendall}" can also be used. Refer to the
+\code{\link[stats:cor]{stats::cor()}} documentation for details.}
 
 \item{clusteringMethod}{\code{character(1)}.
 Clustering method. Accepts the same values as \code{\link[stats:hclust]{stats::hclust()}}.}
