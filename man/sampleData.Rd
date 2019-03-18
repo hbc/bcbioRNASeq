@@ -30,6 +30,59 @@ for accessing sample metadata for datasets where multiple items in the
 columns map to a single sample (e.g. cells for a single-cell RNA-seq
 experiment).
 }
+\section{All supported S4 classes}{
+
+
+
+Illegal \code{colData}:
+\itemize{
+\item \code{interestingGroups}: Generated automatically, based on the criteria
+slotted into the object using \code{\link[=interestingGroups]{interestingGroups()}}. The function will
+error intentionally if this column is manually defined in \code{\link[=colData]{colData()}}.
+}
+
+Recommended \code{colData}:
+\itemize{
+\item \code{sampleName}: Human readable sample names used by basejump plotting
+functions in favor of object column names, which should be syntactically
+valid (but not always very readable). See
+\code{\link[base:make.names]{make.names()}} for more information on syntactically
+valid names. Note that if this column is not defined in the object,
+it will be returned automatically by \code{\link[=sampleData]{sampleData()}}.
+}
+
+}
+
+\section{SummarizedExperiment}{
+
+
+
+Required \code{colData}:
+\itemize{
+\item None.
+}
+
+Illegal \code{colData}:
+\itemize{
+\item \code{sampleID}: Redundant; already defined in the object column names.
+}
+
+}
+
+\section{SingleCellExperiment}{
+
+
+
+Recommended \code{colData}:
+\itemize{
+\item \code{sampleID}: \code{factor} defining cell-to-sample mappings. These mappings
+should use syntactically valid names. Note that this is not currently
+required as we're supporting \code{SingleCellExperiment} objects from 1 sample,
+but it's required for working with multiple samples in a single object.
+}
+
+}
+
 \examples{
 data(bcb)
 sampleData(bcb, clean = TRUE) \%>\% lapply(head)

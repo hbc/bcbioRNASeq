@@ -9,10 +9,10 @@
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, normalized = c("tmm",
   "vst", "rlog", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   geom = c("boxplot", "density", "violin"), trans = c("identity",
-  "log2", "log10"), color = getOption("basejump.color.discrete", NULL),
-  fill = getOption("basejump.fill.discrete", NULL),
-  flip = getOption("basejump.flip", TRUE), countsAxisLabel = "counts",
-  title = "counts per gene")
+  "log2", "log10"), color = getOption("basejump.color.discrete", default
+  = NULL), fill = getOption("basejump.fill.discrete", default = NULL),
+  flip = getOption("basejump.flip", default = TRUE),
+  countsAxisLabel = "counts", title = "counts per gene")
 }
 \arguments{
 \item{object}{Object.}
