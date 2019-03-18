@@ -103,7 +103,7 @@ LazyData: false
 Depends:
     R (>= 3.4),
     SummarizedExperiment,
-    basejump (>= 0.9.13)
+    basejump (>= 0.9.14)
 Imports:
     bcbioBase (>= 0.5.13), bioverbs (>= 0.1.8), goalie (>= 0.2.11),
     BiocGenerics, DEGreport, DESeq2, GenomicFeatures, S4Vectors, edgeR,
