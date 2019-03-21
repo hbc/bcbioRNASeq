@@ -65,13 +65,8 @@ setAs(
     to = "DESeqDataSet",
     function(from) {
         validObject(from)
-        se <- as(from, "RangedSummarizedExperiment")
-        colData(se) <- sampleData(from, clean = TRUE)
-        validObject(se)
-        to <- .new.DESeqDataSet(se = se)
-        interestingGroups(to) <- interestingGroups(from)
-        validObject(to)
-        to
+        rse <- as(from, "RangedSummarizedExperiment")
+        .new.DESeqDataSet(se = rse)
     }
 )
 

@@ -8,8 +8,9 @@
 \usage{
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object,
   interestingGroups = NULL,
-  color = getOption("basejump.color.discrete", NULL),
-  flip = getOption("basejump.flip", TRUE), title = "5'->3' bias")
+  color = getOption("basejump.color.discrete", default = NULL),
+  flip = getOption("basejump.flip", default = TRUE),
+  title = "5'->3' bias")
 }
 \arguments{
 \item{object}{Object.}

@@ -8,8 +8,8 @@
 \usage{
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object,
   interestingGroups = NULL, minCounts = 1L, perMillion = TRUE,
-  trendline = FALSE, label = getOption("basejump.label", FALSE),
-  color = getOption("basejump.color.discrete", NULL),
+  trendline = FALSE, label = getOption("basejump.label", default =
+  FALSE), color = getOption("basejump.color.discrete", default = NULL),
   title = "gene saturation")
 }
 \arguments{

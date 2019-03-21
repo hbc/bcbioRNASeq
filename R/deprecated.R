@@ -55,13 +55,17 @@ plotGeneHeatmap <- function(...) {
 #' @rdname defunct
 #' @export
 txi <- function(...) {
-    .Defunct("assays")
+    .Defunct(paste(
+        "tximport list is no longer stored in bcbioRNASeq.",
+        "Use `as(bcb, \"DESeqDataSet\")` for DESeq2 handoff.",
+        sep = "\n"
+    ))
 }
 
 
 
 # v0.2.0 =======================================================================
-# annotable deprecation for SummarizedExperiment added to bcbioBase v0.2.0
+# `annotable()` deprecation for SummarizedExperiment added to bcbioBase v0.2.0.
 
 #' @rdname deprecated
 #' @export
@@ -75,7 +79,7 @@ setMethod(
     "design",
     signature("bcbioRNASeq"),
     function(object, ...) {
-        .Defunct(msg = "Object no longer supports design formula")
+        .Defunct(msg = "bcbioRNASeq no longer supports design formula.")
     }
 )
 
@@ -89,7 +93,7 @@ setMethod(
         value = "formula"
     ),
     function(object, ..., value) {
-        .Defunct(msg = "Object no longer supports design formula")
+        .Defunct(msg = "bcbioRNASeq no longer supports design formula.")
     }
 )
 
@@ -115,8 +119,21 @@ plotCountDensity <- function(...) {
 #' @rdname defunct
 #' @export
 resultsTables <- function(...) {
-    .Defunct("DESeqResultsTables")
+    .Defunct(msg = paste(
+        "resultsTables() code has moved to DESeqAnalysis package.",
+        "https://steinbaugh.com/DESeqAnalysis/",
+        sep = "\n"
+    ))
 }
+
+
+
+# v0.3.12 ======================================================================
+# SummarizedExperiment method now works seamlessly with bcbioRNASeq object, so
+# no need to redefine a custom method here.
+#' @importFrom basejump sampleData
+#' @export
+basejump::sampleData
 
 
 

@@ -8,8 +8,8 @@
 \usage{
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
   normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"),
-  interestingGroups = NULL, method = c("pearson", "spearman"),
-  clusteringMethod = "ward.D2", showRownames = TRUE,
+  interestingGroups = NULL, method = c("pearson", "kendall",
+  "spearman"), clusteringMethod = "ward.D2", showRownames = TRUE,
   showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
   color = viridis::viridis, legendColor = viridis::viridis,
   borderColor = NULL, title = TRUE, ...)
@@ -30,8 +30,8 @@ Groups of interest that define the samples. If left unset, defaults to
 
 \item{method}{\code{character(1)}.
 Correlation coefficient (or covariance) method to be computed. Defaults to
-"\code{pearson}" but "\code{spearman}" can also be used. Consult the \code{\link[stats:cor]{stats::cor()}}
-documentation for more information.}
+"\code{pearson}" but "\code{spearman}" or "\code{kendall}" can also be used. Refer to the
+\code{\link[stats:cor]{stats::cor()}} documentation for details.}
 
 \item{clusteringMethod}{\code{character(1)}.
 Clustering method. Accepts the same values as \code{\link[stats:hclust]{stats::hclust()}}.}
@@ -76,82 +76,18 @@ Border color. Disabled by default for improved aesthetics.}
 \item{title}{\code{character(1)} or \code{NULL}.
 Plot title.}
 
-\item{...}{Passthrough arguments to \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}}.
-The argument names must be formatted in camel case, not snake case.}
+\item{...}{Additional arguments.}
 }
 \value{
 \code{pheatmap}.
 }
 \description{
-Construct a simple heatmap.
+Correlation heatmap
 }
-\section{Methods (by class)}{
-
-\itemize{
-\item \code{SummarizedExperiment}: Construct a correlation heatmap comparing the columns
-of the matrix.
-
-\item \code{SummarizedExperiment}: Scale the heatmap by applying quantile breaks.
-}
-}
-
-\section{Scaling}{
-
-
-
-Here we're scaling simply by calculating the standard score (z-score).
-\itemize{
-\item mu: mean.
-\item sigma: standard deviation.
-\item x: raw score (e.g. count matrix).
-\item z: standard score (z-score).
-}\preformatted{z = (x - mu) / sigma
-}
-
-See also:
-\itemize{
-\item \code{pheatmap:::scale_rows()}.
-\item \code{scale()} for additional scaling approaches.
-}
-
-}
-
-\section{Hierarchical clustering}{
-
-
-
-Row- and column-wise hierarchical clustering is performed when \code{clusterRows}
-and/or \code{clusterCols} are set to \code{TRUE}. Internally, this calls
-\code{\link[stats:hclust]{stats::hclust()}}, and defaults to the Ward method.
-
-Automatic hierarchical clustering of rows and/or columns can error for some
-datasets. When this occurs, you'll likely see this error:\preformatted{Error in hclust(d, method = method) :
-NA/NaN/Inf in foreign function call
-}
-
-In this case, either set \code{clusterRows} and/or \code{clusterCols} to \code{FALSE}, or
-you can attempt to pass an \code{hclust} object to these arguments. This is
-recommended as an alternate approach to be used with \code{\link[pheatmap:pheatmap]{pheatmap::pheatmap()}},
-which is called internally by our plotting code. Here's how this can be
-accomplished:\preformatted{mat <- assay(mat)
-dist <- dist(mat)
-hclust <- hclust(dist, method = "ward.D2")
-}
-
-}
-
 \examples{
 data(bcb)
 plotCorrelationHeatmap(bcb, method = "pearson")
 plotCorrelationHeatmap(bcb, method = "spearman")
-}
-\seealso{
-\itemize{
-\item \code{pheatmap::pheatmap()}.
-\item \code{RColorBrewer::brewer.pal()}.
-\item \code{stats::cor()}.
-\item \code{stats::hclust()}.
-}
 }
 \author{
 Michael Steinbaugh

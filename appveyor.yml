@@ -24,6 +24,9 @@ environment:
     _R_CHECK_FORCE_SUGGESTS_: false
     R_ARCH: x64
     USE_RTOOLS: true
+  matrix:
+    - R_VERSION: devel
+      GCC_PATH: mingw_64
 
 build_script:
   - travis-tool.sh install_bioc GenomeInfoDbData
@@ -31,7 +34,6 @@ build_script:
   - travis-tool.sh install_bioc ensembldb
   - travis-tool.sh install_bioc EnsDb.Hsapiens.v75
   - travis-tool.sh install_bioc_deps
-  - travis-tool.sh install_deps
 
 test_script:
   - travis-tool.sh run_tests

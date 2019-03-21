@@ -179,8 +179,16 @@ To demonstrate the functionality and configuration of the package, we have taken
 For the vignette, we are loading a pre-computed version of the example `bcbioRNASeq` object used in our [workflow paper][].
 
 ```{r}
-loadRemoteData("https://github.com/hbc/bcbioRNASeq/raw/f1000v2/data/bcb.rda")
-# Ensure the object is up to date.
+loadRemoteData(pasteURL(
+  "github.com",
+  "hbc",
+  "bcbioRNASeq",
+  "raw",
+  "f1000v2",
+  "data",
+  "bcb.rda",
+  protocol = "https"
+))
 bcb <- updateObject(bcb)
 print(bcb)
 ```
