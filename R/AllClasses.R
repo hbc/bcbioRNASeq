@@ -162,7 +162,9 @@ setClass(
         rowData <- rowData(object)
         ok <- validate(
             is(rowRanges, "GRanges"),
-            is(rowData, "DataFrame")
+            is(rowData, "DataFrame"),
+            identical(names(rowRanges), rownames(object)),
+            identical(rownames(rowData), rownames(object))
         )
         if (!isTRUE(ok)) return(ok)
 
@@ -187,7 +189,10 @@ setClass(
         # Column data ----------------------------------------------------------
         colData <- colData(object)
         ok <- validate(
+            identical(rownames(colData), colnames(object)),
             isSubset("sampleName", colnames(colData)),
+            # sampleID is never allowed in colData.
+            areDisjointSets(colnames(colData), "sampleID"),
             areDisjointSets(colnames(colData), legacyMetricsCols)
         )
         if (!isTRUE(ok)) return(ok)
