@@ -1,7 +1,7 @@
 ---
 params:
   title: "Quality Control"
-  object_file: "data/YYYY-MM-DD/object.rds"
+  object_file: "rds/YYYY-MM-DD/object.rds"
   output_dir: !r file.path("results", Sys.Date(), "quality_control")
 title: "`r params$title`"
 author: "`r getOption('author')`"
@@ -10,8 +10,9 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2019-01-23
+# Last modified 2019-02-21
 library(bcbioRNASeq)
+library(ggplot2)
 prepareRNASeqTemplate()
 source("_setup.R")
 ```
@@ -35,7 +36,7 @@ print(object)
 # Sample metadata
 
 ```{r sample_data}
-sampleData(object, clean = TRUE) %>% as.data.frame()
+sampleData(object, clean = TRUE)
 ```
 
 # Export results
