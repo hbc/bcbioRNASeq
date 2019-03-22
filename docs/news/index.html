@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.13</span>
       </span>
     </div>
 
@@ -115,7 +115,7 @@
 <h3 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h3>
 <ul>
-<li>Renamed <code>plotGene()</code> to <code><a href="../reference/plotCounts.html">plotCounts()</a></code>, to match consistency in <a href="https://steinbaugh.com/basejump/">basejump</a> and <a href="http://steinbaugh.com/DESeqAnalysis/">DESeqAnalysis</a> package updates.</li>
+<li>Renamed <code>plotGene</code> to <code>plotCounts</code>, to match consistency in <a href="https://steinbaugh.com/basejump/">basejump</a> and <a href="http://steinbaugh.com/DESeqAnalysis/">DESeqAnalysis</a> package updates.</li>
 <li>Updated dependencies to provide improved backwards compatibility support for R 3.4 / Bioconductor 3.6.</li>
 </ul>
 </div>
@@ -171,7 +171,7 @@
 <h3 class="hasAnchor">
 <a href="#minor-changes-1" class="anchor"></a>Minor changes</h3>
 <ul>
-<li>Bug fix for <code>as()</code> coercion method support. Need to ensure <code>exportMethods(coerce)</code> is included in <code>NAMESPACE</code> file, otherwise <code>bcbioRNASeq</code> to <code>DESeqDataSet</code> coercion using <code>as(bcb, "DESeqDataSet")</code> won’t work when called from an Rscript without the package library loaded. Thanks <a href='https://github.com/roryk'>@roryk</a> for noticing this.</li>
+<li>Bug fix for <code>as</code> coercion method support. Need to ensure <code>exportMethods(coerce)</code> is included in <code>NAMESPACE</code> file, otherwise <code>bcbioRNASeq</code> to <code>DESeqDataSet</code> coercion using <code>as(bcb, "DESeqDataSet")</code> won’t work when called from an Rscript without the package library loaded. Thanks <a href='https://github.com/roryk'>@roryk</a> for noticing this.</li>
 <li>Only run rRNA plots if rRNA is detected.</li>
 </ul>
 </div>
@@ -184,23 +184,23 @@
 <a href="#major-changes" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Added <code>transform = TRUE</code> argument to <code>[</code> extraction method, allowing the user to skip automatic <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> transformations, which can be CPU intensive for large datasets.</li>
-<li>Switched back to using <code>plotMA()</code> instead of <code>plotMeanAverage()</code>. An MA-plot by definition is not a “Mean Average” plot, so this function name is misleading. We will keep the <code>plotMeanAverage()</code> working but it is now soft deprecated.</li>
+<li>Switched back to using <code>plotMA</code> instead of <code>plotMeanAverage</code>. An MA-plot by definition is not a “Mean Average” plot, so this function name is misleading. We will keep the <code>plotMeanAverage</code> working but it is now soft deprecated.</li>
 <li>
-<code><a href="../reference/plotGeneSaturation.html">plotGeneSaturation()</a></code> now supports <code>label</code> argument, similar to <code><a href="../reference/plotPCA.html">plotPCA()</a></code>.</li>
+<code>plotGeneSaturation</code> now supports <code>label</code> argument, similar to <code>plotPCA</code>.</li>
 </ul>
 </div>
 <div id="minor-changes-2" class="section level3">
 <h3 class="hasAnchor">
 <a href="#minor-changes-2" class="anchor"></a>Minor changes</h3>
 <ul>
-<li>Improved internal handling during <code>tximport()</code> call to handle transcript version mismatch with tx2gene data.frame. This can result if the bcbio pipeline is using an old genome build.</li>
+<li>Improved internal handling during <code>tximport</code> call to handle transcript version mismatch with tx2gene data.frame. This can result if the bcbio pipeline is using an old genome build.</li>
 <li>Ensure <code>genomeBuild</code> is detected from <a href="https://bioconductor.org/packages/AnnotationHub/">AnnotationHub</a> <code>rowRangesMetadata</code> if applicable, and not left <code>NULL</code> in the metadata.</li>
-<li>Updated internal code to use <code>aes()</code> instead of <code>aes_string()</code>, which uses <a href="http://dplyr.tidyverse.org/articles/programming.html">tidyeval</a> and quasiquotation.</li>
+<li>Updated internal code to use <code>aes</code> instead of <code>aes_string</code>, which uses <a href="http://dplyr.tidyverse.org/articles/programming.html">tidyeval</a> and quasiquotation.</li>
 <li>
-<code>plotGene()</code>: reduced the number of <code>return</code> options to simply “facet” and “wide”. Previously, this also supported “grid”, “list”, and “markdown”, but these were removed because they are not frequently used.</li>
+<code>plotGene</code>: reduced the number of <code>return</code> options to simply “facet” and “wide”. Previously, this also supported “grid”, “list”, and “markdown”, but these were removed because they are not frequently used.</li>
 <li>
-<code>plotGene()</code>: Switched back to internal <code><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply()</a></code> call instead of using <code><a href="https://www.rdocumentation.org/packages/BiocParallel/topics/bplapply">BiocParallel::bplapply()</a></code>. This doesn’t always work perfect in an HPC environment (e.g. HMS O2 cluster).</li>
-<li>Soft deprecated <code>plotMeanAverage()</code> in favor of <code>plotMA()</code>.</li>
+<code>plotGene</code>: Switched back to internal <code>lapply</code> call instead of using <code><a href="https://www.rdocumentation.org/packages/BiocParallel/topics/bplapply">BiocParallel::bplapply</a></code>. This doesn’t always work perfect in an HPC environment (e.g. HMS O2 cluster).</li>
+<li>Soft deprecated <code>plotMeanAverage</code> in favor of <code>plotMA</code>.</li>
 <li>All S4 generics with method support are exported for easier lookup in the reference documentation.</li>
 <li>All function reexports have been consolidated in <a href="https://bioinformatics.sph.harvard.edu/bcbioBase/">bcbioBase</a> package.</li>
 </ul>
@@ -213,8 +213,8 @@
 <h3 class="hasAnchor">
 <a href="#minor-changes-3" class="anchor"></a>Minor changes</h3>
 <ul>
-<li>Enable support <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> integration, by modifying <code><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> constructor to work with minimal bcbio test data.</li>
-<li>Switched from internal usage of <code>aes_()</code> in favor of consistent usage of <code>aes_string()</code>. This will make the transition to <a href="https://ggplot2.tidyverse.org/">ggplot2</a> v2.3.0 easier in a future update.</li>
+<li>Enable support <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> integration, by modifying <code>bcbioRNASeq</code> constructor to work with minimal bcbio test data.</li>
+<li>Switched from internal usage of <code>aes_</code> in favor of consistent usage of <code>aes_string</code>. This will make the transition to <a href="https://ggplot2.tidyverse.org/">ggplot2</a> v2.3.0 easier in a future update.</li>
 </ul>
 </div>
 </div>
@@ -226,9 +226,9 @@
 <a href="#major-changes-1" class="anchor"></a>Major changes</h3>
 <ul>
 <li>
-<code>aggregateReplicates()</code> support has been added back. This function returns a <code>RangedSummarizedExperiment</code> instead of a <code>bcbioRNASeq</code> object, containing only an aggregate raw counts matrix in the <code>counts</code> slot of <code>assays()</code>.</li>
+<code>aggregateReplicates</code> support has been added back. This function returns a <code>RangedSummarizedExperiment</code> instead of a <code>bcbioRNASeq</code> object, containing only an aggregate raw counts matrix in the <code>counts</code> slot of <code>assays</code>.</li>
 <li>The functional analysis <a href="https://rmarkdown.rstudio.com/">R Markdown</a> template has been reworked to use <code>dds_file</code> and <code>organism</code> as new parameter arguments. We’ve reduced the number of parameters required here to run <a href="https://bioconductor.org/packages/clusterProfiler/">clusterProfiler</a>.</li>
-<li>Made <code>alphaSummary()</code> defunct for <code>bcbioRNASeq</code> object, in favor of <code>DESeqDataSet</code> only. This function is only useful when a proper design formula has been defined.</li>
+<li>Made <code>alphaSummary</code> defunct for <code>bcbioRNASeq</code> object, in favor of <code>DESeqDataSet</code> only. This function is only useful when a proper design formula has been defined.</li>
 </ul>
 </div>
 <div id="minor-changes-4" class="section level3">
@@ -236,14 +236,14 @@
 <a href="#minor-changes-4" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>
-<code>metrics()</code> now contains an informative error for datasets that were analyzed using the <code>fast-rnaseq</code> <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> pipeline.</li>
+<code>metrics</code> now contains an informative error for datasets that were analyzed using the <code>fast-rnaseq</code> <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> pipeline.</li>
 <li>
-<code>DESeqDataSet</code> coercion from <code>bcbioRNASeq</code> object doesn’t attempt to run <code>DESeq()</code> command any more, which was unnecessary and improves speed.</li>
+<code>DESeqDataSet</code> coercion from <code>bcbioRNASeq</code> object doesn’t attempt to run <code>DESeq</code> command any more, which was unnecessary and improves speed.</li>
 <li>
-<code>bcbioSingleCell()</code> constructor now supports <code>censorSamples</code> parameter. This is useful for removing known poor quality samples upon loading.</li>
+<code>bcbioSingleCell</code> constructor now supports <code>censorSamples</code> parameter. This is useful for removing known poor quality samples upon loading.</li>
 <li>
-<a href="https://ggplot2.tidyverse.org/">ggplot2</a> color and fill palettes are now set <code>NULL</code> in the quality control functions. This behavior doesn’t change the appearance of the plot colors, which will still default to <code><a href="https://ggplot2.tidyverse.org/reference/scale_hue.html">ggplot2::scale_colour_hue()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/scale_hue.html">ggplot2::scale_fill_hue()</a></code>. The upcoming <a href="https://ggplot2.tidyverse.org/">ggplot2</a> v2.3.0 update supports global options for color and fill palettes, so these parameters may be deprecated in a future release.</li>
-<li>Reworked the internal code for <code>topTables()</code>.</li>
+<a href="https://ggplot2.tidyverse.org/">ggplot2</a> color and fill palettes are now set <code>NULL</code> in the quality control functions. This behavior doesn’t change the appearance of the plot colors, which will still default to <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">ggplot2::scale_colour_hue</a></code> or <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">ggplot2::scale_fill_hue</a></code>. The upcoming <a href="https://ggplot2.tidyverse.org/">ggplot2</a> v2.3.0 update supports global options for color and fill palettes, so these parameters may be deprecated in a future release.</li>
+<li>Reworked the internal code for <code>topTables</code>.</li>
 </ul>
 </div>
 <div id="infrastructure-changes" class="section level3">
@@ -270,15 +270,15 @@
 <a href="#minor-changes-5" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Tweaked Rory’s biotype plots in QC report to match formatting conventions in the package. These plots are now colored.</li>
-<li>Added <code>plotDEGPCA()</code> to default differential expression <a href="https://rmarkdown.rstudio.com/">R Markdown</a> template.</li>
+<li>Added <code>plotDEGPCA</code> to default differential expression <a href="https://rmarkdown.rstudio.com/">R Markdown</a> template.</li>
 <li>
-<code>colData()</code> factors are correctly releveled upon object subset with <code>[</code>. This helps avoid unwanted downstream errors when creating a <code>DESeqDataSet</code> and running differential expression with <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a>.</li>
-<li>Recommending <code>facet</code> return method by default for <code>plotGene()</code>. Updated the working example to reflect this.</li>
+<code>colData</code> factors are correctly releveled upon object subset with <code>[</code>. This helps avoid unwanted downstream errors when creating a <code>DESeqDataSet</code> and running differential expression with <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a>.</li>
+<li>Recommending <code>facet</code> return method by default for <code>plotGene</code>. Updated the working example to reflect this.</li>
 <li>
-<code>metrics()</code> now returns <code>interestingGroups</code> column.</li>
+<code>metrics</code> now returns <code>interestingGroups</code> column.</li>
 <li>
 <code>sample</code> label has been removed from axis title for QC plot functions.</li>
-<li>Now using shared <a href="https://ggplot2.tidyverse.org/">ggplot2</a> convneience functions from <a href="https://bioinformatics.sph.harvard.edu/bcbioBase/">bcbioBase</a> 0.2.10: <code>bcbio_geom_abline()</code>, <code>bcbio_geom_label()</code>, and <code>bcbio_geom_label_repel()</code>. These are also used by <a href="https://bioinformatics.sph.harvard.edu/bcbioSingleCell/">bcbioSingleCell</a> for improved graphical consistency.</li>
+<li>Now using shared <a href="https://ggplot2.tidyverse.org/">ggplot2</a> convneience functions from <a href="https://bioinformatics.sph.harvard.edu/bcbioBase/">bcbioBase</a> 0.2.10: <code>bcbio_geom_abline</code>, <code>bcbio_geom_label</code>, and <code>bcbio_geom_label_repel</code>. These are also used by <a href="https://bioinformatics.sph.harvard.edu/bcbioSingleCell/">bcbioSingleCell</a> for improved graphical consistency.</li>
 <li>Removed unused internal legacy <a href="https://ggplot2.tidyverse.org/">ggplot2</a> code.</li>
 <li>Increased <a href="https://bioconductor.org/packages/DEGreport/">DEGreport</a>, <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a>, and <a href="https://bioconductor.org/packages/tximport/">tximport</a> dependency requirements.</li>
 </ul>
@@ -293,11 +293,11 @@
 <ul>
 <li>Split out assertive imports so we can pin on <a href="https://bioconda.github.io/">bioconda</a>.</li>
 <li>Improved package documentation.</li>
-<li>Improved label consistency in <code><a href="../reference/plotPCA.html">plotPCA()</a></code> functions to match <code>plotMeanAverage()</code> and <code>plotVolcano()</code>.</li>
-<li>Improved automatic title labeling in <code>plotDEGPCA()</code>, matching the other DEG functions. Also added directionality to <code>plotDEGPCA()</code>.</li>
-<li>Added <code>DESeqDataSet</code> method support to <code><a href="../reference/plotCorrelationHeatmap.html">plotCorrelationHeatmap()</a></code>, using the normalized counts.</li>
+<li>Improved label consistency in <code>plotPCA</code> functions to match <code>plotMeanAverage</code> and <code>plotVolcano</code>.</li>
+<li>Improved automatic title labeling in <code>plotDEGPCA</code>, matching the other DEG functions. Also added directionality to <code>plotDEGPCA</code>.</li>
+<li>Added <code>DESeqDataSet</code> method support to <code>plotCorrelationHeatmap</code>, using the normalized counts.</li>
 <li>
-<code>reusltsTables()</code> now writes local files to <code><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir()</a></code> when <a href="https://dropbox.com/">Dropbox</a> mode is enabled using <code>dropboxDir</code>.</li>
+<code>reusltsTables</code> now writes local files to <code>tempdir</code> when <a href="https://dropbox.com/">Dropbox</a> mode is enabled using <code>dropboxDir</code>.</li>
 </ul>
 </div>
 </div>
@@ -309,12 +309,12 @@
 <h3 class="hasAnchor">
 <a href="#major-changes-3" class="anchor"></a>Major changes</h3>
 <ul>
-<li>Added <code>rle</code> return support for <code><a href="../reference/counts.html">counts()</a></code>, which are calculated on the fly.</li>
-<li>Added <code>transgeneNames</code> and <code>spikeNames</code> support to <code><a href="../reference/deprecated.html">loadRNASeq()</a></code> function.</li>
+<li>Added <code>rle</code> return support for <code>counts</code>, which are calculated on the fly.</li>
+<li>Added <code>transgeneNames</code> and <code>spikeNames</code> support to <code>loadRNASeq</code> function.</li>
 <li>
-<code><a href="../reference/deprecated.html">loadRNASeq()</a></code> now supports <code>organism = NULL</code> again, for datasets with poorly annotated genomes.</li>
-<li>Primary <code>assay()</code> containing raw counts is now named <code>counts</code> instead of <code>raw</code>, for consistency with other <code>SummarizedExperiment</code> objects (e.g. <code>DESeqDataSet</code>) and the <a href="https://bioinformatics.sph.harvard.edu/bcbioSingleCell/">bcbioSingleCell</a> S4 class definition.</li>
-<li>Improved internal code for <code>plotGene()</code> and <code><a href="../reference/plotGenderMarkers.html">plotGenderMarkers()</a></code>.</li>
+<code>loadRNASeq</code> now supports <code>organism = NULL</code> again, for datasets with poorly annotated genomes.</li>
+<li>Primary <code>assay</code> containing raw counts is now named <code>counts</code> instead of <code>raw</code>, for consistency with other <code>SummarizedExperiment</code> objects (e.g. <code>DESeqDataSet</code>) and the <a href="https://bioinformatics.sph.harvard.edu/bcbioSingleCell/">bcbioSingleCell</a> S4 class definition.</li>
+<li>Improved internal code for <code>plotGene</code> and <code>plotGenderMarkers</code>.</li>
 </ul>
 </div>
 <div id="minor-changes-7" class="section level3">
@@ -322,12 +322,12 @@
 <a href="#minor-changes-7" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Improved <a href="https://ci.appveyor.com/">AppVeyor CI</a> support to test against bioc-devel using <a href="https://www.r-project.org/">R</a> 3.5.</li>
-<li>Improved support and unit testing for <code><a href="../reference/updateObject.html">updateObject()</a></code> method.</li>
+<li>Improved support and unit testing for <code>updateObject</code> method.</li>
 <li>
-<a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> normalized counts are always slotted in <code>assays()</code>, even when rlog and vst transformations are skipped.</li>
+<a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> normalized counts are always slotted in <code>assays</code>, even when rlog and vst transformations are skipped.</li>
 <li>Exporting <code>[[&lt;-</code>, <code>assays&lt;-</code>, <code>colData&lt;-</code>, <code>interestingGroups&lt;-</code>, and <code>metadata&lt;-</code> assignment methods, to avoid unwanted coercion to <code>SummarizedExperiment</code>. Objects extending <code>RangedSummarizedExperiment</code> shouldn’t be doing this, so we may need to file a bug report with Bioconductor or check our class definition in the package.</li>
 <li>Now importing specific functions from S4Vectors and methods rather than importing everything.</li>
-<li>Switched back to using <code><a href="https://www.rdocumentation.org/packages/base/topics/stop">stop()</a></code>, <code><a href="https://www.rdocumentation.org/packages/base/topics/warning">warning()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/message">message()</a></code> rather than the alternate <a href="https://cran.r-project.org/package=rlang">rlang</a> functions <code>abort()</code>, <code>warn()</code>, and <code>inform()</code>.</li>
+<li>Switched back to using <code>stop</code>, <code>warning</code> and <code>message</code> rather than the alternate <a href="https://cran.r-project.org/package=rlang">rlang</a> functions <code>abort</code>, <code>warn</code>, and <code>inform</code>.</li>
 <li>Objects with invalid metadata now print which slots are invalid to the console.</li>
 </ul>
 </div>
@@ -340,20 +340,20 @@
 <a href="#major-changes-4" class="anchor"></a>Major changes</h3>
 <ul>
 <li>
-<code>bcbioRNASeq</code> S4 class object is now extending <code>RangedSummarizedExperiment</code> instead of <code>SummarizedExperiment</code>. Consequently, the row annotations are now stored in the <code>rowRanges</code> slot as <code>GRanges</code> class, instead of in the <code>rowData</code> slot as a <code>DataFrame</code>. The <code>rowData()</code> accessor still works and returns a data frame of gene/transcript annotations, but these are now coerced from the internally stored <code>GRanges</code>. The <code>GRanges</code> object is acquired automatically from <a href="https://www.ensembl.org/">Ensembl</a> using <code><a href="https://www.rdocumentation.org/packages/basejump/topics/deprecated">basejump::ensembl()</a></code>. By default, <code>GRanges</code> are acquired from <a href="https://www.ensembl.org/">Ensembl</a> using <a href="https://bioconductor.org/packages/AnnotationHub/">AnnotationHub</a> and <a href="https://bioconductor.org/packages/ensembldb/">ensembldb</a>. Legacy GRCh37 genome build is supported using the <a href="https://bioconductor.org/packages/EnsDb.Hsapiens.v75/">EnsDb.Hsapiens.v75</a> package.</li>
+<code>bcbioRNASeq</code> S4 class object is now extending <code>RangedSummarizedExperiment</code> instead of <code>SummarizedExperiment</code>. Consequently, the row annotations are now stored in the <code>rowRanges</code> slot as <code>GRanges</code> class, instead of in the <code>rowData</code> slot as a <code>DataFrame</code>. The <code>rowData</code> accessor still works and returns a data frame of gene/transcript annotations, but these are now coerced from the internally stored <code>GRanges</code>. The <code>GRanges</code> object is acquired automatically from <a href="https://www.ensembl.org/">Ensembl</a> using <code><a href="https://www.rdocumentation.org/packages/basejump/topics/defunct">basejump::ensembl</a></code>. By default, <code>GRanges</code> are acquired from <a href="https://www.ensembl.org/">Ensembl</a> using <a href="https://bioconductor.org/packages/AnnotationHub/">AnnotationHub</a> and <a href="https://bioconductor.org/packages/ensembldb/">ensembldb</a>. Legacy GRCh37 genome build is supported using the <a href="https://bioconductor.org/packages/EnsDb.Hsapiens.v75/">EnsDb.Hsapiens.v75</a> package.</li>
 <li>
-<code>assays()</code> now only slot matrices. We’ve moved the <a href="https://bioconductor.org/packages/tximport/">tximport</a> data from the now defunct <code>bcbio()</code> slot to assays. This includes the <code>lengths</code> matrix from <a href="https://bioconductor.org/packages/tximport/">tximport</a>. Additionally, we are optionally slotting <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> variance-stabilized counts (“<code>rlog</code>”, <code>"vst"</code>). <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> normalized counts and <a href="https://bioconductor.org/packages/edgeR/">edgeR</a> TMM counts are calculated on the fly and no longer stored inside the <code>bcbioRNASeq</code> object.</li>
+<code>assays</code> now only slot matrices. We’ve moved the <a href="https://bioconductor.org/packages/tximport/">tximport</a> data from the now defunct <code>bcbio</code> slot to assays. This includes the <code>lengths</code> matrix from <a href="https://bioconductor.org/packages/tximport/">tximport</a>. Additionally, we are optionally slotting <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> variance-stabilized counts (“<code>rlog</code>”, <code>"vst"</code>). <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> normalized counts and <a href="https://bioconductor.org/packages/edgeR/">edgeR</a> TMM counts are calculated on the fly and no longer stored inside the <code>bcbioRNASeq</code> object.</li>
 <li>
-<code>colData()</code> now defaults to returning as <code>data.frame</code> instead of <code>DataFrame</code>, for easy piping to <a href="https://www.tidyverse.org/">tidyverse</a> functions.</li>
+<code>colData</code> now defaults to returning as <code>data.frame</code> instead of <code>DataFrame</code>, for easy piping to <a href="https://www.tidyverse.org/">tidyverse</a> functions.</li>
 <li>
-<code>bcbio()</code> slot is now defunct.</li>
-<li>FASTA spike-ins (e.g. EGFP, ERCCs) can be defined using the <code>isSpike</code> argument during the <code><a href="../reference/deprecated.html">loadRNASeq()</a></code> data import step.</li>
-<li>Melted counts are now scaled to log2 in the relevant quality control functions rather than using log10. This applies to <code><a href="../reference/plotCountsPerGene.html">plotCountsPerGene()</a></code> and <code><a href="../reference/defunct.html">plotCountDensity()</a></code>. Note that we are subsetting the nonzero genes as defined by the raw counts here.</li>
-<li>Simplified internal <code>tximport()</code> code to no longer attempt to strip transcript versions. This is required for working with <em>C. elegans</em> transcripts.</li>
+<code>bcbio</code> slot is now defunct.</li>
+<li>FASTA spike-ins (e.g. EGFP, ERCCs) can be defined using the <code>isSpike</code> argument during the <code>loadRNASeq</code> data import step.</li>
+<li>Melted counts are now scaled to log2 in the relevant quality control functions rather than using log10. This applies to <code>plotCountsPerGene</code> and <code>plotCountDensity</code>. Note that we are subsetting the nonzero genes as defined by the raw counts here.</li>
+<li>Simplified internal <code>tximport</code> code to no longer attempt to strip transcript versions. This is required for working with <em>C. elegans</em> transcripts.</li>
 <li>Minimal working example dataset is now derived from GSE65267, which is also used in the F1000 paper.</li>
 <li>Added <code>as(object, "DESeqDataSet")</code> coercion method support for <code>bcbioRNASeq</code> class. This helps us set up the differential expression analysis easily.</li>
 <li>
-<code><a href="../reference/counts.html">counts()</a></code> function now returns <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> normalized counts (<code>normalized =   TRUE</code>) and <a href="https://bioconductor.org/packages/edgeR/">edgeR</a> TMM counts (<code>normalized = "tmm"</code>) on the fly, as suggested by the F1000 reviewers.</li>
+<code>counts</code> function now returns <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> normalized counts (<code>normalized =   TRUE</code>) and <a href="https://bioconductor.org/packages/edgeR/">edgeR</a> TMM counts (<code>normalized = "tmm"</code>) on the fly, as suggested by the F1000 reviewers.</li>
 <li>Design formula can no longer be slotted into <code>bcbioRNASeq</code> object, since we’re not stashing a <code>DESeqDataSet</code> any more.</li>
 <li>Updated Functional Analysis R Markdown template.</li>
 </ul>
@@ -363,33 +363,33 @@
 <a href="#minor-changes-8" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>
-<code>validObject()</code> is now required for all plotting functions. This check is also called in the R Markdown template. Legacy objects can be updated using <code><a href="../reference/updateObject.html">updateObject()</a></code>.</li>
+<code>validObject</code> is now required for all plotting functions. This check is also called in the R Markdown template. Legacy objects can be updated using <code>updateObject</code>.</li>
 <li>
-<code>metrics()</code> now returns columns sorted alphabetically.</li>
-<li>Added <code>contrastName()</code> as a generic function.</li>
+<code>metrics</code> now returns columns sorted alphabetically.</li>
+<li>Added <code>contrastName</code> as a generic function.</li>
 <li>
-<code>plotDEGHeatmap()</code> and <code>plotDEGPCA()</code> generics no longer have <code>counts</code> defined in the signature. The <code>counts</code> argument is now only defined in the methods.</li>
+<code>plotDEGHeatmap</code> and <code>plotDEGPCA</code> generics no longer have <code>counts</code> defined in the signature. The <code>counts</code> argument is now only defined in the methods.</li>
 <li>
-<code><a href="../reference/prepareRNASeqTemplate.html">prepareRNASeqTemplate()</a></code> has been converted from a generic to a standard function.</li>
-<li>Improved <code>metadata()</code> validity checks.</li>
+<code>prepareRNASeqTemplate</code> has been converted from a generic to a standard function.</li>
+<li>Improved <code>metadata</code> validity checks.</li>
 <li>
-<code><a href="../reference/plotCorrelationHeatmap.html">plotCorrelationHeatmap()</a></code> matrix method has been moved to <a href="https://steinbaugh.com/basejump/">basejump</a> package, for improved consistency with the other heatmap code.</li>
+<code>plotCorrelationHeatmap</code> matrix method has been moved to <a href="https://steinbaugh.com/basejump/">basejump</a> package, for improved consistency with the other heatmap code.</li>
 <li>
-<code><a href="../reference/plotGenderMarkers.html">plotGenderMarkers()</a></code> internal code has been reworked to match <code>plotGene()</code>.</li>
-<li>Default <code>plotMA()</code> appearance has changed, providing a line at the 0 y-intercept, similar to <code>DESeqDataSet</code> method.</li>
+<code>plotGenderMarkers</code> internal code has been reworked to match <code>plotGene</code>.</li>
+<li>Default <code>plotMA</code> appearance has changed, providing a line at the 0 y-intercept, similar to <code>DESeqDataSet</code> method.</li>
 <li>Internal example datasets have been renamed (e.g. <code>bcb_small</code> instead of <code>bcb</code>).</li>
 <li>Added AppVeyor CI support for code testing on Windows.</li>
-<li>Made Travis CI checks stricter, added <code>BiocCheck()</code>.</li>
-<li>Internal <code>.sampleDirs()</code> code is now exported in <a href="https://bioinformatics.sph.harvard.edu/bcbioBase/">bcbioBase</a> as a generic.</li>
+<li>Made Travis CI checks stricter, added <code>BiocCheck</code>.</li>
+<li>Internal <code>.sampleDirs</code> code is now exported in <a href="https://bioinformatics.sph.harvard.edu/bcbioBase/">bcbioBase</a> as a generic.</li>
 <li>
-<code>gene2symbol()</code> and <code>interestingGroups()</code> method support are now defined for <code>SummarizedExperiment</code> in the <a href="https://bioinformatics.sph.harvard.edu/bcbioBase/">bcbioBase</a> package.</li>
+<code>gene2symbol</code> and <code>interestingGroups</code> method support are now defined for <code>SummarizedExperiment</code> in the <a href="https://bioinformatics.sph.harvard.edu/bcbioBase/">bcbioBase</a> package.</li>
 </ul>
 </div>
 <div id="updating-legacy-objects-v0-2-0" class="section level3">
 <h3 class="hasAnchor">
 <a href="#updating-legacy-objects-v0-2-0" class="anchor"></a>Updating legacy objects &lt; v0.2.0</h3>
 <ul>
-<li>Use <code><a href="../reference/updateObject.html">updateObject()</a></code> in combination with the <code>rowRanges</code> argument, which requires a <code>GRanges</code> object. <code>GRanges</code> can be obtained from <a href="https://www.ensembl.org/">Ensembl</a> using the <code><a href="https://www.rdocumentation.org/packages/basejump/topics/deprecated">basejump::ensembl()</a></code> function or the <a href="https://bioconductor.org/packages/ensembldb/">ensembldb</a> package.</li>
+<li>Use <code>updateObject</code> in combination with the <code>rowRanges</code> argument, which requires a <code>GRanges</code> object. <code>GRanges</code> can be obtained from <a href="https://www.ensembl.org/">Ensembl</a> using the <code><a href="https://www.rdocumentation.org/packages/basejump/topics/defunct">basejump::ensembl</a></code> function or the <a href="https://bioconductor.org/packages/ensembldb/">ensembldb</a> package.</li>
 </ul>
 </div>
 <div id="deprecations" class="section level3">
@@ -397,11 +397,11 @@
 <a href="#deprecations" class="anchor"></a>Deprecations</h3>
 <ul>
 <li>
-<code>bcbio()</code> slot is now defunct, since we have moved all data into the <code>SummarizedExperiment</code> container.</li>
-<li>Deprecated <code>plot5x3Bias()</code> in favor of <code><a href="../reference/plot5Prime3PrimeBias.html">plot5Prime3PrimeBias()</a></code>. This is less confusing as to what this function plots.</li>
+<code>bcbio</code> slot is now defunct, since we have moved all data into the <code>SummarizedExperiment</code> container.</li>
+<li>Deprecated <code>plot5x3Bias</code> in favor of <code>plot5Prime3PrimeBias</code>. This is less confusing as to what this function plots.</li>
 <li>
-<code>flatFiles()</code> has been deprecated in favor of <code>as(object, "list")</code> coercion method. See <a href="https://bioinformatics.sph.harvard.edu/bcbioBase/">bcbioBase</a> package for <code>SummarizedExperiment</code> method support.</li>
-<li>Defunct: <code>design()</code>, <code>download()</code>, <code><a href="../reference/deprecated.html">meltLog10()</a></code>, <code><a href="../reference/defunct.html">txi()</a></code>.</li>
+<code>flatFiles</code> has been deprecated in favor of <code>as(object, "list")</code> coercion method. See <a href="https://bioinformatics.sph.harvard.edu/bcbioBase/">bcbioBase</a> package for <code>SummarizedExperiment</code> method support.</li>
+<li>Defunct: <code>design</code>, <code>download</code>, <code>meltLog10</code>, <code>txi</code>.</li>
 <li>Legacy <code>bcbioRNADataSet</code> method support has been removed.</li>
 </ul>
 </div>
@@ -410,7 +410,7 @@
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-1-8-2018-04-03" class="anchor"></a>bcbioRNASeq 0.1.8 (2018-04-03)</h2>
 <ul>
-<li>Bug fix for <code>gene2symbol</code> argument not renaming rows in <code>plotDEGHeatmap()</code>.</li>
+<li>Bug fix for <code>gene2symbol</code> argument not renaming rows in <code>plotDEGHeatmap</code>.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-1-7-2018-02-28" class="section level2">
@@ -418,18 +418,18 @@
 <a href="#bcbiornaseq-0-1-7-2018-02-28" class="anchor"></a>bcbioRNASeq 0.1.7 (2018-02-28)</h2>
 <ul>
 <li>Bug fix for <code>[</code> subset method dropping metrics in metadata.</li>
-<li>Simplified unit testing for Dropbox mode enabled in <code><a href="../reference/defunct.html">resultsTables()</a></code>.</li>
+<li>Simplified unit testing for Dropbox mode enabled in <code>resultsTables</code>.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-1-6-2018-02-20" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-1-6-2018-02-20" class="anchor"></a>bcbioRNASeq 0.1.6 (2018-02-20)</h2>
 <ul>
-<li>Bug fix for gene-to-symbol mappings in <code>plotDEGHeatmap()</code>.</li>
-<li>Added support for quickly plotting differentially expressed genes (DEG) in a PCA plot with <code>plotDEGPCA()</code>.</li>
-<li>Added support for Dropbox shared links to <code><a href="../reference/defunct.html">resultsTables()</a></code>, for use with the <a href="http://stemcellcommons.org/">Stem Cell Commons</a> database.</li>
+<li>Bug fix for gene-to-symbol mappings in <code>plotDEGHeatmap</code>.</li>
+<li>Added support for quickly plotting differentially expressed genes (DEG) in a PCA plot with <code>plotDEGPCA</code>.</li>
+<li>Added support for Dropbox shared links to <code>resultsTables</code>, for use with the <a href="http://stemcellcommons.org/">Stem Cell Commons</a> database.</li>
 <li>Added assert checks internally for all functions.</li>
-<li>Improved internal code for <code>plotGene()</code> and <code><a href="../reference/plotGenderMarkers.html">plotGenderMarkers()</a></code> to run faster.</li>
+<li>Improved internal code for <code>plotGene</code> and <code>plotGenderMarkers</code> to run faster.</li>
 <li>Deprecated data frame methods based on metrics for QC functions.</li>
 </ul>
 </div>
@@ -438,19 +438,19 @@
 <a href="#bcbiornaseq-0-1-5-2018-01-31" class="anchor"></a>bcbioRNASeq 0.1.5 (2018-01-31)</h2>
 <ul>
 <li>Import shared dependency functions from bcbioBase instead of basejump.</li>
-<li>Added method support for <code>selectSamples()</code>.</li>
+<li>Added method support for <code>selectSamples</code>.</li>
 <li>
-<code>organism</code> and <code>genomeBuild</code> parameters are now user-definable in the main <code><a href="../reference/deprecated.html">loadRNASeq()</a></code> import function.</li>
-<li>Fixed gene subsetting method on S4 object, which handles genes using <code><a href="https://www.rdocumentation.org/packages/base/topics/sets">intersect()</a></code> in the featureCounts matrix.</li>
-<li>Removed internal <code>aggregateReplicates()</code> code. This needs to be reworked and added back in a future release.</li>
+<code>organism</code> and <code>genomeBuild</code> parameters are now user-definable in the main <code>loadRNASeq</code> import function.</li>
+<li>Fixed gene subsetting method on S4 object, which handles genes using <code>intersect</code> in the featureCounts matrix.</li>
+<li>Removed internal <code>aggregateReplicates</code> code. This needs to be reworked and added back in a future release.</li>
 <li>Improve method for handling a missing normalized counts matrix in the assays slot. This can occur when the user opts to skip the CPU-intensive DESeq2 normalizations.</li>
 <li>Improved internal code for the quality control functions. Improved the <code>if</code> statements to be more class specific.</li>
-<li>Renamed <code><a href="../reference/plotCorrelationHeatmap.html">plotCorrelationHeatmap()</a></code> <code>transform</code> argument to <code>normalized</code>, for consistency with the <code><a href="../reference/counts.html">counts()</a></code> generic.</li>
+<li>Renamed <code>plotCorrelationHeatmap</code> <code>transform</code> argument to <code>normalized</code>, for consistency with the <code>counts</code> generic.</li>
 <li>Added <code>title</code> support to plots, where applicable.</li>
-<li>Updated internal code for <code>plotDEGHeatmap()</code>.</li>
-<li>Updated internal marker handling code for <code><a href="../reference/plotGenderMarkers.html">plotGenderMarkers()</a></code>.</li>
+<li>Updated internal code for <code>plotDEGHeatmap</code>.</li>
+<li>Updated internal marker handling code for <code>plotGenderMarkers</code>.</li>
 <li>
-<code>resulsTables()</code> function now defaults to <code>summary = TRUE</code>.</li>
+<code>resulsTables</code> function now defaults to <code>summary = TRUE</code>.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-1-4-2018-11-27" class="section level2">
@@ -466,21 +466,21 @@
 <ul>
 <li>Combined examples (<code>bcb</code>, <code>dds</code>, <code>res</code>, etc.) into a single <code>examples</code> object. This helps avoid accidental use of example <code>bcb</code> in an analysis.</li>
 <li>Moved ggplot imports from <code>internal-ggplot.R</code> to above each function.</li>
-<li>Renamed <code>maxSamples</code> parameter in <code><a href="../reference/deprecated.html">loadRNASeq()</a></code> to <code>transformationLimit</code>. If there are more samples than this limit, then the DESeq2 transformations will be skipped. In this case, <code>rlog</code> and <code>vst</code> will not be slotted into <code>assays()</code>.</li>
-<li>Added a colData sanitization step in <code><a href="../reference/deprecated.html">loadRNASeq()</a></code> to ensure rows are in the same order as the columns in the counts matrix. Otherwise, DESeq will report an error at the <code>DESeqDataSetFromTximport()</code> step. We’re also ensuring the factor levels get updated here.</li>
-<li>Now using <code>glimpse()</code> instead of <code><a href="https://www.rdocumentation.org/packages/utils/topics/str">str()</a></code> in examples, where applicable.</li>
+<li>Renamed <code>maxSamples</code> parameter in <code>loadRNASeq</code> to <code>transformationLimit</code>. If there are more samples than this limit, then the DESeq2 transformations will be skipped. In this case, <code>rlog</code> and <code>vst</code> will not be slotted into <code>assays</code>.</li>
+<li>Added a colData sanitization step in <code>loadRNASeq</code> to ensure rows are in the same order as the columns in the counts matrix. Otherwise, DESeq will report an error at the <code>DESeqDataSetFromTximport</code> step. We’re also ensuring the factor levels get updated here.</li>
+<li>Now using <code>glimpse</code> instead of <code>str</code> in examples, where applicable.</li>
 <li>Added <code>colData&lt;-</code> assignment method support. This requires a <code>DataFrame</code> class object. Upon assignment, the internal colData at <code>bcbio(object,   "DESeqDataSet")</code>, <code>assays(object)[["rlog"]]</code> and <code>assays(object)[["vst"]]</code> are also updated to match.</li>
 <li>Initial assignment support for <code>design</code>, which will update the internal DESeqDataSet.</li>
-<li>Added method support for <code>gene2symbol()</code> generic, which will now return a 2 column <code>data.frame</code> with <code>ensgene</code> and <code>symbol</code> columns. This is helpful for downstream gene to symbol mapping operations.</li>
+<li>Added method support for <code>gene2symbol</code> generic, which will now return a 2 column <code>data.frame</code> with <code>ensgene</code> and <code>symbol</code> columns. This is helpful for downstream gene to symbol mapping operations.</li>
 <li>Added working example for <code>interestingGroups&lt;-</code> in the documentation.</li>
 <li>Added some code to improve factor releveling, where applicable. See <code>internal-meltLog10.R</code> for example.</li>
 <li>Now explicitly defining the custom color palettes (e.g. <code><a href="https://www.rdocumentation.org/packages/viridis/topics/scale_viridis">viridis::scale_fill_viridis(discrete = TRUE)</a></code>. This makes it clearer to the user in the documentation where these palettes are located.</li>
-<li>Improved axis label support in <code>plotGene()</code>.</li>
+<li>Improved axis label support in <code>plotGene</code>.</li>
 <li>
-<code>plotHeatmap()</code> now uses internal <code>gene2symbol</code> mappings from stashed annotable, instead of always querying Ensembl. The user can define custom mappings with the <code>gene2symbol</code> argument, if desired.</li>
+<code>plotHeatmap</code> now uses internal <code>gene2symbol</code> mappings from stashed annotable, instead of always querying Ensembl. The user can define custom mappings with the <code>gene2symbol</code> argument, if desired.</li>
 <li>
-<code><a href="../reference/plotPCA.html">plotPCA()</a></code> now supports custom color palettes. The <code>shapes</code> parameter has been removed because it doesn’t work well and is limited to datasets with few samples. This behavior matches the PCA functionality in DESeq2.</li>
-<li>Improved internal code for <code>plotVolcano()</code>. Added support for <code>gene2symbol</code> argument, like in <code>plotHeatmap()</code>. If left missing, the function will query Ensembl for the gene2symbol mappings. We’re now using <code>data</code> instead of <code>stats</code> as the main data source.</li>
+<code>plotPCA</code> now supports custom color palettes. The <code>shapes</code> parameter has been removed because it doesn’t work well and is limited to datasets with few samples. This behavior matches the PCA functionality in DESeq2.</li>
+<li>Improved internal code for <code>plotVolcano</code>. Added support for <code>gene2symbol</code> argument, like in <code>plotHeatmap</code>. If left missing, the function will query Ensembl for the gene2symbol mappings. We’re now using <code>data</code> instead of <code>stats</code> as the main data source.</li>
 <li>Improved legibility of subset method code.</li>
 <li>Added some additional reexports, which are used for the package documentation and website.</li>
 <li>Simplified legacy object coercion method code.</li>
@@ -493,7 +493,7 @@
 <ul>
 <li>Updated package imports to match Bioconductor 3.6.</li>
 <li>Added support for interesting groups assignment with <code>interestingGroups&lt;-</code>.</li>
-<li>Renamed <code><a href="../reference/defunct.html">plotGeneHeatmap()</a></code> to simply <code>plotHeatmap()</code>.</li>
+<li>Renamed <code>plotGeneHeatmap</code> to simply <code>plotHeatmap</code>.</li>
 <li>Added gender marker support for <em>Homo sapiens</em>.</li>
 <li>Improved support for multiple interesting groups in quality control plots. Now interestingGroups is defined as a column in the metrics data.frame that is used to specify the plot color/fill. This matches the convention in the bcbioSingleCell 0.0.22 update.</li>
 <li>Sample metadata columns are now consistently set as factors.</li>
@@ -512,9 +512,9 @@
 <ul>
 <li>Updated version and author information to match the F1000 Research workflow.</li>
 <li>Added an <code>f1000v1</code> branch containing the reproducible code used to generate the figures in our workflow.</li>
-<li>Modified <code>plotMA()</code> to support vertical or horizontal layout return. Also added an argument to remove the color legend, which is typically not that informative.</li>
+<li>Modified <code>plotMA</code> to support vertical or horizontal layout return. Also added an argument to remove the color legend, which is typically not that informative.</li>
 <li>Added custom color palette support to the quality control functions.</li>
-<li>Upgrading from <code>bcbioRNADataSet</code> (&lt; 0.1.0) to <code>bcbioRNASeq</code> class object is now possible using <code>as()</code> coercion method.</li>
+<li>Upgrading from <code>bcbioRNADataSet</code> (&lt; 0.1.0) to <code>bcbioRNASeq</code> class object is now possible using <code>as</code> coercion method.</li>
 <li>Object oriented methods are now restricted to use <code>bcbioRNASeq</code> object. Legacy <code>bcbioRNADataSet</code> objects must be upgraded to <code>bcbioRNASeq</code> class.</li>
 </ul>
 </div>
@@ -522,8 +522,8 @@
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-0-28-2017-10-17" class="anchor"></a>bcbioRNASeq 0.0.28 (2017-10-17)</h2>
 <ul>
-<li>Added support for output of unstructured data inside <code>bcbioRNASeq</code> S4 object using <code>flatFiles()</code> function.</li>
-<li>Added <code>bcbioRNASeq</code> method support for <code>annotable()</code> generic.</li>
+<li>Added support for output of unstructured data inside <code>bcbioRNASeq</code> S4 object using <code>flatFiles</code> function.</li>
+<li>Added <code>bcbioRNASeq</code> method support for <code>annotable</code> generic.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-27-2017-10-10" class="section level2">
@@ -531,11 +531,11 @@
 <a href="#bcbiornaseq-0-0-27-2017-10-10" class="anchor"></a>bcbioRNASeq 0.0.27 (2017-10-10)</h2>
 <ul>
 <li>Renamed <code>bcbioRNADataSet</code> S4 class to <code>bcbioRNASeq</code>. This matches the naming conventions in the <a href="https://bioinformatics.sph.harvard.edu/bcbioSingleCell/">bcbioSingleCell</a> package.</li>
-<li>Renamed <code><a href="../reference/deprecated.html">loadRNASeqRun()</a></code> to simply <code><a href="../reference/deprecated.html">loadRNASeq()</a></code>.</li>
-<li>Switched <code><a href="../reference/deprecated.html">loadRNASeq()</a></code> from using S4 dispatch to a standard function.</li>
-<li>Added a parameter argument to <code><a href="../reference/deprecated.html">loadRNASeq()</a></code> that enables request of a specific Ensembl release version for gene annotations.</li>
+<li>Renamed <code>loadRNASeqRun</code> to simply <code>loadRNASeq</code>.</li>
+<li>Switched <code>loadRNASeq</code> from using S4 dispatch to a standard function.</li>
+<li>Added a parameter argument to <code>loadRNASeq</code> that enables request of a specific Ensembl release version for gene annotations.</li>
 <li>Renamed <code>interestingGroup</code> argument in quality control functions to <code>interestingGroups</code> for better consistency.</li>
-<li>Improved handling of sample metrics in <code><a href="../reference/plotPCACovariates.html">plotPCACovariates()</a></code>.</li>
+<li>Improved handling of sample metrics in <code>plotPCACovariates</code>.</li>
 <li>Added functional analysis R Markdown template.</li>
 <li>Offloaded some core functionality shared between <a href="https://bioinformatics.sph.harvard.edu/bcbioRNASeq/">bcbioRNASeq</a> and <a href="https://bioinformatics.sph.harvard.edu/bcbioSingleCell/">bcbioSingleCell</a> to the <a href="https://steinbaugh.com/basejump/">basejump</a> package. This included some code to handle sample metadata YAML and file loading. This helps provide a consistent experience across both packages.</li>
 </ul>
@@ -607,7 +607,7 @@
 <ul>
 <li>
 <code>bcbioRnaDataSet</code> S4 definition updates.</li>
-<li>Updates to <code>plot_pca()</code> and gene-level heatmaps.</li>
+<li>Updates to <code>plot_pca</code> and gene-level heatmaps.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-18-2017-05-24" class="section level2">
@@ -629,7 +629,7 @@
 <a href="#bcbiornaseq-0-0-16-2017-05-18" class="anchor"></a>bcbioRNASeq 0.0.16 (2017-05-18)</h2>
 <ul>
 <li>Draft migration of <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> run object into S4 <code>bcbioRnaDataSet</code>.</li>
-<li>Created a new variant of <code>load_run()</code> that saves to S4 object instead of list.</li>
+<li>Created a new variant of <code>load_run</code> that saves to S4 object instead of list.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-15-2017-05-15" class="section level2">
@@ -646,7 +646,7 @@
 <li>Defaulted to loading run using project summary YAML file.</li>
 <li>Initial commit of <a href="https://rmarkdown.rstudio.com/">R Markdown</a> templates (e.g. quality control).</li>
 <li>Added support for dynamic file downloads from <a href="https://bioinformatics.sph.harvard.edu/">HBC</a> website.</li>
-<li>Draft build of website using <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code>.</li>
+<li>Draft build of website using <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site</a></code>.</li>
 </ul>
 </div>
     <div id="bcbiornaseq-0-0-13-2017-05-08" class="section level2">

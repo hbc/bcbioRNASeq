@@ -1,8 +1,18 @@
 ---
 params:
   title: "Quality Control"
-  object_file: "data/YYYY-MM-DD/object.rds"
+  
+  # Use bcbioRNASeq object as input.
+  # - Standard: Load from file on disk, either RDS or RDA.
+  # - Advanced: Loop across multiple objects using `rmarkdown::render()`.
+  object: "rds/YYYY-MM-DD/bcb.rds"
+  
+  # The `name` param is only necessary when passing in object directly, during
+  # an `rmarkdown::render()` call. See `object` param.
+  # name: "object_name"
+  
   output_dir: !r file.path("results", Sys.Date(), "quality_control")
+
 title: "`r params$title`"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
@@ -10,8 +20,9 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2019-03-14
+# Last modified 2019-03-22
 library(bcbioRNASeq)
+library(tidyverse)
 prepareRNASeqTemplate()
 source("_setup.R")
 ```
@@ -23,9 +34,22 @@ source("_setup.R")
 ```
 
 ```{r object}
-name <- basenameSansExt(params$object_file)
-object <- readRDS(file = params$object_file)
-stopifnot(is(object, "bcbioRNASeq"))
+if (is.character(params$object)) {
+    if (fileExt(params$object) == "rds") {
+        object <- readRDS(file = params$object)
+        name <- basenameSansExt(params$object)
+    } else if (fileExt(params$object) == "rda") {
+        name <- load(params$object)
+        object <- get(name, inherits = FALSE)
+    }
+} else {
+    object <- params$object
+    name <- params$name
+}
+stopifnot(
+    is(object, "DESeqAnalysis"),
+    is.character(name)
+)
 invisible(validObject(object))
 print(object)
 ```
@@ -35,7 +59,7 @@ print(object)
 # Sample metadata
 
 ```{r sample_data}
-sampleData(object, clean = TRUE)
+sampleData(object)
 ```
 
 # Export results
@@ -46,13 +70,13 @@ files <- export(object, name = name, dir = params$output_dir)
 
 These normalized matrices are suitable for comparison across samples, and to generate plots.
 
-- [`r basename(files$assays$tpm)`](`r files$assays$tpm`): Transcripts per million, scaled by length.
-- [`r basename(files$assays$normalized)`](`r files$assays$normalized`): DESeq2 size factor adjusted counts.
-- [`r basename(files$assays$vst)`](`r files$assays$vst`): DESeq2 variance-stabilized counts (log2).
+- [`tpm.csv`]: Transcripts per million, scaled by length.
+- [`normalized.csv`]: DESeq2 size factor adjusted counts.
+- [`vst.csv`]: DESeq2 variance-stabilized counts (log2).
 
 Only use the raw counts to perform a new differential expression analysis. These are *not suitable* for plots.
 
-- [`r basename(files$assays$counts)`](`r files$assays$counts`): Raw counts. These counts will vary across samples due to differences in sequencing depth, and are not size factor adjusted.
+- [`counts.csv`]: Raw counts. These counts will vary across samples due to differences in sequencing depth, and are not size factor adjusted.
 
 # Read metrics {.tabset}
 

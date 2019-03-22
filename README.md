@@ -10,7 +10,7 @@
 
 ## Workflow paper
 
-Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][F1000] *F1000Research* 6:1976.
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][F1000 paper] *F1000Research* 6:1976.
 
 ```r
 citation("bcbioRNASeq")
@@ -121,7 +121,7 @@ The package provides multiple [R Markdown][] templates, including quality contro
 
 The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 
-[bcbio]: https://github.com/chapmanb/bcbio-nextgen/
+[bcbio]: https://bcbio-nextgen.readthedocs.io/
 [bcbioRNASeq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
 [BiocManager]: https://cran.r-project.org/package=BiocManager
 [bioconda]: https://bioconda.github.io/
@@ -129,7 +129,7 @@ The papers and software cited in our workflows are available as a [shared librar
 [conda]: https://conda.io/
 [DESeq2]: https://bioconductor.org/packages/DESeq2/
 [devtools]: https://cran.r-project.org/package=devtools
-[F1000]: https://f1000research.com/articles/6-1976/v2
+[F1000 paper]: http://dx.doi.org/10.12688/f1000research.12093.2
 [Paperpile]: https://paperpile.com/
 [R]: https://www.r-project.org/
 [R Markdown]: https://rmarkdown.rstudio.com/

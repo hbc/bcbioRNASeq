@@ -22,6 +22,7 @@ plotMappedReads.bcbioRNASeq <-  # nolint
         object,
         interestingGroups = NULL,
         limit = 10e6L,
+        perMillion = TRUE,
         fill,
         flip,
         title = "mapped reads"
@@ -33,16 +34,26 @@ plotMappedReads.bcbioRNASeq <-  # nolint
         assert(
             isInt(limit),
             isNonNegative(limit),
+            isFlag(perMillion),
             isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
 
+        data <- metrics(object)
+
+        # Convert to per million, if desired.
+        yLab <- "reads"
+        if (isTRUE(perMillion)) {
+            data[["mappedReads"]] <- data[["mappedReads"]] / 1e6L
+            yLab <- paste(yLab, "per million")
+        }
+
         p <- ggplot(
-            data = metrics(object),
+            data = data,
             mapping = aes(
                 x = !!sym("sampleName"),
-                y = !!sym("mappedReads") / 1e6L,
+                y = !!sym("mappedReads"),
                 fill = !!sym("interestingGroups")
             )
         ) +
@@ -53,22 +64,19 @@ plotMappedReads.bcbioRNASeq <-  # nolint
             labs(
                 title = title,
                 x = NULL,
-                y = "mapped reads per million",
+                y = yLab,
                 fill = paste(interestingGroups, collapse = ":\n")
             )
 
         if (isPositive(limit)) {
-            # Convert limit to per million.
-            if (limit < 1e6L) {
-                # nocov start
-                warning("`limit`: Use absolute value, not per million.")
-                # nocov end
-            } else {
-                limit <- limit / 1e6L
+            if (isTRUE(perMillion)) {
+                if (limit < 1e6L) {
+                    warning("`limit`: Use absolute value, not per million.")
+                } else {
+                    limit <- limit / 1e6L
+                }
             }
-            if (limit >= 1L) {
-                p <- p + basejump_geom_abline(yintercept = limit)
-            }
+            p <- p + basejump_geom_abline(yintercept = limit)
         }
 
         if (is(fill, "ScaleDiscrete")) {
