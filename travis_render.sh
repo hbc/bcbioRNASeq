@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Render R Markdown
+# https://github.com/bcbio/bcbio_rnaseq_output_example
+
 render_templates() {
     pwd
     cd ..
@@ -8,9 +11,7 @@ render_templates() {
     Rscript -e 'devtools::install_local("../bcbioRNASeq")'
     Rscript -e 'testthat::test_file("test_reports.R")'
     cd report
-    mv de.html de-${TRAVIS_BRANCH}.html
     mv qc.html qc-${TRAVIS_BRANCH}.html
-    mv fa.html fa-${TRAVIS_BRANCH}.html
     cd ..
 }
 
