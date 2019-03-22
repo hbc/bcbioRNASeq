@@ -7,8 +7,9 @@
 \title{Plot mapped reads}
 \usage{
 \S4method{plotMappedReads}{bcbioRNASeq}(object, interestingGroups = NULL,
-  limit = 10000000L, fill = getOption("basejump.fill.discrete", default
-  = NULL), flip = getOption("basejump.flip", default = TRUE),
+  limit = 10000000L, perMillion = TRUE,
+  fill = getOption("basejump.fill.discrete", default = NULL),
+  flip = getOption("basejump.flip", default = TRUE),
   title = "mapped reads")
 }
 \arguments{
@@ -20,6 +21,9 @@ Groups of interest that define the samples. If left unset, defaults to
 
 \item{limit}{\code{numeric(1)}.
 Threshold to denote on the plot, using a dashed line.}
+
+\item{perMillion}{\code{logical(1)}.
+Display as counts per million.}
 
 \item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
 Desired ggplot2 fill scale. Must supply discrete values. When set to
