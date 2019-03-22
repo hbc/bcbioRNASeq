@@ -34,9 +34,8 @@
   
 <meta property="og:title" content="Plot sexually dimorphic gender marker genes — plotGenderMarkers" />
 
-<meta property="og:description" content="This is a convenience function that wraps plotGene() to quickly plot known
-sexually dimorphic genes, and overall gene experssion for the X and Y
-chromosomes." />
+<meta property="og:description" content="This is a convenience function that quickly plots known sexually dimorphic
+genes, and overall gene experssion for the X and Y chromosomes." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -67,7 +66,7 @@ chromosomes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.13</span>
       </span>
     </div>
 
@@ -116,9 +115,8 @@ chromosomes." />
 
     <div class="ref-description">
     
-    <p>This is a convenience function that wraps <code>plotGene()</code> to quickly plot known
-sexually dimorphic genes, and overall gene experssion for the X and Y
-chromosomes.</p>
+    <p>This is a convenience function that quickly plots known sexually dimorphic
+genes, and overall gene experssion for the X and Y chromosomes.</p>
     
     </div>
 
@@ -161,7 +159,7 @@ sample name.</p></td>
       <td><p><code>ScaleDiscrete</code>.
 Desired ggplot2 color scale. Must supply discrete values. When set <code>NULL</code>,
 the default ggplot2 color palette will be used. If manual color definitions
-are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual()</a></code>.</p>
+are desired, we recommend using <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p>
 <p>To set the discrete color palette globally, use:</p><pre>options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
 </pre></td>
     </tr>
@@ -183,7 +181,7 @@ Plot style.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>plotGene()</code>.</p></div>
+    <div class='dont-index'><p><code><a href='plotCounts.html'>plotCounts()</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

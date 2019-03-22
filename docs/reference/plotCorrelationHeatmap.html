@@ -34,7 +34,7 @@
   
 <meta property="og:title" content="Correlation heatmap — plotCorrelationHeatmap" />
 
-<meta property="og:description" content="Construct a simple heatmap." />
+<meta property="og:description" content="Correlation heatmap" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.13</span>
       </span>
     </div>
 
@@ -114,15 +114,15 @@
 
     <div class="ref-description">
     
-    <p>Construct a simple heatmap.</p>
+    <p>Correlation heatmap</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>,
   <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>),
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"pearson"</span>, <span class='st'>"spearman"</span>),
-  <span class='kw'>clusteringMethod</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>, <span class='kw'>showRownames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"pearson"</span>, <span class='st'>"kendall"</span>,
+  <span class='st'>"spearman"</span>), <span class='kw'>clusteringMethod</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>, <span class='kw'>showRownames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>showColnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>treeheightRow</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>treeheightCol</span> <span class='kw'>=</span> <span class='fl'>50L</span>,
   <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>, <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
   <span class='kw'>borderColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
@@ -153,8 +153,8 @@ Groups of interest that define the samples. If left unset, defaults to
       <th>method</th>
       <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
 Correlation coefficient (or covariance) method to be computed. Defaults to
-"<code>pearson</code>" but "<code>spearman</code>" can also be used. Consult the <code><a href='https://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code>
-documentation for more information.</p></td>
+"<code>pearson</code>" but "<code>spearman</code>" or "<code>kendall</code>" can also be used. Refer to the
+<code><a href='https://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code> documentation for details.</p></td>
     </tr>
     <tr>
       <th>clusteringMethod</th>
@@ -217,8 +217,7 @@ Plot title.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passthrough arguments to <code><a href='https://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.
-The argument names must be formatted in camel case, not snake case.</p></td>
+      <td><p>Additional arguments.</p></td>
     </tr>
     </table>
     
@@ -226,62 +225,10 @@ The argument names must be formatted in camel case, not snake case.</p></td>
 
     <p><code>pheatmap</code>.</p>
     
-    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
-
-    
-    <ul>
-<li><p><code>SummarizedExperiment</code>: Construct a correlation heatmap comparing the columns
-of the matrix.</p></li>
-<li><p><code>SummarizedExperiment</code>: Scale the heatmap by applying quantile breaks.</p></li>
-</ul>
-    
-    <h2 class="hasAnchor" id="scaling"><a class="anchor" href="#scaling"></a>Scaling</h2>
-
-    
-    <p>Here we're scaling simply by calculating the standard score (z-score).</p><ul>
-<li><p>mu: mean.</p></li>
-<li><p>sigma: standard deviation.</p></li>
-<li><p>x: raw score (e.g. count matrix).</p></li>
-<li><p>z: standard score (z-score).</p></li>
-</ul><pre>z = (x - mu) / sigma
-</pre>
-    <p>See also:</p><ul>
-<li><p><code>pheatmap:::scale_rows()</code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/base/topics/scale'>scale()</a></code> for additional scaling approaches.</p></li>
-</ul>
-    
-    <h2 class="hasAnchor" id="hierarchical-clustering"><a class="anchor" href="#hierarchical-clustering"></a>Hierarchical clustering</h2>
-
-    
-    <p>Row- and column-wise hierarchical clustering is performed when <code>clusterRows</code>
-and/or <code>clusterCols</code> are set to <code>TRUE</code>. Internally, this calls
-<code><a href='https://www.rdocumentation.org/packages/stats/topics/hclust'>stats::hclust()</a></code>, and defaults to the Ward method.</p>
-<p>Automatic hierarchical clustering of rows and/or columns can error for some
-datasets. When this occurs, you'll likely see this error:</p><pre>Error in hclust(d, method = method) :
-NA/NaN/Inf in foreign function call
-</pre>
-    <p>In this case, either set <code>clusterRows</code> and/or <code>clusterCols</code> to <code>FALSE</code>, or
-you can attempt to pass an <code>hclust</code> object to these arguments. This is
-recommended as an alternate approach to be used with <code><a href='https://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>,
-which is called internally by our plotting code. Here's how this can be
-accomplished:</p><pre>mat &lt;- assay(mat)
-dist &lt;- dist(mat)
-hclust &lt;- hclust(dist, method = "ward.D2")
-</pre>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><ul>
-<li><p><code><a href='https://www.rdocumentation.org/packages/pheatmap/topics/pheatmap'>pheatmap::pheatmap()</a></code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/RColorBrewer/topics/ColorBrewer'>RColorBrewer::brewer.pal()</a></code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/stats/topics/cor'>stats::cor()</a></code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/stats/topics/hclust'>stats::hclust()</a></code>.</p></li>
-</ul></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating correlation matrix using pearson method.</span></div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating correlation matrix using spearman method.</span></div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -289,14 +236,6 @@ hclust &lt;- hclust(dist, method = "ward.D2")
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#methods-by-class-">Methods (by class)</a></li>
-
-      <li><a href="#scaling">Scaling</a></li>
-
-      <li><a href="#hierarchical-clustering">Hierarchical clustering</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
