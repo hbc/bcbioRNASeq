@@ -30,7 +30,7 @@ reference:
   - title: S4 classes
     contents:
     - ends_with("-class")
-    - as
+    - coerce
     - extract
     - show
     - updateObject
