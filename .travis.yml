@@ -1,6 +1,8 @@
 language: r
 cache: packages
 
+script: true
+
 matrix:
   include:
     - os: linux
