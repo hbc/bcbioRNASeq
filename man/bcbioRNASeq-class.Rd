@@ -122,11 +122,11 @@ requires either a CSV or Excel spreadsheet.
 
 The samples in the bcbio run must map to the \code{description} column. The values
 provided in \code{description} must be unique. These values will be sanitized into
-syntactically valid names (see \code{basejump::makeNames} for more information),
-and assigned as the column names of the \code{bcbioRNASeq} object. The original
-values are stored as the \code{sampleName} column in \code{colData}, and are used for
-all plotting functions. Do not attempt to set a \code{sampleID} column, as this is
-used internally by the package.
+syntactically valid names (see \code{\link[base:make.names]{make.names}} for more
+information), and assigned as the column names of the \code{bcbioRNASeq} object.
+The original values are stored as the \code{sampleName} column in \code{colData}, and
+are used for all plotting functions. Do not attempt to set a \code{sampleID}
+column, as this is used internally by the package.
 
 Here is a minimal example of a properly formatted sample metadata file:
 
