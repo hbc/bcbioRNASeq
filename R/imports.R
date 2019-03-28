@@ -1,7 +1,3 @@
-# FIXME basejump_geom_abline basejump_geom_label basejump_geom_label_repel to acid...
-
-
-
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
@@ -21,14 +17,15 @@
 #' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
 #' @importFrom basejump Gene2Symbol Tx2Gene camel coerceS4ToList
-#'   convertGenesToSymbols detectLanes detectOrganism emptyRanges import initDir
-#'   interestingGroups interestingGroups<- lanePattern makeGRangesFromEnsembl
-#'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
-#'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
-#'   matchInterestingGroups matchesGene2Symbol meltCounts methodFormals metrics
-#'   organism prepareTemplate printString realpath relevelColData
-#'   relevelRowRanges removeNA sampleData sampleData<- separator showSlotInfo
-#'   snake standardizeCall stripTranscriptVersions uniteInterestingGroups
+#'   convertGenesToSymbols detectLanes detectOrganism emptyRanges formalsList
+#'   import initDir interestingGroups interestingGroups<- lanePattern
+#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
+#'   markdownPlotlist matchArgsToDoCall matchInterestingGroups
+#'   matchesGene2Symbol meltCounts methodFormals metrics organism
+#'   prepareTemplate printString realpath relevelColData relevelRowRanges
+#'   removeNA sampleData sampleData<- separator showSlotInfo snake
+#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML metadataBlacklist projectDir projectDirPattern
 #'   readDataVersions readProgramVersions readSampleData readTx2Gene runDate
