@@ -1,3 +1,7 @@
+#' @importFrom basejump counts
+#' @export
+basejump::counts
+
 #' @importFrom basejump export
 #' @export
 basejump::export

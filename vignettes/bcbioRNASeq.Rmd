@@ -24,10 +24,6 @@ ggplot2::theme_set(minimalism::theme_paperwhite())
 knitr::opts_chunk$set(message = FALSE)
 ```
 
-```{r message=FALSE}
-library(bcbioRNASeq)
-```
-
 # Introduction
 
 For a high-level overview of our [bcbio][] RNA-seq analysis pipeline, including detailed explanation of the `bcbioRNASeq` S4 class definition, first consult our [workflow paper][F1000 paper] published in *F1000 Research* [@Steinbaugh2018-rc]. This vignette is focused on more advanced usage and edge cases that a user may encounter when attempting to load a bcbio dataset and perform downstream quality control analysis.
@@ -36,6 +32,10 @@ For a high-level overview of our [bcbio][] RNA-seq analysis pipeline, including 
 
 ```{r}
 citation("bcbioRNASeq")
+```
+
+```{r message=FALSE}
+library(bcbioRNASeq)
 ```
 
 # Loading bcbio data
