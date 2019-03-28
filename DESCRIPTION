@@ -103,7 +103,7 @@ LazyData: false
 Depends: R (>= 3.4), SummarizedExperiment
 Imports:
     basejump (>= 0.10), bcbioBase (>= 0.6), bioverbs (>= 0.1.10),
-        goalie (>= 0.2.12),
+        goalie (>= 0.2.12), minimalism (>= 0.1),
     BiocGenerics, DEGreport, DESeq2, GenomicFeatures, S4Vectors, edgeR,
         tximport, vsn,
     cowplot (>= 0.9), dplyr (>= 0.8), ggplot2 (>= 3.1), ggrepel (>= 0.8),
@@ -116,10 +116,11 @@ Suggests:
     hexbin, rmarkdown, roxygen2, tidyverse, viridis,
     patrick, testthat
 Remotes:
-    steinbaugh/basejump,
-    steinbaugh/bcbioBase,
-    steinbaugh/bioverbs,
-    steinbaugh/goalie
+    acidgenomics/basejump,
+    acidgenomics/bcbioBase,
+    acidgenomics/bioverbs,
+    acidgenomics/goalie,
+    acidgenomics/minimalism
 biocViews:
     DataImport,
     DataRepresentation,

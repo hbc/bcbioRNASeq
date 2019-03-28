@@ -39,14 +39,6 @@ Expression caller:\preformatted{- "`salmon`" (*default*): [Salmon][] alignment-f
 \item{samples}{\code{character}.
 Specify a subset of samples to include.}
 
-\item{censorSamples}{\code{character}.
-Specify a subset of samples to censor.}
-
-\item{sampleMetadataFile}{\code{character(1)}.
-Sample metadata file path. CSV or TSV is preferred, but Excel worksheets
-are also supported. Check the documentation for conventions and required
-columns.}
-
 \item{organism}{\code{character(1)}.
 Full Latin organism name (e.g. "\code{Homo sapiens}").}
 
@@ -61,16 +53,6 @@ possible, for improved reproducibility. When left unset, the latest release
 available via AnnotationHub/ensembldb is used. Note that the latest version
 available can vary, depending on the versions of AnnotationHub and
 ensembldb in use.}
-
-\item{gffFile}{\code{character(1)}.
-GFF/GTF (General Feature Format) file. Generally, we recommend using a GTF
-(GFFv2) instead of a GFFv3 file if possible.}
-
-\item{transgeneNames}{\code{character}.
-Vector indicating which assay rows denote transgenes (e.g. EGFP, TDTOMATO).}
-
-\item{spikeNames}{\code{character}.
-Vector indicating which assay rows denote spike-in sequences (e.g. ERCCs).}
 
 \item{countsFromAbundance}{\code{character(1)}.
 Whether to generate estimated counts using abundance estimates

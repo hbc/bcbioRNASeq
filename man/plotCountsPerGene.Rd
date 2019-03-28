@@ -9,9 +9,9 @@
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, normalized = c("tmm",
   "vst", "rlog", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   geom = c("boxplot", "density", "violin"), trans = c("identity",
-  "log2", "log10"), color = getOption("basejump.color.discrete", default
-  = NULL), fill = getOption("basejump.fill.discrete", default = NULL),
-  flip = getOption("basejump.flip", default = TRUE),
+  "log2", "log10"), color = getOption("acid.color.discrete", default =
+  NULL), fill = getOption("acid.fill.discrete", default = NULL),
+  flip = getOption("acid.flip", default = TRUE),
   countsAxisLabel = "counts", title = "counts per gene")
 }
 \arguments{
@@ -27,41 +27,6 @@ Which normalization method to apply:\preformatted{- "`tpm`": Transcripts per mil
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to
 \code{sampleName}.}
-
-\item{geom}{\code{character(1)}.
-Plot type. Uses \code{\link[base:match.arg]{match.arg()}} internally and defaults to
-the first argument in the \code{character} vector.}
-
-\item{trans}{\code{character(1)}.
-Name of the axis scale transformation to apply.
-
-For more information:\preformatted{help(topic = "scale_x_continuous", package = "ggplot2")
-}}
-
-\item{color}{\code{ScaleDiscrete}.
-Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
-the default ggplot2 color palette will be used. If manual color definitions
-are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
-
-To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
-}}
-
-\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
-Desired ggplot2 fill scale. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
-
-To set the discrete fill palette globally, use:\preformatted{options(basejump.fill.discrete = ggplot2::scale_fill_viridis_d())
-}}
-
-\item{flip}{\code{logical(1)}.
-Flip x and y axes. Recommended for plots containing many samples.}
-
-\item{countsAxisLabel}{\code{character(1)}.
-Counts axis label.}
-
-\item{title}{\code{character(1)}.
-Plot title.}
 }
 \value{
 \code{ggplot}.
