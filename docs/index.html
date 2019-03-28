@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.14</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
 <div id="workflow-paper" class="section level2">
 <h2 class="hasAnchor">
 <a href="#workflow-paper" class="anchor"></a>Workflow paper</h2>
-<p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). <a href="https://f1000research.com/articles/6-1976/v2">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
+<p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). <a href="http://dx.doi.org/10.12688/f1000research.12093.2">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation</a></span>(<span class="st">"bcbioRNASeq"</span>)</code></pre></div>
 </div>
 <div id="installation" class="section level2">
@@ -121,8 +121,8 @@ BiocManager<span class="op">::</span><span class="kw"><a href="https://www.rdocu
 </div>
 <div id="pinned-workflow-paperf1000-version" class="section level3">
 <h3 class="hasAnchor">
-<a href="#pinned-workflow-paperf1000-version" class="anchor"></a>Pinned <a href="https://f1000research.com/articles/6-1976/v2">workflow paper</a> version</h3>
-<p>Installing the specific version of <a href="https://bioinformatics.sph.harvard.edu/bcbioRNASeq/">bcbioRNASeq</a> used in the <a href="https://f1000research.com/articles/6-1976/v2">F1000 workflow paper</a> is easiest using <a href="https://conda.io/">conda</a>.</p>
+<a href="#pinned-workflow-paperf1000-version" class="anchor"></a>Pinned [workflow paper][F1000] version</h3>
+<p>Installing the specific version of <a href="https://bioinformatics.sph.harvard.edu/bcbioRNASeq/">bcbioRNASeq</a> used in the [F1000 workflow paper][F1000] is easiest using <a href="https://conda.io/">conda</a>.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">conda</span> install r-bcbiornaseq=0.2.4</code></pre></div>
 <p>Alternatively, you can use <a href="https://cran.r-project.org/package=devtools">devtools</a> to install the pinned version <a href="https://bioinformatics.sph.harvard.edu/bcbioRNASeq/">bcbioRNASeq</a> and its dependencies. First install <a href="https://bioinformatics.sph.harvard.edu/bcbioRNASeq/">bcbioRNASeq</a> using <a href="https://cran.r-project.org/package=BiocManager">BiocManager</a> (see above), and then run these commands.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/install">install</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>, <span class="dt">ref =</span> <span class="st">"v0.2.4"</span>, <span class="dt">dependencies =</span> <span class="ot">FALSE</span>)
@@ -134,9 +134,9 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <h2 class="hasAnchor">
 <a href="#loading-bcbio-rna-seq-data" class="anchor"></a>Loading <a href="https://bcbio-nextgen.readthedocs.io/">bcbio</a> RNA-seq data</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bcbioRNASeq)
-bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> <span class="st">"bcbio/final"</span>)
+bcb &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/bcbioRNASeq/topics/bcbioRNASeq-class">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> <span class="st">"bcbio/final"</span>)
 <span class="kw">saveData</span>(bcb, <span class="dt">dir =</span> <span class="st">"."</span>)</code></pre></div>
-<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org/">Bioconductor</a> <a href="https://bioconductor.org/packages/SummarizedExperiment/">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> generator function documentation for detailed information on the supported parameters.</p>
+<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org/">Bioconductor</a> <a href="https://bioconductor.org/packages/SummarizedExperiment/">RangedSummarizedExperiment</a> container class. Consult the <code><a href="https://www.rdocumentation.org/packages/bcbioRNASeq/topics/bcbioRNASeq-class">bcbioRNASeq()</a></code> generator function documentation for detailed information on the supported parameters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/help">help</a></span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</code></pre></div>
 </div>
 <div id="r-markdown-templates" class="section level2">
