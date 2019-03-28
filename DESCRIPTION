@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.3.13
-Date: 2019-03-22
+Version: 0.3.14
+Date: 2019-03-28
 Authors@R: c(
     person(
         given = "Michael",
@@ -100,12 +100,10 @@ BugReports: https://github.com/hbc/bcbioRNASeq/issues/
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
-Depends:
-    R (>= 3.4),
-    SummarizedExperiment,
-    basejump (>= 0.9.15)
+Depends: R (>= 3.4), SummarizedExperiment
 Imports:
-    bcbioBase (>= 0.5.14), bioverbs (>= 0.1.9), goalie (>= 0.2.12),
+    basejump (>= 0.10), bcbioBase (>= 0.6), bioverbs (>= 0.1.10),
+        goalie (>= 0.2.12),
     BiocGenerics, DEGreport, DESeq2, GenomicFeatures, S4Vectors, edgeR,
         tximport, vsn,
     cowplot (>= 0.9), dplyr (>= 0.8), ggplot2 (>= 3.1), ggrepel (>= 0.8),
