@@ -21,7 +21,7 @@ abstract: >
 
 ```{r setup, include=FALSE, message=FALSE}
 library(bcbioRNASeq)
-ggplot2::theme_set(basejump::theme_paperwhite())
+ggplot2::theme_set(minimalism::theme_paperwhite())
 knitr::opts_chunk$set(message = FALSE)
 ```
 
