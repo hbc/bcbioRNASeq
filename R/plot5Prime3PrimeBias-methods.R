@@ -61,7 +61,7 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
                 y = "5'->3' bias",
                 colour = paste(interestingGroups, collapse = ":\n")
             ) +
-            basejump_geom_abline(yintercept = 1L)
+            acid_geom_abline(yintercept = 1L)
 
         if (is(color, "ScaleDiscrete")) {
             p <- p + color
