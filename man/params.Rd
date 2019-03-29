@@ -10,6 +10,74 @@ Which normalization method to apply:\preformatted{- "`tpm`": Transcripts per mil
 - "`rlog`": DESeq2 **log2** regularized log transformation.
 - "`vst`": DESeq2 **log2** variance stabilizing transformation.
 }}
+
+\item{censorSamples}{\code{character}.
+Specify a subset of samples to censor.}
+
+\item{color}{\code{ScaleDiscrete}.
+Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
+
+To set the discrete color palette globally, use:\preformatted{options(acid.color.discrete = ggplot2::scale_color_viridis_d())
+}}
+
+\item{countsAxisLabel}{\code{character(1)}.
+Counts axis label.}
+
+\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
+Desired ggplot2 fill scale. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
+
+To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
+}}
+
+\item{flip}{\code{logical(1)}.
+Flip x and y axes. Recommended for plots containing many samples.}
+
+\item{geom}{\code{character(1)}.
+Plot type. Uses \code{\link[base:match.arg]{match.arg()}} internally and defaults to
+the first argument in the \code{character} vector.}
+
+\item{gffFile}{\code{character(1)}.
+GFF/GTF (General Feature Format) file. Generally, we recommend using a GTF
+(GFFv2) instead of a GFFv3 file if possible.}
+
+\item{label}{\code{logical(1)}.
+Superimpose sample text labels on the plot.}
+
+\item{legend}{\code{logical(1)}.
+Show plot legend.}
+
+\item{limit}{\code{numeric(1)}.
+Threshold to denote on the plot, using a dashed line.}
+
+\item{minCounts}{\code{integer(1)}.
+Minimum number of counts per gene in the count matrix.}
+
+\item{perMillion}{\code{logical(1)}.
+Display as counts per million.}
+
+\item{sampleMetadataFile}{\code{character(1)}.
+Sample metadata file path. CSV or TSV is preferred, but Excel worksheets
+are also supported. Check the documentation for conventions and required
+columns.}
+
+\item{spikeNames}{\code{character}.
+Vector indicating which assay rows denote spike-in sequences (e.g. ERCCs).}
+
+\item{title}{\code{character(1)}.
+Plot title.}
+
+\item{trans}{\code{character(1)}.
+Name of the axis scale transformation to apply.
+
+For more information:\preformatted{help(topic = "scale_x_continuous", package = "ggplot2")
+}}
+
+\item{transgeneNames}{\code{character}.
+Vector indicating which assay rows denote transgenes (e.g. EGFP, TDTOMATO).}
 }
 \value{
 No value.

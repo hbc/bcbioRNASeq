@@ -3,6 +3,7 @@
 \docType{methods}
 \name{counts}
 \alias{counts}
+\alias{counts<-}
 \alias{counts,bcbioRNASeq-method}
 \title{Counts}
 \usage{
