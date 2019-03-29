@@ -166,6 +166,18 @@ Expression caller:</p><pre>- "`salmon`" (*default*): [Salmon][] alignment-free, 
 Specify a subset of samples to include.</p></td>
     </tr>
     <tr>
+      <th>censorSamples</th>
+      <td><p><code>character</code>.
+Specify a subset of samples to censor.</p></td>
+    </tr>
+    <tr>
+      <th>sampleMetadataFile</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Sample metadata file path. CSV or TSV is preferred, but Excel worksheets
+are also supported. Check the documentation for conventions and required
+columns.</p></td>
+    </tr>
+    <tr>
       <th>organism</th>
       <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
 Full Latin organism name (e.g. "<code>Homo sapiens</code>").</p></td>
@@ -185,6 +197,22 @@ possible, for improved reproducibility. When left unset, the latest release
 available via AnnotationHub/ensembldb is used. Note that the latest version
 available can vary, depending on the versions of AnnotationHub and
 ensembldb in use.</p></td>
+    </tr>
+    <tr>
+      <th>gffFile</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+GFF/GTF (General Feature Format) file. Generally, we recommend using a GTF
+(GFFv2) instead of a GFFv3 file if possible.</p></td>
+    </tr>
+    <tr>
+      <th>transgeneNames</th>
+      <td><p><code>character</code>.
+Vector indicating which assay rows denote transgenes (e.g. EGFP, TDTOMATO).</p></td>
+    </tr>
+    <tr>
+      <th>spikeNames</th>
+      <td><p><code>character</code>.
+Vector indicating which assay rows denote spike-in sequences (e.g. ERCCs).</p></td>
     </tr>
     <tr>
       <th>countsFromAbundance</th>
@@ -427,7 +455,7 @@ possible.</p>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
 #&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneBiotype, geneName, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.2.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.14
 #&gt; uploadDir: /data00/home/michael.steinbaugh/git/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-03-28
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-03-29
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -502,7 +530,7 @@ possible.</p>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
 #&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations into transcript-level object.</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, seqnames, transcriptBiotype</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.14
 #&gt; uploadDir: /data00/home/michael.steinbaugh/git/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-03-28
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-03-29
 #&gt; level: transcripts
 #&gt; caller: salmon
 #&gt; organism: Mus musculus

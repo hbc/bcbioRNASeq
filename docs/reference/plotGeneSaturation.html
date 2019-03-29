@@ -143,9 +143,38 @@ Groups of interest that define the samples. If left unset, defaults to
 <code>sampleName</code>.</p></td>
     </tr>
     <tr>
+      <th>minCounts</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer(1)</a></code>.
+Minimum number of counts per gene in the count matrix.</p></td>
+    </tr>
+    <tr>
+      <th>perMillion</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Display as counts per million.</p></td>
+    </tr>
+    <tr>
       <th>trendline</th>
       <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
 Include a trendline for each group.</p></td>
+    </tr>
+    <tr>
+      <th>label</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+Superimpose sample text labels on the plot.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p><code>ScaleDiscrete</code>.
+Desired ggplot2 color scale. Must supply discrete values. When set <code>NULL</code>,
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p>
+<p>To set the discrete color palette globally, use:</p><pre>options(acid.color.discrete = ggplot2::scale_color_viridis_d())
+</pre></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Plot title.</p></td>
     </tr>
     </table>
     
