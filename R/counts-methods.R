@@ -68,12 +68,10 @@ NULL
 
 
 
-#' @rdname counts
-#' @name counts
 #' @importFrom BiocGenerics counts
-#' @usage NULL
+#' @aliases NULL
 #' @export
-NULL
+BiocGenerics::counts
 
 #' @rdname counts
 #' @name counts<-
