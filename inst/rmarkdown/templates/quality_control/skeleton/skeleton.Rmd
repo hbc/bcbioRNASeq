@@ -3,12 +3,11 @@ params:
   title: "Quality Control"
   
   # Use bcbioRNASeq object as input.
-  # - Standard: Load from file on disk, either RDS or RDA.
-  # - Advanced: Loop across multiple objects using `rmarkdown::render()`.
+  # - Standard: Load saved object from file on disk, either RDS or RDA.
+  # - Advanced: Loop across multiple objects using `rmarkdown::render()` call.
   object: "rds/YYYY-MM-DD/bcb.rds"
   
-  # The `name` param is only necessary when passing in object directly, during
-  # an `rmarkdown::render()` call. See `object` param.
+  # The `name` param is only necessary when passing in object directly.
   # name: "object_name"
   
   output_dir: !r file.path("results", Sys.Date(), "quality_control")
@@ -20,9 +19,9 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2019-03-22
+# Last modified 2019-03-29
 library(bcbioRNASeq)
-library(tidyverse)
+library(ggplot2)
 prepareRNASeqTemplate()
 source("_setup.R")
 ```
@@ -47,7 +46,7 @@ if (is.character(params$object)) {
     name <- params$name
 }
 stopifnot(
-    is(object, "DESeqAnalysis"),
+    is(object, "bcbioRNASeq"),
     is.character(name)
 )
 invisible(validObject(object))
