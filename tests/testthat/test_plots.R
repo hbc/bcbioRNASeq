@@ -1,5 +1,3 @@
-# TODO Parameterize the functions that support `normalized` argument.
-
 context("Plots : Quality Control")
 
 data(bcb, envir = environment())

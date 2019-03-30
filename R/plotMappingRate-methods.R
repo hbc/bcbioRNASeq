@@ -1,8 +1,3 @@
-# FIXME plot exonic, intronic, intergenic rates
-# Show this similar to qualimap
-
-
-
 #' @name plotMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotMappingRate
