@@ -1,8 +1,9 @@
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::plot5Prime3PrimeBias
-#' @inheritParams params
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
+#' @inheritParams params
 #' @examples
 #' data(bcb)
 #' plot5Prime3PrimeBias(bcb)
