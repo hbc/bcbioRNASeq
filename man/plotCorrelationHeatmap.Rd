@@ -22,8 +22,8 @@ Which normalization method to apply:
 \itemize{
 \item "\code{tpm}": Transcripts per million (tximport).
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 \strong{log2} regularized log transformation.
-\item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
+\item "\code{rlog}": DESeq2 log2 regularized log transformation.
+\item "\code{vst}": DESeq2 log2 variance stabilizing transformation.
 }}
 
 \item{interestingGroups}{\code{character}.
