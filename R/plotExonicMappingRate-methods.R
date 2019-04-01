@@ -1,6 +1,8 @@
 #' @name plotExonicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
 #' @inherit bioverbs::plotExonicMappingRate
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'

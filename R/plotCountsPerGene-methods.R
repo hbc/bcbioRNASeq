@@ -1,7 +1,9 @@
 #' @name plotCountsPerGene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @importMethodsFrom minimalism plotCountsPerGene
+#'
 #' @inherit bioverbs::plotCountsPerGene
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'

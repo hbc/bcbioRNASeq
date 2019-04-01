@@ -1,9 +1,12 @@
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
 #' @importMethodsFrom minimalism plotGenderMarkers
+#'
 #' @inherit minimalism::plotGenderMarkers
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#'
 #' @examples
 #' data(bcb)
 #' plotGenderMarkers(bcb)

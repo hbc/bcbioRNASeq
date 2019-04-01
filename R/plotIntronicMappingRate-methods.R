@@ -1,8 +1,11 @@
 #' @name plotIntronicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
 #' @inherit bioverbs::plotIntronicMappingRate
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#'
 #' @examples
 #' data(bcb)
 #' plotIntronicMappingRate(bcb)

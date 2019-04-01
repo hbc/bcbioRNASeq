@@ -22,7 +22,7 @@ Show plot legend.}
 Plot row standard deviations vs. row means
 }
 \details{
-\code{vsn::meanSdPlot} wrapper that plots count transformations on a log2 scale.
+\code{vsn::meanSdPlot()} wrapper that plots count transformations on a log2 scale.
 \itemize{
 \item DESeq2 log2: log2 size factor-adjusted normalized counts.
 \item DESeq2 rlog: \strong{r}egularized \strong{log} transformation.
