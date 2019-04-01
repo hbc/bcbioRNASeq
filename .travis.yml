@@ -38,8 +38,8 @@ r_github_packages:
 
 after_success:
   - R CMD BiocCheck .
-  - test $TRAVIS_OS_NAME = 'linux' && $TRAVIS_R_VERSION_STRING = 'bioc-release' && Rscript -e 'lintr::lint_package()'
-  - test $TRAVIS_OS_NAME = 'linux' && $TRAVIS_R_VERSION_STRING = 'bioc-release' && Rscript -e 'covr::codecov()'
+  - Rscript -e 'lintr::lint_package()'
+  - Rscript -e 'covr::codecov()'
   # - chmod +x travis_render.sh
   # - ./travis_render.sh
 
