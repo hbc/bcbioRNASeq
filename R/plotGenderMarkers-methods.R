@@ -1,6 +1,7 @@
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
-#' @inherit basejump::plotGenderMarkers
+#' @importMethodsFrom minimalism plotGenderMarkers
+#' @inherit minimalism::plotGenderMarkers
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -45,7 +46,7 @@ f1 <- formals(plotGenderMarkers.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotGenderMarkers",
     signature = "SummarizedExperiment",
-    package = "basejump"
+    package = "minimalism"
 )
 f2 <- f2[setdiff(
     x = names(f2),

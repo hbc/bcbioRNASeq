@@ -86,7 +86,7 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(label)) {
-            p <- p + basejump_geom_label_repel(
+            p <- p + acid_geom_label_repel(
                 mapping = aes(label = !!sym("sampleName"))
             )
         }

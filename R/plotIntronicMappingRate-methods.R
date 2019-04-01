@@ -67,7 +67,7 @@ plotIntronicMappingRate.bcbioRNASeq <-  # nolint
                 limit <- limit * 100L
             }
             if (limit < 100L) {
-                p <- p + basejump_geom_abline(yintercept = limit)
+                p <- p + acid_geom_abline(yintercept = limit)
             }
         }
 

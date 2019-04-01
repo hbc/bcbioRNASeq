@@ -20,8 +20,7 @@ abstract: >
 ---
 
 ```{r setup, include=FALSE, message=FALSE}
-library(bcbioRNASeq)
-ggplot2::theme_set(basejump::theme_paperwhite())
+ggplot2::theme_set(minimalism::theme_paperwhite())
 knitr::opts_chunk$set(message = FALSE)
 ```
 
@@ -33,6 +32,10 @@ For a high-level overview of our [bcbio][] RNA-seq analysis pipeline, including 
 
 ```{r}
 citation("bcbioRNASeq")
+```
+
+```{r message=FALSE}
+library(bcbioRNASeq)
 ```
 
 # Loading bcbio data
@@ -109,7 +112,7 @@ bcb <- bcbioRNASeq(
 # https://github.com/r-lib/pkgdown/issues/666
 # pkgdown can't locate the `sampleData()` generic correctly.
 
-# sampleData(bcb)
+sampleData(bcb)
 ```
 
 ## Genome annotations
@@ -164,15 +167,15 @@ summary(counts(bcb, normalized = "vst"))
 summary(counts(bcb, normalized = "rlog"))
 ```
 
-```{r, include=FALSE}
-rm(bcb)
-```
-
 # Use case dataset
 
 To demonstrate the functionality and configuration of the package, we have taken an experiment from the [Gene Expression Omnibus (GEO)][GEO] public repository of expression data to use as an example use case. The RNA-seq data is from a study of acute kidney injury in a mouse model ([GSE65267][]) [@Craciun2016-ha]. The study aims to identify differentially expressed genes in progressive kidney fibrosis and contains samples from mouse kidneys at several time points (n = 3, per time point) after folic acid treatment. From this dataset, we are using a subset of the samples for our use case: before folic acid treatment, and 1, 3, 7 days after treatment.
 
 For the vignette, we are loading a pre-computed version of the example `bcbioRNASeq` object used in our workflow paper.
+
+```{r}
+rm(bcb)
+```
 
 ```{r}
 loadRemoteData(pasteURL(
@@ -190,7 +193,7 @@ For reference, let's take a look at the sample metadata. By comparison, using `c
 
 ```{r}
 # FIXME This currently breaks pkgdown (see above).
-# sampleData(bcb, clean = TRUE)
+sampleData(bcb)
 ```
 
 # Interesting groups

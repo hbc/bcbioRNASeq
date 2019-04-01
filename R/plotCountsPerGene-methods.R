@@ -1,5 +1,6 @@
 #' @name plotCountsPerGene
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#' @importMethodsFrom minimalism plotCountsPerGene
 #' @inherit bioverbs::plotCountsPerGene
 #' @inheritParams basejump::params
 #' @inheritParams params
@@ -64,7 +65,7 @@ f1 <- formals(plotCountsPerGene.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCountsPerGene",
     signature = "SummarizedExperiment",
-    package = "basejump"
+    package = "minimalism"
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)

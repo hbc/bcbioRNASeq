@@ -1,3 +1,15 @@
+## bcbioRNASeq 0.3.14 (2019-03-29)
+
+
+
+## bcbioRNASeq 0.3.13
+
+
+
+## bcbioRNASeq 0.3.12
+
+
+
 ## bcbioRNASeq 0.3.11 (2019-02-12)
 
 ### Minor changes
@@ -6,6 +18,7 @@
   [DESeqAnalysis][] package updates.
 - Updated dependencies to provide improved backwards compatibility support for
   R 3.4 / Bioconductor 3.6.
+
 
 
 ## bcbioRNASeq 0.3.10 (2019-02-01)

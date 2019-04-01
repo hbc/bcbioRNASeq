@@ -8,8 +8,8 @@
 \usage{
 \S4method{plotRRNAMappingRate}{bcbioRNASeq}(object,
   interestingGroups = NULL, limit = 0.1,
-  fill = getOption("basejump.fill.discrete", default = NULL),
-  flip = getOption("basejump.flip", default = TRUE),
+  fill = getOption("acid.fill.discrete", default = NULL),
+  flip = getOption("acid.flip", default = TRUE),
   title = "rRNA mapping rate")
 }
 \arguments{
@@ -27,7 +27,7 @@ Desired ggplot2 fill scale. Must supply discrete values. When set to
 \code{NULL}, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
 
-To set the discrete fill palette globally, use:\preformatted{options(basejump.fill.discrete = ggplot2::scale_fill_viridis_d())
+To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
 }}
 
 \item{flip}{\code{logical(1)}.

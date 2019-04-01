@@ -1,6 +1,7 @@
 #' @name plotCountsPerBiotype
 #' @author Michael Steinbaugh, Rory Kirchner
-#' @inherit bioverbs::plotCountsPerBiotype
+#' @importMethodsFrom minimalism plotCountsPerBiotype
+#' @inherit minimalism::plotCountsPerBiotype
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -60,7 +61,7 @@ f1 <- formals(plotCountsPerBiotype.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCountsPerBiotype",
     signature = "SummarizedExperiment",
-    package = "basejump"
+    package = "minimalism"
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
@@ -118,7 +119,7 @@ f1 <- formals(plotCountsPerBroadClass.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCountsPerBroadClass",
     signature = "SummarizedExperiment",
-    package = "basejump"
+    package = "minimalism"
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)

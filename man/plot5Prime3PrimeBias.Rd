@@ -7,9 +7,8 @@
 \title{Plot 5' to 3' bias}
 \usage{
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object,
-  interestingGroups = NULL,
-  color = getOption("basejump.color.discrete", default = NULL),
-  flip = getOption("basejump.flip", default = TRUE),
+  interestingGroups = NULL, color = getOption("acid.color.discrete",
+  default = NULL), flip = getOption("acid.flip", default = TRUE),
   title = "5'->3' bias")
 }
 \arguments{
@@ -24,7 +23,7 @@ Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
 the default ggplot2 color palette will be used. If manual color definitions
 are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
 
-To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
+To set the discrete color palette globally, use:\preformatted{options(acid.color.discrete = ggplot2::scale_color_viridis_d())
 }}
 
 \item{flip}{\code{logical(1)}.

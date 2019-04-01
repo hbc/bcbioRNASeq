@@ -1,8 +1,3 @@
-# FIXME plot exonic, intronic, intergenic rates
-# Show this similar to qualimap
-
-
-
 #' @name plotMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotMappingRate
@@ -73,7 +68,7 @@ plotMappingRate.bcbioRNASeq <-  # nolint
                 limit <- limit * 100L
             }
             if (limit < 100L) {
-                p <- p + basejump_geom_abline(yintercept = limit)
+                p <- p + acid_geom_abline(yintercept = limit)
             }
         }
 

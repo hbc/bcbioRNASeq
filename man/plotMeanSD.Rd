@@ -7,7 +7,7 @@
 \title{Plot row standard deviations vs. row means}
 \usage{
 \S4method{plotMeanSD}{bcbioRNASeq}(object,
-  legend = getOption("basejump.legend", default = TRUE))
+  legend = getOption("acid.legend", default = TRUE))
 }
 \arguments{
 \item{object}{Object.}

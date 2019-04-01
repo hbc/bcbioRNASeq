@@ -16,17 +16,16 @@
 #'   mcols mcols<- metadata metadata<- na.omit
 #' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
-#' @importFrom basejump Gene2Symbol Tx2Gene basejump_geom_abline
-#'   basejump_geom_label basejump_geom_label_repel camel coerceS4ToList
-#'   convertGenesToSymbols detectLanes detectOrganism emptyRanges import initDir
-#'   interestingGroups interestingGroups<- lanePattern makeGRangesFromEnsembl
-#'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
-#'   markdownHeader markdownList markdownPlotlist matchArgsToDoCall
-#'   matchInterestingGroups matchesGene2Symbol meltCounts methodFormals metrics
-#'   organism plotGenesDetected plotHeatmap prepareTemplate printString realpath
-#'   relevelColData relevelRowRanges removeNA sampleData sampleData<- separator
-#'   showSlotInfo snake standardizeCall stripTranscriptVersions
-#'   uniteInterestingGroups
+#' @importFrom basejump Gene2Symbol Tx2Gene camel coerceS4ToList
+#'   convertGenesToSymbols detectLanes detectOrganism emptyRanges formalsList
+#'   import initDir interestingGroups interestingGroups<- lanePattern
+#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
+#'   markdownPlotlist matchArgsToDoCall matchInterestingGroups
+#'   matchesGene2Symbol meltCounts methodFormals metrics organism
+#'   prepareTemplate printString realpath relevelColData relevelRowRanges
+#'   removeNA sampleData sampleData<- separator showSlotInfo snake
+#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML metadataBlacklist projectDir projectDirPattern
 #'   readDataVersions readProgramVersions readSampleData readTx2Gene runDate
@@ -36,6 +35,7 @@
 #'   mutate mutate_all mutate_if pull rename row_number select select_if
 #'   starts_with ungroup
 #' @importFrom edgeR DGEList calcNormFactors cpm
+#' @importFrom firestarter plotCorrelationHeatmap plotHeatmap
 #' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
 #'   element_blank element_text expand_limits facet_wrap geom_bar geom_boxplot
 #'   geom_density geom_hline geom_jitter geom_point geom_polygon geom_ribbon
@@ -55,6 +55,8 @@
 #' @importFrom matrixStats colMedians
 #' @importFrom methods as as<- is new setAs setClass show slot slot<-
 #'   validObject .hasSlot
+#' @importFrom minimalism acid_geom_abline acid_geom_label acid_geom_label_repel
+#'   plotGenesDetected plotPCA
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom rlang !! !!! := UQ sym syms
 #' @importFrom scales pretty_breaks

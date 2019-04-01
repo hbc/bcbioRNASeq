@@ -1,7 +1,7 @@
 #' @name plotPCA
 #' @author Michael Steinbaugh
-#' @importMethodsFrom basejump plotPCA
-#' @inherit basejump::plotPCA
+#' @importMethodsFrom minimalism plotPCA
+#' @inherit minimalism::plotPCA
 #' @inheritParams params
 #' @examples
 #' data(bcb)
@@ -38,7 +38,7 @@ f1 <- formals(plotPCA.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotPCA",
     signature = "SummarizedExperiment",
-    package = "basejump"
+    package = "minimalism"
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)

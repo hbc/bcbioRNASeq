@@ -8,5 +8,5 @@ invisible(lapply(
             )
         }
     },
-    url = bcbioRNASeqCacheURL
+    url = bcbioRNASeqTestsURL
 ))

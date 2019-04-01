@@ -22,11 +22,11 @@
 #'
 #' The samples in the bcbio run must map to the `description` column. The values
 #' provided in `description` must be unique. These values will be sanitized into
-#' syntactically valid names (see `basejump::makeNames` for more information),
-#' and assigned as the column names of the `bcbioRNASeq` object. The original
-#' values are stored as the `sampleName` column in `colData`, and are used for
-#' all plotting functions. Do not attempt to set a `sampleID` column, as this is
-#' used internally by the package.
+#' syntactically valid names (see [`make.names`][base::make.names] for more
+#' information), and assigned as the column names of the `bcbioRNASeq` object.
+#' The original values are stored as the `sampleName` column in `colData`, and
+#' are used for all plotting functions. Do not attempt to set a `sampleID`
+#' column, as this is used internally by the package.
 #'
 #' Here is a minimal example of a properly formatted sample metadata file:
 #'

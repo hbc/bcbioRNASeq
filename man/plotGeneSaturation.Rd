@@ -8,8 +8,8 @@
 \usage{
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object,
   interestingGroups = NULL, minCounts = 1L, perMillion = TRUE,
-  trendline = FALSE, label = getOption("basejump.label", default =
-  FALSE), color = getOption("basejump.color.discrete", default = NULL),
+  trendline = FALSE, label = getOption("acid.label", default = FALSE),
+  color = getOption("acid.color.discrete", default = NULL),
   title = "gene saturation")
 }
 \arguments{
@@ -36,7 +36,7 @@ Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
 the default ggplot2 color palette will be used. If manual color definitions
 are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
 
-To set the discrete color palette globally, use:\preformatted{options(basejump.color.discrete = ggplot2::scale_color_viridis_d())
+To set the discrete color palette globally, use:\preformatted{options(acid.color.discrete = ggplot2::scale_color_viridis_d())
 }}
 
 \item{title}{\code{character(1)}.
