@@ -19,7 +19,8 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2019-03-29
+# Last modified 2019-04-03
+library(basejump)
 library(bcbioRNASeq)
 library(ggplot2)
 prepareRNASeqTemplate()
