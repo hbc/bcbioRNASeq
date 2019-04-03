@@ -10,7 +10,7 @@ params:
   # The `name` param is only necessary when passing in object directly.
   # name: "object_name"
   
-  output_dir: !r file.path("results", Sys.Date(), "quality_control")
+  output_dir: !r file.path("results", Sys.Date(), "quality-control")
 
 title: "`r params$title`"
 author: "`r getOption('author')`"
