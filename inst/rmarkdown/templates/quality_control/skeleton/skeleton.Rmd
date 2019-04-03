@@ -5,7 +5,7 @@ params:
   # Use bcbioRNASeq object as input.
   # - Standard: Load saved object from file on disk, either RDS or RDA.
   # - Advanced: Loop across multiple objects using `rmarkdown::render()` call.
-  object: "rds/YYYY-MM-DD/bcb.rds"
+  object: "rds/2019-04-03/bcb.rds"
   
   # The `name` param is only necessary when passing in object directly.
   # name: "object_name"
@@ -33,6 +33,8 @@ source("_setup.R")
 ```{r header, child="_header.Rmd"}
 ```
 
+# Load bcbioRNASeq object
+
 ```{r object}
 if (is.character(params$object)) {
     if (fileExt(params$object) == "rds") {
@@ -56,9 +58,13 @@ print(object)
 
 [bcbio][] run data was imported from **`r metadata(object)$uploadDir`**.
 
+```{r interesting-groups}
+interestingGroups(object) <- c("compound", "otherTreatment")
+```
+
 # Sample metadata
 
-```{r sample_data}
+```{r sample-data}
 sampleData(object)
 ```
 
@@ -70,13 +76,13 @@ files <- export(object, name = name, dir = params$output_dir)
 
 These normalized matrices are suitable for comparison across samples, and to generate plots.
 
-- [`tpm.csv`]: Transcripts per million, scaled by length.
-- [`normalized.csv`]: DESeq2 size factor adjusted counts.
-- [`vst.csv`]: DESeq2 variance-stabilized counts (log2).
+- `tpm.csv`: Transcripts per million, scaled by length.
+- `normalized.csv`: DESeq2 size factor adjusted counts.
+- `vst.csv`: DESeq2 variance-stabilized counts (log2).
 
 Only use the raw counts to perform a new differential expression analysis. These are *not suitable* for plots.
 
-- [`counts.csv`]: Raw counts. These counts will vary across samples due to differences in sequencing depth, and are not size factor adjusted.
+- `counts.csv`: Raw counts. These counts will vary across samples due to differences in sequencing depth, and are not size factor adjusted.
 
 # Read metrics {.tabset}
 
@@ -84,7 +90,7 @@ Only use the raw counts to perform a new differential expression analysis. These
 
 High quality RNA-seq samples ideally should have at least 10 million reads per sample.
 
-```{r plot_total_reads}
+```{r plot-total-reads}
 plotTotalReads(object)
 ```
 
@@ -92,7 +98,7 @@ plotTotalReads(object)
 
 The number of mapped reads should correspond to the number of total reads.
 
-```{r plot_mapped_reads}
+```{r plot-mapped-reads}
 plotMappedReads(object)
 ```
 
@@ -100,13 +106,13 @@ plotMappedReads(object)
 
 The genomic mapping rate represents the percentage of reads mapping to the reference genome. Low mapping rates are indicative of sample contamination, poor sequencing quality or other artifacts.
 
-```{r plot_mapping_rate}
+```{r plot-mapping-rate}
 plotMappingRate(object)
 ```
 
 ## Number of genes detected
 
-```{r plot_genes_detected}
+```{r plot-genes-detected}
 plotGenesDetected(object)
 ```
 
@@ -114,7 +120,7 @@ plotGenesDetected(object)
 
 We should observe a linear trend in the number of genes detected with the number of mapped reads, which indicates that the sample input was not overloaded.
 
-```{r plot_gene_saturation}
+```{r plot-gene-saturation}
 plotGeneSaturation(object, label = FALSE)
 plotGeneSaturation(object, label = TRUE)
 ```
@@ -123,7 +129,7 @@ plotGeneSaturation(object, label = TRUE)
 
 Ideally, at least 60% of total reads should map to exons.
 
-```{r plot_exonic_mapping_rate}
+```{r plot-exonic-mapping-rate}
 plotExonicMappingRate(object)
 ```
 
@@ -131,7 +137,7 @@ plotExonicMappingRate(object)
 
 The majority of reads should map to exons and not introns.
 
-```{r plot_intronic_mapping_rate}
+```{r plot-intronic-mapping-rate}
 plotIntronicMappingRate(object)
 ```
 
@@ -139,7 +145,7 @@ plotIntronicMappingRate(object)
 
 Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 
-```{r plot_rrna_mapping_rate}
+```{r plot-rrna-mapping-rate}
 plotRRNAMappingRate(object)
 ```
 
@@ -147,7 +153,7 @@ plotRRNAMappingRate(object)
 
 RNA-seq data can have specific biases at either the 5’ or 3’ end of sequenced fragments. It is common to see a small amount of bias, especially if polyA enrichment was performed, or if there is any sample degradation. If a large amount of bias is observed here, be sure to analyze the samples with a Bioanalyzer and check the RIN scores.
 
-```{r plot_5prime_3prime_bias}
+```{r plot-5prime-3prime-bias}
 plot5Prime3PrimeBias(object)
 ```
 
@@ -157,7 +163,7 @@ Generally, we expect similar count spreads for all genes between samples unless 
 
 We recommend visualizing counts normalized with the Trimmed Mean of M-Values (TMM) method here [@Robinson2010-np]. TMM normalization equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the TMM-normalized counts per gene to be similar for every sample.
 
-```{r plot_counts_per_gene}
+```{r plot-counts-per-gene}
 plotCountsPerGene(object, normalized = "tmm", geom = "boxplot")
 plotCountsPerGene(object, normalized = "tmm", geom = "density")
 ```
@@ -166,7 +172,7 @@ plotCountsPerGene(object, normalized = "tmm", geom = "density")
 
 Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA.
 
-```{r plot_counts_per_biotype}
+```{r plot-counts-per-biotype}
 plotCountsPerBiotype(object) +
     theme(legend.position = "bottom")
 ```
@@ -175,7 +181,7 @@ plotCountsPerBiotype(object) +
 
 The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes.
 
-```{r plot_counts_per_broad_class}
+```{r plot-counts-per-broad-class}
 plotCountsPerBroadClass(object) +
     theme(legend.position = "bottom")
 ```
@@ -184,7 +190,7 @@ plotCountsPerBroadClass(object) +
 
 These plots show the standard deviation of normalized counts using `log2()`, `varianceStabilizingTransform()`, `rlog()`, and `tmm()` by `rank(mean)`. Note that all counts shown are log2 scale.
 
-```{r plot_mean_sd}
+```{r plot-mean-sd}
 plotMeanSD(object)
 ```
 
@@ -196,7 +202,7 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 
 PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
 
-```{r plot_pca}
+```{r plot-pca}
 plotPCA(object, label = FALSE)
 plotPCA(object, label = TRUE)
 ```
@@ -205,7 +211,7 @@ plotPCA(object, label = TRUE)
 
 Inter-correlation analysis (ICA) is another way to look at how well samples cluster by plotting the correlation between the expression profiles of the samples.
 
-```{r plot_correlation_heatmap}
+```{r plot-correlation-heatmap}
 plotCorrelationHeatmap(object)
 ```
 
