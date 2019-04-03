@@ -53,7 +53,7 @@ We have designed the constructor to work as simply as possible by default. The o
 For example, let's load up the example bcbio dataset stored internally in the package.
 
 ```{r}
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
+uploadDir <- system.file("extdata", "bcbio", package = "bcbioRNASeq")
 stopifnot(file.exists(uploadDir))
 ```
 
