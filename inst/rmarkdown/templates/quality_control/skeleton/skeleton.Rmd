@@ -1,17 +1,9 @@
 ---
 params:
   title: "Quality Control"
-  
-  # Use bcbioRNASeq object as input.
-  # - Standard: Load saved object from file on disk, either RDS or RDA.
-  # - Advanced: Loop across multiple objects using `rmarkdown::render()` call.
-  object: "rds/2019-04-03/bcb.rds"
-  
-  # The `name` param is only necessary when passing in object directly.
-  # name: "object_name"
-  
+  # Use saved bcbioRNASeq object file as input.
+  object: "rds/YYYY-MM-DD/bcbiornaseq.rds"
   output_dir: !r file.path("results", Sys.Date(), "quality-control")
-
 title: "`r params$title`"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
@@ -19,11 +11,11 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2019-04-03
+# Last modified 2019-04-04
 library(basejump)
 library(bcbioRNASeq)
 library(ggplot2)
-prepareRNASeqTemplate()
+bcbioRNASeq::prepareRNASeqTemplate()
 source("_setup.R")
 ```
 
@@ -36,17 +28,13 @@ source("_setup.R")
 # Load bcbioRNASeq object
 
 ```{r object}
-if (is.character(params$object)) {
-    if (fileExt(params$object) == "rds") {
-        object <- readRDS(file = params$object)
-        name <- basenameSansExt(params$object)
-    } else if (fileExt(params$object) == "rda") {
-        name <- load(params$object)
-        object <- get(name, inherits = FALSE)
-    }
-} else {
-    object <- params$object
-    name <- params$name
+stopifnot(file.exists(params$object))
+if (fileExt(params$object) == "rds") {
+    object <- readRDS(file = params$object)
+    name <- basenameSansExt(params$object)
+} else if (fileExt(params$object) == "rda") {
+    name <- load(file = params$object)
+    object <- get(x = name, inherits = FALSE)
 }
 stopifnot(
     is(object, "bcbioRNASeq"),
@@ -71,7 +59,12 @@ sampleData(object)
 # Export results
 
 ```{r export}
-files <- export(object, name = name, dir = params$output_dir)
+files <- export(
+    x = object,
+    name = name,
+    dir = params$output_dir,
+    compress = FALSE
+)
 ```
 
 These normalized matrices are suitable for comparison across samples, and to generate plots.
