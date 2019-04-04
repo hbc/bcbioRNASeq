@@ -4,6 +4,7 @@ params:
   # Use saved bcbioRNASeq object file as input.
   object: "rds/YYYY-MM-DD/bcbiornaseq.rds"
   output_dir: !r file.path("results", Sys.Date(), "quality-control")
+
 title: "`r params$title`"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
