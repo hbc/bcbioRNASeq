@@ -22,6 +22,12 @@ abstract: >
 ```{r setup, include=FALSE, message=FALSE}
 ggplot2::theme_set(minimalism::theme_paperwhite())
 knitr::opts_chunk$set(message = FALSE)
+
+# Failed attempt at pkgdown fix here.
+library(bioverbs)
+library(brio)
+library(basejump)
+library(SummarizedExperiment)
 ```
 
 # Introduction
