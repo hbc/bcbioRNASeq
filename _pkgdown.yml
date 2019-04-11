@@ -26,31 +26,34 @@ authors:
   Harvard Chan Bioinformatics Core:
     href: https://bioinformatics.sph.harvard.edu/
 
+news:
+  - one_page: false
+
 reference:
   - title: S4 classes
     contents:
-    - ends_with("-class")
-    - coerce
-    - extract
-    - show
-    - updateObject
+      - ends_with("-class")
+      - coerce
+      - extract
+      - show
+      - updateObject
   - title: Counts
     contents:
-    - counts
-    - relativeLogExpression
-    - tmm
+      - counts
+      - relativeLogExpression
+      - tmm
   - title: Metadata
     contents:
-    - sampleData
+      - sampleData
   - title: Plots
     contents:
-    - starts_with("plot")
+      - starts_with("plot")
   - title: Miscellaneous
     contents:
-    - prepareRNASeqTemplate
+      - prepareRNASeqTemplate
   - title: Example data
     contents:
-    - bcb
+      - bcb
   - title: Reexports
     contents:
-    - reexports
+      - reexports
