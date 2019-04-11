@@ -14,11 +14,11 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2019-04-04
+# Last modified 2019-04-10
 library(basejump)
 library(bcbioRNASeq)
 library(ggplot2)
-bcbioRNASeq::prepareRNASeqTemplate()
+prepareRNASeqTemplate()
 source("_setup.R")
 ```
 
