@@ -6,19 +6,54 @@
   template get reexported.
 - Renamed R Markdown template files and `travis-render.sh` script into kebab
   case, rather than snake case.
-- Documentation improvements.
+- Documentation improvements (using `inheritParams`).
 
 
 
 ## bcbioRNASeq 0.3.14 (2019-04-01)
 
+Moved forked development repository to [Acid Genomics][].
+
+### Major changes
+
+- Switched unit testing data URL from seq.cloud to acidgenomics.com.
+
+### Minor changes
+
+- Reworked internal reexports for assignment generics. See `counts` for example.
+- Miscellaneous documentation improvements.
+- Switched from `basejump` prefix to `acid`, where applicable.
+- Reexported essential functions from basejump required for QC template to
+  render without basejump being attached.
 
 
-## bcbioRNASeq 0.3.13
+
+## bcbioRNASeq 0.3.13 (2019-03-29)
+
+### Minor changes
+
+- Added additional checks to `bcbioRNASeq` validity method.
+- Draft update to quality control template, to support parameterized
+  `bcbioRNASeq` object input. This is likely not necessary and will be removed
+  in a future update.
+- Added additional checks for `bcbioRNASeq` to `DESeqDataSet` coercion.
+- Improved internal `perMillion` argument code handling inside plotting
+  functions: `plotMappedReads`, `plotTotalReads`.
+- Removed `reexports.R`. No longer reexporting `Gene2Symbol` or magrittr pipe.
 
 
+## bcbioRNASeq 0.3.12 (2019-03-18)
 
-## bcbioRNASeq 0.3.12
+### Major changes
+
+- `sampleData`: Moved method support to [basejump][] package.
+
+### Minor changes
+
+- Resaved example data.
+- Sample metadata chunk in quality control template now returns `DataFrame`.
+- Improved some deprecation messages.
+- CI configuration improvements.
 
 
 
@@ -35,25 +70,89 @@
 
 ## bcbioRNASeq 0.3.10 (2019-02-01)
 
+### Minor changes
+
+- Travis CI build configuration and documentation fixes.
+
 
 
 ## bcbioRNASeq 0.3.9 (2019-01-23)
+
+### Minor changes
+
+- Bug fixes for `interestingGroups` handling in plotting functions. Needed
+  to add back an `interestingGroups<-` assignment call to slot the object.
+- Removed `sanitizeRowData` and `sanitizeSampleData` from imports.
 
 
 
 ## bcbioRNASeq 0.3.8 (2019-01-17)
 
+### Minor changes
+
+- `.tximport`: Use `makeNames` to check for valid names internally.
+- Removed FIXME comment and improved documentation.
+- Travis CI configuration fixes to get build checks to pass.
+
 
 
 ## bcbioRNASeq 0.3.7 (2019-01-13)
+
+### Major changes
+
+- Overhauled validity method for `bcbioRNASeq`. Improved check steps using `ok`
+  method, similar to approach in [goalie][].
+- Added back `plotPCACovariates` method support.
+
+### Minor changes
+
+- Updated pkgdown configuration. Removed `alphaSummary`, `contrastName`,
+  `export`, `markdown`, `sampleData`, `topTables`
+- [goalie][] package has been updated to support `nullOK` mode where applicable.
+  This is particularly use for formals that use `NULL` by default. See
+  `bcbioRNASeq` generator changes, for example.
+- `prepareRNASeqTemplate` example is causing build checks to fail, so disable.
+- Improved CI configuration.
 
 
 
 ## bcbioRNASeq 0.3.6 (2018-12-12)
 
+This is the first release that switched over to using [goalie][] for assert
+checks instead of [assertive][].
+
+### Major changes
+
+- `bcbioRNASeq` generator has been overhauled to use `assert` for assert checks.
+
+### Minor changes
+
+- Ensure title is quoted in R Markdown.
+- Switched to using `validate` in place of `validate_that` in validity checks.
+- Miscellaneous documentation improvements.
+- Now using `match.arg` internally to check validity of `countsFromAbundance`
+  argument passthrough to `tximport`.
+
 
 
 ## bcbioRNASeq 0.3.5 (2018-12-01)
+
+### Major changes
+
+- Added additional improvements to quality control template. Ensuring that setup
+  chunk never caches. bcbioRNASeq object should be called using
+  `params$object_file`. This convention will be used across all other bcbio R
+  packages. Reworked and simplified `plotCountsPerGene` section of QC template.
+
+### Minor changes
+
+- Added early return method for objects without modification extract method.
+  Might want to reconsider this approach if the user just wants to reorder
+  samples. We're checking for unmodified return by looking for identical
+  raw counts matrix before and after extraction call.
+- `plotCountsPerBiotype`: Ensure `normalized` argument uses "tpm" first.
+- `plotDispEsts`: Switch to using `hasUniqueCols` internally instead of
+  `areSamplesUnique`.
 
 
 
