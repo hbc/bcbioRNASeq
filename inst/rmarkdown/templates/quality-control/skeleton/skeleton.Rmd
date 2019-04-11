@@ -1,8 +1,10 @@
 ---
 params:
   title: "Quality Control"
+  
   # Use saved bcbioRNASeq object file as input.
-  object: "rds/YYYY-MM-DD/bcbiornaseq.rds"
+  object: "rds/YYYY-MM-DD/object.rds"
+  
   output_dir: !r file.path("results", Sys.Date(), "quality-control")
 
 title: "`r params$title`"
