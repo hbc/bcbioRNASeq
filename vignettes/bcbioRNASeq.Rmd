@@ -107,12 +107,7 @@ bcb <- bcbioRNASeq(
     uploadDir = uploadDir,
     sampleMetadataFile = sampleMetadataFile
 )
-
-# FIXME This step causes pkgdown to error.
-# https://github.com/r-lib/pkgdown/issues/666
-# pkgdown can't locate the `sampleData()` generic correctly.
-
-sampleData(bcb)
+print(bcb)
 ```
 
 ## Genome annotations
