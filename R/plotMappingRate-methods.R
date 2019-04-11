@@ -1,8 +1,11 @@
 #' @name plotMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
 #' @inherit bioverbs::plotMappingRate
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#'
 #' @examples
 #' data(bcb)
 #' plotMappingRate(bcb)

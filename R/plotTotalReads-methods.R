@@ -1,6 +1,7 @@
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotTotalReads
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples

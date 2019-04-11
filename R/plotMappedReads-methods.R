@@ -1,8 +1,11 @@
 #' @name plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
+#'
 #' @inherit bioverbs::plotMappedReads
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#'
 #' @examples
 #' data(bcb)
 #' plotMappedReads(bcb)

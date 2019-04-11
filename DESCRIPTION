@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.3.14
-Date: 2019-03-28
+Version: 0.3.15
+Date: 2019-04-11
 Authors@R: c(
     person(
         given = "Michael",
@@ -102,7 +102,7 @@ Encoding: UTF-8
 LazyData: false
 Depends: R (>= 3.4), SummarizedExperiment
 Imports:
-    basejump (>= 0.10), bcbioBase (>= 0.6), bioverbs (>= 0.1.10),
+    basejump (>= 0.10.3), bcbioBase (>= 0.6), bioverbs (>= 0.1.10),
         firestarter (>= 0.1), goalie (>= 0.2.12), minimalism (>= 0.1),
     BiocGenerics, DEGreport, DESeq2, GenomicFeatures, S4Vectors, edgeR,
         tximport, vsn,

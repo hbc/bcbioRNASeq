@@ -101,7 +101,7 @@ When loading a [bcbio][] RNA-seq run, the sample metadata will be imported autom
 
 #### Metadata file example
 
-The samples in the [bcbio][] run must map to the `description` column. The values provided in `description` must be unique. These values will be sanitized into syntactically valid names (see `help("makeNames", "basejump")`), and assigned as the column names of the `bcbioRNASeq` object. The original values are stored as the `sampleName` column in `colData()`, and are used for all plotting functions.
+The samples in the [bcbio][] run must map to the `description` column. The values provided in `description` must be unique. These values will be sanitized into syntactically valid names (see `help("make.names")`), and assigned as the column names of the `bcbioRNASeq` object. The original values are stored as the `sampleName` column in `colData()`, and are used for all plotting functions.
 
 | description | genotype |
 |-------------|----------|
@@ -112,15 +112,7 @@ The samples in the [bcbio][] run must map to the `description` column. The value
 
 ## [R Markdown][] templates
 
-This package provides multiple [R Markdown][] templates, including quality control, differential expression using [DESeq2][], and functional enrichment analysis.
-
-These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
-
-### Example reports
-
-- [Quality Control](http://bcb.io/bcbio_rnaseq_output_example/qc-master.html)
-- [Differential Expression](http://bcb.io/bcbio_rnaseq_output_example/de-master.html)
-- [Functional Analysis](http://bcb.io/bcbio_rnaseq_output_example/fa-master.html)
+The package provides multiple [R Markdown][] templates, including quality control, differential expression using [DESeq2][], and functional enrichment analysis. These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
 
 ## References
 

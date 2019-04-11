@@ -1,12 +1,14 @@
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
+#'
 #' @inherit bioverbs::plotMeanSD
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @inheritParams bcbioRNASeq
 #'
 #' @details
-#' `vsn::meanSdPlot` wrapper that plots count transformations on a log2 scale.
+#' `vsn::meanSdPlot()` wrapper that plots count transformations on a log2 scale.
 #'
 #' - DESeq2 log2: log2 size factor-adjusted normalized counts.
 #' - DESeq2 rlog: **r**egularized **log** transformation.

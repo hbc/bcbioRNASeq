@@ -2,6 +2,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @importMethodsFrom minimalism plotCountsPerBiotype
 #' @inherit minimalism::plotCountsPerBiotype
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples

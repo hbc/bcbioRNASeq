@@ -2,7 +2,9 @@
 #'
 #' @name plotDispEsts
 #' @author Michael Steinbaugh
+#'
 #' @inherit DESeq2::plotDispEsts
+#' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'

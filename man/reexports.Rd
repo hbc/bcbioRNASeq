@@ -15,6 +15,7 @@
 \name{reexports}
 \alias{reexports}
 \alias{sampleData}
+\alias{basenameSansExt}
 \alias{export}
 \alias{import}
 \alias{interestingGroups}
@@ -35,7 +36,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{basejump}{\code{\link[basejump]{sampleData}}, \code{\link[basejump]{export}}, \code{\link[basejump]{import}}, \code{\link[basejump]{interestingGroups}}, \code{\link[basejump]{loadData}}, \code{\link[basejump]{loadRemoteData}}, \code{\link[basejump]{pasteURL}}, \code{\link[basejump]{sampleData}}, \code{\link[basejump]{saveData}}}
+  \item{basejump}{\code{\link[basejump]{sampleData}}, \code{\link[basejump]{basenameSansExt}}, \code{\link[basejump]{export}}, \code{\link[basejump]{import}}, \code{\link[basejump]{interestingGroups}}, \code{\link[basejump]{loadData}}, \code{\link[basejump]{loadRemoteData}}, \code{\link[basejump]{pasteURL}}, \code{\link[basejump]{sampleData}}, \code{\link[basejump]{saveData}}}
 
   \item{BiocGenerics}{\code{\link[BiocGenerics]{counts}}, \code{\link[BiocGenerics]{plotDispEsts}}, \code{\link[BiocGenerics]{plotPCA}}, \code{\link[BiocGenerics]{updateObject}}}
 

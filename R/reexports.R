@@ -1,3 +1,7 @@
+#' @importFrom basejump basenameSansExt
+#' @export
+basejump::basenameSansExt
+
 #' @importFrom basejump export
 #' @export
 basejump::export

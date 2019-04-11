@@ -123,6 +123,7 @@
 #'
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
+#' @inheritParams basejump::makeSummarizedExperiment
 #' @inheritParams basejump::params
 #' @inheritParams bcbioBase::params
 #' @inheritParams params
