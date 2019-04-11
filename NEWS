@@ -75,6 +75,96 @@
 
 ## bcbioRNASeq 0.3.0 (2018-11-06)
 
+Development fork of `hbc/bcbioRNASeq`. Code development will proceed here on the
+fork until a stable release is ready to merge back at official HBC repo, to
+avoid any disruption for active RNA-seq experiments.
+
+### New S4 classes
+
+- Added new `DESeqAnalysis` S4 class, which helps containerize up a DESeq2
+  analysis, often requiring corresponding `DESeqDataSet`, `DESeqTransform`, and
+  `DESeqResults` objects. Note that this class may be defined in a separate
+  package in a future update.
+
+### Code migration to basejump
+
+- `aggregateReplicates` has moved to [basejump][], and now works primarily on
+  `SummarizedExperiment` method, instead of `bcbioRNASeq`.
+- Offloaded a number of S4 generics to basejump infrastructure, which are now
+  defined in the [bioverbs][] package: `alphaSummary`, `contrastName`,
+  `plot5Prime3PrimeBias`, `plotCountDensity`, `plotCountsPerGene`,
+  `plotDEGHeatmap`, `plotDEGPCA`, `plotExonicMappingRate`, `plotGenderMarkers`,
+  `plotGeneSaturation`, `plotGenesDetected`, `plotIntronicMappingRate`.
+- `metrics` method, which returns a `tbl_df` of `colData`, has been moved to
+  basejump.
+- `plotCorrelationHeatmap` code is now primarily defined in basejump as a
+  `SummarizedExperiment` method. bcbioRNASeq now calls this method internally
+  but keeps support for `normalized` counts argument.
+
+### S4 method reworks
+
+- Reworked internal code, splitting out S4 methods into internal functions
+  (e.g. `counts.bcbioRNASeq`). This step is recommended by [Bioconductor][], and
+  can make troubleshooting easier.
+- `export`: Reworked S4 methods for `DESeqResults` and `DESeqResultsTables` S4
+  classes.
+- `extract` (i.e. `[`) method: Switched `transform` formal to `recalculate`.
+  Added additional assert checks. Operation no longer changes the saved
+  `version` of bcbioRNASeq, slotted into `metadata`.
+- `markdown`: Initial support of new S4 generic, which returns a markdown table
+  of sample metadata.
+- `plot5Prime3PrimeBias`: Added an addition grep matching step to handle
+  differential variations on the `x5x3Bias` column in `colData`.
+- `plotCountDensity` S4 method has been removed. Use `plotGeneSaturation`
+  generic with `geom = "density"` argument instead.
+- `plotCountsPerBiotype`: New S4 method support, which calls basejump
+  `SummarizedExperiment` method.
+- `plotDEGHeatmap`: Draft update of `DESeqResults` method.
+- `plotDEGPCA`: Draft update of `DESeqResults` method.
+
+### Example data reorganization
+
+- Renamed and simplified example datasets. Now only exporting `bcb`
+  (`bcbioRNASeq`) and `deseq` (`DESeqDataSet`) examples.
+- `bcb_small`, `dds_small`, `gender_markers`, and `res_small` have been removed.
+- Updated and consolidated corresponding `data-raw/` scripts.
+- Reworked internal `extdata/bcbio/` example datasets. Testing out both
+  `2017-05-23_rnaseq` and `2018-03-18_GSE67267-merged` data.
+
+### R Markdown templates
+
+- Stripped down supported R Markdown templates. Currently simplified code base
+  to support Quality Control markdown (`quality_control`). Differential
+  expression and functional analysis templates have been temporarily removed
+  but will be re-added in the future.
+
+### Minor changes
+
+- Reorganized S4 class definitions and validity checks in `AllClasses.R`.
+  Previously, this code was split out per S4 (e.g. `bcbioRNASeq-validity.R`).
+- Moved S4 coercion methods from `coerce-methods.R` to `as-methods.R`.
+- Added internal assert checks in `assert-internal.R`.
+- Consolidated internal DESeq2 code into `DESeq2-internal.R`.
+- Consolidated and defined additional global variables into `globals.R`.
+- Reorganized internal `.meltCounts` code.
+- Consolidated global package parameter arguments into `params.R`.
+- `bcbio` prefix has been renamed to `basejump`, where applicable. Refer to
+  global function params defined with `getOption`, and internal ggplot2 utility
+  functions, such as `basejump_geom_abline`.
+
+### Deprecations
+
+- Removed defunct `download` function.
+- New deprecations: `plotCountDensity`, `plotPCACovariates`, `resultsTables`.
+
+
+
+## bcbioRNASeq 0.2.8 (2019-01-28)
+
+- Handle correlation of PCA covariates when a numerical covariate has no
+  variation.
+- Handle `NA` in ribosomal RNA calculations.
+
 
 
 ## bcbioRNASeq 0.2.7 (2018-08-22)
@@ -710,7 +800,7 @@ Last set of code fixes before F1000v2 resubmission.
 
 [AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
 [AppVeyor CI]: https://ci.appveyor.com/
-[basejump]: https://steinbaugh.com/basejump/
+[basejump]: https://basejump.acidgenomics.com/
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen/
 [bcbioBase]: https://bioinformatics.sph.harvard.edu/bcbioBase/
 [bcbioRNASeq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
@@ -719,12 +809,13 @@ Last set of code fixes before F1000v2 resubmission.
 [bioconda]: https://bioconda.github.io/
 [Bioconductor]: https://bioconductor.org/
 [biomaRt]: https://bioconductor.org/packages/biomaRt/
+[bioverbs]: https://bioverbs.acidgenomics.com/
 [CHBUtils]: https://github.com/hbc/CHBUtils/
 [clusterProfiler]: https://bioconductor.org/packages/clusterProfiler/
 [covr]: https://github.com/jimhester/covr/
 [DEGreport]: https://bioconductor.org/packages/DEGreport/
 [DESeq2]: https://bioconductor.org/packages/DESeq2/
-[DESeqAnalysis]: http://steinbaugh.com/DESeqAnalysis/
+[DESeqAnalysis]: https://deseqanalysis.acidgenomcis.com/
 [dplyr]: https://dplyr.tidyverse.org/
 [Dropbox]: https://dropbox.com/
 [edgeR]: https://bioconductor.org/packages/edgeR/
