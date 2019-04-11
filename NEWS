@@ -6,6 +6,7 @@
   template get reexported.
 - Renamed R Markdown template files and `travis-render.sh` script into kebab
   case, rather than snake case.
+- Documentation improvements.
 
 
 
