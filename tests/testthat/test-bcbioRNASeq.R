@@ -138,7 +138,7 @@ test_that("bcbioRNASeq : Aligned counts", {
 # Testing both gene and transcript level.
 with_parameters_test_that(
     "bcbioRNASeq : GTF/GFF file", {
-        skip_on_travis()
+        skip_if_not(interactive())
         # GFF3 files are also supported, but we're only testing GTF here for
         # speed. This functionality is covered in basejump tests also.
         gtfURL <- paste(
