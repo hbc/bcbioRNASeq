@@ -17,3 +17,4 @@
 ^data-raw$
 ^docs$
 ^pkgdown$
+^travis-docker\.R$
