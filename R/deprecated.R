@@ -137,5 +137,15 @@ basejump::sampleData
 
 
 
+# v0.3.16 ======================================================================
+#' @rdname deprecated
+#' @export
+prepareRNASeqTemplate <- function(...) {
+    .Deprecated("prepareTemplate(package = \"bcbioRNASeq\")")
+    prepareTemplate(package = "bcbioRNASeq", ...)
+}
+
+
+
 # nolint end
 # nocov end
