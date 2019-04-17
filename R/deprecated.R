@@ -15,90 +15,6 @@ NULL
 
 
 
-# v0.0.25 ======================================================================
-#' @rdname deprecated
-#' @export
-plotGeneDetectionSaturation <- function(...) {
-    .Deprecated("plotGeneSaturation")
-    plotGeneSaturation(...)
-}
-
-#' @rdname deprecated
-#' @export
-plotDispersion <- function(...) {
-    .Deprecated("plotDispEsts")
-    plotDispEsts(...)
-}
-
-
-
-# v0.0.27 ======================================================================
-#' @rdname deprecated
-#' @export
-loadRNASeqRun <- function(...) {
-    .Deprecated("loadRNASeq")
-    loadRNASeq(...)
-}
-
-
-
-# v0.1.2 =======================================================================
-#' @rdname defunct
-#' @export
-plotGeneHeatmap <- function(...) {
-    .Defunct("plotHeatmap")
-}
-
-
-
-# v0.1.3 =======================================================================
-#' @rdname defunct
-#' @export
-txi <- function(...) {
-    .Defunct(paste(
-        "tximport list is no longer stored in bcbioRNASeq.",
-        "Use `as(bcb, \"DESeqDataSet\")` for DESeq2 handoff.",
-        sep = "\n"
-    ))
-}
-
-
-
-# v0.2.0 =======================================================================
-# `annotable()` deprecation for SummarizedExperiment added to bcbioBase v0.2.0.
-
-#' @rdname deprecated
-#' @export
-meltLog10 <- function(object, ...) {
-    .Defunct("meltCounts")
-}
-
-#' @rdname deprecated
-#' @export
-setMethod(
-    "design",
-    signature("bcbioRNASeq"),
-    function(object, ...) {
-        .Defunct(msg = "bcbioRNASeq no longer supports design formula.")
-    }
-)
-
-#' @rdname deprecated
-#' @importFrom BiocGenerics design<-
-#' @export
-setMethod(
-    "design<-",
-    signature(
-        object = "bcbioRNASeq",
-        value = "formula"
-    ),
-    function(object, ..., value) {
-        .Defunct(msg = "bcbioRNASeq no longer supports design formula.")
-    }
-)
-
-
-
 # v0.2.2 =======================================================================
 #' @rdname deprecated
 #' @export
@@ -120,8 +36,8 @@ plotCountDensity <- function(...) {
 #' @export
 resultsTables <- function(...) {
     .Defunct(msg = paste(
-        "resultsTables() code has moved to DESeqAnalysis package.",
-        "https://steinbaugh.com/DESeqAnalysis/",
+        "resultsTables approach has been reworked in DESeqAnalysis package.",
+        "https://deseqanalysis.acidgenomics.com/",
         sep = "\n"
     ))
 }

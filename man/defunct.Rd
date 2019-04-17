@@ -2,16 +2,10 @@
 % Please edit documentation in R/deprecated.R
 \name{defunct}
 \alias{defunct}
-\alias{plotGeneHeatmap}
-\alias{txi}
 \alias{plotCountDensity}
 \alias{resultsTables}
 \title{Defunct functions}
 \usage{
-plotGeneHeatmap(...)
-
-txi(...)
-
 plotCountDensity(...)
 
 resultsTables(...)
