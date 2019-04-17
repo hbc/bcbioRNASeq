@@ -1,6 +1,5 @@
 context("extract")
 
-object <- bcb
 nrow <- 50L
 ncol <- 2L
 

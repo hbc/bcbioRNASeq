@@ -1,7 +1,6 @@
 context("sampleData")
 
 test_that("Clean mode", {
-    object <- bcb
     x <- sampleData(object, clean = TRUE)
     # Require that all clean columns are factor.
     invisible(lapply(x, function(x) {
@@ -10,7 +9,6 @@ test_that("Clean mode", {
 })
 
 test_that("Verbose mode", {
-    object <- bcb
     x <- sampleData(object, clean = FALSE)
 
     # Return `interestingGroups` factor column by default.
@@ -25,7 +23,6 @@ test_that("Verbose mode", {
 })
 
 test_that("sampleData<-", {
-    object <- bcb
     sampleData(object)[["testthat"]] <- factor("XXX")
     expect_identical(
         object = levels(sampleData(object)[["testthat"]]),

@@ -8,7 +8,7 @@ with_parameters_test_that(
         )
     },
     object = list(
-        bcbioRNASeq = bcb,
-        matrix = assay(bcb)
+        bcbioRNASeq = object,
+        matrix = assay(object)
     )
 )

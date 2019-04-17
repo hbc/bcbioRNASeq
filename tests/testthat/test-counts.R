@@ -2,7 +2,6 @@ context("counts")
 
 with_parameters_test_that(
     "Slotted assays", {
-        object <- bcb
         # Check that all are matrices.
         expect_is(
             object = counts(object, normalized = normalized),
@@ -30,7 +29,6 @@ with_parameters_test_that(
 
 with_parameters_test_that(
     "On the fly assay calculations", {
-        object <- bcb
         expect_is(
             object = counts(object, normalized = normalized),
             class = "matrix"
@@ -42,7 +40,6 @@ with_parameters_test_that(
 
 with_parameters_test_that(
     "Skipped DESeq2 transforms", {
-        object <- bcb
         assays(object)[[normalized]] <- NULL
         expect_error(
             object = counts(object, normalized = normalized),

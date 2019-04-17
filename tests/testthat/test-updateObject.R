@@ -1,8 +1,10 @@
-test_that("updateObject", {
-    # Load a legacy object that doesn't contain rowRanges.
-    load("bcb_invalid.rda")
-    object <- bcb_invalid
+context("updateObject")
 
+# Load a legacy object that doesn't contain rowRanges.
+load("bcb_invalid.rda")
+object <- bcb_invalid
+
+test_that("updateObject", {
     expect_error(
         object = validObject(object),
         regexp = "rowRanges"

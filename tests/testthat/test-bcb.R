@@ -1,4 +1,4 @@
-context("data : bcb")
+context("bcb example dataset")
 
 with_parameters_test_that(
     "Assays", {

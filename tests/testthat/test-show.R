@@ -1,7 +1,5 @@
 context("show")
 
-object <- bcb
-
 test_that("bcbioRNASeq", {
     # Stash fake metadata for code coverage.
     metadata(object)[["sampleMetadataFile"]] <- "XXX"

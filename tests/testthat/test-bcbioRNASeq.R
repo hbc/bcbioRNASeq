@@ -1,4 +1,4 @@
-context("bcbioRNASeq : Generator")
+context("bcbioRNASeq")
 
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 organism <- "Mus musculus"
