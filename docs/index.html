@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.16</span>
       </span>
     </div>
 
@@ -124,22 +124,22 @@ BiocManager::<span class="kw"><a href="https://www.rdocumentation.org/packages/B
 <h2 class="hasAnchor">
 <a href="#load-bcbio-rna-seq-data" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq data</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bcbioRNASeq)
-bcb &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/bcbioRNASeq/topics/bcbioRNASeq-class">bcbioRNASeq</a></span>(
+bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(
     <span class="dt">uploadDir =</span> <span class="st">"bcbio_rnaseq_run/final"</span>,
     <span class="dt">interestingGroups =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),
     <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span>
 )
-<span class="kw">saveData</span>(bcb, <span class="dt">dir =</span> <span class="st">"."</span>)</code></pre>
-<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class. Consult the <code><a href="https://www.rdocumentation.org/packages/bcbioRNASeq/topics/bcbioRNASeq-class">bcbioRNASeq()</a></code> constructor function documentation for detailed information on the supported parameters:</p>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/brio/topics/saveData">saveData</a></span>(bcb, <span class="dt">dir =</span> <span class="st">"."</span>)</code></pre>
+<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> constructor function documentation for detailed information on the supported parameters:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/help">help</a></span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</code></pre>
 <div id="sample-metadata" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sample-metadata" class="anchor"></a>Sample metadata</h3>
-<p>When loading a <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq run, the sample metadata will be imported automatically from the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="https://www.rdocumentation.org/packages/bcbioRNASeq/topics/bcbioRNASeq-class">bcbioRNASeq()</a></code> using the <code>sampleMetadataFile</code> argument.</p>
+<p>When loading a <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq run, the sample metadata will be imported automatically from the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="reference/bcbioRNASeq-class.html">bcbioRNASeq()</a></code> using the <code>sampleMetadataFile</code> argument.</p>
 <div id="metadata-file-example" class="section level4">
 <h4 class="hasAnchor">
 <a href="#metadata-file-example" class="anchor"></a>Metadata file example</h4>
-<p>The samples in the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run must map to the <code>description</code> column. The values provided in <code>description</code> must be unique. These values will be sanitized into syntactically valid names (see <code><a href="https://www.rdocumentation.org/packages/utils/topics/help">help("makeNames", "basejump")</a></code>), and assigned as the column names of the <code>bcbioRNASeq</code> object. The original values are stored as the <code>sampleName</code> column in <code>colData()</code>, and are used for all plotting functions.</p>
+<p>The samples in the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run must map to the <code>description</code> column. The values provided in <code>description</code> must be unique. These values will be sanitized into syntactically valid names (see <code><a href="https://www.rdocumentation.org/packages/utils/topics/help">help("make.names")</a></code>), and assigned as the column names of the <code>bcbioRNASeq</code> object. The original values are stored as the <code>sampleName</code> column in <code>colData()</code>, and are used for all plotting functions.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">description</th>
@@ -170,17 +170,7 @@ bcb &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumen
 <div id="r-markdown-templates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-markdown-templates" class="anchor"></a><a href="http://rmarkdown.rstudio.com">R Markdown</a> templates</h2>
-<p>This package provides multiple <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates, including quality control, differential expression using <a href="https://doi.org/doi:10.18129/B9.bioc.DESeq2">DESeq2</a>, and functional enrichment analysis.</p>
-<p>These are available in <a href="https://www.rstudio.com">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
-<div id="example-reports" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-reports" class="anchor"></a>Example reports</h3>
-<ul>
-<li><a href="http://bcb.io/bcbio_rnaseq_output_example/qc-master.html">Quality Control</a></li>
-<li><a href="http://bcb.io/bcbio_rnaseq_output_example/de-master.html">Differential Expression</a></li>
-<li><a href="http://bcb.io/bcbio_rnaseq_output_example/fa-master.html">Functional Analysis</a></li>
-</ul>
-</div>
+<p>The package provides multiple <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates, including quality control, differential expression using <a href="https://doi.org/doi:10.18129/B9.bioc.DESeq2">DESeq2</a>, and functional enrichment analysis. These are available in <a href="https://www.rstudio.com">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">

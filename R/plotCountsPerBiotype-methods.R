@@ -12,15 +12,17 @@ NULL
 
 
 
+#' @rdname plotCountsPerBiotype
+#' @name plotCountsPerBiotype
 #' @importFrom bioverbs plotCountsPerBiotype
-#' @aliases NULL
 #' @export
-bioverbs::plotCountsPerBiotype
+NULL
 
+#' @rdname plotCountsPerBiotype
+#' @name plotCountsPerBroadClass
 #' @importFrom bioverbs plotCountsPerBroadClass
-#' @aliases NULL
 #' @export
-bioverbs::plotCountsPerBroadClass
+NULL
 
 
 

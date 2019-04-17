@@ -11,10 +11,11 @@ NULL
 
 
 
+#' @rdname plotTotalReads
+#' @name plotTotalReads
 #' @importFrom bioverbs plotTotalReads
-#' @aliases NULL
 #' @export
-bioverbs::plotTotalReads
+NULL
 
 
 

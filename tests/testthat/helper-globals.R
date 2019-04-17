@@ -1,13 +1,10 @@
+data(bcb, envir = environment())
+
+object <- bcb
+g2s <- Gene2Symbol(object)
+geneIDs <- head(g2s[["geneID"]])
+geneNames <- head(g2s[["geneName"]])
+
 # nolint start
-
-
-
-# bcbio default color palette support
-# options(
-#     bcbio.discrete.color = ggplot2::scale_color_viridis_d(),
-#     bcbio.discrete.fill = ggplot2::scale_fill_viridis_d()
-# )
-
-
-
+assay <- SummarizedExperiment::assay
 # nolint end

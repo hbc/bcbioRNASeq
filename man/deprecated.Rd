@@ -10,6 +10,7 @@
 \alias{design,bcbioRNASeq-method}
 \alias{design<-,bcbioRNASeq,formula-method}
 \alias{loadRNASeq}
+\alias{prepareRNASeqTemplate}
 \title{Deprecated functions}
 \usage{
 plotGeneDetectionSaturation(...)
@@ -25,6 +26,8 @@ meltLog10(object, ...)
 \S4method{design}{bcbioRNASeq,formula}(object, ...) <- value
 
 loadRNASeq(...)
+
+prepareRNASeqTemplate(...)
 }
 \arguments{
 \item{...}{Additional arguments.}

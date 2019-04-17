@@ -10,10 +10,11 @@ NULL
 
 
 
+#' @rdname tmm
+#' @name tmm
 #' @importFrom bioverbs tmm
-#' @aliases NULL
 #' @export
-bioverbs::tmm
+NULL
 
 
 

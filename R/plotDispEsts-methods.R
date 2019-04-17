@@ -17,7 +17,7 @@
 #'
 #' @param object Object.
 #'
-#' @seealso `DESeq2::plotDispEsts()`.
+#' @seealso [DESeq2::plotDispEsts()].
 #'
 #' @return `ggplot`.
 #'
@@ -36,10 +36,11 @@ NULL
 
 
 
+#' @rdname plotDispEsts
+#' @name plotDispEsts
 #' @importFrom BiocGenerics plotDispEsts
-#' @aliases NULL
 #' @export
-BiocGenerics::plotDispEsts
+NULL
 
 
 

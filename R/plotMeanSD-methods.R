@@ -29,10 +29,11 @@ NULL
 
 
 
+#' @rdname plotMeanSD
+#' @name plotMeanSD
 #' @importFrom bioverbs plotMeanSD
-#' @aliases NULL
 #' @export
-bioverbs::plotMeanSD
+NULL
 
 
 

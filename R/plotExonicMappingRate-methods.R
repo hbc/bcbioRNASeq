@@ -16,10 +16,11 @@ NULL
 
 
 
+#' @rdname plotExonicMappingRate
+#' @name plotExonicMappingRate
 #' @importFrom bioverbs plotExonicMappingRate
-#' @aliases NULL
 #' @export
-bioverbs::plotExonicMappingRate
+NULL
 
 
 

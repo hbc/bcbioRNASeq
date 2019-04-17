@@ -6,7 +6,7 @@ services:
 before_install:
   - docker pull acidgenomics/rnaseq
   - docker images
-  # Prevent BiocCheck > checkCodingPractice > checkLogicalUseFiles error
+  # Prevent BiocCheck > checkCodingPractice > checkLogicalUseFiles error.
   - touch inst/rmarkdown/templates/quality-control/skeleton/_{footer,header,links}.Rmd
 
 script:

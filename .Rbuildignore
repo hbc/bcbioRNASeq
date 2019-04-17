@@ -1,11 +1,9 @@
-^Meta$
-^doc$
 ^.*\.Rproj$
 ^.*\.enc$
 ^.*\.gz$
 ^.*\.pdf$
-^.*\.sh$
 ^CONTRIBUTING\.md$
+^Meta$
 ^\.Rprofile$
 ^\.Rproj\.user$
 ^\.git$
@@ -15,6 +13,8 @@
 ^_pkgdown\.yml$
 ^appveyor\.yml$
 ^data-raw$
+^doc$
 ^docs$
 ^pkgdown$
 ^travis-docker\.R$
+^travis-render\.sh$

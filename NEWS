@@ -1,3 +1,12 @@
+## bcbioRNASeq 0.3.16 (2019-04-17)
+
+### Minor changes
+
+- Tweaks to quality control template.
+- Switched Travis CI configuration to use `rnaseq` Docker image.
+
+
+
 ## bcbioRNASeq 0.3.15 (2019-04-11)
 
 ### Minor changes

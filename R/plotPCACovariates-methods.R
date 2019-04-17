@@ -19,10 +19,11 @@ NULL
 
 
 
+#' @rdname plotPCACovariates
+#' @name plotPCACovariates
 #' @importFrom bioverbs plotPCACovariates
-#' @aliases NULL
 #' @export
-bioverbs::plotPCACovariates
+NULL
 
 
 

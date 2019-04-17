@@ -15,15 +15,14 @@ branches:
 
 environment:
   global:
-    _R_CHECK_FORCE_SUGGESTS_: false
     GCC_PATH: mingw_64
     R_ARCH: x64
     USE_RTOOLS: true
   matrix:
     - R_VERSION: patched
       BIOC_USE_DEVEL: "FALSE"
-    # - R_VERSION: devel
-    #   BIOC_USE_DEVEL: "TRUE"
+    - R_VERSION: devel
+      BIOC_USE_DEVEL: "TRUE"
 
 matrix:
   allow_failures:

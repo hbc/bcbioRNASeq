@@ -12,10 +12,11 @@ NULL
 
 
 
+#' @rdname plotCorrelationHeatmap
+#' @name plotCorrelationHeatmap
 #' @importFrom bioverbs plotCorrelationHeatmap
-#' @aliases NULL
 #' @export
-bioverbs::plotCorrelationHeatmap
+NULL
 
 
 
