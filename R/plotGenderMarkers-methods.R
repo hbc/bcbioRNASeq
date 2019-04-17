@@ -14,10 +14,11 @@ NULL
 
 
 
+#' @rdname plotGenderMarkers
+#' @name plotGenderMarkers
 #' @importFrom bioverbs plotGenderMarkers
-#' @aliases NULL
 #' @export
-bioverbs::plotGenderMarkers
+NULL
 
 
 

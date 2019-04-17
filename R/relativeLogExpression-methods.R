@@ -9,10 +9,11 @@ NULL
 
 
 
+#' @rdname relativeLogExpression
+#' @name relativeLogExpression
 #' @importFrom bioverbs relativeLogExpression
-#' @aliases NULL
 #' @export
-bioverbs::relativeLogExpression
+NULL
 
 
 

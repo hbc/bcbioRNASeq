@@ -13,10 +13,11 @@ NULL
 
 
 
+#' @rdname plotMappingRate
+#' @name plotMappingRate
 #' @importFrom bioverbs plotMappingRate
-#' @aliases NULL
 #' @export
-bioverbs::plotMappingRate
+NULL
 
 
 

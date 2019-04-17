@@ -11,10 +11,11 @@ NULL
 
 
 
+#' @rdname plot5Prime3PrimeBias
+#' @name plot5Prime3PrimeBias
 #' @importFrom bioverbs plot5Prime3PrimeBias
-#' @aliases NULL
 #' @export
-bioverbs::plot5Prime3PrimeBias
+NULL
 
 
 

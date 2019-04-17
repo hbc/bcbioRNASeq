@@ -17,10 +17,11 @@ NULL
 
 
 
+#' @rdname plotGeneSaturation
+#' @name plotGeneSaturation
 #' @importFrom bioverbs plotGeneSaturation
-#' @aliases NULL
 #' @export
-bioverbs::plotGeneSaturation
+NULL
 
 
 

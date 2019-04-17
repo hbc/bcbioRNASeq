@@ -8,10 +8,11 @@ NULL
 
 
 
+#' @rdname plotQC
+#' @name plotQC
 #' @importFrom bioverbs plotQC
-#' @aliases NULL
 #' @export
-bioverbs::plotQC
+NULL
 
 
 

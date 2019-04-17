@@ -3,6 +3,7 @@
 \docType{methods}
 \name{plotCountsPerBiotype}
 \alias{plotCountsPerBiotype}
+\alias{plotCountsPerBroadClass}
 \alias{plotCountsPerBiotype,bcbioRNASeq-method}
 \alias{plotCountsPerBroadClass,bcbioRNASeq-method}
 \title{Plot counts per biotype}
