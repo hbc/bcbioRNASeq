@@ -1,3 +1,4 @@
+^\..*$
 ^.*\.R$
 ^.*\.Rmd$
 ^.*\.Rproj$
@@ -7,11 +8,6 @@
 ^.*\.pdf$
 ^.*\.sh$
 ^.*\.yml$
-^\.Rprofile$
-^\.Rproj\.user$
-^\.git$
-^\.httr-oauth$
-^\.lintr$
 ^Meta$
 ^doc$
 ^data-raw$
