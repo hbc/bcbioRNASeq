@@ -2,6 +2,8 @@
 ^.*\.enc$
 ^.*\.gz$
 ^.*\.pdf$
+^CONTRIBUTING\.md$
+^Meta$
 ^\.Rprofile$
 ^\.Rproj\.user$
 ^\.git$
@@ -9,11 +11,9 @@
 ^\.lintr$
 ^\.travis\.yml$
 ^_pkgdown\.yml$
-^Meta$
-^doc$
 ^appveyor\.yml$
-^CONTRIBUTING\.md$
 ^data-raw$
+^doc$
 ^docs$
 ^pkgdown$
 ^travis-docker\.R$
