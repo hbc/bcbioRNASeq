@@ -7,8 +7,8 @@
 \title{Plot counts per gene}
 \usage{
 \S4method{plotCountsPerGene}{bcbioRNASeq}(object, normalized = c("tmm",
-  "vst", "rlog", "rle", "tpm", "fpkm"), interestingGroups = NULL,
-  geom = c("boxplot", "density", "violin"),
+  "vst", "rlog", "rle", "tpm", "fpkm"), trans = c("log2", "log10"),
+  interestingGroups = NULL, geom = c("boxplot", "density", "violin"),
   color = getOption("acid.color.discrete", default = NULL),
   fill = getOption("acid.fill.discrete", default = NULL),
   flip = getOption("acid.flip", default = TRUE),
@@ -25,6 +25,10 @@ Which normalization method to apply:
 \item "\code{rlog}": DESeq2 log2 regularized log transformation.
 \item "\code{vst}": DESeq2 log2 variance stabilizing transformation.
 }}
+
+\item{trans}{\code{character(1)}.
+Logarithmic transformation to apply. Note that \code{vst} and \code{rlog} counts are
+already log2.}
 
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to

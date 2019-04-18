@@ -9,13 +9,13 @@
 \title{Plot counts per biotype}
 \usage{
 \S4method{plotCountsPerBiotype}{bcbioRNASeq}(object,
-  normalized = c("tpm", "vst", "rlog", "tmm", "rle", "fpkm"), n = 9L,
-  interestingGroups = NULL, trans = "log2",
+  normalized = c("tpm", "vst", "rlog", "tmm", "rle", "fpkm"),
+  trans = c("log2", "log10"), n = 9L, interestingGroups = NULL,
   countsAxisLabel = "counts")
 
 \S4method{plotCountsPerBroadClass}{bcbioRNASeq}(object,
   normalized = c("tpm", "vst", "rlog", "tmm", "rle", "fpkm"),
-  interestingGroups = NULL, trans = "log2",
+  trans = c("log2", "log10"), interestingGroups = NULL,
   countsAxisLabel = "counts")
 }
 \arguments{
@@ -30,18 +30,18 @@ Which normalization method to apply:
 \item "\code{vst}": DESeq2 log2 variance stabilizing transformation.
 }}
 
+\item{trans}{\code{character(1)}.
+Name of the axis scale transformation to apply.
+
+For more information:\preformatted{help(topic = "scale_x_continuous", package = "ggplot2")
+}}
+
 \item{n}{\code{integer(1)}.
 Number to include.}
 
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to
 \code{sampleName}.}
-
-\item{trans}{\code{character(1)}.
-Name of the axis scale transformation to apply.
-
-For more information:\preformatted{help(topic = "scale_x_continuous", package = "ggplot2")
-}}
 
 \item{countsAxisLabel}{\code{character(1)}.
 Counts axis label.}

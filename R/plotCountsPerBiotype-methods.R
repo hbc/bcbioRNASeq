@@ -29,32 +29,21 @@ NULL
 plotCountsPerBiotype.bcbioRNASeq <-  # nolint
     function(
         object,
-        normalized
+        normalized,
+        trans
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
-
-        # Coerce to RSE.
-        rse <- as(object, "RangedSummarizedExperiment")
-        counts <- counts(object, normalized = normalized)
-        assays(rse) <- list(counts)
-        assayNames(rse) <- normalized
-
-        # Set the counts axis label.
-        countsAxisLabel <- paste(normalized, "counts")
-        trans <- .normalizedTrans(normalized)
-        if (trans != "identity") {
-            countsAxisLabel <- paste(trans, countsAxisLabel)
-        }
-
+        trans <- match.arg(trans)
+        args <- .dynamicTrans(
+            object = object,
+            normalized = normalized,
+            trans = trans
+        )
         do.call(
             what = plotCountsPerBiotype,
             args = matchArgsToDoCall(
-                args = list(
-                    object = rse,
-                    trans = trans,
-                    countsAxisLabel = countsAxisLabel
-                ),
+                args = args,
                 removeFormals = "normalized"
             )
         )
@@ -70,6 +59,7 @@ f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
 # Ensure TPM is set first.
 f[["normalized"]] <- unique(c("tpm", normalizedCounts))
+f[["trans"]] <- trans
 formals(plotCountsPerBiotype.bcbioRNASeq) <- f
 
 
@@ -87,32 +77,21 @@ setMethod(
 plotCountsPerBroadClass.bcbioRNASeq <-  # nolint
     function(
         object,
-        normalized
+        normalized,
+        trans
     ) {
         validObject(object)
         normalized <- match.arg(normalized)
-
-        # Coerce to RSE.
-        rse <- as(object, "RangedSummarizedExperiment")
-        counts <- counts(object, normalized = normalized)
-        assays(rse) <- list(counts)
-        assayNames(rse) <- normalized
-
-        # Set the counts axis label.
-        countsAxisLabel <- paste(normalized, "counts")
-        trans <- .normalizedTrans(normalized)
-        if (trans != "identity") {
-            countsAxisLabel <- paste(trans, countsAxisLabel)
-        }
-
+        trans <- match.arg(trans)
+        args <- .dynamicTrans(
+            object = object,
+            normalized = normalized,
+            trans = trans
+        )
         do.call(
             what = plotCountsPerBroadClass,
             args = matchArgsToDoCall(
-                args = list(
-                    object = rse,
-                    trans = trans,
-                    countsAxisLabel = countsAxisLabel
-                ),
+                args = args,
                 removeFormals = "normalized"
             )
         )
@@ -128,6 +107,7 @@ f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
 # Ensure TPM is set first.
 f[["normalized"]] <- unique(c("tpm", normalizedCounts))
+f[["trans"]] <- trans
 formals(plotCountsPerBroadClass.bcbioRNASeq) <- f
 
 

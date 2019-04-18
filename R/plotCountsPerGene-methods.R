@@ -7,6 +7,10 @@
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'
+#' @param trans `character(1)`.
+#'   Logarithmic transformation to apply. Note that `vst` and `rlog` counts are
+#'   already log2.
+#'
 #' @section Trimmed Mean of M-Values:
 #'
 #' We recommend visualizing counts normalized with the **T**rimmed **M**ean of
@@ -34,31 +38,22 @@ NULL
 
 
 plotCountsPerGene.bcbioRNASeq <-  # nolint
-    function(object, normalized) {
-        validObject(object)
+    function(
+        object,
+        normalized,
+        trans
+    ) {
         normalized <- match.arg(normalized)
-
-        # Coerce to RSE.
-        rse <- as(object, "RangedSummarizedExperiment")
-        counts <- counts(object, normalized = normalized)
-        assays(rse) <- list(counts)
-        assayNames(rse) <- normalized
-
-        # Set the counts axis label.
-        countsAxisLabel <- paste(normalized, "counts")
-        trans <- .normalizedTrans(normalized)
-        if (trans != "identity") {
-            countsAxisLabel <- paste(trans, countsAxisLabel)
-        }
-
+        trans <- match.arg(trans)
+        args <- .dynamicTrans(
+            object = object,
+            normalized = normalized,
+            trans = trans
+        )
         do.call(
             what = plotCountsPerGene,
             args = matchArgsToDoCall(
-                args = list(
-                    object = rse,
-                    trans = trans,
-                    countsAxisLabel = countsAxisLabel
-                ),
+                args = args,
                 removeFormals = "normalized"
             )
         )
@@ -75,8 +70,9 @@ f2 <- f2[setdiff(
     y = c(names(f1), "assay", "countsAxisLabel", "trans")
 )]
 f <- c(f1, f2)
-# Ensure TMM is set first.
+# Ensure TPM is set first.
 f[["normalized"]] <- unique(c("tmm", normalizedCounts))
+f[["trans"]] <- trans
 formals(plotCountsPerGene.bcbioRNASeq) <- f
 
 
