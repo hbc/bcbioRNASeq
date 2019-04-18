@@ -1,3 +1,11 @@
+## bcbioRNASeq 0.3.17 (2019-04-18)
+
+- Bar plots now show the first sample at the top of the Y axis when
+  `flip = TRUE`. This is more human readable.
+- Quality control template now uses `bcbiornaseq_file` as main input param.
+
+
+
 ## bcbioRNASeq 0.3.16 (2019-04-17)
 
 ### Minor changes
