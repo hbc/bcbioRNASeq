@@ -10,7 +10,7 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2019-04-17
+# Last modified 2019-04-18
 library(basejump)
 library(ggplot2)
 library(bcbioRNASeq)
@@ -43,10 +43,6 @@ print(object)
 ```
 
 [bcbio][] run data was imported from **`r metadata(object)$uploadDir`**.
-
-```{r interesting-groups}
-interestingGroups(object) <- c("compound", "otherTreatment")
-```
 
 # Sample metadata
 
