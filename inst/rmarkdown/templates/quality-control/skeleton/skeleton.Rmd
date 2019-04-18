@@ -23,7 +23,7 @@ source("_setup.R")
 
 # Load bcbioRNASeq object
 
-```{r object}
+```{r load-object}
 file <- params$bcbiornaseq_file
 stopifnot(file.exists(file))
 if (fileExt(file) == "rds") {
