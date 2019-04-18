@@ -70,7 +70,10 @@ f2 <- methodFormals(
     signature = "SummarizedExperiment",
     package = "minimalism"
 )
-f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
+f2 <- f2[setdiff(
+    x = names(f2),
+    y = c(names(f1), "assay", "countsAxisLabel", "trans")
+)]
 f <- c(f1, f2)
 # Ensure TMM is set first.
 f[["normalized"]] <- unique(c("tmm", normalizedCounts))
