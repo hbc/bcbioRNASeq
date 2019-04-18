@@ -83,7 +83,7 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- p + coord_flip()
+            p <- .flipMode(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {
