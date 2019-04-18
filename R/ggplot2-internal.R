@@ -9,6 +9,9 @@
 #
 # nolint end
 
+
+
+# Make the samples human readable when flipped onto Y axis.
 .flipMode <- function(object) {
     assert(is(object, "ggplot"))
     data <- object[["data"]]
@@ -18,4 +21,17 @@
     object +
         scale_x_discrete(limits = rev(levels(samples))) +
         coord_flip()
+}
+
+
+
+# Determine if we should apply a log transformation to our normalized counts
+# when plotting. Note that DESeqTransform are already log2 scale.
+.normalizedTrans <- function(normalized) {
+    if (normalized %in% c("rlog", "vst")) {
+        # Already log2 scale.
+        trans <- "identity"
+    } else {
+        trans <- "log2"
+    }
 }
