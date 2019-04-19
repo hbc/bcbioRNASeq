@@ -56,7 +56,7 @@
 #' @importFrom methods as as<- is new setAs setClass show slot slot<-
 #'   validObject .hasSlot
 #' @importFrom minimalism acid_geom_abline acid_geom_label acid_geom_label_repel
-#'   plotGenesDetected plotPCA
+#'   flip_x_discrete plotGenesDetected plotPCA
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom rlang !! !!! := UQ sym syms
 #' @importFrom scales pretty_breaks

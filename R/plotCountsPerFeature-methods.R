@@ -1,8 +1,8 @@
-#' @name plotCountsPerGene
+#' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @importMethodsFrom minimalism plotCountsPerGene
+#' @importMethodsFrom minimalism plotCountsPerFeature
 #'
-#' @inherit bioverbs::plotCountsPerGene
+#' @inherit bioverbs::plotCountsPerFeature
 #' @inheritParams minimalism::params
 #' @inheritParams basejump::params
 #' @inheritParams params
@@ -24,20 +24,20 @@
 #'
 #' @examples
 #' data(bcb)
-#' plotCountsPerGene(bcb)
+#' plotCountsPerFeature(bcb)
 NULL
 
 
 
-#' @rdname plotCountsPerGene
-#' @name plotCountsPerGene
-#' @importFrom bioverbs plotCountsPerGene
+#' @rdname plotCountsPerFeature
+#' @name plotCountsPerFeature
+#' @importFrom bioverbs plotCountsPerFeature
 #' @export
 NULL
 
 
 
-plotCountsPerGene.bcbioRNASeq <-  # nolint
+plotCountsPerFeature.bcbioRNASeq <-  # nolint
     function(
         object,
         normalized,
@@ -51,7 +51,7 @@ plotCountsPerGene.bcbioRNASeq <-  # nolint
             trans = trans
         )
         do.call(
-            what = plotCountsPerGene,
+            what = plotCountsPerFeature,
             args = matchArgsToDoCall(
                 args = args,
                 removeFormals = "normalized"
@@ -59,9 +59,9 @@ plotCountsPerGene.bcbioRNASeq <-  # nolint
         )
     }
 
-f1 <- formals(plotCountsPerGene.bcbioRNASeq)
+f1 <- formals(plotCountsPerFeature.bcbioRNASeq)
 f2 <- methodFormals(
-    f = "plotCountsPerGene",
+    f = "plotCountsPerFeature",
     signature = "SummarizedExperiment",
     package = "minimalism"
 )
@@ -73,14 +73,14 @@ f <- c(f1, f2)
 # Ensure TPM is set first.
 f[["normalized"]] <- unique(c("tmm", normalizedCounts))
 f[["trans"]] <- trans
-formals(plotCountsPerGene.bcbioRNASeq) <- f
+formals(plotCountsPerFeature.bcbioRNASeq) <- f
 
 
 
-#' @rdname plotCountsPerGene
+#' @rdname plotCountsPerFeature
 #' @export
 setMethod(
-    f = "plotCountsPerGene",
+    f = "plotCountsPerFeature",
     signature = signature("bcbioRNASeq"),
-    definition = plotCountsPerGene.bcbioRNASeq
+    definition = plotCountsPerFeature.bcbioRNASeq
 )
