@@ -28,7 +28,7 @@ plotQC.bcbioRNASeq <-  # nolint
                 plotRRNAMappingRate(object),
                 plot5Prime3PrimeBias(object),
                 plotGenesDetected(object),
-                plotCountsPerGene(object),
+                plotCountsPerFeature(object),
                 plotPCA(object)
             ),
             nrow = 3L,

@@ -32,9 +32,6 @@ plotMappedReads.bcbioRNASeq <-  # nolint
         title = "mapped reads"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
             isInt(limit),
             isNonNegative(limit),
@@ -43,6 +40,9 @@ plotMappedReads.bcbioRNASeq <-  # nolint
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         data <- metrics(object)
 
@@ -88,7 +88,7 @@ plotMappedReads.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- .flipMode(p)
+            p <- flip_x_discrete(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {

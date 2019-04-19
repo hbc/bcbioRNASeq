@@ -10,7 +10,7 @@
   interestingGroups = NULL, limit = 0.6,
   fill = getOption("acid.fill.discrete", default = NULL),
   flip = getOption("acid.flip", default = TRUE),
-  title = "exonic mapping rate")
+  title = "Exonic mapping rate")
 }
 \arguments{
 \item{object}{Object.}

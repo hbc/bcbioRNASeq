@@ -29,7 +29,7 @@ loadRNASeq <- function(...) {
 #' @rdname defunct
 #' @export
 plotCountDensity <- function(...) {
-    .Defunct("plotCountsPerGene(object, geom = \"density\")")
+    .Defunct("plotCountsPerFeature(object, geom = \"density\")")
 }
 
 #' @rdname defunct

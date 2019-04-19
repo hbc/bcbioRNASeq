@@ -31,12 +31,9 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
         limit = 0.6,
         fill,
         flip,
-        title = "exonic mapping rate"
+        title = "Exonic mapping rate"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
             isNumber(limit),
             isProportion(limit),
@@ -44,6 +41,9 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         p <- metrics(object) %>%
             ggplot(
@@ -65,7 +65,7 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
             )
 
         if (isPositive(limit)) {
-            # Convert to percentage
+            # Convert to percentage.
             if (limit > 1L) {
                 # nocov start
                 warning("`limit`: Use ratio (0-1) instead of percentage.")
@@ -83,7 +83,7 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- .flipMode(p)
+            p <- flip_x_discrete(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {

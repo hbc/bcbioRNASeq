@@ -27,12 +27,9 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         perMillion = TRUE,
         fill,
         flip,
-        title = "total reads"
+        title = "Total reads"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
             isInt(limit),
             isNonNegative(limit),
@@ -41,6 +38,9 @@ plotTotalReads.bcbioRNASeq <-  # nolint
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         data <- metrics(object)
 
@@ -86,7 +86,7 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- .flipMode(p)
+            p <- flip_x_discrete(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {

@@ -10,7 +10,7 @@
   interestingGroups = NULL, limit = 0.2,
   fill = getOption("acid.fill.discrete", default = NULL),
   flip = getOption("acid.flip", default = TRUE),
-  title = "intronic mapping rate")
+  title = "Intronic mapping rate")
 }
 \arguments{
 \item{object}{Object.}

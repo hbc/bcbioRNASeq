@@ -10,7 +10,7 @@
   interestingGroups = NULL, minCounts = 1L, perMillion = TRUE,
   trendline = FALSE, label = getOption("acid.label", default = FALSE),
   color = getOption("acid.color.discrete", default = NULL),
-  title = "gene saturation")
+  title = "Gene saturation")
 }
 \arguments{
 \item{object}{Object.}

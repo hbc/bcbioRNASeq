@@ -34,7 +34,7 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         trendline = FALSE,
         label,
         color,
-        title = "gene saturation"
+        title = "Gene saturation"
     ) {
         validObject(object)
         interestingGroups(object) <-

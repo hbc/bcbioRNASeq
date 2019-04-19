@@ -29,9 +29,6 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
         title = "rRNA mapping rate"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
             isNumber(limit),
             isProportion(limit),
@@ -39,6 +36,9 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         data <- metrics(object)
 
@@ -86,7 +86,7 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- .flipMode(p)
+            p <- flip_x_discrete(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {

@@ -28,12 +28,9 @@ plotIntronicMappingRate.bcbioRNASeq <-  # nolint
         limit = 0.2,
         fill,
         flip,
-        title = "intronic mapping rate"
+        title = "Intronic mapping rate"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
             isNumber(limit),
             isProportion(limit),
@@ -41,6 +38,9 @@ plotIntronicMappingRate.bcbioRNASeq <-  # nolint
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         p <- ggplot(
             data = metrics(object),
@@ -80,7 +80,7 @@ plotIntronicMappingRate.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- .flipMode(p)
+            p <- flip_x_discrete(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {

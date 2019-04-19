@@ -28,14 +28,14 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         title = "5'->3' bias"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
             isGGScale(color, scale = "discrete", aes = "colour", nullOK = TRUE),
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         data <- metrics(object)
 
@@ -70,7 +70,7 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- .flipMode(p)
+            p <- flip_x_discrete(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {

@@ -28,12 +28,9 @@ plotMappingRate.bcbioRNASeq <-  # nolint
         limit = 0.7,
         fill,
         flip,
-        title = "mapping rate"
+        title = "Mapping rate"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
             isNumber(limit),
             isProportion(limit),
@@ -41,6 +38,9 @@ plotMappingRate.bcbioRNASeq <-  # nolint
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         p <- ggplot(
             data = metrics(object),
@@ -81,7 +81,7 @@ plotMappingRate.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- .flipMode(p)
+            p <- flip_x_discrete(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {
