@@ -11,9 +11,6 @@
 }
 \arguments{
 \item{object}{Object.}
-
-\item{legend}{\code{logical(1)}.
-Show plot legend.}
 }
 \value{
 \code{ggplot}.
