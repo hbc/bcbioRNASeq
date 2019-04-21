@@ -7,9 +7,9 @@
 \title{Plot intronic mapping rate}
 \usage{
 \S4method{plotIntronicMappingRate}{bcbioRNASeq}(object,
-  interestingGroups = NULL, limit = 0.2,
-  fill = getOption("acid.fill.discrete", default = NULL),
-  flip = getOption("acid.flip", default = TRUE),
+  interestingGroups = NULL, limit = 0.2, fill = getOption(x =
+  "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
+  flip = getOption(x = "acid.flip", default = TRUE),
   title = "Intronic mapping rate")
 }
 \arguments{
@@ -18,6 +18,23 @@
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to
 \code{sampleName}.}
+
+\item{limit}{\code{numeric(1)}.
+Threshold to denote on the plot, using a dashed line.}
+
+\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
+Desired ggplot2 fill scale. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
+
+To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
+}}
+
+\item{flip}{\code{logical(1)}.
+Flip x and y axes. Recommended for plots containing many samples.}
+
+\item{title}{\code{character(1)}.
+Plot title.}
 }
 \value{
 \code{ggplot}.

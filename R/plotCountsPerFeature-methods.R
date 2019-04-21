@@ -1,9 +1,9 @@
 #' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @importMethodsFrom minimalism plotCountsPerFeature
+#' @importMethodsFrom acidplots plotCountsPerFeature
 #'
 #' @inherit bioverbs::plotCountsPerFeature
-#' @inheritParams minimalism::params
+#' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'
@@ -63,7 +63,7 @@ f1 <- formals(plotCountsPerFeature.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCountsPerFeature",
     signature = "SummarizedExperiment",
-    package = "minimalism"
+    package = "acidplots"
 )
 f2 <- f2[setdiff(
     x = names(f2),

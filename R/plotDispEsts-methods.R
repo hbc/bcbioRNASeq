@@ -4,7 +4,7 @@
 #' @author Michael Steinbaugh
 #'
 #' @inherit DESeq2::plotDispEsts
-#' @inheritParams minimalism::params
+#' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'

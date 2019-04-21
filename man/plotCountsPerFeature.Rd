@@ -11,9 +11,10 @@
   trans = c("log2", "log10"), minCounts = 1L,
   minCountsMethod = c("perFeature", "absolute"),
   interestingGroups = NULL, geom = c("boxplot", "density", "violin"),
-  color = getOption("acid.color.discrete", default = NULL),
-  fill = getOption("acid.fill.discrete", default = NULL),
-  flip = getOption("acid.flip", default = TRUE),
+  color = getOption(x = "acid.color.discrete", default =
+  acidplots::scale_colour_synesthesia_d()), fill = getOption(x =
+  "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
+  flip = getOption(x = "acid.flip", default = TRUE),
   title = "Counts per feature")
 }
 \arguments{
@@ -32,9 +33,38 @@ Which normalization method to apply:
 Logarithmic transformation to apply. Note that \code{vst} and \code{rlog} counts are
 already log2.}
 
+\item{minCounts}{\code{integer(1)}.
+Minimum number of counts per gene in the count matrix.}
+
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to
 \code{sampleName}.}
+
+\item{geom}{\code{character(1)}.
+Plot type. Uses \code{\link[base:match.arg]{match.arg()}} internally and defaults to
+the first argument in the \code{character} vector.}
+
+\item{color}{\code{ScaleDiscrete}.
+Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
+
+To set the discrete color palette globally, use:\preformatted{options(acid.color.discrete = ggplot2::scale_color_viridis_d())
+}}
+
+\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
+Desired ggplot2 fill scale. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
+
+To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
+}}
+
+\item{flip}{\code{logical(1)}.
+Flip x and y axes. Recommended for plots containing many samples.}
+
+\item{title}{\code{character(1)}.
+Plot title.}
 }
 \value{
 \code{ggplot}.

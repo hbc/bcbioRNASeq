@@ -20,7 +20,7 @@ abstract: >
 ---
 
 ```{r setup, include=FALSE, message=FALSE}
-ggplot2::theme_set(minimalism::theme_paperwhite())
+ggplot2::theme_set(acidplots::acid_theme_light())
 knitr::opts_chunk$set(message = FALSE)
 ```
 

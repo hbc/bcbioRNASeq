@@ -50,20 +50,20 @@ basejump::saveData
 
 
 
-#' @importFrom firestarter plotHeatmap
+#' @importFrom acidplots plotHeatmap
 #' @export
-firestarter::plotHeatmap
+acidplots::plotHeatmap
 
-#' @importFrom firestarter plotQuantileHeatmap
+#' @importFrom acidplots plotQuantileHeatmap
 #' @export
-firestarter::plotQuantileHeatmap
+acidplots::plotQuantileHeatmap
 
 
 
-#' @importFrom minimalism plotGenesDetected
+#' @importFrom acidplots plotGenesDetected
 #' @export
-minimalism::plotGenesDetected
+acidplots::plotGenesDetected
 
-#' @importFrom minimalism theme_paperwhite
+#' @importFrom acidplots theme_paperwhite
 #' @export
-minimalism::theme_paperwhite
+acidplots::theme_paperwhite

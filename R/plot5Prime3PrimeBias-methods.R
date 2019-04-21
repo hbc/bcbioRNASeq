@@ -1,7 +1,7 @@
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::plot5Prime3PrimeBias
-#' @inheritParams minimalism::params
+#' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -70,7 +70,7 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- flip_x_discrete(p)
+            p <- acid_coord_flip(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {

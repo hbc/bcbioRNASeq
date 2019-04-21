@@ -1,7 +1,7 @@
 #' @name plotCorrelationHeatmap
 #' @author Michael Steinbaugh
-#' @importMethodsFrom firestarter plotCorrelationHeatmap
-#' @inherit firestarter::plotCorrelationHeatmap
+#' @importMethodsFrom acidplots plotCorrelationHeatmap
+#' @inherit acidplots::plotCorrelationHeatmap
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -43,7 +43,7 @@ f1 <- formals(plotCorrelationHeatmap.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCorrelationHeatmap",
     signature = "SummarizedExperiment",
-    package = "firestarter"
+    package = "acidplots"
 )
 f <- c(f1, f2[setdiff(names(f2), c(names(f1), "assay"))])
 f[["normalized"]] <- normalizedCounts

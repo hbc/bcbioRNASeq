@@ -7,9 +7,10 @@
 \title{Plot 5' to 3' bias}
 \usage{
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object,
-  interestingGroups = NULL, color = getOption("acid.color.discrete",
-  default = NULL), flip = getOption("acid.flip", default = TRUE),
-  title = "5'->3' bias")
+  interestingGroups = NULL, color = getOption(x =
+  "acid.color.discrete", default =
+  acidplots::scale_colour_synesthesia_d()), flip = getOption(x =
+  "acid.flip", default = TRUE), title = "5'->3' bias")
 }
 \arguments{
 \item{object}{Object.}
@@ -17,6 +18,20 @@
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to
 \code{sampleName}.}
+
+\item{color}{\code{ScaleDiscrete}.
+Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
+
+To set the discrete color palette globally, use:\preformatted{options(acid.color.discrete = ggplot2::scale_color_viridis_d())
+}}
+
+\item{flip}{\code{logical(1)}.
+Flip x and y axes. Recommended for plots containing many samples.}
+
+\item{title}{\code{character(1)}.
+Plot title.}
 }
 \value{
 \code{ggplot}.

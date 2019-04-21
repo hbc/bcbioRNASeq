@@ -1,7 +1,7 @@
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotTotalReads
-#' @inheritParams minimalism::params
+#' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -86,7 +86,7 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- flip_x_discrete(p)
+            p <- acid_coord_flip(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {
