@@ -1,3 +1,22 @@
+
+#' @importFrom acidplots plotCountsPerGene
+#' @export
+acidplots::plotCountsPerGene
+
+#' @importFrom acidplots plotGenesDetected
+#' @export
+acidplots::plotGenesDetected
+
+#' @importFrom acidplots plotHeatmap
+#' @export
+acidplots::plotHeatmap
+
+#' @importFrom acidplots plotQuantileHeatmap
+#' @export
+acidplots::plotQuantileHeatmap
+
+
+
 #' @importFrom basejump basenameSansExt
 #' @export
 basejump::basenameSansExt
@@ -47,27 +66,3 @@ NULL
 #' @importFrom basejump saveData
 #' @export
 basejump::saveData
-
-
-
-#' @importFrom acidplots plotCountsPerGene
-#' @export
-acidplots::plotCountsPerGene
-
-#' @importFrom acidplots plotHeatmap
-#' @export
-acidplots::plotHeatmap
-
-#' @importFrom acidplots plotQuantileHeatmap
-#' @export
-acidplots::plotQuantileHeatmap
-
-
-
-#' @importFrom acidplots plotGenesDetected
-#' @export
-acidplots::plotGenesDetected
-
-#' @importFrom acidplots theme_paperwhite
-#' @export
-acidplots::theme_paperwhite
