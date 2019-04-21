@@ -1,4 +1,3 @@
-
 #' @importFrom acidplots plotCountsPerGene
 #' @export
 acidplots::plotCountsPerGene
