@@ -50,6 +50,10 @@ basejump::saveData
 
 
 
+#' @importFrom acidplots plotCountsPerGene
+#' @export
+acidplots::plotCountsPerGene
+
 #' @importFrom acidplots plotHeatmap
 #' @export
 acidplots::plotHeatmap

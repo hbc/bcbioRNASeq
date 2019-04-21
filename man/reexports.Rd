@@ -14,6 +14,7 @@
 \alias{pasteURL}
 \alias{sampleData<-}
 \alias{saveData}
+\alias{plotCountsPerGene}
 \alias{plotHeatmap}
 \alias{plotQuantileHeatmap}
 \alias{plotGenesDetected}
@@ -25,7 +26,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{acidplots}{\code{\link[acidplots]{plotHeatmap}}, \code{\link[acidplots]{plotQuantileHeatmap}}, \code{\link[acidplots]{plotGenesDetected}}, \code{\link[acidplots]{theme_paperwhite}}}
+  \item{acidplots}{\code{\link[acidplots]{plotCountsPerGene}}, \code{\link[acidplots]{plotHeatmap}}, \code{\link[acidplots]{plotQuantileHeatmap}}, \code{\link[acidplots]{plotGenesDetected}}, \code{\link[acidplots]{theme_paperwhite}}}
 
   \item{basejump}{\code{\link[basejump]{sampleData}}, \code{\link[basejump]{basenameSansExt}}, \code{\link[basejump]{export}}, \code{\link[basejump]{import}}, \code{\link[basejump]{interestingGroups}}, \code{\link[basejump]{loadData}}, \code{\link[basejump]{loadRemoteData}}, \code{\link[basejump]{pasteURL}}, \code{\link[basejump]{sampleData}}, \code{\link[basejump]{saveData}}}
 }}
