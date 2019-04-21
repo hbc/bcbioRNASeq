@@ -61,10 +61,8 @@ plotMappedReads.bcbioRNASeq <-  # nolint
                 fill = !!sym("interestingGroups")
             )
         ) +
-            geom_bar(
-                color = "black",
-                stat = "identity"
-            ) +
+            acid_geom_bar() +
+            acid_scale_y_continuous_nopad() +
             labs(
                 title = title,
                 x = NULL,

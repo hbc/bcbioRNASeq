@@ -30,8 +30,10 @@ Which normalization method to apply:
 }}
 
 \item{trans}{\code{character(1)}.
-Logarithmic transformation to apply. Note that \code{vst} and \code{rlog} counts are
-already log2.}
+Name of the axis scale transformation to apply.
+
+For more information:\preformatted{help(topic = "scale_x_continuous", package = "ggplot2")
+}}
 
 \item{minCounts}{\code{integer(1)}.
 Minimum number of counts per gene in the count matrix.}

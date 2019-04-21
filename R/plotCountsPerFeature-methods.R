@@ -7,10 +7,6 @@
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'
-#' @param trans `character(1)`.
-#'   Logarithmic transformation to apply. Note that `vst` and `rlog` counts are
-#'   already log2.
-#'
 #' @section Trimmed Mean of M-Values:
 #'
 #' We recommend visualizing counts normalized with the **T**rimmed **M**ean of

@@ -56,10 +56,8 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
                 fill = !!sym("interestingGroups")
             )
         ) +
-            geom_bar(
-                color = "black",
-                stat = "identity"
-            ) +
+            acid_geom_bar() +
+            acid_scale_y_continuous_nopad(limits = c(0L, 100L)) +
             labs(
                 title = title,
                 x = NULL,

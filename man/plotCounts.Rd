@@ -9,8 +9,8 @@
 \S4method{plotCounts}{bcbioRNASeq}(object, genes, normalized = c("vst",
   "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   trans = c("identity", "log2", "log10"), medianLine = TRUE,
-  color = getOption("basejump.discrete.color", NULL),
-  legend = getOption("basejump.legend", TRUE), style = c("facet",
+  color = getOption(x = "acid.color.discrete", default =
+  acidplots::scale_colour_synesthesia_d()), legend, style = c("facet",
   "wide"))
 }
 \arguments{
