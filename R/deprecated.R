@@ -64,13 +64,27 @@ prepareRNASeqTemplate <- function(...) {
 
 
 # v0.3.17 ======================================================================
-#' @importFrom acidplots plotCountsPerGene
+#' @rdname deprecated
 #' @export
-acidplots::plotCountsPerGene
+plotCountsPerGene <- function(object, title = "Counts per gene", ...) {
+    assert(.isGeneLevel(object))
+    do.call(
+        what = plotCountsPerFeature,
+        args = matchArgsToDoCall()
+    )
+}
 
-#' @importFrom acidplots plotGenesDetected
+#' @rdname deprecated
 #' @export
-acidplots::plotGenesDetected
+plotGenesDetected <- function(object, ...) {
+    assert(.isGeneLevel(object))
+    plotFeaturesDetected(
+        object = object,
+        countsAxisLabel = "genes",
+        title = "Genes detected",
+        ...
+    )
+}
 
 
 

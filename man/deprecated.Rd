@@ -4,14 +4,22 @@
 \alias{deprecated}
 \alias{loadRNASeq}
 \alias{prepareRNASeqTemplate}
+\alias{plotCountsPerGene}
+\alias{plotGenesDetected}
 \title{Deprecated functions}
 \usage{
 loadRNASeq(...)
 
 prepareRNASeqTemplate(...)
+
+plotCountsPerGene(object, title = "Counts per gene", ...)
+
+plotGenesDetected(object, ...)
 }
 \arguments{
 \item{...}{Additional arguments.}
+
+\item{object}{Object.}
 }
 \value{
 \code{.Deprecated}.
