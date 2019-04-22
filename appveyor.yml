@@ -19,16 +19,19 @@ environment:
     R_ARCH: x64
     USE_RTOOLS: true
   matrix:
-    - configuration: bioc-release
-      R_VERSION: patched
+    - configuration: release
+      R_VERSION: release
       BIOC_USE_DEVEL: "FALSE"
-    - configuration: bioc-devel
-      R_VERSION: 3.6.0rc
+    - configuration: oldrel
+      R_VERSION: oldrel
+      BIOC_USE_DEVEL: "FALSE"
+    - configuration: devel
+      R_VERSION: devel
       BIOC_USE_DEVEL: "TRUE"
 
 matrix:
   allow_failures:
-    - configuration: bioc-devel
+    - configuration: devel
   fast_finish: true
 
 build_script:
