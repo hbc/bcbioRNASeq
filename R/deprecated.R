@@ -63,5 +63,16 @@ prepareRNASeqTemplate <- function(...) {
 
 
 
+# v0.3.17 ======================================================================
+#' @importFrom acidplots plotCountsPerGene
+#' @export
+acidplots::plotCountsPerGene
+
+#' @importFrom acidplots plotGenesDetected
+#' @export
+acidplots::plotGenesDetected
+
+
+
 # nolint end
 # nocov end

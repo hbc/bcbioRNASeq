@@ -1,10 +1,10 @@
-#' @importFrom acidplots plotCountsPerGene
+#' @importFrom acidplots plotCountsPerFeature
 #' @export
-acidplots::plotCountsPerGene
+acidplots::plotCountsPerFeature
 
-#' @importFrom acidplots plotGenesDetected
+#' @importFrom acidplots plotFeaturesDetected
 #' @export
-acidplots::plotGenesDetected
+acidplots::plotFeaturesDetected
 
 #' @importFrom acidplots plotHeatmap
 #' @export
