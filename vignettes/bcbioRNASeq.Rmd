@@ -244,7 +244,7 @@ plot5Prime3PrimeBias(bcb)
 ## Gene distributions
 
 ```{r}
-plotGenesDetected(bcb)
+plotFeaturesDetected(bcb)
 ```
 
 ```{r}
@@ -253,8 +253,8 @@ plotGeneSaturation(bcb, label = TRUE)
 ```
 
 ```{r}
-plotCountsPerGene(bcb, geom = "boxplot")
-plotCountsPerGene(bcb, geom = "density")
+plotCountsPerFeature(bcb, geom = "boxplot")
+plotCountsPerFeature(bcb, geom = "density")
 ```
 
 ## Variance stabilization
