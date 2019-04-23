@@ -27,6 +27,6 @@ with_parameters_test_that(
 context("plotCountsPerGene")
 
 test_that("bcbioRNASeq", {
-    x <- plotCountsPerGene(bcb)
+    x <- plotCountsPerGene(object)
     expect_s3_class(x, "ggplot")
 })
