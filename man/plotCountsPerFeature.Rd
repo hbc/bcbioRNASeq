@@ -30,21 +30,30 @@ Which normalization method to apply:
 }}
 
 \item{trans}{\code{character(1)}.
-Name of the axis scale transformation to apply.
-
-For more information:\preformatted{help(topic = "scale_x_continuous", package = "ggplot2")
-}}
+Apply a log transformation (e.g. \code{log2(x + 1L)}) to the count matrix prior
+to melting, if desired. Use \code{"identity"} to return unmodified (default).}
 
 \item{minCounts}{\code{integer(1)}.
-Minimum number of counts per gene in the count matrix.}
+Minimum count threshold to apply. Filters using "greater than or equal to"
+logic internally. Note that this threshold gets applied prior to
+logarithmic transformation, when \code{trans} argument applies.}
+
+\item{minCountsMethod}{\code{character(1)}.
+Uses \code{\link[base:match.arg]{match.arg()}}.
+\itemize{
+\item \code{perFeature}: \emph{Recommended}. Applies cutoff per row feature (i.e. gene).
+Internally, \code{\link[base:rowSums]{rowSums()}} values are checked against this
+cutoff threshold prior to the melt operation.
+\item \code{absolute}: Applies hard cutoff to \code{counts} column after the melt
+operation. This applies to all counts, not per feature.
+}}
 
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to
 \code{sampleName}.}
 
 \item{geom}{\code{character(1)}.
-Plot type. Uses \code{\link[base:match.arg]{match.arg()}} internally and defaults to
-the first argument in the \code{character} vector.}
+Type of ggplot2 geometric object to use.}
 
 \item{color}{\code{ScaleDiscrete}.
 Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},

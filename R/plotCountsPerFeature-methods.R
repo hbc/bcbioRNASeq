@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @importMethodsFrom acidplots plotCountsPerFeature
 #'
-#' @inherit bioverbs::plotCountsPerFeature
+#' @inherit acidplots::plotCountsPerFeature
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
