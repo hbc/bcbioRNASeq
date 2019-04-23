@@ -7,9 +7,9 @@
 \title{Plot ribosomal RNA (rRNA) mapping rate}
 \usage{
 \S4method{plotRRNAMappingRate}{bcbioRNASeq}(object,
-  interestingGroups = NULL, limit = 0.1,
-  fill = getOption("acid.fill.discrete", default = NULL),
-  flip = getOption("acid.flip", default = TRUE),
+  interestingGroups = NULL, limit = 0.1, fill = getOption(x =
+  "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
+  flip = getOption(x = "acid.flip", default = TRUE),
   title = "rRNA mapping rate")
 }
 \arguments{

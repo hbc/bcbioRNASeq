@@ -1,3 +1,17 @@
+#' @importFrom acidplots plotFeaturesDetected
+#' @export
+acidplots::plotFeaturesDetected
+
+#' @importFrom acidplots plotHeatmap
+#' @export
+acidplots::plotHeatmap
+
+#' @importFrom acidplots plotQuantileHeatmap
+#' @export
+acidplots::plotQuantileHeatmap
+
+
+
 #' @importFrom basejump basenameSansExt
 #' @export
 basejump::basenameSansExt
@@ -47,23 +61,3 @@ NULL
 #' @importFrom basejump saveData
 #' @export
 basejump::saveData
-
-
-
-#' @importFrom firestarter plotHeatmap
-#' @export
-firestarter::plotHeatmap
-
-#' @importFrom firestarter plotQuantileHeatmap
-#' @export
-firestarter::plotQuantileHeatmap
-
-
-
-#' @importFrom minimalism plotGenesDetected
-#' @export
-minimalism::plotGenesDetected
-
-#' @importFrom minimalism theme_paperwhite
-#' @export
-minimalism::theme_paperwhite

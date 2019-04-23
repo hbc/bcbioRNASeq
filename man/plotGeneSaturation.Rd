@@ -8,9 +8,9 @@
 \usage{
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object,
   interestingGroups = NULL, minCounts = 1L, perMillion = TRUE,
-  trendline = FALSE, label = getOption("acid.label", default = FALSE),
-  color = getOption("acid.color.discrete", default = NULL),
-  title = "gene saturation")
+  trendline = FALSE, label = getOption(x = "acid.label", default =
+  FALSE), color = getOption(x = "acid.color.discrete", default =
+  acidplots::scale_colour_synesthesia_d()), title = "Gene saturation")
 }
 \arguments{
 \item{object}{Object.}

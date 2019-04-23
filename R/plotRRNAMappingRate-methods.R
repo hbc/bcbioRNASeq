@@ -1,7 +1,7 @@
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotRRNAMappingRate
-#' @inheritParams minimalism::params
+#' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -29,9 +29,6 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
         title = "rRNA mapping rate"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
             isNumber(limit),
             isProportion(limit),
@@ -39,6 +36,9 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         data <- metrics(object)
 
@@ -56,10 +56,8 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
                 fill = !!sym("interestingGroups")
             )
         ) +
-            geom_bar(
-                color = "black",
-                stat = "identity"
-            ) +
+            acid_geom_bar() +
+            acid_scale_y_continuous_nopad(limits = c(0L, 100L)) +
             labs(
                 title = title,
                 x = NULL,
@@ -86,7 +84,7 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- p + coord_flip()
+            p <- acid_coord_flip(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {

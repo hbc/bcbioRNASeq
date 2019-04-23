@@ -7,9 +7,10 @@
 \title{Plot 5' to 3' bias}
 \usage{
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object,
-  interestingGroups = NULL, color = getOption("acid.color.discrete",
-  default = NULL), flip = getOption("acid.flip", default = TRUE),
-  title = "5'->3' bias")
+  interestingGroups = NULL, color = getOption(x =
+  "acid.color.discrete", default =
+  acidplots::scale_colour_synesthesia_d()), flip = getOption(x =
+  "acid.flip", default = TRUE), title = "5'->3' bias")
 }
 \arguments{
 \item{object}{Object.}

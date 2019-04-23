@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @inherit bioverbs::plotMeanSD
-#' @inheritParams minimalism::params
+#' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @inheritParams bcbioRNASeq

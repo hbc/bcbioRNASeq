@@ -3,6 +3,10 @@ language: general
 services:
   - docker
 
+branches:
+  only:
+    - master
+
 before_install:
   - docker pull acidgenomics/rnaseq
   - docker images

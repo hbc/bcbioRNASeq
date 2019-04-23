@@ -42,15 +42,9 @@ reference:
       - counts
       - relativeLogExpression
       - tmm
-  - title: Metadata
-    contents:
-      - sampleData
   - title: Plots
     contents:
       - starts_with("plot")
-  - title: Miscellaneous
-    contents:
-      - prepareRNASeqTemplate
   - title: Example data
     contents:
       - bcb

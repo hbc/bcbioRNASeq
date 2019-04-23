@@ -26,4 +26,6 @@ normalizedCounts <- c("vst", "rlog", "tmm", "rle", "tpm", "fpkm")
 
 legacyMetricsCols <- c("name", "x53Bias")
 
+trans <- c("log2", "log10")
+
 Rle <- structure("Rle", package = "S4Vectors")  # nolint

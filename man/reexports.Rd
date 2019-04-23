@@ -4,6 +4,9 @@
 \name{reexports}
 \alias{reexports}
 \alias{sampleData}
+\alias{plotFeaturesDetected}
+\alias{plotHeatmap}
+\alias{plotQuantileHeatmap}
 \alias{basenameSansExt}
 \alias{export}
 \alias{import}
@@ -14,10 +17,6 @@
 \alias{pasteURL}
 \alias{sampleData<-}
 \alias{saveData}
-\alias{plotHeatmap}
-\alias{plotQuantileHeatmap}
-\alias{plotGenesDetected}
-\alias{theme_paperwhite}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -25,10 +24,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{acidplots}{\code{\link[acidplots]{plotFeaturesDetected}}, \code{\link[acidplots]{plotHeatmap}}, \code{\link[acidplots]{plotQuantileHeatmap}}}
+
   \item{basejump}{\code{\link[basejump]{sampleData}}, \code{\link[basejump]{basenameSansExt}}, \code{\link[basejump]{export}}, \code{\link[basejump]{import}}, \code{\link[basejump]{interestingGroups}}, \code{\link[basejump]{loadData}}, \code{\link[basejump]{loadRemoteData}}, \code{\link[basejump]{pasteURL}}, \code{\link[basejump]{sampleData}}, \code{\link[basejump]{saveData}}}
-
-  \item{firestarter}{\code{\link[firestarter]{plotHeatmap}}, \code{\link[firestarter]{plotQuantileHeatmap}}}
-
-  \item{minimalism}{\code{\link[minimalism]{plotGenesDetected}}, \code{\link[minimalism]{theme_paperwhite}}}
 }}
 

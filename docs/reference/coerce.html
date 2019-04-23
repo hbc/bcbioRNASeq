@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
       </span>
     </div>
 
@@ -161,7 +161,7 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.22.2.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/S4Vectors/topics/Vector-class'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
 #&gt; [5] "geneID"         "geneName"       "seqCoordSystem"</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/class'>class</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
 #&gt; attr(,"package")
-#&gt; [1] "DESeq2"</div><div class='input'><span class='fu'>show</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
+#&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
 #&gt; dim: 500 6 
 #&gt; metadata(11): version caller ... date sessionInfo
 #&gt; assays(1): counts
@@ -174,7 +174,7 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
 <span class='co'>## bcbioRNASeq to RangedSummarizedExperiment ====</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
 <span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
-#&gt; [5] "elementMetadata" "metadata"       </div><div class='input'><span class='fu'>show</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
+#&gt; [5] "elementMetadata" "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 500 6 
 #&gt; metadata(28): version level ... subset previousVersion
 #&gt; assays(6): counts tpm ... vst fpkm
@@ -191,7 +191,7 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/class'>class</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "SummarizedExperiment"
 #&gt; attr(,"package")
 #&gt; [1] "SummarizedExperiment"</div><div class='input'><span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "colData"         "assays"          "NAMES"           "elementMetadata"
-#&gt; [5] "metadata"       </div><div class='input'><span class='fu'>show</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: SummarizedExperiment 
+#&gt; [5] "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: SummarizedExperiment 
 #&gt; dim: 500 6 
 #&gt; metadata(28): version level ... subset previousVersion
 #&gt; assays(6): counts tpm ... vst fpkm

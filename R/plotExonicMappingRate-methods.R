@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inherit bioverbs::plotExonicMappingRate
-#' @inheritParams minimalism::params
+#' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'
@@ -31,12 +31,9 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
         limit = 0.6,
         fill,
         flip,
-        title = "exonic mapping rate"
+        title = "Exonic mapping rate"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
             isNumber(limit),
             isProportion(limit),
@@ -44,6 +41,9 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         p <- metrics(object) %>%
             ggplot(
@@ -53,10 +53,8 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
                     fill = !!sym("interestingGroups")
                 )
             ) +
-            geom_bar(
-                color = "black",
-                stat = "identity"
-            ) +
+            acid_geom_bar() +
+            acid_scale_y_continuous_nopad(limits = c(0L, 100L)) +
             labs(
                 title = title,
                 x = NULL,
@@ -65,7 +63,7 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
             )
 
         if (isPositive(limit)) {
-            # Convert to percentage
+            # Convert to percentage.
             if (limit > 1L) {
                 # nocov start
                 warning("`limit`: Use ratio (0-1) instead of percentage.")
@@ -83,7 +81,7 @@ plotExonicMappingRate.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- p + coord_flip()
+            p <- acid_coord_flip(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {

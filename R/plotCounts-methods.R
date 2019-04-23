@@ -1,7 +1,7 @@
 #' @name plotCounts
 #' @author Michael Steinbaugh
-#' @importMethodsFrom minimalism plotCounts
-#' @inherit minimalism::plotCounts
+#' @importMethodsFrom acidplots plotCounts
+#' @inherit acidplots::plotCounts
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -65,7 +65,7 @@ f1 <- formals(plotCounts.bcbioRNASeq)
 f2 <- methodFormals(
     f = "plotCounts",
     signature = "SummarizedExperiment",
-    package = "minimalism"
+    package = "acidplots"
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay", "countsAxisLabel"))]
 f <- c(f1, f2)

@@ -11,7 +11,9 @@
   interestingGroups = NULL, method = c("pearson", "kendall",
   "spearman"), clusteringMethod = "ward.D2", showRownames = TRUE,
   showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
-  color = viridis::viridis, legendColor = viridis::viridis,
+  color = getOption(x = "acid.heatmap.color", default =
+  acidplots::synesthesia), legendColor = getOption(x =
+  "acid.heatmap.color", default = acidplots::synesthesia),
   borderColor = NULL, title = TRUE, ...)
 }
 \arguments{
@@ -54,9 +56,9 @@ Size of the row and column dendrograms. Use \code{0} to disable.}
 Hexadecimal color function or values to use for plot.
 
 We generally recommend these hexadecimal functions from the viridis
-package:
+package, in addition to our \code{\link[=synesthesia]{synesthesia()}} palette:
 \itemize{
-\item \code{viridis::viridis()} (\emph{default}).
+\item \code{viridis::viridis()}.
 \item \code{viridis::inferno()}.
 \item \code{viridis::magma()}.
 \item \code{viridis::plasma()}.
@@ -75,7 +77,7 @@ colors.}
 \item{borderColor}{\code{character(1)} or \code{NULL}.
 Border color. Disabled by default for improved aesthetics.}
 
-\item{title}{\code{character(1)} or \code{NULL}.
+\item{title}{\code{character(1)}.
 Plot title.}
 
 \item{...}{Additional arguments.}

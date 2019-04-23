@@ -8,8 +8,10 @@
 \usage{
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("vst",
   "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
-  medianLine = TRUE, color = getOption("basejump.discrete.color",
-  NULL), legend = getOption("basejump.legend", TRUE), style = "wide")
+  trans = c("identity", "log2", "log10"), medianLine = TRUE,
+  color = getOption(x = "acid.color.discrete", default =
+  acidplots::scale_colour_synesthesia_d()), legend = getOption(x =
+  "acid.legend", default = TRUE), style = "wide")
 }
 \arguments{
 \item{object}{Object.}
@@ -26,6 +28,12 @@ Which normalization method to apply:
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to
 \code{sampleName}.}
+
+\item{trans}{\code{character(1)}.
+Name of the axis scale transformation to apply.
+
+For more information:\preformatted{help(topic = "scale_x_continuous", package = "ggplot2")
+}}
 
 \item{medianLine}{\code{logical(1)}.
 Include median line for each group. Disabled if samples are colored by

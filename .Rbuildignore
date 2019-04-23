@@ -1,7 +1,4 @@
 ^.*\.Rproj$
-^.*\.enc$
-^.*\.gz$
-^.*\.pdf$
 ^CONTRIBUTING\.md$
 ^Meta$
 ^\.Rprofile$
@@ -16,5 +13,6 @@
 ^doc$
 ^docs$
 ^pkgdown$
+^Rplots\.pdf$
 ^travis-docker\.R$
 ^travis-render\.sh$

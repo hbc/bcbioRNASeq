@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inherit bioverbs::plotGeneSaturation
-#' @inheritParams minimalism::params
+#' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #'
@@ -34,13 +34,11 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         trendline = FALSE,
         label,
         color,
-        title = "gene saturation"
+        title = "Gene saturation"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
+            .isGeneLevel(object),
             isInt(minCounts),
             isInRange(minCounts, lower = 1L, upper = Inf),
             isFlag(perMillion),
@@ -49,6 +47,9 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
             isGGScale(color, scale = "discrete", aes = "colour", nullOK = TRUE),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         counts <- counts(object, normalized = FALSE)
         data <- metrics(object)

@@ -7,9 +7,9 @@
 \title{Plot mapping rate}
 \usage{
 \S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups = NULL,
-  limit = 0.7, fill = getOption("acid.fill.discrete", default = NULL),
-  flip = getOption("acid.flip", default = TRUE),
-  title = "mapping rate")
+  limit = 0.7, fill = getOption(x = "acid.fill.discrete", default =
+  acidplots::scale_fill_synesthesia_d()), flip = getOption(x =
+  "acid.flip", default = TRUE), title = "Mapping rate")
 }
 \arguments{
 \item{object}{Object.}

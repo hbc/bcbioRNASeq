@@ -1,17 +1,17 @@
-context("plotCountsPerGene")
+context("plotCountsPerFeature")
 
 geom <- methodFormals(
-    f = "plotCountsPerGene",
+    f = "plotCountsPerFeature",
     signature = "bcbioRNASeq"
 ) %>%
     .[["geom"]] %>%
     eval()
 
 with_parameters_test_that(
-    "plotCountsPerGene", {
-        x <- plotCountsPerGene(object, geom = geom)
+    "bcbioRNASeq", {
+        x <- plotCountsPerFeature(object, geom = geom)
         expect_s3_class(x, "ggplot")
-        x <- plotCountsPerGene(
+        x <- plotCountsPerFeature(
             object = object,
             normalized = "vst",
             interestingGroups = "sampleName",
@@ -21,3 +21,12 @@ with_parameters_test_that(
     },
     geom = geom
 )
+
+
+
+context("plotCountsPerGene")
+
+test_that("bcbioRNASeq", {
+    x <- plotCountsPerGene(object)
+    expect_s3_class(x, "ggplot")
+})

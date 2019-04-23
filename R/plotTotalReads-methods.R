@@ -1,7 +1,7 @@
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotTotalReads
-#' @inheritParams minimalism::params
+#' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @examples
@@ -27,12 +27,9 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         perMillion = TRUE,
         fill,
         flip,
-        title = "total reads"
+        title = "Total reads"
     ) {
         validObject(object)
-        interestingGroups(object) <-
-            matchInterestingGroups(object, interestingGroups)
-        interestingGroups <- interestingGroups(object)
         assert(
             isInt(limit),
             isNonNegative(limit),
@@ -41,6 +38,9 @@ plotTotalReads.bcbioRNASeq <-  # nolint
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
+        interestingGroups(object) <-
+            matchInterestingGroups(object, interestingGroups)
+        interestingGroups <- interestingGroups(object)
 
         data <- metrics(object)
 
@@ -59,10 +59,8 @@ plotTotalReads.bcbioRNASeq <-  # nolint
                     fill = !!sym("interestingGroups")
                 )
             ) +
-            geom_bar(
-                color = "black",
-                stat = "identity"
-            ) +
+            acid_geom_bar() +
+            acid_scale_y_continuous_nopad() +
             labs(
                 title = title,
                 x = NULL,
@@ -86,7 +84,7 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         }
 
         if (isTRUE(flip)) {
-            p <- p + coord_flip()
+            p <- acid_coord_flip(p)
         }
 
         if (identical(interestingGroups, "sampleName")) {

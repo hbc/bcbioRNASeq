@@ -7,10 +7,10 @@
 \title{Plot intronic mapping rate}
 \usage{
 \S4method{plotIntronicMappingRate}{bcbioRNASeq}(object,
-  interestingGroups = NULL, limit = 0.2,
-  fill = getOption("acid.fill.discrete", default = NULL),
-  flip = getOption("acid.flip", default = TRUE),
-  title = "intronic mapping rate")
+  interestingGroups = NULL, limit = 0.2, fill = getOption(x =
+  "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
+  flip = getOption(x = "acid.flip", default = TRUE),
+  title = "Intronic mapping rate")
 }
 \arguments{
 \item{object}{Object.}
