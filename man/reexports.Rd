@@ -4,7 +4,6 @@
 \name{reexports}
 \alias{reexports}
 \alias{sampleData}
-\alias{plotCountsPerFeature}
 \alias{plotFeaturesDetected}
 \alias{plotHeatmap}
 \alias{plotQuantileHeatmap}
@@ -25,7 +24,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{acidplots}{\code{\link[acidplots]{plotCountsPerFeature}}, \code{\link[acidplots]{plotFeaturesDetected}}, \code{\link[acidplots]{plotHeatmap}}, \code{\link[acidplots]{plotQuantileHeatmap}}}
+  \item{acidplots}{\code{\link[acidplots]{plotFeaturesDetected}}, \code{\link[acidplots]{plotHeatmap}}, \code{\link[acidplots]{plotQuantileHeatmap}}}
 
   \item{basejump}{\code{\link[basejump]{sampleData}}, \code{\link[basejump]{basenameSansExt}}, \code{\link[basejump]{export}}, \code{\link[basejump]{import}}, \code{\link[basejump]{interestingGroups}}, \code{\link[basejump]{loadData}}, \code{\link[basejump]{loadRemoteData}}, \code{\link[basejump]{pasteURL}}, \code{\link[basejump]{sampleData}}, \code{\link[basejump]{saveData}}}
 }}

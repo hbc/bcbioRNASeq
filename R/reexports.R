@@ -1,7 +1,3 @@
-#' @importFrom acidplots plotCountsPerFeature
-#' @export
-acidplots::plotCountsPerFeature
-
 #' @importFrom acidplots plotFeaturesDetected
 #' @export
 acidplots::plotFeaturesDetected
