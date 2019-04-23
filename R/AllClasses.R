@@ -1,4 +1,7 @@
-setClassUnion(name = "missingOrNULL", members = c("missing", "NULL"))
+setClassUnion(
+    name = "missingOrNULL",
+    members = c("missing", "NULL")
+)
 
 
 
@@ -163,8 +166,11 @@ setClass(
         ok <- validate(
             is(rowRanges, "GRanges"),
             is(rowData, "DataFrame"),
-            identical(names(rowRanges), rownames(object)),
-            identical(rownames(rowData), rownames(object))
+            identical(names(rowRanges), rownames(object))
+            # This check fails on BioC 3.6; SummarizedExperiment 1.8.
+            # nolint start
+            # > identical(rownames(rowData), rownames(object))
+            # nolint end
         )
         if (!isTRUE(ok)) return(ok)
 
