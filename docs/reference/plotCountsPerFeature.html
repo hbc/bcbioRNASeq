@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot ribosomal RNA (rRNA) mapping rate — plotRRNAMappingRate • bcbioRNASeq</title>
+<title>Plot counts per feature — plotCountsPerFeature • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,13 +32,10 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot ribosomal RNA (rRNA) mapping rate — plotRRNAMappingRate" />
+<meta property="og:title" content="Plot counts per feature — plotCountsPerFeature" />
 
-<meta property="og:description" content="Clean, high-quality samples should have an rRNA mapping rate below 10
-Higher rates are likely indicative of the polyA enrichment or ribo depletion
-protocol not having removed all ribosomal RNA (rRNA) transcripts. This will
-reduce the number of biologically meaningful reads in the experiment and is
-best avoided." />
+<meta property="og:description" content="Generally, we expect similar count spreads for all genes between samples
+unless the library sizes or total RNA expression are different." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,27 +108,29 @@ best avoided." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot ribosomal RNA (rRNA) mapping rate</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotRRNAMappingRate-methods.R'><code>R/plotRRNAMappingRate-methods.R</code></a></small>
-    <div class="hidden name"><code>plotRRNAMappingRate.Rd</code></div>
+    <h1>Plot counts per feature</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotCountsPerFeature-methods.R'><code>R/plotCountsPerFeature-methods.R</code></a></small>
+    <div class="hidden name"><code>plotCountsPerFeature.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Clean, high-quality samples should have an rRNA mapping rate below 10<!-- %. -->
-Higher rates are likely indicative of the polyA enrichment or ribo depletion
-protocol not having removed all ribosomal RNA (rRNA) transcripts. This will
-reduce the number of biologically meaningful reads in the experiment and is
-best avoided.</p>
+    <p>Generally, we expect similar count spreads for all genes between samples
+unless the library sizes or total RNA expression are different.</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotRRNAMappingRate</span>(<span class='no'>object</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span>
+<span class='fu'>plotCountsPerFeature</span>(<span class='no'>object</span>,
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"tmm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>),
+  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"log2"</span>, <span class='st'>"log10"</span>), <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>minCountsMethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"perFeature"</span>, <span class='st'>"absolute"</span>),
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"boxplot"</span>, <span class='st'>"density"</span>, <span class='st'>"violin"</span>),
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.color.discrete"</span>, <span class='kw'>default</span> <span class='kw'>=</span>
+  <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/acidplots/topics/synesthesia'>scale_colour_synesthesia_d</a></span>()), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span>
   <span class='st'>"acid.fill.discrete"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/acidplots/topics/synesthesia'>scale_fill_synesthesia_d</a></span>()),
   <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.flip"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"rRNA mapping rate"</span>)</pre>
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Counts per feature"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,15 +140,58 @@ best avoided.</p>
       <td><p>Object.</p></td>
     </tr>
     <tr>
+      <th>normalized</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 log2 regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 log2 variance stabilizing transformation.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>trans</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Apply a log transformation (e.g. <code><a href='https://www.rdocumentation.org/packages/base/topics/Log'>log2(x + 1L)</a></code>) to the count matrix prior
+to melting, if desired. Use <code>"identity"</code> to return unmodified (default).</p></td>
+    </tr>
+    <tr>
+      <th>minCounts</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer(1)</a></code>.
+Minimum count threshold to apply. Filters using "greater than or equal to"
+logic internally. Note that this threshold gets applied prior to
+logarithmic transformation, when <code>trans</code> argument applies.</p></td>
+    </tr>
+    <tr>
+      <th>minCountsMethod</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Uses <code><a href='https://www.rdocumentation.org/packages/base/topics/match.arg'>match.arg()</a></code>.</p><ul>
+<li><p><code>perFeature</code>: <em>Recommended</em>. Applies cutoff per row feature (i.e. gene).
+Internally, <code><a href='https://www.rdocumentation.org/packages/base/topics/colSums'>rowSums()</a></code> values are checked against this
+cutoff threshold prior to the melt operation.</p></li>
+<li><p><code>absolute</code>: Applies hard cutoff to <code>counts</code> column after the melt
+operation. This applies to all counts, not per feature.</p></li>
+</ul></td>
+    </tr>
+    <tr>
       <th>interestingGroups</th>
       <td><p><code>character</code>.
 Groups of interest that define the samples. If left unset, defaults to
 <code>sampleName</code>.</p></td>
     </tr>
     <tr>
-      <th>limit</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric(1)</a></code>.
-Threshold to denote on the plot, using a dashed line.</p></td>
+      <th>geom</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+Type of ggplot2 geometric object to use.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p><code>ScaleDiscrete</code>.
+Desired ggplot2 color scale. Must supply discrete values. When set <code>NULL</code>,
+the default ggplot2 color palette will be used. If manual color definitions
+are desired, we recommend using <code><a href='https://www.rdocumentation.org/packages/ggplot2/topics/scale_manual'>ggplot2::scale_color_manual()</a></code>.</p>
+<p>To set the discrete color palette globally, use:</p><pre>options(acid.color.discrete = ggplot2::scale_color_viridis_d())
+</pre></td>
     </tr>
     <tr>
       <th>fill</th>
@@ -176,10 +218,24 @@ Plot title.</p></td>
 
     <p><code>ggplot</code>.</p>
     
+    <h2 class="hasAnchor" id="trimmed-mean-of-m-values"><a class="anchor" href="#trimmed-mean-of-m-values"></a>Trimmed Mean of M-Values</h2>
+
+    
+    <p>We recommend visualizing counts normalized with the <strong>T</strong>rimmed <strong>M</strong>ean of
+<strong>M</strong>-Values (TMM) method here. TMM normalization equates the overall
+expression levels of genes between samples under the assumption that the
+majority of them are not differentially expressed. Therefore, by normalizing
+for total RNA expression by sample, we expect the spread of the
+TMM-normalized counts per gene to be similar for every sample.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>TMM: Robinson, et al., 2010.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotRRNAMappingRate</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotRRNAMappingRate-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotCountsPerFeature</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='output co'>#&gt; <span class='message'>500 / 500 features passed minimum rowSums() &gt;= 1 expression cutoff.</span></div><div class='output co'>#&gt; <span class='message'>Applying log2(x + 1) transformation.</span></div><div class='img'><img src='plotCountsPerFeature-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -187,6 +243,10 @@ Plot title.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#trimmed-mean-of-m-values">Trimmed Mean of M-Values</a></li>
+
+      <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

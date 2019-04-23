@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
       </span>
     </div>
 
@@ -124,7 +124,9 @@
   <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"pearson"</span>, <span class='st'>"kendall"</span>,
   <span class='st'>"spearman"</span>), <span class='kw'>clusteringMethod</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>, <span class='kw'>showRownames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>showColnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>treeheightRow</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>treeheightCol</span> <span class='kw'>=</span> <span class='fl'>50L</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>, <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='kw pkg'>viridis</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis</a></span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.heatmap.color"</span>, <span class='kw'>default</span> <span class='kw'>=</span>
+  <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/acidplots/topics/synesthesia'>synesthesia</a></span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span>
+  <span class='st'>"acid.heatmap.color"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/acidplots/topics/synesthesia'>synesthesia</a></span>),
   <span class='kw'>borderColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -187,8 +189,8 @@ Size of the row and column dendrograms. Use <code>0</code> to disable.</p></td>
       <td><p><code>function</code>, <code>character</code>, or <code>NULL</code>.
 Hexadecimal color function or values to use for plot.</p>
 <p>We generally recommend these hexadecimal functions from the viridis
-package:</p><ul>
-<li><p><code><a href='https://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::viridis()</a></code> (<em>default</em>).</p></li>
+package, in addition to our <code>synesthesia()</code> palette:</p><ul>
+<li><p><code><a href='https://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::viridis()</a></code>.</p></li>
 <li><p><code><a href='https://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::inferno()</a></code>.</p></li>
 <li><p><code><a href='https://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::magma()</a></code>.</p></li>
 <li><p><code><a href='https://www.rdocumentation.org/packages/viridis/topics/reexports'>viridis::plasma()</a></code>.</p></li>
@@ -213,7 +215,7 @@ Border color. Disabled by default for improved aesthetics.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code> or <code>NULL</code>.
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
 Plot title.</p></td>
     </tr>
     <tr>
