@@ -6,6 +6,8 @@
 \alias{plotExonicMappingRate,bcbioRNASeq-method}
 \title{Plot exonic mapping rate}
 \usage{
+plotExonicMappingRate(object, ...)
+
 \S4method{plotExonicMappingRate}{bcbioRNASeq}(object,
   interestingGroups = NULL, limit = 0.6, fill = getOption(x =
   "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
@@ -35,6 +37,8 @@ Flip x and y axes. Recommended for plots containing many samples.}
 
 \item{title}{\code{character(1)}.
 Plot title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.

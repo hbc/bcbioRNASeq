@@ -6,6 +6,8 @@
 \alias{plotGeneSaturation,bcbioRNASeq-method}
 \title{Plot gene detection saturation}
 \usage{
+plotGeneSaturation(object, ...)
+
 \S4method{plotGeneSaturation}{bcbioRNASeq}(object,
   interestingGroups = NULL, minCounts = 1L, perMillion = TRUE,
   trendline = FALSE, label = getOption(x = "acid.label", default =
@@ -41,6 +43,8 @@ To set the discrete color palette globally, use:\preformatted{options(acid.color
 
 \item{title}{\code{character(1)}.
 Plot title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.

@@ -2,7 +2,10 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom acidplots plotPCA
 #' @inherit acidplots::plotPCA
+#'
 #' @inheritParams params
+#' @param ... Additional arguments.
+#'
 #' @examples
 #' data(bcb)
 #' plotPCA(bcb, label = FALSE)
@@ -14,6 +17,7 @@ NULL
 #' @rdname plotPCA
 #' @name plotPCA
 #' @importFrom BiocGenerics plotPCA
+#' @usage plotPCA(object, ...)
 #' @export
 NULL
 

@@ -6,6 +6,8 @@
 \alias{plotCounts,bcbioRNASeq-method}
 \title{Plot counts}
 \usage{
+plotCounts(object, ...)
+
 \S4method{plotCounts}{bcbioRNASeq}(object, genes, normalized = c("vst",
   "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   trans = c("identity", "log2", "log10"), medianLine = TRUE,
@@ -57,6 +59,8 @@ Show plot legend.}
 
 \item{style}{\code{character(1)}.
 Plot style.}
+
+\item{...}{Additional parameters.}
 }
 \value{
 \itemize{

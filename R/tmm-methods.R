@@ -1,7 +1,10 @@
 #' @name tmm
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::tmm
+#'
 #' @inheritParams params
+#' @param ... Additional arguments.
+#'
 #' @examples
 #' data(bcb)
 #' x <- tmm(bcb)
@@ -13,6 +16,7 @@ NULL
 #' @rdname tmm
 #' @name tmm
 #' @importFrom bioverbs tmm
+#' @usage tmm(object, ...)
 #' @export
 NULL
 

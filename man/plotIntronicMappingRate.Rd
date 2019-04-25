@@ -6,6 +6,8 @@
 \alias{plotIntronicMappingRate,bcbioRNASeq-method}
 \title{Plot intronic mapping rate}
 \usage{
+plotIntronicMappingRate(object, ...)
+
 \S4method{plotIntronicMappingRate}{bcbioRNASeq}(object,
   interestingGroups = NULL, limit = 0.2, fill = getOption(x =
   "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
@@ -35,6 +37,8 @@ Flip x and y axes. Recommended for plots containing many samples.}
 
 \item{title}{\code{character(1)}.
 Plot title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.

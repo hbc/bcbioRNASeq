@@ -44,15 +44,6 @@ resultsTables <- function(...) {
 
 
 
-# v0.3.12 ======================================================================
-# SummarizedExperiment method now works seamlessly with bcbioRNASeq object, so
-# no need to redefine a custom method here.
-#' @importFrom basejump sampleData
-#' @export
-basejump::sampleData
-
-
-
 # v0.3.16 ======================================================================
 #' @rdname deprecated
 #' @export

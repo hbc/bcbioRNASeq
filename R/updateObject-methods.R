@@ -34,14 +34,6 @@ NULL
 
 
 
-#' @rdname updateObject
-#' @name updateObject
-#' @importFrom BiocGenerics updateObject
-#' @export
-NULL
-
-
-
 updateObject.bcbioRNASeq <-  # nolint
     function(
         object,

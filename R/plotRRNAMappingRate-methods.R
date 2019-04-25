@@ -1,9 +1,12 @@
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotRRNAMappingRate
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#' @param ... Additional arguments.
+#'
 #' @examples
 #' data(bcb)
 #' plotRRNAMappingRate(bcb)
@@ -14,6 +17,7 @@ NULL
 #' @rdname plotRRNAMappingRate
 #' @name plotRRNAMappingRate
 #' @importFrom bioverbs plotRRNAMappingRate
+#' @usage plotRRNAMappingRate(object, ...)
 #' @export
 NULL
 

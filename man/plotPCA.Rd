@@ -6,6 +6,8 @@
 \alias{plotPCA,bcbioRNASeq-method}
 \title{Principal component analysis plot}
 \usage{
+plotPCA(object, ...)
+
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL, ntop = 500L,
   label = getOption(x = "acid.label", default = FALSE),

@@ -1,10 +1,12 @@
 #' @name plotCountsPerBiotype
 #' @author Michael Steinbaugh, Rory Kirchner
-#' @importMethodsFrom acidplots plotCountsPerBiotype
 #' @inherit acidplots::plotCountsPerBiotype
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#' @param ... Additional arguments.
+#'
 #' @examples
 #' data(bcb)
 #' plotCountsPerBiotype(bcb)
@@ -15,12 +17,16 @@ NULL
 #' @rdname plotCountsPerBiotype
 #' @name plotCountsPerBiotype
 #' @importFrom bioverbs plotCountsPerBiotype
+#' @importMethodsFrom acidplots plotCountsPerBiotype
+#' @usage plotCountsPerBiotype(object, ...)
 #' @export
 NULL
 
 #' @rdname plotCountsPerBiotype
 #' @name plotCountsPerBroadClass
 #' @importFrom bioverbs plotCountsPerBroadClass
+#' @importMethodsFrom acidplots plotCountsPerBroadClass
+#' @usage plotCountsPerBroadClass(object, ...)
 #' @export
 NULL
 

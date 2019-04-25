@@ -1,9 +1,11 @@
 #' @name plotCounts
 #' @author Michael Steinbaugh
-#' @importMethodsFrom acidplots plotCounts
 #' @inherit acidplots::plotCounts
+#'
 #' @inheritParams basejump::params
 #' @inheritParams params
+#' @param ... Additional parameters.
+#'
 #' @examples
 #' data(bcb)
 #'
@@ -32,6 +34,8 @@ NULL
 #' @rdname plotCounts
 #' @name plotCounts
 #' @importFrom bioverbs plotCounts
+#' @importMethodsFrom acidplots plotCounts
+#' @usage plotCounts(object, ...)
 #' @export
 NULL
 

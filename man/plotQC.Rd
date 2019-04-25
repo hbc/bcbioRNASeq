@@ -6,10 +6,14 @@
 \alias{plotQC,bcbioRNASeq-method}
 \title{Quality control}
 \usage{
+plotQC(object, ...)
+
 \S4method{plotQC}{bcbioRNASeq}(object)
 }
 \arguments{
 \item{object}{Object.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.

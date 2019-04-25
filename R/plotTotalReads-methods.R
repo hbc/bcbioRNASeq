@@ -1,9 +1,12 @@
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotTotalReads
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#' @param ... Additional arguments.
+#'
 #' @examples
 #' data(bcb)
 #' plotTotalReads(bcb)
@@ -14,6 +17,7 @@ NULL
 #' @rdname plotTotalReads
 #' @name plotTotalReads
 #' @importFrom bioverbs plotTotalReads
+#' @usage plotTotalReads(object, ...)
 #' @export
 NULL
 

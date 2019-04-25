@@ -6,6 +6,8 @@
 \alias{plot5Prime3PrimeBias,bcbioRNASeq-method}
 \title{Plot 5' to 3' bias}
 \usage{
+plot5Prime3PrimeBias(object, ...)
+
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object,
   interestingGroups = NULL, color = getOption(x =
   "acid.color.discrete", default =
@@ -32,6 +34,8 @@ Flip x and y axes. Recommended for plots containing many samples.}
 
 \item{title}{\code{character(1)}.
 Plot title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.

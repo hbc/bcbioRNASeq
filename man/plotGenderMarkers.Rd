@@ -6,6 +6,8 @@
 \alias{plotGenderMarkers,bcbioRNASeq-method}
 \title{Plot sexually dimorphic gender marker genes}
 \usage{
+plotGenderMarkers(object, ...)
+
 \S4method{plotGenderMarkers}{bcbioRNASeq}(object, normalized = c("vst",
   "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
   trans = c("identity", "log2", "log10"), medianLine = TRUE,
@@ -52,6 +54,8 @@ Show plot legend.}
 
 \item{style}{\code{character(1)}.
 Plot style.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.

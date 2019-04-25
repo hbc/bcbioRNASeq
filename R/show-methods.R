@@ -9,14 +9,6 @@ NULL
 
 
 
-#' @rdname show
-#' @name show
-#' @importFrom methods show
-#' @export
-NULL
-
-
-
 .showHeader <- function(object, version = NULL) {
     cat(paste(class(object), version), sep = "\n")
 }

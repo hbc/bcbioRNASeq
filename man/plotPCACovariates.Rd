@@ -6,6 +6,8 @@
 \alias{plotPCACovariates,bcbioRNASeq-method}
 \title{Find correlation between principal components (PCs) and covariates}
 \usage{
+plotPCACovariates(object, ...)
+
 \S4method{plotPCACovariates}{bcbioRNASeq}(object, metrics = TRUE,
   normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"), ...)
 }

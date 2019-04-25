@@ -1,6 +1,10 @@
 #' @name plotQC
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::plotQC
+#'
+#' @inheritParams params
+#' @param ... Additional arguments.
+#'
 #' @examples
 #' data(bcb)
 #' plotQC(bcb)
@@ -11,6 +15,7 @@ NULL
 #' @rdname plotQC
 #' @name plotQC
 #' @importFrom bioverbs plotQC
+#' @usage plotQC(object, ...)
 #' @export
 NULL
 

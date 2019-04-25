@@ -6,6 +6,8 @@
 \alias{plotTotalReads,bcbioRNASeq-method}
 \title{Plot total reads}
 \usage{
+plotTotalReads(object, ...)
+
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups = NULL,
   limit = 20000000L, perMillion = TRUE, fill = getOption(x =
   "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
@@ -38,6 +40,8 @@ Flip x and y axes. Recommended for plots containing many samples.}
 
 \item{title}{\code{character(1)}.
 Plot title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.
