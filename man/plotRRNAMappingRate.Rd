@@ -6,6 +6,8 @@
 \alias{plotRRNAMappingRate,bcbioRNASeq-method}
 \title{Plot ribosomal RNA (rRNA) mapping rate}
 \usage{
+plotRRNAMappingRate(object, ...)
+
 \S4method{plotRRNAMappingRate}{bcbioRNASeq}(object,
   interestingGroups = NULL, limit = 0.1, fill = getOption(x =
   "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
@@ -35,6 +37,8 @@ Flip x and y axes. Recommended for plots containing many samples.}
 
 \item{title}{\code{character(1)}.
 Plot title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.

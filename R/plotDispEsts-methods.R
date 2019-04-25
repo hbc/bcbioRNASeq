@@ -2,11 +2,12 @@
 #'
 #' @name plotDispEsts
 #' @author Michael Steinbaugh
-#'
 #' @inherit DESeq2::plotDispEsts
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#' @param ... Additional arguments.
 #'
 #' @details
 #' This plot shows the dispersion by mean of normalized counts. We expect the
@@ -39,6 +40,7 @@ NULL
 #' @rdname plotDispEsts
 #' @name plotDispEsts
 #' @importFrom BiocGenerics plotDispEsts
+#' @usage plotDispEsts(object, ...)
 #' @export
 NULL
 

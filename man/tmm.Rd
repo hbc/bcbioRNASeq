@@ -7,12 +7,16 @@
 \alias{tmm,SummarizedExperiment-method}
 \title{Trimmed mean of M-values}
 \usage{
+tmm(object, ...)
+
 \S4method{tmm}{matrix}(object)
 
 \S4method{tmm}{SummarizedExperiment}(object)
 }
 \arguments{
 \item{object}{Object.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{matrix}.

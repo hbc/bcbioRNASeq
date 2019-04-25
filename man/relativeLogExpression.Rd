@@ -7,12 +7,16 @@
 \alias{relativeLogExpression,SummarizedExperiment-method}
 \title{Relative log expression}
 \usage{
+relativeLogExpression(object, ...)
+
 \S4method{relativeLogExpression}{matrix}(object)
 
 \S4method{relativeLogExpression}{SummarizedExperiment}(object)
 }
 \arguments{
 \item{object}{Object.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{matrix}.

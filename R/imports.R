@@ -5,7 +5,8 @@
 #'
 #' @importMethodsFrom basejump coerce
 #'
-#' @importFrom BiocGenerics cbind colSums density design lapply sapply width
+#' @importFrom BiocGenerics cbind colSums density design lapply sapply
+#'   updateObject width
 #' @importFrom DEGreport degCovariates
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
 #'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions

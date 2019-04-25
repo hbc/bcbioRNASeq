@@ -1,11 +1,12 @@
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
-#'
 #' @inherit bioverbs::plotMeanSD
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
 #' @inheritParams bcbioRNASeq
+#' @param ... Additional arguments.
 #'
 #' @details
 #' `vsn::meanSdPlot()` wrapper that plots count transformations on a log2 scale.
@@ -32,6 +33,7 @@ NULL
 #' @rdname plotMeanSD
 #' @name plotMeanSD
 #' @importFrom bioverbs plotMeanSD
+#' @usage plotMeanSD(object, ...)
 #' @export
 NULL
 

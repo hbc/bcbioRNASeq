@@ -1,10 +1,11 @@
 #' @name plotIntronicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
 #' @inherit bioverbs::plotIntronicMappingRate
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#' @param ... Additional arguments.
 #'
 #' @examples
 #' data(bcb)
@@ -16,6 +17,7 @@ NULL
 #' @rdname plotIntronicMappingRate
 #' @name plotIntronicMappingRate
 #' @importFrom bioverbs plotIntronicMappingRate
+#' @usage plotIntronicMappingRate(object, ...)
 #' @export
 NULL
 

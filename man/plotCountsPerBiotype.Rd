@@ -8,6 +8,10 @@
 \alias{plotCountsPerBroadClass,bcbioRNASeq-method}
 \title{Plot counts per biotype}
 \usage{
+plotCountsPerBiotype(object, ...)
+
+plotCountsPerBroadClass(object, ...)
+
 \S4method{plotCountsPerBiotype}{bcbioRNASeq}(object,
   normalized = c("tpm", "vst", "rlog", "tmm", "rle", "fpkm"),
   trans = c("log2", "log10"), n = 9L, interestingGroups = NULL,
@@ -48,6 +52,8 @@ Counts axis label.}
 
 \item{title}{\code{character(1)}.
 Plot title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.

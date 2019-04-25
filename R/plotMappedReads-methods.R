@@ -1,10 +1,11 @@
 #' @name plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
 #' @inherit bioverbs::plotMappedReads
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#' @param ... Additional arguments.
 #'
 #' @examples
 #' data(bcb)
@@ -16,6 +17,7 @@ NULL
 #' @rdname plotMappedReads
 #' @name plotMappedReads
 #' @importFrom bioverbs plotMappedReads
+#' @usage plotMappedReads(object, ...)
 #' @export
 NULL
 

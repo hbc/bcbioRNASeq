@@ -1,63 +1,28 @@
+#' S4 generics re-exported from other packages
+#' @name reexports-S4
+#' @param object Object.
+#' @param ... Additional arguments.
+NULL
+
+
+
+#' @rdname reexports-S4
+#' @name plotFeaturesDetected
 #' @importFrom acidplots plotFeaturesDetected
+#' @usage plotFeaturesDetected(object, ...)
 #' @export
-acidplots::plotFeaturesDetected
+NULL
 
+#' @rdname reexports-S4
+#' @name plotHeatmap
 #' @importFrom acidplots plotHeatmap
+#' @usage plotHeatmap(object, ...)
 #' @export
-acidplots::plotHeatmap
+NULL
 
+#' @rdname reexports-S4
+#' @name plotQuantileHeatmap
 #' @importFrom acidplots plotQuantileHeatmap
-#' @export
-acidplots::plotQuantileHeatmap
-
-
-
-#' @importFrom basejump basenameSansExt
-#' @export
-basejump::basenameSansExt
-
-#' @importFrom basejump export
-#' @export
-basejump::export
-
-#' @importFrom basejump import
-#' @export
-basejump::import
-
-#' @importFrom basejump interestingGroups
-#' @export
-basejump::interestingGroups
-
-#' @rdname reexports
-#' @name interestingGroups<-
-#' @importFrom basejump interestingGroups<-
-#' @usage NULL
+#' @usage plotQuantileHeatmap(object, ...)
 #' @export
 NULL
-
-#' @importFrom basejump loadData
-#' @export
-basejump::loadData
-
-#' @importFrom basejump loadRemoteData
-#' @export
-basejump::loadRemoteData
-
-#' @importFrom basejump pasteURL
-#' @export
-basejump::pasteURL
-
-#' @importFrom basejump sampleData
-#' @export
-basejump::sampleData
-
-#' @rdname reexports
-#' @name sampleData<-
-#' @importFrom basejump sampleData<-
-#' @usage NULL
-#' @export
-NULL
-
-#' @importFrom basejump saveData
-#' @export
-basejump::saveData

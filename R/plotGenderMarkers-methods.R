@@ -1,11 +1,11 @@
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
-#' @importMethodsFrom acidplots plotGenderMarkers
-#'
 #' @inherit acidplots::plotGenderMarkers
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#' @param ... Additional arguments.
 #'
 #' @examples
 #' data(bcb)
@@ -17,6 +17,8 @@ NULL
 #' @rdname plotGenderMarkers
 #' @name plotGenderMarkers
 #' @importFrom bioverbs plotGenderMarkers
+#' @importMethodsFrom acidplots plotGenderMarkers
+#' @usage plotGenderMarkers(object, ...)
 #' @export
 NULL
 

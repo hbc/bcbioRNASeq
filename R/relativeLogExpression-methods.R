@@ -1,7 +1,10 @@
 #' @name relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
 #' @inherit bioverbs::relativeLogExpression
+#'
 #' @inheritParams params
+#' @param ... Additional arguments.
+#'
 #' @examples
 #' data(bcb)
 #' relativeLogExpression(bcb)
@@ -12,6 +15,7 @@ NULL
 #' @rdname relativeLogExpression
 #' @name relativeLogExpression
 #' @importFrom bioverbs relativeLogExpression
+#' @usage relativeLogExpression(object, ...)
 #' @export
 NULL
 

@@ -1,13 +1,13 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
 #' @inherit bioverbs::plotGeneSaturation
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
-#'
 #' @param trendline `logical(1)`.
 #'   Include a trendline for each group.
+#' @param ... Additional arguments.
 #'
 #' @examples
 #' data(bcb)
@@ -20,6 +20,7 @@ NULL
 #' @rdname plotGeneSaturation
 #' @name plotGeneSaturation
 #' @importFrom bioverbs plotGeneSaturation
+#' @usage plotGeneSaturation(object, ...)
 #' @export
 NULL
 

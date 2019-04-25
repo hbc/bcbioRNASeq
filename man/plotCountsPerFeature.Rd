@@ -6,6 +6,8 @@
 \alias{plotCountsPerFeature,bcbioRNASeq-method}
 \title{Plot counts per feature}
 \usage{
+plotCountsPerFeature(object, ...)
+
 \S4method{plotCountsPerFeature}{bcbioRNASeq}(object,
   normalized = c("tmm", "vst", "rlog", "rle", "tpm", "fpkm"),
   trans = c("log2", "log10"), minCounts = 1L,
@@ -76,6 +78,8 @@ Flip x and y axes. Recommended for plots containing many samples.}
 
 \item{title}{\code{character(1)}.
 Plot title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.

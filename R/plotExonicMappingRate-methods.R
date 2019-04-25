@@ -1,10 +1,11 @@
 #' @name plotExonicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
 #' @inherit bioverbs::plotExonicMappingRate
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#' @param ... Additional arguments.
 #'
 #' @description
 #' Ideally, at least 60 percent of total reads should map to exons for RNA-seq.
@@ -19,6 +20,7 @@ NULL
 #' @rdname plotExonicMappingRate
 #' @name plotExonicMappingRate
 #' @importFrom bioverbs plotExonicMappingRate
+#' @usage plotExonicMappingRate(object, ...)
 #' @export
 NULL
 

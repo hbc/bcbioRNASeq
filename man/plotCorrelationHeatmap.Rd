@@ -38,7 +38,7 @@ Correlation coefficient (or covariance) method to be computed. Defaults to
 \code{\link[stats:cor]{stats::cor()}} documentation for details.}
 
 \item{clusteringMethod}{\code{character(1)}.
-Clustering method. Accepts the same values as \code{\link[stats:hclust]{stats::hclust()}}.}
+Clustering method. Accepts the same values as \code{\link[stats:hclust]{hclust()}}.}
 
 \item{showRownames}{\code{logical(1)}.
 Show row or column names.}

@@ -22,6 +22,7 @@ NULL
 #' @rdname plotPCACovariates
 #' @name plotPCACovariates
 #' @importFrom bioverbs plotPCACovariates
+#' @usage plotPCACovariates(object, ...)
 #' @export
 NULL
 

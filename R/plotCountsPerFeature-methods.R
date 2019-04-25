@@ -1,11 +1,11 @@
 #' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @importMethodsFrom acidplots plotCountsPerFeature
-#'
 #' @inherit acidplots::plotCountsPerFeature
+#'
 #' @inheritParams acidplots::params
 #' @inheritParams basejump::params
 #' @inheritParams params
+#' @param ... Additional arguments.
 #'
 #' @section Trimmed Mean of M-Values:
 #'
@@ -28,6 +28,8 @@ NULL
 #' @rdname plotCountsPerFeature
 #' @name plotCountsPerFeature
 #' @importFrom bioverbs plotCountsPerFeature
+#' @importMethodsFrom acidplots plotCountsPerFeature
+#' @usage plotCountsPerFeature(object, ...)
 #' @export
 NULL
 
