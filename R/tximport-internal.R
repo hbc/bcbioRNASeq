@@ -68,7 +68,7 @@
     # Note that this step can take a long time when processing a lot of samples,
     # and is recommended to be run on an HPC cluster, rather than locally.
     message(paste0(
-        "Reading ", type, " counts using tximport ",
+        "Reading ", type, " transcript-level counts using tximport ",
         packageVersion("tximport"), "."
     ))
     message(paste("Reading from", basename(files[[1L]]), "files."))
@@ -85,6 +85,9 @@
         ignoreTxVersion = ignoreTxVersion,
         importer = read_tsv
     )
+    if (identical(txOut, FALSE)) {
+        message("Returning transcript abundance at gene level.")
+    }
 
     # Assert checks before return.
     invisible(lapply(
