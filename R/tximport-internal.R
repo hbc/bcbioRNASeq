@@ -73,7 +73,7 @@
     ))
     message(paste("Reading from", basename(files[[1L]]), "files."))
     if (countsFromAbundance != "no") {
-        message(paste0("Scaling using ", countsFromAbundance, "."))
+        message(paste0("Scaling transcripts using ", countsFromAbundance, "."))
     }
     txi <- tximport(
         files = files,
