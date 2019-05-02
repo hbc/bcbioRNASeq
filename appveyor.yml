@@ -19,11 +19,14 @@ environment:
     R_ARCH: x64
     USE_RTOOLS: true
   matrix:
-    - configuration: release
-      R_VERSION: release
+    - configuration: 3.4
+      R_VERSION: 3.4.4
       BIOC_USE_DEVEL: "FALSE"
     - configuration: oldrel
       R_VERSION: oldrel
+      BIOC_USE_DEVEL: "FALSE"
+    - configuration: release
+      R_VERSION: release
       BIOC_USE_DEVEL: "FALSE"
     - configuration: devel
       R_VERSION: devel
