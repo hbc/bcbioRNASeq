@@ -35,7 +35,6 @@
     assert_is_a_bool(txOut)
     assertIsTx2gene(tx2gene)
     tx2gene <- as.data.frame(tx2gene)
-    sampleDirs <- sort(sampleDirs)
 
     # Check for count output format, by using the first sample directory
     subdirs <- list.dirs(
@@ -46,22 +45,15 @@
     assert_are_intersecting_sets(basename(subdirs), validCallers)
 
     # Locate `quant.sf` files for salmon or sailfish output
+    subdirs <- file.path(sampleDirs, type)
+    assert(all(isDirectory(subdirs)))
     if (type %in% c("salmon", "sailfish")) {
-        files <- sort(list.files(
-            path = file.path(sampleDirs, type),
-            pattern = "quant.sf",
-            full.names = TRUE,
-            recursive = TRUE)
-        )
+        basename <- "quant.sf"
     } else if (type == "kallisto") {
-        files <- sort(list.files(
-            path = file.path(sampleDirs, type),
-            pattern = "abundance.h5",
-            full.names = TRUE,
-            recursive = TRUE)
-        )
+        basename <- "abundance.h5"
     }
-    assert_all_are_existing_files(files)
+    files <- file.path(subdirs, basename)
+    assert(all(isFile(files)))
     names(files) <- names(sampleDirs)
 
     # Begin loading of selected counts
