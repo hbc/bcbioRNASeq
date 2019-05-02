@@ -35,6 +35,7 @@
     assert_is_a_bool(txOut)
     assertIsTx2gene(tx2gene)
     tx2gene <- as.data.frame(tx2gene)
+    sampleDirs <- sort(sampleDirs)
 
     # Check for count output format, by using the first sample directory
     subdirs <- list.dirs(
@@ -46,18 +47,18 @@
 
     # Locate `quant.sf` files for salmon or sailfish output
     if (type %in% c("salmon", "sailfish")) {
-        files <- list.files(
+        files <- sort(list.files(
             path = file.path(sampleDirs, type),
             pattern = "quant.sf",
             full.names = TRUE,
-            recursive = TRUE
+            recursive = TRUE)
         )
     } else if (type == "kallisto") {
-        files <- list.files(
+        files <- sort(list.files(
             path = file.path(sampleDirs, type),
             pattern = "abundance.h5",
             full.names = TRUE,
-            recursive = TRUE
+            recursive = TRUE)
         )
     }
     assert_all_are_existing_files(files)
