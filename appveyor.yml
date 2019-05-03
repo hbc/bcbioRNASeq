@@ -9,29 +9,23 @@ install:
 
 platform: x64
 
-cache:
-  - C:\RLibrary -> appveyor.yml
-
 branches:
   only:
     - master
 
 environment:
   global:
-    _R_CHECK_FORCE_SUGGESTS_: false
+    BIOC_USE_DEVEL: "FALSE"
     GCC_PATH: mingw_64
     R_ARCH: x64
     USE_RTOOLS: true
-    # WARNINGS_ARE_ERRORS: 1
   matrix:
-    - R_VERSION: patched
-      BIOC_USE_DEVEL: "FALSE"
-    # - R_VERSION: devel
-    #   BIOC_USE_DEVEL: "TRUE"
+    - configuration: 3.5
+      R_VERSION: 3.5.3
 
 matrix:
   allow_failures:
-    - R_VERSION: devel
+    - configuration: devel
   fast_finish: true
 
 build_script:

@@ -1,7 +1,7 @@
 Package: bcbioRNASeq
 Title: RNA-Seq Utilities
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.2.8
+Version: 0.2.9
 Authors@R: c(
     person(
         given = "Michael",
@@ -100,7 +100,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 Depends:
-    R (>= 3.4),
+    R (>= 3.5),
     SummarizedExperiment,
     bcbioBase (== 0.4.1),
     DESeq2 (>= 1.18)
