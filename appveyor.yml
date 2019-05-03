@@ -15,19 +15,17 @@ branches:
 
 environment:
   global:
+    BIOC_USE_DEVEL: "FALSE"
     GCC_PATH: mingw_64
     R_ARCH: x64
     USE_RTOOLS: true
   matrix:
-    - configuration: oldrel
-      R_VERSION: oldrel
-      BIOC_USE_DEVEL: "FALSE"
+    - configuration: 3.4
+      R_VERSION: 3.4.4
+    - configuration: 3.5
+      R_VERSION: 3.5.3
     - configuration: release
       R_VERSION: release
-      BIOC_USE_DEVEL: "FALSE"
-    - configuration: devel
-      R_VERSION: devel
-      BIOC_USE_DEVEL: "TRUE"
 
 matrix:
   allow_failures:
