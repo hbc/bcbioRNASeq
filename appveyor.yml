@@ -20,12 +20,8 @@ environment:
     R_ARCH: x64
     USE_RTOOLS: true
   matrix:
-    - configuration: 3.4
-      R_VERSION: 3.4.4
     - configuration: 3.5
       R_VERSION: 3.5.3
-    - configuration: release
-      R_VERSION: release
 
 matrix:
   allow_failures:
