@@ -13,7 +13,7 @@ r:
 
 branches:
   only:
-- master
+    - master
 
 env:
   global:
