@@ -36,7 +36,7 @@
     assertIsTx2gene(tx2gene)
     tx2gene <- as.data.frame(tx2gene)
 
-    # Check for count output format, by using the first sample directory
+    # Check for count output format, by using the first sample directory.
     subdirs <- list.dirs(
         path = sampleDirs[[1L]],
         full.names = TRUE,
@@ -44,25 +44,25 @@
     )
     assert_are_intersecting_sets(basename(subdirs), validCallers)
 
-    # Locate `quant.sf` files for salmon or sailfish output
+    # Locate the counts files.
     subdirs <- file.path(sampleDirs, type)
-    assert(all(isDirectory(subdirs)))
+    stopifnot(all(dir.exists(subdirs)))
     if (type %in% c("salmon", "sailfish")) {
         basename <- "quant.sf"
     } else if (type == "kallisto") {
         basename <- "abundance.h5"
     }
     files <- file.path(subdirs, basename)
-    assert(all(isFile(files)))
+    stopifnot(all(file.exists(files)))
     names(files) <- names(sampleDirs)
 
-    # Begin loading of selected counts
+    # Begin loading of selected counts.
     message(paste(
         "Reading", type, "counts using tximport",
         packageVersion("tximport")
     ))
 
-    # Ensure transcript IDs are stripped from tx2gene, if desired
+    # Ensure transcript IDs are stripped from tx2gene, if desired.
     if (isTRUE(ignoreTxVersion)) {
         tx2gene[["transcriptID"]] <-
             stripTranscriptVersions(tx2gene[["transcriptID"]])
