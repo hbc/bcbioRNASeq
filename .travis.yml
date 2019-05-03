@@ -3,51 +3,21 @@
 
 language: r
 cache: packages
+os: osx
+bioc_required: true
 
 r:
+  - 3.4
   - 3.5
-  # - bioc-release
-  # - bioc-devel
+  - release
 
-os:
-  # - linux
-  - osx
-
-matrix:
-  exclude:
-  - os: osx
-    r: bioc-devel
-
-# blocklist
-# branches:
-#   except:
-#  - develop
-
-# safelist
-# branches:
-#   only:
-#   - master
-
-# External dependencies
-# dependency for clusterProfiler > enrichplot > udunits2
-addons:
-  apt:
-    update: true
-    packages:
-      - libudunits2-dev
+branches:
+  only:
+- master
 
 env:
   global:
-    - LINTR_COMMENT_BOT=true
-
-# r_build_args: "--no-build-vignettes"
-# r_check_args: "--no-vignettes"
-
-# Set true before submission to Bioconductor
-warnings_are_errors: false
-
-# Temporarily enable when caching Bioconductor packages
-# script: true
+    - BIOC_USE_DEVEL="FALSE"
 
 r_packages:
   - covr
@@ -67,7 +37,7 @@ bioc_packages:
   - org.Hs.eg.db
   - org.Mm.eg.db
 r_github_packages:
-  - jimhester/lintr
+  - acidgenomics/lintr
 
 after_success:
   - Rscript -e 'lintr::lint_package()'
