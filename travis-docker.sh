@@ -1,24 +1,18 @@
-Sys.setenv(TZ = "America/New_York")
-sessioninfo::session_info()
-rcmdcheck::rcmdcheck(
-    path = ".",
-    args = c(
-        "--no-build-vignettes",
-        "--no-manual",
-        "--no-vignettes",
-        "--timings"
-    ),
-    build_args = c(
-        "--no-build-vignettes",
-        "--no-manual"
-    ),
-    error_on = "error"
-)
+#!/usr/bin/env bash
+set -Eeuxo pipefail
 
-if (packageVersion("base") >= "3.6") {
-    BiocCheck::BiocCheck(
-        package = ".",
-        `quit-with-status` = TRUE
-    )
-    lintr::lint_package()
-}
+if [[ -z "${image:-}" ]]
+then
+    image="basejump"
+fi
+
+if [[ -z "${tag:-}" ]]
+then
+    tag="latest"
+fi
+
+image="acidgenomics/${image}:${tag}"
+package="$(basename "$TRAVIS_BUILD_DIR")"
+
+docker pull "$image"
+docker run -ti --volume="${PWD}:/${package}" --workdir="/${package}" "$image" Rscript -e 'source("travis-docker.R")'
