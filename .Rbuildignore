@@ -15,4 +15,5 @@
 ^pkgdown$
 ^Rplots\.pdf$
 ^travis-docker\.R$
+^travis-docker\.sh$
 ^travis-render\.sh$
