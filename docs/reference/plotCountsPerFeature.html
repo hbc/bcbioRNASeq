@@ -66,7 +66,7 @@ unless the library sizes or total RNA expression are different." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.19</span>
       </span>
     </div>
 
@@ -120,7 +120,9 @@ unless the library sizes or total RNA expression are different.</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+    <pre class="usage"><span class='fu'>plotCountsPerFeature</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCountsPerFeature</span>(<span class='no'>object</span>,
   <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"tmm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>),
   <span class='kw'>trans</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"log2"</span>, <span class='st'>"log10"</span>), <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
@@ -211,6 +213,10 @@ Flip x and y axes. Recommended for plots containing many samples.</p></td>
       <th>title</th>
       <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
 Plot title.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
     </tr>
     </table>
     

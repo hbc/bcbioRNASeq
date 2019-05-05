@@ -15,6 +15,10 @@
 #' - [DEGreport::degCovariates()].
 #' - [DESeq2::rlog()].
 #' - [DESeq2::varianceStabilizingTransformation()].
+#'
+#' @examples
+#' data(bcb)
+#' plotPCACovariates(bcb)
 NULL
 
 

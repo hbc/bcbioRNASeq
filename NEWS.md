@@ -1,3 +1,15 @@
+## bcbioRNASeq 0.3.19 (2019-05-05)
+
+### Major changes
+
+- Now pinned to R >= 3.5.
+
+### Minor changes
+
+- Improved Travis CI and AppVeyor CI configuration.
+
+
+
 ## bcbioRNASeq 0.3.18 (2019-04-25)
 
 ### Minor changes

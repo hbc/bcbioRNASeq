@@ -66,7 +66,7 @@ genes, and overall gene experssion for the X and Y chromosomes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.19</span>
       </span>
     </div>
 
@@ -120,7 +120,9 @@ genes, and overall gene experssion for the X and Y chromosomes.</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+    <pre class="usage"><span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"vst"</span>,
   <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>trans</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"identity"</span>, <span class='st'>"log2"</span>, <span class='st'>"log10"</span>), <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -182,6 +184,10 @@ Show plot legend.</p></td>
       <th>style</th>
       <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
 Plot style.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
     </tr>
     </table>
     

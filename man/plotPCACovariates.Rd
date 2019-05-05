@@ -36,6 +36,9 @@ Which normalization method to apply:
 \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting \code{bcbioRNASeq}
 class.
 }
+\examples{
+class(plotPCACovariates)
+}
 \seealso{
 \itemize{
 \item \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.
