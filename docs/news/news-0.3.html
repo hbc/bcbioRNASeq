@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.19</span>
       </span>
     </div>
 
@@ -203,9 +203,9 @@
 <li>Stripped down supported R Markdown templates. Currently simplified code base to support Quality Control markdown (<code>quality_control</code>). Differential expression and functional analysis templates have been temporarily removed but will be re-added in the future.</li>
 </ul>
 </div>
-<div id="minor-changes-15" class="section level3">
+<div id="minor-changes-19" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-15" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-19" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Reorganized S4 class definitions and validity checks in <code>AllClasses.R</code>. Previously, this code was split out per S4 (e.g. <code>bcbioRNASeq-validity.R</code>).</li>
 <li>Moved S4 coercion methods from <code>coerce-methods.R</code> to <code>as-methods.R</code>.</li>
@@ -231,9 +231,9 @@
     <div id="bcbiornaseq-0-3-1-2018-11-14" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-1-2018-11-14" class="anchor"></a>bcbioRNASeq 0.3.1 (2018-11-14)</h2>
-<div id="major-changes-7" class="section level3">
+<div id="major-changes-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-7" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-8" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Improved validity method for <code>bcbioRNASeq</code> S4 class.</li>
 <li>
@@ -241,9 +241,9 @@
 <li>Reworked imports back to basejump instead of attempting to use subpackages: basejump.annotations, basejump.assertions, basejump.classes, basejump.coerion, basejump.developer, basejump.experiment, basejump.generics, basejump.globals, basejump.io, basejump.markdown, basejump.plots, basejump.sanitization. Rethink this approach in a future update.</li>
 </ul>
 </div>
-<div id="minor-changes-14" class="section level3">
+<div id="minor-changes-18" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-14" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-18" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Resaved example <code>bcb</code> dataset.</li>
 <li>Miscellaneous internal assert check fixes and updates.</li>
@@ -257,9 +257,9 @@
     <div id="bcbiornaseq-0-3-2-2018-11-19" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-2-2018-11-19" class="anchor"></a>bcbioRNASeq 0.3.2 (2018-11-19)</h2>
-<div id="major-changes-6" class="section level3">
+<div id="major-changes-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-6" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-7" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Splitting out new <code>DESeqAnalysis</code> S4 class to a separate package.</li>
 </ul>
@@ -280,9 +280,9 @@
 <li>Deleted <code>deseq</code> example, which has migrated to <a href="https://deseqanalysis.acidgenomcis.com/">DESeqAnalysis</a> package.</li>
 </ul>
 </div>
-<div id="minor-changes-13" class="section level3">
+<div id="minor-changes-17" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-13" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-17" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Reorganized internal assert checks.</li>
 <li>Miscellaneous documentation improvements.</li>
@@ -293,9 +293,9 @@
     <div id="bcbiornaseq-0-3-3-2018-11-25" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-3-2018-11-25" class="anchor"></a>bcbioRNASeq 0.3.3 (2018-11-25)</h2>
-<div id="minor-changes-12" class="section level3">
+<div id="minor-changes-16" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-12" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-16" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Added additional library loads to <code>_setup.R</code>: rmarkdown, basejump, DESeq2.</li>
 <li>
@@ -308,17 +308,17 @@
     <div id="bcbiornaseq-0-3-4-2018-11-29" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-4-2018-11-29" class="anchor"></a>bcbioRNASeq 0.3.4 (2018-11-29)</h2>
-<div id="major-changes-5" class="section level3">
+<div id="major-changes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-5" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-6" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Improved and simplified quality control template. Removed Dropbox mode (which may be added back in a future update). Identical samples detection is now supported automatically in the plotting functions, which was previously defined in the QC template.</li>
 <li>Improved subset sample handling inside extraction method. Extraction method now imports useful <code>relevelRowRanges</code> and <code>relevelColData</code> utilities from basejump.</li>
 </ul>
 </div>
-<div id="minor-changes-11" class="section level3">
+<div id="minor-changes-15" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-11" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-15" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Removed <code>sampleData&lt;-</code> reexport.</li>
 <li>Documentation fixes and improvements, particularly to the <code>bcbioRNASeq</code> generator function.</li>
@@ -337,16 +337,16 @@
     <div id="bcbiornaseq-0-3-5-2018-12-01" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-5-2018-12-01" class="anchor"></a>bcbioRNASeq 0.3.5 (2018-12-01)</h2>
-<div id="major-changes-4" class="section level3">
+<div id="major-changes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-4" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-5" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Added additional improvements to quality control template. Ensuring that setup chunk never caches. bcbioRNASeq object should be called using <code>params$object_file</code>. This convention will be used across all other bcbio R packages. Reworked and simplified <code>plotCountsPerGene</code> section of QC template.</li>
 </ul>
 </div>
-<div id="minor-changes-10" class="section level3">
+<div id="minor-changes-14" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-10" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-14" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Added early return method for objects without modification extract method. Might want to reconsider this approach if the user just wants to reorder samples. We’re checking for unmodified return by looking for identical raw counts matrix before and after extraction call.</li>
 <li>
@@ -360,17 +360,17 @@
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-6-2018-12-12" class="anchor"></a>bcbioRNASeq 0.3.6 (2018-12-12)</h2>
 <p>This is the first release that switched over to using [goalie][] for assert checks instead of [assertive][].</p>
-<div id="major-changes-3" class="section level3">
+<div id="major-changes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-3" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-4" class="anchor"></a>Major changes</h3>
 <ul>
 <li>
 <code>bcbioRNASeq</code> generator has been overhauled to use <code>assert</code> for assert checks.</li>
 </ul>
 </div>
-<div id="minor-changes-9" class="section level3">
+<div id="minor-changes-13" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-9" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-13" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Ensure title is quoted in R Markdown.</li>
 <li>Switched to using <code>validate</code> in place of <code>validate_that</code> in validity checks.</li>
@@ -382,17 +382,17 @@
     <div id="bcbiornaseq-0-3-7-2019-01-13" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-7-2019-01-13" class="anchor"></a>bcbioRNASeq 0.3.7 (2019-01-13)</h2>
-<div id="major-changes-2" class="section level3">
+<div id="major-changes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-2" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-3" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Overhauled validity method for <code>bcbioRNASeq</code>. Improved check steps using <code>ok</code> method, similar to approach in [goalie][].</li>
 <li>Added back <code>plotPCACovariates</code> method support.</li>
 </ul>
 </div>
-<div id="minor-changes-8" class="section level3">
+<div id="minor-changes-12" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-8" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-12" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Updated pkgdown configuration. Removed <code>alphaSummary</code>, <code>contrastName</code>, <code>export</code>, <code>markdown</code>, <code>sampleData</code>, <code>topTables</code>
 </li>
@@ -406,9 +406,9 @@
     <div id="bcbiornaseq-0-3-8-2019-01-17" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-8-2019-01-17" class="anchor"></a>bcbioRNASeq 0.3.8 (2019-01-17)</h2>
-<div id="minor-changes-7" class="section level3">
+<div id="minor-changes-11" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-7" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-11" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>
 <code>.tximport</code>: Use <code>makeNames</code> to check for valid names internally.</li>
@@ -420,9 +420,9 @@
     <div id="bcbiornaseq-0-3-9-2019-01-23" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-9-2019-01-23" class="anchor"></a>bcbioRNASeq 0.3.9 (2019-01-23)</h2>
-<div id="minor-changes-6" class="section level3">
+<div id="minor-changes-10" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-6" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-10" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Bug fixes for <code>interestingGroups</code> handling in plotting functions. Needed to add back an <code>interestingGroups&lt;-</code> assignment call to slot the object.</li>
 <li>Removed <code>sanitizeRowData</code> and <code>sanitizeSampleData</code> from imports.</li>
@@ -432,9 +432,9 @@
     <div id="bcbiornaseq-0-3-10-2019-02-01" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-10-2019-02-01" class="anchor"></a>bcbioRNASeq 0.3.10 (2019-02-01)</h2>
-<div id="minor-changes-5" class="section level3">
+<div id="minor-changes-9" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-5" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-9" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Travis CI build configuration and documentation fixes.</li>
 </ul>
@@ -443,9 +443,9 @@
     <div id="bcbiornaseq-0-3-11-2019-02-12" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-11-2019-02-12" class="anchor"></a>bcbioRNASeq 0.3.11 (2019-02-12)</h2>
-<div id="minor-changes-4" class="section level3">
+<div id="minor-changes-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-4" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-8" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Renamed <code>plotGene</code> to <code>plotCounts</code>, to match consistency in <a href="https://basejump.acidgenomics.com/">basejump</a> and <a href="https://deseqanalysis.acidgenomcis.com/">DESeqAnalysis</a> package updates.</li>
 <li>Updated dependencies to provide improved backwards compatibility support for R 3.4 / Bioconductor 3.6.</li>
@@ -455,17 +455,17 @@
     <div id="bcbiornaseq-0-3-12-2019-03-18" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-12-2019-03-18" class="anchor"></a>bcbioRNASeq 0.3.12 (2019-03-18)</h2>
-<div id="major-changes-1" class="section level3">
+<div id="major-changes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-2" class="anchor"></a>Major changes</h3>
 <ul>
 <li>
 <code>sampleData</code>: Moved method support to <a href="https://basejump.acidgenomics.com/">basejump</a> package.</li>
 </ul>
 </div>
-<div id="minor-changes-3" class="section level3">
+<div id="minor-changes-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-3" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-7" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Resaved example data.</li>
 <li>Sample metadata chunk in quality control template now returns <code>DataFrame</code>.</li>
@@ -477,9 +477,9 @@
     <div id="bcbiornaseq-0-3-13-2019-03-29" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-13-2019-03-29" class="anchor"></a>bcbioRNASeq 0.3.13 (2019-03-29)</h2>
-<div id="minor-changes-2" class="section level3">
+<div id="minor-changes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-2" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-6" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Added additional checks to <code>bcbioRNASeq</code> validity method.</li>
 <li>Draft update to quality control template, to support parameterized <code>bcbioRNASeq</code> object input. This is likely not necessary and will be removed in a future update.</li>
@@ -493,16 +493,16 @@
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-14-2019-04-01" class="anchor"></a>bcbioRNASeq 0.3.14 (2019-04-01)</h2>
 <p>Moved forked development repository to [Acid Genomics][].</p>
-<div id="major-changes" class="section level3">
+<div id="major-changes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-1" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Switched unit testing data URL from seq.cloud to acidgenomics.com.</li>
 </ul>
 </div>
-<div id="minor-changes-1" class="section level3">
+<div id="minor-changes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-1" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-5" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Reworked internal reexports for assignment generics. See <code>counts</code> for example.</li>
 <li>Miscellaneous documentation improvements.</li>
@@ -514,13 +514,67 @@
     <div id="bcbiornaseq-0-3-15-2019-04-11" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-3-15-2019-04-11" class="anchor"></a>bcbioRNASeq 0.3.15 (2019-04-11)</h2>
-<div id="minor-changes" class="section level3">
+<div id="minor-changes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-4" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Ensuring that all <a href="https://basejump.acidgenomics.com/">basejump</a> functions necessary for the quality control template get reexported.</li>
 <li>Renamed R Markdown template files and <code>travis-render.sh</code> script into kebab case, rather than snake case.</li>
 <li>Documentation improvements (using <code>inheritParams</code>).</li>
+</ul>
+</div>
+</div>
+    <div id="bcbiornaseq-0-3-16-2019-04-17" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bcbiornaseq-0-3-16-2019-04-17" class="anchor"></a>bcbioRNASeq 0.3.16 (2019-04-17)</h2>
+<div id="minor-changes-3" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-changes-3" class="anchor"></a>Minor changes</h3>
+<ul>
+<li>Tweaks to quality control template.</li>
+<li>Switched Travis CI configuration to use <code>rnaseq</code> Docker image.</li>
+</ul>
+</div>
+</div>
+    <div id="bcbiornaseq-0-3-17-2019-04-22" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bcbiornaseq-0-3-17-2019-04-22" class="anchor"></a>bcbioRNASeq 0.3.17 (2019-04-22)</h2>
+<div id="minor-changes-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-changes-2" class="anchor"></a>Minor changes</h3>
+<ul>
+<li>Bar plots now show the first sample at the top of the Y axis when <code>flip = TRUE</code>. This is more human readable.</li>
+<li>Quality control template now uses <code>bcbiornaseq_file</code> as main input param.</li>
+<li>Bug fix: added back internal <code>.normalizedTrans</code> function required for some quality control plots.</li>
+</ul>
+</div>
+</div>
+    <div id="bcbiornaseq-0-3-18-2019-04-25" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bcbiornaseq-0-3-18-2019-04-25" class="anchor"></a>bcbioRNASeq 0.3.18 (2019-04-25)</h2>
+<div id="minor-changes-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-changes-1" class="anchor"></a>Minor changes</h3>
+<ul>
+<li>S4 generic reexport documentation fixes.</li>
+</ul>
+</div>
+</div>
+    <div id="bcbiornaseq-0-3-19-2019-05-05" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bcbiornaseq-0-3-19-2019-05-05" class="anchor"></a>bcbioRNASeq 0.3.19 (2019-05-05)</h2>
+<div id="major-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h3>
+<ul>
+<li>Now pinned to R &gt;= 3.5.</li>
+</ul>
+</div>
+<div id="minor-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor changes</h3>
+<ul>
+<li>Improved Travis CI and AppVeyor CI configuration.</li>
 </ul>
 </div>
 </div>
@@ -546,6 +600,10 @@
         <li><a href="#bcbiornaseq-0-3-13-2019-03-29">0.3.13</a></li>
         <li><a href="#bcbiornaseq-0-3-14-2019-04-01">0.3.14</a></li>
         <li><a href="#bcbiornaseq-0-3-15-2019-04-11">0.3.15</a></li>
+        <li><a href="#bcbiornaseq-0-3-16-2019-04-17">0.3.16</a></li>
+        <li><a href="#bcbiornaseq-0-3-17-2019-04-22">0.3.17</a></li>
+        <li><a href="#bcbiornaseq-0-3-18-2019-04-25">0.3.18</a></li>
+        <li><a href="#bcbiornaseq-0-3-19-2019-05-05">0.3.19</a></li>
       </ul>
     </div>
   </div>

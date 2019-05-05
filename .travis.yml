@@ -7,14 +7,30 @@ branches:
   only:
     - master
 
-before_install:
-  - docker pull acidgenomics/rnaseq
-  - docker images
-  # Prevent BiocCheck > checkCodingPractice > checkLogicalUseFiles error.
+before_script:
+  - chmod +x travis-docker.sh
+  # Avoid BiocCheck > checkCodingPractice > checkLogicalUseFiles error.
   - touch inst/rmarkdown/templates/quality-control/skeleton/_{footer,header,links}.Rmd
 
-script:
-  - docker run -ti --user="bioc" --volume="${PWD}:/bcbioRNASeq" --workdir="/bcbioRNASeq" acidgenomics/rnaseq Rscript -e 'source("travis-docker.R")'
+jobs:
+  include:
+    - stage: test
+      name: "Docker: Bioconductor 3.9"
+      script: image="rnaseq" tag="bioc-3.9" ./travis-docker.sh
+    - stage: test
+      name: "Docker: Bioconductor 3.8"
+      script: image="rnaseq" tag="bioc-3.8" ./travis-docker.sh
+    - stage: test
+      name: "Docker: Bioconductor 3.7"
+      script: image="rnaseq" tag="bioc-3.7" ./travis-docker.sh
+
+matrix:
+  fast_finish: true
+
+after_failure:
+  - env | sort
+  - df -h
+  - docker images
 
 notifications:
   email:

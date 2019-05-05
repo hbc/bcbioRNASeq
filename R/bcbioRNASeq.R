@@ -588,7 +588,7 @@ bcbioRNASeq <- function(
         # Calculate FPKM.
         # Skip this step if we've slotted empty ranges.
         if (length(unique(width(rowRanges(dds)))) > 1L) {
-            message("Calculating FPKM.")
+            message("Calculating FPKM using DESeq2::fpkm().")
             assays(bcb)[["fpkm"]] <- fpkm(dds)
         } else {
             message(paste(
