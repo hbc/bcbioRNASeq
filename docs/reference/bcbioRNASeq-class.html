@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -75,7 +76,7 @@ analysis." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -93,7 +94,7 @@ analysis." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hbc/bcbioRNASeq">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -122,8 +123,8 @@ analysis.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>bcbioRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"genes"</span>, <span class='st'>"transcripts"</span>),
-  <span class='kw'>caller</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"salmon"</span>, <span class='st'>"kallisto"</span>, <span class='st'>"sailfish"</span>, <span class='st'>"star"</span>, <span class='st'>"hisat2"</span>),
+    <pre class="usage"><span class='fu'>bcbioRNASeq</span>(<span class='no'>uploadDir</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"genes"</span>, <span class='st'>"transcripts"</span>),
+  <span class='kw'>caller</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"salmon"</span>, <span class='st'>"kallisto"</span>, <span class='st'>"sailfish"</span>, <span class='st'>"star"</span>, <span class='st'>"hisat2"</span>),
   <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>censorSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genomeBuild</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>gffFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transgeneNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>spikeNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -135,13 +136,13 @@ analysis.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>uploadDir</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
 Path to final upload directory.
 This path is set when running "<code>bcbio_nextgen -w template</code>".</p></td>
     </tr>
     <tr>
       <th>level</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
 Import counts at gene level ("<code>genes</code>"; <em>default</em>) or transcript level
 ("<code>transcripts</code>"; <em>advanced use</em>). Only tximport-compatible callers (e.g.
 salmon, kallisto, sailfish) can be loaded at transcript level. Aligned
@@ -150,7 +151,7 @@ be loaded at gene level.</p></td>
     </tr>
     <tr>
       <th>caller</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
 Expression caller:</p><pre>- "`salmon`" (*default*): [Salmon][] alignment-free, quasi-mapped counts.
 - "`kallisto`": [Kallisto][] alignment-free, pseudo-aligned counts.
 - "`sailfish`": [Sailfish][] alignment-free, lightweight counts.
@@ -172,26 +173,26 @@ Specify a subset of samples to censor.</p></td>
     </tr>
     <tr>
       <th>sampleMetadataFile</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
 Sample metadata file path. CSV or TSV is preferred, but Excel worksheets
 are also supported. Check the documentation for conventions and required
 columns.</p></td>
     </tr>
     <tr>
       <th>organism</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
 Full Latin organism name (e.g. "<code>Homo sapiens</code>").</p></td>
     </tr>
     <tr>
       <th>genomeBuild</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
 Ensembl genome build assembly name (e.g. <code>"GRCh38"</code>). If set <code>NULL</code>,
 defaults to the most recent build available. Note: don't pass in UCSC build
 IDs (e.g. <code>"hg38"</code>).</p></td>
     </tr>
     <tr>
       <th>ensemblRelease</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer(1)</a></code>.
+      <td><p><code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>.
 Ensembl release version (e.g. <code>90</code>). We recommend setting this value if
 possible, for improved reproducibility. When left unset, the latest release
 available via AnnotationHub/ensembldb is used. Note that the latest version
@@ -200,7 +201,7 @@ ensembldb in use.</p></td>
     </tr>
     <tr>
       <th>gffFile</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
 GFF/GTF (General Feature Format) file. Generally, we recommend using a GTF
 (GFFv2) instead of a GFFv3 file if possible.</p></td>
     </tr>
@@ -216,25 +217,25 @@ Vector indicating which assay rows denote spike-in sequences (e.g. ERCCs).</p></
     </tr>
     <tr>
       <th>countsFromAbundance</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>.
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
 Whether to generate estimated counts using abundance estimates
 (<em>recommended by default</em>). <code>lengthScaledTPM</code> is a suitable default, and
 counts are scaled using the average transcript length over samples and then
-the library size. Refer to <code><a href='https://www.rdocumentation.org/packages/tximport/topics/tximport'>tximport::tximport()</a></code> for more information on
+the library size. Refer to <code><a href='https://rdrr.io/pkg/tximport/man/tximport.html'>tximport::tximport()</a></code> for more information on
 this parameter, but it should only ever be changed when loading some
 datasets at transcript level (e.g. for DTU analsyis).</p></td>
     </tr>
     <tr>
       <th>vst</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
 Calculate variance-stabilizing transformation using
-<code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation'>DESeq2::varianceStabilizingTransformation()</a></code>. Recommended by default for
+<code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation()</a></code>. Recommended by default for
 visualization.</p></td>
     </tr>
     <tr>
       <th>rlog</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/logical'>logical(1)</a></code>.
-Calcualte regularized log transformation using <code><a href='https://www.rdocumentation.org/packages/DESeq2/topics/rlog'>DESeq2::rlog()</a></code>. This
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
+Calcualte regularized log transformation using <code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code>. This
 calculation is slow for large datasets and now discouraged by default for
 visualization.</p></td>
     </tr>
@@ -269,7 +270,7 @@ migrated to <code>RangedSummarizedExperiment</code>.</p>
     <h2 class="hasAnchor" id="automatic-metadata"><a class="anchor" href="#automatic-metadata"></a>Automatic metadata</h2>
 
     
-    <p>The <code><a href='https://www.rdocumentation.org/packages/S4Vectors/topics/Annotated-class'>metadata()</a></code> slot always contains:</p><ul>
+    <p>The <code><a href='https://rdrr.io/pkg/S4Vectors/man/Annotated-class.html'>metadata()</a></code> slot always contains:</p><ul>
 <li><p>Object version.</p></li>
 <li><p>bcbio data provenance information.</p></li>
 <li><p>File paths and timestamps.</p></li>
@@ -288,36 +289,33 @@ these can be corrected by editing the YAML file.</p>
 requires either a CSV or Excel spreadsheet.</p>
 <p>The samples in the bcbio run must map to the <code>description</code> column. The values
 provided in <code>description</code> must be unique. These values will be sanitized into
-syntactically valid names (see <code><a href='https://www.rdocumentation.org/packages/base/topics/make.names'>make.names</a></code> for more
+syntactically valid names (see <code><a href='https://rdrr.io/r/base/make.names.html'>make.names</a></code> for more
 information), and assigned as the column names of the <code>bcbioRNASeq</code> object.
 The original values are stored as the <code>sampleName</code> column in <code>colData</code>, and
 are used for all plotting functions. Do not attempt to set a <code>sampleID</code>
 column, as this is used internally by the package.</p>
 <p>Here is a minimal example of a properly formatted sample metadata file:</p>
 <table class='table'>
-<tr><td></td><td>description</td></tr>
-<tr><td>genotype</td><td></td></tr>
+<tr><td>description</td><td>genotype</td></tr>
 <tr><td>sample1</td><td>wildtype</td></tr>
-<tr><td></td><td>sample2</td></tr>
-<tr><td>knockout</td><td></td></tr>
+<tr><td>sample2</td><td>knockout</td></tr>
 <tr><td>sample3</td><td>wildtype</td></tr>
-<tr><td></td><td>sample4</td></tr>
-<tr><td>knockout</td><td></td></tr>
+<tr><td>sample4</td><td>knockout</td></tr>
 </table>
     
     <h2 class="hasAnchor" id="valid-names"><a class="anchor" href="#valid-names"></a>Valid names</h2>
 
     
     <p>R is strict about values that are considered valid for use in
-<code><a href='https://www.rdocumentation.org/packages/base/topics/names'>names()</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/dimnames'>dimnames()</a></code> (i.e.
-<code><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames()</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>colnames()</a></code>).
+<code><a href='https://rdrr.io/r/base/names.html'>names()</a></code> and <code><a href='https://rdrr.io/r/base/dimnames.html'>dimnames()</a></code> (i.e.
+<code><a href='https://rdrr.io/r/base/colnames.html'>rownames()</a></code> and <code><a href='https://rdrr.io/r/base/colnames.html'>colnames()</a></code>).
 Non-alphanumeric characters, spaces, and <strong>dashes</strong> are not valid. Use either
 underscores or periods in place of dashes when working in R. Also note that
 names should <strong>not begin with a number</strong>, and will be prefixed with an <code>X</code>
 when sanitized. Consult the documentation in the
-<code><a href='https://www.rdocumentation.org/packages/base/topics/make.names'>make.names()</a></code> function for more information. We strongly
+<code><a href='https://rdrr.io/r/base/make.names.html'>make.names()</a></code> function for more information. We strongly
 recommend adhering to these conventions when labeling samples, to help avoid
-unexpected downstream behavior in R due to <code><a href='https://www.rdocumentation.org/packages/base/topics/dimnames'>dimnames()</a></code>
+unexpected downstream behavior in R due to <code><a href='https://rdrr.io/r/base/dimnames.html'>dimnames()</a></code>
 mismatches.</p>
     
     <h2 class="hasAnchor" id="genome-annotations"><a class="anchor" href="#genome-annotations"></a>Genome annotations</h2>
@@ -325,7 +323,7 @@ mismatches.</p>
     
     <p><code>bcbioRNASeq()</code> provides support for automatic import of genome annotations,
 which internally get processed into genomic ranges (<code>GRanges</code>) and are
-slotted into the <code><a href='https://www.rdocumentation.org/packages/SummarizedExperiment/topics/RangedSummarizedExperiment-class'>rowRanges()</a></code> of the
+slotted into the <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>rowRanges()</a></code> of the
 object. Currently, we offer support for (1) <a href='https://ensembl.org/'>Ensembl</a> genome annotations
 from <a href='https://bioconductor.org/packages/AnnotationHub/'>AnnotationHub</a> via <a href='https://bioconductor.org/packages/ensembldb/'>ensembldb</a> (<em>recommended</em>); or (2) direct
 import from a GTF/GFF file using <a href='https://bioconductor.org/packages/rtracklayer/'>rtracklayer</a>.</p>
@@ -348,8 +346,8 @@ additional fall back support for importing genome annotations from a GTF/GFF
 directly with the <code>gffFile</code> argument.</p>
 <p>Internally, genome annotations are imported via the <a href='https://steinbaugh.com/basejump/'>basejump</a> package,
 specifically with either of these functions:</p><ul>
-<li><p><code><a href='https://www.rdocumentation.org/packages/basejump/topics/reexports'>basejump::makeGRangesFromEnsembl()</a></code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/basejump/topics/reexports'>basejump::makeGRangesFromGFF()</a></code>.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/basejump/man/reexports.html'>basejump::makeGRangesFromEnsembl()</a></code>.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/basejump/man/reexports.html'>basejump::makeGRangesFromGFF()</a></code>.</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="genome-build"><a class="anchor" href="#genome-build"></a>Genome build</h2>
@@ -358,7 +356,7 @@ specifically with either of these functions:</p><ul>
     <p>Ensure that the organism and genome build used with bcio match correctly here
 in the function call. In particular, for the legacy <em>Homo sapiens</em>
 GRCh37/hg19 genome build, ensure that <code>genomeBuild = "GRCh37"</code>. Otherwise,
-the genomic ranges set in <code><a href='https://www.rdocumentation.org/packages/SummarizedExperiment/topics/RangedSummarizedExperiment-class'>rowRanges()</a></code>
+the genomic ranges set in <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>rowRanges()</a></code>
 will mismatch. It is recommended for current projects that GRCh38/hg38 is
 used in place of GRCh37/hg19 if possible.</p>
     
@@ -367,7 +365,7 @@ used in place of GRCh37/hg19 if possible.</p>
     
     <p>DESeq2 is run automatically when <code>bcbioRNASeq()</code> is called. Internally, this
 automatically slots normalized counts into
-<code><a href='https://www.rdocumentation.org/packages/SummarizedExperiment/topics/SummarizedExperiment-class'>assays()</a></code>, and optionally generates
+<code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>assays()</a></code>, and optionally generates
 variance-stabilized counts (e.g. <code>vst</code>, <code>rlog</code>), depending on the call. When
 loading a dataset with a large number of samples (i.e. &gt; 50), we recommend
 disabling the <code>rlog</code> transformation, since it can take a long time to
@@ -385,15 +383,15 @@ possible.</p>
 
     <div class='dont-index'><ul>
 <li><p><code>.S4methods(class = "bcbioRNASeq")</code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/SummarizedExperiment/topics/RangedSummarizedExperiment-class'>SummarizedExperiment::SummarizedExperiment()</a></code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/methods/topics/new'>methods::initialize()</a></code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/methods/topics/validObject'>methods::validObject()</a></code>.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/BiocGenerics/topics/updateObject'>BiocGenerics::updateObject()</a></code>.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>SummarizedExperiment::SummarizedExperiment()</a></code>.</p></li>
+<li><p><code><a href='https://rdrr.io/r/methods/new.html'>methods::initialize()</a></code>.</p></li>
+<li><p><code><a href='https://rdrr.io/r/methods/validObject.html'>methods::validObject()</a></code>.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/BiocGenerics/man/updateObject.html'>BiocGenerics::updateObject()</a></code>.</p></li>
 </ul></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>uploadDir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/bcbio"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
+    <pre class="examples"><div class='input'><span class='no'>uploadDir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/bcbio"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
 
 <span class='co'>## Gene level.</span>
 <span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbioRNASeq</span>(
@@ -411,9 +409,9 @@ possible.</p>
 #&gt; <span class='message'>  &gt; edb &lt;- ah[["AH53222"]]</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
-#&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneBiotype, geneName, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM using DESeq2::fpkm().</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.19
+#&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneBiotype, geneName, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM using DESeq2::fpkm().</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.19
 #&gt; uploadDir: /Users/mike/git/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-05-05
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-05-06
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -444,9 +442,9 @@ possible.</p>
 #&gt; <span class='message'>  &gt; edb &lt;- ah[["AH53222"]]</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
-#&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations: gene_name, gene_biotype, seq_coord_system, description, symbol, entrezid</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, seqnames, transcriptBiotype</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.19
+#&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations: gene_name, gene_biotype, seq_coord_system, description, symbol, entrezid</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, seqnames, transcriptBiotype</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.19
 #&gt; uploadDir: /Users/mike/git/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-05-05
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-05-06
 #&gt; level: transcripts
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -504,7 +502,7 @@ possible.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>

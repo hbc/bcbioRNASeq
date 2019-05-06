@@ -16,7 +16,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -70,7 +71,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -88,7 +89,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hbc/bcbioRNASeq">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -283,7 +284,7 @@
 <li>
 <code>bcbioSingleCell</code> constructor now supports <code>censorSamples</code> parameter. This is useful for removing known poor quality samples upon loading.</li>
 <li>
-<a href="https://ggplot2.tidyverse.org/">ggplot2</a> color and fill palettes are now set <code>NULL</code> in the quality control functions. This behavior doesn’t change the appearance of the plot colors, which will still default to <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">ggplot2::scale_colour_hue</a></code> or <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_hue">ggplot2::scale_fill_hue</a></code>. The upcoming <a href="https://ggplot2.tidyverse.org/">ggplot2</a> v2.3.0 update supports global options for color and fill palettes, so these parameters may be deprecated in a future release.</li>
+<a href="https://ggplot2.tidyverse.org/">ggplot2</a> color and fill palettes are now set <code>NULL</code> in the quality control functions. This behavior doesn’t change the appearance of the plot colors, which will still default to <code><a href="https://rdrr.io/pkg/ggplot2/man/scale_hue.html">ggplot2::scale_colour_hue</a></code> or <code><a href="https://rdrr.io/pkg/ggplot2/man/scale_hue.html">ggplot2::scale_fill_hue</a></code>. The upcoming <a href="https://ggplot2.tidyverse.org/">ggplot2</a> v2.3.0 update supports global options for color and fill palettes, so these parameters may be deprecated in a future release.</li>
 <li>Reworked the internal code for <code>topTables</code>.</li>
 </ul>
 </div>
@@ -331,7 +332,7 @@
 <li>
 <code>plotGene</code>: reduced the number of <code>return</code> options to simply “facet” and “wide”. Previously, this also supported “grid”, “list”, and “markdown”, but these were removed because they are not frequently used.</li>
 <li>
-<code>plotGene</code>: Switched back to internal <code>lapply</code> call instead of using <code><a href="https://www.rdocumentation.org/packages/BiocParallel/topics/bplapply">BiocParallel::bplapply</a></code>. This doesn’t always work perfect in an HPC environment (e.g. HMS O2 cluster).</li>
+<code>plotGene</code>: Switched back to internal <code>lapply</code> call instead of using <code><a href="https://rdrr.io/pkg/BiocParallel/man/bplapply.html">BiocParallel::bplapply</a></code>. This doesn’t always work perfect in an HPC environment (e.g. HMS O2 cluster).</li>
 <li>Soft deprecated <code>plotMeanAverage</code> in favor of <code>plotMA</code>.</li>
 <li>All S4 generics with method support are exported for easier lookup in the reference documentation.</li>
 <li>All function reexports have been consolidated in <a href="https://bioinformatics.sph.harvard.edu/bcbioBase/">bcbioBase</a> package.</li>
@@ -397,7 +398,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
    </div>
