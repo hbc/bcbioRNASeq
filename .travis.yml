@@ -8,8 +8,8 @@ branches:
     - master
 
 before_script:
-  - chmod +x travis-docker.sh
-  # Avoid BiocCheck > checkCodingPractice > checkLogicalUseFiles error.
+  - chmod +x *.sh
+    # Avoid BiocCheck > checkCodingPractice > checkLogicalUseFiles error.
   - touch inst/rmarkdown/templates/quality-control/skeleton/_{footer,header,links}.Rmd
 
 jobs:
@@ -28,9 +28,7 @@ matrix:
   fast_finish: true
 
 after_failure:
-  - env | sort
-  - df -h
-  - docker images
+  - ./travis-failure.sh
 
 notifications:
   email:

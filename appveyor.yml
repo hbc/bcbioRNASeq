@@ -15,8 +15,10 @@ branches:
 
 environment:
   global:
+    _R_CHECK_FORCE_SUGGESTS_: false
     BIOC_USE_DEVEL: "FALSE"
     GCC_PATH: mingw_64
+    PKGTYPE: win.binary
     R_ARCH: x64
     USE_RTOOLS: true
   matrix:
