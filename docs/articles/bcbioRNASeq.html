@@ -7,7 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>bcbioRNASeq • bcbioRNASeq</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="bcbioRNASeq">
@@ -39,7 +40,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -56,7 +57,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/hbc/bcbioRNASeq">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -74,7 +75,7 @@
     <div class="page-header toc-ignore">
       <h1>bcbioRNASeq</h1>
             
-            <h4 class="date">5 May 2019</h4>
+            <h4 class="date">6 May 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hbc/bcbioRNASeq/blob/master/vignettes/bcbioRNASeq.Rmd"><code>vignettes/bcbioRNASeq.Rmd</code></a></small>
       <div class="hidden name"><code>bcbioRNASeq.Rmd</code></div>
@@ -92,7 +93,7 @@
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>For a high-level overview of our <a href="https://bcbio-nextgen.readthedocs.io/">bcbio</a> RNA-seq analysis pipeline, including detailed explanation of the <code>bcbioRNASeq</code> S4 class definition, first consult our <a href="http://dx.doi.org/10.12688/f1000research.12093.2">workflow paper</a> published in <em>F1000 Research</em> <span class="citation">(Steinbaugh et al. 2018)</span>. This vignette is focused on more advanced usage and edge cases that a user may encounter when attempting to load a bcbio dataset and perform downstream quality control analysis.</p>
 <p><strong>Note:</strong> if you use <a href="https://bioinformatics.sph.harvard.edu/bcbioRNASeq/">bcbioRNASeq</a> in published research, please include this citation:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation</a></span>(<span class="st">"bcbioRNASeq"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"bcbioRNASeq"</span>)</a></code></pre></div>
 <pre><code>## 
 ## To cite bcbioRNASeq in publications use:
 ## 
@@ -115,22 +116,22 @@
 ##     url = {https://f1000research.com/articles/6-1976/v2},
 ##     doi = {10.12688/f1000research.12093.2},
 ##   }</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bcbioRNASeq)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bcbioRNASeq)</a></code></pre></div>
 </div>
 <div id="loading-bcbio-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#loading-bcbio-data" class="anchor"></a>Loading bcbio data</h1>
 <p>The <code>bcbioRNASeq</code> constructor function is the main interface connecting bcbio] output data to interactive use in <a href="https://www.r-project.org/">R</a>. It is highly customizable and supports a number of options for advanced use cases. Consult the documentation for additional details.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/help">help</a></span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</a></code></pre></div>
 <div id="upload-directory" class="section level2">
 <h2 class="hasAnchor">
 <a href="#upload-directory" class="anchor"></a>Upload directory</h2>
 <p>We have designed the constructor to work as simply as possible by default. The only required argument is <code>uploadDir</code>, the path to the bcbio final upload directory specified with <code>upload:</code> in the YAML configuration. Refer to the <a href="https://bcbio-nextgen.readthedocs.io/en/latest/contents/configuration.html">bcbio configuration</a> documentation for detailed information on how to set up a bcbio run, which is outside the scope of this vignette.</p>
 <p>For example, let’s load up the example bcbio dataset stored internally in the package.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">uploadDir &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"bcbio"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/stopifnot">stopifnot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files">file.exists</a></span>(uploadDir))</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">uploadDir &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"bcbio"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span>(uploadDir))</a></code></pre></div>
 <p>bcbio outputs RNA-seq data in a standardized directory structure, which is described in detail in our workflow paper.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list.files">list.files</a></span>(<span class="dt">path =</span> uploadDir, <span class="dt">full.names =</span> <span class="ot">FALSE</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>(<span class="dt">path =</span> uploadDir, <span class="dt">full.names =</span> <span class="ot">FALSE</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>##  [1] "2018-03-18_GSE65267-merged/bcbio-nextgen-commands.log"
 ##  [2] "2018-03-18_GSE65267-merged/bcbio-nextgen.log"         
 ##  [3] "2018-03-18_GSE65267-merged/combined.counts"           
@@ -150,10 +151,10 @@
 <a href="#counts-level" class="anchor"></a>Counts level</h2>
 <p>By default, <a href="https://bioinformatics.sph.harvard.edu/bcbioRNASeq/">bcbioRNASeq</a> imports counts at gene level, which are required for standard differential expression analysis (<code>level = "genes"</code>). For pseudo-aligned counts (e.g. <a href="https://combine-lab.github.io/salmon/">Salmon</a>, <a href="https://pachterlab.github.io/kallisto/">Kallisto</a>, <a href="http://www.cs.cmu.edu/~ckingsf/software/sailfish/">Sailfish</a>) <span class="citation">(Bray et al. 2016; Patro, Mount, and Kingsford 2014; Patro et al. 2017)</span>, <a href="https://bioconductor.org/packages/tximport/">tximport</a> <span class="citation">(Soneson, Love, and Robinson 2016)</span> is used internally to aggregate transcript-level counts to gene-level counts, and generates length-scaled transcripts per million (TPM) values. For aligned counts processed with <a href="http://bioinf.wehi.edu.au/featureCounts/">featureCounts</a> <span class="citation">(Liao, Smyth, and Shi 2014)</span> (e.g. <a href="https://github.com/alexdobin/STAR/">STAR</a>, <a href="https://ccb.jhu.edu/software/hisat2/">HISAT2</a>) <span class="citation">(Dobin et al. 2013; Dobin and Gingeras 2016; Kim, Langmead, and Salzberg 2015)</span>, these values are already returned at gene level, and therefore not handled by <a href="https://bioconductor.org/packages/tximport/">tximport</a>. Once the gene-level counts are imported during the <code>bcbioRNASeq</code> call, the <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> package <span class="citation">(Love, Huber, and Anders 2014)</span> is then used to generate an internal <code>DESeqDataSet</code> from which we derive normalized and variance-stabilized counts.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">level =</span> <span class="st">"genes"</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bcb)</a></code></pre></div>
-<pre><code>## bcbioRNASeq 0.3.18
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(bcb)</a></code></pre></div>
+<pre><code>## bcbioRNASeq 0.3.19
 ## uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.6/bioc-3.9/bcbioRNASeq/extdata/bcbio
-## dates(2): [bcbio] 2018-03-18; [R] 2019-05-05
+## dates(2): [bcbio] 2018-03-18; [R] 2019-05-06
 ## level: genes
 ## caller: salmon
 ## organism: Mus musculus
@@ -171,10 +172,10 @@
 ##   treatment</code></pre>
 <p>Alternatively, if you want to perform transcript-aware analysis, such as differential exon usage or splicing analysis, transcript-level counts can be obtained using <code>level = "transcripts"</code>. Note that when counts are loaded at transcript level, TPMs are generated with tximport internally, but no additional normalizations or transformations normally calculated for gene-level counts with DESeq2 are generated.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">level =</span> <span class="st">"transcripts"</span>)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bcb)</a></code></pre></div>
-<pre><code>## bcbioRNASeq 0.3.18
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(bcb)</a></code></pre></div>
+<pre><code>## bcbioRNASeq 0.3.19
 ## uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.6/bioc-3.9/bcbioRNASeq/extdata/bcbio
-## dates(2): [bcbio] 2018-03-18; [R] 2019-05-05
+## dates(2): [bcbio] 2018-03-18; [R] 2019-05-06
 ## level: transcripts
 ## caller: salmon
 ## organism: Mus musculus
@@ -205,8 +206,8 @@
 <a href="#sample-selection-and-metadata" class="anchor"></a>Sample selection and metadata</h2>
 <p>If you’d like to load up only a subset of samples, this can be done easily using the <code>samples</code> argument. Note that the <code>character</code> vector declared here must match the <code>description</code> column specified in the sample metadata. Conversely, if you’re working with a large dataset and you simply want to drop a few samples, this can be accomplished with the <code>censorSamples</code> argument.</p>
 <p>When working with a bcbio run that has incorrect or outdated metadata, the simplest way to fix this issue is to pass in new metadata from an external spreadsheet (CSV or Excel) using the <code>sampleMetadataFile</code> argument. Note that this can also be used to subset the bcbio dataset, similar to the <code>samples</code> argument (see above), based on the rows that are included in the spreadsheet.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">sampleMetadataFile &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(uploadDir, <span class="st">"sample_metadata.csv"</span>)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/stopifnot">stopifnot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files">file.exists</a></span>(sampleMetadataFile))</a>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">sampleMetadataFile &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(uploadDir, <span class="st">"sample_metadata.csv"</span>)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span>(sampleMetadataFile))</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">import</span>(<span class="dt">file =</span> sampleMetadataFile)</a></code></pre></div>
 <pre><code>##                   fileName  description  treatment day
 ## 1 control_rep1_R1.fastq.gz control_rep1    control   0
@@ -219,10 +220,10 @@
 <a class="sourceLine" id="cb16-2" data-line-number="2">    <span class="dt">uploadDir =</span> uploadDir,</a>
 <a class="sourceLine" id="cb16-3" data-line-number="3">    <span class="dt">sampleMetadataFile =</span> sampleMetadataFile</a>
 <a class="sourceLine" id="cb16-4" data-line-number="4">)</a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bcb)</a></code></pre></div>
-<pre><code>## bcbioRNASeq 0.3.18
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(bcb)</a></code></pre></div>
+<pre><code>## bcbioRNASeq 0.3.19
 ## uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.6/bioc-3.9/bcbioRNASeq/extdata/bcbio
-## dates(2): [bcbio] 2018-03-18; [R] 2019-05-05
+## dates(2): [bcbio] 2018-03-18; [R] 2019-05-06
 ## level: genes
 ## caller: salmon
 ## sampleMetadataFile: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.6/bioc-3.9/bcbioRNASeq/extdata/bcbio/sample_metadata.csv
@@ -402,10 +403,10 @@
 <p>If your dataset contains transgenes (e.g. EGFP, TDTOMATO) or spike-ins (e.g. ERCCs), these features can be defined with the <code>transgeneNames</code> and <code>spikeNames</code> arguments, which will automatically populate the <code>rowRanges</code> slot with placeholder metadata.</p>
 <p>We recommend loading up data per genome in its own <code>bcbioRNASeq</code> object when possible, so that rich metadata can be imported easily. In the edge case where you need to look at multiple genomes simultaneously, set <code>organism = NULL</code>, and bcbioRNASeq will skip the gene annotation acquisition step.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">organism =</span> <span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bcb)</a></code></pre></div>
-<pre><code>## bcbioRNASeq 0.3.18
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(bcb)</a></code></pre></div>
+<pre><code>## bcbioRNASeq 0.3.19
 ## uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.6/bioc-3.9/bcbioRNASeq/extdata/bcbio
-## dates(2): [bcbio] 2018-03-18; [R] 2019-05-05
+## dates(2): [bcbio] 2018-03-18; [R] 2019-05-06
 ## level: genes
 ## caller: salmon
 ## organism: Mus musculus
@@ -425,12 +426,12 @@
 <div id="variance-stabilization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#variance-stabilization" class="anchor"></a>Variance stabilization</h2>
-<p>During the <code>bcbioRNASeq</code> constructor call, variance stabilizaton of gene-level counts can be calculated automatically, and is recommended. This is performed internally by the DESeq2 package. These transformations will be slotted into <code>assays</code> as <code>vst</code> and/or <code>rlog</code> matrices. The <code>vst</code> matrix is calculated by <code><a href="https://www.rdocumentation.org/packages/DESeq2/topics/varianceStabilizingTransformation">DESeq2::varianceStabilizingTransformation</a></code> and <code>rlog</code> by <code><a href="https://www.rdocumentation.org/packages/DESeq2/topics/rlog">DESeq2::rlog</a></code>. For large datasets, <code>rlog</code> calculation can take a long time, so we are currently recommending calculation of only <code>vst</code> by default.</p>
+<p>During the <code>bcbioRNASeq</code> constructor call, variance stabilizaton of gene-level counts can be calculated automatically, and is recommended. This is performed internally by the DESeq2 package. These transformations will be slotted into <code>assays</code> as <code>vst</code> and/or <code>rlog</code> matrices. The <code>vst</code> matrix is calculated by <code><a href="https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html">DESeq2::varianceStabilizingTransformation</a></code> and <code>rlog</code> by <code><a href="https://rdrr.io/pkg/DESeq2/man/rlog.html">DESeq2::rlog</a></code>. For large datasets, <code>rlog</code> calculation can take a long time, so we are currently recommending calculation of only <code>vst</code> by default.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bcbioRNASeq-class.html">bcbioRNASeq</a></span>(<span class="dt">uploadDir =</span> uploadDir, <span class="dt">vst =</span> <span class="ot">TRUE</span>, <span class="dt">rlog =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">assayNames</span>(bcb)</a></code></pre></div>
 <pre><code>## [1] "counts"      "tpm"         "avgTxLength" "normalized"  "vst"        
 ## [6] "rlog"</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(<span class="kw"><a href="../reference/counts.html">counts</a></span>(bcb, <span class="dt">normalized =</span> <span class="st">"vst"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw"><a href="../reference/counts.html">counts</a></span>(bcb, <span class="dt">normalized =</span> <span class="st">"vst"</span>))</a></code></pre></div>
 <pre><code>##   control_rep1     control_rep2     control_rep3     fa_day7_rep1   
 ##  Min.   : 4.919   Min.   : 4.919   Min.   : 4.919   Min.   : 4.919  
 ##  1st Qu.: 4.919   1st Qu.: 4.919   1st Qu.: 4.919   1st Qu.: 4.919  
@@ -445,7 +446,7 @@
 ##  Mean   : 6.754   Mean   : 6.789  
 ##  3rd Qu.: 8.033   3rd Qu.: 7.930  
 ##  Max.   :12.086   Max.   :11.997</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(<span class="kw"><a href="../reference/counts.html">counts</a></span>(bcb, <span class="dt">normalized =</span> <span class="st">"rlog"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw"><a href="../reference/counts.html">counts</a></span>(bcb, <span class="dt">normalized =</span> <span class="st">"rlog"</span>))</a></code></pre></div>
 <pre><code>##   control_rep1     control_rep2     control_rep3     fa_day7_rep1   
 ##  Min.   :-1.970   Min.   :-1.980   Min.   :-1.970   Min.   :-1.976  
 ##  1st Qu.: 1.519   1st Qu.: 1.433   1st Qu.: 1.384   1st Qu.: 1.475  
@@ -467,17 +468,17 @@
 <a href="#use-case-dataset" class="anchor"></a>Use case dataset</h1>
 <p>To demonstrate the functionality and configuration of the package, we have taken an experiment from the <a href="https://www.ncbi.nlm.nih.gov/geo/">Gene Expression Omnibus (GEO)</a> public repository of expression data to use as an example use case. The RNA-seq data is from a study of acute kidney injury in a mouse model (<a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267">GSE65267</a>) <span class="citation">(Craciun et al. 2016)</span>. The study aims to identify differentially expressed genes in progressive kidney fibrosis and contains samples from mouse kidneys at several time points (n = 3, per time point) after folic acid treatment. From this dataset, we are using a subset of the samples for our use case: before folic acid treatment, and 1, 3, 7 days after treatment.</p>
 <p>For the vignette, we are loading a pre-computed version of the example <code>bcbioRNASeq</code> object used in our workflow paper.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rm">rm</a></span>(bcb)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(bcb)</a></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">loadRemoteData</span>(<span class="kw">pasteURL</span>(</a>
 <a class="sourceLine" id="cb31-2" data-line-number="2">  <span class="st">"github.com"</span>, <span class="st">"hbc"</span>, <span class="st">"bcbioRNASeq"</span>,</a>
 <a class="sourceLine" id="cb31-3" data-line-number="3">  <span class="st">"raw"</span>, <span class="st">"f1000v2"</span>, <span class="st">"data"</span>, <span class="st">"bcb.rda"</span>,</a>
 <a class="sourceLine" id="cb31-4" data-line-number="4">  <span class="dt">protocol =</span> <span class="st">"https"</span></a>
 <a class="sourceLine" id="cb31-5" data-line-number="5">))</a>
 <a class="sourceLine" id="cb31-6" data-line-number="6">bcb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/updateObject.html">updateObject</a></span>(bcb)</a>
-<a class="sourceLine" id="cb31-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(bcb)</a></code></pre></div>
-<pre><code>## bcbioRNASeq 0.3.18
+<a class="sourceLine" id="cb31-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(bcb)</a></code></pre></div>
+<pre><code>## bcbioRNASeq 0.3.19
 ## uploadDir: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2/GSE65267-merged/final
-## dates(2): [bcbio] 2018-03-18; [R] 2019-05-05
+## dates(2): [bcbio] 2018-03-18; [R] 2019-05-06
 ## level: genes
 ## caller: salmon
 ## organism: Mus musculus
@@ -533,7 +534,7 @@
 <p>The <code>interestingGroups</code> definition defaults to <code>sampleName</code>, which is automatically generated from the bcbio <code>description</code> metadata for demultiplexed bulk RNA-seq samples. In this case, the samples will be grouped and colored uniquely.</p>
 <p>Interesting groups must be defined using a <code>character</code> vector and refer to column names defined in the <code>colData</code> slot of the object. Note that the bcbioRNASeq package uses lower camel case formatting for column names (e.g. “sampleName”), so the interesting groups should be defined using camel case, not snake (e.g. “sample_name”) or dotted case (e.g. “sample.name”).</p>
 <p>This approach was inspired by the DESeq2 package, which uses the argument <code>intgroup</code> in some functions, such as <code>plotPCA</code> for labeling groups of interest. We took this idea and ran with it for a number of our quality control functions, which are described in detail below.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">interestingGroups</span>(bcb) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"treatment"</span>, <span class="st">"day"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">interestingGroups</span>(bcb) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"treatment"</span>, <span class="st">"day"</span>)</a></code></pre></div>
 </div>
 <div id="quality-control" class="section level1">
 <h1 class="hasAnchor">
@@ -589,7 +590,7 @@
 <div id="variance-stabilization-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#variance-stabilization-1" class="anchor"></a>Variance stabilization</h2>
-<p>These plots show the standard deviation of normalized counts using <code>log2</code>, <code>varianceStabilizingTransform</code>, <code>rlog</code>, and <code>tmm</code> by <code><a href="https://www.rdocumentation.org/packages/base/topics/rank">rank(mean)</a></code>. Note that all counts shown are log2 scale.</p>
+<p>These plots show the standard deviation of normalized counts using <code>log2</code>, <code>varianceStabilizingTransform</code>, <code>rlog</code>, and <code>tmm</code> by <code><a href="https://rdrr.io/r/base/rank.html">rank(mean)</a></code>. Note that all counts shown are log2 scale.</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw"><a href="../reference/plotMeanSD.html">plotMeanSD</a></span>(bcb)</a></code></pre></div>
 <p><img src="bcbioRNASeq_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
 </div>
@@ -629,7 +630,7 @@
 </ul>
 <p>We are providing <code>bcbioRNASeq</code> method support for the <code>export</code> function, which can automatically write these counts and corresponding metadata (e.g. <code>rowData</code>, <code>colData</code>) to disk in a single call.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">export</span>(bcb, <span class="dt">dir =</span> <span class="st">"export"</span>)</a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(x)</a></code></pre></div>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(x)</a></code></pre></div>
 <pre><code>## $assays
 ## $assays$counts
 ## [1] "/Users/mike/git/packages/bcbioRNASeq/vignettes/export/bcb/assays/counts.csv"
@@ -661,7 +662,7 @@
 <a href="#differential-expression" class="anchor"></a>Differential expression</h1>
 <p>bcbioRNASeq integrates with DESeq2, which we recommend for differential expression. To prepare our dataset for analysis, we need to coerce the <code>bcbioRNASeq</code> object to a <code>DESeqDataSet</code>. Use the <code>as</code> function or refer to the DESeq2 documentation for the <code>DESeqDataSet</code> constructor.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">dds &lt;-<span class="st"> </span><span class="kw">as</span>(bcb, <span class="st">"DESeqDataSet"</span>)</a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(dds)</a></code></pre></div>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(dds)</a></code></pre></div>
 <pre><code>## class: DESeqDataSet 
 ## dim: 51652 12 
 ## metadata(11): version caller ... date sessionInfo
@@ -697,7 +698,7 @@
 <div id="r-session-information" class="section level1">
 <h1 class="hasAnchor">
 <a href="#r-session-information" class="anchor"></a>R session information</h1>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">utils<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/sessionInfo">sessionInfo</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">utils<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()</a></code></pre></div>
 <pre><code>## R version 3.6.0 (2019-04-26)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
 ## Running under: macOS Mojave 10.14.4
@@ -714,8 +715,8 @@
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] hexbin_1.27.2               bcbioRNASeq_0.3.18         
-##  [3] basejump_0.10.7             SummarizedExperiment_1.14.0
+##  [1] hexbin_1.27.2               bcbioRNASeq_0.3.19         
+##  [3] basejump_0.10.8             SummarizedExperiment_1.14.0
 ##  [5] DelayedArray_0.10.0         BiocParallel_1.18.0        
 ##  [7] matrixStats_0.54.0          Biobase_2.44.0             
 ##  [9] GenomicRanges_1.36.0        GenomeInfoDb_1.20.0        
@@ -723,7 +724,7 @@
 ## [13] BiocGenerics_0.30.0         BiocStyle_2.12.0           
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] freerange_0.1.5               R.utils_2.8.0                
+##   [1] freerange_0.1.6               R.utils_2.8.0                
 ##   [3] tidyselect_0.2.5              RSQLite_2.1.1                
 ##   [5] AnnotationDbi_1.46.0          htmlwidgets_1.3              
 ##   [7] grid_3.6.0                    munsell_0.5.0                
@@ -731,7 +732,7 @@
 ##  [11] colorspace_1.4-1              knitr_1.22                   
 ##  [13] rstudioapi_0.10               SingleCellExperiment_1.6.0   
 ##  [15] rdrop2_0.8.1                  labeling_0.3                 
-##  [17] acidplots_0.2.2               lasso2_1.2-20                
+##  [17] acidplots_0.2.3               lasso2_1.2-20                
 ##  [19] tximport_1.12.0               GenomeInfoDbData_1.2.1       
 ##  [21] mnormt_1.5-5                  bit64_0.9-7                  
 ##  [23] pheatmap_1.0.12               rprojroot_1.3-2              
@@ -769,7 +770,7 @@
 ##  [87] openxlsx_4.1.0                circlize_0.4.6               
 ##  [89] ProtGenerics_1.16.0           hms_0.4.2                    
 ##  [91] mime_0.6                      evaluate_0.13                
-##  [93] bioverbs_0.1.17               xtable_1.8-4                 
+##  [93] bioverbs_0.1.18               xtable_1.8-4                 
 ##  [95] XML_3.98-1.19                 rio_0.5.16                   
 ##  [97] readxl_1.3.1                  gridExtra_2.3                
 ##  [99] shape_1.4.4                   compiler_3.6.0               
@@ -781,10 +782,10 @@
 ## [111] DBI_1.0.0                     dbplyr_1.4.0                 
 ## [113] ComplexHeatmap_2.0.0          MASS_7.3-51.4                
 ## [115] rappdirs_0.3.1                Matrix_1.2-17                
-## [117] readr_1.3.1                   brio_0.1.20                  
+## [117] readr_1.3.1                   brio_0.2.0                   
 ## [119] cli_1.1.0                     vsn_3.52.0                   
 ## [121] R.methodsS3_1.7.1             forcats_0.4.0                
-## [123] pkgconfig_2.0.2               pkgdown_1.3.0                
+## [123] pkgconfig_2.0.2               pkgdown_1.3.0.9000           
 ## [125] GenomicAlignments_1.20.0      foreign_0.8-71               
 ## [127] xml2_1.2.0                    roxygen2_6.1.1               
 ## [129] annotate_1.62.0               XVector_0.24.0               
@@ -803,7 +804,7 @@
 ## [155] glue_1.3.1                    zip_2.0.1                    
 ## [157] UpSetR_1.3.3                  png_0.1-7                    
 ## [159] bit_1.1-14                    stringi_1.4.3                
-## [161] bcbioBase_0.6.2               blob_1.1.1                   
+## [161] bcbioBase_0.6.3               blob_1.1.1                   
 ## [163] DESeq2_1.24.0                 AnnotationHub_2.16.0         
 ## [165] latticeExtra_0.6-28           memoise_1.1.0                
 ## [167] dplyr_0.8.0.1</code></pre>
@@ -912,7 +913,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
       </footer>
 </div>
