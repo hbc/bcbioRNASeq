@@ -112,7 +112,9 @@ counts.bcbioRNASeq <-  # nolint
             counts <- assays(object)[["counts"]]
             counts <- relativeLogExpression(counts)
         } else {
-            assert(isSubset(assayName, assayNames(object)))
+            if (!isSubset(assayName, assayNames(object))) {
+                stop(paste(assayName, "counts are not defined in object."))
+            }
             counts <- assays(object)[[assayName]]
         }
 
