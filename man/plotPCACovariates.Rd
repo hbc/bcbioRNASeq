@@ -37,7 +37,8 @@ Which normalization method to apply:
 class.
 }
 \examples{
-class(plotPCACovariates)
+data(bcb)
+plotPCACovariates(bcb)
 }
 \seealso{
 \itemize{

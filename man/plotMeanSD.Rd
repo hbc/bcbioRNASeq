@@ -28,7 +28,7 @@ Plot row standard deviations vs. row means
 \details{
 \code{vsn::meanSdPlot()} wrapper that plots count transformations on a log2 scale.
 \itemize{
-\item DESeq2 log2: log2 size factor-adjusted normalized counts.
+\item DESeq2 log2: log2 library size factor-adjusted normalized counts.
 \item DESeq2 rlog: \strong{r}egularized \strong{log} transformation.
 \item DESeq2 VST: \strong{v}ariance-\strong{s}tabilizing \strong{t}ransformation.
 \item edgeR log2 TMM: log2 \strong{t}rimmed \strong{m}ean of \strong{M}-values transformation.
