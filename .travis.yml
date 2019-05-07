@@ -16,19 +16,19 @@ jobs:
   include:
     - stage: test
       name: "Docker: Bioconductor 3.9"
-      script: image="rnaseq" tag="bioc-3.9" ./travis-docker.sh
+      script: image="rnaseq" tag="bioc-3.9" ./docker.sh
     - stage: test
       name: "Docker: Bioconductor 3.8"
-      script: image="rnaseq" tag="bioc-3.8" ./travis-docker.sh
+      script: image="rnaseq" tag="bioc-3.8" ./docker.sh
     - stage: test
       name: "Docker: Bioconductor 3.7"
-      script: image="rnaseq" tag="bioc-3.7" ./travis-docker.sh
+      script: image="rnaseq" tag="bioc-3.7" ./docker.sh
 
 matrix:
   fast_finish: true
 
 after_failure:
-  - ./travis-failure.sh
+  - ./docker-failure.sh
 
 notifications:
   email:

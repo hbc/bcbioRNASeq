@@ -19,4 +19,4 @@ docker run -ti \
     --volume="${PWD}:/${package}" \
     --workdir="/${package}" \
     "$image" \
-    Rscript -e 'source("travis-docker.R")'
+    ./rcmdcheck.sh
