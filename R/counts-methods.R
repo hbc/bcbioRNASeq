@@ -99,7 +99,11 @@ counts.bcbioRNASeq <-  # nolint
 
         if (identical(normalized, FALSE)) {
             assayName <- "counts"
-        } else if (identical(normalized, TRUE)) {
+        } else if (
+            identical(normalized, TRUE) ||
+            # `sf` is short for library size factor normalized.
+            identical(normalized, "sf")
+        ) {
             assayName <- "normalized"
         } else {
             assayName <- match.arg(arg = normalized, choices = normalizedCounts)
