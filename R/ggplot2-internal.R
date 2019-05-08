@@ -1,23 +1,12 @@
-.dynamicTrans <- function(
-    object,
-    normalized,
-    trans
-) {
+.dynamicTrans <- function(object, normalized) {
     validObject(object)
     normalized <- match.arg(normalized, choices = normalizedCounts)
-    trans <- match.arg(trans, choices = c("log2", "log10"))
-
-    # Don't allow DESeqTransform to be plotted on log10 scale.
-    if (
-        normalized %in% c("vst", "rlog") &&
-        trans != "log2"
-    ) {
-        message(paste(normalized, "counts are log2 scale."))
-    }
 
     # Check for DESeqTransform that are already log2 scale and update `trans`.
     if (normalized %in% c("rlog", "vst")) {
         trans <- "identity"
+    } else {
+        trans <- "log2"
     }
 
     # Coerce to RangedSummarizedExperiment.
