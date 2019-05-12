@@ -1,52 +1,38 @@
-# Travis-CI configuration for Bioconductor packages
-# https://docs.travis-ci.com/user/languages/r
+language: general
 
-language: r
-cache: packages
-os: osx
-bioc_required: true
-
-r:
-  - 3.5
+services:
+  - docker
 
 branches:
   only:
     - master
 
-env:
-  global:
-    - BIOC_USE_DEVEL="FALSE"
+before_script:
+  - chmod +x *.sh
+    # Avoid BiocCheck > checkCodingPractice > checkLogicalUseFiles error.
+  - touch inst/rmarkdown/templates/{differential-expression,functional-analysis,quality-control}/skeleton/_{footer,header,links}.Rmd
 
-r_packages:
-  - covr
-  - hexbin
-bioc_packages:
-  - BiocCheck
-  - GenomeInfoDbData
-  - S4Vectors
-  - DelayedArray
-  - EnsDb.Hsapiens.v75
-  - DEGreport
-  # clusterProfiler dependencies
-  - ALL
-  - DO.db
-  - GO.db
-  - enrichplot
-  - org.Hs.eg.db
-  - org.Mm.eg.db
-r_github_packages:
-  - acidgenomics/lintr
+jobs:
+  include:
+    - stage: test
+      name: "Docker: Bioconductor 3.9"
+      script: image="r-bcbio" tag="bioc-3.9" ./docker.sh
+    - stage: test
+      name: "Docker: Bioconductor 3.8"
+      script: image="r-bcbio" tag="bioc-3.8" ./docker.sh
+    - stage: test
+      name: "Docker: Bioconductor 3.7"
+      script: image="r-bcbio" tag="bioc-3.7" ./docker.sh
 
-after_success:
-  - Rscript -e 'lintr::lint_package()'
-  - Rscript -e 'covr::codecov()'
-  - R CMD BiocCheck .
-  - chmod +x travis_render.sh
-  - ./travis_render.sh
+matrix:
+  fast_finish: true
+
+after_failure:
+  - ./docker-failure.sh
 
 notifications:
   email:
     recipients:
       - mike@steinbaugh.com
     on_success: change
-    on_failure: always
+    on_failure: change
