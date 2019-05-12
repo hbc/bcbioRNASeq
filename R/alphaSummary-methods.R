@@ -34,6 +34,15 @@ NULL
 
 
 #' @rdname alphaSummary
+#' @name alphaSummary
+#' @importFrom bioverbs alphaSummary
+#' @usage alphaSummary(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname alphaSummary
 #' @export
 setMethod(
     "alphaSummary",
