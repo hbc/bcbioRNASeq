@@ -6,6 +6,8 @@
 \alias{aggregateReplicates,bcbioRNASeq-method}
 \title{Aggregate Replicates}
 \usage{
+aggregateReplicates(object, ...)
+
 \S4method{aggregateReplicates}{bcbioRNASeq}(object)
 }
 \arguments{
