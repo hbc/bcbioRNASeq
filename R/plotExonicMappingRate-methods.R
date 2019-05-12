@@ -1,12 +1,12 @@
-#' Plot Exonic Mapping Rate
-#'
-#' Ideally, at least 60 percent of total reads should map to exons.
-#'
 #' @name plotExonicMappingRate
+#' @inherit bioverbs::plotExonicMappingRate
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
+#' @description Ideally, at least 60 percent of total reads should map to exons.
+#'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
@@ -17,10 +17,15 @@ NULL
 
 
 #' @rdname plotExonicMappingRate
+#' @name plotExonicMappingRate
+#' @importFrom bioverbs plotExonicMappingRate
+#' @usage plotExonicMappingRate(object, ...)
 #' @export
-setMethod(
-    "plotExonicMappingRate",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotExonicMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups,
@@ -87,4 +92,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotExonicMappingRate
+#' @export
+setMethod(
+    f = "plotExonicMappingRate",
+    signature = signature("bcbioRNASeq"),
+    definition = plotExonicMappingRate.bcbioRNASeq
 )

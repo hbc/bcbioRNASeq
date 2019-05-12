@@ -1,16 +1,13 @@
-#' Plot Individual Genes
-#'
-#' @name plotGene
+#' @name plotCounts
+#' @inherit bioverbs::plotCounts
 #' @family Gene Expression Functions
 #' @author Michael Steinbaugh
-#'
-#' @importFrom basejump plotGene
-#' @export
 #'
 #' @inheritParams general
 #' @param countsAxisLabel `string`. Label to use for the counts axis.
 #' @param medianLine `boolean`. Include median line for each group. Disabled if
 #'   samples are colored by sample name.
+#' @param ... Additional arguments.
 #'
 #' @return
 #' - "`facet`": `ggplot` grouped by `sampleName`, with [ggplot2::facet_wrap()]
@@ -25,17 +22,26 @@
 #' glimpse(genes)
 #'
 #' # bcbioRNASeq ====
-#' plotGene(bcb_small, genes = genes, normalized = "vst", return = "facet")
-#' plotGene(bcb_small, genes = genes, normalized = "vst", return = "wide")
+#' plotCounts(bcb_small, genes = genes, normalized = "vst", return = "facet")
+#' plotCounts(bcb_small, genes = genes, normalized = "vst", return = "wide")
 #'
 #' # DESeqTransform ====
 #' vst_small <- DESeq2::varianceStabilizingTransformation(dds_small)
-#' plotGene(vst_small, genes = genes)
+#' plotCounts(vst_small, genes = genes)
 NULL
 
 
 
-.plotGeneFacet <- function(
+#' @rdname plotCounts
+#' @name plotCounts
+#' @importFrom bioverbs plotCounts
+#' @usage plotCounts(object, ...)
+#' @export
+NULL
+
+
+
+.plotCountsFacet <- function(
     object,
     interestingGroups,
     countsAxisLabel = "counts",
@@ -87,7 +93,7 @@ NULL
 
 
 
-.plotGeneWide <- function(
+.plotCountsWide <- function(
     object,
     interestingGroups,
     countsAxisLabel = "counts",
@@ -134,11 +140,7 @@ NULL
 
 
 
-#' @rdname plotGene
-#' @export
-setMethod(
-    "plotGene",
-    signature("SummarizedExperiment"),
+plotCounts.SummarizedExperiment <-  #  nolint
     function(
         object,
         genes,
@@ -168,9 +170,9 @@ setMethod(
             .[genes, , drop = FALSE]
 
         if (return == "facet") {
-            fxn <- .plotGeneFacet
+            fxn <- .plotCountsFacet
         } else if (return == "wide") {
-            fxn <- .plotGeneWide
+            fxn <- .plotCountsWide
         }
 
         fxn(
@@ -182,15 +184,20 @@ setMethod(
             legend = legend
         )
     }
+
+
+
+#' @rdname plotCounts
+#' @export
+setMethod(
+    f = "plotCounts",
+    signature = signature("SummarizedExperiment"),
+    definition = plotCounts.SummarizedExperiment
 )
 
 
 
-#' @rdname plotGene
-#' @export
-setMethod(
-    "plotGene",
-    signature("bcbioRNASeq"),
+plotCounts.bcbioRNASeq <-  # nolint
     function(
         object,
         normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
@@ -206,42 +213,52 @@ setMethod(
         countsAxisLabel <- paste(normalized, "counts (log2)")
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-        plotGene(
+        plotCounts(
             object = rse,
             countsAxisLabel = countsAxisLabel,
             ...
         )
     }
+
+
+
+#' @rdname plotCounts
+#' @export
+setMethod(
+    f = "plotCounts",
+    signature = signature("bcbioRNASeq"),
+    definition = plotCounts.bcbioRNASeq
 )
 
 
 
-#' @rdname plotGene
-#' @export
-setMethod(
-    "plotGene",
-    signature("DESeqDataSet"),
+plotCounts.DESeqDataSet <-  # nolint
     function(object, ...) {
         validObject(object)
         # Ensure counts are log2 scale
         counts <- log2(counts(object, normalized = TRUE) + 1L)
         rse <- as(object, "RangedSummarizedExperiment")
         assay(rse) <- counts
-        plotGene(
+        plotCounts(
             object = rse,
             countsAxisLabel = "normalized counts (log2)",
             ...
         )
     }
+
+
+
+#' @rdname plotCounts
+#' @export
+setMethod(
+    f = "plotCounts",
+    signature = signature("DESeqDataSet"),
+    definition = plotCounts.DESeqDataSet
 )
 
 
 
-#' @rdname plotGene
-#' @export
-setMethod(
-    "plotGene",
-    signature("DESeqTransform"),
+plotCounts.DESeqTransform <-  # nolint
     function(object, ...) {
         validObject(object)
         if ("rlogIntercept" %in% colnames(mcols(object))) {
@@ -251,10 +268,19 @@ setMethod(
         }
         countsAxisLabel <- paste(normalized, "counts (log2)")
         rse <- as(object, "RangedSummarizedExperiment")
-        plotGene(
+        plotCounts(
             object = rse,
             countsAxisLabel = countsAxisLabel,
             ...
         )
     }
+
+
+
+#' @rdname plotCounts
+#' @export
+setMethod(
+    f = "plotCounts",
+    signature = signature("DESeqTransform"),
+    definition = plotCounts.DESeqTransform
 )

@@ -1,4 +1,4 @@
-#' Update an Object to Its Current Class Definition
+#' Update an object to its current class definition
 #'
 #' Update old objects created by the bcbioRNASeq package. The session
 #' information metadata is preserved from the time when the bcbio data was
@@ -34,11 +34,7 @@ NULL
 
 
 
-#' @rdname updateObject
-#' @export
-setMethod(
-    "updateObject",
-    signature("bcbioRNASeq"),
+updateObject.bcbioRNASeq <-  # nolint
     function(
         object,
         rowRanges = NULL
@@ -174,7 +170,7 @@ setMethod(
 
         # programVersions
         if (!"programVersions" %in% names(metadata) &&
-                "programs" %in% names(metadata)) {
+            "programs" %in% names(metadata)) {
             message("Renaming programs to programVersions")
             metadata[["programVersions"]] <- metadata[["programs"]]
             metadata <- metadata[setdiff(names(metadata), "programs")]
@@ -360,4 +356,13 @@ setMethod(
             metadata = metadata(rse)
         )
     }
+
+
+
+#' @rdname updateObject
+#' @export
+setMethod(
+    f = "updateObject",
+    signature = signature("bcbioRNASeq"),
+    definition = updateObject.bcbioRNASeq
 )

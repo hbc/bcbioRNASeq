@@ -1,12 +1,10 @@
-#' Plot Mapped Reads
-#'
-#' The number of mapped reads should correspond to the number of total reads.
-#'
 #' @name plotMappedReads
+#' @inherit bioverbs::plotMappedReads
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
@@ -19,10 +17,15 @@ NULL
 
 
 #' @rdname plotMappedReads
+#' @name plotMappedReads
+#' @importFrom bioverbs plotMappedReads
+#' @usage plotMappedReads(object, ...)
 #' @export
-setMethod(
-    "plotMappedReads",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotMappedReads.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups,
@@ -89,4 +92,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotMappedReads
+#' @export
+setMethod(
+    f = "plotMappedReads",
+    signature = signature("bcbioRNASeq"),
+    definition = plotMappedReads.bcbioRNASeq
 )

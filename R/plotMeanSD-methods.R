@@ -1,5 +1,9 @@
-#' Plot Row Standard Deviations vs. Row Means
+#' @name plotMeanSD
+#' @inherit bioverbs::plotMeanSD
+#' @family Quality Control Functions
+#' @author Michael Steinbaugh, Lorena Patano
 #'
+#' @details
 #' [vsn::meanSdPlot()] wrapper that plots count transformations on a log2 scale.
 #'
 #' - **DESeq2 log2**: log2 normalized counts.
@@ -14,11 +18,8 @@
 #' - [DESeq2::varianceStabilizingTransformation()].
 #' - [tmm()].
 #'
-#' @name plotMeanSD
-#' @family Quality Control Functions
-#' @author Michael Steinbaugh, Lorena Patano
-#'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot` grid.
 #'
@@ -28,6 +29,15 @@
 #'
 #' # DESeqDataSet ====
 #' plotMeanSD(dds_small)
+NULL
+
+
+
+#' @rdname plotMeanSD
+#' @name plotMeanSD
+#' @importFrom bioverbs plotMeanSD
+#' @usage plotMeanSD(object, ...)
+#' @export
 NULL
 
 
@@ -117,11 +127,8 @@ NULL
 
 # Require that the DESeq2 transformations are slotted.
 # If `transformationLimit` was applied, this function will error.
-#' @rdname plotMeanSD
-#' @export
-setMethod(
-    "plotMeanSD",
-    signature("bcbioRNASeq"),
+
+plotMeanSD.bcbioRNASeq <-  # nolint
     function(
         object,
         legend = getOption("bcbio.legend", FALSE)
@@ -134,15 +141,20 @@ setMethod(
             legend = legend
         )
     }
-)
 
 
 
 #' @rdname plotMeanSD
 #' @export
 setMethod(
-    "plotMeanSD",
-    signature("DESeqDataSet"),
+    f = "plotMeanSD",
+    signature = signature("bcbioRNASeq"),
+    definition = plotMeanSD.bcbioRNASeq
+)
+
+
+
+plotMeanSD.DESeqDataSet <-  # nolint
     function(
         object,
         legend = getOption("bcbio.legend", FALSE)
@@ -155,4 +167,13 @@ setMethod(
             legend = legend
         )
     }
+
+
+
+#' @rdname plotMeanSD
+#' @export
+setMethod(
+    f = "plotMeanSD",
+    signature = signature("DESeqDataSet"),
+    definition = plotMeanSD.DESeqDataSet
 )

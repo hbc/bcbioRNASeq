@@ -1,7 +1,7 @@
-#' Plot Counts Per Gene
-#'
-#' Generally, we expect similar count spreads for all genes between samples
-#' unless the library sizes or total RNA expression are different.
+#' @name plotCountsPerGene
+#' @inherit bioverbs::plotCountsPerGene
+#' @family Quality Control Functions
+#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @section TMM:
 #' We recommend visualizing counts normalized with the Trimmed Mean of M-Values
@@ -11,11 +11,8 @@
 #' normalizing for total RNA expression by sample, we expect the spread of the
 #' TMM-normalized counts per gene to be similar for every sample.
 #'
-#' @name plotCountsPerGene
-#' @family Quality Control Functions
-#' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
@@ -26,10 +23,15 @@ NULL
 
 
 #' @rdname plotCountsPerGene
+#' @name plotCountsPerGene
+#' @importFrom bioverbs plotCountsPerGene
+#' @usage plotCountsPerGene(object, ...)
 #' @export
-setMethod(
-    "plotCountsPerGene",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotCountsPerGene.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups,
@@ -102,4 +104,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotCountsPerGene
+#' @export
+setMethod(
+    f = "plotCountsPerGene",
+    signature = signature("bcbioRNASeq"),
+    definition = plotCountsPerGene.bcbioRNASeq
 )

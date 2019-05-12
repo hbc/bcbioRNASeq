@@ -1,4 +1,4 @@
-#' `bcbioRNASeq` Object and Constructor
+#' `bcbioRNASeq` object and constructor
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
 #' is designed to store a [bcbio](https://bcbio-nextgen.readthedocs.org) RNA-seq

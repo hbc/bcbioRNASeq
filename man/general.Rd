@@ -2,7 +2,7 @@
 % Please edit documentation in R/general.R
 \name{general}
 \alias{general}
-\title{General Arguments}
+\title{General arguments}
 \arguments{
 \item{object}{Object.}
 
@@ -102,6 +102,6 @@ extracted assay elements.}
 No value.
 }
 \description{
-General Arguments
+General arguments
 }
 \keyword{internal}

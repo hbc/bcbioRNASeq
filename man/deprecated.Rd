@@ -9,7 +9,8 @@
 \alias{design<-,bcbioRNASeq,formula-method}
 \alias{loadRNASeq}
 \alias{plotMeanAverage}
-\title{Defunct or Deprecated Functions}
+\alias{prepareRNASeqTemplate}
+\title{Defunct or deprecated functions}
 \usage{
 meltLog10(object, ...)
 
@@ -22,6 +23,8 @@ plot53Bias(...)
 loadRNASeq(...)
 
 plotMeanAverage(...)
+
+prepareRNASeqTemplate(...)
 }
 \arguments{
 \item{object}{Object.}
@@ -34,6 +37,6 @@ plotMeanAverage(...)
 No value.
 }
 \description{
-Defunct or Deprecated Functions
+Defunct or deprecated functions
 }
 \keyword{internal}

@@ -4,7 +4,7 @@
 \name{aggregateReplicates}
 \alias{aggregateReplicates}
 \alias{aggregateReplicates,bcbioRNASeq-method}
-\title{Aggregate Replicates}
+\title{Aggregate technical replicates}
 \usage{
 aggregateReplicates(object, ...)
 
@@ -12,12 +12,14 @@ aggregateReplicates(object, ...)
 }
 \arguments{
 \item{object}{Object.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{RangedSummarizedExperiment}.
 }
 \description{
-Aggregate Replicates
+Aggregate technical replicates
 }
 \examples{
 bcb <- bcb_small
@@ -29,12 +31,6 @@ aggregate
 bcb$aggregate <- aggregate
 aggregateReplicates(bcb)
 }
-\seealso{
-Other Data Functions: \code{\link{counts}},
-  \code{\link{metrics}}, \code{\link{sampleData}},
-  \code{\link{tmm}}, \code{\link{tpm}}
-}
 \author{
 Michael Steinbaugh
 }
-\concept{Data Functions}

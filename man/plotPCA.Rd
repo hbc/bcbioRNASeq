@@ -5,8 +5,10 @@
 \alias{plotPCA}
 \alias{plotPCA,SummarizedExperiment-method}
 \alias{plotPCA,bcbioRNASeq-method}
-\title{Sample PCA Plot for Transformed Data}
+\title{Sample PCA plot for transformed data}
 \usage{
+plotPCA(object, ...)
+
 \S4method{plotPCA}{SummarizedExperiment}(object, interestingGroups,
   ntop = 500L, color = getOption("bcbio.discrete.color", NULL),
   label = getOption("bcbio.label", FALSE), title = "pca",

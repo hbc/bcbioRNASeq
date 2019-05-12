@@ -3,13 +3,13 @@
 \docType{data}
 \name{res_small}
 \alias{res_small}
-\title{\code{DESeqResults} Example}
+\title{\code{DESeqResults} example}
 \format{An object of class \code{DESeqResults} with 500 rows and 6 columns.}
 \usage{
 res_small
 }
 \description{
-\code{DESeqResults} Example
+\code{DESeqResults} example
 }
 \seealso{
 Other GSE65267: \code{\link{bcb_small}},

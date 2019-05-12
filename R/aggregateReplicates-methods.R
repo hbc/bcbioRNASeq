@@ -1,10 +1,9 @@
-#' Aggregate Replicates
-#'
 #' @name aggregateReplicates
-#' @family Data Functions
+#' @inherit bioverbs::aggregateReplicates
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `RangedSummarizedExperiment`.
 #'
@@ -30,11 +29,7 @@ NULL
 
 
 
-#' @rdname aggregateReplicates
-#' @export
-setMethod(
-    "aggregateReplicates",
-    signature("bcbioRNASeq"),
+aggregateReplicates.bcbioRNASeq <-  # nolint
     function(object) {
         validObject(object)
 
@@ -92,4 +87,13 @@ setMethod(
             rowRanges = rowRanges(object)
         )
     }
+
+
+
+#' @rdname aggregateReplicates
+#' @export
+setMethod(
+    f = "aggregateReplicates",
+    signature = signature("bcbioRNASeq"),
+    definition = aggregateReplicates.bcbioRNASeq
 )

@@ -1,4 +1,4 @@
-#' Count Matrix Accessors
+#' Count matrix accessors
 #'
 #' By default, [counts()] returns the raw counts. Normalized counts, including
 #' transcripts per million (TPM) can be accessed using the "`normalized`"
@@ -7,9 +7,6 @@
 #' @name counts
 #' @family Data Functions
 #' @author Michael Steinbaugh, Lorena Pantano
-#'
-#' @importFrom BiocGenerics counts
-#' @export
 #'
 #' @inheritParams general
 #' @param normalized `string` or `boolean`. Which normalization method to apply:
@@ -20,6 +17,7 @@
 #'   - "`rlog`": DESeq2 **log2** regularized log transformation.
 #'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
 #'   - "`rle`": Relative log expression transformation.
+#' @param ... Additional arguments.
 #'
 #' @return `matrix`.
 #'
@@ -41,10 +39,15 @@ NULL
 
 
 #' @rdname counts
+#' @name counts
+#' @importFrom BiocGenerics counts
+#' @usage counts(object, ...)
 #' @export
-setMethod(
-    "counts",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+counts.bcbioRNASeq <-  # nolint
     function(object, normalized = FALSE) {
         validObject(object)
         assert_is_any_of(normalized, c("character", "logical"))
@@ -86,4 +89,13 @@ setMethod(
         assert_is_matrix(counts)
         counts
     }
+
+
+
+#' @rdname counts
+#' @export
+setMethod(
+    f = "counts",
+    signature = signature("bcbioRNASeq"),
+    definition = counts.bcbioRNASeq
 )

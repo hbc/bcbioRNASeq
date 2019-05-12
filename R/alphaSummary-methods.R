@@ -1,15 +1,11 @@
-#' Alpha Level Cutoff Summary Statistics
-#'
-#' Quickly generate a summary table of various alpha level cutoffs, for use in
-#' an R Markdown report.
+#' @name alphaSummary
+#' @inherit bioverbs::alphaSummary
+#' @family Differential Expression Functions
+#' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @note `bcbioRNASeq` class does currently support contrast definitions, since
 #'   the object contains an internal `DESeqDataSet` with an empty design
 #'   formula.
-#'
-#' @name alphaSummary
-#' @family Differential Expression Functions
-#' @author Michael Steinbaugh, Lorena Patano
 #'
 #' @inheritParams general
 #' @inheritParams DESeq2::results
@@ -42,11 +38,7 @@ NULL
 
 
 
-#' @rdname alphaSummary
-#' @export
-setMethod(
-    "alphaSummary",
-    signature("DESeqDataSet"),
+alphaSummary.bcbioRNASeq <-  # nolint
     function(
         object,
         alpha = c(0.1, 0.05, 0.01, 1e-3, 1e-6),
@@ -96,4 +88,13 @@ setMethod(
             )) %>%
             kable(caption = caption)
     }
+
+
+
+#' @rdname alphaSummary
+#' @export
+setMethod(
+    f = "alphaSummary",
+    signature = signature("DESeqDataSet"),
+    definition = alphaSummary.bcbioRNASeq
 )

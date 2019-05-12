@@ -1,6 +1,5 @@
-#' Plot Volcano
-#'
 #' @name plotVolcano
+#' @inherit bioverbs::plotVolcano
 #' @family Differential Expression Functions
 #' @author John Hutchinson, Michael Steinbaugh, Lorena Pantano
 #'
@@ -9,6 +8,7 @@
 #'   dynamic range for gene sets containing highly significant P values (e.g.
 #'   `1e-100`).
 #' @param histograms `boolean`. Show LFC and P value histograms.
+#' @param ... Additional arguments.
 #'
 #' @seealso This function is an updated variant of
 #'   `CHBUtils::volcano_density_plot()`.
@@ -55,10 +55,15 @@ NULL
 
 
 #' @rdname plotVolcano
+#' @name plotVolcano
+#' @importFrom bioverbs plotVolcano
+#' @usage plotVolcano(object, ...)
 #' @export
-setMethod(
-    "plotVolcano",
-    signature("DESeqResults"),
+NULL
+
+
+
+plotVolcano.bcbioRNASeq <-  # nolint
     function(
         object,
         alpha,
@@ -297,4 +302,13 @@ setMethod(
             p
         }
     }
+
+
+
+#' @rdname plotVolcano
+#' @export
+setMethod(
+    f = "plotVolcano",
+    signature = signature("DESeqResults"),
+    definition = plotVolcano.bcbioRNASeq
 )

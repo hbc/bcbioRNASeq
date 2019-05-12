@@ -1,15 +1,11 @@
-#' Plot Gene Detection Saturation
-#'
-#' We should observe a linear trend in the number of genes detected with the
-#' number of mapped reads, which indicates that the sample input was not
-#' overloaded.
-#'
 #' @name plotGeneSaturation
+#' @inherit bioverbs::plotGeneSaturation
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
 #' @param trendline `boolean`. Include a trendline for each group.
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
@@ -21,10 +17,15 @@ NULL
 
 
 #' @rdname plotGeneSaturation
+#' @name plotGeneSaturation
+#' @importFrom bioverbs plotGeneSaturation
+#' @usage plotGeneSaturation(object, ...)
 #' @export
-setMethod(
-    "plotGeneSaturation",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotGeneSaturation.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups,
@@ -81,4 +82,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotGeneSaturation
+#' @export
+setMethod(
+    f = "plotGeneSaturation",
+    signature = signature("bcbioRNASeq"),
+    definition = plotGeneSaturation.bcbioRNASeq
 )

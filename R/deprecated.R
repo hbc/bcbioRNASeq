@@ -1,6 +1,6 @@
 # nocov start
 
-#' Defunct or Deprecated Functions
+#' Defunct or deprecated functions
 #'
 #' @name deprecated
 #' @keywords internal
@@ -70,6 +70,16 @@ loadRNASeq <- function(...) {
 plotMeanAverage <- function(...) {
     # Soft deprecation, since used in F1000 paper.
     plotMA(...)
+}
+
+
+
+# v0.2.10 ======================================================================
+#' @rdname deprecated
+#' @export
+prepareRNASeqTemplate <- function(...) {
+    .Deprecated("prepareTemplate(package = \"bcbioRNASeq\")")
+    prepareTemplate(package = "bcbioRNASeq", ...)
 }
 
 

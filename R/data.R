@@ -1,4 +1,4 @@
-#' `bcbioRNASeq` Example
+#' `bcbioRNASeq` example
 #'
 #' @family GSE65267
 #' @author Lorena Pantano, Michael Steinbaugh
@@ -6,7 +6,7 @@
 
 
 
-#' `DESeqDataSet` Example
+#' `DESeqDataSet` example
 #'
 #' @family GSE65267
 #' @author Lorena Pantano, Michael Steinbaugh
@@ -14,7 +14,7 @@
 
 
 
-#' Gender Marker Genes
+#' Gender marker genes
 #'
 #' @author Michael Steinbaugh
 #' @keywords internal
@@ -22,7 +22,7 @@
 
 
 
-#' `DESeqResults` Example
+#' `DESeqResults` example
 #'
 #' @family GSE65267
 #' @author Lorena Pantano, Michael Steinbaugh

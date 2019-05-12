@@ -1,14 +1,11 @@
-#' Plot Count Density
-#'
-#' Generally, we expect similar count spreads for all genes between samples
-#' unless the total expressed RNA per sample is different.
-#'
 #' @name plotCountDensity
+#' @inherit bioverbs::plotCountDensity
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
 #' @param style `string`. Desired plot style ("`line`" or "`solid`").
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
@@ -20,10 +17,15 @@ NULL
 
 
 #' @rdname plotCountDensity
+#' @name plotCountDensity
+#' @importFrom bioverbs plotCountDensity
+#' @usage plotCountDensity(object, ...)
 #' @export
-setMethod(
-    "plotCountDensity",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotCountDensity.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups,
@@ -101,4 +103,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotCountDensity
+#' @export
+setMethod(
+    f = "plotCountDensity",
+    signature = signature("bcbioRNASeq"),
+    definition = plotCountDensity.bcbioRNASeq
 )

@@ -1,4 +1,4 @@
-#' Sample PCA Plot for Transformed Data
+#' Sample PCA plot for transformed data
 #'
 #' Wrapper for [DESeq2::plotPCA()] that improves principal component analysis
 #' (PCA) sample coloring and labeling.
@@ -14,12 +14,10 @@
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
-#' @importFrom BiocGenerics plotPCA
-#' @export
-#'
 #' @inheritParams general
 #' @param ntop `scalar integer` or `Inf`. Number of most variable genes to plot.
 #'   Use `Inf` to include all genes.
+#' @param ... Additional arguments.
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].
@@ -45,10 +43,15 @@ NULL
 
 
 #' @rdname plotPCA
+#' @name plotPCA
+#' @importFrom BiocGenerics plotPCA
+#' @usage plotPCA(object, ...)
 #' @export
-setMethod(
-    "plotPCA",
-    signature("SummarizedExperiment"),
+NULL
+
+
+
+plotPCA.SummarizedExperiment <-  # nolint
     function(
         object,
         interestingGroups,
@@ -156,15 +159,20 @@ setMethod(
 
         p
     }
-)
 
 
 
 #' @rdname plotPCA
 #' @export
 setMethod(
-    "plotPCA",
-    signature("bcbioRNASeq"),
+    f = "plotPCA",
+    signature = signature("SummarizedExperiment"),
+    definition = plotPCA.SummarizedExperiment
+)
+
+
+
+plotPCA.bcbioRNASeq <-  # nolint
     function(
         object,
         normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
@@ -178,4 +186,13 @@ setMethod(
         assay(rse) <- counts
         plotPCA(rse, ...)
     }
+
+
+
+#' @rdname plotPCA
+#' @export
+setMethod(
+    f = "plotPCA",
+    signature = signature("bcbioRNASeq"),
+    definition = plotPCA.bcbioRNASeq
 )

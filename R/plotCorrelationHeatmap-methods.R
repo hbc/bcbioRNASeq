@@ -1,16 +1,7 @@
-#' Plot Correlation Heatmap
-#'
-#' This function calculates a correlation matrix based on feature expression per
-#' sample.
-#'
 #' @name plotCorrelationHeatmap
+#' @inherit bioverbs::plotCorrelationHeatmap
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
-#'
-#' @importFrom basejump plotCorrelationHeatmap
-#' @export
-#'
-#' @inherit basejump::plotCorrelationHeatmap
 #'
 #' @inheritParams general
 #' @param ... Passthrough arguments to `SummarizedExperiment` method.
@@ -31,10 +22,15 @@ NULL
 
 
 #' @rdname plotCorrelationHeatmap
+#' @name plotCorrelationHeatmap
+#' @importFrom bioverbs plotCorrelationHeatmap
+#' @usage plotCorrelationHeatmap(object, ...)
 #' @export
-setMethod(
-    "plotCorrelationHeatmap",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
     function(
         object,
         normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
@@ -52,15 +48,20 @@ setMethod(
 
         plotCorrelationHeatmap(rse, ...)
     }
-)
 
 
 
 #' @rdname plotCorrelationHeatmap
 #' @export
 setMethod(
-    "plotCorrelationHeatmap",
-    signature("DESeqTransform"),
+    f = "plotCorrelationHeatmap",
+    signature = signature("bcbioRNASeq"),
+    definition = plotCorrelationHeatmap.bcbioRNASeq
+)
+
+
+
+plotCorrelationHeatmap.DESeqTransform <-  # nolint
     function(object, ...) {
         validObject(object)
         counts <- assay(object)
@@ -72,4 +73,13 @@ setMethod(
 
         plotCorrelationHeatmap(rse, ...)
     }
+
+
+
+#' @rdname plotCorrelationHeatmap
+#' @export
+setMethod(
+    f = "plotCorrelationHeatmap",
+    signature = signature("DESeqTransform"),
+    definition = plotCorrelationHeatmap.DESeqTransform
 )

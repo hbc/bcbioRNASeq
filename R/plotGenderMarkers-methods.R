@@ -1,17 +1,14 @@
-#' Plot Sexually Dimorphic Gender Markers
-#'
-#' This is a convenience function that wraps [plotGene()] to quickly plot known
-#' sexually dimorphic genes. Currently only *Homo sapiens* and *Mus musculus*
-#' genomes are supported.
-#'
 #' @name plotGenderMarkers
+#' @inherit bioverbs::plotGenderMarkers
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
-#' @inheritParams plotGene
+#' @note Currently only *Homo sapiens* and *Mus musculus* genomes are supported.
+#'
+#' @inheritParams plotCounts
 #' @inheritParams general
 #'
-#' @seealso [plotGene()].
+#' @seealso [plotCounts()].
 #'
 #' @return `ggplot`.
 #'
@@ -27,10 +24,15 @@ NULL
 
 
 #' @rdname plotGenderMarkers
+#' @name plotGenderMarkers
+#' @importFrom bioverbs plotGenderMarkers
+#' @usage plotGenderMarkers(object, ...)
 #' @export
-setMethod(
-    "plotGenderMarkers",
-    signature("SummarizedExperiment"),
+NULL
+
+
+
+plotGenderMarkers.SummarizedExperiment <-  # nolint
     function(object, ...) {
         validObject(object)
         # Load the relevant internal gender markers data
@@ -50,14 +52,14 @@ setMethod(
 
         rse <- as(object, "RangedSummarizedExperiment")
         return <- "wide"
-        xPlot <- plotGene(
+        xPlot <- plotCounts(
             object = rse,
             genes = xGenes,
             return = return,
             ...
         ) +
             ggtitle("X chromosome")
-        yPlot <- plotGene(
+        yPlot <- plotCounts(
             object = rse,
             genes = yGenes,
             return = return,
@@ -68,15 +70,20 @@ setMethod(
         plotlist <- list(x = xPlot, y = yPlot)
         plot_grid(plotlist = plotlist)
     }
-)
 
 
 
 #' @rdname plotGenderMarkers
 #' @export
 setMethod(
-    "plotGenderMarkers",
-    signature("bcbioRNASeq"),
+    f = "plotGenderMarkers",
+    signature = signature("SummarizedExperiment"),
+    definition = plotGenderMarkers.SummarizedExperiment
+)
+
+
+
+plotGenderMarkers.bcbioRNASeq <-  # nolint
     function(
         object,
         normalized = c("vst", "rlog", "tmm", "tpm", "rle"),
@@ -98,15 +105,20 @@ setMethod(
             ...
         )
     }
-)
 
 
 
 #' @rdname plotGenderMarkers
 #' @export
 setMethod(
-    "plotGenderMarkers",
-    signature("DESeqDataSet"),
+    f = "plotGenderMarkers",
+    signature = signature("bcbioRNASeq"),
+    definition = plotGenderMarkers.bcbioRNASeq
+)
+
+
+
+plotGenderMarkers.DESeqDataSet <-  # nolint
     function(object, ...) {
         validObject(object)
         counts <- log2(counts(object, normalized = TRUE) + 1L)
@@ -119,15 +131,20 @@ setMethod(
             ...
         )
     }
-)
 
 
 
 #' @rdname plotGenderMarkers
 #' @export
 setMethod(
-    "plotGenderMarkers",
-    signature("DESeqTransform"),
+    f = "plotGenderMarkers",
+    signature = signature("DESeqDataSet"),
+    definition = plotGenderMarkers.DESeqDataSet
+)
+
+
+
+plotGenderMarkers.DESeqTransform <-  # nolint
     function(object, ...) {
         validObject(object)
         if ("rlogIntercept" %in% colnames(mcols(object))) {
@@ -143,4 +160,13 @@ setMethod(
             ...
         )
     }
+
+
+
+#' @rdname plotGenderMarkers
+#' @export
+setMethod(
+    f = "plotGenderMarkers",
+    signature = signature("DESeqTransform"),
+    definition = plotGenderMarkers.DESeqTransform
 )

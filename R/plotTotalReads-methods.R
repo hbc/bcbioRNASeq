@@ -1,13 +1,10 @@
-#' Plot Total Reads
-#'
-#' High quality RNA-seq samples ideally should have at least 10 million reads
-#' per sample.
-#'
 #' @name plotTotalReads
+#' @inherit bioverbs::plotTotalReads
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
@@ -18,10 +15,15 @@ NULL
 
 
 #' @rdname plotTotalReads
+#' @name plotTotalReads
+#' @importFrom bioverbs plotTotalReads
+#' @usage plotTotalReads(object, ...)
 #' @export
-setMethod(
-    "plotTotalReads",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotTotalReads.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups,
@@ -88,4 +90,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotTotalReads
+#' @export
+setMethod(
+    f = "plotTotalReads",
+    signature = signature("bcbioRNASeq"),
+    definition = plotTotalReads.bcbioRNASeq
 )

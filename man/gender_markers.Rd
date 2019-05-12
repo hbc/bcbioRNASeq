@@ -3,13 +3,13 @@
 \docType{data}
 \name{gender_markers}
 \alias{gender_markers}
-\title{Gender Marker Genes}
+\title{Gender marker genes}
 \format{An object of class \code{list} of length 2.}
 \usage{
 gender_markers
 }
 \description{
-Gender Marker Genes
+Gender marker genes
 }
 \author{
 Michael Steinbaugh
