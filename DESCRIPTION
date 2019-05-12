@@ -1,5 +1,5 @@
 Package: bcbioRNASeq
-Title: RNA-Seq Utilities
+Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.2.10
 Date: 2019-05-12
@@ -106,7 +106,7 @@ Depends:
     bcbioBase (>= 0.4.2),
     DESeq2
 Imports:
-    basejump (>= 0.7.2),
+    basejump (>= 0.10.9),
     bioverbs (>= 0.1.19),
     BiocGenerics,
     DEGreport,
