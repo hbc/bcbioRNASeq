@@ -12,57 +12,6 @@ NULL
 
 
 
-# v0.0.25 ======================================================================
-#' @rdname deprecated
-#' @export
-download <- function(...) {
-    .Defunct("prepareRNASeqTemplate")
-}
-
-#' @rdname deprecated
-#' @export
-plotGeneDetectionSaturation <- function(...) {
-    .Deprecated("plotGeneSaturation")
-    plotGeneSaturation(...)
-}
-
-#' @rdname deprecated
-#' @export
-plotDispersion <- function(...) {
-    .Deprecated("plotDispEsts")
-    plotDispEsts(...)
-}
-
-
-
-# v0.0.27 ======================================================================
-#' @rdname deprecated
-#' @export
-loadRNASeqRun <- function(...) {
-    .Deprecated("loadRNASeq")
-    loadRNASeq(...)
-}
-
-
-
-# v0.1.2 =======================================================================
-#' @rdname deprecated
-#' @export
-plotGeneHeatmap <- function(...) {
-    .Defunct()
-}
-
-
-
-# v0.1.3 =======================================================================
-#' @rdname deprecated
-#' @export
-txi <- function(...) {
-    .Defunct()
-}
-
-
-
 # v0.2.0 =======================================================================
 # annotable deprecation for SummarizedExperiment added to bcbioBase v0.2.0
 
@@ -106,8 +55,7 @@ setMethod(
 
 
 # v0.2.2 =======================================================================
-#' @rdname bcbioRNASeq
-#' @usage NULL
+#' @rdname deprecated
 #' @export
 loadRNASeq <- function(...) {
     .Deprecated("bcbioRNASeq")
@@ -117,11 +65,10 @@ loadRNASeq <- function(...) {
 
 
 # v0.2.6 =======================================================================
-#' @rdname plotMA
-#' @usage NULL
+#' @rdname deprecated
 #' @export
 plotMeanAverage <- function(...) {
-    # Soft deprecation, since used in F1000 paper
+    # Soft deprecation, since used in F1000 paper.
     plotMA(...)
 }
 
