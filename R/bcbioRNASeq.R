@@ -250,12 +250,16 @@ bcbioRNASeq <- function(
     # bcbio run information ----------------------------------------------------
     dataVersions <- readDataVersions(
         file = file.path(projectDir, "data_versions.csv")
-    )
+    ) %>%
+        as.data.frame() %>%
+        as_tibble()
     assert_is_tbl_df(dataVersions)
 
     programVersions <- readProgramVersions(
         file = file.path(projectDir, "programs.txt")
-    )
+    ) %>%
+        as.data.frame() %>%
+        as_tibble()
     assert_is_tbl_df(programVersions)
 
     bcbioLog <- readLog(

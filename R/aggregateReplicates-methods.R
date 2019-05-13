@@ -61,7 +61,10 @@ aggregateReplicates.bcbioRNASeq <-  # nolint
 
         # Assays ---------------------------------------------------------------
         message("Aggregating counts")
-        counts <- aggregateReplicates(counts(object), groupings = groupings)
+        counts <- aggregateCols(
+            object = counts(object),
+            groupings = groupings
+        )
         assert_are_identical(sum(counts), sum(counts(object)))
 
         # Column data ----------------------------------------------------------
