@@ -37,7 +37,7 @@
 #' # DESeqResults, DESeqDataSet ====
 #' x <- resultsTables(results = res_small, counts = dds_small)
 #' names(x)
-#' glimpse(x[["deg"]])
+#' tibble::glimpse(x[["deg"]])
 NULL
 
 
@@ -190,7 +190,7 @@ setGeneric(
         if (is_a_string(dropboxDir)) {
             dir <- tempdir()  # nocov
         } else {
-            dir <- initializeDirectory(dir)
+            dir <- initDir(dir)
         }
 
         # Extract internal parameters from DESeqResults object -----------------

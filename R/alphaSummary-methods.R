@@ -22,7 +22,7 @@
 #' @examples
 #' # DESeqDataSet ====
 #' design(dds_small)
-#' resultsNames(dds_small)
+#' DESeq2::resultsNames(dds_small)
 #' alphaSummary(dds_small, contrast = c("treatment", "folic_acid", "control"))
 #' alphaSummary(dds_small, name = "treatment_folic_acid_vs_control")
 NULL
