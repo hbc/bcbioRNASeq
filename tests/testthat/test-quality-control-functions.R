@@ -138,9 +138,9 @@ test_that("plotPCA : Label", {
     expect_is(p, "ggplot")
 })
 
-test_that("plotPCA : data.frame", {
-    p <- plotPCA(bcb_small, return = "data.frame")
-    expect_is(p, "data.frame")
+test_that("plotPCA : DataFrame", {
+    p <- plotPCA(bcb_small, return = "DataFrame")
+    expect_is(p, "DataFrame")
 })
 
 test_that("plotPCA : transformationLimit", {

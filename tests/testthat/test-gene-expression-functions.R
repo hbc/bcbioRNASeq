@@ -1,7 +1,46 @@
 context("Gene Expression Functions")
 
 genes <- head(rownames(bcb_small), 4L)
-gene2symbol <- gene2symbol(bcb_small)
+gene2symbol <- Gene2Symbol(bcb_small)
+
+
+
+# plotCounts =====================================================================
+test_that("plotCounts : bcbioRNASeq", {
+    # facet
+    p <- plotCounts(
+        object = bcb_small,
+        genes = genes,
+        normalized = "vst",
+        interestingGroups = "sampleName",
+        return = "facet"
+    )
+    expect_is(p, "ggplot")
+
+    # wide
+    p <- plotCounts(
+        object = bcb_small,
+        genes = genes,
+        normalized = "tpm",
+        return = "wide"
+    )
+    expect_is(p, "ggplot")
+})
+
+test_that("plotCounts : DESeqDataSet", {
+    p <- plotCounts(dds_small, genes = genes)
+    expect_is(p, "ggplot")
+})
+
+test_that("plotCounts : DESeqTransform", {
+    # rlog
+    p <- plotCounts(rld_small, genes = genes)
+    expect_is(p, "ggplot")
+
+    # vst
+    p <- plotCounts(vst_small, genes = genes)
+    expect_is(p, "ggplot")
+})
 
 
 
@@ -28,45 +67,6 @@ test_that("plotGenderMarkers : DESeqTransform", {
 
     # vst
     p <- plotGenderMarkers(vst_small, interestingGroups = "treatment")
-    expect_is(p, "ggplot")
-})
-
-
-
-# plotGene =====================================================================
-test_that("plotGene : bcbioRNASeq", {
-    # facet
-    p <- plotGene(
-        object = bcb_small,
-        genes = genes,
-        normalized = "vst",
-        interestingGroups = "sampleName",
-        return = "facet"
-    )
-    expect_is(p, "ggplot")
-
-    # wide
-    p <- plotGene(
-        object = bcb_small,
-        genes = genes,
-        normalized = "tpm",
-        return = "wide"
-    )
-    expect_is(p, "ggplot")
-})
-
-test_that("plotGene : DESeqDataSet", {
-    p <- plotGene(dds_small, genes = genes)
-    expect_is(p, "ggplot")
-})
-
-test_that("plotGene : DESeqTransform", {
-    # rlog
-    p <- plotGene(rld_small, genes = genes)
-    expect_is(p, "ggplot")
-
-    # vst
-    p <- plotGene(vst_small, genes = genes)
     expect_is(p, "ggplot")
 })
 

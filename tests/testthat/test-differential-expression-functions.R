@@ -1,7 +1,7 @@
 context("Differential Expression Functions")
 
 genes <- head(rownames(res_small))
-gene2symbol <- gene2symbol(bcb_small)
+gene2symbol <- Gene2Symbol(bcb_small)
 
 
 
@@ -124,7 +124,7 @@ test_that("plotMA : Specific genes", {
     p <- plotMA(
         object = res_small,
         genes = genes,
-        gene2symbol = gene2symbol(bcb_small)
+        gene2symbol = Gene2Symbol(bcb_small)
     )
     expect_is(p, "ggplot")
 })
@@ -133,7 +133,7 @@ test_that("plotMA: ntop mode", {
     p <- plotMA(
         object = res_small,
         ntop = 10L,
-        gene2symbol = gene2symbol(bcb_small)
+        gene2symbol = Gene2Symbol(bcb_small)
     )
     expect_is(p, "ggplot")
 })
