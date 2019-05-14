@@ -26,6 +26,9 @@ authors:
   Harvard Chan Bioinformatics Core:
     href: http://bioinformatics.sph.harvard.edu
 
+news:
+- one_page: false
+
 reference:
   - title: S4 Object
     contents:

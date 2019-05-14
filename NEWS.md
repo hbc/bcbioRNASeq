@@ -7,16 +7,22 @@
 
 
 
-## bcbioRNASeq 0.2.9
+## bcbioRNASeq 0.2.9 (2019-05-03)
+
+### Major changes
+
+- Fixed a bug in internal tximport code (refer to `tximport-internal.R` file)
+  where sample names can get associated with the wrong samples in experiments,
+  causing samples with numbers roll over from 1 -> 10. Thanks to Richard from
+  AstraZeneca for catching this.
 
 
 
-## bcbioRNASeq 0.2.8 (2019-01-27)
+## bcbioRNASeq 0.2.8 (2019-01-28)
 
-### Minor changes
-
-- Handle correlation of PCA covariates when a numerical covariate has no variation.
-- Handle NA in ribosomal RNA calculations.
+- Handle correlation of PCA covariates when a numerical covariate has no
+  variation.
+- Handle `NA` in ribosomal RNA calculations.
 
 
 
