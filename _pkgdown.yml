@@ -27,9 +27,6 @@ authors:
     href: http://bioinformatics.sph.harvard.edu
 
 reference:
-  - title: Package Information
-    contents:
-    - bcbioRNASeq-package
   - title: S4 Object
     contents:
     - bcbioRNASeq
@@ -42,9 +39,7 @@ reference:
     - starts_with("aggregate")
     - counts
     - metrics
-    - sampleData
     - tmm
-    - tpm
   - title: Plot Functions
     contents:
     - starts_with("plot")

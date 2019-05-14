@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot count density — plotCountDensity • bcbioRNASeq</title>
+<title>Plot counts — plotCounts • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -33,10 +33,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot count density — plotCountDensity" />
+<meta property="og:title" content="Plot counts — plotCounts" />
 
-<meta property="og:description" content="Generally, we expect similar count spreads for all genes between samples
-unless the total expressed RNA per sample is different." />
+<meta property="og:description" content="Plot counts" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,27 +108,35 @@ unless the total expressed RNA per sample is different." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot count density</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotCountDensity-methods.R'><code>R/plotCountDensity-methods.R</code></a></small>
-    <div class="hidden name"><code>plotCountDensity.Rd</code></div>
+    <h1>Plot counts</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotCounts-methods.R'><code>R/plotCounts-methods.R</code></a></small>
+    <div class="hidden name"><code>plotCounts.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Generally, we expect similar count spreads for all genes between samples
-unless the total expressed RNA per sample is different.</p>
+    <p>Plot counts</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotCountDensity</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotCounts</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for SummarizedExperiment</span>
+<span class='fu'>plotCounts</span>(<span class='no'>object</span>, <span class='no'>genes</span>,
+  <span class='no'>interestingGroups</span>, <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>, <span class='kw'>medianLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bcbio.legend"</span>, <span class='fl'>TRUE</span>), <span class='kw'>headerLevel</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
+  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"facet"</span>, <span class='st'>"wide"</span>))
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotCountDensity</span>(<span class='no'>object</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tmm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tpm"</span>,
-  <span class='st'>"rle"</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"line"</span>, <span class='st'>"solid"</span>),
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bcbio.discrete.color"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bcbio.discrete.fill"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"count density"</span>)</pre>
+<span class='fu'>plotCounts</span>(<span class='no'>object</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>,
+  <span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqDataSet</span>
+<span class='fu'>plotCounts</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for DESeqTransform</span>
+<span class='fu'>plotCounts</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,22 +146,24 @@ unless the total expressed RNA per sample is different.</p>
       <td><p>Object.</p></td>
     </tr>
     <tr>
+      <th>genes</th>
+      <td><p><code>character</code>. Genes to include. These must match the rownames of
+the object. It is best practice to use the stable gene identifiers from
+Ensembl (e.g. "ENSG00000000003") and not the gene symbols.</p></td>
+    </tr>
+    <tr>
       <th>interestingGroups</th>
       <td><p><code>character</code>. Groups of interest that define the
 samples. If left unset, defaults to <code>sampleName</code>.</p></td>
     </tr>
     <tr>
-      <th>normalized</th>
-      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
-</ul></td>
+      <th>countsAxisLabel</th>
+      <td><p><code>string</code>. Label to use for the counts axis.</p></td>
     </tr>
     <tr>
-      <th>style</th>
-      <td><p><code>string</code>. Desired plot style ("<code>line</code>" or "<code>solid</code>").</p></td>
+      <th>medianLine</th>
+      <td><p><code>boolean</code>. Include median line for each group. Disabled if
+samples are colored by sample name.</p></td>
     </tr>
     <tr>
       <th>color</th>
@@ -166,17 +175,26 @@ To set the discrete color palette globally, use
 <code><a href='https://rdrr.io/r/base/options.html'>options(bcbio.discrete.color = scale_color_viridis_d())</a></code>.</p></td>
     </tr>
     <tr>
-      <th>fill</th>
-      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code> or <code>NULL</code>. Desired ggplot2 fill scale.
-Must supply discrete values. When set to <code>NULL</code>, the default ggplot2 color
-palette will be used. If manual color definitions are desired, we recommend
-using <code><a href='https://rdrr.io/pkg/ggplot2/man/scale_manual.html'>ggplot2::scale_fill_manual()</a></code>.
-To set the discrete fill palette globally, use
-<code><a href='https://rdrr.io/r/base/options.html'>options(bcbio.discrete.fill = scale_fill_viridis_d())</a></code>.</p></td>
+      <th>legend</th>
+      <td><p><code>boolean</code>. Show plot legend.</p></td>
     </tr>
     <tr>
-      <th>title</th>
-      <td><p><code>string</code> or <code>NULL</code>. Plot title.</p></td>
+      <th>headerLevel</th>
+      <td><p><code>scalar integer</code> (<code>1</code>-<code>7</code>). R Markdown header level.</p></td>
+    </tr>
+    <tr>
+      <th>return</th>
+      <td><p><code>string</code>. Object class to return. Uses <code><a href='https://rdrr.io/r/base/match.arg.html'>match.arg()</a></code> internally
+and picks the first item in the vector by default.</p></td>
+    </tr>
+    <tr>
+      <th>normalized</th>
+      <td><p><code>string</code>. Which normalization method to apply:</p><ul>
+<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
+<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
+<li><p>"<code>rlog</code>": DESeq2 <strong>log2</strong> regularized log transformation.</p></li>
+<li><p>"<code>vst</code>": DESeq2 <strong>log2</strong> variance stabilizing transformation.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>...</th>
@@ -186,29 +204,28 @@ To set the discrete fill palette globally, use
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>ggplot</code>.</p>
+    
+<ul>
+<li><p>"<code>facet</code>": <code>ggplot</code> grouped by <code>sampleName</code>, with <code><a href='https://rdrr.io/pkg/ggplot2/man/facet_wrap.html'>ggplot2::facet_wrap()</a></code>
+applied to panel the samples.</p></li>
+<li><p>"<code>wide</code>": Show <code>ggplot</code> in wide format, with genes on the x-axis.</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Quality Control Functions: <code><a href='plot5Prime3PrimeBias.html'>plot5Prime3PrimeBias</a></code>,
-  <code><a href='plotCorrelationHeatmap.html'>plotCorrelationHeatmap</a></code>,
-  <code><a href='plotCountsPerGene.html'>plotCountsPerGene</a></code>,
-  <code><a href='plotDispEsts.html'>plotDispEsts</a></code>,
-  <code><a href='plotExonicMappingRate.html'>plotExonicMappingRate</a></code>,
-  <code><a href='plotGenderMarkers.html'>plotGenderMarkers</a></code>,
-  <code><a href='plotGeneSaturation.html'>plotGeneSaturation</a></code>,
-  <code><a href='plotGenesDetected.html'>plotGenesDetected</a></code>,
-  <code><a href='plotIntronicMappingRate.html'>plotIntronicMappingRate</a></code>,
-  <code><a href='plotMappedReads.html'>plotMappedReads</a></code>,
-  <code><a href='plotMappingRate.html'>plotMappingRate</a></code>, <code><a href='plotMeanSD.html'>plotMeanSD</a></code>,
-  <code><a href='plotPCACovariates.html'>plotPCACovariates</a></code>, <code><a href='plotPCA.html'>plotPCA</a></code>,
-  <code><a href='plotRRNAMappingRate.html'>plotRRNAMappingRate</a></code>,
-  <code><a href='plotTotalReads.html'>plotTotalReads</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/DESeq2/man/plotCounts.html'>DESeq2::plotCounts()</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># bcbioRNASeq ====</span>
-<span class='fu'>plotCountDensity</span>(<span class='no'>bcb_small</span>)</div><div class='output co'>#&gt; <span class='message'>500 non-zero genes detected</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization</span></div><div class='img'><img src='plotCountDensity-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># Gene identifiers</span>
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>bcb_small</span>), <span class='fl'>4L</span>)
+<span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/glimpse.html'>glimpse</a></span>(<span class='no'>genes</span>)</div><div class='output co'>#&gt;  chr [1:4] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346" ...</div><div class='input'>
+<span class='co'># bcbioRNASeq ====</span>
+<span class='fu'>plotCounts</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"facet"</span>)</div><div class='img'><img src='plotCounts-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCounts</span>(<span class='no'>bcb_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>, <span class='kw'>return</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</div><div class='img'><img src='plotCounts-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># DESeqTransform ====</span>
+<span class='no'>vst_small</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>DESeq2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>varianceStabilizingTransformation</a></span>(<span class='no'>dds_small</span>)
+<span class='fu'>plotCounts</span>(<span class='no'>vst_small</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotCounts-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -223,7 +240,7 @@ To set the discrete fill palette globally, use
     </ul>
 
     <h2>Author</h2>
-    <p>Michael Steinbaugh, Rory Kirchner, Victor Barrera</p>
+    <p>Michael Steinbaugh</p>
   </div>
 </div>
 

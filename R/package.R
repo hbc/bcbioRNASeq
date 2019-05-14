@@ -5,4 +5,5 @@
 #'
 #' @name bcbioRNASeq-package
 #' @docType package
+#' @keywords internal
 NULL
