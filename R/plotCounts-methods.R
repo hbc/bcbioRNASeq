@@ -19,7 +19,7 @@
 #' @examples
 #' # Gene identifiers
 #' genes <- head(rownames(bcb_small), 4L)
-#' tibble::glimpse(genes)
+#' str(genes)
 #'
 #' # bcbioRNASeq ====
 #' plotCounts(bcb_small, genes = genes, normalized = "vst", return = "facet")

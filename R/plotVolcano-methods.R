@@ -49,7 +49,7 @@
 #'
 #' # Return coordinates as a data.frame
 #' x <- plotVolcano(res_small, return = "data.frame")
-#' tibble::glimpse(x)
+#' str(x)
 NULL
 
 

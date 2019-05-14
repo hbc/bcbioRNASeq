@@ -69,7 +69,7 @@
 #' @importFrom stringr str_match str_trunc
 #' @importFrom SummarizedExperiment assay assay<- assayNames assays assays<-
 #'   colData colData<- metadata<- rowData rowRanges SummarizedExperiment
-#' @importFrom tibble as_tibble column_to_rownames glimpse remove_rownames
+#' @importFrom tibble as_tibble column_to_rownames remove_rownames
 #'   rownames_to_column tibble
 #' @importFrom tximport tximport
 #' @importFrom utils capture.output globalVariables packageVersion

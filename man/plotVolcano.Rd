@@ -90,7 +90,7 @@ plotVolcano(
 
 # Return coordinates as a data.frame
 x <- plotVolcano(res_small, return = "data.frame")
-tibble::glimpse(x)
+str(x)
 }
 \seealso{
 This function is an updated variant of

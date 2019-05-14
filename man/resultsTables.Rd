@@ -65,7 +65,7 @@ on expected fold changes.
 # DESeqResults, DESeqDataSet ====
 x <- resultsTables(results = res_small, counts = dds_small)
 names(x)
-tibble::glimpse(x[["deg"]])
+x[["deg"]] \%>\% str()
 }
 \seealso{
 Other Differential Expression Functions: \code{\link{alphaSummary}},

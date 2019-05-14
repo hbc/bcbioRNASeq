@@ -37,7 +37,7 @@
 #' # DESeqResults, DESeqDataSet ====
 #' x <- resultsTables(results = res_small, counts = dds_small)
 #' names(x)
-#' tibble::glimpse(x[["deg"]])
+#' x[["deg"]] %>% str()
 NULL
 
 

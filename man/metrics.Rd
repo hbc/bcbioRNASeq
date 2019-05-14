@@ -25,7 +25,7 @@ samples. If left unset, defaults to \code{sampleName}.}
 Quality control metrics
 }
 \examples{
-metrics(bcb_small) \%>\% tibble::glimpse(.)
+metrics(bcb_small) \%>\% str()
 }
 \seealso{
 Other Data Functions: \code{\link{counts}},
