@@ -20,11 +20,14 @@ abstract: >
 ---
 
 ```{r setup, include=FALSE, message=FALSE}
-library("bcbioRNASeq")
-ggplot2::theme_set(theme_paperwhite())
+ggplot2::theme_set(acidplots::acid_theme_light())
 ```
 
 # Introduction
+
+```{r}
+library("bcbioRNASeq")
+```
 
 For a high-level overview of our [bcbio][] RNA-seq analysis pipeline, including detailed explanation of the `bcbioRNASeq` S4 class definition, first consult our [workflow paper][] published in *F1000 Research* [@Steinbaugh2018-rc]. This vignette is focused on more advanced usage and edge cases that a user may encounter when attempting to load a [bcbio][] dataset and perform downstream quality control analysis.
 
