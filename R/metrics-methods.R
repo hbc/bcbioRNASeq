@@ -9,7 +9,7 @@
 #' @return `data.frame`.
 #'
 #' @examples
-#' metrics(bcb_small) %>% glimpse()
+#' metrics(bcb_small) %>% tibble::glimpse(.)
 NULL
 
 
