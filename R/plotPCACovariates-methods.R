@@ -85,7 +85,9 @@ plotPCACovariates.bcbioRNASeq <-  # nolint
         # DEGreport v1.18 has issues joining character and factor columns.
         # - Warning: Column `compare`/`PC`
         # - Warning: Column `covar`/`term`
-        degCovariates(counts = counts, metadata = metadata, ...)
+        suppressWarnings(
+            degCovariates(counts = counts, metadata = metadata, ...)
+        )
     }
 
 

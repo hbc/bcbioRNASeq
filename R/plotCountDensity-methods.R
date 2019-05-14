@@ -28,7 +28,7 @@ NULL
 plotCountDensity.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
         style = c("line", "solid"),
         color = getOption("bcbio.discrete.color", NULL),
@@ -40,6 +40,7 @@ plotCountDensity.bcbioRNASeq <-  # nolint
             object = object,
             interestingGroups = interestingGroups
         )
+        interestingGroups(object) <- interestingGroups
         normalized <- match.arg(normalized)
         style <- match.arg(style)
         assertIsColorScaleDiscreteOrNULL(color)
@@ -48,12 +49,12 @@ plotCountDensity.bcbioRNASeq <-  # nolint
 
         styleLab <- paste(interestingGroups, collapse = ":\n")
 
-        # Subset the counts matrix to only include non-zero genes
+        # Subset the counts matrix to only include non-zero genes.
         nonzero <- .nonzeroGenes(object)
         counts <- counts(object, normalized = normalized)
         counts <- counts[nonzero, , drop = FALSE]
 
-        # Apply log2 transformation, if  necessary
+        # Apply log2 transformation, if  necessary.
         if (normalized %in% c("rlog", "vst")) {
             # Already log2
             fxn <- .meltCounts
@@ -61,8 +62,8 @@ plotCountDensity.bcbioRNASeq <-  # nolint
             fxn <- .meltLog2Counts
         }
 
-        # Melt the counts into long format
-        sampleData <- sampleData(object, interestingGroups = interestingGroups)
+        # Melt the counts into long format.
+        sampleData <- sampleData(object)
         data <- fxn(counts, sampleData = sampleData)
 
         # Subtitle

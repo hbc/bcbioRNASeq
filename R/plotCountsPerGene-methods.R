@@ -34,7 +34,7 @@ NULL
 plotCountsPerGene.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),

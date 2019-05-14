@@ -41,7 +41,7 @@ plotCorrelationHeatmap.bcbioRNASeq <-  # nolint
         message(paste("Using", normalized, "counts"))
         counts <- counts(object, normalized = normalized)
 
-        # Coerce to RangedSummarizedExperiment
+        # Coerce to RangedSummarizedExperiment.
         rse <- as(object, "RangedSummarizedExperiment")
         assays(rse) <- list(counts = counts)
         validObject(rse)

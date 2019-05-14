@@ -17,7 +17,7 @@
 #' @seealso [DESeq2::plotMA()].
 #'
 #' @examples
-#' gene2symbol <- gene2symbol(bcb_small)
+#' gene2symbol <- Gene2Symbol(bcb_small)
 #'
 #' # DESeqResults ====
 #' # Color DEGs in each direction separately
