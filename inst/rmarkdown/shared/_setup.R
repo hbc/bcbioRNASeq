@@ -1,13 +1,8 @@
-library(bcbioRNASeq)
-library(DESeq2)
-library(DEGreport)
-library(knitr)
-library(tidyverse)
-
 # Set seed for reproducibility
 set.seed(1454944673L)
 
-opts_chunk[["set"]](
+requireNamespace(package = "knitr", quietly = TRUE)
+knitr::opts_chunk[["set"]](
     autodep = TRUE,
     bootstrap.show.code = FALSE,
     cache = TRUE,
@@ -21,8 +16,11 @@ opts_chunk[["set"]](
     tidy = FALSE
 )
 
-theme_set(
-    theme_paperwhite(
+# Set default ggplot2 theme.
+requireNamespace(package = "ggplot2", quietly = TRUE)
+requireNamespace(package = "acidplots", quietly = TRUE)
+ggplot2::theme_set(
+    acidplots::theme_paperwhite(
         base_size = 14L,
         legend_position = "right"
     )
