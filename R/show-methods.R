@@ -22,7 +22,6 @@ show.bcbioRNASeq <-  # nolint
         return <- c(
             paste(class(object), metadata(object)[["version"]]),
             capture.output(show(rse)),
-            bcbioBase::separatorBar,
             paste(
                 "Upload Dir:",
                 deparse(metadata(object)[["uploadDir"]])
