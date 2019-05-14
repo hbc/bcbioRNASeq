@@ -157,7 +157,7 @@ bcb <- bcbioRNASeq(
 )
 print(bcb)
 metadata(bcb)$rowRangesMetadata
-rowRanges(bcb) %>% as.data.frame() %>% glimpse()
+rowRanges(bcb) %>% as.data.frame() %>% str()
 ```
 
 Alternatively, transcript-level annotations can also be obtained automatically using this method.
@@ -171,7 +171,7 @@ bcb <- bcbioRNASeq(
     ensemblRelease = 87
 )
 print(bcb)
-rowRanges(bcb) %>% as.data.frame() %>% glimpse()
+rowRanges(bcb) %>% as.data.frame() %>% str()
 ```
 
 When working with a dataset generated against a poorly-annotated or non-standard genome, we provide a fallback method for loading gene annotations from a [general feature format (GFF)][GFF] file with the `gffFile` argument. If possible, we recommend providing a general transfer format (GTF) file, which is identical to GFF version 2. GFFv3 is more complicated and non-standard, but [Ensembl][] GFFv3 files are also supported.
