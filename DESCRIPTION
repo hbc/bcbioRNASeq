@@ -103,13 +103,14 @@ LazyData: TRUE
 Depends:
     R (>= 3.5),
     SummarizedExperiment,
-    bcbioBase (>= 0.4.2),
-    DESeq2
+    basejump (>= 0.10.9)
 Imports:
-    basejump (>= 0.10.9),
+    acidplots (>= 0.2.4),
+    bcbioBase (>= 0.6.4),
     bioverbs (>= 0.1.19),
     BiocGenerics,
     DEGreport,
+    DESeq2,
     edgeR,
     GenomicFeatures,
     S4Vectors,
@@ -153,6 +154,7 @@ Suggests:
     testthat,
     viridis
 Remotes:
+    acidgenomics/acidplots,
     acidgenomics/basejump,
     acidgenomics/bioverbs,
     hbc/bcbioBase
