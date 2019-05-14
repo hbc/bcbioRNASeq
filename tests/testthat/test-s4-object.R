@@ -1,10 +1,9 @@
-context("S4 Object")
-
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
 
 
-# bcbioRNASeq Object Structure =================================================
+context("bcbioRNASeq Object Structure")
+
 bcb <- suppressWarnings(bcbioRNASeq(
     uploadDir = uploadDir,
     organism = "Mus musculus",
@@ -73,7 +72,7 @@ test_that("Dimensions", {
 })
 
 test_that("Assays", {
-    # All assays should be a matrix
+    # All assays should be a matrix.
     expect_true(all(vapply(
         X = assays(bcb),
         FUN = function(assay) {
@@ -84,9 +83,11 @@ test_that("Assays", {
 })
 
 test_that("Row data", {
-    # Ensembl annotations from AnnotationHub, using ensembldb
+    # Ensembl annotations from AnnotationHub, using ensembldb.
+    object <- rowData(bcb)
+    object <- decode(object)
     expect_identical(
-        lapply(rowData(bcb), class),
+        lapply(object, class),
         list(
             broadClass = "factor",
             description = "factor",
@@ -100,8 +101,9 @@ test_that("Row data", {
 })
 
 test_that("Metadata", {
+    object <- metadata(bcb)
     expect_identical(
-        lapply(metadata(bcb), class),
+        lapply(object, class),
         list(
             version = c("package_version", "numeric_version"),
             level = "character",
@@ -117,36 +119,32 @@ test_that("Metadata", {
             organism = "character",
             genomeBuild = "character",
             ensemblRelease = "integer",
-            rowRangesMetadata = c("tbl_df", "tbl", "data.frame"),
+            rowRangesMetadata = "data.frame",
             gffFile = "character",
             tx2gene = "data.frame",
             lanes = "integer",
             yaml = "list",
             dataVersions = c("tbl_df", "tbl", "data.frame"),
             # `spec_tbl_df` is a new virtual class in tibble v2.0 update.
-            programVersions = c("spec_tbl_df", "tbl_df", "tbl", "data.frame"),
+            programVersions = c("tbl_df", "tbl", "data.frame"),
             bcbioLog = "character",
             bcbioCommandsLog = "character",
             allSamples = "logical",
             call = "call",
-            # Check for user-defined metadata
             testthat = "character",
             date = "Date",
             wd = "character",
-            utilsSessionInfo = "sessionInfo",
-            devtoolsSessionInfo = "session_info"
+            sessionInfo = "session_info"
         )
     )
-    # Interesting groups should default to `sampleName`
-    expect_identical(
-        metadata(bcb)[["interestingGroups"]],
-        "sampleName"
-    )
+    # Interesting groups should default to `sampleName`.
+    expect_identical(object[["interestingGroups"]], "sampleName")
 })
 
 
 
-# bcbioRNASeq ==================================================================
+context("bcbioRNASeq Generator Function")
+
 test_that("bcbioRNASeq : Aligned counts", {
     x <- bcbioRNASeq(
         uploadDir = uploadDir,
@@ -183,7 +181,7 @@ test_that("bcbioRNASeq : organism = NULL", {
     )
 })
 
-# GFF3 files are also supported, but we're not testing for speed
+# GFF3 files are also supported, but we're not testing for speed.
 test_that("bcbioRNASeq : GTF file", {
     gtfURL <- paste(
         "ftp://ftp.ensembl.org",
@@ -231,11 +229,13 @@ test_that("bcbioRNASeq : DESeq2 variance stabilization", {
 })
 
 test_that("bcbioRNASeq : User-defined sample metadata", {
-    x <- suppressWarnings(bcbioRNASeq(
+    x <- bcbioRNASeq(
         uploadDir = uploadDir,
         organism = "Mus musculus",
+        genomeBuild = "GRCm38",
+        ensemblRelease = 87L,
         sampleMetadataFile = file.path(uploadDir, "sample_metadata.csv")
-    ))
+    )
     expect_s4_class(x, "bcbioRNASeq")
     expect_identical(
         basename(metadata(x)[["sampleMetadataFile"]]),
@@ -244,7 +244,7 @@ test_that("bcbioRNASeq : User-defined sample metadata", {
 })
 
 test_that("bcbioRNASeq: Sample selection", {
-    # samples
+    # Samples
     x <- bcbioRNASeq(
         uploadDir = uploadDir,
         samples = head(colnames(bcb), 2L)
@@ -254,7 +254,7 @@ test_that("bcbioRNASeq: Sample selection", {
         head(colnames(bcb), 2L)
     )
 
-    # censor samples
+    # Censor samples
     x <- bcbioRNASeq(
         uploadDir = uploadDir,
         censorSamples = head(colnames(bcb), 1L)
@@ -267,7 +267,8 @@ test_that("bcbioRNASeq: Sample selection", {
 
 
 
-# extract ======================================================================
+context("extract")
+
 test_that("extract : Normal gene and sample selection", {
     x <- bcb[seq_len(100L), seq_len(4L)]
     expect_s4_class(x, "bcbioRNASeq")
@@ -287,7 +288,7 @@ test_that("extract : Normal gene and sample selection", {
 })
 
 test_that("extract : Minimal selection ranges", {
-    # Require at least 100 genes, 2 samples
+    # Require at least 100 genes, 2 samples.
     x <- bcb[seq_len(100L), seq_len(2L)]
     expect_error(bcb[seq_len(99L), ])
     expect_error(bcb[, seq_len(1L)])
@@ -301,14 +302,14 @@ test_that("extract : Minimal selection ranges", {
 })
 
 test_that("extract : DESeq2 transforms", {
-    # Transform by default
+    # Transform by default.
     x <- bcb[1L:100L, 1L:2L]
     expect_identical(
         assayNames(x),
         c("counts", "tpm", "length", "normalized", "vst")
     )
 
-    # Allow the user to skip, using `transform` argument
+    # Allow the user to skip, using `transform` argument.
     x <- bcb[1L:100L, 1L:2L, transform = FALSE]
     expect_identical(
         names(assays(x)),
@@ -323,12 +324,13 @@ test_that("extract : unmodified", {
 
 
 
-# show =========================================================================
+context("show")
+
 test_that("show", {
     x <- capture.output(show(bcb))
     expect_true(grepl("bcbioRNASeq", x[[1L]]))
 
-    # Fake metadata for code coverage
+    # Fake metadata for code coverage.
     object <- bcb
     metadata(object)[["sampleMetadataFile"]] <- "XXX"
     metadata(object)[["gffFile"]] <- "XXX"
@@ -338,7 +340,8 @@ test_that("show", {
 
 
 
-# updateObject =================================================================
+context("updateObject")
+
 test_that("updateObject", {
     load("bcb_invalid.rda")
     expect_error(validObject(bcb_invalid))
@@ -346,23 +349,12 @@ test_that("updateObject", {
         slot(bcb_invalid, "metadata")[["version"]],
         package_version("0.1.4")
     )
-
-    # NULL rowRanges (default)
-    x <- suppressWarnings(updateObject(bcb_invalid))
-    expect_s4_class(x, "bcbioRNASeq")
     expect_warning(
         updateObject(bcb_invalid),
         "`rowRanges` are now recommended for gene annotations"
     )
-
-    # Rich rowRanges metadata
-    organism <- slot(bcb_invalid, "metadata")[["organism"]]
-    expect_is(organism, "character")
-    rowRanges <- makeGRangesFromEnsembl(organism, release = 87L)
-    # Suppressing expected warning about genes:
-    # ENSMUSG00000104475, ENSMUSG00000109048
-    x <- suppressWarnings(
-        updateObject(bcb_invalid, rowRanges = rowRanges)
+    suppressWarnings(
+        x <- updateObject(bcb_invalid)
     )
     expect_s4_class(x, "bcbioRNASeq")
     expect_identical(
