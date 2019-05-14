@@ -2,6 +2,7 @@
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
 #'
+#' @importFrom acidplots plotCorrelationHeatmap plotHeatmap plotPCA
 #' @importFrom assertive.base assert_are_identical
 #' @importFrom assertive.files assert_all_are_dirs assert_all_are_existing_files
 #' @importFrom assertive.numbers assert_all_are_greater_than
@@ -25,15 +26,15 @@
 #'   assertIsAnImplicitIntegerOrNULL assertIsImplicitInteger assertIsGene2symbol
 #'   assertIsColorScaleDiscreteOrNULL assertIsFillScaleDiscreteOrNULL
 #'   assertIsTx2gene camel convertGenesToSymbols detectOrganism emptyRanges
-#'   fixNA gene2symbol hasRownames initializeDirectory interestingGroups
-#'   interestingGroups<- makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   fixNA gene2symbol hasRownames initDir interestingGroups interestingGroups<-
+#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment markdownHeader markdownList markdownPlotlist
 #'   matchInterestingGroups prepareTemplate readFileByExtension readYAML
 #'   sampleData sanitizeRowData sanitizeSampleData snake stripTranscriptVersions
 #'   uniteInterestingGroups
 #' @importFrom bcbioBase bcbio_geom_abline bcbio_geom_label
 #'   bcbio_geom_label_repel copyToDropbox readDataVersions readLog
-#'   readProgramVersions readSampleData readTx2gene readYAMLSampleData
+#'   readProgramVersions readSampleData readTx2Gene readYAMLSampleData
 #'   readYAMLSampleMetrics sampleDirs
 #' @importFrom BiocGenerics cbind colSums density design
 #' @importFrom cowplot draw_plot ggdraw plot_grid
