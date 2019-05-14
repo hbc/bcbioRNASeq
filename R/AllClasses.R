@@ -87,7 +87,11 @@ bcbioRNASeq <- setClass(
         }
 
         # v0.2.6: countsFromAbundance is now optional, since we're supporting
-        # featureCounts aligned counts
+        # featureCounts aligned counts.
+
+        # v0.2.10: `makeSummarizedExperiment()` returns `sessionInfo` slot
+        # instead of both `devtoolsSessionInfo` and `utilsSessionInfo`. Don't
+        # check for this until we push v0.3 release series.
 
         # Class checks (order independent)
         requiredMetadata <- list(
@@ -96,7 +100,6 @@ bcbioRNASeq <- setClass(
             bcbioLog = "character",
             caller = "character",
             date = "Date",
-            devtoolsSessionInfo = "session_info",
             ensemblRelease = "integer",
             genomeBuild = "character",
             gffFile = "character",
@@ -112,14 +115,13 @@ bcbioRNASeq <- setClass(
             template = "character",
             tx2gene = "data.frame",
             uploadDir = "character",
-            utilsSessionInfo = "sessionInfo",
             version = "package_version",
             wd = "character",
             yaml = "list"
         )
         classChecks <- invisible(mapply(
-            name <- names(requiredMetadata),
-            expected <- requiredMetadata,
+            name = names(requiredMetadata),
+            expected = requiredMetadata,
             MoreArgs = list(metadata = metadata),
             FUN = function(name, expected, metadata) {
                 actual <- class(metadata[[name]])
