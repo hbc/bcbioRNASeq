@@ -2,3 +2,4 @@
 *.rda
 export
 *.R
+*.csv
