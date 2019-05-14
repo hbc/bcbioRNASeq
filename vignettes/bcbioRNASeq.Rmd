@@ -131,13 +131,8 @@ sampleNames(bcb)
 
 If you're working with a bcbio run that has incorrect or outdated metadata, the simplest way to fix this issue is to pass in new metadata from an external spreadsheet (CSV or Excel) using the `sampleMetadataFile` argument. Note that this can also be used to subset the bcbio dataset, similar to the `samples` argument (see above), based on the rows that are included in the spreadsheet.
 
-```{r}
-sample_metadata_file <- file.path(upload_dir, "sample_metadata.csv")
-stopifnot(file.exists(sample_metadata_file))
-readSampleData(sample_metadata_file)
-```
-
 ```{r, message=FALSE}
+sample_metadata_file <- file.path(upload_dir, "sample_metadata.csv")
 bcb <- bcbioRNASeq(
     uploadDir = upload_dir,
     sampleMetadataFile = sample_metadata_file
