@@ -8,7 +8,7 @@
 \usage{
 plotTotalReads(object, ...)
 
-\S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups,
+\S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups = NULL,
   limit = 10000000L, fill = getOption("bcbio.discrete.fill", NULL),
   flip = getOption("bcbio.flip", TRUE), title = "total reads")
 }

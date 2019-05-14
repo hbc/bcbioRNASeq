@@ -57,7 +57,7 @@ and picks the first item in the vector by default.}
 Volcano plot
 }
 \examples{
-gene2symbol <- gene2symbol(bcb_small)
+gene2symbol <- Gene2Symbol(bcb_small)
 
 # DESeqResults ====
 # Color DEGs in each direction separately
@@ -90,7 +90,7 @@ plotVolcano(
 
 # Return coordinates as a data.frame
 x <- plotVolcano(res_small, return = "data.frame")
-glimpse(x)
+tibble::glimpse(x)
 }
 \seealso{
 This function is an updated variant of

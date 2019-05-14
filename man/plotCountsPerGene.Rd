@@ -8,9 +8,9 @@
 \usage{
 plotCountsPerGene(object, ...)
 
-\S4method{plotCountsPerGene}{bcbioRNASeq}(object, interestingGroups,
-  normalized = c("tmm", "vst", "rlog", "tpm", "rle"),
-  fill = getOption("bcbio.discrete.fill", NULL),
+\S4method{plotCountsPerGene}{bcbioRNASeq}(object,
+  interestingGroups = NULL, normalized = c("tmm", "vst", "rlog", "tpm",
+  "rle"), fill = getOption("bcbio.discrete.fill", NULL),
   flip = getOption("bcbio.flip", TRUE), title = "counts per gene")
 }
 \arguments{

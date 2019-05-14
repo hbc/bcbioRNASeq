@@ -76,7 +76,7 @@ Plot counts
 \examples{
 # Gene identifiers
 genes <- head(rownames(bcb_small), 4L)
-glimpse(genes)
+tibble::glimpse(genes)
 
 # bcbioRNASeq ====
 plotCounts(bcb_small, genes = genes, normalized = "vst", return = "facet")

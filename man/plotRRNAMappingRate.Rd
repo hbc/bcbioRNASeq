@@ -8,8 +8,9 @@
 \usage{
 plotRRNAMappingRate(object, ...)
 
-\S4method{plotRRNAMappingRate}{bcbioRNASeq}(object, interestingGroups,
-  limit = 0.1, fill = getOption("bcbio.discrete.fill", NULL),
+\S4method{plotRRNAMappingRate}{bcbioRNASeq}(object,
+  interestingGroups = NULL, limit = 0.1,
+  fill = getOption("bcbio.discrete.fill", NULL),
   flip = getOption("bcbio.flip", TRUE), title = "rRNA mapping rate")
 }
 \arguments{

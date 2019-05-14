@@ -8,8 +8,9 @@
 \usage{
 plot5Prime3PrimeBias(object, ...)
 
-\S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object, interestingGroups,
-  limit = 0L, fill = getOption("bcbio.discrete.fill", NULL),
+\S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object,
+  interestingGroups = NULL, limit = 0L,
+  fill = getOption("bcbio.discrete.fill", NULL),
   flip = getOption("bcbio.flip", TRUE), title = "5'->3' bias")
 }
 \arguments{
