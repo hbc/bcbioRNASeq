@@ -320,7 +320,6 @@ bcbioRNASeq <- function(
     # MultiQC and aligned counts generated with STAR.
     metrics <- readYAMLSampleMetrics(yamlFile)
     if (length(metrics)) {
-        assert_is_data.frame(metrics)
         assert_are_disjoint_sets(colnames(colData), colnames(metrics))
         metrics <- metrics[rownames(colData), , drop = FALSE]
         colData <- cbind(colData, metrics)
@@ -350,7 +349,7 @@ bcbioRNASeq <- function(
     # Transcript-to-gene mappings ----------------------------------------------
     tx2geneFile <- file.path(projectDir, "tx2gene.csv")
     assert_all_are_existing_files(tx2geneFile)
-    tx2gene <- readTx2gene(tx2geneFile)
+    tx2gene <- as.data.frame(readTx2Gene(tx2geneFile))
 
     # Read counts --------------------------------------------------------------
     # Use tximport by default for transcript-aware callers.
@@ -382,6 +381,7 @@ bcbioRNASeq <- function(
         countsFromAbundance <- txi[["countsFromAbundance"]]
         assert_is_character(countsFromAbundance)
     } else if (caller %in% featureCountsCallers) {
+        txi <- NULL
         tpm <- NULL
         length <- NULL
         countsFromAbundance <- NULL
@@ -404,19 +404,14 @@ bcbioRNASeq <- function(
         rowRanges <- makeGRangesFromGFF(gffFile)
     } else if (is_a_string(organism)) {
         message("Using `makeGRangesFromEnsembl()` for annotations")
-        # ah: AnnotationHub
-        ah <- makeGRangesFromEnsembl(
+        rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
-            format = level,
-            build = genomeBuild,
-            release = ensemblRelease,
-            metadata = TRUE
+            level = level,
+            genomeBuild = genomeBuild,
+            release = ensemblRelease
         )
-        assert_is_list(ah)
-        assert_are_identical(names(ah), c("data", "metadata"))
-        rowRanges <- ah[["data"]]
         assert_is_all_of(rowRanges, "GRanges")
-        rowRangesMetadata <- ah[["metadata"]]
+        rowRangesMetadata <- metadata(rowRanges)[["ensembldb"]]
         assert_is_data.frame(rowRangesMetadata)
         genomeBuild <- rowRangesMetadata %>%
             filter(!!sym("name") == "genome_build") %>%
