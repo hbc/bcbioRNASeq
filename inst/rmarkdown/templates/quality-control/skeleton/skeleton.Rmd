@@ -1,6 +1,6 @@
 ---
 params:
-  title: "Quality Control"
+  title: "Quality control"
   bcbiornaseq_file: "rds/YYYY-MM-DD/object.rds"
   output_dir: !r file.path("results", Sys.Date(), "quality-control")
 title: "`r params$title`"
