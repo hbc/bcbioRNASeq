@@ -1,4 +1,4 @@
-name: Quality control
+name: Quality Control
 description: >
   Template for RNA-seq quality control report.
 create_dir: false
