@@ -71,18 +71,12 @@ setMethod(
 
 
 plotCountsPerBroadClass.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        normalized,
-        trans
-    ) {
+    function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
-        trans <- match.arg(trans)
         args <- .dynamicTrans(
             object = object,
-            normalized = normalized,
-            trans = trans
+            normalized = normalized
         )
         do.call(
             what = plotCountsPerBroadClass,

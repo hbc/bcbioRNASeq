@@ -21,7 +21,7 @@ plotCountsPerBroadClass(object, ...)
 
 \S4method{plotCountsPerBroadClass}{bcbioRNASeq}(object,
   normalized = c("tpm", "vst", "rlog", "tmm", "rle", "fpkm"),
-  trans = c("log2", "log10"), interestingGroups = NULL,
+  interestingGroups = NULL, trans = c("log2", "log10"),
   fill = getOption(x = "acid.fill.discrete", default =
   acidplots::scale_fill_synesthesia_d()), countsAxisLabel = "counts",
   title = "Counts per broad class")
