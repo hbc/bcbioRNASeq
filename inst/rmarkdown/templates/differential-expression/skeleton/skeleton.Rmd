@@ -1,15 +1,10 @@
 ---
-title: "Differential Expression"
-author: "`r getOption('author')`"
-date: "`r Sys.Date()`"
-bibliography: bibliography.bib
-# Using bcbioRNASeq::bcb_small dataset for example params here
 params:
-  # bcbioRNASeq object
-  bcb_file: "data/YYYY-MM-DD/bcb.rda"
-  # Design formula must contain columns defined in `colData()`
+  title: "Differential expression"
+  bcb_file: "rds/YYYY-MM-DD/bcb.rds"
+  # Design formula must contain columns defined in `colData()`.
   design: !r formula("~ treatment")
-  # Multiple contrasts are supported
+  # Multiple contrasts are supported here.
   contrasts: !r list(
       c(
         factor = "treatment",
@@ -20,44 +15,68 @@ params:
   alpha: 0.01
   lfc_threshold: 0
   data_dir: !r file.path("data", Sys.Date())
-  results_dir: !r file.path("results", Sys.Date(), "differential_expression")
+  results_dir: !r file.path("results", Sys.Date(), "differential-expression")
   dropbox_dir: NULL
+title: "`r params$title`"
+author: "`r getOption('author')`"
+date: "`r Sys.Date()`"
+bibliography: bibliography.bib
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2018-08-19
-bcbioRNASeq::prepareRNASeqTemplate()
+# Last modified 2019-05-29
+library(bcbioRNASeq)
+library(DESeq)
+prepareTemplate(package = "bcbioRNASeq")
 source("_setup.R")
+```
 
-# Directory paths ==============================================================
+```{r dir-create}
 invisible(mapply(
     FUN = dir.create,
     path = c(params$data_dir, params$results_dir),
     MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
+```
 
-# Authenticate with Dropbox, if enabled
+```{r dropbox-auth}
+# Authenticate with Dropbox, if enabled.
 if (!is.null(params$dropbox_dir)) {
-    rdrop2::drop_auth()
+    library(rdrop2)
+    drop_auth()
 }
-
-# Load object ==================================================================
-bcb_name <- load(params$bcb_file)
-bcb <- get(bcb_name, inherits = FALSE)
-stopifnot(is(bcb, "bcbioRNASeq"))
-invisible(validObject(bcb))
-print(bcb)
 ```
 
 ```{r header, child="_header.Rmd"}
+```
+
+# Load bcbioRNASeq object
+
+```{r load-object}
+file <- params$bcb_file
+stopifnot(file.exists(file))
+if (fileExt(file) == "rds") {
+    object <- readRDS(file)
+    name <- basenameSansExt(file)
+} else if (fileExt(file) == "rda") {
+    name <- load(file)
+    object <- get(name, inherits = FALSE)
+}
+rm(file)
+stopifnot(
+    is(object, "bcbioRNASeq"),
+    is.character(name)
+)
+invisible(validObject(object))
+print(object)
 ```
 
 # Create `DESeqDataSet`
 
 Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a `DESeqDataSet`. This prepares a gene-level `RangedSummarizedExperiment` with raw integer counts defined in the `assay()` slot. Internally this uses the `DESeqDataSet()` constructor function and sets an empty design formula. The desired design formula can be set with the `design()` function.
 
-```{r coerce}
-# Coerce bcbioRNASeq to DESeqDataSet
+```{r coerce-bcb-to-dds}
+# Coerce bcbioRNASeq to DESeqDataSet.
 # help("coerce", "bcbioRNASeq")
 # getMethod(
 #     f = "coerce",
@@ -66,7 +85,7 @@ Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a
 #         to = "DESeqDataSet"
 #     )
 # )
-dds <- as(bcb, "DESeqDataSet")
+dds <- as(object, "DESeqDataSet")
 print(dds)
 ```
 
@@ -84,7 +103,8 @@ design(dds) <- params$design
 While it is not necessary to pre-filter low count genes before running the DESeq2 functions, there are two reasons which make pre-filtering useful: by removing rows in which there are very few reads, we reduce the memory size of the dds data object, and we increase the speed of the transformation and testing functions within DESeq2. Here we perform a minimal pre-filtering to keep only rows that have at least 10 reads total. Note that more strict filtering to increase power is automatically applied via independent filtering on the mean of normalized counts within the `results()` function.
 
 ```{r prefilter}
-# Note that this criteria can be made more stringent
+# Note that this criteria can be made more stringent.
+# Refer to DESeq2 vignette for examples.
 keep <- rowSums(counts(dds)) >= 10
 dds <- dds[keep, ]
 print(dds)
@@ -95,14 +115,14 @@ print(dds)
 By default, [R][] will choose a reference level for factors based on alphabetical order. Then, if you never tell the [DESeq2][] functions which level you want to compare against (e.g. which level represents the control group), the comparisons will be based on the alphabetical order of the levels. There are two solutions: you can either explicitly tell results which comparison to make using the contrast argument (this will be shown later), or you can explicitly set the factors levels. You should only change the factor levels of variables in the design before running the [DESeq2][] analysis, not during or afterward. Setting the factor levels can be done in two ways, using either the `factor()` or `relevel()` functions. Generally we recommend using `relevel()` here.
 
 ```{r relevel, eval=FALSE}
-# Specify the reference level (preferred)
-dds$treatment <- relevel(dds$treatment, ref = "control")
+# Specify the reference level (preferred).
+dds$treatment <- relevel(dds$treatment, ref = "wildtype")
 
-# Alternatively, can explicitly define, using `factor()`
-# When using this approach, put the reference level (control) first
-dds$treatment <- factor(dds$treatment, levels = c("control", "folic_acid"))
+# Alternatively, can explicitly define, using `factor()`.
+# When using this approach, put the reference level (control) first.
+dds$treatment <- factor(dds$treatment, levels = c("folic_acid", "control"))
 
-# If samples have been subset, ensure that the levels match
+# If samples have been subset, ensure that the levels match.
 dds$treatment <- droplevels(dds$treatment)
 
 print(dds$treatment)
@@ -114,18 +134,26 @@ Now that our `DESeqDataSet` is properly set up, we can move on to performing the
 
 ```{r deseq}
 dds <- DESeq(dds)
-saveData(dds, dir = params$data_dir)
+assignAndSaveData(
+    name = paste(name, "dds", sep = "_"),
+    object = dds,
+    dir = params$data_dir
+)
 ```
 
 # Variance stabilization
 
 After we perform the differential expression, we need to calculate variance-stabilized counts, which are stored in a `DESeqTransform` object. These transformed counts are useful for visualization. We currently recommend using `varianceStabilizingTransformation()` but `rlog()` is a good alternate.
 
-```{r variance_stabilization}
-# Alternatively, can use `rlog()` here, but it is slower
-rld <- varianceStabilizingTransformation(dds)
-interestingGroups(rld) <- "treatment"
-saveData(rld, dir = params$data_dir)
+```{r variance-stabilization}
+# Alternatively, can use `rlog()` here, but it is slower.
+dt <- varianceStabilizingTransformation(dds)
+interestingGroups(dt) <- "treatment"
+assignAndSaveData(
+    name = paste(name, "dt", sep = "_"),
+    object = dt,
+    dir = params$data_dir
+)
 ```
 
 # Results
@@ -166,7 +194,11 @@ res_list_unshrunken <- mapply(
     USE.NAMES = FALSE
 )
 names(res_list_unshrunken) <- names
-saveData(res_list_unshrunken, dir = params$data_dir)
+assignAndSaveData(
+    name = paste(name, "res_list_unshrunken", sep = "_"),
+    object = res_list_unshrunken,
+    dir = params$data_dir
+)
 ```
 
 Now let's calculate shrunken log2 fold change values with `DESeq2::lfcShrink()`. We're using the "normal" shrinkage estimator (default in DESeq2); the "apeglm" shrinkage estimator is also promising but doens't work well with complex contrast designs.
@@ -191,7 +223,11 @@ res_list_shrunken <- mapply(
     SIMPLIFY = FALSE,
     USE.NAMES = TRUE
 )
-saveData(res_list_shrunken, dir = params$data_dir)
+assignAndSaveData(
+    name = paste(name, "res_list_shrunken", sep = "_"),
+    object = res_list_shrunken,
+    dir = params$data_dir
+)
 ```
 
 Let's save a copy of the prior information used during the shrinkage procedure.
@@ -238,7 +274,7 @@ mapply(
     FUN = plotDEGPCA,
     results = res_list_shrunken,
     MoreArgs = list(
-        counts = rld,
+        counts = dt,
         label = TRUE
     ),
     SIMPLIFY = FALSE
@@ -255,7 +291,7 @@ invisible(mapply(
     FUN = plotDEGHeatmap,
     results = res_list_shrunken,
     MoreArgs = list(
-        counts = rld,
+        counts = dt,
         clusteringMethod = "ward.D2",
         scale = "row"
     ),
@@ -285,7 +321,11 @@ res_tbl_list <- mapply(
     SIMPLIFY = FALSE,
     USE.NAMES = TRUE
 )
-saveData(res_tbl_list, dir = params$data_dir)
+saveData(
+    name = paste(name, "res_tbl_list", sep = "_"),
+    object = res_tbl_list,
+    dir = params$data_dir
+)
 ```
 
 Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:

@@ -1,6 +1,6 @@
 ---
 params:
-  title: "Quality Control"
+  title: "Quality control"
   bcb_file: "rds/YYYY-MM-DD/object.rds"
   output_dir: !r file.path("results", Sys.Date(), "quality-control")
 title: "`r params$title`"
@@ -11,9 +11,8 @@ bibliography: bibliography.bib
 
 ```{r setup, message=FALSE}
 # Last modified 2019-05-29
-library(basejump)
-library(ggplot2)
 library(bcbioRNASeq)
+library(ggplot2)
 prepareTemplate(package = "bcbioRNASeq")
 source("_setup.R")
 ```
