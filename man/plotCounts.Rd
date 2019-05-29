@@ -95,9 +95,7 @@ plotCounts(
 )
 }
 \seealso{
-\itemize{
-\item \code{DESeq2::plotCounts()}.
-}
+\code{DESeq2::plotCounts()}.
 }
 \author{
 Michael Steinbaugh

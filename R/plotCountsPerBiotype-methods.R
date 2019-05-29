@@ -33,19 +33,10 @@ NULL
 
 
 plotCountsPerBiotype.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        normalized,
-        trans
-    ) {
+    function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
-        trans <- match.arg(trans)
-        args <- .dynamicTrans(
-            object = object,
-            normalized = normalized,
-            trans = trans
-        )
+        args <- .dynamicTrans(object = object, normalized = normalized)
         do.call(
             what = plotCountsPerBiotype,
             args = matchArgsToDoCall(
@@ -65,7 +56,6 @@ f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
 # Ensure TPM is set first.
 f[["normalized"]] <- unique(c("tpm", normalizedCounts))
-f[["trans"]] <- trans
 formals(plotCountsPerBiotype.bcbioRNASeq) <- f
 
 
@@ -81,18 +71,12 @@ setMethod(
 
 
 plotCountsPerBroadClass.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        normalized,
-        trans
-    ) {
+    function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
-        trans <- match.arg(trans)
         args <- .dynamicTrans(
             object = object,
-            normalized = normalized,
-            trans = trans
+            normalized = normalized
         )
         do.call(
             what = plotCountsPerBroadClass,

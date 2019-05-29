@@ -99,7 +99,11 @@ counts.bcbioRNASeq <-  # nolint
 
         if (identical(normalized, FALSE)) {
             assayName <- "counts"
-        } else if (identical(normalized, TRUE)) {
+        } else if (
+            identical(normalized, TRUE) ||
+            # `sf` is short for library size factor normalized.
+            identical(normalized, "sf")
+        ) {
             assayName <- "normalized"
         } else {
             assayName <- match.arg(arg = normalized, choices = normalizedCounts)
@@ -112,7 +116,9 @@ counts.bcbioRNASeq <-  # nolint
             counts <- assays(object)[["counts"]]
             counts <- relativeLogExpression(counts)
         } else {
-            assert(isSubset(assayName, assayNames(object)))
+            if (!isSubset(assayName, assayNames(object))) {
+                stop(paste(assayName, "counts are not defined in object."))
+            }
             counts <- assays(object)[[assayName]]
         }
 

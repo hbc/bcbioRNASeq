@@ -8,11 +8,24 @@
 \usage{
 plotMeanSD(object, ...)
 
-\S4method{plotMeanSD}{bcbioRNASeq}(object, legend = getOption(x =
-  "acid.legend", default = TRUE))
+\S4method{plotMeanSD}{bcbioRNASeq}(object,
+  fill = ggplot2::scale_fill_gradient(low = "grey25", high = "purple"),
+  lineColor = "darkorange", legend = getOption(x = "acid.legend",
+  default = TRUE))
 }
 \arguments{
 \item{object}{Object.}
+
+\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
+Desired ggplot2 fill scale. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
+
+To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
+}}
+
+\item{lineColor}{\code{character(1)}.
+Line color.}
 
 \item{legend}{\code{logical(1)}.
 Show plot legend.}
@@ -28,7 +41,7 @@ Plot row standard deviations vs. row means
 \details{
 \code{vsn::meanSdPlot()} wrapper that plots count transformations on a log2 scale.
 \itemize{
-\item DESeq2 log2: log2 size factor-adjusted normalized counts.
+\item DESeq2 log2: log2 library size factor-adjusted normalized counts.
 \item DESeq2 rlog: \strong{r}egularized \strong{log} transformation.
 \item DESeq2 VST: \strong{v}ariance-\strong{s}tabilizing \strong{t}ransformation.
 \item edgeR log2 TMM: log2 \strong{t}rimmed \strong{m}ean of \strong{M}-values transformation.
@@ -40,11 +53,11 @@ plotMeanSD(bcb)
 }
 \seealso{
 \itemize{
-\item \code{vsn::meanSdPlot()}.
-\item \code{DESeq2::DESeq()}.
-\item \code{DESeq2::rlog()}.
-\item \code{DESeq2::varianceStabilizingTransformation()}.
-\item \code{edgeR::calcNormFactors()}.
+\item \code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}}.
+\item \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
+\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
+\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+\item \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}}.
 }
 }
 \author{

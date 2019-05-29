@@ -1,6 +1,6 @@
 ---
 params:
-  title: "Quality Control"
+  title: "Quality control"
   bcbiornaseq_file: "rds/YYYY-MM-DD/object.rds"
   output_dir: !r file.path("results", Sys.Date(), "quality-control")
 title: "`r params$title`"
@@ -10,7 +10,7 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2019-04-18
+# Last modified 2019-05-08
 library(basejump)
 library(ggplot2)
 library(bcbioRNASeq)
@@ -42,7 +42,8 @@ invisible(validObject(object))
 print(object)
 ```
 
-[bcbio][] run data was imported from **`r metadata(object)$uploadDir`**.
+[bcbio][] run data was imported from:  
+**`r metadata(object)$uploadDir`**.
 
 # Sample metadata
 
@@ -87,8 +88,7 @@ plotGenesDetected(object)
 We should observe a linear trend in the number of genes detected with the number of mapped reads, which indicates that the sample input was not overloaded.
 
 ```{r plot-gene-saturation}
-plotGeneSaturation(object, label = FALSE)
-plotGeneSaturation(object, label = TRUE)
+plotGeneSaturation(object)
 ```
 
 ## Exonic mapping rate
@@ -130,8 +130,8 @@ Generally, we expect similar count spreads for all genes between samples unless 
 We recommend visualizing counts normalized with the Trimmed Mean of M-Values (TMM) method here [@Robinson2010-np]. TMM normalization equates the overall expression levels of genes between samples under the assumption that the majority of them are not differentially expressed. Therefore, by normalizing for total RNA expression by sample, we expect the spread of the TMM-normalized counts per gene to be similar for every sample.
 
 ```{r plot-counts-per-gene}
-plotCountsPerGene(object, normalized = "tmm", geom = "boxplot")
-plotCountsPerGene(object, normalized = "tmm", geom = "density")
+plotCountsPerGene(object, geom = "boxplot")
+plotCountsPerGene(object, geom = "density")
 ```
 
 ## Counts per biotype
@@ -139,8 +139,7 @@ plotCountsPerGene(object, normalized = "tmm", geom = "density")
 Different RNA-seq processing methods can preferentially capture a subset of the RNA species from the total RNA. For example, polyA selection should select for mostly coding genes and skip a large percentage of non-polyA non-coding RNA.
 
 ```{r plot-counts-per-biotype}
-plotCountsPerBiotype(object) +
-    theme(legend.position = "bottom")
+plotCountsPerBiotype(object)
 ```
 
 ## Counts per broad biotype class
@@ -148,8 +147,7 @@ plotCountsPerBiotype(object) +
 The Ensembl biotype clasifications are too specific to plot them all. Here we have grouped the biotypes into broad classes.
 
 ```{r plot-counts-per-broad-class}
-plotCountsPerBroadClass(object) +
-    theme(legend.position = "bottom")
+plotCountsPerBroadClass(object)
 ```
 
 # Variance stabilization
@@ -169,8 +167,7 @@ Before performing similarity analysis, we transform counts to log2, which acts t
 PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize the systematic patterns of variations in the data. PCA takes the expression levels for genes and transforms it in principal component space, reducing each sample into one point. Thereby, we can separate samples by expression variation, and identify potential sample outliers. The PCA plot is a way to look at how samples are clustering.
 
 ```{r plot-pca}
-plotPCA(object, label = FALSE)
-plotPCA(object, label = TRUE)
+plotPCA(object)
 ```
 
 ## Hierarchical clustering
@@ -185,7 +182,7 @@ plotCorrelationHeatmap(object)
 
 ```{r export}
 files <- export(
-    x = object,
+    object = object,
     name = name,
     dir = params$output_dir,
     compress = FALSE

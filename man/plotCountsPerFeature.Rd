@@ -10,9 +10,8 @@ plotCountsPerFeature(object, ...)
 
 \S4method{plotCountsPerFeature}{bcbioRNASeq}(object,
   normalized = c("tmm", "vst", "rlog", "rle", "tpm", "fpkm"),
-  trans = c("log2", "log10"), minCounts = 1L,
-  minCountsMethod = c("perFeature", "absolute"),
-  interestingGroups = NULL, geom = c("boxplot", "density", "violin"),
+  minCounts = 1L, minCountsMethod = c("perFeature", "absolute"),
+  interestingGroups = NULL, geom = c("boxplot", "density", "jitter"),
   color = getOption(x = "acid.color.discrete", default =
   acidplots::scale_colour_synesthesia_d()), fill = getOption(x =
   "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
@@ -30,10 +29,6 @@ Which normalization method to apply:
 \item "\code{rlog}": DESeq2 log2 regularized log transformation.
 \item "\code{vst}": DESeq2 log2 variance stabilizing transformation.
 }}
-
-\item{trans}{\code{character(1)}.
-Apply a log transformation (e.g. \code{log2(x + 1L)}) to the count matrix prior
-to melting, if desired. Use \code{"identity"} to return unmodified (default).}
 
 \item{minCounts}{\code{integer(1)}.
 Minimum count threshold to apply. Filters using "greater than or equal to"

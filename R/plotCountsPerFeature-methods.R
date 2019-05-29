@@ -36,18 +36,9 @@ NULL
 
 
 plotCountsPerFeature.bcbioRNASeq <-  # nolint
-    function(
-        object,
-        normalized,
-        trans
-    ) {
+    function(object, normalized) {
         normalized <- match.arg(normalized)
-        trans <- match.arg(trans)
-        args <- .dynamicTrans(
-            object = object,
-            normalized = normalized,
-            trans = trans
-        )
+        args <- .dynamicTrans(object = object, normalized = normalized)
         do.call(
             what = plotCountsPerFeature,
             args = matchArgsToDoCall(
@@ -70,7 +61,6 @@ f2 <- f2[setdiff(
 f <- c(f1, f2)
 # Ensure TPM is set first.
 f[["normalized"]] <- unique(c("tmm", normalizedCounts))
-f[["trans"]] <- trans
 formals(plotCountsPerFeature.bcbioRNASeq) <- f
 
 
