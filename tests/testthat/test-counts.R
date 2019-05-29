@@ -43,7 +43,7 @@ with_parameters_test_that(
         assays(object)[[normalized]] <- NULL
         expect_error(
             object = counts(object, normalized = normalized),
-            regexp = "assayNames"
+            regexp = normalized
         )
     },
     normalized = c("rlog", "vst")
