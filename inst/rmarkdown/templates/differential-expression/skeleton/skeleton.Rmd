@@ -1,7 +1,8 @@
 ---
+# Alternatively, consider using our DESeqAnalysis package for complex contrasts.
 params:
   title: "Differential expression"
-  bcb_file: "rds/YYYY-MM-DD/bcb.rds"
+  bcb_file: "data/YYYY-MM-DD/bcb.rds"
   # Design formula must contain columns defined in `colData()`.
   design: !r formula("~ treatment")
   # Multiple contrasts are supported here.
@@ -91,7 +92,18 @@ print(dds)
 
 # Design
 
-The design formula, specified with the `design()` function, must contain factor columns from `colData()`.
+The design formula, specified with the `design()` function, must contain factor columns in `colData()` / `sampleData()`.
+
+Ensure that all relevant factor columns in `sampleData()` contain valid names (see `make.names()` for details) prior to setting the design. Here we are using the `snake()` function to automatically sanitize all factors into snake case.
+
+```{r sanitize-factors}
+sd <- sampleData(dds)
+rn <- rownames(sd)
+sd <- lapply(X = sd, FUN = snake)
+sd <- as(sd, "DataFrame")
+rownames(sd) <- rn
+sampleData(dds) <- sd
+```
 
 ```{r design}
 # colnames(colData(dds))
@@ -115,6 +127,8 @@ print(dds)
 By default, [R][] will choose a reference level for factors based on alphabetical order. Then, if you never tell the [DESeq2][] functions which level you want to compare against (e.g. which level represents the control group), the comparisons will be based on the alphabetical order of the levels. There are two solutions: you can either explicitly tell results which comparison to make using the contrast argument (this will be shown later), or you can explicitly set the factors levels. You should only change the factor levels of variables in the design before running the [DESeq2][] analysis, not during or afterward. Setting the factor levels can be done in two ways, using either the `factor()` or `relevel()` functions. Generally we recommend using `relevel()` here.
 
 ```{r relevel, eval=FALSE}
+# Including this code here for reference only.
+
 # Specify the reference level (preferred).
 dds$treatment <- relevel(dds$treatment, ref = "wildtype")
 
@@ -124,8 +138,6 @@ dds$treatment <- factor(dds$treatment, levels = c("folic_acid", "control"))
 
 # If samples have been subset, ensure that the levels match.
 dds$treatment <- droplevels(dds$treatment)
-
-print(dds$treatment)
 ```
 
 # Differential expression analysis
