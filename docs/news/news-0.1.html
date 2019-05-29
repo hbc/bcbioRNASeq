@@ -22,8 +22,9 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -149,7 +150,7 @@
 <li>Renamed <code>maxSamples</code> parameter in <code><a href="../reference/deprecated.html">loadRNASeq()</a></code> to <code>transformationLimit</code>. If there are more samples than this limit, then the DESeq2 transformations will be skipped. In this case, <code>rlog</code> and <code>vst</code> will not be slotted into <code>assays()</code>.</li>
 <li>Added a colData sanitization step in <code><a href="../reference/deprecated.html">loadRNASeq()</a></code> to ensure rows are in the same order as the columns in the counts matrix. Otherwise, DESeq will report an error at the <code>DESeqDataSetFromTximport()</code> step. We’re also ensuring the factor levels get updated here.</li>
 <li>Now using <code>glimpse()</code> instead of <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> in examples, where applicable.</li>
-<li>Added <code>colData&lt;-</code> assignment method support. This requires a <code>DataFrame</code> class object. Upon assignment, the internal colData at <code>bcbio(object, "DESeqDataSet")</code>, <code>assays(object)[["rlog"]]</code> and <code>assays(object)[["vst"]]</code> are also updated to match.</li>
+<li>Added <code>colData&lt;-</code> assignment method support. This requires a <code>DataFrame</code> class object. Upon assignment, the internal colData at <code>bcbio(object,   "DESeqDataSet")</code>, <code>assays(object)[["rlog"]]</code> and <code>assays(object)[["vst"]]</code> are also updated to match.</li>
 <li>Initial assignment support for <code>design</code>, which will update the internal DESeqDataSet.</li>
 <li>Added method support for <code>gene2symbol()</code> generic, which will now return a 2 column <code>data.frame</code> with <code>ensgene</code> and <code>symbol</code> columns. This is helpful for downstream gene to symbol mapping operations.</li>
 <li>Added working example for <code>interestingGroups&lt;-</code> in the documentation.</li>
@@ -200,7 +201,7 @@
 <ul>
 <li>Bug fix for gene-to-symbol mappings in <code><a href="../reference/plotDEGHeatmap.html">plotDEGHeatmap()</a></code>.</li>
 <li>Added support for quickly plotting differentially expressed genes (DEG) in a PCA plot with <code><a href="../reference/plotDEGPCA.html">plotDEGPCA()</a></code>.</li>
-<li>Added support for Dropbox shared links to <code><a href="../reference/resultsTables.html">resultsTables()</a></code>, for use with the <a href="http://stemcellcommons.org">Stem Cell Commons</a> database.</li>
+<li>Added support for Dropbox shared links to <code><a href="../reference/resultsTables.html">resultsTables()</a></code>, for use with the <a href="http://stemcellcommons.org/">Stem Cell Commons</a> database.</li>
 <li>Added assert checks internally for all functions.</li>
 <li>Improved internal code for <code>plotGene()</code> and <code><a href="../reference/plotGenderMarkers.html">plotGenderMarkers()</a></code> to run faster.</li>
 <li>Deprecated data frame methods based on metrics for QC functions.</li>
@@ -248,7 +249,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
       </footer>
    </div>

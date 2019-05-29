@@ -1,9 +1,51 @@
 ## bcbioRNASeq 0.2.10 (2019-05-12)
 
+This is a maintenance release to support the latest release of basejump.
+
+### Updated basejump release series support
+
+This is a significant update to bcbioRNASeq prior to the upcoming v0.3 release
+series. This update provides a compatibility update for the [basejump][] v0.10
+release series, whereas [bcbioRNASeq][] was previously pinned to basejump v0.7
+for stability. No major changes to the code base have been applied here, and
+hopefully no breaking code changes are observed in this update. If you encounter
+any breaking changes, please file an issue on GitHub.
+
 ### Major changes
 
 - Now importing bioverbs package for generics.
 - Use `plotCounts` instead of `plotGene`, which is now deprecated.
+- `prepareRNASeqTemplate` is deprecated in favor of `prepareTemplate`.
+- `sampleData` and `tpm` method support have been removed in favor of importing
+  improved code from basejump.
+- Now using Docker images for Travis CI tests, since they are much faster.
+
+### Minor changes
+
+- All S4 methods have been split out into internal functions.
+- Moved bcbioRNASeq validity method into `setClass` call.
+- Miscellaneous documentation improvements. Function titles have been renamed
+  into sentence case, matching Acid Genomics conventions.
+- Removed defunct/deprecated functions prior to v0.2 release.
+- Added periods to comments, where applicable.
+- Switched back to using `str` instead of `glimpse` in working examples, since
+  `glimpse` requires tibble import.
+- Reworked some plots to inherit new [acidplots][] code.
+- Files have been renamed in kebab/dash case instead of snake case where
+  applicable. This applies mainly to the unit test files.
+
+### R Markdown templates
+
+- The `_setup.R` file no longer includes `library` loads in the file. Instead
+  these should be declared per R Markdown template, where appropriate.
+  Alternatively, the user can modify `_setup.R` manually per project, but we
+  are no longer recommending default library loads in this file.
+- Updated quality control template to use "object" instead of "bcb" as name.
+- Updated differential expression template to support loading of either rda
+  or rds files, similar to QC template.
+- Updated functional analysis template. Note that GSEA ranked list now uses
+  Wald test statistic instead of BH adjusted P value, which provides better
+  directional ranks with fewer ties.
 
 
 
@@ -657,44 +699,47 @@ Last set of code fixes before F1000v2 resubmission.
 
 
 
-[AnnotationHub]: https://doi.org/doi:10.18129/B9.bioc.AnnotationHub
-[AppVeyor CI]: https://ci.appveyor.com
-[basejump]: http://steinbaugh.com/basejump
-[bcbio]: https://github.com/chapmanb/bcbio-nextgen
-[bcbioBase]: https://github.com/hbc/bcbioBase
-[bcbioRNASeq]: http://bioinformatics.sph.harvard.edu/bcbioRNASeq
-[bcbioSingleCell]: https://github.com/hbc/bcbioSingleCell
-[bcbioSmallRNA]: https://github.com/lpantano/bcbioSmallRna
-[bioconda]: https://bioconda.github.io
-[Bioconductor]: https://bioconductor.org
-[biomaRt]: https://doi.org/doi:10.18129/B9.bioc.biomaRt
-[CHBUtils]: https://github.com/hbc/CHBUtils
-[clusterProfiler]: https://doi.org/doi:10.18129/B9.bioc.clusterProfiler
-[covr]: https://github.com/jimhester/covr
-[DEGreport]: https://doi.org/doi:10.18129/B9.bioc.DEGreport
-[DESeq2]: https://doi.org/doi:10.18129/B9.bioc.DESeq2
-[dplyr]: http://dplyr.tidyverse.org
-[Dropbox]: https://dropbox.com
-[edgeR]: https://doi.org/doi:10.18129/B9.bioc.edgeR
-[Ensembl]: http://www.ensembl.org
-[EnsDb.Hsapiens.v75]: https://doi.org/doi:10.18129/B9.bioc.EnsDb.Hsapiens.v75
-[ensembldb]: https://doi.org/doi:10.18129/B9.bioc.ensembldb
-[F1000]: https://f1000.com
+[acidplots]: https://acidplots.acidgenomics.com/
+[AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
+[AppVeyor CI]: https://ci.appveyor.com/
+[basejump]: https://basejump.acidgenomics.com/
+[bcbio]: https://github.com/chapmanb/bcbio-nextgen/
+[bcbioBase]: https://bioinformatics.sph.harvard.edu/bcbioBase/
+[bcbioRNASeq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
+[bcbioSingleCell]: https://bioinformatics.sph.harvard.edu/bcbioSingleCell/
+[bcbioSmallRNA]: https://github.com/lpantano/bcbioSmallRna/
+[bioconda]: https://bioconda.github.io/
+[Bioconductor]: https://bioconductor.org/
+[biomaRt]: https://bioconductor.org/packages/biomaRt/
+[bioverbs]: https://bioverbs.acidgenomics.com/
+[CHBUtils]: https://github.com/hbc/CHBUtils/
+[clusterProfiler]: https://bioconductor.org/packages/clusterProfiler/
+[covr]: https://github.com/jimhester/covr/
+[DEGreport]: https://bioconductor.org/packages/DEGreport/
+[DESeq2]: https://bioconductor.org/packages/DESeq2/
+[DESeqAnalysis]: https://deseqanalysis.acidgenomcis.com/
+[dplyr]: https://dplyr.tidyverse.org/
+[Dropbox]: https://dropbox.com/
+[edgeR]: https://bioconductor.org/packages/edgeR/
+[Ensembl]: https://www.ensembl.org/
+[EnsDb.Hsapiens.v75]: https://bioconductor.org/packages/EnsDb.Hsapiens.v75/
+[ensembldb]: https://bioconductor.org/packages/ensembldb/
+[F1000]: https://f1000.com/
 [F1000 workflow]: http://dx.doi.org/10.12688/f1000research.12093.2
-[ggplot2]: https://ggplot2.tidyverse.org
-[HBC]: http://bioinformatics.sph.harvard.edu
-[lintr]: https://github.com/jimhester/lintr
-[macOS]: https://www.apple.com/macos
-[Markdown]: https://daringfireball.net/projects/markdown/syntax
-[R]: https://www.r-project.org
-[R Markdown]: http://rmarkdown.rstudio.com
-[RDAVIDWebService]: https://doi.org/doi:10.18129/B9.bioc.RDAVIDWebService
+[ggplot2]: https://ggplot2.tidyverse.org/
+[HBC]: https://bioinformatics.sph.harvard.edu/
+[lintr]: https://github.com/jimhester/lintr/
+[macOS]: https://www.apple.com/macos/
+[Markdown]: https://daringfireball.net/projects/markdown/syntax/
+[R]: https://www.r-project.org/
+[R Markdown]: https://rmarkdown.rstudio.com/
+[RDAVIDWebService]: https://bioconductor.org/packages/RDAVIDWebService/
 [rlang]: https://cran.r-project.org/package=rlang
-[Stem Cell Commons]: http://stemcellcommons.org
-[testthat]: https://github.com/hadley/testthat
+[Stem Cell Commons]: http://stemcellcommons.org/
+[testthat]: https://github.com/hadley/testthat/
 [tidyeval]: http://dplyr.tidyverse.org/articles/programming.html
 [tidyverse]: https://www.tidyverse.org/
-[Travis CI]: https://travis-ci.org
-[tximport]: https://doi.org/doi:10.18129/B9.bioc.tximport
+[Travis CI]: https://travis-ci.org/
+[tximport]: https://bioconductor.org/packages/tximport/
 [viridis]: https://cran.r-project.org/web/packages/viridis/index.html
-[Windows]: https://www.microsoft.com/en-us/windows
+[Windows]: https://www.microsoft.com/en-us/windows/
