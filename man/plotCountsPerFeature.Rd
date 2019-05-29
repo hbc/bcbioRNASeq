@@ -11,7 +11,7 @@ plotCountsPerFeature(object, ...)
 \S4method{plotCountsPerFeature}{bcbioRNASeq}(object,
   normalized = c("tmm", "vst", "rlog", "rle", "tpm", "fpkm"),
   minCounts = 1L, minCountsMethod = c("perFeature", "absolute"),
-  interestingGroups = NULL, geom = c("boxplot", "density", "violin"),
+  interestingGroups = NULL, geom = c("boxplot", "density", "jitter"),
   color = getOption(x = "acid.color.discrete", default =
   acidplots::scale_colour_synesthesia_d()), fill = getOption(x =
   "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
