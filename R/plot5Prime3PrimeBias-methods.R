@@ -1,16 +1,16 @@
-#' Plot 5'->3' Bias
-#'
-#' RNA-seq data can have specific biases at either the 5’ or 3’ end of sequenced
-#' fragments. It is common to see a small amount of bias, especially if polyA
-#' enrichment was performed, or if there is any sample degradation. If a large
-#' amount of bias is observed here, be sure to analyze the samples with a
-#' Bioanalyzer and check the RIN scores.
-#'
 #' @name plot5Prime3PrimeBias
+#' @inherit bioverbs::plot5Prime3PrimeBias
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh
 #'
+#' @details
+#' It is common to see a small amount of bias, especially if polyA enrichment
+#' was performed, or if there is any sample degradation. If a large amount of
+#' bias is observed here, be sure to analyze the samples with a Bioanalyzer and
+#' check the RIN scores.
+#'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
@@ -21,13 +21,18 @@ NULL
 
 
 #' @rdname plot5Prime3PrimeBias
+#' @name plot5Prime3PrimeBias
+#' @importFrom bioverbs plot5Prime3PrimeBias
+#' @usage plot5Prime3PrimeBias(object, ...)
 #' @export
-setMethod(
-    "plot5Prime3PrimeBias",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 0L,
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
@@ -45,13 +50,13 @@ setMethod(
         assertIsAStringOrNULL(title)
 
         p <- ggplot(
-                data = metrics(object),
-                mapping = aes(
-                    x = !!sym("sampleName"),
-                    y = !!sym("x5x3Bias"),
-                    fill = !!sym("interestingGroups")
-                )
-            ) +
+            data = metrics(object),
+            mapping = aes(
+                x = !!sym("sampleName"),
+                y = !!sym("x5x3Bias"),
+                fill = !!sym("interestingGroups")
+            )
+        ) +
             geom_bar(
                 color = "black",
                 stat = "identity"
@@ -81,4 +86,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plot5Prime3PrimeBias
+#' @export
+setMethod(
+    f = "plot5Prime3PrimeBias",
+    signature = signature("bcbioRNASeq"),
+    definition = plot5Prime3PrimeBias.bcbioRNASeq
 )

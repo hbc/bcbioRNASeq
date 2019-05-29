@@ -1,10 +1,10 @@
-#' Top Tables of Differential Expression Results
-#'
 #' @name topTables
+#' @inherit bioverbs::topTables
 #' @family R Markdown Functions
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @param object `DESeqResults` or `list`. For `list` method, must use
 #'   [resultsTables()] return.
@@ -25,6 +25,15 @@
 #'     counts = dds_small
 #' )
 #' topTables(res_tbl, n = 5L)
+NULL
+
+
+
+#' @rdname topTables
+#' @name topTables
+#' @importFrom bioverbs topTables
+#' @usage topTables(object, ...)
+#' @export
 NULL
 
 
@@ -102,11 +111,7 @@ NULL
 
 
 
-#' @rdname topTables
-#' @export
-setMethod(
-    "topTables",
-    signature("DESeqResults"),
+topTables.DESeqResults <-  # nolint
     function(
         object,
         n = 50L,
@@ -135,15 +140,20 @@ setMethod(
         # Invisibly return list containing the subset data.frames
         invisible(list(up = up, down = down))
     }
-)
 
 
 
 #' @rdname topTables
 #' @export
 setMethod(
-    "topTables",
-    signature("list"),
+    f = "topTables",
+    signature = signature("DESeqResults"),
+    definition = topTables.DESeqResults
+)
+
+
+
+topTables.list <-  # nolint
     function(
         object,
         n = 50L,
@@ -187,4 +197,13 @@ setMethod(
         # Invisibly return list containing the subset data.frames
         invisible(list(up = up, down = down))
     }
+
+
+
+#' @rdname topTables
+#' @export
+setMethod(
+    f = "topTables",
+    signature = signature("list"),
+    definition = topTables.list
 )

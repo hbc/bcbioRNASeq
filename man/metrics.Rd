@@ -4,8 +4,10 @@
 \name{metrics}
 \alias{metrics}
 \alias{metrics,bcbioRNASeq-method}
-\title{Sample Metrics}
+\title{Quality control metrics}
 \usage{
+metrics(object, ...)
+
 \S4method{metrics}{bcbioRNASeq}(object, interestingGroups)
 }
 \arguments{
@@ -13,20 +15,21 @@
 
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{data.frame}.
 }
 \description{
-Sample Metrics
+Quality control metrics
 }
 \examples{
-metrics(bcb_small) \%>\% glimpse()
+metrics(bcb_small) \%>\% str()
 }
 \seealso{
-Other Data Functions: \code{\link{aggregateReplicates}},
-  \code{\link{counts}}, \code{\link{sampleData}},
-  \code{\link{tmm}}, \code{\link{tpm}}
+Other Data Functions: \code{\link{counts}},
+  \code{\link{tmm}}
 }
 \author{
 Michael Steinbaugh

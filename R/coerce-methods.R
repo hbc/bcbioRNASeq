@@ -1,4 +1,4 @@
-#' Methods for Coercing an Object to a Class
+#' Methods for coercing an object to a class
 #'
 #' @name coerce
 #' @aliases as

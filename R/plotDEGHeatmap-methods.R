@@ -13,8 +13,6 @@
 #' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
-#' @inherit basejump::plotHeatmap
-#'
 #' @inheritParams general
 #' @param ... Passthrough arguments to [plotHeatmap()].
 #'
@@ -52,12 +50,16 @@ NULL
 
 #' @rdname plotDEGHeatmap
 #' @export
-setMethod(
+setGeneric(
     "plotDEGHeatmap",
-    signature(
-        results = "DESeqResults",
-        counts = "SummarizedExperiment"
-    ),
+    function(results, counts, ...) {
+        standardGeneric("plotDEGHeatmap")
+    }
+)
+
+
+
+`plotDEGHeatmap.DESeqResults,SummarizedExperiment` <-  # nolint
     function(
         results,
         counts,
@@ -106,18 +108,23 @@ setMethod(
             ...
         )
     }
-)
 
 
 
 #' @rdname plotDEGHeatmap
 #' @export
 setMethod(
-    "plotDEGHeatmap",
-    signature(
+    f = "plotDEGHeatmap",
+    signature = signature(
         results = "DESeqResults",
-        counts = "bcbioRNASeq"
+        counts = "SummarizedExperiment"
     ),
+    definition = `plotDEGHeatmap.DESeqResults,SummarizedExperiment`
+)
+
+
+
+`plotDEGHeatmap.DESeqResults,bcbioRNASeq` <-  # nolint
     function(
         results,
         counts,
@@ -135,18 +142,23 @@ setMethod(
             ...
         )
     }
-)
 
 
 
 #' @rdname plotDEGHeatmap
 #' @export
 setMethod(
-    "plotDEGHeatmap",
-    signature(
+    f = "plotDEGHeatmap",
+    signature = signature(
         results = "DESeqResults",
-        counts = "DESeqDataSet"
+        counts = "bcbioRNASeq"
     ),
+    definition = `plotDEGHeatmap.DESeqResults,bcbioRNASeq`
+)
+
+
+
+`plotDEGHeatmap.DESeqResults,DESeqDataSet` <-  # nolint
     function(
         results,
         counts,
@@ -162,23 +174,34 @@ setMethod(
             ...
         )
     }
-)
 
 
 
 #' @rdname plotDEGHeatmap
 #' @export
 setMethod(
-    "plotDEGHeatmap",
-    signature(
+    f = "plotDEGHeatmap",
+    signature = signature(
+        results = "DESeqResults",
+        counts = "DESeqDataSet"
+    ),
+    definition = `plotDEGHeatmap.DESeqResults,DESeqDataSet`
+)
+
+
+
+`plotDEGHeatmap.DESeqResults,DESeqTransform` <-  # nolint
+    `plotDEGHeatmap.DESeqResults,SummarizedExperiment`
+
+
+
+#' @rdname plotDEGHeatmap
+#' @export
+setMethod(
+    f = "plotDEGHeatmap",
+    signature = signature(
         results = "DESeqResults",
         counts = "DESeqTransform"
     ),
-    getMethod(
-        "plotDEGHeatmap",
-        signature(
-            results = "DESeqResults",
-            counts = "SummarizedExperiment"
-        )
-    )
+    definition = `plotDEGHeatmap.DESeqResults,DESeqTransform`
 )

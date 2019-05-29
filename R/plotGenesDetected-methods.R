@@ -1,10 +1,10 @@
-#' Plot Genes Detected
-#'
 #' @name plotGenesDetected
+#' @inherit bioverbs::plotGenesDetected
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
@@ -15,10 +15,15 @@ NULL
 
 
 #' @rdname plotGenesDetected
+#' @name plotGenesDetected
+#' @importFrom bioverbs plotGenesDetected
+#' @usage plotGenesDetected(object, ...)
 #' @export
-setMethod(
-    "plotGenesDetected",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotGenesDetected.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups,
@@ -83,4 +88,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotGenesDetected
+#' @export
+setMethod(
+    f = "plotGenesDetected",
+    signature = signature("bcbioRNASeq"),
+    definition = plotGenesDetected.bcbioRNASeq
 )

@@ -1,14 +1,10 @@
-#' Plot Mapping Rate
-#'
-#' The genomic mapping rate represents the percentage of reads mapping to the
-#' reference genome. Low mapping rates are indicative of sample contamination,
-#' poor sequencing quality or other artifacts.
-#'
 #' @name plotMappingRate
+#' @inherit bioverbs::plotMappingRate
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
@@ -19,13 +15,18 @@ NULL
 
 
 #' @rdname plotMappingRate
+#' @name plotMappingRate
+#' @importFrom bioverbs plotMappingRate
+#' @usage plotMappingRate(object, ...)
 #' @export
-setMethod(
-    "plotMappingRate",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 0.9,
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
@@ -90,4 +91,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotMappingRate
+#' @export
+setMethod(
+    f = "plotMappingRate",
+    signature = signature("bcbioRNASeq"),
+    definition = plotMappingRate.bcbioRNASeq
 )

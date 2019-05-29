@@ -1,10 +1,10 @@
-#' Contrast Name
-#'
 #' @name contrastName
+#' @inherit bioverbs::contrastName
 #' @family Differential Expression Functions
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `string`. Contrast name.
 #'
@@ -16,10 +16,15 @@ NULL
 
 
 #' @rdname contrastName
+#' @name contrastName
+#' @importFrom bioverbs contrastName
+#' @usage contrastName(object, ...)
 #' @export
-setMethod(
-    "contrastName",
-    signature("DESeqResults"),
+NULL
+
+
+
+contrastName.DESeqResults <-  # nolint
     function(object) {
         validObject(object)
         contrast <- mcols(object)[2L, "description"]
@@ -30,4 +35,13 @@ setMethod(
             # Improve appearance for difference of differences
             gsub("\\+", " \\+\n    ", .)
     }
+
+
+
+#' @rdname contrastName
+#' @export
+setMethod(
+    f = "contrastName",
+    signature = signature("DESeqResults"),
+    definition = contrastName.DESeqResults
 )

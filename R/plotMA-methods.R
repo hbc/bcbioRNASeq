@@ -1,4 +1,4 @@
-#' MA Plot
+#' MA plot
 #'
 #' An MA plot is an application of a Bland–Altman plot for visual representation
 #' of genomic data. The plot visualizes the differences between measurements
@@ -9,17 +9,15 @@
 #' @family Differential Expression Functions
 #' @author Rory Kirchner, Michael Steinbaugh
 #'
-#' @importFrom BiocGenerics plotMA
-#' @export
-#'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
 #' @seealso [DESeq2::plotMA()].
 #'
 #' @examples
-#' gene2symbol <- gene2symbol(bcb_small)
+#' gene2symbol <- Gene2Symbol(bcb_small)
 #'
 #' # DESeqResults ====
 #' # Color DEGs in each direction separately
@@ -59,10 +57,15 @@ NULL
 
 
 #' @rdname plotMA
+#' @name plotMA
+#' @importFrom BiocGenerics plotMA
+#' @usage plotMA(object, ...)
 #' @export
-setMethod(
-    "plotMA",
-    signature("DESeqResults"),
+NULL
+
+
+
+plotMA.DESeqResults <-  # nolint
     function(
         object,
         alpha,
@@ -222,4 +225,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotMA
+#' @export
+setMethod(
+    f = "plotMA",
+    signature = signature("DESeqResults"),
+    definition = plotMA.DESeqResults
 )

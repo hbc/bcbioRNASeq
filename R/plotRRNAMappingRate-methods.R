@@ -1,12 +1,5 @@
-#' Plot Ribosomal RNA (rRNA) Mapping Rate
-#'
-#' Clean, high-quality samples should have an rRNA mapping rate below 10%.
-#' Higher rates are likely indicative of the polyA enrichment or ribo depletion
-#' protocol not having removed all ribosomal RNA (rRNA) transcripts. This will
-#' reduce the number of biologically meaningful reads in the experiment and is
-#' best avoided.
-#'
 #' @name plotRRNAMappingRate
+#' @inherit bioverbs::plotRRNAMappingRate
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
@@ -21,13 +14,18 @@ NULL
 
 
 #' @rdname plotRRNAMappingRate
+#' @name plotRRNAMappingRate
+#' @importFrom bioverbs plotRRNAMappingRate
+#' @usage plotRRNAMappingRate(object, ...)
 #' @export
-setMethod(
-    "plotRRNAMappingRate",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotRRNAMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
-        interestingGroups,
+        interestingGroups = NULL,
         limit = 0.1,
         fill = getOption("bcbio.discrete.fill", NULL),
         flip = getOption("bcbio.flip", TRUE),
@@ -91,4 +89,13 @@ setMethod(
 
         p
     }
+
+
+
+#' @rdname plotRRNAMappingRate
+#' @export
+setMethod(
+    f = "plotRRNAMappingRate",
+    signature = signature("bcbioRNASeq"),
+    definition = plotRRNAMappingRate.bcbioRNASeq
 )

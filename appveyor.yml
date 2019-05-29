@@ -1,7 +1,7 @@
 init:
   ps: |
         $ErrorActionPreference = "Stop"
-        Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
+        Invoke-WebRequest http://raw.github.com/acidgenomics/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
 
 install:
@@ -15,6 +15,7 @@ branches:
 
 environment:
   global:
+    _R_CHECK_FORCE_SUGGESTS_: false
     BIOC_USE_DEVEL: "FALSE"
     GCC_PATH: mingw_64
     R_ARCH: x64
@@ -22,26 +23,17 @@ environment:
   matrix:
     - configuration: 3.5
       R_VERSION: 3.5.3
+    - configuration: 3.6
+      R_VERSION: 3.6.0
 
 matrix:
-  allow_failures:
-    - configuration: devel
   fast_finish: true
 
 build_script:
   - travis-tool.sh install_bioc GenomeInfoDbData
   - travis-tool.sh install_bioc DelayedArray
   - travis-tool.sh install_bioc ensembldb
-  - travis-tool.sh install_bioc DEGreport
   - travis-tool.sh install_bioc EnsDb.Hsapiens.v75
-  # clusterProfiler dependencies
-  - travis-tool.sh install_bioc ALL
-  - travis-tool.sh install_bioc DO.db
-  - travis-tool.sh install_bioc GO.db
-  - travis-tool.sh install_bioc enrichplot
-  - travis-tool.sh install_bioc org.Hs.eg.db
-  - travis-tool.sh install_bioc org.Mm.eg.db
-  - travis-tool.sh install_r data.table
   - travis-tool.sh install_bioc_deps
 
 test_script:

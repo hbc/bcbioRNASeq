@@ -1,27 +1,29 @@
-#' Sample Metrics
-#'
 #' @name metrics
+#' @inherit bioverbs::metrics
 #' @family Data Functions
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump metrics
-#' @export
-#'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `data.frame`.
 #'
 #' @examples
-#' metrics(bcb_small) %>% glimpse()
+#' metrics(bcb_small) %>% str()
 NULL
 
 
 
 #' @rdname metrics
+#' @name metrics
+#' @importFrom bioverbs metrics
+#' @usage metrics(object, ...)
 #' @export
-setMethod(
-    "metrics",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+metrics.bcbioRNASeq <-  # nolint
     function(object, interestingGroups) {
         validObject(object)
         interestingGroups <- matchInterestingGroups(
@@ -49,4 +51,13 @@ setMethod(
         )
         data
     }
+
+
+
+#' @rdname metrics
+#' @export
+setMethod(
+    f = "metrics",
+    signature = signature("bcbioRNASeq"),
+    definition = metrics.bcbioRNASeq
 )

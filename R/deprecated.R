@@ -1,6 +1,6 @@
 # nocov start
 
-#' Defunct or Deprecated Functions
+#' Defunct or deprecated functions
 #'
 #' @name deprecated
 #' @keywords internal
@@ -9,57 +9,6 @@
 #'
 #' @return No value.
 NULL
-
-
-
-# v0.0.25 ======================================================================
-#' @rdname deprecated
-#' @export
-download <- function(...) {
-    .Defunct("prepareRNASeqTemplate")
-}
-
-#' @rdname deprecated
-#' @export
-plotGeneDetectionSaturation <- function(...) {
-    .Deprecated("plotGeneSaturation")
-    plotGeneSaturation(...)
-}
-
-#' @rdname deprecated
-#' @export
-plotDispersion <- function(...) {
-    .Deprecated("plotDispEsts")
-    plotDispEsts(...)
-}
-
-
-
-# v0.0.27 ======================================================================
-#' @rdname deprecated
-#' @export
-loadRNASeqRun <- function(...) {
-    .Deprecated("loadRNASeq")
-    loadRNASeq(...)
-}
-
-
-
-# v0.1.2 =======================================================================
-#' @rdname deprecated
-#' @export
-plotGeneHeatmap <- function(...) {
-    .Defunct()
-}
-
-
-
-# v0.1.3 =======================================================================
-#' @rdname deprecated
-#' @export
-txi <- function(...) {
-    .Defunct()
-}
 
 
 
@@ -106,8 +55,7 @@ setMethod(
 
 
 # v0.2.2 =======================================================================
-#' @rdname bcbioRNASeq
-#' @usage NULL
+#' @rdname deprecated
 #' @export
 loadRNASeq <- function(...) {
     .Deprecated("bcbioRNASeq")
@@ -117,12 +65,21 @@ loadRNASeq <- function(...) {
 
 
 # v0.2.6 =======================================================================
-#' @rdname plotMA
-#' @usage NULL
+#' @rdname deprecated
 #' @export
 plotMeanAverage <- function(...) {
-    # Soft deprecation, since used in F1000 paper
+    # Soft deprecation, since used in F1000 paper.
     plotMA(...)
+}
+
+
+
+# v0.2.10 ======================================================================
+#' @rdname deprecated
+#' @export
+prepareRNASeqTemplate <- function(...) {
+    .Deprecated("prepareTemplate(package = \"bcbioRNASeq\")")
+    prepareTemplate(package = "bcbioRNASeq", ...)
 }
 
 

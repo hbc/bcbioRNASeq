@@ -29,12 +29,16 @@ NULL
 
 #' @rdname plotDEGPCA
 #' @export
-setMethod(
+setGeneric(
     "plotDEGPCA",
-    signature(
-        results = "DESeqResults",
-        counts = "SummarizedExperiment"
-    ),
+    function(results, counts, ...) {
+        standardGeneric("plotDEGPCA")
+    }
+)
+
+
+
+`plotDEGPCA.DESeqResults,SummarizedExperiment` <-  # nolint
     function(
         results,
         counts,
@@ -95,18 +99,23 @@ setMethod(
             return = return
         )
     }
-)
 
 
 
 #' @rdname plotDEGPCA
 #' @export
 setMethod(
-    "plotDEGPCA",
-    signature(
+    f = "plotDEGPCA",
+    signature = signature(
         results = "DESeqResults",
-        counts = "bcbioRNASeq"
+        counts = "SummarizedExperiment"
     ),
+    definition = `plotDEGPCA.DESeqResults,SummarizedExperiment`
+)
+
+
+
+`plotDEGPCA.DESeqResults,bcbioRNASeq` <-  # nolint
     function(
         results,
         counts,
@@ -124,18 +133,23 @@ setMethod(
             ...
         )
     }
-)
 
 
 
 #' @rdname plotDEGPCA
 #' @export
 setMethod(
-    "plotDEGPCA",
-    signature(
+    f = "plotDEGPCA",
+    signature = signature(
         results = "DESeqResults",
-        counts = "DESeqDataSet"
+        counts = "bcbioRNASeq"
     ),
+    definition = `plotDEGPCA.DESeqResults,bcbioRNASeq`
+)
+
+
+
+`plotDEGPCA.DESeqResults,DESeqDataSet` <-  # nolint
     function(
         results,
         counts,
@@ -151,23 +165,34 @@ setMethod(
             ...
         )
     }
-)
 
 
 
 #' @rdname plotDEGPCA
 #' @export
 setMethod(
-    "plotDEGPCA",
-    signature(
+    f = "plotDEGPCA",
+    signature = signature(
+        results = "DESeqResults",
+        counts = "DESeqDataSet"
+    ),
+    definition = `plotDEGPCA.DESeqResults,DESeqDataSet`
+)
+
+
+
+`plotDEGPCA.DESeqResults,DESeqTransform` <-  # nolint
+    `plotDEGPCA.DESeqResults,SummarizedExperiment`
+
+
+
+#' @rdname plotDEGPCA
+#' @export
+setMethod(
+    f = "plotDEGPCA",
+    signature = signature(
         results = "DESeqResults",
         counts = "DESeqTransform"
     ),
-    getMethod(
-        "plotDEGPCA",
-        signature(
-            results = "DESeqResults",
-            counts = "SummarizedExperiment"
-        )
-    )
+    definition = `plotDEGPCA.DESeqResults,DESeqTransform`
 )

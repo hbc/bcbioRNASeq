@@ -1,12 +1,10 @@
-#' Plot Intronic Mapping Rate
-#'
-#' The majority of reads should map to exons and not introns.
-#'
 #' @name plotIntronicMappingRate
+#' @inherit bioverbs::plotIntronicMappingRate
 #' @family Quality Control Functions
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `ggplot`.
 #'
@@ -17,10 +15,15 @@ NULL
 
 
 #' @rdname plotIntronicMappingRate
+#' @name plotIntronicMappingRate
+#' @importFrom bioverbs plotIntronicMappingRate
+#' @usage plotIntronicMappingRate(object, ...)
 #' @export
-setMethod(
-    "plotIntronicMappingRate",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotIntronicMappingRate.bcbioRNASeq <-  # nolint
     function(
         object,
         interestingGroups,
@@ -87,4 +90,12 @@ setMethod(
 
         p
     }
+
+
+#' @rdname plotIntronicMappingRate
+#' @export
+setMethod(
+    f = "plotIntronicMappingRate",
+    signature = signature("bcbioRNASeq"),
+    definition = plotIntronicMappingRate.bcbioRNASeq
 )

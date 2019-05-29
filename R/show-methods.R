@@ -12,11 +12,7 @@ NULL
 
 
 
-#' @rdname show
-#' @export
-setMethod(
-    "show",
-    signature("bcbioRNASeq"),
+show.bcbioRNASeq <-  # nolint
     function(object) {
         validObject(object)
 
@@ -26,7 +22,6 @@ setMethod(
         return <- c(
             paste(class(object), metadata(object)[["version"]]),
             capture.output(show(rse)),
-            bcbioBase::separatorBar,
             paste(
                 "Upload Dir:",
                 deparse(metadata(object)[["uploadDir"]])
@@ -94,4 +89,13 @@ setMethod(
 
         cat(return, sep = "\n")
     }
+
+
+
+#' @rdname show
+#' @export
+setMethod(
+    f = "show",
+    signature = signature("bcbioRNASeq"),
+    definition = show.bcbioRNASeq
 )

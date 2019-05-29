@@ -1,4 +1,4 @@
-#' General Arguments
+#' General arguments
 #'
 #' @name general
 #' @keywords internal

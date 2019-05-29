@@ -1,4 +1,4 @@
-#' Melt Counts Matrix to Long Format
+#' Melt count matrix to long format
 #'
 #' @author Michael Steinbaugh
 #' @keywords internal

@@ -3,13 +3,13 @@
 \docType{data}
 \name{bcb_small}
 \alias{bcb_small}
-\title{\code{bcbioRNASeq} Example}
+\title{\code{bcbioRNASeq} example}
 \format{An object of class \code{bcbioRNASeq} with 500 rows and 6 columns.}
 \usage{
 bcb_small
 }
 \description{
-\code{bcbioRNASeq} Example
+\code{bcbioRNASeq} example
 }
 \seealso{
 Other GSE65267: \code{\link{dds_small}},

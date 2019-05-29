@@ -33,8 +33,8 @@
     type <- match.arg(type)
     assert_is_a_bool(txIn)
     assert_is_a_bool(txOut)
-    assertIsTx2gene(tx2gene)
     tx2gene <- as.data.frame(tx2gene)
+    assertIsTx2gene(tx2gene)
 
     # Check for count output format, by using the first sample directory.
     subdirs <- list.dirs(

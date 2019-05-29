@@ -1,13 +1,9 @@
-#' Aggregate Replicates
-#'
 #' @name aggregateReplicates
-#' @family Data Functions
+#' @inherit bioverbs::aggregateReplicates
 #' @author Michael Steinbaugh
 #'
-#' @importFrom basejump aggregateReplicates
-#' @export
-#'
 #' @inheritParams general
+#' @param ... Additional arguments.
 #'
 #' @return `RangedSummarizedExperiment`.
 #'
@@ -25,10 +21,15 @@ NULL
 
 
 #' @rdname aggregateReplicates
+#' @name aggregateReplicates
+#' @importFrom bioverbs aggregateReplicates
+#' @usage aggregateReplicates(object, ...)
 #' @export
-setMethod(
-    "aggregateReplicates",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+aggregateReplicates.bcbioRNASeq <-  # nolint
     function(object) {
         validObject(object)
 
@@ -60,7 +61,10 @@ setMethod(
 
         # Assays ---------------------------------------------------------------
         message("Aggregating counts")
-        counts <- aggregateReplicates(counts(object), groupings = groupings)
+        counts <- aggregateCols(
+            object = counts(object),
+            groupings = groupings
+        )
         assert_are_identical(sum(counts), sum(counts(object)))
 
         # Column data ----------------------------------------------------------
@@ -86,4 +90,13 @@ setMethod(
             rowRanges = rowRanges(object)
         )
     }
+
+
+
+#' @rdname aggregateReplicates
+#' @export
+setMethod(
+    f = "aggregateReplicates",
+    signature = signature("bcbioRNASeq"),
+    definition = aggregateReplicates.bcbioRNASeq
 )

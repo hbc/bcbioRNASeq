@@ -4,3 +4,5 @@
 .httr-oauth
 data-raw/*.rda
 inst/doc/
+doc
+Meta

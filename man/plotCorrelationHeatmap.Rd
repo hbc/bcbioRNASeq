@@ -5,8 +5,10 @@
 \alias{plotCorrelationHeatmap}
 \alias{plotCorrelationHeatmap,bcbioRNASeq-method}
 \alias{plotCorrelationHeatmap,DESeqTransform-method}
-\title{Plot Correlation Heatmap}
+\title{Correlation heatmap}
 \usage{
+plotCorrelationHeatmap(object, ...)
+
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
   normalized = c("vst", "rlog", "tmm", "tpm", "rle"), ...)
 
@@ -26,11 +28,10 @@
 \item{...}{Passthrough arguments to \code{SummarizedExperiment} method.}
 }
 \value{
-Show heatmap and invisibly return a \code{list} of the components.
+Plot.
 }
 \description{
-This function calculates a correlation matrix based on feature expression per
-sample.
+Correlation heatmap
 }
 \examples{
 # bcbioRNASeq ====

@@ -4,7 +4,7 @@
 \name{updateObject}
 \alias{updateObject}
 \alias{updateObject,bcbioRNASeq-method}
-\title{Update an Object to Its Current Class Definition}
+\title{Update an object to its current class definition}
 \usage{
 \S4method{updateObject}{bcbioRNASeq}(object, rowRanges = NULL)
 }

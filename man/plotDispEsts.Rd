@@ -4,7 +4,7 @@
 \name{plotDispEsts}
 \alias{plotDispEsts}
 \alias{plotDispEsts,bcbioRNASeq-method}
-\title{Plot Dispersion Estimates}
+\title{Plot dispersion estimates}
 \usage{
 \S4method{plotDispEsts}{bcbioRNASeq}(object, ...)
 }

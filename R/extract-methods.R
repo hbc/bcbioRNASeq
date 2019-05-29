@@ -1,4 +1,4 @@
-#' Extract or Replace Parts of an Object
+#' Extract or replace parts of an object
 #'
 #' Extract genes by row and samples by column from a `bcbioRNASeq` object.
 #' Internal count transformations are rescaled automatically, if defined.
@@ -52,14 +52,14 @@ NULL
 #' @rdname extract
 #' @export
 setMethod(
-    "[",
-    signature(
+    f = "[",
+    signature = signature(
         x = "bcbioRNASeq",
         i = "ANY",
         j = "ANY",
         drop = "ANY"
     ),
-    function(
+    definition = function(
         x,
         i,
         j,

@@ -1,4 +1,4 @@
-#' Plot Dispersion Estimates
+#' Plot dispersion estimates
 #'
 #' This plot shows the dispersion by mean of normalized counts. We expect the
 #' dispersion to decrease as the mean of normalized counts increases.
@@ -36,15 +36,20 @@ NULL
 
 
 
-#' @rdname plotDispEsts
-#' @export
-setMethod(
-    "plotDispEsts",
-    signature("bcbioRNASeq"),
+plotDispEsts.bcbioRNASeq <-  # nolint
     function(object, ...) {
         validObject(object)
         dds <- as(object, "DESeqDataSet")
         dds <- suppressWarnings(DESeq(dds))
         plotDispEsts(dds, ...)
     }
+
+
+
+#' @rdname plotDispEsts
+#' @export
+setMethod(
+    f = "plotDispEsts",
+    signature = signature("bcbioRNASeq"),
+    definition = plotDispEsts.bcbioRNASeq
 )

@@ -3,42 +3,16 @@
 \docType{methods}
 \name{plotPCA}
 \alias{plotPCA}
-\alias{plotPCA,SummarizedExperiment-method}
 \alias{plotPCA,bcbioRNASeq-method}
-\title{Sample PCA Plot for Transformed Data}
+\title{Sample PCA plot for transformed data}
 \usage{
-\S4method{plotPCA}{SummarizedExperiment}(object, interestingGroups,
-  ntop = 500L, color = getOption("bcbio.discrete.color", NULL),
-  label = getOption("bcbio.label", FALSE), title = "pca",
-  subtitle = NULL, return = c("ggplot", "data.frame"))
+plotPCA(object, ...)
 
 \S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
   "tmm", "tpm", "rle"), ...)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{interestingGroups}{\code{character}. Groups of interest that define the
-samples. If left unset, defaults to \code{sampleName}.}
-
-\item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
-Use \code{Inf} to include all genes.}
-
-\item{color}{\code{ggproto}/\code{ScaleDiscrete} or \code{NULL}. Desired ggplot2 color
-scale. Must supply discrete values. When set to \code{NULL}, the default ggplot2
-color palette will be used. If manual color definitions are desired, we
-recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
-To set the discrete color palette globally, use
-\code{options(bcbio.discrete.color = scale_color_viridis_d())}.}
-
-\item{label}{\code{boolean}. Superimpose sample text labels on the plot.}
-
-\item{title}{\code{string} or \code{NULL}. Plot title.}
-
-\item{subtitle}{\code{string} or \code{NULL}. Plot subtitle.}
-
-\item{return}{\code{string}. Object class to return. Uses \code{\link[=match.arg]{match.arg()}} internally
-and picks the first item in the vector by default.}
 
 \item{normalized}{\code{string}. Which normalization method to apply:
 \itemize{
@@ -49,6 +23,9 @@ and picks the first item in the vector by default.}
 }}
 
 \item{...}{Additional arguments.}
+
+\item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
+Use \code{Inf} to include all genes.}
 }
 \value{
 \code{ggplot} or \code{data.frame}.

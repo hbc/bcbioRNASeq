@@ -1,3 +1,5 @@
 *.gz
 *.rda
 export
+*.R
+*.csv

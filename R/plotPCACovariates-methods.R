@@ -1,10 +1,10 @@
-#' Find Correlation Between Principal Components (PCs) and Covariates
-#'
-#' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNASeq] object.
-#'
 #' @name plotPCACovariates
+#' @inherit bioverbs::plotPCACovariates
 #' @family Quality Control Functions
 #' @author Lorena Pantano, Michael Steinbaugh
+#'
+#' @details
+#' [DEGreport::degCovariates()] wrapper supporting a [bcbioRNASeq] object.
 #'
 #' @inheritParams general
 #' @param metrics `boolean`. Include sample summary metrics as covariates.
@@ -29,10 +29,15 @@ NULL
 
 
 #' @rdname plotPCACovariates
+#' @name plotPCACovariates
+#' @importFrom bioverbs plotPCACovariates
+#' @usage plotPCACovariates(object, ...)
 #' @export
-setMethod(
-    "plotPCACovariates",
-    signature("bcbioRNASeq"),
+NULL
+
+
+
+plotPCACovariates.bcbioRNASeq <-  # nolint
     function(
         object,
         metrics = TRUE,
@@ -84,4 +89,13 @@ setMethod(
             degCovariates(counts = counts, metadata = metadata, ...)
         )
     }
+
+
+
+#' @rdname plotPCACovariates
+#' @export
+setMethod(
+    f = "plotPCACovariates",
+    signature = signature("bcbioRNASeq"),
+    definition = plotPCACovariates.bcbioRNASeq
 )

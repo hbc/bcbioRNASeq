@@ -3,13 +3,13 @@
 \docType{data}
 \name{dds_small}
 \alias{dds_small}
-\title{\code{DESeqDataSet} Example}
+\title{\code{DESeqDataSet} example}
 \format{An object of class \code{DESeqDataSet} with 500 rows and 6 columns.}
 \usage{
 dds_small
 }
 \description{
-\code{DESeqDataSet} Example
+\code{DESeqDataSet} example
 }
 \seealso{
 Other GSE65267: \code{\link{bcb_small}},

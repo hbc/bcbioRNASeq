@@ -4,8 +4,10 @@
 \name{counts}
 \alias{counts}
 \alias{counts,bcbioRNASeq-method}
-\title{Count Matrix Accessors}
+\title{Count matrix accessors}
 \usage{
+counts(object, ...)
+
 \S4method{counts}{bcbioRNASeq}(object, normalized = FALSE)
 }
 \arguments{
@@ -21,6 +23,8 @@
 \item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
 \item "\code{rle}": Relative log expression transformation.
 }}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{matrix}.
@@ -46,9 +50,8 @@ counts(bcb_small, normalized = "vst") \%>\% summary()
 \item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
 }
 
-Other Data Functions: \code{\link{aggregateReplicates}},
-  \code{\link{metrics}}, \code{\link{sampleData}},
-  \code{\link{tmm}}, \code{\link{tpm}}
+Other Data Functions: \code{\link{metrics}},
+  \code{\link{tmm}}
 }
 \author{
 Michael Steinbaugh, Lorena Pantano

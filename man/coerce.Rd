@@ -4,12 +4,12 @@
 \alias{coerce}
 \alias{as}
 \alias{coerce,bcbioRNASeq,DESeqDataSet-method}
-\title{Methods for Coercing an Object to a Class}
+\title{Methods for coercing an object to a class}
 \value{
 Object of new class.
 }
 \description{
-Methods for Coercing an Object to a Class
+Methods for coercing an object to a class
 }
 \examples{
 # DESeqDataSet ====

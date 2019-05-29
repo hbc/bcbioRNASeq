@@ -1,4 +1,9 @@
-#' Differential Expression Results Tables
+# Recommend deprecation of this function in favor of using DESeqAnalysis package
+# instead in a future update.
+
+
+
+#' Differential expression results tables
 #'
 #' @note Log fold change cutoff threshold ("`lfcThreshold`") does not apply to
 #'   statistical hypothesis testing, only gene filtering in the results tables.
@@ -23,6 +28,7 @@
 #' @param rdsToken `string` or `NULL`. RDS file token to use for Dropbox
 #'   authentication. If set `NULL` and `dropboxDir` is defined, then an
 #'   interactive prompt will appear requesting authorization.
+#' @param ... Additional arguments.
 #'
 #' @return `list` containing modified `DESeqResults` return, including
 #'   additional gene-level metadata and normalized counts.
@@ -31,8 +37,19 @@
 #' # DESeqResults, DESeqDataSet ====
 #' x <- resultsTables(results = res_small, counts = dds_small)
 #' names(x)
-#' glimpse(x[["deg"]])
+#' x[["deg"]] %>% str()
 NULL
+
+
+
+#' @rdname resultsTables
+#' @export
+setGeneric(
+    name = "resultsTables",
+    def = function(results, counts, ...) {
+        standardGeneric("resultsTables")
+    }
+)
 
 
 
@@ -81,7 +98,7 @@ NULL
 
 
 
-#' Markdown List of Results Files
+#' Markdown list of results files
 #'
 #' Enables looping of results contrast file links for RMarkdown.
 #'
@@ -148,14 +165,7 @@ NULL
 
 
 
-#' @rdname resultsTables
-#' @export
-setMethod(
-    "resultsTables",
-    signature(
-        results = "DESeqResults",
-        counts = "DESeqDataSet"
-    ),
+`resultsTables.DESeqResults,DESeqDataSet` <-  # nolint
     function(
         results,
         counts,
@@ -180,7 +190,7 @@ setMethod(
         if (is_a_string(dropboxDir)) {
             dir <- tempdir()  # nocov
         } else {
-            dir <- initializeDirectory(dir)
+            dir <- initDir(dir)
         }
 
         # Extract internal parameters from DESeqResults object -----------------
@@ -313,20 +323,25 @@ setMethod(
 
         list
     }
+
+
+
+#' @rdname resultsTables
+#' @export
+setMethod(
+    f = "resultsTables",
+    signature = signature(
+        results = "DESeqResults",
+        counts = "DESeqDataSet"
+    ),
+    definition = `resultsTables.DESeqResults,DESeqDataSet`
 )
 
 
 
-# Minimal method that is used by other functions inside the package
-#' @rdname resultsTables
-#' @usage NULL
-#' @export
-setMethod(
-    "resultsTables",
-    signature(
-        results = "DESeqResults",
-        counts = "missingOrNULL"
-    ),
+# Minimal method that is used by other functions inside the package.
+
+`resultsTables.DESeqResults,NULL` <-  # nolint
     function(
         results,
         counts = NULL,
@@ -339,4 +354,16 @@ setMethod(
             lfcThreshold = lfcThreshold
         )
     }
+
+
+
+#' @rdname resultsTables
+#' @export
+setMethod(
+    f = "resultsTables",
+    signature = signature(
+        results = "DESeqResults",
+        counts = "missingOrNULL"
+    ),
+    definition = `resultsTables.DESeqResults,NULL`
 )
