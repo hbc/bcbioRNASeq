@@ -1,7 +1,7 @@
 ---
 params:
   title: "Quality control"
-  bcbiornaseq_file: "rds/YYYY-MM-DD/object.rds"
+  bcb_file: "data/YYYY-MM-DD/object.rds"
   output_dir: !r file.path("results", Sys.Date(), "quality-control")
 title: "`r params$title`"
 author: "`r getOption('author')`"
@@ -10,10 +10,9 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2019-05-08
-library(basejump)
-library(ggplot2)
+# Last modified 2019-05-30
 library(bcbioRNASeq)
+library(ggplot2)
 prepareTemplate(package = "bcbioRNASeq")
 source("_setup.R")
 ```
@@ -24,15 +23,9 @@ source("_setup.R")
 # Load bcbioRNASeq object
 
 ```{r load-object}
-file <- params$bcbiornaseq_file
-stopifnot(file.exists(file))
-if (fileExt(file) == "rds") {
-    object <- readRDS(file)
-    name <- basenameSansExt(file)
-} else if (fileExt(file) == "rda") {
-    name <- load(file)
-    object <- get(name, inherits = FALSE)
-}
+file <- params$bcb_file
+object <- import(file)
+name <- basenameSansExt(file)
 rm(file)
 stopifnot(
     is(object, "bcbioRNASeq"),
