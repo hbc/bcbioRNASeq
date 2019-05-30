@@ -33,6 +33,8 @@ To set the discrete fill palette globally, use
 plots containing many samples.}
 
 \item{title}{\code{string} or \code{NULL}. Plot title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{ggplot}.

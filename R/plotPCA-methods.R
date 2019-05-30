@@ -15,15 +15,14 @@
 #' @author Michael Steinbaugh
 #'
 #' @inheritParams general
-#' @param ntop `scalar integer` or `Inf`. Number of most variable genes to plot.
-#'   Use `Inf` to include all genes.
-#' @param ... Additional arguments.
+#' @param ... Passthrough arguments to `SummarizedExperiment` method, defined
+#'   in [acidplots::plotPCA()].
 #'
 #' @seealso
 #' - [DESeq2::plotPCA()].
 #' - `getMethod("plotPCA", "DESeqTransform")`
 #'
-#' @return `ggplot` or `data.frame`.
+#' @return `ggplot`.
 #'
 #' @examples
 #' # bcbioRNASeq ====
