@@ -33,7 +33,8 @@ plotDEGPCA(results, counts, ...)
 
 \item{counts}{\code{matrix}. Normalized counts.}
 
-\item{...}{Additional arguments.}
+\item{...}{Passthrough arguments to \code{SummarizedExperiment} method, defined
+in \code{\link[acidplots:plotPCA]{acidplots::plotPCA()}}.}
 
 \item{interestingGroups}{\code{character}. Groups of interest that define the
 samples. If left unset, defaults to \code{sampleName}.}
@@ -66,7 +67,7 @@ and picks the first item in the vector by default.}
 }}
 }
 \value{
-\code{ggplot} or \code{data.frame}.
+\code{ggplot}.
 }
 \description{
 Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis

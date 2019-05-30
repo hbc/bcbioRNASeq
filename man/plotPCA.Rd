@@ -22,13 +22,11 @@ plotPCA(object, ...)
 \item "\code{vst}": DESeq2 \strong{log2} variance stabilizing transformation.
 }}
 
-\item{...}{Additional arguments.}
-
-\item{ntop}{\code{scalar integer} or \code{Inf}. Number of most variable genes to plot.
-Use \code{Inf} to include all genes.}
+\item{...}{Passthrough arguments to \code{SummarizedExperiment} method, defined
+in \code{\link[acidplots:plotPCA]{acidplots::plotPCA()}}.}
 }
 \value{
-\code{ggplot} or \code{data.frame}.
+\code{ggplot}.
 }
 \description{
 Wrapper for \code{\link[DESeq2:plotPCA]{DESeq2::plotPCA()}} that improves principal component analysis
