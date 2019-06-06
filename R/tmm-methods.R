@@ -27,7 +27,7 @@ tmm.matrix <-  # nolint
         message("Applying trimmed mean of M-values (TMM) normalization.")
         object %>%
             DGEList() %>%
-            calcNormFactors() %>%
+            calcNormFactors(method = "TMM") %>%
             cpm(normalized.lib.sizes = TRUE)
     }
 
