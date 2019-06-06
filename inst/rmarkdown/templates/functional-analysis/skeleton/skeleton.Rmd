@@ -18,7 +18,7 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2019-05-29
+# Last modified 2019-06-06
 library(bcbioRNASeq)
 library(dplyr)
 prepareTemplate(package = "bcbioRNASeq")
@@ -97,16 +97,7 @@ invisible(mapply(
 # Load DESeqDataSet
 
 ```{r load-dds}
-file <- params$dds_file
-stopifnot(file.exists(file))
-if (fileExt(file) == "rds") {
-    dds <- readRDS(file)
-    name <- basenameSansExt(file)
-} else if (fileExt(file) == "rda") {
-    name <- load(file)
-    dds <- get(name, inherits = FALSE)
-}
-rm(file, name)
+dds <- import(params$dds_file)
 stopifnot(is(dds, "DESeqDataSet"))
 invisible(validObject(dds))
 print(dds)
@@ -115,16 +106,7 @@ print(dds)
 # Load DESeqResults
 
 ```{r load-res}
-file <- params$res_file
-stopifnot(file.exists(file))
-if (fileExt(file) == "rds") {
-    res <- readRDS(file)
-    name <- basenameSansExt(file)
-} else if (fileExt(file) == "rda") {
-    name <- load(file)
-    res <- get(name, inherits = FALSE)
-}
-rm(file, name)
+res <- import(params$res_file)
 stopifnot(is(res, "DESeqResults"))
 invisible(validObject(res))
 print(res)

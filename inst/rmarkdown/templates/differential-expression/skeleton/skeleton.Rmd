@@ -25,7 +25,7 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, message=FALSE}
-# Last modified 2019-05-29
+# Last modified 2019-06-06
 library(bcbioRNASeq)
 library(DESeq)
 prepareTemplate(package = "bcbioRNASeq")
@@ -55,14 +55,8 @@ if (!is.null(params$dropbox_dir)) {
 
 ```{r load-object}
 file <- params$bcb_file
-stopifnot(file.exists(file))
-if (fileExt(file) == "rds") {
-    object <- readRDS(file)
-    name <- basenameSansExt(file)
-} else if (fileExt(file) == "rda") {
-    name <- load(file)
-    object <- get(name, inherits = FALSE)
-}
+object <- import(file)
+name <- basenameSansExt(file)
 rm(file)
 stopifnot(
     is(object, "bcbioRNASeq"),
