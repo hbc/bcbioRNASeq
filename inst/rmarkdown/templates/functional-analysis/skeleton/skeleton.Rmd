@@ -1,0 +1,505 @@
+---
+# Alternatively, consider using our pfgsea package for fast preranked GSEA.
+params:
+  title: "Functional analysis"
+  # DESeqDataSet object
+  dds_file: "data/YYYY-MM-DD/dds.rds"
+  # DESeqResults object
+  res_file: "data/YYYY-MM-DD/res.rds"
+  organism: "Mus musculus"
+  go_class: "BP"
+  lfc_threshold: 0
+  data_dir: !r file.path("data", Sys.Date())
+  results_dir: !r file.path("results", Sys.Date(), "functional-analysis")
+title: "`r params$title`"
+author: "`r getOption('author')`"
+date: "`r Sys.Date()`"
+bibliography: bibliography.bib
+---
+
+```{r setup, message=FALSE}
+# Last modified 2019-05-29
+library(bcbioRNASeq)
+library(dplyr)
+prepareTemplate(package = "bcbioRNASeq")
+source("_setup.R")
+```
+
+```{r bioc-packages, message=FALSE}
+# Load Bioconductor packages.
+
+# Only the current Bioconductor release for this template is supported, because
+# it's too difficult to unit test and properly handle code changes.
+stopifnot(BiocManager::version() >= 3.9)
+
+# - KEGG supported organisms
+#   http://www.genome.jp/kegg/catalog/org_list.html
+# - OrgDb supported organisms
+#   http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
+
+# Get OrgDb package from organism name (e.g. "org.Mm.eg.db").
+match <- str_match(
+    string = params$organism,
+    pattern = "^([A-Z])[a-z]+\\s([a-z])[a-z]+$"
+)
+org_db <- paste(
+    "org",
+    paste(match[, 2:3], collapse = ""),
+    "eg",
+    "db",
+    sep = "."
+)
+rm(match)
+
+packages <- c(
+    "clusterProfiler",
+    "DOSE",
+    "pathview",
+    org_db
+)
+
+invisible(lapply(
+    X = basename(packages),
+    FUN = function(package) {
+        # Use `BiocManager::install()` to install missing packages.
+        stopifnot(require(package, character.only = TRUE))
+    }
+))
+```
+
+```{r check-db-codes}
+# KEGG organism code (e.g. "mmu" for Mus musculus).
+kegg_code <- params$organism %>%
+    search_kegg_organism("scientific_name") %>%
+    pull("kegg_code")
+stopifnot(length(kegg_code) == 1)
+stopifnot(grepl("^[a-z]{3}$", kegg_code))
+
+# Check for valid GO class.
+# - BP: Biological Process
+# - CC: Cellular Component
+# - MF: Molecular Function
+stopifnot(params$go_class %in% c("BP", "CC", "MF"))
+```
+
+```{r dir-create}
+kegg_plots_dir <- file.path(params$results_dir, "kegg-plots")
+invisible(mapply(
+    FUN = dir.create,
+    path = c(params$data_dir, params$results_dir, kegg_plots_dir),
+    MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
+))
+```
+
+```{r header, child="_header.Rmd"}
+```
+
+# Load DESeqDataSet
+
+```{r load-dds}
+file <- params$dds_file
+stopifnot(file.exists(file))
+if (fileExt(file) == "rds") {
+    dds <- readRDS(file)
+    name <- basenameSansExt(file)
+} else if (fileExt(file) == "rda") {
+    name <- load(file)
+    dds <- get(name, inherits = FALSE)
+}
+rm(file, name)
+stopifnot(is(dds, "DESeqDataSet"))
+invisible(validObject(dds))
+print(dds)
+```
+
+# Load DESeqResults
+
+```{r load-res}
+file <- params$res_file
+stopifnot(file.exists(file))
+if (fileExt(file) == "rds") {
+    res <- readRDS(file)
+    name <- basenameSansExt(file)
+} else if (fileExt(file) == "rda") {
+    name <- load(file)
+    res <- get(name, inherits = FALSE)
+}
+rm(file, name)
+stopifnot(is(res, "DESeqResults"))
+invisible(validObject(res))
+print(res)
+```
+
+```{r check-dds-res-identical}
+# Ensure that DESeqDataSet and DESeqResults are matched.
+stopifnot(identical(rownames(dds), rownames(res)))
+```
+
+```{r results}
+alpha <- metadata(res)$alpha
+
+# Subset NA adjusted P values.
+message("Dropping genes without an adjusted P value.")
+res <- res[!is.na(res$padj), , drop = FALSE]
+res_df <- as.data.frame(res)
+# Match the DESeqDataSet.
+dds <- dds[rownames(res), , drop = FALSE]
+
+# Use the all_genes vector for background (aka universe).
+all_genes <- rownames(res)
+
+# help("significants", "DEGreport")
+sig_genes <- significants(
+    object = res,
+    fc = params$lfc_threshold,
+    padj = alpha
+)
+
+length(all_genes)
+length(sig_genes)
+
+sig_res_df <- res_df %>%
+    .[sig_genes, , drop = FALSE] %>%
+    .[order(.$padj), , drop = FALSE]
+
+lfc_vec <- sig_res_df$log2FoldChange
+names(lfc_vec) <- rownames(sig_res_df)
+# Sort from upregulated to downregulated.
+lfc_vec <- sort(lfc_vec, decreasing = TRUE)
+summary(lfc_vec)
+```
+
+# GO enrichment analysis
+
+[Gene Ontology (GO)][GO] term enrichment is a technique for interpreting sets of genes making use of the [Gene Ontology][GO] system of classification, in which genes are assigned to a set of predefined bins depending on their functional characteristics.
+
+```{r enrich-go}
+enrich_go <- enrichGO(
+    gene = sig_genes,
+    OrgDb = org_db,
+    keyType = "ENSEMBL",
+    ont = params$go_class,
+    universe = all_genes,
+    qvalueCutoff = 0.05,
+    readable = TRUE
+)
+print(enrich_go)
+
+enrich_go_tbl <- enrich_go %>%
+    slot("result") %>%
+    as_tibble() %>%
+    camel()
+
+saveData(enrich_go, enrich_go_tbl, dir = params$data_dir)
+export(
+    object = enrich_go_tbl,
+    file = file.path(
+        params$results_dir,
+        paste0(
+            paste(
+                "go",
+                tolower(params$go_class),
+                "clusterprofiler",
+                "padj",
+                alpha,
+                "lfc",
+                params$lfc_threshold,
+                sep = "_"
+            ),
+            ".csv.gz"
+        )
+    )
+)
+
+enrich_go_tbl
+```
+
+## Dot plot
+
+```{r dotplot}
+dotplot(enrich_go, showCategory = 25)
+```
+
+## GO terms map
+
+```{r emapplot}
+emapplot(enrich_go, showCategory = 25)
+```
+
+## Gene map
+
+In order to consider the potentially biological complexities in which a gene may belong to multiple annotation categories, and provide information of numeric changes if available.
+
+Here we are plotting genes colored by LFC for top 5 most significant [GO][] terms.
+
+```{r cnetplot}
+cnetplot(enrich_go, foldChange = lfc_vec)
+```
+
+## GO GSEA analysis
+
+A common approach in analyzing gene expression profiles was identifying differential expressed genes that are deemed interesting. The enrichment analysis we demonstrated previously were based on these differentially expressed genes. This approach will find genes where the difference is large, but it will not detect a situation where the difference is small, but evidenced in coordinated way in a set of related genes. [Gene Set Enrichment Analysis (GSEA)][GSEA] directly addresses this limitation. All genes can be used in [GSEA][]; [GSEA][] aggregates the per gene statistics across genes within a gene set, therefore making it possible to detect situations where all genes in a predefined set change in a small but coordinated way. Since it is likely that many relevant phenotypic differences are manifested by small but consistent changes in a set of genes.
+
+```{r ranked-gene-list}
+# Prepare the ranked gene list using Wald test statistic, which is directional.
+gene_list <- res_df$stat
+
+# Alternatively, you can rank using BH adjusted P value ("padj"), but you'll
+# likely encounter ties.
+# > gene_list <- 1 - res_df$padj
+
+names(gene_list) <- rownames(res_df)
+gene_list <- sort(gene_list, decreasing = TRUE)
+summary(gene_list)
+```
+
+```{r gse-go}
+# Now we're ready to run GSEA.
+# help("gseGO", "clusterProfiler")
+# Consider: minGSSize = 100
+gsea_go <- gseGO(
+    geneList = gene_list,
+    ont = params$go_class,
+    OrgDb = org_db,
+    keyType = "ENSEMBL",
+    pvalueCutoff = 0.05
+)
+print(gsea_go)
+
+gsea_go_tbl <- gsea_go %>%
+    slot("result") %>%
+    as_tibble() %>%
+    camel()
+
+saveData(gsea_go, gsea_go_tbl, dir = params$data_dir)
+export(
+    object = gsea_go_tbl,
+    file = file.path(
+        params$results_dir,
+        paste0(
+            paste(
+                "gsea",
+                "clusterprofiler",
+                "padj",
+                alpha,
+                "lfc",
+                params$lfc_threshold,
+                sep = "_"
+            ),
+            ".csv.gz"
+        )
+    )
+)
+
+gsea_go_tbl
+```
+
+# KEGG enrichment analysis
+
+## Map gene IDs to Entrez IDs
+
+[Entrez][] IDs are required for [Kyoto Encyclopedia of Genes and Genomes (KEGG)][KEGG] analysis. Here we are defining 1:1 mappings of the [Ensembl][] gene IDs to [Entrez][] IDs. For genes that map to multiple [Entrez][] IDs, we are using the oldest [Entrez][] ID to define the 1:1 mapping.
+
+```{r gene2entrez}
+# Define the Ensembl gene to Entrez identifier mappings.
+gene2entrez <- rowData(dds)$entrezID
+stopifnot(is.list(gene2entrez))
+stopifnot(!is.null(names(gene2entrez)))
+# For genes that don't map 1:1 with Entrez, use the oldest Entrez ID.
+# Also, ensure the IDs are coerced to character.
+gene2entrez <- lapply(gene2entrez, function(x) {
+    if (all(is.na(x))) {
+        NULL
+    } else {
+        as.character(sort(x)[[1L]])
+    }
+})
+# Drop genes that don't match to Entrez.
+gene2entrez <- Filter(Negate(is.null), gene2entrez)
+# Ensembl gene IDs are names; Entrez gene ID are values.
+gene2entrez <- unlist(gene2entrez)
+str(gene2entrez)
+saveData(gene2entrez, dir = params$data_dir)
+```
+
+Now let's get the background of unique Entrez IDs.
+
+```{r all-entrez}
+# Unique Entrez IDs to use for background.
+all_entrez <- gene2entrez %>%
+    unique() %>%
+    as.integer() %>%
+    sort() %>%
+    as.character()
+str(all_entrez)
+```
+
+Now we need to map the DESeqResults values to our Entrez IDs. Let's obtain a vector of significant genes that map to Entrez.
+
+```{r sig-gene2entrez}
+# Significant genes that map to Entrez ID.
+sig_gene2entrez <- gene2entrez[intersect(sig_genes, names(gene2entrez))]
+
+# Note that these can be duplicated.
+if (any(duplicated(sig_gene2entrez))) {
+  message("Duplicate Entrez IDs detected.")
+}
+
+str(sig_gene2entrez)
+```
+
+Note that this vector can contain duplicate Entrez IDs, which we will resolve by significance (adjusted P value).
+
+```{r entrez-res}
+stopifnot(all(names(sig_gene2entrez) %in% rownames(res_df)))
+
+# Filter to contain only significant genes that map to Entrez.
+sig_entrez_res_df <- res_df %>%
+    .[names(sig_gene2entrez), , drop = FALSE] %>%
+    rownames_to_column("geneID") %>%
+    as_tibble() %>%
+    mutate(entrezID = sig_gene2entrez) %>%
+    group_by(entrezID) %>%
+    # Get the most significant result, per Entrez ID.
+    top_n(n = 1, wt = padj) %>%
+    as.data.frame() %>%
+    set_rownames(.$entrezID)
+saveData(sig_entrez_res_df, dir = params$data_dir)
+sig_entrez <- pull(sig_entrez_res_df, entrezID)
+
+# Extract the fold changes.
+entrez_lfc_vec <- sig_entrez_res_df$log2FoldChange
+names(entrez_lfc_vec) <- sig_entrez_res_df$entrezID
+# Sort from upregulated to downregulated.
+entrez_lfc_vec <- sort(entrez_lfc_vec, decreasing = TRUE)
+str(entrez_lfc_vec)
+```
+
+```{r enrich-kegg}
+kegg <- enrichKEGG(
+    gene = as.character(sig_entrez),
+    organism = kegg_code,
+    keyType = "ncbi-geneid",
+    universe = as.character(all_entrez),
+    qvalueCutoff = 0.05
+)
+print(kegg)
+
+kegg_tbl <- kegg %>%
+    slot("result") %>%
+    as_tibble() %>%
+    camel()
+
+saveData(kegg, kegg_tbl, dir = params$data_dir)
+export(
+    object = kegg_tbl,
+    file = file.path(
+        params$results_dir,
+        paste0(
+            paste(
+                "kegg",
+                "clusterprofiler",
+                "padj",
+                alpha,
+                "lfc",
+                params$lfc_threshold,
+                sep = "_"
+            ),
+            ".csv.gz"
+        )
+    )
+)
+
+kegg_tbl
+```
+
+## KEGG GSEA analysis
+
+[GSEA][] analysis is performed with the [clusterProfiler][] tool using KEGG gene sets and using the log2 fold changes as input. By using the log2 fold changes as the input, we are identifying pathways with genes that exhibit coordinated fold changes that are larger than might be expected by chance. The significant pathways can be visualized using the log2 fold changes with the Pathview tool.
+
+Gene set enrichment analysis tools use ranked lists of genes (here ranked by log2FC) without using a threshold. This allows the tools to use more information to identify enriched biological processes. The [introduction to gene set enrichment analysis](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1239896) goes into more detail about some of the advantages of this approach. By using the log2 fold changes as the input, we are identifying pathways with genes that exhibit coordinated fold changes that are larger than might be expected by chance. The significant pathways can be visualized using the log2 fold changes with the [pathview][] tool.
+
+The significantly dysregulated pathways (q-value (FDR) < 0.05) are displayed below in the pathway images, which show the degree of dysregulation of the genes (the minus direction (green) is down-regulated, while the positive direction (red) is up-regulated).
+
+When performing [GSEA][] analysis it may be useful to adjust the minGSSize and/or maxGSSize parameter based on the pathways you would like to search for significance. If you are interested in smaller pathways, such as phototransduction, which has a gene set size of 24 genes, then you would want to adjust the minGSSize to less than 24. If you are only interested in larger pathways, then you would want to adjust the GSSize to a larger number. The fewer pathways tested, the less we need to correct for multiple test correction, so by adjusting the minGSSize and maxGSSize parameters you can test fewer pathways and limit testing to the pathways of interest.
+
+```{r kegg-gsea}
+gsea_kegg <- gseKEGG(
+    geneList = entrez_lfc_vec,
+    organism = kegg_code,
+    keyType = "ncbi-geneid"
+)
+print(gsea_kegg)
+
+gsea_kegg_tbl <- gsea_kegg %>%
+    slot("result") %>%
+    as_tibble() %>%
+    camel()
+
+saveData(gsea_kegg, dir = params$data_dir)
+export(
+    object = gsea_kegg_tbl,
+    file = file.path(
+        params$results_dir, 
+        paste0(
+            paste(
+                "gsea",
+                "kegg",
+                "clusterprofiler",
+                "padj",
+                alpha,
+                "lfc",
+                params$lfc_threshold,
+                sep = "_"
+            ),
+            ".csv.gz"
+        )
+    )
+)
+
+gsea_kegg_tbl
+```
+
+```{r pathview-kegg-plots, message=FALSE, results="asis"}
+# help("pathview", "pathview")
+# 
+# There is currently no way to set the output path of the pathview PNG files, so
+# we're changing the working directory. Generally this is not recommended!
+#
+# Also, We're using `tryCatch()` here to return to the user any pathways that
+# didn't output graphics correctly.
+pathways <- gsea_kegg_tbl$id
+if (length(pathways)) {
+    # dplyr must be unloaded for pathview to work.
+    suppressWarnings(detach("package:dplyr", unload = TRUE, force = TRUE))
+    wd <- getwd()
+    setwd(kegg_plots_dir)
+    invisible(lapply(pathways, function(pathway) {
+        # `gene.data` vector should be numeric with Entrez IDs as names.
+        tryCatch(
+            pathview(
+                gene.data = entrez_lfc_vec,
+                pathway.id = pathway,
+                species = kegg_code, 
+                limit = list(gene = 2, cpd = 1)
+            ),
+            error = function(e) {
+                # Return a warning instead of an error.
+                warning(paste(pathway, "failed to plot."), call. = FALSE)
+            }
+        )
+    }))
+    setwd(wd)
+    figures <- list.files(
+        path = kegg_plots_dir,
+        pattern = "pathview",
+        full.names = TRUE
+    )
+    invisible(lapply(figures, function(figure) {
+        cat(paste0("<img src=\"", figure, "\">\n"))
+    }))
+}
+```
+
+```{r footer, child="_footer.Rmd"}
+```
