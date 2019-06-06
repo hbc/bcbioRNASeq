@@ -55,7 +55,6 @@
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
-#' @importFrom matrixStats colMedians rowMedians
 #' @importFrom methods as as<- is new setAs setClass show slot slot<-
 #'   validObject .hasSlot
 #' @importFrom readr read_csv read_tsv write_csv
