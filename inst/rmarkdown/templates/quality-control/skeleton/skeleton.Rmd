@@ -10,7 +10,7 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Last modified 2019-05-30
+# Last modified 2019-06-06
 library(bcbioRNASeq)
 library(ggplot2)
 prepareTemplate(package = "bcbioRNASeq")
