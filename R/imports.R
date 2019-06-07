@@ -2,6 +2,7 @@
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
 #' @importClassesFrom basejump Tx2Gene
+#' @importClassesFrom edgeR DGEList
 #'
 #' @importMethodsFrom basejump coerce
 #'

@@ -9,29 +9,43 @@
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'
-#' 1. Coerces to `RangedSummarizedExperiment`.
-#' 2. Rounds raw counts to `integer matrix`.
-#' 3. Subsets `colData` to include only clean factor columns.
-#'    See [`sampleData()`][basejump::sampleData] for more details.
-#' 4. Simplifies `metadata` to include only relevant information and updates
-#'    `sessionInfo` slot.
+#' 1. Coerce to `RangedSummarizedExperiment`.
+#' 2. Round raw counts to `integer matrix`.
+#' 3. Subset [`colData()`][SummarizedExperiment::colData] to include only clean
+#'    factor columns. See [`sampleData()`][basejump::sampleData] for details.
+#' 4. Simplify [`metadata()`][S4Vectors::metadata] to include only relevant
+#'    information and updates `sessionInfo`.
 #'
-#' Note that gene-level counts are required. Alternatively
-#' [tximport::summarizeToGene()] can be called to convert transcript-level
-#' counts to gene-level. By default, we're using length-scaled TPM, so a
-#' corresponding average transcript length matrix isn't necessary. The average
-#' transcript length matrix is only necessary when raw counts matrix isn't
-#' scaled during tximport call (see `countsFromAbundance` in tximport).
+#' Note that gene-level counts are required. Alternatively,
+#' [`summarizeToGene()`][tximport::summarizeToGene] can be called to convert
+#' transcript-level counts to gene-level. By default, we're using length-scaled
+#' TPM, so a corresponding average transcript length matrix isn't necessary. The
+#' average transcript length matrix is only necessary when raw counts matrix
+#' isn't scaled during tximport call (see `countsFromAbundance` in
+#' [`tximport()`][tximport::tximport] documentation).
 #'
 #' @section bcbioRNASeq to DESeqTransform:
 #'
-#' 1. Coerces to `DESeqDataSet`.
-#' 2. Calls [DESeq2::DESeq()].
-#' 3. Calls [DESeq2::varianceStabilizingTransformation()].
+#' 1. Coerce to `DESeqDataSet`.
+#' 2. Call [DESeq2::DESeq()].
+#' 3. Call [DESeq2::varianceStabilizingTransformation()].
+#'
+#' @section bcbioRNASeq to DGEList:
+#'
+#' 1. Obtain per-observation scaling factors for length, adjusted to avoid
+#'    changing the magnitude of the counts.
+#' 2. Computing effective library sizes from scaled counts, to account for
+#'    composition biases between samples.
+#' 3. Combine effective library sizes with the length factors, and calculate
+#'    offsets for a log-link GLM.
+#' 4. Call [edgeR::DGEList()]
+#' 4. Apply offset matrix using [edgeR::scaleOffset()].
 #'
 #' @seealso
+#' - [tximport vignette](https://bioconductor.org/packages/devel/bioc/vignettes/tximport/inst/doc/tximport.html).
 #' - [tximport::tximport()].
 #' - [DESeq2::DESeqDataSetFromTximport()].
+#' - [edgeR::DGEList()].
 #'
 #' @examples
 #' data(bcb)
@@ -58,25 +72,26 @@ NULL
 
 
 
-#' @rdname coerce
-#' @name coerce,bcbioRNASeq,DESeqDataSet-method
-setAs(
-    from = "bcbioRNASeq",
-    to = "DESeqDataSet",
+`coerce.bcbioRNASeq,DESeqDataSet` <-  # nolint
     function(from) {
         validObject(from)
         rse <- as(from, "RangedSummarizedExperiment")
         .new.DESeqDataSet(se = rse)
     }
-)
 
 
 
 #' @rdname coerce
-#' @name coerce,bcbioRNASeq,DESeqTransform-method
+#' @name coerce,bcbioRNASeq,DESeqDataSet-method
 setAs(
     from = "bcbioRNASeq",
-    to = "DESeqTransform",
+    to = "DESeqDataSet",
+    def = `coerce.bcbioRNASeq,DESeqDataSet`
+)
+
+
+
+`coerce.bcbioRNASeq,DESeqTransform` <-  # nolint
     function(from) {
         validObject(from)
         dds <- as(from, "DESeqDataSet")
@@ -88,4 +103,68 @@ setAs(
         validObject(dt)
         dt
     }
+
+
+
+#' @rdname coerce
+#' @name coerce,bcbioRNASeq,DESeqTransform-method
+setAs(
+    from = "bcbioRNASeq",
+    to = "DESeqTransform",
+    def = `coerce.bcbioRNASeq,DESeqTransform`
+)
+
+
+
+#' @importFrom edgeR DGEList calcNormFactors scaleOffset
+
+# Note that we're following the tximport recommendations here.
+# Last modified 2019-06-07.
+`coerce.bcbioRNASeq,DGEList` <-  # nolint
+    function(from) {
+        validObject(from)
+
+        message(paste0(
+            "Generating DGEList with edgeR ",
+            packageVersion("edgeR"), "."
+        ))
+
+        # Raw counts (i.e. txi$counts)
+        cts <- counts(from)
+        # Average transcript length (i.e. txi$length)
+        normMat <- assays(from)[["avgTxLength"]]
+
+        # Obtain per-observation scaling factors for length, adjusted to avoid
+        # changing the magnitude of the counts.
+        normMat <- normMat / exp(rowMeans(log(normMat)))
+        normCts <- cts / normMat
+
+        # Computing effective library sizes from scaled counts, to account for
+        # composition biases between samples.
+        effLib <- calcNormFactors(normCts) * colSums(normCts)
+
+        # Combine effective library sizes with the length factors, and calculate
+        # offsets for a log-link GLM.
+        normMat <- sweep(x = normMat, MARGIN = 2L, STATS = effLib, FUN = "*")
+        normMat <- log(normMat)
+
+        # Creating a DGEList object for use in edgeR.
+        to <- DGEList(cts)
+        to <- scaleOffset(to, offset = normMat)
+        # Note that tximport guide recommends `filterByExpr()` step but we're
+        # intentionally skipping that step here.
+
+        assert(identical(dimnames(from), dimnames(to)))
+        validObject(to)
+        to
+    }
+
+
+
+#' @rdname coerce
+#' @name coerce,bcbioRNASeq,DGEList-method
+setAs(
+    from = "bcbioRNASeq",
+    to = "DGEList",
+    def = `coerce.bcbioRNASeq,DGEList`
 )

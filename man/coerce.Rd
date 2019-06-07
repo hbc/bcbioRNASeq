@@ -4,6 +4,7 @@
 \alias{coerce}
 \alias{coerce,bcbioRNASeq,DESeqDataSet-method}
 \alias{coerce,bcbioRNASeq,DESeqTransform-method}
+\alias{coerce,bcbioRNASeq,DGEList-method}
 \title{Methods for coercing an object to a class}
 \description{
 Force an object to belong to a class.
@@ -11,28 +12,43 @@ Force an object to belong to a class.
 \section{bcbioRNASeq to DESeqDataSet}{
 
 \enumerate{
-\item Coerces to \code{RangedSummarizedExperiment}.
-\item Rounds raw counts to \code{integer matrix}.
-\item Subsets \code{colData} to include only clean factor columns.
-See \code{\link[basejump:sampleData]{sampleData()}} for more details.
-\item Simplifies \code{metadata} to include only relevant information and updates
-\code{sessionInfo} slot.
+\item Coerce to \code{RangedSummarizedExperiment}.
+\item Round raw counts to \code{integer matrix}.
+\item Subset \code{\link[SummarizedExperiment:colData]{colData()}} to include only clean
+factor columns. See \code{\link[basejump:sampleData]{sampleData()}} for details.
+\item Simplify \code{\link[S4Vectors:metadata]{metadata()}} to include only relevant
+information and updates \code{sessionInfo}.
 }
 
-Note that gene-level counts are required. Alternatively
-\code{\link[tximport:summarizeToGene]{tximport::summarizeToGene()}} can be called to convert transcript-level
-counts to gene-level. By default, we're using length-scaled TPM, so a
-corresponding average transcript length matrix isn't necessary. The average
-transcript length matrix is only necessary when raw counts matrix isn't
-scaled during tximport call (see \code{countsFromAbundance} in tximport).
+Note that gene-level counts are required. Alternatively,
+\code{\link[tximport:summarizeToGene]{summarizeToGene()}} can be called to convert
+transcript-level counts to gene-level. By default, we're using length-scaled
+TPM, so a corresponding average transcript length matrix isn't necessary. The
+average transcript length matrix is only necessary when raw counts matrix
+isn't scaled during tximport call (see \code{countsFromAbundance} in
+\code{\link[tximport:tximport]{tximport()}} documentation).
 }
 
 \section{bcbioRNASeq to DESeqTransform}{
 
 \enumerate{
-\item Coerces to \code{DESeqDataSet}.
-\item Calls \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
-\item Calls \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+\item Coerce to \code{DESeqDataSet}.
+\item Call \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
+\item Call \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+}
+}
+
+\section{bcbioRNASeq to DGEList}{
+
+\enumerate{
+\item Obtain per-observation scaling factors for length, adjusted to avoid
+changing the magnitude of the counts.
+\item Computing effective library sizes from scaled counts, to account for
+composition biases between samples.
+\item Combine effective library sizes with the length factors, and calculate
+offsets for a log-link GLM.
+\item Call \code{\link[edgeR:DGEList]{edgeR::DGEList()}}
+\item Apply offset matrix using \code{\link[edgeR:scaleOffset]{edgeR::scaleOffset()}}.
 }
 }
 
@@ -60,8 +76,10 @@ show(x)
 }
 \seealso{
 \itemize{
+\item \href{https://bioconductor.org/packages/devel/bioc/vignettes/tximport/inst/doc/tximport.html}{tximport vignette}.
 \item \code{\link[tximport:tximport]{tximport::tximport()}}.
 \item \code{\link[DESeq2:DESeqDataSetFromTximport]{DESeq2::DESeqDataSetFromTximport()}}.
+\item \code{\link[edgeR:DGEList]{edgeR::DGEList()}}.
 }
 }
 \author{

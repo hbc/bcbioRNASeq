@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.3.21
-Date: 2019-06-06
+Date: 2019-06-07
 Authors@R: c(
     person(
         given = "Michael",
@@ -103,7 +103,7 @@ LazyData: false
 Depends:
     R (>= 3.5),
     SummarizedExperiment,
-    basejump (>= 0.10.9)
+    basejump (>= 0.10.10)
 Imports:
     acidplots (>= 0.2.4),
     bcbioBase (>= 0.6.4),
