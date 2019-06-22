@@ -13,6 +13,8 @@ bibliography: bibliography.bib
 # Last modified 2019-05-29
 library(bcbioRNASeq)
 library(ggplot2)
+library(knitr)
+library(tidyverse)
 prepareTemplate(package = "bcbioRNASeq")
 source("_setup.R")
 ```
@@ -277,7 +279,7 @@ plotCorrelationHeatmap(object, normalized = "vst")
 
 ```{r export}
 files <- export(
-    x = object,
+    object = object,
     name = name,
     dir = params$output_dir,
     compress = FALSE
