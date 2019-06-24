@@ -333,7 +333,7 @@ res_tbl_list <- mapply(
     SIMPLIFY = FALSE,
     USE.NAMES = TRUE
 )
-saveData(
+assignAndSaveData(
     name = paste(name, "res_tbl_list", sep = "_"),
     object = res_tbl_list,
     dir = params$data_dir
