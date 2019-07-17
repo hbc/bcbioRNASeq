@@ -115,9 +115,9 @@
     <div id="bcbiornaseq-0-2-0-2018-03-22" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-0-2018-03-22" class="anchor"></a>bcbioRNASeq 0.2.0 (2018-03-22)</h2>
-<div id="major-changes-14" class="section level3">
+<div id="major-changes-15" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-14" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-15" class="anchor"></a>Major changes</h3>
 <ul>
 <li>
 <code>bcbioRNASeq</code> S4 class object is now extending <code>RangedSummarizedExperiment</code> instead of <code>SummarizedExperiment</code>. Consequently, the row annotations are now stored in the <code>rowRanges</code> slot as <code>GRanges</code> class, instead of in the <code>rowData</code> slot as a <code>DataFrame</code>. The <code>rowData</code> accessor still works and returns a data frame of gene/transcript annotations, but these are now coerced from the internally stored <code>GRanges</code>. The <code>GRanges</code> object is acquired automatically from <a href="https://www.ensembl.org/">Ensembl</a> using <code>basejump::ensembl</code>. By default, <code>GRanges</code> are acquired from <a href="https://www.ensembl.org/">Ensembl</a> using <a href="https://bioconductor.org/packages/AnnotationHub/">AnnotationHub</a> and <a href="https://bioconductor.org/packages/ensembldb/">ensembldb</a>. Legacy GRCh37 genome build is supported using the <a href="https://bioconductor.org/packages/EnsDb.Hsapiens.v75/">EnsDb.Hsapiens.v75</a> package.</li>
@@ -133,7 +133,7 @@
 <li>Minimal working example dataset is now derived from GSE65267, which is also used in the F1000 paper.</li>
 <li>Added <code>as(object, "DESeqDataSet")</code> coercion method support for <code>bcbioRNASeq</code> class. This helps us set up the differential expression analysis easily.</li>
 <li>
-<code>counts</code> function now returns <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> normalized counts (<code>normalized =   TRUE</code>) and <a href="https://bioconductor.org/packages/edgeR/">edgeR</a> TMM counts (<code>normalized = "tmm"</code>) on the fly, as suggested by the F1000 reviewers.</li>
+<code>counts</code> function now returns <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> normalized counts (<code>normalized = TRUE</code>) and <a href="https://bioconductor.org/packages/edgeR/">edgeR</a> TMM counts (<code>normalized = "tmm"</code>) on the fly, as suggested by the F1000 reviewers.</li>
 <li>Design formula can no longer be slotted into <code>bcbioRNASeq</code> object, since we’re not stashing a <code>DESeqDataSet</code> any more.</li>
 <li>Updated Functional Analysis R Markdown template.</li>
 </ul>
@@ -190,9 +190,9 @@
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-1-2018-04-24" class="anchor"></a>bcbioRNASeq 0.2.1 (2018-04-24)</h2>
 <p>Last set of code fixes before F1000v2 resubmission.</p>
-<div id="major-changes-13" class="section level3">
+<div id="major-changes-14" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-13" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-14" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Added <code>rle</code> return support for <code>counts</code>, which are calculated on the fly.</li>
 <li>Added <code>transgeneNames</code> and <code>spikeNames</code> support to <code>loadRNASeq</code> function.</li>
@@ -237,9 +237,9 @@
     <div id="bcbiornaseq-0-2-3-2018-05-10" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-3-2018-05-10" class="anchor"></a>bcbioRNASeq 0.2.3 (2018-05-10)</h2>
-<div id="major-changes-12" class="section level3">
+<div id="major-changes-13" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-12" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-13" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Now recommending variance stabilizing transformation (<code>vst</code>) over <code>rlog</code> counts by default in plots, where applicable.</li>
 </ul>
@@ -266,9 +266,9 @@
     <div id="bcbiornaseq-0-2-4-2018-05-24" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-4-2018-05-24" class="anchor"></a>bcbioRNASeq 0.2.4 (2018-05-24)</h2>
-<div id="major-changes-11" class="section level3">
+<div id="major-changes-12" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-11" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-12" class="anchor"></a>Major changes</h3>
 <ul>
 <li>
 <code>aggregateReplicates</code> support has been added back. This function returns a <code>RangedSummarizedExperiment</code> instead of a <code>bcbioRNASeq</code> object, containing only an aggregate raw counts matrix in the <code>counts</code> slot of <code>assays</code>.</li>
@@ -315,9 +315,9 @@
     <div id="bcbiornaseq-0-2-6-2018-08-19" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-6-2018-08-19" class="anchor"></a>bcbioRNASeq 0.2.6 (2018-08-19)</h2>
-<div id="major-changes-10" class="section level3">
+<div id="major-changes-11" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-10" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-11" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Added <code>transform = TRUE</code> argument to <code><a href="https://rdrr.io/r/base/Extract.html">[</a></code> extraction method, allowing the user to skip automatic <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> transformations, which can be CPU intensive for large datasets.</li>
 <li>Switched back to using <code>plotMA</code> instead of <code>plotMeanAverage</code>. An MA-plot by definition is not a “Mean Average” plot, so this function name is misleading. We will keep the <code>plotMeanAverage</code> working but it is now soft deprecated.</li>
@@ -365,9 +365,9 @@
     <div id="bcbiornaseq-0-2-9-2019-05-03" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-9-2019-05-03" class="anchor"></a>bcbioRNASeq 0.2.9 (2019-05-03)</h2>
-<div id="major-changes-9" class="section level3">
+<div id="major-changes-10" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-9" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-10" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Fixed a bug in internal tximport code (refer to <code>tximport-internal.R</code> file) where sample names can get associated with the wrong samples in experiments, causing samples with numbers roll over from 1 -&gt; 10. Thanks to Richard from AstraZeneca for catching this.</li>
 </ul>

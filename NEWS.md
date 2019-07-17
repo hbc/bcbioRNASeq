@@ -1,9 +1,16 @@
 ## bcbioRNASeq 0.3.21 (2019-07-17)
 
+### Major changes
+
+- Initial support for `bcbioRNASeq` to `DGEList` (edgeR) object coercion.
+- `relativeLogExpression`: Improved internal code, using edgeR
+  `calcNormFactors` approach.
+
 ### Minor changes
 
 - Updated basejump dependency to v0.10.11.
 - Improved Travis CI docker config to check coverage and lints.
+- Improved Bioconductor installation instructions.
 
 ## bcbioRNASeq 0.3.20 (2019-05-29)
 
