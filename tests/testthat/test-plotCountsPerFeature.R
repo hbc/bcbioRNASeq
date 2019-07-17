@@ -1,11 +1,6 @@
 context("plotCountsPerFeature")
 
-geom <- methodFormals(
-    f = "plotCountsPerFeature",
-    signature = "bcbioRNASeq"
-) %>%
-    .[["geom"]] %>%
-    eval()
+geom <- eval(formals(plotCountsPerFeature.bcbioRNASeq)[["geom"]])
 
 with_parameters_test_that(
     "bcbioRNASeq", {
