@@ -3,6 +3,7 @@
 ### Minor changes
 
 - Updated basejump dependency to v0.10.11.
+- Improved Travis CI docker config to check coverage and lints.
 
 ## bcbioRNASeq 0.3.20 (2019-05-29)
 
