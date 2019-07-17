@@ -22,25 +22,20 @@ citation("bcbioRNASeq")
 We recommend installing the package with [BiocManager][].
 
 ```r
-if (!require("BiocManager")) {
+Sys.setenv(R_REMOTES_UPGRADE = "always")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
-BiocManager::install("remotes")
-BiocManager::install("hbc/bcbioRNASeq")
-```
-
-For [R][] < 3.5, [BiocManager][] is not supported. Use `BiocInstaller::biocLite()` instead of `BiocManager::install()`. This requires sourcing the legacy [Bioconductor][] `biocLite.R` script.
-
-```r
-# try http:// if https:// URLs are not supported
-source("https://bioconductor.org/biocLite.R")
+library(BiocManager)
+install("remotes")
+install("hbc/bcbioRNASeq")
 ```
 
 ### [conda][] method
 
 Configure [conda][] to use the [bioconda][] channels.
 
-```bash
+```sh
 conda config --add channels defaults
 conda config --add channels bioconda
 conda config --add channels conda-forge
@@ -57,7 +52,7 @@ channels:
 
 We recommend installing into a clean [conda][] environment:
 
-```bash
+```sh
 conda create --name r
 conda activate r
 ```
@@ -66,13 +61,13 @@ Launch [R][] and check that it is set up correctly with the `capabilities()` fun
 
 Now you're ready to install `r-bcbiornaseq`.
 
-```bash
+```sh
 conda install -c bioconda r-bcbiornaseq
 ```
 
 Note that there is currently a bug with [conda][] and `libgfortran`. You may need to install `libgfortran-ng` to get the bcbioRNASeq package to load in [R][].
 
-```bash
+```sh
 conda install libgfortran-ng
 ```
 

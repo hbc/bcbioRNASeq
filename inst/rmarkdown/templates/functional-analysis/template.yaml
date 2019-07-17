@@ -1,0 +1,4 @@
+name: Functional Analysis
+description: >
+  Template for gene set functional analysis.
+create_dir: false

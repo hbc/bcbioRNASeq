@@ -48,6 +48,7 @@
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -64,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.20</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.21</span>
       </span>
     </div>
 
@@ -101,6 +102,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -150,7 +152,7 @@
 <li>Renamed <code>maxSamples</code> parameter in <code>loadRNASeq</code> to <code>transformationLimit</code>. If there are more samples than this limit, then the DESeq2 transformations will be skipped. In this case, <code>rlog</code> and <code>vst</code> will not be slotted into <code>assays</code>.</li>
 <li>Added a colData sanitization step in <code>loadRNASeq</code> to ensure rows are in the same order as the columns in the counts matrix. Otherwise, DESeq will report an error at the <code>DESeqDataSetFromTximport</code> step. We’re also ensuring the factor levels get updated here.</li>
 <li>Now using <code>glimpse</code> instead of <code>str</code> in examples, where applicable.</li>
-<li>Added <code>colData&lt;-</code> assignment method support. This requires a <code>DataFrame</code> class object. Upon assignment, the internal colData at <code>bcbio(object,   "DESeqDataSet")</code>, <code>assays(object)[["rlog"]]</code> and <code>assays(object)[["vst"]]</code> are also updated to match.</li>
+<li>Added <code>colData&lt;-</code> assignment method support. This requires a <code>DataFrame</code> class object. Upon assignment, the internal colData at <code>bcbio(object, "DESeqDataSet")</code>, <code>assays(object)[["rlog"]]</code> and <code>assays(object)[["vst"]]</code> are also updated to match.</li>
 <li>Initial assignment support for <code>design</code>, which will update the internal DESeqDataSet.</li>
 <li>Added method support for <code>gene2symbol</code> generic, which will now return a 2 column <code>data.frame</code> with <code>ensgene</code> and <code>symbol</code> columns. This is helpful for downstream gene to symbol mapping operations.</li>
 <li>Added working example for <code>interestingGroups&lt;-</code> in the documentation.</li>
@@ -211,7 +213,7 @@
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-1-7-2018-02-28" class="anchor"></a>bcbioRNASeq 0.1.7 (2018-02-28)</h2>
 <ul>
-<li>Bug fix for <code>[</code> subset method dropping metrics in metadata.</li>
+<li>Bug fix for <code><a href="https://rdrr.io/r/base/Extract.html">[</a></code> subset method dropping metrics in metadata.</li>
 <li>Simplified unit testing for Dropbox mode enabled in <code>resultsTables</code>.</li>
 </ul>
 </div>
@@ -243,6 +245,7 @@
 
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io/'>Lorena Pantano</a>, <a href='https://github.com/roryk/'>Rory Kirchner</a>, <a href='https://github.com/vbarrera/'>Victor Barrera</a>, <a href='https://github.com/chapmanb/'>Brad Chapman</a>, <a href='https://github.com/marypiper/'>Mary Piper</a>, <a href='https://github.com/mistrm82/'>Meeta Mistry</a>, <a href='https://github.com/rkhetani/'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford/'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann/'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson/'>John Hutchinson</a>, <a href='https://github.com/sjhosui/'>Shannan Ho Sui</a>, <a href='https://bioinformatics.sph.harvard.edu/'>Harvard Chan Bioinformatics Core</a>.</p>
@@ -251,11 +254,14 @@
 <div class="pkgdown">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

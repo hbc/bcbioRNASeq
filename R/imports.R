@@ -2,6 +2,7 @@
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #'   SummarizedExperiment
 #' @importClassesFrom basejump Tx2Gene
+#' @importClassesFrom edgeR DGEList
 #'
 #' @importMethodsFrom basejump coerce
 #'
@@ -55,7 +56,6 @@
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
-#' @importFrom matrixStats colMedians
 #' @importFrom methods as as<- is new setAs setClass show slot slot<-
 #'   validObject .hasSlot
 #' @importFrom readr read_csv read_tsv write_csv

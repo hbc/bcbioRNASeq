@@ -53,6 +53,7 @@ analysis." />
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -69,7 +70,7 @@ analysis." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.20</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.21</span>
       </span>
     </div>
 
@@ -106,6 +107,7 @@ analysis." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -271,17 +273,22 @@ migrated to <code>RangedSummarizedExperiment</code>.</p>
     <h2 class="hasAnchor" id="automatic-metadata"><a class="anchor" href="#automatic-metadata"></a>Automatic metadata</h2>
 
     
-    <p>The <code><a href='https://rdrr.io/pkg/S4Vectors/man/Annotated-class.html'>metadata()</a></code> slot always contains:</p><ul>
+
+
+<p>The <code><a href='https://rdrr.io/pkg/S4Vectors/man/Annotated-class.html'>metadata()</a></code> slot always contains:</p><ul>
 <li><p>Object version.</p></li>
 <li><p>bcbio data provenance information.</p></li>
 <li><p>File paths and timestamps.</p></li>
 <li><p>R session information.</p></li>
 </ul>
+
     
     <h2 class="hasAnchor" id="sample-metadata"><a class="anchor" href="#sample-metadata"></a>Sample metadata</h2>
 
     
-    <p>When loading a bcbio RNA-seq run, the sample metadata will be imported
+
+
+<p>When loading a bcbio RNA-seq run, the sample metadata will be imported
 automatically from the <code>project-summary.yaml</code> file in the final upload
 directory. If you notice any typos in your metadata after completing the run,
 these can be corrected by editing the YAML file.</p>
@@ -303,11 +310,15 @@ column, as this is used internally by the package.</p>
 <tr><td>sample3</td><td>wildtype</td></tr>
 <tr><td>sample4</td><td>knockout</td></tr>
 </table>
+
+
     
     <h2 class="hasAnchor" id="valid-names"><a class="anchor" href="#valid-names"></a>Valid names</h2>
 
     
-    <p>R is strict about values that are considered valid for use in
+
+
+<p>R is strict about values that are considered valid for use in
 <code><a href='https://rdrr.io/r/base/names.html'>names()</a></code> and <code><a href='https://rdrr.io/r/base/dimnames.html'>dimnames()</a></code> (i.e.
 <code><a href='https://rdrr.io/r/base/colnames.html'>rownames()</a></code> and <code><a href='https://rdrr.io/r/base/colnames.html'>colnames()</a></code>).
 Non-alphanumeric characters, spaces, and <strong>dashes</strong> are not valid. Use either
@@ -322,7 +333,9 @@ mismatches.</p>
     <h2 class="hasAnchor" id="genome-annotations"><a class="anchor" href="#genome-annotations"></a>Genome annotations</h2>
 
     
-    <p><code>bcbioRNASeq()</code> provides support for automatic import of genome annotations,
+
+
+<p><code>bcbioRNASeq()</code> provides support for automatic import of genome annotations,
 which internally get processed into genomic ranges (<code>GRanges</code>) and are
 slotted into the <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>rowRanges()</a></code> of the
 object. Currently, we offer support for (1) <a href='https://ensembl.org/'>Ensembl</a> genome annotations
@@ -350,11 +363,14 @@ specifically with either of these functions:</p><ul>
 <li><p><code><a href='https://rdrr.io/pkg/basejump/man/reexports.html'>basejump::makeGRangesFromEnsembl()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/basejump/man/reexports.html'>basejump::makeGRangesFromGFF()</a></code>.</p></li>
 </ul>
+
     
     <h2 class="hasAnchor" id="genome-build"><a class="anchor" href="#genome-build"></a>Genome build</h2>
 
     
-    <p>Ensure that the organism and genome build used with bcio match correctly here
+
+
+<p>Ensure that the organism and genome build used with bcio match correctly here
 in the function call. In particular, for the legacy <em>Homo sapiens</em>
 GRCh37/hg19 genome build, ensure that <code>genomeBuild = "GRCh37"</code>. Otherwise,
 the genomic ranges set in <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>rowRanges()</a></code>
@@ -364,7 +380,9 @@ used in place of GRCh37/hg19 if possible.</p>
     <h2 class="hasAnchor" id="deseq-"><a class="anchor" href="#deseq-"></a>DESeq2</h2>
 
     
-    <p>DESeq2 is run automatically when <code>bcbioRNASeq()</code> is called. Internally, this
+
+
+<p>DESeq2 is run automatically when <code>bcbioRNASeq()</code> is called. Internally, this
 automatically slots normalized counts into
 <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>assays()</a></code>, and optionally generates
 variance-stabilized counts (e.g. <code>vst</code>, <code>rlog</code>), depending on the call. When
@@ -375,20 +393,24 @@ compute.</p>
     <h2 class="hasAnchor" id="remote-connections"><a class="anchor" href="#remote-connections"></a>Remote connections</h2>
 
     
-    <p>When working on a local machine, it is possible to load bcbio run data over a
+
+
+<p>When working on a local machine, it is possible to load bcbio run data over a
 remote connection using <a href='https://github.com/osxfuse/osxfuse/wiki/SSHFS'>sshfs</a>. When loading a large number of samples, it
 is preferable to call <code>bcbioRNASeq()</code> directly in R on the remote server, if
 possible.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><ul>
+    <div class='dont-index'>
+<ul>
 <li><p><code>.S4methods(class = "bcbioRNASeq")</code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>SummarizedExperiment::SummarizedExperiment()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/r/methods/new.html'>methods::initialize()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/r/methods/validObject.html'>methods::validObject()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/BiocGenerics/man/updateObject.html'>BiocGenerics::updateObject()</a></code>.</p></li>
-</ul></div>
+</ul>
+</div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -403,16 +425,16 @@ possible.</p>
     <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='fl'>87L</span>
 )</div><div class='output co'>#&gt; <span class='message'>Dated project directory: 2018-03-18_GSE65267-merged</span></div><div class='output co'>#&gt; <span class='message'>6 samples detected:</span>
 #&gt; <span class='message'>[1] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" "fa_day7_rep2"</span>
-#&gt; <span class='message'>[6] "fa_day7_rep3"</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Failed to detect sequencing lanes.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon transcript-level counts from quant.sf files using tximport 1.12.0.</span></div><div class='output co'>#&gt; <span class='message'>Scaling transcripts using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>Returning transcript abundance at gene level.</span></div><div class='output co'>#&gt; <span class='message'>reading in files with read_tsv</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>5 </span></div><div class='output co'>#&gt; <span class='message'>6 </span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Using makeGRangesFromEnsembl() for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.16.0 (2019-05-02).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span>
+#&gt; <span class='message'>[6] "fa_day7_rep3"</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Failed to detect sequencing lanes.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon transcript-level counts from quant.sf files using tximport 1.12.3.</span></div><div class='output co'>#&gt; <span class='message'>Scaling transcripts using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>Returning transcript abundance at gene level.</span></div><div class='output co'>#&gt; <span class='message'>reading in files with read_tsv</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>5 </span></div><div class='output co'>#&gt; <span class='message'>6 </span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Using makeGRangesFromEnsembl() for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.16.0 (2019-05-02).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span>
 #&gt; <span class='message'>Run this code to download EnsDb manually:</span>
 #&gt; <span class='message'>  &gt; library(AnnotationHub)</span>
 #&gt; <span class='message'>  &gt; ah &lt;- AnnotationHub()</span>
 #&gt; <span class='message'>  &gt; edb &lt;- ah[["AH53222"]]</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
-#&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneBiotype, geneName, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM using DESeq2::fpkm().</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.19
-#&gt; uploadDir: /data00/R/x86_64-redhat-linux-gnu-library/3.6/bcbioRNASeq/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-05-29
+#&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneBiotype, geneName, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM using DESeq2::fpkm().</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.21
+#&gt; uploadDir: /data00/R/site-library/3.6/bcbioRNASeq/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-17
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -436,16 +458,16 @@ possible.</p>
     <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='fl'>87L</span>
 )</div><div class='output co'>#&gt; <span class='message'>Dated project directory: 2018-03-18_GSE65267-merged</span></div><div class='output co'>#&gt; <span class='message'>6 samples detected:</span>
 #&gt; <span class='message'>[1] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" "fa_day7_rep2"</span>
-#&gt; <span class='message'>[6] "fa_day7_rep3"</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Failed to detect sequencing lanes.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon transcript-level counts from quant.sf files using tximport 1.12.0.</span></div><div class='output co'>#&gt; <span class='message'>Scaling transcripts using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>reading in files with read_tsv</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>5 </span></div><div class='output co'>#&gt; <span class='message'>6 </span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>Using makeGRangesFromEnsembl() for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.16.0 (2019-05-02).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span>
+#&gt; <span class='message'>[6] "fa_day7_rep3"</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Failed to detect sequencing lanes.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon transcript-level counts from quant.sf files using tximport 1.12.3.</span></div><div class='output co'>#&gt; <span class='message'>Scaling transcripts using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>reading in files with read_tsv</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>5 </span></div><div class='output co'>#&gt; <span class='message'>6 </span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>Using makeGRangesFromEnsembl() for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.16.0 (2019-05-02).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span>
 #&gt; <span class='message'>Run this code to download EnsDb manually:</span>
 #&gt; <span class='message'>  &gt; library(AnnotationHub)</span>
 #&gt; <span class='message'>  &gt; ah &lt;- AnnotationHub()</span>
 #&gt; <span class='message'>  &gt; edb &lt;- ah[["AH53222"]]</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
-#&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations: gene_name, gene_biotype, seq_coord_system, description, symbol, entrezid</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, seqnames, transcriptBiotype</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.19
-#&gt; uploadDir: /data00/R/x86_64-redhat-linux-gnu-library/3.6/bcbioRNASeq/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-05-29
+#&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations: gene_name, gene_biotype, seq_coord_system, description, symbol, entrezid</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, seqnames, transcriptBiotype</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.21
+#&gt; uploadDir: /data00/R/site-library/3.6/bcbioRNASeq/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-17
 #&gt; level: transcripts
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -497,6 +519,7 @@ possible.</p>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io/'>Lorena Pantano</a>, <a href='https://github.com/roryk/'>Rory Kirchner</a>, <a href='https://github.com/vbarrera/'>Victor Barrera</a>, <a href='https://github.com/chapmanb/'>Brad Chapman</a>, <a href='https://github.com/marypiper/'>Mary Piper</a>, <a href='https://github.com/mistrm82/'>Meeta Mistry</a>, <a href='https://github.com/rkhetani/'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford/'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann/'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson/'>John Hutchinson</a>, <a href='https://github.com/sjhosui/'>Shannan Ho Sui</a>, <a href='https://bioinformatics.sph.harvard.edu/'>Harvard Chan Bioinformatics Core</a>.</p>
@@ -505,11 +528,14 @@ possible.</p>
 <div class="pkgdown">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

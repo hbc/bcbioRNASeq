@@ -51,6 +51,7 @@
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -67,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.20</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.21</span>
       </span>
     </div>
 
@@ -104,6 +105,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -124,7 +126,7 @@
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotMeanSD</span>(<span class='no'>object</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/scale_gradient.html'>scale_fill_gradient</a></span>(<span class='kw'>low</span> <span class='kw'>=</span> <span class='st'>"grey25"</span>, <span class='kw'>high</span> <span class='kw'>=</span> <span class='st'>"purple"</span>),
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span>(<span class='kw'>low</span> <span class='kw'>=</span> <span class='st'>"grey25"</span>, <span class='kw'>high</span> <span class='kw'>=</span> <span class='st'>"purple"</span>),
   <span class='kw'>lineColor</span> <span class='kw'>=</span> <span class='st'>"darkorange"</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.legend"</span>,
   <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</pre>
     
@@ -140,7 +142,7 @@
       <td><p><code>ggproto</code>/<code>ScaleDiscrete</code>.
 Desired ggplot2 fill scale. Must supply discrete values. When set to
 <code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code><a href='https://rdrr.io/pkg/ggplot2/man/scale_manual.html'>ggplot2::scale_fill_manual()</a></code>.</p>
+definitions are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_fill_manual()</a></code>.</p>
 <p>To set the discrete fill palette globally, use:</p><pre>options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
 </pre></td>
     </tr>
@@ -172,21 +174,24 @@ Show plot legend.</p></td>
 <li><p>DESeq2 VST: <strong>v</strong>ariance-<strong>s</strong>tabilizing <strong>t</strong>ransformation.</p></li>
 <li><p>edgeR log2 TMM: log2 <strong>t</strong>rimmed <strong>m</strong>ean of <strong>M</strong>-values transformation.</p></li>
 </ul>
+
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><ul>
+    <div class='dont-index'>
+<ul>
 <li><p><code><a href='https://rdrr.io/pkg/vsn/man/meanSdPlot.html'>vsn::meanSdPlot()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq2::DESeq()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/edgeR/man/calcNormFactors.html'>edgeR::calcNormFactors()</a></code>.</p></li>
-</ul></div>
+</ul>
+</div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Regularized log (rlog) was not calculated. Skipping.</span></div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotMeanSD</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotMeanSD-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -207,6 +212,7 @@ Show plot legend.</p></td>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io/'>Lorena Pantano</a>, <a href='https://github.com/roryk/'>Rory Kirchner</a>, <a href='https://github.com/vbarrera/'>Victor Barrera</a>, <a href='https://github.com/chapmanb/'>Brad Chapman</a>, <a href='https://github.com/marypiper/'>Mary Piper</a>, <a href='https://github.com/mistrm82/'>Meeta Mistry</a>, <a href='https://github.com/rkhetani/'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford/'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann/'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson/'>John Hutchinson</a>, <a href='https://github.com/sjhosui/'>Shannan Ho Sui</a>, <a href='https://bioinformatics.sph.harvard.edu/'>Harvard Chan Bioinformatics Core</a>.</p>
@@ -215,11 +221,14 @@ Show plot legend.</p></td>
 <div class="pkgdown">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

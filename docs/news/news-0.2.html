@@ -48,6 +48,7 @@
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -64,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.20</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.21</span>
       </span>
     </div>
 
@@ -101,6 +102,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -113,9 +115,9 @@
     <div id="bcbiornaseq-0-2-0-2018-03-22" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-0-2018-03-22" class="anchor"></a>bcbioRNASeq 0.2.0 (2018-03-22)</h2>
-<div id="major-changes-14" class="section level3">
+<div id="major-changes-15" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-14" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-15" class="anchor"></a>Major changes</h3>
 <ul>
 <li>
 <code>bcbioRNASeq</code> S4 class object is now extending <code>RangedSummarizedExperiment</code> instead of <code>SummarizedExperiment</code>. Consequently, the row annotations are now stored in the <code>rowRanges</code> slot as <code>GRanges</code> class, instead of in the <code>rowData</code> slot as a <code>DataFrame</code>. The <code>rowData</code> accessor still works and returns a data frame of gene/transcript annotations, but these are now coerced from the internally stored <code>GRanges</code>. The <code>GRanges</code> object is acquired automatically from <a href="https://www.ensembl.org/">Ensembl</a> using <code>basejump::ensembl</code>. By default, <code>GRanges</code> are acquired from <a href="https://www.ensembl.org/">Ensembl</a> using <a href="https://bioconductor.org/packages/AnnotationHub/">AnnotationHub</a> and <a href="https://bioconductor.org/packages/ensembldb/">ensembldb</a>. Legacy GRCh37 genome build is supported using the <a href="https://bioconductor.org/packages/EnsDb.Hsapiens.v75/">EnsDb.Hsapiens.v75</a> package.</li>
@@ -131,14 +133,14 @@
 <li>Minimal working example dataset is now derived from GSE65267, which is also used in the F1000 paper.</li>
 <li>Added <code>as(object, "DESeqDataSet")</code> coercion method support for <code>bcbioRNASeq</code> class. This helps us set up the differential expression analysis easily.</li>
 <li>
-<code>counts</code> function now returns <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> normalized counts (<code>normalized =   TRUE</code>) and <a href="https://bioconductor.org/packages/edgeR/">edgeR</a> TMM counts (<code>normalized = "tmm"</code>) on the fly, as suggested by the F1000 reviewers.</li>
+<code>counts</code> function now returns <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> normalized counts (<code>normalized = TRUE</code>) and <a href="https://bioconductor.org/packages/edgeR/">edgeR</a> TMM counts (<code>normalized = "tmm"</code>) on the fly, as suggested by the F1000 reviewers.</li>
 <li>Design formula can no longer be slotted into <code>bcbioRNASeq</code> object, since we’re not stashing a <code>DESeqDataSet</code> any more.</li>
 <li>Updated Functional Analysis R Markdown template.</li>
 </ul>
 </div>
-<div id="minor-changes-27" class="section level3">
+<div id="minor-changes-29" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-27" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-29" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>
 <code>validObject</code> is now required for all plotting functions. This check is also called in the R Markdown template. Legacy objects can be updated using <code>updateObject</code>.</li>
@@ -188,9 +190,9 @@
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-1-2018-04-24" class="anchor"></a>bcbioRNASeq 0.2.1 (2018-04-24)</h2>
 <p>Last set of code fixes before F1000v2 resubmission.</p>
-<div id="major-changes-13" class="section level3">
+<div id="major-changes-14" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-13" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-14" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Added <code>rle</code> return support for <code>counts</code>, which are calculated on the fly.</li>
 <li>Added <code>transgeneNames</code> and <code>spikeNames</code> support to <code>loadRNASeq</code> function.</li>
@@ -200,9 +202,9 @@
 <li>Improved internal code for <code>plotGene</code> and <code>plotGenderMarkers</code>.</li>
 </ul>
 </div>
-<div id="minor-changes-26" class="section level3">
+<div id="minor-changes-28" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-26" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-28" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Improved <a href="https://ci.appveyor.com/">AppVeyor CI</a> support to test against bioc-devel using <a href="https://www.r-project.org/">R</a> 3.5.</li>
 <li>Improved support and unit testing for <code>updateObject</code> method.</li>
@@ -218,9 +220,9 @@
     <div id="bcbiornaseq-0-2-2-2018-04-26" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-2-2018-04-26" class="anchor"></a>bcbioRNASeq 0.2.2 (2018-04-26)</h2>
-<div id="minor-changes-25" class="section level3">
+<div id="minor-changes-27" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-25" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-27" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Split out assertive imports so we can pin on <a href="https://bioconda.github.io/">bioconda</a>.</li>
 <li>Improved package documentation.</li>
@@ -235,21 +237,21 @@
     <div id="bcbiornaseq-0-2-3-2018-05-10" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-3-2018-05-10" class="anchor"></a>bcbioRNASeq 0.2.3 (2018-05-10)</h2>
-<div id="major-changes-12" class="section level3">
+<div id="major-changes-13" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-12" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-13" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Now recommending variance stabilizing transformation (<code>vst</code>) over <code>rlog</code> counts by default in plots, where applicable.</li>
 </ul>
 </div>
-<div id="minor-changes-24" class="section level3">
+<div id="minor-changes-26" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-24" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-26" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Tweaked Rory’s biotype plots in QC report to match formatting conventions in the package. These plots are now colored.</li>
 <li>Added <code>plotDEGPCA</code> to default differential expression <a href="https://rmarkdown.rstudio.com/">R Markdown</a> template.</li>
 <li>
-<code>colData</code> factors are correctly releveled upon object subset with <code>[</code>. This helps avoid unwanted downstream errors when creating a <code>DESeqDataSet</code> and running differential expression with <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a>.</li>
+<code>colData</code> factors are correctly releveled upon object subset with <code><a href="https://rdrr.io/r/base/Extract.html">[</a></code>. This helps avoid unwanted downstream errors when creating a <code>DESeqDataSet</code> and running differential expression with <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a>.</li>
 <li>Recommending <code>facet</code> return method by default for <code>plotGene</code>. Updated the working example to reflect this.</li>
 <li>
 <code>metrics</code> now returns <code>interestingGroups</code> column.</li>
@@ -264,9 +266,9 @@
     <div id="bcbiornaseq-0-2-4-2018-05-24" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-4-2018-05-24" class="anchor"></a>bcbioRNASeq 0.2.4 (2018-05-24)</h2>
-<div id="major-changes-11" class="section level3">
+<div id="major-changes-12" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-11" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-12" class="anchor"></a>Major changes</h3>
 <ul>
 <li>
 <code>aggregateReplicates</code> support has been added back. This function returns a <code>RangedSummarizedExperiment</code> instead of a <code>bcbioRNASeq</code> object, containing only an aggregate raw counts matrix in the <code>counts</code> slot of <code>assays</code>.</li>
@@ -274,9 +276,9 @@
 <li>Made <code>alphaSummary</code> defunct for <code>bcbioRNASeq</code> object, in favor of <code>DESeqDataSet</code> only. This function is only useful when a proper design formula has been defined.</li>
 </ul>
 </div>
-<div id="minor-changes-23" class="section level3">
+<div id="minor-changes-25" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-23" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-25" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>
 <code>metrics</code> now contains an informative error for datasets that were analyzed using the <code>fast-rnaseq</code> <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> pipeline.</li>
@@ -285,7 +287,7 @@
 <li>
 <code>bcbioSingleCell</code> constructor now supports <code>censorSamples</code> parameter. This is useful for removing known poor quality samples upon loading.</li>
 <li>
-<a href="https://ggplot2.tidyverse.org/">ggplot2</a> color and fill palettes are now set <code>NULL</code> in the quality control functions. This behavior doesn’t change the appearance of the plot colors, which will still default to <code><a href="https://rdrr.io/pkg/ggplot2/man/scale_hue.html">ggplot2::scale_colour_hue</a></code> or <code><a href="https://rdrr.io/pkg/ggplot2/man/scale_hue.html">ggplot2::scale_fill_hue</a></code>. The upcoming <a href="https://ggplot2.tidyverse.org/">ggplot2</a> v2.3.0 update supports global options for color and fill palettes, so these parameters may be deprecated in a future release.</li>
+<a href="https://ggplot2.tidyverse.org/">ggplot2</a> color and fill palettes are now set <code>NULL</code> in the quality control functions. This behavior doesn’t change the appearance of the plot colors, which will still default to <code><a href="https://ggplot2.tidyverse.org/reference/scale_hue.html">ggplot2::scale_colour_hue</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/scale_hue.html">ggplot2::scale_fill_hue</a></code>. The upcoming <a href="https://ggplot2.tidyverse.org/">ggplot2</a> v2.3.0 update supports global options for color and fill palettes, so these parameters may be deprecated in a future release.</li>
 <li>Reworked the internal code for <code>topTables</code>.</li>
 </ul>
 </div>
@@ -301,9 +303,9 @@
     <div id="bcbiornaseq-0-2-5-2018-06-21" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-5-2018-06-21" class="anchor"></a>bcbioRNASeq 0.2.5 (2018-06-21)</h2>
-<div id="minor-changes-22" class="section level3">
+<div id="minor-changes-24" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-22" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-24" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Enable support <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> integration, by modifying <code>bcbioRNASeq</code> constructor to work with minimal bcbio test data.</li>
 <li>Switched from internal usage of <code>aes_</code> in favor of consistent usage of <code>aes_string</code>. This will make the transition to <a href="https://ggplot2.tidyverse.org/">ggplot2</a> v2.3.0 easier in a future update.</li>
@@ -313,19 +315,19 @@
     <div id="bcbiornaseq-0-2-6-2018-08-19" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-6-2018-08-19" class="anchor"></a>bcbioRNASeq 0.2.6 (2018-08-19)</h2>
-<div id="major-changes-10" class="section level3">
+<div id="major-changes-11" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-10" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-11" class="anchor"></a>Major changes</h3>
 <ul>
-<li>Added <code>transform = TRUE</code> argument to <code>[</code> extraction method, allowing the user to skip automatic <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> transformations, which can be CPU intensive for large datasets.</li>
+<li>Added <code>transform = TRUE</code> argument to <code><a href="https://rdrr.io/r/base/Extract.html">[</a></code> extraction method, allowing the user to skip automatic <a href="https://bioconductor.org/packages/DESeq2/">DESeq2</a> transformations, which can be CPU intensive for large datasets.</li>
 <li>Switched back to using <code>plotMA</code> instead of <code>plotMeanAverage</code>. An MA-plot by definition is not a “Mean Average” plot, so this function name is misleading. We will keep the <code>plotMeanAverage</code> working but it is now soft deprecated.</li>
 <li>
 <code>plotGeneSaturation</code> now supports <code>label</code> argument, similar to <code>plotPCA</code>.</li>
 </ul>
 </div>
-<div id="minor-changes-21" class="section level3">
+<div id="minor-changes-23" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-21" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-23" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Improved internal handling during <code>tximport</code> call to handle transcript version mismatch with tx2gene data.frame. This can result if the bcbio pipeline is using an old genome build.</li>
 <li>Ensure <code>genomeBuild</code> is detected from <a href="https://bioconductor.org/packages/AnnotationHub/">AnnotationHub</a> <code>rowRangesMetadata</code> if applicable, and not left <code>NULL</code> in the metadata.</li>
@@ -343,9 +345,9 @@
     <div id="bcbiornaseq-0-2-7-2018-08-22" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-7-2018-08-22" class="anchor"></a>bcbioRNASeq 0.2.7 (2018-08-22)</h2>
-<div id="minor-changes-20" class="section level3">
+<div id="minor-changes-22" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-20" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-22" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Bug fix for <code>as</code> coercion method support. Need to ensure <code>exportMethods(coerce)</code> is included in <code>NAMESPACE</code> file, otherwise <code>bcbioRNASeq</code> to <code>DESeqDataSet</code> coercion using <code>as(bcb, "DESeqDataSet")</code> won’t work when called from an Rscript without the package library loaded. Thanks <a href='https://github.com/roryk'>@roryk</a> for noticing this.</li>
 <li>Only run rRNA plots if rRNA is detected.</li>
@@ -363,9 +365,9 @@
     <div id="bcbiornaseq-0-2-9-2019-05-03" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0-2-9-2019-05-03" class="anchor"></a>bcbioRNASeq 0.2.9 (2019-05-03)</h2>
-<div id="major-changes-9" class="section level3">
+<div id="major-changes-10" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-9" class="anchor"></a>Major changes</h3>
+<a href="#major-changes-10" class="anchor"></a>Major changes</h3>
 <ul>
 <li>Fixed a bug in internal tximport code (refer to <code>tximport-internal.R</code> file) where sample names can get associated with the wrong samples in experiments, causing samples with numbers roll over from 1 -&gt; 10. Thanks to Richard from AstraZeneca for catching this.</li>
 </ul>
@@ -393,6 +395,7 @@
 
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io/'>Lorena Pantano</a>, <a href='https://github.com/roryk/'>Rory Kirchner</a>, <a href='https://github.com/vbarrera/'>Victor Barrera</a>, <a href='https://github.com/chapmanb/'>Brad Chapman</a>, <a href='https://github.com/marypiper/'>Mary Piper</a>, <a href='https://github.com/mistrm82/'>Meeta Mistry</a>, <a href='https://github.com/rkhetani/'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford/'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann/'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson/'>John Hutchinson</a>, <a href='https://github.com/sjhosui/'>Shannan Ho Sui</a>, <a href='https://bioinformatics.sph.harvard.edu/'>Harvard Chan Bioinformatics Core</a>.</p>
@@ -401,11 +404,14 @@
 <div class="pkgdown">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

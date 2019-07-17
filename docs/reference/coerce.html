@@ -51,6 +51,7 @@
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -67,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.20</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.21</span>
       </span>
     </div>
 
@@ -104,6 +105,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -124,36 +126,61 @@
     <h2 class="hasAnchor" id="bcbiornaseq-to-deseqdataset"><a class="anchor" href="#bcbiornaseq-to-deseqdataset"></a>bcbioRNASeq to DESeqDataSet</h2>
 
     
-    <ol>
-<li><p>Coerces to <code>RangedSummarizedExperiment</code>.</p></li>
-<li><p>Rounds raw counts to <code>integer matrix</code>.</p></li>
-<li><p>Subsets <code>colData</code> to include only clean factor columns.
-See <code><a href='https://rdrr.io/pkg/basejump/man/sampleData.html'>sampleData()</a></code> for more details.</p></li>
-<li><p>Simplifies <code>metadata</code> to include only relevant information and updates
-<code>sessionInfo</code> slot.</p></li>
+
+<ol>
+<li><p>Coerce to <code>RangedSummarizedExperiment</code>.</p></li>
+<li><p>Round raw counts to <code>integer matrix</code>.</p></li>
+<li><p>Subset <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>colData()</a></code> to include only clean
+factor columns. See <code><a href='https://rdrr.io/pkg/basejump/man/sampleData.html'>sampleData()</a></code> for details.</p></li>
+<li><p>Simplify <code><a href='https://rdrr.io/pkg/S4Vectors/man/Annotated-class.html'>metadata()</a></code> to include only relevant
+information and updates <code>sessionInfo</code>.</p></li>
 </ol>
-    <p>Note that gene-level counts are required. Alternatively
-<code><a href='https://rdrr.io/pkg/tximport/man/summarizeToGene.html'>tximport::summarizeToGene()</a></code> can be called to convert transcript-level
-counts to gene-level. By default, we're using length-scaled TPM, so a
-corresponding average transcript length matrix isn't necessary. The average
-transcript length matrix is only necessary when raw counts matrix isn't
-scaled during tximport call (see <code>countsFromAbundance</code> in tximport).</p>
+
+<p>Note that gene-level counts are required. Alternatively,
+<code><a href='https://rdrr.io/pkg/tximport/man/summarizeToGene.html'>summarizeToGene()</a></code> can be called to convert
+transcript-level counts to gene-level. By default, we're using length-scaled
+TPM, so a corresponding average transcript length matrix isn't necessary. The
+average transcript length matrix is only necessary when raw counts matrix
+isn't scaled during tximport call (see <code>countsFromAbundance</code> in
+<code><a href='https://rdrr.io/pkg/tximport/man/tximport.html'>tximport()</a></code> documentation).</p>
     
     <h2 class="hasAnchor" id="bcbiornaseq-to-deseqtransform"><a class="anchor" href="#bcbiornaseq-to-deseqtransform"></a>bcbioRNASeq to DESeqTransform</h2>
 
     
-    <ol>
-<li><p>Coerces to <code>DESeqDataSet</code>.</p></li>
-<li><p>Calls <code><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq2::DESeq()</a></code>.</p></li>
-<li><p>Calls <code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
+
+<ol>
+<li><p>Coerce to <code>DESeqDataSet</code>.</p></li>
+<li><p>Call <code><a href='https://rdrr.io/pkg/DESeq2/man/DESeq.html'>DESeq2::DESeq()</a></code>.</p></li>
+<li><p>Call <code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
 </ol>
+
+    
+    <h2 class="hasAnchor" id="bcbiornaseq-to-dgelist"><a class="anchor" href="#bcbiornaseq-to-dgelist"></a>bcbioRNASeq to DGEList</h2>
+
+    
+
+<ol>
+<li><p>Obtain per-observation scaling factors for length, adjusted to avoid
+changing the magnitude of the counts.</p></li>
+<li><p>Computing effective library sizes from scaled counts, to account for
+composition biases between samples.</p></li>
+<li><p>Combine effective library sizes with the length factors, and calculate
+offsets for a log-link GLM.</p></li>
+<li><p>Call <code><a href='https://rdrr.io/pkg/edgeR/man/DGEList.html'>edgeR::DGEList()</a></code></p></li>
+<li><p>Apply offset matrix using <code><a href='https://rdrr.io/pkg/edgeR/man/scaleOffset.html'>edgeR::scaleOffset()</a></code>.</p></li>
+</ol>
+
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><ul>
+    <div class='dont-index'>
+<ul>
+<li><p><a href='https://bioconductor.org/packages/devel/bioc/vignettes/tximport/inst/doc/tximport.html'>tximport vignette</a>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/tximport/man/tximport.html'>tximport::tximport()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeq2::DESeqDataSetFromTximport()</a></code>.</p></li>
-</ul></div>
+<li><p><code><a href='https://rdrr.io/pkg/edgeR/man/DGEList.html'>edgeR::DGEList()</a></code>.</p></li>
+</ul>
+</div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -212,6 +239,8 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
 
       <li><a href="#bcbiornaseq-to-deseqtransform">bcbioRNASeq to DESeqTransform</a></li>
 
+      <li><a href="#bcbiornaseq-to-dgelist">bcbioRNASeq to DGEList</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
@@ -222,6 +251,7 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://lpantano.github.io/'>Lorena Pantano</a>, <a href='https://github.com/roryk/'>Rory Kirchner</a>, <a href='https://github.com/vbarrera/'>Victor Barrera</a>, <a href='https://github.com/chapmanb/'>Brad Chapman</a>, <a href='https://github.com/marypiper/'>Mary Piper</a>, <a href='https://github.com/mistrm82/'>Meeta Mistry</a>, <a href='https://github.com/rkhetani/'>Radhika Khetani</a>, <a href='https://github.com/KayleighRutherford/'>Kayleigh Rutherford</a>, <a href='https://github.com/ohofmann/'>Oliver Hofmann</a>, <a href='https://github.com/jnhutchinson/'>John Hutchinson</a>, <a href='https://github.com/sjhosui/'>Shannan Ho Sui</a>, <a href='https://bioinformatics.sph.harvard.edu/'>Harvard Chan Bioinformatics Core</a>.</p>
@@ -230,11 +260,14 @@ scaled during tximport call (see <code>countsFromAbundance</code> in tximport).<
 <div class="pkgdown">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -1,3 +1,27 @@
+## bcbioRNASeq 0.3.21 (2019-07-17)
+
+### Major changes
+
+- Initial support for `bcbioRNASeq` to `DGEList` (edgeR) object coercion.
+- `relativeLogExpression`: Improved internal code, using edgeR
+  `calcNormFactors` approach.
+
+### Minor changes
+
+- Updated basejump dependency to v0.10.11.
+- Improved Travis CI docker config to check coverage and lints.
+- Improved Bioconductor installation instructions.
+
+## bcbioRNASeq 0.3.20 (2019-05-29)
+
+### Minor changes
+
+- Added support for size factor adjusted counts as "sf" in `counts` call.
+- Improved internal trans axis labeling handling for DESeqTransform counts.
+- `plotMeanSD`: Improved default colors. Improved internal non-zero count
+  handling. Reworked plot headers.
+
+
 ## bcbioRNASeq 0.3.19 (2019-05-05)
 
 ### Major changes
@@ -8,15 +32,11 @@
 
 - Improved Travis CI and AppVeyor CI configuration.
 
-
-
 ## bcbioRNASeq 0.3.18 (2019-04-25)
 
 ### Minor changes
 
 - S4 generic reexport documentation fixes.
-
-
 
 ## bcbioRNASeq 0.3.17 (2019-04-22)
 
@@ -28,16 +48,12 @@
 - Bug fix: added back internal `.normalizedTrans` function required for some
   quality control plots.
 
-
-
 ## bcbioRNASeq 0.3.16 (2019-04-17)
 
 ### Minor changes
 
 - Tweaks to quality control template.
 - Switched Travis CI configuration to use `rnaseq` Docker image.
-
-
 
 ## bcbioRNASeq 0.3.15 (2019-04-11)
 
@@ -48,8 +64,6 @@
 - Renamed R Markdown template files and `travis-render.sh` script into kebab
   case, rather than snake case.
 - Documentation improvements (using `inheritParams`).
-
-
 
 ## bcbioRNASeq 0.3.14 (2019-04-01)
 
@@ -67,8 +81,6 @@ Moved forked development repository to [Acid Genomics][].
 - Reexported essential functions from basejump required for QC template to
   render without basejump being attached.
 
-
-
 ## bcbioRNASeq 0.3.13 (2019-03-29)
 
 ### Minor changes
@@ -81,7 +93,6 @@ Moved forked development repository to [Acid Genomics][].
 - Improved internal `perMillion` argument code handling inside plotting
   functions: `plotMappedReads`, `plotTotalReads`.
 - Removed `reexports.R`. No longer reexporting `Gene2Symbol` or magrittr pipe.
-
 
 ## bcbioRNASeq 0.3.12 (2019-03-18)
 
@@ -96,8 +107,6 @@ Moved forked development repository to [Acid Genomics][].
 - Improved some deprecation messages.
 - CI configuration improvements.
 
-
-
 ## bcbioRNASeq 0.3.11 (2019-02-12)
 
 ### Minor changes
@@ -107,15 +116,11 @@ Moved forked development repository to [Acid Genomics][].
 - Updated dependencies to provide improved backwards compatibility support for
   R 3.4 / Bioconductor 3.6.
 
-
-
 ## bcbioRNASeq 0.3.10 (2019-02-01)
 
 ### Minor changes
 
 - Travis CI build configuration and documentation fixes.
-
-
 
 ## bcbioRNASeq 0.3.9 (2019-01-23)
 
@@ -125,8 +130,6 @@ Moved forked development repository to [Acid Genomics][].
   to add back an `interestingGroups<-` assignment call to slot the object.
 - Removed `sanitizeRowData` and `sanitizeSampleData` from imports.
 
-
-
 ## bcbioRNASeq 0.3.8 (2019-01-17)
 
 ### Minor changes
@@ -134,8 +137,6 @@ Moved forked development repository to [Acid Genomics][].
 - `.tximport`: Use `makeNames` to check for valid names internally.
 - Removed FIXME comment and improved documentation.
 - Travis CI configuration fixes to get build checks to pass.
-
-
 
 ## bcbioRNASeq 0.3.7 (2019-01-13)
 
@@ -155,8 +156,6 @@ Moved forked development repository to [Acid Genomics][].
 - `prepareRNASeqTemplate` example is causing build checks to fail, so disable.
 - Improved CI configuration.
 
-
-
 ## bcbioRNASeq 0.3.6 (2018-12-12)
 
 This is the first release that switched over to using [goalie][] for assert
@@ -173,8 +172,6 @@ checks instead of [assertive][].
 - Miscellaneous documentation improvements.
 - Now using `match.arg` internally to check validity of `countsFromAbundance`
   argument passthrough to `tximport`.
-
-
 
 ## bcbioRNASeq 0.3.5 (2018-12-01)
 
@@ -194,8 +191,6 @@ checks instead of [assertive][].
 - `plotCountsPerBiotype`: Ensure `normalized` argument uses "tpm" first.
 - `plotDispEsts`: Switch to using `hasUniqueCols` internally instead of
   `areSamplesUnique`.
-
-
 
 ## bcbioRNASeq 0.3.4 (2018-11-29)
 
@@ -222,8 +217,6 @@ checks instead of [assertive][].
   ggplot2 functions. Our formals will stick with American English though.
 - `plotTotalReads`: Bumped recommended default to 20 million from 10 million.
 
-
-
 ## bcbioRNASeq 0.3.3 (2018-11-25)
 
 ### Minor changes
@@ -232,8 +225,6 @@ checks instead of [assertive][].
 - `plotGene`: Updated working example.
 - Improved reexport of `sampleData<-` generic.
 - Updated Travis CI configuration.
-
-
 
 ## bcbioRNASeq 0.3.2 (2018-11-19)
 
@@ -260,8 +251,6 @@ checks instead of [assertive][].
 - Improved consistency of global formals (using `getOption`) via `formalsList`
   global variable.
 
-
-
 ## bcbioRNASeq 0.3.1 (2018-11-14)
 
 ### Major changes
@@ -285,8 +274,6 @@ checks instead of [assertive][].
   `Rle` is a defined function in S4Vectors, however.
 - Offloaded some global documentation params to basejump.
 - Reworked some global params set by `getOption` in formals.
-
-
 
 ## bcbioRNASeq 0.3.0 (2018-11-06)
 
@@ -402,8 +389,6 @@ avoid any disruption for active RNA-seq experiments.
 - Removed defunct `download` function.
 - New deprecations: `plotCountDensity`, `plotPCACovariates`, `resultsTables`.
 
-
-
 ## bcbioRNASeq 0.2.9 (2019-05-03)
 
 ### Major changes
@@ -413,15 +398,11 @@ avoid any disruption for active RNA-seq experiments.
   causing samples with numbers roll over from 1 -> 10. Thanks to Richard from
   AstraZeneca for catching this.
 
-
-
 ## bcbioRNASeq 0.2.8 (2019-01-28)
 
 - Handle correlation of PCA covariates when a numerical covariate has no
   variation.
 - Handle `NA` in ribosomal RNA calculations.
-
-
 
 ## bcbioRNASeq 0.2.7 (2018-08-22)
 
@@ -433,8 +414,6 @@ avoid any disruption for active RNA-seq experiments.
   work when called from an Rscript without the package library loaded. Thanks
   @roryk for noticing this.
 - Only run rRNA plots if rRNA is detected.
-
-
 
 ## bcbioRNASeq 0.2.6 (2018-08-19)
 
@@ -469,8 +448,6 @@ avoid any disruption for active RNA-seq experiments.
   reference documentation.
 - All function reexports have been consolidated in [bcbioBase][] package.
 
-
-
 ## bcbioRNASeq 0.2.5 (2018-06-21)
 
 ### Minor changes
@@ -480,8 +457,6 @@ avoid any disruption for active RNA-seq experiments.
 - Switched from internal usage of `aes_` in favor of consistent usage of
   `aes_string`. This will make the transition to [ggplot2][] v2.3.0 easier
   in a future update.
-
-
 
 ## bcbioRNASeq 0.2.4 (2018-05-24)
 
@@ -519,8 +494,6 @@ avoid any disruption for active RNA-seq experiments.
 - Fixed [clusterProfiler][] compilation error on [Travis CI][] by installing
   `libudunits2-dev` (Linux).
 
-
-
 ## bcbioRNASeq 0.2.3 (2018-05-10)
 
 ### Major changes
@@ -547,8 +520,6 @@ avoid any disruption for active RNA-seq experiments.
 - Removed unused internal legacy [ggplot2][] code.
 - Increased [DEGreport][], [DESeq2][], and [tximport][] dependency requirements.
 
-
-
 ## bcbioRNASeq 0.2.2 (2018-04-26)
 
 ### Minor changes
@@ -563,8 +534,6 @@ avoid any disruption for active RNA-seq experiments.
   normalized counts.
 - `reusltsTables` now writes local files to `tempdir` when [Dropbox][] mode
   is enabled using `dropboxDir`.
-
-
 
 ## bcbioRNASeq 0.2.1 (2018-04-24)
 
@@ -598,8 +567,6 @@ Last set of code fixes before F1000v2 resubmission.
   alternate [rlang][] functions `abort`, `warn`, and `inform`.
 - Objects with invalid metadata now print which slots are invalid to the
   console.
-
-
 
 ## bcbioRNASeq 0.2.0 (2018-03-22)
 
@@ -691,20 +658,14 @@ Last set of code fixes before F1000v2 resubmission.
 - Defunct: `design`, `download`, `meltLog10`, `txi`.
 - Legacy `bcbioRNADataSet` method support has been removed.
 
-
-
 ## bcbioRNASeq 0.1.8 (2018-04-03)
 
 - Bug fix for `gene2symbol` argument not renaming rows in `plotDEGHeatmap`.
-
-
 
 ## bcbioRNASeq 0.1.7 (2018-02-28)
 
 - Bug fix for `[` subset method dropping metrics in metadata.
 - Simplified unit testing for Dropbox mode enabled in `resultsTables`.
-
-
 
 ## bcbioRNASeq 0.1.6 (2018-02-20)
 
@@ -717,8 +678,6 @@ Last set of code fixes before F1000v2 resubmission.
 - Improved internal code for `plotGene` and `plotGenderMarkers` to run
   faster.
 - Deprecated data frame methods based on metrics for QC functions.
-
-
 
 ## bcbioRNASeq 0.1.5 (2018-01-31)
 
@@ -742,13 +701,9 @@ Last set of code fixes before F1000v2 resubmission.
 - Updated internal marker handling code for `plotGenderMarkers`.
 - `resulsTables` function now defaults to `summary = TRUE`.
 
-
-
 ## bcbioRNASeq 0.1.4 (2018-11-27)
 
 - Migrated all basejump function imports to bcbioBase package.
-
-
 
 ## bcbioRNASeq 0.1.3 (2017-12-03)
 
@@ -798,8 +753,6 @@ Last set of code fixes before F1000v2 resubmission.
   `dependencies` argument, which allows for automatic install of suggested
   packages along with imports.
 
-
-
 ## bcbioRNASeq 0.1.2 (2017-11-08)
 
 - Updated package imports to match Bioconductor 3.6.
@@ -812,14 +765,10 @@ Last set of code fixes before F1000v2 resubmission.
   bcbioSingleCell 0.0.22 update.
 - Sample metadata columns are now consistently set as factors.
 
-
-
 ## bcbioRNASeq 0.1.1 (2017-10-26)
 
 - Added support for coloring of multiple interesting groups in quality control
   plots.
-
-
 
 ## bcbioRNASeq 0.1.0 (2017-10-23)
 
@@ -836,15 +785,11 @@ Last set of code fixes before F1000v2 resubmission.
 - Object oriented methods are now restricted to use `bcbioRNASeq` object.
   Legacy `bcbioRNADataSet` objects must be upgraded to `bcbioRNASeq` class.
 
-
-
 ## bcbioRNASeq 0.0.28 (2017-10-17)
 
 - Added support for output of unstructured data inside `bcbioRNASeq` S4 object
   using `flatFiles` function.
 - Added `bcbioRNASeq` method support for `annotable` generic.
-
-
 
 ## bcbioRNASeq 0.0.27 (2017-10-10)
 
@@ -863,8 +808,6 @@ Last set of code fixes before F1000v2 resubmission.
   handle sample metadata YAML and file loading. This helps provide a consistent
   experience across both packages.
 
-
-
 ## bcbioRNASeq 0.0.26 (2017-09-09)
 
 - Renamed package from bcbioRnaseq to bcbioRNASeq.
@@ -873,8 +816,6 @@ Last set of code fixes before F1000v2 resubmission.
 - Improved subset operations on `bcbioRNADataSet` object.
 - Fixed setup chunk loading of `bcbioRNADataSet` in differential expression
   [R Markdown][] template.
-
-
 
 ## bcbioRNASeq 0.0.25 (2017-08-11)
 
@@ -885,8 +826,6 @@ Last set of code fixes before F1000v2 resubmission.
 - Offloaded small RNA functionality to a separate package named
   [bcbioSmallRNA][].
 
-
-
 ## bcbioRNASeq 0.0.24 (2017-07-13)
 
 - Reworked [R Markdown][] templates to improve YAML defaults and add more
@@ -894,8 +833,6 @@ Last set of code fixes before F1000v2 resubmission.
 - Modified default path variables in `setup.R` to use `*_dir` instead of
   `*_out`.
 - Updated NEWS file to use [Markdown][] syntax.
-
-
 
 ## bcbioRNASeq 0.0.23 (2017-07-03)
 
@@ -905,58 +842,40 @@ Last set of code fixes before F1000v2 resubmission.
 - Renamed S4 class from `bcbioRnaDataSet` to `bcbioRNADataSet` (case sensitive).
 - Adjusted the number of exported functions.
 
-
-
 ## bcbioRNASeq 0.0.22 (2017-06-21)
 
 - Added [testthat][] checking with [lintr][].
 - Initial setup of code coverage using [covr][].
 
-
-
 ## bcbioRNASeq 0.0.21 (2017-06-16)
 
 - Prepared draft of [F1000][] workflow document.
 
-
-
 ## bcbioRNASeq 0.0.20 (2017-06-09)
 
 - Added [Travis CI][] support for automatic rendering of quality control report.
-
-
 
 ## bcbioRNASeq 0.0.19 (2017-06-07)
 
 - `bcbioRnaDataSet` S4 definition updates.
 - Updates to `plot_pca` and gene-level heatmaps.
 
-
-
 ## bcbioRNASeq 0.0.18 (2017-05-24)
 
 - Simplified count pooling functions.
 
-
-
 ## bcbioRNASeq 0.0.17 (2017-05-21)
 
 - Reduced number of exports and improved documentation.
-
-
 
 ## bcbioRNASeq 0.0.16 (2017-05-18)
 
 - Draft migration of [bcbio][] run object into S4 `bcbioRnaDataSet`.
 - Created a new variant of `load_run` that saves to S4 object instead of list.
 
-
-
 ## bcbioRNASeq 0.0.15 (2017-05-15)
 
 - Reworked and re-organized internal functions.
-
-
 
 ## bcbioRNASeq 0.0.14 (2017-05-10)
 
@@ -965,20 +884,14 @@ Last set of code fixes before F1000v2 resubmission.
 - Added support for dynamic file downloads from [HBC][] website.
 - Draft build of website using `pkgdown::build_site`.
 
-
-
 ## bcbioRNASeq 0.0.13 (2017-05-08)
 
 - Improved [RDAVIDWebService][] utility functions to work with [dplyr][] 0.6.0.
-
-
 
 ## bcbioRNASeq 0.0.12 (2017-05-01)
 
 - Reworked metadata and summary metrics functions to obtain information from
   `project-summary.yaml` saved in the final run directory.
-
-
 
 ## bcbioRNASeq 0.0.11 (2017-04-27)
 
@@ -988,71 +901,49 @@ Last set of code fixes before F1000v2 resubmission.
 - Updated [Ensembl][] [biomaRt][] annotations to use live site, currently
   release 88.
 
-
-
 ## bcbioRNASeq 0.0.10 (2017-04-19)
 
 - Renamed `import_*` functions to `read_*`.
-
-
 
 ## bcbioRNASeq 0.0.9 (2017-04-13)
 
 - Consolidated NAMESPACE imports.
 - Defaulted to writing count matrices with gzip compression, to save disk space.
 
-
-
 ## bcbioRNASeq 0.0.8 (2017-04-12)
 
 - Renamed internal parameters for better readability.
 - Improved documentation and consolidate functions by group.
 
-
-
 ## bcbioRNASeq 0.0.7 (2017-04-10)
 
 - NAMESPACE simplification using [basejump][] package.
-
-
 
 ## bcbioRNASeq 0.0.6 (2017-04-07)
 
 - Reworked handling of plots and tables during knits.
 
-
-
 ## bcbioRNASeq 0.0.5 (2017-04-06)
 
 - Initial commit of differential expression and gene set enrichment functions.
-
-
 
 ## bcbioRNASeq 0.0.4 (2017-04-04)
 
 - Added [bcbio][] object integrity checks.
 - Improved detection and handling of lane split samples.
 
-
-
 ## bcbioRNASeq 0.0.3 (2017-03-31)
 
 - Reworked functions to utilize [bcbio][] list object.
-
-
 
 ## bcbioRNASeq 0.0.2 (2017-03-28)
 
 - Added plotting functions.
 
-
-
 ## bcbioRNASeq 0.0.1 (2017-03-22)
 
 - Start of package development.
 - Initial draft release supporting automatic loading of [bcbio][] run data.
-
-
 
 [AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
 [AppVeyor CI]: https://ci.appveyor.com/

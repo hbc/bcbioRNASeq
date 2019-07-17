@@ -21,10 +21,14 @@ NULL
 
 
 
-relativeLogExpression.matrix <-  # nolint
+# Last modified 2019-06-06.
+relativeLogExpression.matrix <-
     function(object) {
         message("Applying relative log expression (RLE) normalization.")
-        t(t(object) / colMedians(object))
+        object %>%
+            DGEList() %>%
+            calcNormFactors(method = "RLE") %>%
+            cpm(normalized.lib.sizes = TRUE)
     }
 
 
