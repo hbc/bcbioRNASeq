@@ -16,13 +16,13 @@ jobs:
   include:
     - stage: test
       name: "Docker: Bioconductor 3.9"
-      script: image="rnaseq" tag="bioc-3.9" ./docker.sh
+      script: image="r-bcbio" tag="bioc-3.9" ./docker.sh
     - stage: test
       name: "Docker: Bioconductor 3.8"
-      script: image="rnaseq" tag="bioc-3.8" ./docker.sh
+      script: image="r-bcbio" tag="bioc-3.8" ./docker.sh
     - stage: test
       name: "Docker: Bioconductor 3.7"
-      script: image="rnaseq" tag="bioc-3.7" ./docker.sh
+      script: image="r-bcbio" tag="bioc-3.7" ./docker.sh
 
 matrix:
   fast_finish: true
