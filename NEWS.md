@@ -1,3 +1,9 @@
+## bcbioRNASeq 0.3.22 (2019-07-18)
+
+### Minor changes
+
+- Updated package dependency versions.
+
 ## bcbioRNASeq 0.3.21 (2019-07-17)
 
 ### Major changes
