@@ -100,7 +100,8 @@ test_that("STAR aligned counts", {
 # Testing both gene and transcript level.
 with_parameters_test_that(
     "GTF/GFF file", {
-        skip_if_not(interactive())
+        skip_on_appveyor()
+        skip_on_docker()
         # GFF3 files are also supported, but we're only testing GTF here for
         # speed. This functionality is covered in basejump tests also.
         gtfURL <- paste(

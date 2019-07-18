@@ -68,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.22</span>
       </span>
     </div>
 
@@ -147,7 +147,30 @@
 
     <p><code>.Deprecated</code>.</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><p><a href='https://rdrr.io/r/base/Deprecated.html'>Deprecated</a>.</p></div>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
+    <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>.Deprecated</a></span>(<span class='st'>"b"</span>)
+    <span class='fu'>b</span>(<span class='no'>...</span>)
+}
+
+<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) {
+    <span class='no'>x</span> + <span class='fl'>1L</span>
+}
+
+<span class='fu'><a href='https://rdrr.io/r/base/conditions.html'>withCallingHandlers</a></span>(
+    <span class='kw'>expr</span> <span class='kw'>=</span> <span class='fu'>a</span>(<span class='fl'>1L</span>),
+    <span class='kw'>warning</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>w</span>) {
+        <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>w</span>)
+        <span class='fu'><a href='https://rdrr.io/r/base/conditions.html'>invokeRestart</a></span>(<span class='st'>"muffleWarning"</span>)
+    }
+)</div><div class='output co'>#&gt; &lt;deprecatedWarning: 'a' is deprecated.
+#&gt; Use 'b' instead.
+#&gt; See help("Deprecated")&gt;</div><div class='output co'>#&gt; [1] 2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -155,7 +178,11 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
