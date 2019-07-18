@@ -15,16 +15,21 @@ before_script:
 jobs:
   include:
     - stage: test
-      name: "Docker: Bioconductor 3.9"
+      name: "bioc-3.9"
       script: image="r-bcbio" tag="bioc-3.9" ./docker.sh
     - stage: test
-      name: "Docker: Bioconductor 3.8"
+      name: "bioc-3.8"
       script: image="r-bcbio" tag="bioc-3.8" ./docker.sh
     - stage: test
-      name: "Docker: Bioconductor 3.7"
+      name: "bioc-3.7"
       script: image="r-bcbio" tag="bioc-3.7" ./docker.sh
+    - stage: test
+      name: "bioc-devel"
+      script: image="r-bcbio" tag="bioc-devel" ./docker.sh
 
 matrix:
+  allow_failures:
+    - name: "bioc-devel"
   fast_finish: true
 
 after_failure:
