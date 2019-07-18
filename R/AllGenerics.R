@@ -1,9 +1,9 @@
-#' @rdname pseudoVsAlignedCounts
+#' @rdname plotPseudoVsAlignedCounts
 #' @export
 setGeneric(
-    name = "pseudoVsAlignedCounts",
+    name = "plotPseudoVsAlignedCounts",
     def = function(object, ...) {
-        standardGeneric("pseudoVsAlignedCounts")
+        standardGeneric("plotPseudoVsAlignedCounts")
     }
 )
 
