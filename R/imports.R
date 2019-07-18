@@ -36,9 +36,9 @@
 #'   readDataVersions readProgramVersions readSampleData readTx2Gene runDate
 #'   sampleDirs
 #' @importFrom cowplot draw_plot ggdraw plot_grid
-#' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
-#'   mutate mutate_all mutate_if pull rename row_number select select_if
-#'   starts_with ungroup
+#' @importFrom dplyr arrange bind_cols bind_rows desc everything filter group_by
+#'   left_join mutate mutate_all mutate_if pull rename row_number select
+#'   select_if starts_with ungroup
 #' @importFrom edgeR DGEList calcNormFactors cpm
 #' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
 #'   element_blank element_text expand_limits facet_wrap geom_bar geom_boxplot
