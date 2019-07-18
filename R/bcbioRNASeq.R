@@ -106,13 +106,10 @@
 #'
 #' @section DESeq2:
 #'
-#' DESeq2 is run automatically when [bcbioRNASeq()] is called. Internally, this
-#' automatically slots normalized counts into
-#' [`assays()`][SummarizedExperiment::assays], and optionally generates
-#' variance-stabilized counts (e.g. `vst`, `rlog`), depending on the call. When
-#' loading a dataset with a large number of samples (i.e. > 50), we recommend
-#' disabling the `rlog` transformation, since it can take a long time to
-#' compute.
+#' DESeq2 is run automatically when [bcbioRNASeq()] is called, unless `fast =
+#' TRUE` is set. Internally, this automatically slots normalized counts into
+#' [`assays()`][SummarizedExperiment::assays], and generates variance-stabilized
+#' counts.
 #'
 #' @section Remote connections:
 #'
@@ -157,14 +154,8 @@
 #'   the library size. Refer to [tximport::tximport()] for more information on
 #'   this parameter, but it should only ever be changed when loading some
 #'   datasets at transcript level (e.g. for DTU analsyis).
-#' @param vst `logical(1)`.
-#'   Calculate variance-stabilizing transformation using
-#'   [DESeq2::varianceStabilizingTransformation()]. Recommended by default for
-#'   visualization.
-#' @param rlog `logical(1)`.
-#'   Calcualte regularized log transformation using [DESeq2::rlog()]. This
-#'   calculation is slow for large datasets and now discouraged by default for
-#'   visualization.
+#' @param fast `logical(1)`.
+#'   Fast mode. Skip internal DESeq2 transformations.
 #'
 #' @return `bcbioRNASeq`.
 #'
@@ -197,6 +188,9 @@
 #'     ensemblRelease = 87L
 #' )
 #' print(object)
+#'
+#' ## Fast mode.
+#' object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
 bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
@@ -211,9 +205,8 @@ bcbioRNASeq <- function(
     transgeneNames = NULL,
     spikeNames = NULL,
     countsFromAbundance = "lengthScaledTPM",
-    vst = TRUE,
-    rlog = FALSE,
     interestingGroups = "sampleName",
+    fast = FALSE,
     ...
 ) {
     # Legacy arguments ---------------------------------------------------------
@@ -229,11 +222,17 @@ bcbioRNASeq <- function(
     }
     # transformationLimit
     if ("transformationLimit" %in% names(call)) {
-        stop(paste(
-            "`transformationLimit` is deprecated in favor of",
-            "separate `vst` and `rlog` arguments."
-        ))
+        stop("`transformationLimit` is defunct.")
     }
+    # rlog
+    if ("rlog" %in% names(call)) {
+        stop("`rlog` is defunct in favor of `fast` argument.")
+    }
+    # vst
+    if ("vst" %in% names(call)) {
+        stop("`vst` is defunct in favor of `fast` argument.")
+    }
+    # rlog
     rm(call)
     # nocov end
 
@@ -253,9 +252,10 @@ bcbioRNASeq <- function(
         isInt(ensemblRelease, nullOK = TRUE),
         isAny(transgeneNames, classes = c("character", "NULL")),
         isAny(spikeNames, classes = c("character", "NULL")),
-        isString(gffFile, nullOK = TRUE)
+        isString(gffFile, nullOK = TRUE),
+        isCharacter(interestingGroups),
+        isFlag(fast)
     )
-
     if (isString(gffFile)) {
         assert(isAFile(gffFile) || containsAURL(gffFile))
     }
@@ -277,11 +277,6 @@ bcbioRNASeq <- function(
     match.arg(
         arg = countsFromAbundance,
         choices = eval(formals(tximport)[["countsFromAbundance"]])
-    )
-    assert(
-        isFlag(vst),
-        isFlag(rlog),
-        isCharacter(interestingGroups)
     )
 
     # Directory paths ----------------------------------------------------------
@@ -415,8 +410,10 @@ bcbioRNASeq <- function(
 
     # Assays -------------------------------------------------------------------
     assays <- list()
-    # Use tximport by default for transcript-aware callers.
-    # Otherwise, resort to loading the featureCounts aligned counts data.
+    # Use tximport by default for transcript-aware callers. Otherwise, resort to
+    # loading the featureCounts aligned counts data. As of v0.3.22, we're
+    # alternatively slotting the aligned counts as "aligned" matrix when
+    # pseudoaligned counts are defined in the primary "counts" assay.
     if (caller %in% tximportCallers) {
         if (level == "transcripts") {
             txOut <- TRUE
@@ -437,21 +434,23 @@ bcbioRNASeq <- function(
         assays[["tpm"]] <- txi[["abundance"]]
         # Average transcript lengths.
         assays[["avgTxLength"]] <- txi[["length"]]
+        if (level == "genes" && !isTRUE(fast)) {
+            assays[["aligned"]] <- .featureCounts(
+                projectDir = projectDir,
+                samples = samples,
+                genes = rownames(txi[["counts"]])
+            )
+        }
     } else if (caller %in% featureCountsCallers) {
         txi <- NULL
         countsFromAbundance <- "no"
         assert(identical(level, "genes"))
-        # Load up the featureCounts aligned counts matrix.
-        counts <- import(file = file.path(projectDir, "combined.counts"))
-        assert(is.matrix(counts))
-        colnames(counts) <- makeNames(colnames(counts))
-        # Subset the combined matrix to match the samples.
-        assert(isSubset(samples, colnames(counts)))
-        counts <- counts[, samples, drop = FALSE]
-        # Raw counts. These counts are expected to be integer.
-        assays[["counts"]] <- counts
+        message("Slotting aligned counts into primary `counts` assay.")
+        assays[["counts"]] <- .featureCounts(
+            projectDir = projectDir,
+            samples = samples
+        )
     }
-
     assert(
         identical(names(assays)[[1L]], "counts"),
         identical(colnames(assays[[1L]]), rownames(colData))
@@ -480,7 +479,7 @@ bcbioRNASeq <- function(
             # Attempt to use bcbio GTF automatically.
             gffFile <- getGTFFileFromYAML(yaml)
         }
-        if (!is.null(gffFile)) {
+        if (!is.null(gffFile) && !isTRUE(fast)) {
             message("Using makeGRangesFromGFF() for annotations.")
             gffFile <- realpath(gffFile)
             rowRanges <- makeGRangesFromGFF(file = gffFile, level = level)
@@ -555,8 +554,8 @@ bcbioRNASeq <- function(
         spikeNames = spikeNames
     )
 
-    # DESeq2 normalizations ----------------------------------------------------
-    if (level == "genes") {
+    # DESeq2 -------------------------------------------------------------------
+    if (level == "genes" && !isTRUE(fast)) {
         dds <- as(bcb, "DESeqDataSet")
 
         # Calculate size factors for normalized counts.
@@ -567,17 +566,13 @@ bcbioRNASeq <- function(
         # Skip full DESeq2 calculations (for internal bcbio test data).
         if (.dataHasVariation(dds)) {
             message("Calculating transformations.")
-            # Expect warning about the empty design formula.
+            # Suppressing warning about the empty design formula.
             dds <- suppressWarnings(DESeq(dds))
-            if (isTRUE(vst)) {
-                message("Applying variance-stabilizing transformation.")
-                assays(bcb)[["vst"]] <-
-                    assay(varianceStabilizingTransformation(dds))
-            }
-            if (isTRUE(rlog)) {
-                message("Applying regularized log transformation.")
-                assays(bcb)[["rlog"]] <- assay(rlog(dds))
-            }
+            message("Applying variance-stabilizing transformation.")
+            assays(bcb)[["vst"]] <-
+                assay(varianceStabilizingTransformation(dds))
+            # Note that rlog is no longer allowed here.
+            # Run it manually on a coerced DESeqDataSet instead.
         } else {
             # nocov start
             # This step is covered by bcbio pipeline tests.
