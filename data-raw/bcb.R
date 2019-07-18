@@ -1,5 +1,5 @@
-# bcbioRNASeq Example
-# 2019-03-13
+# bcbioRNASeq example objects.
+# Updated 2019-07-18.
 
 library(pryr)
 library(usethis)
@@ -27,16 +27,14 @@ gse65267 <- bcbioRNASeq(
     caller = "salmon",
     interestingGroups = c("treatment", "day"),
     organism = "Mus musculus",
-    ensemblRelease = 90L,
-    vst = TRUE,
-    rlog = FALSE
+    ensemblRelease = 90L
 )
-saveData(gse65267, dir = "data-raw")
+saveData(gse65267, dir = "~")
 
 # F1000 paper ==================================================================
 # Subset days 0, 1, 3, 7.
 f1000 <- selectSamples(gse65267, day = c(0L, 1L, 3L, 7L))
-saveData(f1000, dir = "data-raw")
+saveData(f1000, dir = "~")
 
 # bcb ====================================================================
 # Minimal working example: days 0, 7.
