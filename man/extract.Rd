@@ -66,9 +66,11 @@
     \code{\link{drop}} for further details.
   }
 
-\item{recalculate}{\code{logical(1)}. Recalculate DESeq2 normalized counts and
-variance-stabilizing transformations defined in \code{assays}. Recommended by
-default, but can take a long time for large datasets.}
+\item{recalculate}{\code{logical(1)}.
+Recalculate DESeq2 normalized counts and variance-stabilizing
+transformations defined in \code{assays}. Recommended by default, but can take a
+long time for large datasets. If \code{FALSE}, these assays will be removed
+automatically: \code{normalized}, \code{rlog}, \code{vst}.}
 }
 \value{
 \code{bcbioRNASeq}.
@@ -78,8 +80,7 @@ Extract genes by row and samples by column.
 }
 \details{
 Internal count transformations are rescaled automatically, if defined. DESeq2
-transformations will only be updated when \code{recalculate = TRUE} and either
-\code{rlog} or \code{vst} counts are defined in \code{assays}.
+transformations will only be updated when \code{recalculate = TRUE}.
 }
 \examples{
 data(bcb)
@@ -103,7 +104,7 @@ print(x)
 assayNames(x)
 
 ## Fast subsetting, by skipping DESeq2 recalculations.
-## Note that `normalized`, `rlog`, and `vst` assays will not be defined.
+## Note that `normalized`, `rlog`, and `vst` assays will be removed.
 x <- object[, samples, recalculate = FALSE]
 print(x)
 names(assays(x))
