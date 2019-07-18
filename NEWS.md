@@ -1,4 +1,23 @@
-## bcbioRNASeq 0.3.22 (2019-07-18)
+## bcbioRNASeq 0.3.22 (UNRELEASED)
+
+### Major changes
+
+- `bcbioRNASeq`: Now supporting `fast` argument, which enables the user to skip
+  any internal DESeq2 calculations. This will skip generation of `normalized`,
+  `vst`, and `fpkm` matrices. Note that automatic `rlog` matrix generation is
+  no longer supported, since it's often too slow, especially for large datasets.
+  If you want to generate rlog counts, simply coerce the bcbioRNASeq object
+  to a DESeqDataSet, then run the `rlog` function.
+- Aligned counts are now saved inside the object when a pseudoaligner (e.g.
+  salmon, kallisto) are used to define the primary `counts` assay. These values
+  are saved in an `aligned` matrix.
+
+### New functions
+
+- `pseudoVsAligned`: Visually inspect the correlation of pseudoaligned counts
+  to the aligned counts. Note that default bcbio genomes use legacy UCSC builds,
+  where as the pseudoaligners generate values from newer Ensembl transcript
+  annotations.
 
 ### Minor changes
 
