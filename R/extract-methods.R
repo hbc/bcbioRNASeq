@@ -3,17 +3,18 @@
 #' Extract genes by row and samples by column.
 #'
 #' Internal count transformations are rescaled automatically, if defined. DESeq2
-#' transformations will only be updated when `recalculate = TRUE` and either
-#' `rlog` or `vst` counts are defined in `assays`.
+#' transformations will only be updated when `recalculate = TRUE`.
 #'
 #' @name extract
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @inherit base::Extract params references
 #' @inheritParams params
 #'
-#' @param recalculate `logical(1)`. Recalculate DESeq2 normalized counts and
-#'   variance-stabilizing transformations defined in `assays`. Recommended by
-#'   default, but can take a long time for large datasets.
+#' @param recalculate `logical(1)`.
+#'   Recalculate DESeq2 normalized counts and variance-stabilizing
+#'   transformations defined in `assays`. Recommended by default, but can take a
+#'   long time for large datasets. If `FALSE`, these assays will be removed
+#'   automatically: `normalized`, `rlog`, `vst`.
 #'
 #' @return `bcbioRNASeq`.
 #'
@@ -39,7 +40,7 @@
 #' assayNames(x)
 #'
 #' ## Fast subsetting, by skipping DESeq2 recalculations.
-#' ## Note that `normalized`, `rlog`, and `vst` assays will not be defined.
+#' ## Note that `normalized`, `rlog`, and `vst` assays will be removed.
 #' x <- object[, samples, recalculate = FALSE]
 #' print(x)
 #' names(assays(x))
@@ -125,6 +126,9 @@ setMethod(
                         assay(varianceStabilizingTransformation(dds))
                 }
                 # rlog: regularized log transformation.
+                # v0.3.22: We're no longer allowing automatic rlog calculation
+                # during the `bcbioRNASeq()` call, because it's often too slow.
+                # However, we're keeping support here for legacy objects.
                 if ("rlog" %in% names(assays)) {
                     message("Applying rlog transformation.")
                     assays[["rlog"]] <- assay(rlog(dds))
