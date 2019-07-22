@@ -216,18 +216,18 @@ bcbioRNASeq <- function(
     interestingGroups = "sampleName",
     ...
 ) {
-    # Legacy arguments ---------------------------------------------------------
-    # nocov start
+    ## Legacy arguments ---------------------------------------------------------
+    ## nocov start
     call <- match.call()
-    # annotable
+    ## annotable
     if ("annotable" %in% names(call)) {
         stop("`annotable` is defunct. Consider using `gffFile` instead.")
     }
-    # ensemblVersion
+    ## ensemblVersion
     if ("ensemblVersion" %in% names(call)) {
         stop("Use `ensemblRelease` instead of `ensemblVersion`.")
     }
-    # transformationLimit
+    ## transformationLimit
     if ("transformationLimit" %in% names(call)) {
         stop(paste(
             "`transformationLimit` is deprecated in favor of",
@@ -235,9 +235,9 @@ bcbioRNASeq <- function(
         ))
     }
     rm(call)
-    # nocov end
+    ## nocov end
 
-    # Assert checks ------------------------------------------------------------
+    ## Assert checks ------------------------------------------------------------
     assert(isADirectory(uploadDir))
     level <- match.arg(level)
     caller <- match.arg(caller)
@@ -259,14 +259,14 @@ bcbioRNASeq <- function(
     if (isString(gffFile)) {
         assert(isAFile(gffFile) || containsAURL(gffFile))
     }
-    # Don't allow AnnotationHub formals when specifying GFF file.
+    ## Don't allow AnnotationHub formals when specifying GFF file.
     if (!is.null(gffFile)) {
         assert(
             is.null(genomeBuild),
             is.null(ensemblRelease)
         )
     }
-    # Organism is required when we're defining the genome.
+    ## Organism is required when we're defining the genome.
     if (
         !is.null(genomeBuild) ||
         !is.null(ensemblRelease) ||
@@ -284,17 +284,17 @@ bcbioRNASeq <- function(
         isCharacter(interestingGroups)
     )
 
-    # Directory paths ----------------------------------------------------------
+    ## Directory paths ----------------------------------------------------------
     uploadDir <- realpath(uploadDir)
     projectDir <- projectDir(uploadDir)
     sampleDirs <- sampleDirs(uploadDir)
 
-    # Project summary YAML -----------------------------------------------------
+    ## Project summary YAML -----------------------------------------------------
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     yaml <- import(yamlFile)
     assert(is.list(yaml))
 
-    # bcbio run information ----------------------------------------------------
+    ## bcbio run information ----------------------------------------------------
     dataVersions <- readDataVersions(file.path(projectDir, "data_versions.csv"))
     assert(is(dataVersions, "DataFrame"))
 
@@ -303,7 +303,7 @@ bcbioRNASeq <- function(
     assert(is(programVersions, "DataFrame"))
 
     log <- import(file.path(projectDir, "bcbio-nextgen.log"))
-    # This step enables our minimal dataset inside the package to pass checks.
+    ## This step enables our minimal dataset inside the package to pass checks.
     tryCatch(
         expr = assert(isCharacter(log)),
         error = function(e) {
@@ -312,7 +312,7 @@ bcbioRNASeq <- function(
     )
 
     commandsLog <- import(file.path(projectDir, "bcbio-nextgen-commands.log"))
-    # This step enables our minimal dataset inside the package to pass checks.
+    ## This step enables our minimal dataset inside the package to pass checks.
     tryCatch(
         expr = assert(isCharacter(commandsLog)),
         error = function(e) {
@@ -320,7 +320,7 @@ bcbioRNASeq <- function(
         }
     )
 
-    # Transcript-to-gene mappings ----------------------------------------------
+    ## Transcript-to-gene mappings ----------------------------------------------
     tx2gene <- readTx2Gene(
         file = file.path(projectDir, "tx2gene.csv"),
         organism = organism,
@@ -329,32 +329,32 @@ bcbioRNASeq <- function(
     )
     assert(is(tx2gene, "Tx2Gene"))
 
-    # Sequencing lanes ---------------------------------------------------------
+    ## Sequencing lanes ---------------------------------------------------------
     lanes <- detectLanes(sampleDirs)
     assert(
         isInt(lanes) ||
         identical(lanes, integer())
     )
 
-    # Samples ------------------------------------------------------------------
-    # Get the sample data.
+    ## Samples ------------------------------------------------------------------
+    ## Get the sample data.
     if (isString(sampleMetadataFile)) {
-        # Normalize path of local file.
+        ## Normalize path of local file.
         if (file.exists(sampleMetadataFile)) {
             sampleMetadataFile <- realpath(sampleMetadataFile)
         }
-        # User-defined external file.
-        # Note that `readSampleData` also supports URLs.
+        ## User-defined external file.
+        ## Note that `readSampleData` also supports URLs.
         sampleData <- readSampleData(file = sampleMetadataFile, lanes = lanes)
     } else {
-        # Automatic metadata from YAML file.
+        ## Automatic metadata from YAML file.
         sampleData <- getSampleDataFromYAML(yaml)
     }
     assert(isSubset(rownames(sampleData), names(sampleDirs)))
 
-    # Subset the sample directories, if necessary.
+    ## Subset the sample directories, if necessary.
     if (is.character(samples) || is.character(censorSamples)) {
-        # Matching against the YAML "description" input here.
+        ## Matching against the YAML "description" input here.
         description <- as.character(sampleData[["description"]])
         assert(isNonEmpty(description))
         if (is.character(samples)) {
@@ -374,10 +374,10 @@ bcbioRNASeq <- function(
     }
     samples <- rownames(sampleData)
     assert(
-        # Requiring at least 2 samples.
+        ## Requiring at least 2 samples.
         length(samples) >= 2L,
         isSubset(samples, names(sampleDirs)),
-        # Check that name sanitization worked.
+        ## Check that name sanitization worked.
         validNames(samples)
     )
     if (length(samples) < length(sampleDirs)) {
@@ -392,10 +392,10 @@ bcbioRNASeq <- function(
     }
     sampleDirs <- sampleDirs[samples]
 
-    # Column data --------------------------------------------------------------
-    # Sample metrics. Note that sample metrics used for QC plots are not
-    # currently generated when using fast RNA-seq workflow. This depends upon
-    # MultiQC and aligned counts generated with STAR.
+    ## Column data --------------------------------------------------------------
+    ## Sample metrics. Note that sample metrics used for QC plots are not
+    ## currently generated when using fast RNA-seq workflow. This depends upon
+    ## MultiQC and aligned counts generated with STAR.
     colData <- getMetricsFromYAML(yaml)
     if (hasLength(colData)) {
         assert(
@@ -413,10 +413,10 @@ bcbioRNASeq <- function(
         identical(samples, rownames(colData))
     )
 
-    # Assays -------------------------------------------------------------------
+    ## Assays -------------------------------------------------------------------
     assays <- list()
-    # Use tximport by default for transcript-aware callers.
-    # Otherwise, resort to loading the featureCounts aligned counts data.
+    ## Use tximport by default for transcript-aware callers.
+    ## Otherwise, resort to loading the featureCounts aligned counts data.
     if (caller %in% tximportCallers) {
         if (level == "transcripts") {
             txOut <- TRUE
@@ -430,25 +430,25 @@ bcbioRNASeq <- function(
             countsFromAbundance = countsFromAbundance,
             tx2gene = tx2gene
         )
-        # Raw counts. Length scaled by default (see `countsFromAbundance`).
-        # These counts are expected to be non-integer.
+        ## Raw counts. Length scaled by default (see `countsFromAbundance`).
+        ## These counts are expected to be non-integer.
         assays[["counts"]] <- txi[["counts"]]
-        # Transcripts per million.
+        ## Transcripts per million.
         assays[["tpm"]] <- txi[["abundance"]]
-        # Average transcript lengths.
+        ## Average transcript lengths.
         assays[["avgTxLength"]] <- txi[["length"]]
     } else if (caller %in% featureCountsCallers) {
         txi <- NULL
         countsFromAbundance <- "no"
         assert(identical(level, "genes"))
-        # Load up the featureCounts aligned counts matrix.
+        ## Load up the featureCounts aligned counts matrix.
         counts <- import(file = file.path(projectDir, "combined.counts"))
         assert(is.matrix(counts))
         colnames(counts) <- makeNames(colnames(counts))
-        # Subset the combined matrix to match the samples.
+        ## Subset the combined matrix to match the samples.
         assert(isSubset(samples, colnames(counts)))
         counts <- counts[, samples, drop = FALSE]
-        # Raw counts. These counts are expected to be integer.
+        ## Raw counts. These counts are expected to be integer.
         assays[["counts"]] <- counts
     }
 
@@ -457,16 +457,16 @@ bcbioRNASeq <- function(
         identical(colnames(assays[[1L]]), rownames(colData))
     )
 
-    # Row data -----------------------------------------------------------------
-    # Annotation priority:
-    # 1. AnnotationHub.
-    #    - Requires `organism` to be declared.
-    #    - Ensure that Ensembl release and genome build match.
-    # 2. GTF/GFF file. Use the bcbio GTF if possible.
-    # 3. Fall back to slotting empty ranges. This is offered as support for
-    #    complex datasets (e.g. multiple organisms).
+    ## Row data -----------------------------------------------------------------
+    ## Annotation priority:
+    ## 1. AnnotationHub.
+    ##    - Requires `organism` to be declared.
+    ##    - Ensure that Ensembl release and genome build match.
+    ## 2. GTF/GFF file. Use the bcbio GTF if possible.
+    ## 3. Fall back to slotting empty ranges. This is offered as support for
+    ##    complex datasets (e.g. multiple organisms).
     if (isString(organism) && is.numeric(ensemblRelease)) {
-        # AnnotationHub (ensembldb).
+        ## AnnotationHub (ensembldb).
         message("Using makeGRangesFromEnsembl() for annotations.")
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
@@ -475,9 +475,9 @@ bcbioRNASeq <- function(
             release = ensemblRelease
         )
     } else {
-        # GTF/GFF file.
+        ## GTF/GFF file.
         if (is.null(gffFile)) {
-            # Attempt to use bcbio GTF automatically.
+            ## Attempt to use bcbio GTF automatically.
             gffFile <- getGTFFileFromYAML(yaml)
         }
         if (!is.null(gffFile)) {
@@ -491,8 +491,8 @@ bcbioRNASeq <- function(
     }
     assert(is(rowRanges, "GRanges"))
 
-    # Attempt to get genome build and Ensembl release if not declared.
-    # Note that these will remain NULL when using GTF file (see above).
+    ## Attempt to get genome build and Ensembl release if not declared.
+    ## Note that these will remain NULL when using GTF file (see above).
     if (is.null(genomeBuild)) {
         genomeBuild <- metadata(rowRanges)[["genomeBuild"]]
     }
@@ -500,13 +500,13 @@ bcbioRNASeq <- function(
         ensemblRelease <- metadata(rowRanges)[["ensemblRelease"]]
     }
 
-    # Metadata -----------------------------------------------------------------
-    # Interesting groups.
+    ## Metadata -----------------------------------------------------------------
+    ## Interesting groups.
     interestingGroups <- camel(interestingGroups)
     assert(isSubset(interestingGroups, colnames(colData)))
 
-    # Organism.
-    # Attempt to detect automatically if not declared by user.
+    ## Organism.
+    ## Attempt to detect automatically if not declared by user.
     if (is.null(organism)) {
         organism <- tryCatch(
             expr = detectOrganism(rownames(assays[[1L]])),
@@ -545,7 +545,7 @@ bcbioRNASeq <- function(
         call = match.call()
     )
 
-    # Generate bcbioRNASeq object ----------------------------------------------
+    ## Generate bcbioRNASeq object ----------------------------------------------
     bcb <- .new.bcbioRNASeq(
         assays = assays,
         rowRanges = rowRanges,
@@ -555,19 +555,19 @@ bcbioRNASeq <- function(
         spikeNames = spikeNames
     )
 
-    # DESeq2 normalizations ----------------------------------------------------
+    ## DESeq2 normalizations ----------------------------------------------------
     if (level == "genes") {
         dds <- as(bcb, "DESeqDataSet")
 
-        # Calculate size factors for normalized counts.
+        ## Calculate size factors for normalized counts.
         message("Calculating normalized counts.")
         dds <- estimateSizeFactors(dds)
         assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
 
-        # Skip full DESeq2 calculations (for internal bcbio test data).
+        ## Skip full DESeq2 calculations (for internal bcbio test data).
         if (.dataHasVariation(dds)) {
             message("Calculating transformations.")
-            # Expect warning about the empty design formula.
+            ## Expect warning about the empty design formula.
             dds <- suppressWarnings(DESeq(dds))
             if (isTRUE(vst)) {
                 message("Applying variance-stabilizing transformation.")
@@ -579,14 +579,14 @@ bcbioRNASeq <- function(
                 assays(bcb)[["rlog"]] <- assay(rlog(dds))
             }
         } else {
-            # nocov start
-            # This step is covered by bcbio pipeline tests.
+            ## nocov start
+            ## This step is covered by bcbio pipeline tests.
             message("Data has no variation. Skipping transformations.")
-            # nocov end
+            ## nocov end
         }
 
-        # Calculate FPKM.
-        # Skip this step if we've slotted empty ranges.
+        ## Calculate FPKM.
+        ## Skip this step if we've slotted empty ranges.
         if (length(unique(width(rowRanges(dds)))) > 1L) {
             message("Calculating FPKM using DESeq2::fpkm().")
             assays(bcb)[["fpkm"]] <- fpkm(dds)
@@ -598,7 +598,7 @@ bcbioRNASeq <- function(
         }
     }
 
-    # Return -------------------------------------------------------------------
+    ## Return -------------------------------------------------------------------
     assert(hasValidDimnames(bcb))
     validObject(bcb)
     bcb

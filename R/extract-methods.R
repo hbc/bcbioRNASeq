@@ -66,27 +66,27 @@ setMethod(
     ) {
         validObject(x)
         assert(
-            # Not currently allowing the user to drop on extraction.
+            ## Not currently allowing the user to drop on extraction.
             identical(drop, FALSE),
             isFlag(recalculate)
         )
 
-        # Genes (rows)
+        ## Genes (rows)
         if (missing(i)) {
             i <- seq_len(nrow(x))
         }
-        # Require at least 50 genes.
+        ## Require at least 50 genes.
         assert(isInRange(length(i), lower = 50L, upper = Inf))
 
-        # Samples (columns)
+        ## Samples (columns)
         if (missing(j)) {
             j <- seq_len(ncol(x))
         }
-        # Require at least 2 samples.
+        ## Require at least 2 samples.
         assert(isInRange(length(j), lower = 2L, upper = Inf))
 
-        # Don't attempt to recalculate normalizations if the dimensions remain
-        # unchanged.
+        ## Don't attempt to recalculate normalizations if the dimensions remain
+        ## unchanged.
         if (identical(
             x = dim(x),
             y = c(length(i), length(j))
@@ -96,41 +96,41 @@ setMethod(
             subset <- TRUE
         }
 
-        # Regenerate RangedSummarizedExperiment.
+        ## Regenerate RangedSummarizedExperiment.
         rse <- as(x, "RangedSummarizedExperiment")
         rse <- rse[i, j, drop = FALSE]
 
-        # Early return original object, if unmodified.
+        ## Early return original object, if unmodified.
         if (identical(assay(rse), assay(x))) {
             message("Returning unmodified.")
             return(x)
         }
 
-        # Assays ---------------------------------------------------------------
+        ## Assays ---------------------------------------------------------------
         assays <- assays(rse)
 
         if (isTRUE(subset)) {
-            # Recalculate DESeq2 normalized counts and variance stabilizations
-            # if the number of samples and/or genes change.
+            ## Recalculate DESeq2 normalized counts and variance stabilizations
+            ## if the number of samples and/or genes change.
             if (isTRUE(recalculate)) {
                 message("Recalculating DESeq2 normalizations.")
                 dds <- .new.DESeqDataSet(se = rse)
                 dds <- DESeq(dds)
-                # Normalized counts.
+                ## Normalized counts.
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
-                # vst: variance-stabilizing transformation.
+                ## vst: variance-stabilizing transformation.
                 if ("vst" %in% names(assays)) {
                     message("Applying variance-stabilizing transformation.")
                     assays[["vst"]] <-
                         assay(varianceStabilizingTransformation(dds))
                 }
-                # rlog: regularized log transformation.
+                ## rlog: regularized log transformation.
                 if ("rlog" %in% names(assays)) {
                     message("Applying rlog transformation.")
                     assays[["rlog"]] <- assay(rlog(dds))
                 }
             } else {
-                # Otherwise, remove previous calculations.
+                ## Otherwise, remove previous calculations.
                 message("Skipping DESeq2 normalizations.")
                 assays[["normalized"]] <- NULL
                 assays[["rlog"]] <- NULL
@@ -139,8 +139,8 @@ setMethod(
             }
         }
 
-        # Row data -------------------------------------------------------------
-        # Ensure factors get releveled, if necessary.
+        ## Row data -------------------------------------------------------------
+        ## Ensure factors get releveled, if necessary.
         rowRanges <- rowRanges(rse)
         if (
             ncol(mcols(rowRanges)) > 0L &&
@@ -149,8 +149,8 @@ setMethod(
             rowRanges <- relevelRowRanges(rowRanges)
         }
 
-        # Column data ----------------------------------------------------------
-        # Ensure factors get releveled, if necessary.
+        ## Column data ----------------------------------------------------------
+        ## Ensure factors get releveled, if necessary.
         colData <- colData(rse)
         if (
             ncol(colData) > 0L &&
@@ -159,13 +159,13 @@ setMethod(
             colData <- relevelColData(colData)
         }
 
-        # Metadata -------------------------------------------------------------
+        ## Metadata -------------------------------------------------------------
         metadata <- metadata(rse)
         if (isTRUE(subset)) {
             metadata[["subset"]] <- TRUE
         }
 
-        # Return ---------------------------------------------------------------
+        ## Return ---------------------------------------------------------------
         .new.bcbioRNASeq(
             assays = assays,
             rowRanges = rowRanges,

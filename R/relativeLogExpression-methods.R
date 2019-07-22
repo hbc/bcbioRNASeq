@@ -21,7 +21,7 @@ NULL
 
 
 
-# Last modified 2019-06-06.
+## Last modified 2019-06-06.
 relativeLogExpression.matrix <-
     function(object) {
         message("Applying relative log expression (RLE) normalization.")

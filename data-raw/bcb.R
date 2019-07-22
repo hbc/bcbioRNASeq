@@ -1,17 +1,17 @@
-# bcbioRNASeq Example
-# 2019-03-13
+## bcbioRNASeq Example
+## 2019-03-13
 
 library(pryr)
 library(usethis)
 
-# Restrict to 2 MB.
-# Use `pryr::object_size()` instead of `utils::object.size()`.
+## Restrict to 2 MB.
+## Use `pryr::object_size()` instead of `utils::object.size()`.
 limit <- structure(2e6, class = "object_size")
 
-# GSE65267 =====================================================================
-# GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
-# HMS O2: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2
-# Using sshfs connection to O2 here.
+## GSE65267 =====================================================================
+## GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
+## HMS O2: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2
+## Using sshfs connection to O2 here.
 gse65267 <- bcbioRNASeq(
     uploadDir = file.path(
         "",
@@ -33,16 +33,16 @@ gse65267 <- bcbioRNASeq(
 )
 saveData(gse65267, dir = "data-raw")
 
-# F1000 paper ==================================================================
-# Subset days 0, 1, 3, 7.
+## F1000 paper ==================================================================
+## Subset days 0, 1, 3, 7.
 f1000 <- selectSamples(gse65267, day = c(0L, 1L, 3L, 7L))
 saveData(f1000, dir = "data-raw")
 
-# bcb ====================================================================
-# Minimal working example: days 0, 7.
+## bcb ====================================================================
+## Minimal working example: days 0, 7.
 bcb <- selectSamples(gse65267, day = c(0L, 7L))
 
-# Minimize metadata slots that are too large for a working example.
+## Minimize metadata slots that are too large for a working example.
 metadata(bcb)[["bcbioCommandsLog"]] <- character()
 metadata(bcb)[["bcbioLog"]] <- character()
 metadata(bcb)[["dataVersions"]] <- DataFrame()
@@ -50,7 +50,7 @@ metadata(bcb)[["programVersions"]] <- DataFrame()
 metadata(bcb)[["tx2gene"]] <- head(metadata(bcb)[["tx2gene"]])
 metadata(bcb)[["yaml"]] <- list()
 
-# Always include sexually dimorphic marker genes.
+## Always include sexually dimorphic marker genes.
 dimorphic_genes <- c(
     "ENSMUSG00000056673",
     "ENSMUSG00000068457",
@@ -58,7 +58,7 @@ dimorphic_genes <- c(
     "ENSMUSG00000086503"
 )
 stopifnot(all(dimorphic_genes %in% rownames(bcb)))
-# Include other genes ranked by abundance.
+## Include other genes ranked by abundance.
 top_genes <- tpm(bcb) %>%
     rowSums() %>%
     sort(decreasing = TRUE) %>%
@@ -69,13 +69,13 @@ genes <- c(dimorphic_genes, top_genes) %>%
     sort()
 bcb <- bcb[genes, ]
 
-# Update the interesting groups and design formula.
+## Update the interesting groups and design formula.
 interestingGroups(bcb) <- "treatment"
 
-# DESeq2 doesn't like spaces in design formula factors.
+## DESeq2 doesn't like spaces in design formula factors.
 bcb[["treatment"]] <- snake(bcb[["treatment"]])
 
-# Report the size of each slot in bytes.
+## Report the size of each slot in bytes.
 vapply(
     X = coerceS4ToList(bcb),
     FUN = object_size,
@@ -84,7 +84,7 @@ vapply(
 object_size(bcb)
 stopifnot(object_size(bcb) < limit)
 
-# Check that object is valid.
+## Check that object is valid.
 stopifnot(is(bcb, "bcbioRNASeq"))
 validObject(bcb)
 

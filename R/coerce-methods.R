@@ -95,7 +95,7 @@ setAs(
     function(from) {
         validObject(from)
         dds <- as(from, "DESeqDataSet")
-        # Expect warning about empty design formula.
+        ## Expect warning about empty design formula.
         dds <- suppressWarnings(DESeq(dds))
         validObject(dds)
         message("Applying variance stabilizing transformation.")
@@ -118,8 +118,8 @@ setAs(
 
 #' @importFrom edgeR DGEList calcNormFactors scaleOffset
 
-# Note that we're following the tximport recommendations here.
-# Last modified 2019-06-07.
+## Note that we're following the tximport recommendations here.
+## Last modified 2019-06-07.
 `coerce.bcbioRNASeq,DGEList` <-  # nolint
     function(from) {
         validObject(from)
@@ -129,30 +129,30 @@ setAs(
             packageVersion("edgeR"), "."
         ))
 
-        # Raw counts (i.e. txi$counts)
+        ## Raw counts (i.e. txi$counts)
         cts <- counts(from)
-        # Average transcript length (i.e. txi$length)
+        ## Average transcript length (i.e. txi$length)
         normMat <- assays(from)[["avgTxLength"]]
 
-        # Obtain per-observation scaling factors for length, adjusted to avoid
-        # changing the magnitude of the counts.
+        ## Obtain per-observation scaling factors for length, adjusted to avoid
+        ## changing the magnitude of the counts.
         normMat <- normMat / exp(rowMeans(log(normMat)))
         normCts <- cts / normMat
 
-        # Computing effective library sizes from scaled counts, to account for
-        # composition biases between samples.
+        ## Computing effective library sizes from scaled counts, to account for
+        ## composition biases between samples.
         effLib <- calcNormFactors(normCts) * colSums(normCts)
 
-        # Combine effective library sizes with the length factors, and calculate
-        # offsets for a log-link GLM.
+        ## Combine effective library sizes with the length factors, and calculate
+        ## offsets for a log-link GLM.
         normMat <- sweep(x = normMat, MARGIN = 2L, STATS = effLib, FUN = "*")
         normMat <- log(normMat)
 
-        # Creating a DGEList object for use in edgeR.
+        ## Creating a DGEList object for use in edgeR.
         to <- DGEList(cts)
         to <- scaleOffset(to, offset = normMat)
-        # Note that tximport guide recommends `filterByExpr()` step but we're
-        # intentionally skipping that step here.
+        ## Note that tximport guide recommends `filterByExpr()` step but we're
+        ## intentionally skipping that step here.
 
         assert(identical(dimnames(from), dimnames(to)))
         validObject(to)

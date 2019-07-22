@@ -18,9 +18,9 @@ NULL
 show.bcbioRNASeq <-  # nolint
     function(object) {
         validObject(object)
-        # Metadata.
+        ## Metadata.
         m <- metadata(object)
-        # Row ranges metadata.
+        ## Row ranges metadata.
         rrm <- metadata(rowRanges(object))
         .showHeader(object, version = m[["version"]])
         showSlotInfo(list(
@@ -39,7 +39,7 @@ show.bcbioRNASeq <-  # nolint
             genomeBuild = rrm[["build"]],
             interestingGroups = m[["interestingGroups"]]
         ))
-        # Extend the standard RangedSummarizedExperiment method.
+        ## Extend the standard RangedSummarizedExperiment method.
         rse <- as(object, "RangedSummarizedExperiment")
         cat(capture.output(show(rse)), sep = "\n")
     }
