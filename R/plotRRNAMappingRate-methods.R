@@ -46,7 +46,7 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
 
         data <- metrics(object)
 
-        # Warn and early return if rRNA rate was not calculated.
+        ## Warn and early return if rRNA rate was not calculated.
         if (!"rrnaRate" %in% colnames(data)) {
             warning("rRNA mapping rate was not calculated. Skipping plot.")
             return(invisible())
@@ -70,11 +70,11 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
             )
 
         if (isPositive(limit)) {
-            # Convert to percentage
+            ## Convert to percentage
             if (limit > 1L) {
-                # nocov start
+                ## nocov start
                 warning("`limit`: Use ratio (0-1) instead of percentage.")
-                # nocov end
+                ## nocov end
             } else {
                 limit <- limit * 100L
             }

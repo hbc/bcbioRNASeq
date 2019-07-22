@@ -49,13 +49,13 @@ NULL
 plotDispEsts.bcbioRNASeq <-  # nolint
     function() {
         validObject(object)
-        # Warn and early return if any samples are duplicated.
+        ## Warn and early return if any samples are duplicated.
         if (!hasUniqueCols(object)) {
             warning("Duplicate samples detected. Skipping plot.")
             return(invisible())
         }
         dds <- as(object, "DESeqDataSet")
-        # Expecting warning about empty design formula.
+        ## Expecting warning about empty design formula.
         dds <- suppressWarnings(DESeq(dds))
         do.call(
             what = plotDispEsts,

@@ -1,6 +1,6 @@
 context("updateObject")
 
-# Load a legacy object that doesn't contain rowRanges.
+## Load a legacy object that doesn't contain rowRanges.
 load("bcb_invalid.rda")
 object <- bcb_invalid
 

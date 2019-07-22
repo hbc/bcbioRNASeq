@@ -57,7 +57,7 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         assert(identical(colnames(counts), data[["sampleID"]]))
         data[["geneCount"]] <- colSums(counts >= minCounts)
 
-        # Convert to per million, if desired.
+        ## Convert to per million, if desired.
         xLab <- "mapped reads"
         if (isTRUE(perMillion)) {
             data <- mutate(data, mappedReads = !!sym("mappedReads") / 1e6L)

@@ -29,7 +29,7 @@ plotGenderMarkers.bcbioRNASeq <-  # nolint
         validObject(object)
         normalized <- match.arg(normalized)
         counts <- counts(object, normalized = normalized)
-        # Ensure counts are log2 scale.
+        ## Ensure counts are log2 scale.
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
         }

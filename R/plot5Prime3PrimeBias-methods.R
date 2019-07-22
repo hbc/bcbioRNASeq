@@ -43,8 +43,8 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
 
         data <- metrics(object)
 
-        # The formatting of this column can vary depending on the version of
-        # `camel` used. This grep match fix was added in v0.2.7.
+        ## The formatting of this column can vary depending on the version of
+        ## `camel` used. This grep match fix was added in v0.2.7.
         yCol <- grep(
             pattern = ".+5.+3bias$",
             x = colnames(data),

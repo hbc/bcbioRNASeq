@@ -1,5 +1,5 @@
-# nocov start
-# nolint start
+## nocov start
+## nolint start
 
 
 
@@ -17,7 +17,7 @@ NULL
 
 
 
-# v0.2.2 =======================================================================
+## v0.2.2 =======================================================================
 #' @rdname deprecated
 #' @export
 loadRNASeq <- function(...) {
@@ -27,7 +27,7 @@ loadRNASeq <- function(...) {
 
 
 
-# v0.3.0 =======================================================================
+## v0.3.0 =======================================================================
 #' @rdname defunct
 #' @export
 plotCountDensity <- function(...) {
@@ -46,7 +46,7 @@ resultsTables <- function(...) {
 
 
 
-# v0.3.16 ======================================================================
+## v0.3.16 ======================================================================
 #' @rdname deprecated
 #' @export
 prepareRNASeqTemplate <- function(...) {
@@ -56,7 +56,7 @@ prepareRNASeqTemplate <- function(...) {
 
 
 
-# v0.3.17 ======================================================================
+## v0.3.17 ======================================================================
 #' @rdname deprecated
 #' @export
 plotCountsPerGene <- function(object, title = "Counts per gene", ...) {
@@ -81,5 +81,5 @@ plotGenesDetected <- function(object, ...) {
 
 
 
-# nolint end
-# nocov end
+## nolint end
+## nocov end

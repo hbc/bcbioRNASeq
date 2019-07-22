@@ -59,7 +59,7 @@ f2 <- f2[setdiff(
     y = c(names(f1), "assay", "countsAxisLabel", "trans")
 )]
 f <- c(f1, f2)
-# Ensure TPM is set first.
+## Ensure TPM is set first.
 f[["normalized"]] <- unique(c("tmm", normalizedCounts))
 formals(plotCountsPerFeature.bcbioRNASeq) <- f
 

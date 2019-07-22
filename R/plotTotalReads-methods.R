@@ -48,7 +48,7 @@ plotTotalReads.bcbioRNASeq <-  # nolint
 
         data <- metrics(object)
 
-        # Convert to per million, if desired.
+        ## Convert to per million, if desired.
         yLab <- "reads"
         if (isTRUE(perMillion)) {
             data[["totalReads"]] <- data[["totalReads"]] / 1e6L
