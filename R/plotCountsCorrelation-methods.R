@@ -18,7 +18,7 @@ NULL
 
 
 
-# FIXME Allow user to subset using i, j.
+## FIXME Allow user to subset using i, j.
 `plotCountsCorrelation.matrix,matrix` <-  # nolint
     function(
         x,
@@ -46,7 +46,7 @@ NULL
             is.integer(aligned)
         )
 
-        # Censor genes that aren't present in both.
+        ## Censor genes that aren't present in both.
         censor <- apply(X = aligned, MARGIN = 1L, FUN = anyNA)
         message(sprintf("Censoring %d genes.", sum(censor)))
         keep <- !censor
@@ -86,8 +86,8 @@ NULL
                 facet_wrap(facets = sym("rowname"), scales = "free_y") +
                 labs(x = "sample", title = title)
         } else {
-            # Correlation heatmap.
-            # Consider limiting to the top n genes expressed instead.
+            ## Correlation heatmap.
+            ## Consider limiting to the top n genes expressed instead.
             cor <- cor(x = pseudo, y = aligned, method = "pearson")
             assert(!anyNA(cor))
             se <- SummarizedExperiment(
