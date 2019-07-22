@@ -1,42 +1,36 @@
-#' Compare pseudoaligned counts to aligned counts.
+#' Plot correlation of two count matrices
 #'
-#' @note Currently supported for salmon or kallisto. The function will
-#'   intentionally error for datasets containing aligned counts in the primary
-#'   `counts` assay.
-#'
-#' @name plotPseudoVsAlignedCounts
+#' @name plotCountsCorrelation
 #' @export
 #'
+#' @inheritParams base::Extract
+#' @inheritParams params
+#'
+#' @param ... Passthrough arguments to
+#'   [`plotCorrelationHeatmap()`][acidplots::plotCorrelationHeatmap].
+#'
+#' @return `pheatmap` or `ggplot`.
+#'   Returns `ggplot` when `genes` argument is defined, otherwise `pheatmap`.
+#'
 #' @examples
-#' data(bcb)
-#'
-#' ## Correlation heatmap.
-#' plotPseudoVsAlignedCounts(bcb)
-#'
-#' ## Individual genes.
-#' ## Checking the most expressed aligned genes here.
-#' genes <- assays(bcb) %>%
-#'     .[["aligned"]] %>%
-#'     rowSums() %>%
-#'     sort() %>%
-#'     tail(n = 2) %>%
-#'     names()
-#' plotPseudoVsAlignedCounts(bcb, genes = genes)
+#' ## FIXME
 NULL
 
 
 
-plotPseudoVsAlignedCounts.bcbioRNASeq <-  # nolint
+# FIXME Allow user to subset using i, j.
+`plotCountsCorrelation.matrix,matrix` <-  # nolint
     function(
-        object,
-        genes = NULL,
-        title = "pseudo vs. aligned counts",
-        return = c("plotCorrelationHeatmap", "cor"),
+        x,
+        y,
+        i = NULL,
+        j = NULL,
+        title = NULL,
         ...
     ) {
-        validObject(object)
+        validObject(x)
+        validObject(y)
         assert(
-            isSubset(c("counts", "aligned"), assayNames(object)),
             isString(title, nullOK = TRUE)
         )
         return <- match.arg(return)
@@ -110,10 +104,13 @@ plotPseudoVsAlignedCounts.bcbioRNASeq <-  # nolint
 
 
 
-#' @rdname plotPseudoVsAlignedCounts
+#' @rdname plotCountsCorrelation
 #' @export
 setMethod(
-    f = "plotPseudoVsAlignedCounts",
-    signature = signature("bcbioRNASeq"),
-    definition = plotPseudoVsAlignedCounts.bcbioRNASeq
+    f = "plotCountsCorrelation",
+    signature = signature(
+        x = "matrix",
+        y =  "matrix"
+    ),
+    definition = `plotCountsCorrelation.matrix,matrix`
 )
