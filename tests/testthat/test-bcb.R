@@ -14,7 +14,7 @@ test_that("Assays", {
         expected = list(
             counts = 179646L,
             tpm = 3456L,
-            avgTxLength = 1389741,
+            avgTxLength = 1389741L,
             aligned = 138365L,
             normalized = 163383L,
             vst = 4044L,

@@ -5,12 +5,19 @@ organism <- "Mus musculus"
 ensemblRelease <- 90L
 
 test_that("Import salmon counts (default)", {
-    ## Expecting warnings about rowRanges.
-    object <- suppressWarnings(bcbioRNASeq(uploadDir))
+    object <- bcbioRNASeq(uploadDir)
     expect_s4_class(object, "bcbioRNASeq")
+    expect_true(validObject(object))
     expect_identical(
         object = assayNames(object),
-        expected = c("counts", "tpm", "avgTxLength", "normalized", "vst")
+        expected = c(
+            "counts",
+            "tpm",
+            "avgTxLength",
+            "aligned",
+            "normalized",
+            "vst"
+        )
     )
 
     ## Dimensions.
@@ -58,6 +65,20 @@ test_that("Import salmon counts (default)", {
     )
 })
 
+test_that("Fast mode", {
+    object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
+    expect_s4_class(object, "bcbioRNASeq")
+    expect_true(validObject(object))
+    expect_identical(
+        object = assayNames(object),
+        expected = c(
+            "counts",
+            "tpm",
+            "avgTxLength"
+        )
+    )
+})
+
 ## Testing both gene and transcript level.
 with_parameters_test_that(
     "AnnotationHub", {
@@ -97,75 +118,6 @@ test_that("STAR aligned counts", {
     )
 })
 
-## Testing both gene and transcript level.
-with_parameters_test_that(
-    "GTF/GFF file", {
-        skip_on_appveyor()
-        skip_on_docker()
-        ## GFF3 files are also supported, but we're only testing GTF here for
-        ## speed. This functionality is covered in basejump tests also.
-        gtfURL <- paste(
-            "ftp://ftp.ensembl.org",
-            "pub",
-            "release-90",
-            "gtf",
-            "mus_musculus",
-            "Mus_musculus.GRCm38.90.gtf.gz",
-            sep = "/"
-        )
-        gtfFile <- file.path("cache", basename(gtfURL))
-        if (!file.exists(gtfFile)) {
-            download.file(url = gtfURL, destfile = gtfFile)
-        }
-        object <- bcbioRNASeq(
-            uploadDir = uploadDir,
-            level = level,
-            organism = organism,
-            gffFile = gtfFile
-        )
-        expect_s4_class(object, "bcbioRNASeq")
-    },
-    level = eval(formals(bcbioRNASeq)[["level"]])
-)
-
-test_that("DESeq2 variance stabilization", {
-    object <- suppressWarnings(
-        bcbioRNASeq(
-            uploadDir = uploadDir,
-            vst = FALSE,
-            rlog = FALSE
-        )
-    )
-    expect_identical(
-        object = names(assays(object)),
-        expected = c(
-            "counts",
-            "tpm",
-            "avgTxLength",
-            "normalized"
-        )
-    )
-
-    object <- suppressWarnings(
-        bcbioRNASeq(
-            uploadDir = uploadDir,
-            vst = TRUE,
-            rlog = TRUE
-        )
-    )
-    expect_identical(
-        object = names(assays(object)),
-        expected = c(
-            "counts",
-            "tpm",
-            "avgTxLength",
-            "normalized",
-            "vst",
-            "rlog"
-        )
-    )
-})
-
 test_that("User-defined sample metadata", {
     object <- bcbioRNASeq(
         uploadDir = uploadDir,
@@ -197,3 +149,34 @@ test_that("Sample selection", {
         expected = keep
     )
 })
+
+## Testing both gene and transcript level.
+with_parameters_test_that(
+    "GTF/GFF file", {
+        skip_on_appveyor()
+        skip_on_docker()
+        ## GFF3 files are also supported, but we're only testing GTF here for
+        ## speed. This functionality is covered in basejump tests also.
+        gtfURL <- paste(
+            "ftp://ftp.ensembl.org",
+            "pub",
+            "release-90",
+            "gtf",
+            "mus_musculus",
+            "Mus_musculus.GRCm38.90.gtf.gz",
+            sep = "/"
+        )
+        gtfFile <- file.path("cache", basename(gtfURL))
+        if (!file.exists(gtfFile)) {
+            download.file(url = gtfURL, destfile = gtfFile)
+        }
+        object <- bcbioRNASeq(
+            uploadDir = uploadDir,
+            level = level,
+            organism = organism,
+            gffFile = gtfFile
+        )
+        expect_s4_class(object, "bcbioRNASeq")
+    },
+    level = eval(formals(bcbioRNASeq)[["level"]])
+)
