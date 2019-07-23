@@ -89,8 +89,9 @@ basejump::aggregateReplicates
 #' @export
 alphaSummary <- function(object, ...) {
     ## > .Deprecated("DESeqAnalysis::alphaSummary")
-    ## This doesn't work unless we attach the package.
-    require("DESeqAnalysis", quietly = TRUE)
+    ## FIXME This doesn't work unless we attach the package.
+    ## > require("DESeqAnalysis", quietly = TRUE)
+    requireNamespace("DESeqAnalysis", quietly = TRUE)
     DESeqAnalysis::alphaSummary(object, ...)
 }
 
