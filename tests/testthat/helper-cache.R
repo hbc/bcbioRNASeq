@@ -1,4 +1,4 @@
-if (!isTRUE(hasInternet())) {
+if (!isTRUE(goalie::hasInternet())) {
     warning("No Internet connection detected.")
     return()
 }
