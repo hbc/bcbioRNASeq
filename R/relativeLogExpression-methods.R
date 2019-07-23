@@ -21,8 +21,8 @@ NULL
 
 
 
-## Last modified 2019-06-06.
-relativeLogExpression.matrix <-
+## Updated 2019-07-23.
+`relativeLogExpression,matrix` <-  # nolint
     function(object) {
         message("Applying relative log expression (RLE) normalization.")
         object %>%
@@ -38,12 +38,13 @@ relativeLogExpression.matrix <-
 setMethod(
     f = "relativeLogExpression",
     signature = signature("matrix"),
-    definition = relativeLogExpression.matrix
+    definition = `relativeLogExpression,matrix`
 )
 
 
 
-relativeLogExpression.SummarizedExperiment <-  # nolint
+## Updated 2019-07-23.
+`relativeLogExpression,SummarizedExperiment` <-  # nolint
     function(object) {
         relativeLogExpression(counts(object))
     }
@@ -55,5 +56,5 @@ relativeLogExpression.SummarizedExperiment <-  # nolint
 setMethod(
     f = "relativeLogExpression",
     signature = signature("SummarizedExperiment"),
-    definition = relativeLogExpression.SummarizedExperiment
+    definition = `relativeLogExpression,SummarizedExperiment`
 )
