@@ -82,8 +82,7 @@ NULL
         withCallingHandlers(
             expr = degCovariates(counts = counts, metadata = metadata, ...),
             warning = function(w) {
-                conditionMessage(w)
-                invokeRestart("muffleWarning")
+                message(w)
             }
         )
     }
