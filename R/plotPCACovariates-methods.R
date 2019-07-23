@@ -79,7 +79,13 @@ NULL
         assert(isSubset(col, colnames(metadata)))
         metadata <- metadata[, col, drop = FALSE]
 
-        degCovariates(counts = counts, metadata = metadata, ...)
+        withCallingHandlers(
+            expr = degCovariates(counts = counts, metadata = metadata, ...),
+            warning = function(w) {
+                conditionMessage(w)
+                invokeRestart("muffleWarning")
+            }
+        )
     }
 
 formals(`plotPCACovariates,bcbioRNASeq`)[["normalized"]] <- normalizedCounts
