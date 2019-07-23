@@ -4,6 +4,7 @@ skip_on_docker <- goalie::skip_on_docker
 ## nolint end
 
 data(bcb, envir = environment())
+invisible(validObject(bcb))
 
 object <- bcb
 g2s <- Gene2Symbol(object)
