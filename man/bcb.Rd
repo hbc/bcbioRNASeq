@@ -4,7 +4,7 @@
 \name{bcb}
 \alias{bcb}
 \title{bcbio RNA-Seq example data set}
-\format{An object of class \code{bcbioRNASeq} with 500 rows and 6 columns.}
+\format{An object of class \code{bcbioRNASeq} with 100 rows and 6 columns.}
 \usage{
 bcb
 }

@@ -10,8 +10,7 @@
 plotPseudoVsAlignedCounts(object, ...)
 
 \S4method{plotPseudoVsAlignedCounts}{bcbioRNASeq}(object, genes = NULL,
-  title = "pseudo vs. aligned counts",
-  return = c("plotCorrelationHeatmap", "cor"), ...)
+  title = "pseudo vs. aligned counts", ...)
 }
 \description{
 Compare pseudoaligned counts to aligned counts.
