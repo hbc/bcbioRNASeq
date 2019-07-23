@@ -105,6 +105,7 @@ Depends:
     SummarizedExperiment,
     basejump (>= 0.11.0)
 Imports:
+    DESeqAnalysis (>= 0.2.0),
     acidplots (>= 0.2.7),
     bcbioBase (>= 0.6.7),
     bioverbs (>= 0.2.0),
@@ -134,15 +135,23 @@ Imports:
     utils
 Suggests:
     BiocStyle,
+    DOSE,
+    EnsDb.Hsapiens.v75,
+    clusterProfiler,
     hexbin,
+    org.Hs.eg.db,
+    org.Mm.eg.db,
+    pathview,
     rhdf5,
     patrick (>= 0.0.1),
+    rdrop2 (>= 0.8),
     rmarkdown (>= 1.14),
     roxygen2 (>= 6.1),
     testthat (>= 2.1),
     tidyverse (>= 1.2),
     viridis (>= 0.5)
 Remotes:
+    acidgenomics/DESeqAnalysis,
     acidgenomics/acidplots,
     acidgenomics/basejump,
     acidgenomics/bcbioBase,

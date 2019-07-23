@@ -80,5 +80,80 @@ plotGenesDetected <- function(object, ...) {
 
 
 
+## v0.3.22 =====================================================================
+#' @importFrom basejump aggregateReplicates
+#' @export
+basejump::aggregateReplicates
+
+#' @rdname deprecated
+#' @export
+alphaSummary <- function(object, ...) {
+    ## > .Deprecated("DESeqAnalysis::alphaSummary")
+    ## This doesn't work unless we attach the package.
+    require("DESeqAnalysis", quietly = TRUE)
+    DESeqAnalysis::alphaSummary(object, ...)
+}
+
+#' @importFrom DESeqAnalysis contrastName
+#' @export
+DESeqAnalysis::contrastName
+
+#' @rdname deprecated
+#' @export
+plotDEGHeatmap <- function(results, counts, ...) {
+    ## > .Deprecated("DESeqAnalysis::plotDEGHeatmap")
+    requireNamespace("DESeqAnalysis", quietly = TRUE)
+    DESeqAnalysis::plotDEGHeatmap(
+        object = results,
+        counts = counts,
+        ...
+    )
+}
+
+#' @rdname deprecated
+#' @export
+plotDEGPCA <- function(results, counts, ...) {
+    ## > .Deprecated("DESeqAnalysis::plotDEGPCA")
+    requireNamespace("DESeqAnalysis", quietly = TRUE)
+    DESeqAnalysis::plotDEGPCA(
+        object = results,
+        counts = counts,
+        ...
+    )
+}
+
+#' @importFrom DESeqAnalysis plotMA
+#' @export
+DESeqAnalysis::plotMA
+
+#' @importFrom DESeqAnalysis plotMeanAverage
+#' @export
+DESeqAnalysis::plotMeanAverage
+
+#' @importFrom DESeqAnalysis plotVolcano
+#' @export
+DESeqAnalysis::plotVolcano
+
+## FIXME Add support for counts in DESeqAnalysis...
+## FIXME This doesn't support Dropbox any more. Consider updating the method
+## to work with previous bcbioRNASeq support.
+
+#' @rdname deprecated
+#' @export
+resultsTables <- function(results, counts, ...) {
+    ## > .Deprecated("DESeqAnalysis::plotDEGPCA")
+    resultsTables(
+        object = results,
+        counts = counts,
+        ...
+    )
+}
+
+#' @importFrom DESeqAnalysis topTables
+#' @export
+DESeqAnalysis::topTables
+
+
+
 ## nolint end
 ## nocov end

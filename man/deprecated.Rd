@@ -5,6 +5,10 @@
 \alias{prepareRNASeqTemplate}
 \alias{plotCountsPerGene}
 \alias{plotGenesDetected}
+\alias{alphaSummary}
+\alias{plotDEGHeatmap}
+\alias{plotDEGPCA}
+\alias{resultsTables}
 \title{Deprecated functions}
 \usage{
 prepareRNASeqTemplate(...)
@@ -12,6 +16,14 @@ prepareRNASeqTemplate(...)
 plotCountsPerGene(object, title = "Counts per gene", ...)
 
 plotGenesDetected(object, ...)
+
+alphaSummary(object, ...)
+
+plotDEGHeatmap(results, counts, ...)
+
+plotDEGPCA(results, counts, ...)
+
+resultsTables(results, counts, ...)
 }
 \arguments{
 \item{...}{Additional arguments.}

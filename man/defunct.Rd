@@ -11,7 +11,7 @@ loadRNASeq(...)
 
 plotCountDensity(...)
 
-resultsTables(...)
+resultsTables(results, counts, ...)
 }
 \arguments{
 \item{...}{Additional arguments.}
