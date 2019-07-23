@@ -20,7 +20,8 @@
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
 #' @importFrom acidplots acid_geom_abline acid_geom_label acid_geom_label_repel
 #'   acid_coord_flip acid_geom_bar acid_scale_y_continuous_nopad
-#'   plotCorrelationHeatmap plotFeaturesDetected plotHeatmap plotPCA
+#'   plotCorrelationHeatmap plotCountsCorrelation plotCountsCorrelationHeatmap
+#'   plotFeaturesDetected plotHeatmap plotPCA
 #' @importFrom basejump Gene2Symbol Tx2Gene camelCase coerceS4ToList
 #'   convertGenesToSymbols detectLanes detectOrganism emptyRanges formalsList
 #'   import initDir interestingGroups interestingGroups<- lanePattern
