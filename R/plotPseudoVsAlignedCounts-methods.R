@@ -26,11 +26,6 @@ NULL
 
 
 
-#' @importFrom acidplots plotCountsCorrelation plotCountsCorrelationHeatmap
-NULL
-
-
-
 ## Updated 2019-07-23.
 `plotPseudoVsAlignedCounts,bcbioRNASeq` <-  # nolint
     function(
@@ -61,12 +56,12 @@ NULL
                 isSubset(genes, rownames(pseudo)),
                 isSubset(genes, rownames(aligned))
             )
-            ## FIXME Switch to acidplots approach.
             pseudo <- pseudo[genes, , drop = FALSE]
             aligned <- aligned[genes, , drop = FALSE]
             plotCountsCorrelation(x = pseudo, y = aligned)
         } else {
-            ## Censor genes that aren't present in both.
+            ## Censor genes that aren't present in both, otherwise the
+            ## correlation matrix calculation will fail.
             censor <- apply(X = aligned, MARGIN = 1L, FUN = anyNA)
             message(sprintf("Censoring %d genes.", sum(censor)))
             keep <- !censor
