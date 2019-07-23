@@ -6,8 +6,8 @@ test_that("bcbioRNASeq to DESeqDataSet", {
     expect_identical(assayNames(x), "counts")
     expect_true(is.integer(assay(x)))
     expect_identical(
-        colSums(assay(x)),
-        c(
+        object = colSums(assay(x)),
+        expected = c(
             ## nolint start
             control_rep1 = 17661,
             control_rep2 = 60247,
@@ -32,4 +32,17 @@ test_that("bcbioRNASeq to DGEList (edgeR)", {
     counts <- x[["counts"]]
     expect_is(counts, "matrix")
     expect_false(is.integer(counts))
+    expect_identical(
+        object = round(colSums(counts)),
+        expected = c(
+            ## nolint start
+            control_rep1 = 17659,
+            control_rep2 = 60245,
+            control_rep3 = 16105,
+            fa_day7_rep1 = 29482,
+            fa_day7_rep2 = 26272,
+            fa_day7_rep3 = 29883
+            ## nolint end
+        )
+    )
 })
