@@ -1,6 +1,6 @@
 globalVariables(".")
 
-packageVersion <- packageVersion("bcbioRNASeq")
+.version <- packageVersion("bcbioRNASeq")
 
 #' Cache URL
 #' @keywords internal
@@ -9,7 +9,7 @@ packageVersion <- packageVersion("bcbioRNASeq")
 #' bcbioRNASeqTestsURL
 bcbioRNASeqTestsURL <- paste0(
     "http://tests.acidgenomics.com/bcbioRNASeq/",
-    "v", packageVersion$major, ".", packageVersion$minor  # nolint
+    "v", .version$major, ".", .version$minor  # nolint
 )
 
 validLevels <- c("genes", "transcripts")

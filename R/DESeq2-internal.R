@@ -1,10 +1,12 @@
 ## Used for bcbio pipeline checks.
+## Updated 2019-07-23.
 .dataHasVariation <- function(dds) {
     !all(rowSums(assay(dds) == assay(dds)[, 1L]) == ncol(dds))
 }
 
 
 
+## Updated 2019-07-23.
 .ddsMsg <- function() {
     message(paste0(
         "Generating DESeqDataSet with DESeq2 ",
@@ -14,7 +16,8 @@
 
 
 
-.new.DESeqDataSet <-  # nolint
+## Updated 2019-07-23.
+`.new,DESeqDataSet` <-  # nolint
     function(se) {
         .ddsMsg()
         assert(is(se, "SummarizedExperiment"))
@@ -72,7 +75,7 @@
 
 
 
-.new.DESeqDataSetFromMatrix <-  # nolint
+.DESeqDataSetFromMatrix <-  # nolint
     function(countData) {
         .ddsMsg()
         assert(is.matrix(countData))

@@ -25,6 +25,8 @@ setClassUnion(
 #'
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
+
+## Updated 2019-07-23.
 setClass(
     Class = "bcbioRNASeq",
     contains = "RangedSummarizedExperiment",
@@ -45,7 +47,7 @@ setClass(
         )
         if (!isTRUE(ok)) return(ok)
 
-        ## Metadata -------------------------------------------------------------
+        ## Metadata ------------------------------------------------------------
         ok <- validate(
             ## Check for legacy metrics stashed in metadata, rather than defined
             ## in colData.
@@ -128,7 +130,7 @@ setClass(
         )
         if (!isTRUE(ok)) return(ok)
 
-        ## Assays ---------------------------------------------------------------
+        ## Assays --------------------------------------------------------------
         assayNames <- assayNames(object)
         ok <- validate(isSubset(requiredAssays, assayNames))
         if (!isTRUE(ok)) return(ok)
@@ -160,7 +162,7 @@ setClass(
             if (!isTRUE(ok)) return(ok)
         }
 
-        ## Row data -------------------------------------------------------------
+        ## Row data ------------------------------------------------------------
         rowRanges <- rowRanges(object)
         rowData <- rowData(object)
         ok <- validate(
@@ -175,10 +177,10 @@ setClass(
         if (!isTRUE(ok)) return(ok)
 
         if (hasLength(colnames(rowData))) {
-            ## Note that GTF/GFF annotations won't contain description.
-            ## The description column only gets returned via ensembldb.
-            ## This check will fail for bcbioRNASeq objects created prior to v0.3
-            ## update because we didn't use S4 Rle run-length encoding.
+            ## Note that GTF/GFF annotations won't contain description. The
+            ## description column only gets returned via ensembldb. This check
+            ## will fail for bcbioRNASeq objects created prior to v0.3 update
+            ## because we didn't use S4 Rle run-length encoding.
             ok <- validateClasses(
                 object = rowData,
                 expected = list(
@@ -192,7 +194,7 @@ setClass(
             if (!isTRUE(ok)) return(ok)
         }
 
-        ## Column data ----------------------------------------------------------
+        ## Column data ---------------------------------------------------------
         colData <- colData(object)
         ok <- validate(
             identical(rownames(colData), colnames(object)),

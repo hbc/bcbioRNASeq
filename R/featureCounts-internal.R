@@ -1,6 +1,7 @@
 ## Load up the featureCounts aligned counts matrix.
 ## Use the genes argument to dynamically resize the matrix. This is necessary
 ## when slotting this data into assays along with pseudoaligned counts.
+## Updated 2019-07-23.
 .featureCounts <-
     function(projectDir, samples, genes = NULL) {
         assert(

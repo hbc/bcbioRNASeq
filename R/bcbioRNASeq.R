@@ -191,6 +191,8 @@
 #'
 #' ## Fast mode.
 #' object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
+
+## Updated 2019-07-23.
 bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
@@ -209,7 +211,7 @@ bcbioRNASeq <- function(
     fast = FALSE,
     ...
 ) {
-    ## Legacy arguments ---------------------------------------------------------
+    ## Legacy arguments --------------------------------------------------------
     ## nocov start
     call <- match.call()
     ## annotable
@@ -236,7 +238,7 @@ bcbioRNASeq <- function(
     rm(call)
     ## nocov end
 
-    ## Assert checks ------------------------------------------------------------
+    ## Assert checks -----------------------------------------------------------
     assert(isADirectory(uploadDir))
     level <- match.arg(level)
     caller <- match.arg(caller)
@@ -279,17 +281,17 @@ bcbioRNASeq <- function(
         choices = eval(formals(tximport)[["countsFromAbundance"]])
     )
 
-    ## Directory paths ----------------------------------------------------------
+    ## Directory paths ---------------------------------------------------------
     uploadDir <- realpath(uploadDir)
     projectDir <- projectDir(uploadDir)
     sampleDirs <- sampleDirs(uploadDir)
 
-    ## Project summary YAML -----------------------------------------------------
+    ## Project summary YAML ----------------------------------------------------
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     yaml <- import(yamlFile)
     assert(is.list(yaml))
 
-    ## bcbio run information ----------------------------------------------------
+    ## bcbio run information ---------------------------------------------------
     dataVersions <- readDataVersions(file.path(projectDir, "data_versions.csv"))
     assert(is(dataVersions, "DataFrame"))
 
@@ -315,7 +317,7 @@ bcbioRNASeq <- function(
         }
     )
 
-    ## Transcript-to-gene mappings ----------------------------------------------
+    ## Transcript-to-gene mappings ---------------------------------------------
     tx2gene <- readTx2Gene(
         file = file.path(projectDir, "tx2gene.csv"),
         organism = organism,
@@ -324,14 +326,14 @@ bcbioRNASeq <- function(
     )
     assert(is(tx2gene, "Tx2Gene"))
 
-    ## Sequencing lanes ---------------------------------------------------------
+    ## Sequencing lanes --------------------------------------------------------
     lanes <- detectLanes(sampleDirs)
     assert(
         isInt(lanes) ||
         identical(lanes, integer())
     )
 
-    ## Samples ------------------------------------------------------------------
+    ## Samples -----------------------------------------------------------------
     ## Get the sample data.
     if (isString(sampleMetadataFile)) {
         ## Normalize path of local file.
@@ -387,7 +389,7 @@ bcbioRNASeq <- function(
     }
     sampleDirs <- sampleDirs[samples]
 
-    ## Column data --------------------------------------------------------------
+    ## Column data -------------------------------------------------------------
     ## Sample metrics. Note that sample metrics used for QC plots are not
     ## currently generated when using fast RNA-seq workflow. This depends upon
     ## MultiQC and aligned counts generated with STAR.
@@ -408,10 +410,10 @@ bcbioRNASeq <- function(
         identical(samples, rownames(colData))
     )
 
-    ## Assays -------------------------------------------------------------------
+    ## Assays ------------------------------------------------------------------
     assays <- list()
-    ## Use tximport by default for transcript-aware callers. Otherwise, resort to
-    ## loading the featureCounts aligned counts data. As of v0.3.22, we're
+    ## Use tximport by default for transcript-aware callers. Otherwise, resort
+    ## to loading the featureCounts aligned counts data. As of v0.3.22, we're
     ## alternatively slotting the aligned counts as "aligned" matrix when
     ## pseudoaligned counts are defined in the primary "counts" assay.
     if (caller %in% tximportCallers) {
@@ -456,7 +458,7 @@ bcbioRNASeq <- function(
         identical(colnames(assays[[1L]]), rownames(colData))
     )
 
-    ## Row data -----------------------------------------------------------------
+    ## Row data ----------------------------------------------------------------
     ## Annotation priority:
     ## 1. AnnotationHub.
     ##    - Requires `organism` to be declared.
@@ -490,8 +492,8 @@ bcbioRNASeq <- function(
     }
     assert(is(rowRanges, "GRanges"))
 
-    ## Attempt to get genome build and Ensembl release if not declared.
-    ## Note that these will remain NULL when using GTF file (see above).
+    ## Attempt to get genome build and Ensembl release if not declared. Note
+    ## that these will remain NULL when using GTF file (see above).
     if (is.null(genomeBuild)) {
         genomeBuild <- metadata(rowRanges)[["genomeBuild"]]
     }
@@ -499,9 +501,9 @@ bcbioRNASeq <- function(
         ensemblRelease <- metadata(rowRanges)[["ensemblRelease"]]
     }
 
-    ## Metadata -----------------------------------------------------------------
+    ## Metadata ----------------------------------------------------------------
     ## Interesting groups.
-    interestingGroups <- camel(interestingGroups)
+    interestingGroups <- camelCase(interestingGroups)
     assert(isSubset(interestingGroups, colnames(colData)))
 
     ## Organism.
@@ -519,7 +521,7 @@ bcbioRNASeq <- function(
     }
 
     metadata <- list(
-        version = packageVersion,
+        version = .version,
         level = level,
         caller = caller,
         countsFromAbundance = countsFromAbundance,
@@ -544,8 +546,8 @@ bcbioRNASeq <- function(
         call = match.call()
     )
 
-    ## Generate bcbioRNASeq object ----------------------------------------------
-    bcb <- .new.bcbioRNASeq(
+    ## Generate bcbioRNASeq object ---------------------------------------------
+    bcb <- `.new,bcbioRNASeq`(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
@@ -554,7 +556,7 @@ bcbioRNASeq <- function(
         spikeNames = spikeNames
     )
 
-    ## DESeq2 -------------------------------------------------------------------
+    ## DESeq2 ------------------------------------------------------------------
     if (level == "genes" && !isTRUE(fast)) {
         dds <- as(bcb, "DESeqDataSet")
 
@@ -593,7 +595,7 @@ bcbioRNASeq <- function(
         }
     }
 
-    ## Return -------------------------------------------------------------------
+    ## Return ------------------------------------------------------------------
     assert(hasValidDimnames(bcb))
     validObject(bcb)
     bcb
@@ -601,7 +603,8 @@ bcbioRNASeq <- function(
 
 
 
-.new.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`.new,bcbioRNASeq` <-  # nolint
     function(...) {
         new(Class = "bcbioRNASeq", makeSummarizedExperiment(...))
     }

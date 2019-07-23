@@ -1,14 +1,3 @@
-#' @rdname plotCountsCorrelation
-#' @export
-setGeneric(
-    name = "plotCountsCorrelation",
-    def = function(x, y, ...) {
-        standardGeneric("plotCountsCorrelation")
-    }
-)
-
-
-
 #' @rdname plotPseudoVsAlignedCounts
 #' @export
 setGeneric(

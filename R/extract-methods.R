@@ -48,20 +48,10 @@ NULL
 
 
 
-#' @rdname extract
-#' @export
-setMethod(
-    f = "[",
-    signature = signature(
-        x = "bcbioRNASeq",
-        i = "ANY",
-        j = "ANY",
-        drop = "ANY"  # Don't use logical here.
-    ),
-    definition = function(
-        x,
-        i,
-        j,
+## Updated 2019-07-23.
+`extract,bcbioRNASeq` <-  # nolint
+    function(
+        x, i, j,
         drop = FALSE,
         recalculate = TRUE
     ) {
@@ -107,7 +97,7 @@ setMethod(
             return(x)
         }
 
-        ## Assays ---------------------------------------------------------------
+        ## Assays --------------------------------------------------------------
         assays <- assays(rse)
 
         if (isTRUE(subset)) {
@@ -115,7 +105,7 @@ setMethod(
             ## if the number of samples and/or genes change.
             if (isTRUE(recalculate)) {
                 message("Recalculating DESeq2 normalizations.")
-                dds <- .new.DESeqDataSet(se = rse)
+                dds <- `.new,DESeqDataSet`(se = rse)
                 dds <- DESeq(dds)
                 ## Normalized counts.
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
@@ -143,38 +133,52 @@ setMethod(
             }
         }
 
-        ## Row data -------------------------------------------------------------
+        ## Row data ------------------------------------------------------------
         ## Ensure factors get releveled, if necessary.
         rowRanges <- rowRanges(rse)
         if (
             ncol(mcols(rowRanges)) > 0L &&
             !identical(rownames(rse), rownames(x))
         ) {
-            rowRanges <- relevelRowRanges(rowRanges)
+            rowRanges <- relevel(rowRanges)
         }
 
-        ## Column data ----------------------------------------------------------
+        ## Column data ---------------------------------------------------------
         ## Ensure factors get releveled, if necessary.
         colData <- colData(rse)
         if (
             ncol(colData) > 0L &&
             !identical(colnames(rse), colnames(x))
         ) {
-            colData <- relevelColData(colData)
+            colData <- relevel(colData)
         }
 
-        ## Metadata -------------------------------------------------------------
+        ## Metadata ------------------------------------------------------------
         metadata <- metadata(rse)
         if (isTRUE(subset)) {
             metadata[["subset"]] <- TRUE
         }
 
-        ## Return ---------------------------------------------------------------
-        .new.bcbioRNASeq(
+        ## Return --------------------------------------------------------------
+        `.new,bcbioRNASeq`(
             assays = assays,
             rowRanges = rowRanges,
             colData = colData,
             metadata = metadata
         )
     }
+
+
+
+#' @rdname extract
+#' @export
+setMethod(
+    f = "[",
+    signature = signature(
+        x = "bcbioRNASeq",
+        i = "ANY",
+        j = "ANY",
+        drop = "ANY"  # Don't use logical here.
+    ),
+    definition = `extract,bcbioRNASeq`
 )

@@ -83,7 +83,8 @@ NULL
 
 
 
-counts.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`counts,bcbioRNASeq` <-  # nolint
     function(object, normalized = FALSE) {
         validObject(object)
         assert(
@@ -133,5 +134,5 @@ counts.bcbioRNASeq <-  # nolint
 setMethod(
     f = "counts",
     signature = signature("bcbioRNASeq"),
-    definition = counts.bcbioRNASeq
+    definition = `counts,bcbioRNASeq`
 )
