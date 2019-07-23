@@ -42,6 +42,7 @@ test_that("Calculate DESeq2 transforms by default", {
             "counts",
             "tpm",
             "avgTxLength",
+            "aligned",
             "normalized",
             "vst",
             "fpkm"
@@ -57,7 +58,8 @@ test_that("Allow the user to skip transforms, using `recalculate` argument", {
         expected = c(
             "counts",
             "tpm",
-            "avgTxLength"
+            "avgTxLength",
+            "aligned"
         )
     )
 })
