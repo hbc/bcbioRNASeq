@@ -92,6 +92,11 @@ NULL
                     x = as.character(w)
                 ))) {
                     invokeRestart("muffleWarning")
+                } else if (isTRUE(grepl(
+                    pattern = "Unquoting language objects",
+                    x = as.character(w)
+                ))) {
+                    invokeRestart("muffleWarning")
                 } else {
                     w
                 }
