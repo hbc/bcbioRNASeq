@@ -1,12 +1,22 @@
-invisible(lapply(
-    X = "bcb_invalid.rda",
-    FUN = function(file, url) {
-        if (!file.exists(file)) {
+if (!isTRUE(hasInternet())) {
+    warning("No Internet connection detected.")
+    return()
+}
+dir.create("cache", showWarnings = FALSE)
+files <- "bcb_invalid.rda"
+mapply(
+    FUN = function(remoteDir, file, envir) {
+        destfile <- file.path("cache", file)
+        if (!file.exists(destfile)) {
             utils::download.file(
-                url = paste(url, file, sep = "/"),
-                destfile = file
+                url = paste(remoteDir, file, sep = "/"),
+                destfile = destfile
             )
         }
     },
-    url = bcbioRNASeqTestsURL
-))
+    file = files,
+    MoreArgs = list(
+        remoteDir = bcbioRNASeqTestsURL,
+        envir = environment()
+    )
+)

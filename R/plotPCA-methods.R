@@ -23,7 +23,8 @@ NULL
 
 
 
-plotPCA.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotPCA,bcbioRNASeq` <-  # nolint
     function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
@@ -39,7 +40,7 @@ plotPCA.bcbioRNASeq <-  # nolint
         )
     }
 
-f1 <- formals(plotPCA.bcbioRNASeq)
+f1 <- formals(`plotPCA,bcbioRNASeq`)
 f2 <- methodFormals(
     f = "plotPCA",
     signature = "SummarizedExperiment",
@@ -48,7 +49,7 @@ f2 <- methodFormals(
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
 f[["normalized"]] <- normalizedCounts
-formals(plotPCA.bcbioRNASeq) <- f
+formals(`plotPCA,bcbioRNASeq`) <- f
 
 
 
@@ -57,5 +58,5 @@ formals(plotPCA.bcbioRNASeq) <- f
 setMethod(
     f = "plotPCA",
     signature = signature("bcbioRNASeq"),
-    definition = plotPCA.bcbioRNASeq
+    definition = `plotPCA,bcbioRNASeq`
 )

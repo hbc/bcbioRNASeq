@@ -46,7 +46,8 @@ NULL
 
 
 
-plotDispEsts.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotDispEsts,bcbioRNASeq` <-  # nolint
     function() {
         validObject(object)
         ## Warn and early return if any samples are duplicated.
@@ -63,7 +64,7 @@ plotDispEsts.bcbioRNASeq <-  # nolint
         )
     }
 
-formals(plotDispEsts.bcbioRNASeq) <-
+formals(`plotDispEsts,bcbioRNASeq`) <-
     methodFormals(
         f = "plotDispEsts",
         signature = "DESeqDataSet",
@@ -77,5 +78,5 @@ formals(plotDispEsts.bcbioRNASeq) <-
 setMethod(
     f = "plotDispEsts",
     signature = signature("bcbioRNASeq"),
-    definition = plotDispEsts.bcbioRNASeq
+    definition = `plotDispEsts,bcbioRNASeq`
 )

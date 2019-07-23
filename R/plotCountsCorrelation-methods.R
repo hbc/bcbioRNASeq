@@ -1,3 +1,17 @@
+## FIXME Rework this and move some of the code to acidplots.
+
+## FIXME Move to acidplots / bioverbs.
+#' @rdname plotCountsCorrelation
+#' @export
+setGeneric(
+    name = "plotCountsCorrelation",
+    def = function(x, y, ...) {
+        standardGeneric("plotCountsCorrelation")
+    }
+)
+
+
+
 #' Plot correlation of two count matrices
 #'
 #' @name plotCountsCorrelation
@@ -19,7 +33,7 @@ NULL
 
 
 ## FIXME Allow user to subset using i, j.
-`plotCountsCorrelation.matrix,matrix` <-  # nolint
+`plotCountsCorrelation,matrix` <-  # nolint
     function(
         x,
         y,
@@ -112,5 +126,5 @@ setMethod(
         x = "matrix",
         y =  "matrix"
     ),
-    definition = `plotCountsCorrelation.matrix,matrix`
+    definition = `plotCountsCorrelation,matrix`
 )

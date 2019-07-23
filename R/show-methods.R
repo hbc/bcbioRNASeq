@@ -9,13 +9,15 @@ NULL
 
 
 
+## Updated 2019-07-23.
 .showHeader <- function(object, version = NULL) {
     cat(paste(class(object), version), sep = "\n")
 }
 
 
 
-show.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`show,bcbioRNASeq` <-  # nolint
     function(object) {
         validObject(object)
         ## Metadata.
@@ -51,5 +53,5 @@ show.bcbioRNASeq <-  # nolint
 setMethod(
     f = "show",
     signature = signature("bcbioRNASeq"),
-    definition = show.bcbioRNASeq
+    definition = `show,bcbioRNASeq`
 )

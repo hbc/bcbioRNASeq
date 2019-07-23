@@ -13,22 +13,6 @@ plotPseudoVsAlignedCounts(object, ...)
   title = "pseudo vs. aligned counts",
   return = c("plotCorrelationHeatmap", "cor"), ...)
 }
-\arguments{
-\item{...}{Passthrough arguments.
-When \code{genes} argument is undefined, passes through to
-\code{\link[acidplots:plotCorrelationHeatmap]{plotCorrelationHeatmap()}}.}
-
-\item{genes}{\code{character}.
-Specific genes to plot. Currently limited to a max of 10 genes.}
-
-\item{return}{\code{character(1)}.
-Return type. Uses \code{\link[base:match.arg]{match.arg()}} internally. Only applies
-when \code{genes} argument is not defined.}
-}
-\value{
-\code{pheatmap} or \code{ggplot}.
-Returns \code{ggplot} when \code{genes} argument is defined, otherwise \code{pheatmap}.
-}
 \description{
 Compare pseudoaligned counts to aligned counts.
 }

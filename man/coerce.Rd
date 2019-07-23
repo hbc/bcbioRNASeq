@@ -76,7 +76,6 @@ show(x)
 }
 \seealso{
 \itemize{
-\item \href{https://bioconductor.org/packages/devel/bioc/vignettes/tximport/inst/doc/tximport.html}{tximport vignette}.
 \item \code{\link[tximport:tximport]{tximport::tximport()}}.
 \item \code{\link[DESeq2:DESeqDataSetFromTximport]{DESeq2::DESeqDataSetFromTximport()}}.
 \item \code{\link[edgeR:DGEList]{edgeR::DGEList()}}.

@@ -23,7 +23,8 @@ NULL
 
 
 
-plotMappedReads.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotMappedReads,bcbioRNASeq` <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -31,7 +32,7 @@ plotMappedReads.bcbioRNASeq <-  # nolint
         perMillion = TRUE,
         fill,
         flip,
-        title = "mapped reads"
+        title = "Mapped reads"
     ) {
         validObject(object)
         assert(
@@ -98,10 +99,8 @@ plotMappedReads.bcbioRNASeq <-  # nolint
         p
     }
 
-formals(plotMappedReads.bcbioRNASeq)[["fill"]] <-
-    formalsList[["fill.discrete"]]
-formals(plotMappedReads.bcbioRNASeq)[["flip"]] <-
-    formalsList[["flip"]]
+formals(`plotMappedReads,bcbioRNASeq`)[c("fill", "flip")] <-
+    formalsList[c("fill.discrete", "flip")]
 
 
 
@@ -110,5 +109,5 @@ formals(plotMappedReads.bcbioRNASeq)[["flip"]] <-
 setMethod(
     f = "plotMappedReads",
     signature = signature("bcbioRNASeq"),
-    definition = plotMappedReads.bcbioRNASeq
+    definition = `plotMappedReads,bcbioRNASeq`
 )

@@ -23,7 +23,8 @@ NULL
 
 
 
-plotRRNAMappingRate.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotRRNAMappingRate,bcbioRNASeq` <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -98,10 +99,8 @@ plotRRNAMappingRate.bcbioRNASeq <-  # nolint
         p
     }
 
-formals(plotRRNAMappingRate.bcbioRNASeq)[["fill"]] <-
-    formalsList[["fill.discrete"]]
-formals(plotRRNAMappingRate.bcbioRNASeq)[["flip"]] <-
-    formalsList[["flip"]]
+formals(`plotRRNAMappingRate,bcbioRNASeq`)[c("fill", "flip")] <-
+    formalsList[c("fill.discrete", "flip")]
 
 
 
@@ -110,5 +109,5 @@ formals(plotRRNAMappingRate.bcbioRNASeq)[["flip"]] <-
 setMethod(
     f = "plotRRNAMappingRate",
     signature = signature("bcbioRNASeq"),
-    definition = plotRRNAMappingRate.bcbioRNASeq
+    definition = `plotRRNAMappingRate,bcbioRNASeq`
 )

@@ -113,7 +113,7 @@ with_parameters_test_that(
             "Mus_musculus.GRCm38.90.gtf.gz",
             sep = "/"
         )
-        gtfFile <- basename(gtfURL)
+        gtfFile <- file.path("cache", basename(gtfURL))
         if (!file.exists(gtfFile)) {
             download.file(url = gtfURL, destfile = gtfFile)
         }

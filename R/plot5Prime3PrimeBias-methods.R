@@ -23,7 +23,8 @@ NULL
 
 
 
-plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plot5Prime3PrimeBias,bcbioRNASeq` <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -84,10 +85,8 @@ plot5Prime3PrimeBias.bcbioRNASeq <-  # nolint
         p
     }
 
-formals(plot5Prime3PrimeBias.bcbioRNASeq)[["color"]] <-
-    formalsList[["color.discrete"]]
-formals(plot5Prime3PrimeBias.bcbioRNASeq)[["flip"]] <-
-    formalsList[["flip"]]
+formals(`plot5Prime3PrimeBias,bcbioRNASeq`)[c("color", "flip")] <-
+    formalsList[c("color.discrete", "flip")]
 
 
 
@@ -96,5 +95,5 @@ formals(plot5Prime3PrimeBias.bcbioRNASeq)[["flip"]] <-
 setMethod(
     f = "plot5Prime3PrimeBias",
     signature = signature("bcbioRNASeq"),
-    definition = plot5Prime3PrimeBias.bcbioRNASeq
+    definition = `plot5Prime3PrimeBias,bcbioRNASeq`
 )

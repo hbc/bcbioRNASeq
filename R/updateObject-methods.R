@@ -34,21 +34,22 @@ NULL
 
 
 
-updateObject.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
         rowRanges = NULL
     ) {
         version <- slot(object, "metadata")[["version"]]
         assert(is(version, c("package_version", "numeric_version")))
-        message(paste0("Updating from ", version, " to ", packageVersion, "."))
+        message(paste0("Updating from ", version, " to ", .version, "."))
 
         ## Check for legacy bcbio slot.
         if (.hasSlot(object, "bcbio")) {
             message("Legacy bcbio() slot detected.")
         }
 
-        ## Metadata -------------------------------------------------------------
+        ## Metadata ------------------------------------------------------------
         metadata <- metadata(object)
 
         ## bcbioLog
@@ -210,12 +211,12 @@ updateObject.bcbioRNASeq <-  # nolint
 
         ## version
         metadata[["previousVersion"]] <- metadata[["version"]]
-        metadata[["version"]] <- packageVersion
+        metadata[["version"]] <- .version
 
-        ## Assays ---------------------------------------------------------------
-        ## Coerce the assays (e.g. ShallowSimpleListAssays) back to list.
-        ## Using slot() here to avoid error on missing rowRanges.
-        ## Ensure this comes before the rowRanges handling (see below).
+        ## Assays --------------------------------------------------------------
+        ## Coerce the assays (e.g. ShallowSimpleListAssays) back to list. Using
+        ## slot() here to avoid error on missing rowRanges. Ensure this comes
+        ## before the rowRanges handling (see below).
         assays <- slot(object, "assays")
         assays <- lapply(seq_along(assays), function(a) {
             assays[[a]]
@@ -257,9 +258,9 @@ updateObject.bcbioRNASeq <-  # nolint
             assays[["tmm"]] <- NULL
         }
 
-        ## Gene-level-specific assays (DESeq2).
-        ## Handle legacy objects where size factor normalized counts aren't
-        ## stashed as a matrix. Note that these will always be length scaled.
+        ## Gene-level-specific assays (DESeq2). Handle legacy objects where size
+        ## factor normalized counts aren't stashed as a matrix. Note that these
+        ## will always be length scaled.
         if (level == "genes") {
             ## DESeq2 normalized counts.
             msg <- "Updating size factor normalied counts."
@@ -269,7 +270,7 @@ updateObject.bcbioRNASeq <-  # nolint
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
             } else if (!"normalized" %in% names(assays)) {
                 message(msg)
-                dds <- .new.DESeqDataSetFromMatrix(assays[["counts"]])
+                dds <- .DESeqDataSetFromMatrix(assays[["counts"]])
                 dds <- DESeq(dds)
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
             }
@@ -303,7 +304,7 @@ updateObject.bcbioRNASeq <-  # nolint
             assert(isSubset(featureCountsAssays, names(assays)))
         }
 
-        ## Row ranges -----------------------------------------------------------
+        ## Row ranges ----------------------------------------------------------
         ## Error if object has rowRanges and the user is trying to reslot.
         if (.hasSlot(object, "rowRanges") && !is.null(rowRanges)) {
             stop(paste(
@@ -394,7 +395,7 @@ updateObject.bcbioRNASeq <-  # nolint
             ))
         }
 
-        ## Column data ----------------------------------------------------------
+        ## Column data ---------------------------------------------------------
         colData <- colData(object)
 
         ## Move metrics from metadata into colData, if necessary.
@@ -439,8 +440,8 @@ updateObject.bcbioRNASeq <-  # nolint
         colData[["sampleID"]] <- NULL
         colData[["description"]] <- NULL
 
-        ## Return ---------------------------------------------------------------
-        .new.bcbioRNASeq(
+        ## Return --------------------------------------------------------------
+        `.new,bcbioRNASeq`(
             assays = assays,
             rowRanges = rowRanges,
             colData = colData,
@@ -455,5 +456,5 @@ updateObject.bcbioRNASeq <-  # nolint
 setMethod(
     f = "updateObject",
     signature = signature("bcbioRNASeq"),
-    definition = updateObject.bcbioRNASeq
+    definition = `updateObject,bcbioRNASeq`
 )

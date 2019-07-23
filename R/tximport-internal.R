@@ -23,6 +23,8 @@
 #' @seealso [tximport::tximport()].
 #'
 #' @return `list`.
+
+## Updated 2019-07-23.
 .tximport <- function(
     sampleDirs,
     type = c("salmon", "kallisto", "sailfish"),
@@ -43,7 +45,7 @@
         choices = eval(formals(tximport)[["countsFromAbundance"]])
     )
 
-    ## Locate the counts files --------------------------------------------------
+    ## Locate the counts files -------------------------------------------------
     subdirs <- file.path(sampleDirs, type)
     assert(all(isDirectory(subdirs)))
     if (type %in% c("salmon", "sailfish")) {
@@ -55,7 +57,7 @@
     assert(all(isFile(files)))
     names(files) <- names(sampleDirs)
 
-    ## tx2gene ------------------------------------------------------------------
+    ## tx2gene -----------------------------------------------------------------
     tx2gene <- as.data.frame(tx2gene)
     if (isTRUE(ignoreTxVersion)) {
         ## Ensure transcript IDs are stripped from tx2gene.
@@ -64,9 +66,10 @@
         rownames(tx2gene) <- tx2gene[["transcriptID"]]
     }
 
-    ## Import counts using tximport ---------------------------------------------
-    ## Note that this step can take a long time when processing a lot of samples,
-    ## and is recommended to be run on an HPC cluster, rather than locally.
+    ## Import counts using tximport --------------------------------------------
+    ## Note that this step can take a long time when processing a lot of
+    ## samples, and is recommended to be run on an HPC cluster, rather than
+    ## locally.
     message(paste0(
         "Reading ", type, " transcript-level counts from ",
         basename(files[[1L]]), " files using tximport ",
@@ -115,16 +118,18 @@
             )
         }
     ))
-    assert(.isTximport(txi))
+    assert(.isTximportReturn(txi))
 
     txi
 }
 
 
 
-.isTximport <- function(txi) {
+## Detect if object is tximport list return.
+## Updated 2019-07-23.
+.isTximportReturn <- function(list) {
     assert(
-        is.list(txi),
+        is.list(list),
         areIntersectingSets(
             x = c(
                 "abundance",
@@ -133,15 +138,15 @@
                 "length",
                 "countsFromAbundance"
             ),
-            y = names(txi)
+            y = names(list)
         )
     )
 
-    abundance <- txi[["abundance"]]
-    counts <- txi[["counts"]]
-    infReps <- txi[["infReps"]]
-    length <- txi[["length"]]
-    countsFromAbundance <- txi[["countsFromAbundance"]]
+    abundance <- list[["abundance"]]
+    counts <- list[["counts"]]
+    infReps <- list[["infReps"]]
+    length <- list[["length"]]
+    countsFromAbundance <- list[["countsFromAbundance"]]
 
     assert(
         identical(dimnames(abundance), dimnames(counts)),

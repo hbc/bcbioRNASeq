@@ -20,7 +20,8 @@ NULL
 
 
 
-slotAlignedCounts.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`slotAlignedCounts,bcbioRNASeq` <-  # nolint
     function(object) {
         validObject(object)
         assert(areDisjointSets(assayNames(object), "aligned"))
@@ -40,5 +41,5 @@ slotAlignedCounts.bcbioRNASeq <-  # nolint
 setMethod(
     f = "slotAlignedCounts",
     signature = signature("bcbioRNASeq"),
-    definition = slotAlignedCounts.bcbioRNASeq
+    definition = `slotAlignedCounts,bcbioRNASeq`
 )

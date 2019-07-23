@@ -1,3 +1,7 @@
+## FIXME Rework this function, importing code from acidplots.
+
+
+
 #' Compare pseudoaligned counts to aligned counts.
 #'
 #' @note Currently supported for salmon or kallisto. The function will
@@ -26,7 +30,8 @@ NULL
 
 
 
-plotPseudoVsAlignedCounts.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotPseudoVsAlignedCounts,bcbioRNASeq` <-  # nolint
     function(
         object,
         genes = NULL,
@@ -115,5 +120,5 @@ plotPseudoVsAlignedCounts.bcbioRNASeq <-  # nolint
 setMethod(
     f = "plotPseudoVsAlignedCounts",
     signature = signature("bcbioRNASeq"),
-    definition = plotPseudoVsAlignedCounts.bcbioRNASeq
+    definition = `plotPseudoVsAlignedCounts,bcbioRNASeq`
 )

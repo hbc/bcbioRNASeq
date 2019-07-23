@@ -32,7 +32,8 @@ NULL
 
 
 
-plotPCACovariates.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotPCACovariates,bcbioRNASeq` <-  # nolint
     function(
         object,
         metrics = TRUE,
@@ -78,15 +79,10 @@ plotPCACovariates.bcbioRNASeq <-  # nolint
         assert(isSubset(col, colnames(metadata)))
         metadata <- metadata[, col, drop = FALSE]
 
-        ## DEGreport v1.18 has issues joining character and factor columns.
-        ## - Warning: Column `compare`/`PC`
-        ## - Warning: Column `covar`/`term`
-        suppressWarnings(
-            degCovariates(counts = counts, metadata = metadata, ...)
-        )
+        degCovariates(counts = counts, metadata = metadata, ...)
     }
 
-formals(plotPCACovariates.bcbioRNASeq)[["normalized"]] <- normalizedCounts
+formals(`plotPCACovariates,bcbioRNASeq`)[["normalized"]] <- normalizedCounts
 
 
 
@@ -95,5 +91,5 @@ formals(plotPCACovariates.bcbioRNASeq)[["normalized"]] <- normalizedCounts
 setMethod(
     f = "plotPCACovariates",
     signature = signature("bcbioRNASeq"),
-    definition = plotPCACovariates.bcbioRNASeq
+    definition = `plotPCACovariates,bcbioRNASeq`
 )

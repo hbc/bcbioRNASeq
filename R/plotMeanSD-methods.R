@@ -41,7 +41,8 @@ NULL
 
 
 
-plotMeanSD.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotMeanSD,bcbioRNASeq` <-  # nolint
     function(
         object,
         fill = ggplot2::scale_fill_gradient(low = "grey25", high = "purple"),
@@ -152,7 +153,7 @@ plotMeanSD.bcbioRNASeq <-  # nolint
         plot_grid(plotlist = plotlist)
     }
 
-formals(plotMeanSD.bcbioRNASeq)[["legend"]] <- formalsList[["legend"]]
+formals(`plotMeanSD,bcbioRNASeq`)[["legend"]] <- formalsList[["legend"]]
 
 
 
@@ -161,5 +162,5 @@ formals(plotMeanSD.bcbioRNASeq)[["legend"]] <- formalsList[["legend"]]
 setMethod(
     f = "plotMeanSD",
     signature = signature("bcbioRNASeq"),
-    definition = plotMeanSD.bcbioRNASeq
+    definition = `plotMeanSD,bcbioRNASeq`
 )
