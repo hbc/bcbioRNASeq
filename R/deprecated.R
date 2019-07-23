@@ -18,11 +18,10 @@ NULL
 
 
 ## v0.2.2 =======================================================================
-#' @rdname deprecated
+#' @rdname defunct
 #' @export
 loadRNASeq <- function(...) {
-    .Deprecated("bcbioRNASeq")
-    bcbioRNASeq(...)
+    .Defunct("bcbioRNASeq")
 }
 
 

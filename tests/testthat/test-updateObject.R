@@ -1,7 +1,7 @@
 context("updateObject")
 
 ## Load a legacy object that doesn't contain rowRanges.
-load("bcb_invalid.rda")
+load(file.path("cache", "bcb_invalid.rda"))
 object <- bcb_invalid
 
 test_that("updateObject", {
@@ -19,7 +19,7 @@ test_that("updateObject", {
     expect_true(validObject(x))
     expect_identical(
         object = metadata(x)[["version"]],
-        expected = packageVersion
+        expected = .version
     )
     expect_identical(
         object = metadata(x)[["previousVersion"]],
