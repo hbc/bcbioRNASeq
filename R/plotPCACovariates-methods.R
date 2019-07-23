@@ -79,10 +79,22 @@ NULL
         assert(isSubset(col, colnames(metadata)))
         metadata <- metadata[, col, drop = FALSE]
 
+        ## Handle warnings in DEGreport more gracefully.
         withCallingHandlers(
-            expr = degCovariates(counts = counts, metadata = metadata, ...),
+            expr = degCovariates(
+                counts = counts,
+                metadata = metadata,
+                ...
+            ),
             warning = function(w) {
-                message(w)
+                if (isTRUE(grepl(
+                    pattern = "joining character vector and factor",
+                    x = as.character(w)
+                ))) {
+                    invokeRestart("muffleWarning")
+                } else {
+                    w
+                }
             }
         )
     }
