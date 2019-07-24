@@ -2,16 +2,40 @@
 % Please edit documentation in R/reexports.R
 \name{reexports-S4}
 \alias{reexports-S4}
+\alias{alphaSummary}
+\alias{contrastName}
 \alias{plotFeaturesDetected}
+\alias{plotDEGHeatmap}
+\alias{plotDEGPCA}
 \alias{plotHeatmap}
+\alias{plotMA}
 \alias{plotQuantileHeatmap}
+\alias{plotVolcano}
+\alias{resultsTables}
+\alias{topTables}
 \title{S4 generics re-exported from other packages}
 \usage{
+alphaSummary(object, ...)
+
+contrastName(object, ...)
+
 plotFeaturesDetected(object, ...)
+
+plotDEGHeatmap(object, ...)
+
+plotDEGPCA(object, ...)
 
 plotHeatmap(object, ...)
 
+plotMA(object, ...)
+
 plotQuantileHeatmap(object, ...)
+
+plotVolcano(object, ...)
+
+resultsTables(object, ...)
+
+topTables(object, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -21,3 +45,26 @@ plotQuantileHeatmap(object, ...)
 \description{
 S4 generics re-exported from other packages
 }
+\section{DESeqAnalysis}{
+
+\itemize{
+\item \code{alphaSummary}
+\item \code{contrastName}
+\item \code{plotDEGHeatmap}
+\item \code{plotDEGPCA}
+\item \code{plotMA}
+\item \code{plotVolcano}
+\item \code{resultsTables}
+\item \code{topTables}
+}
+}
+
+\section{acidplots}{
+
+\itemize{
+\item \code{plotFeaturesDetected}
+\item \code{plotHeatmap}
+\item \code{plotQuantileHeatmap}
+}
+}
+
