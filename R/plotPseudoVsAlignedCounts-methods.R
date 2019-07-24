@@ -6,6 +6,7 @@
 #'
 #' @name plotPseudoVsAlignedCounts
 #' @inheritParams basejump::params
+#' @inheritParams params
 #'
 #' @examples
 #' data(bcb)

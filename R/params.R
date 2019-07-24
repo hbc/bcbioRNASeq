@@ -10,5 +10,7 @@
 #'   - "`rlog`": DESeq2 log2 regularized log transformation.
 #'   - "`vst`": DESeq2 log2 variance stabilizing transformation.
 #' @param object Object.
+#' @param title `character(1)` or `NULL`.
+#'   Plot title.
 #' @param ... Additional arguments.
 NULL

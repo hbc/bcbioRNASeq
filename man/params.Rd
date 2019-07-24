@@ -15,6 +15,9 @@ Which normalization method to apply:
 
 \item{object}{Object.}
 
+\item{title}{\code{character(1)} or \code{NULL}.
+Plot title.}
+
 \item{...}{Additional arguments.}
 }
 \value{

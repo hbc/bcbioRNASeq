@@ -41,6 +41,7 @@ reference:
     contents:
       - counts
       - relativeLogExpression
+      - slotAlignedCounts
       - tmm
   - title: Plots
     contents:
