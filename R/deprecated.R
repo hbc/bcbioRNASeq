@@ -33,16 +33,6 @@ plotCountDensity <- function(...) {
     .Defunct("plotCountsPerFeature(object, geom = \"density\")")
 }
 
-#' @rdname defunct
-#' @export
-resultsTables <- function(...) {
-    .Defunct(msg = paste(
-        "resultsTables approach has been reworked in DESeqAnalysis package.",
-        "https://deseqanalysis.acidgenomics.com/",
-        sep = "\n"
-    ))
-}
-
 
 
 ## v0.3.16 ======================================================================

@@ -12,6 +12,16 @@ plotPseudoVsAlignedCounts(object, ...)
 \S4method{plotPseudoVsAlignedCounts}{bcbioRNASeq}(object, genes = NULL,
   title = "pseudo vs. aligned counts", ...)
 }
+\arguments{
+\item{object}{Object.}
+
+\item{...}{Additional arguments.}
+
+\item{genes}{\code{character}.
+Gene identifiers. It is considered better practice to input the stable gene
+identifiers from Ensembl (e.g. "ENSG00000000003") and not the (HGNC) gene
+symbols (e.g. "TSPN6"), if possible.}
+}
 \description{
 Compare pseudoaligned counts to aligned counts.
 }

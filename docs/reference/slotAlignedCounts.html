@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update an object to its current class definition — updateObject • bcbioRNASeq</title>
+<title>Slot aligned counts into object — slotAlignedCounts • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -34,10 +34,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Update an object to its current class definition — updateObject" />
+<meta property="og:title" content="Slot aligned counts into object — slotAlignedCounts" />
 
-<meta property="og:description" content="updateObject is a generic function that returns an instance
-  of object updated to its current class definition." />
+<meta property="og:description" content="This function loads aligned counts (e.g. STAR, HISAT2) from the bcbio final
+output directory into the bcbioRNASeq object, so we can visually inspect
+correlations with the primary pseudoaligned counts." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,127 +113,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update an object to its current class definition</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/updateObject-methods.R'><code>R/updateObject-methods.R</code></a></small>
-    <div class="hidden name"><code>updateObject.Rd</code></div>
+    <h1>Slot aligned counts into object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/slotAlignedCounts-methods.R'><code>R/slotAlignedCounts-methods.R</code></a></small>
+    <div class="hidden name"><code>slotAlignedCounts.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>updateObject</code> is a generic function that returns an instance
-  of <code>object</code> updated to its current class definition.</p>
+    <p>This function loads aligned counts (e.g. STAR, HISAT2) from the bcbio final
+output directory into the bcbioRNASeq object, so we can visually inspect
+correlations with the primary pseudoaligned counts.</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='kw'>rowRanges</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>slotAlignedCounts</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>slotAlignedCounts</span>(<span class='no'>object</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object to be updated for <code>updateObject</code> and
-    <code>updateObjectFromSlots</code>.</p>
-<p>Object for slot information to be extracted from for
-    <code>getObjectSlots</code>.</p></td>
+      <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>rowRanges</th>
-      <td><p><code>GRanges</code> or <code>NULL</code>.
-Row annotations. Since we converted to <code>RangedSummarizedExperiment</code> in
-v0.2.0, this option had to be added to enable updating of newly required
-<code>rowRanges</code> slot. Objects that are &gt;= v0.2 don't require this argument and
-it can be left <code>NULL</code>.</p></td>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>bcbioRNASeq</code>.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Update old objects created by the bcbioRNASeq package. The session
-information metadata is preserved from the time when the bcbio data was
-originally loaded into R.</p>
-    
-    <h2 class="hasAnchor" id="legacy-bcbiornadataset-class"><a class="anchor" href="#legacy-bcbiornadataset-class"></a>Legacy <code>bcbioRNADataSet</code> class</h2>
-
-    
-
-
-<p>Support for <code>bcbioRNADataSet</code> objects was dropped in v0.2.0 of the package.
-If you need to load one of these objects, please install an older release.</p>
-    
-    <h2 class="hasAnchor" id="legacy-bcbiornaseq-package"><a class="anchor" href="#legacy-bcbiornaseq-package"></a>Legacy <code>bcbioRnaseq</code> package</h2>
-
-    
-
-
-<p>The previous <code>bcbioRnaseq</code> package (note case) must be reinstalled to load
-objects from versions &lt;= 0.0.20. We changed the name of the package to
-<code>bcbioRNASeq</code> starting in v0.0.21.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'>
-<ul>
-<li><p><code><a href='https://rdrr.io/pkg/Biobase/man/updateObjectTo.html'>updateObjectTo</a></code> in the <span class="pkg">Biobase</span> package
-          for updating an object to the class definition of a template (might
-          be useful for updating a virtual superclass).</p></li>
-<li><p><code><a href='https://rdrr.io/r/methods/validObject.html'>validObject</a></code> for testing the validity of an
-          object.</p></li>
-<li><p><code><a href='https://rdrr.io/r/methods/showMethods.html'>showMethods</a></code> for displaying a summary of the
-          methods defined for a given generic function.</p></li>
-<li><p><code><a href='https://rdrr.io/r/methods/getMethod.html'>selectMethod</a></code> for getting the definition of
-          a specific method.</p></li>
-<li><p>BiocGenerics for a summary of all the generics defined
-          in the <span class="pkg">BiocGenerics</span> package.</p></li>
-</ul>
-</div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>updateObject</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Updating from 0.3.22 to 0.3.22.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
-#&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-23
-#&gt; level: genes
-#&gt; caller: salmon
-#&gt; organism: Mus musculus
-#&gt; interestingGroups(2): treatment day
-#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 100 6 
-#&gt; metadata(27): version level ... sessionInfo previousVersion
-#&gt; assays(7): counts tpm ... vst fpkm
-#&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
-#&gt;   ENSMUSG00000062661 ENSMUSG00000074340
-#&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
-#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>uploadDir</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata/bcbio"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcbioRNASeq"</span>)
+<span class='co'>## Fast mode skips import of aligned counts.</span>
+<span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bcbioRNASeq-class.html'>bcbioRNASeq</a></span>(<span class='no'>uploadDir</span>, <span class='kw'>fast</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Dated project directory: 2018-03-18_GSE65267-merged</span></div><div class='output co'>#&gt; <span class='message'>6 samples detected:</span>
+#&gt; <span class='message'>[1] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" "fa_day7_rep2"</span>
+#&gt; <span class='message'>[6] "fa_day7_rep3"</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Failed to detect sequencing lanes.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon transcript-level counts from quant.sf files using tximport 1.12.3.</span></div><div class='output co'>#&gt; <span class='message'>Scaling transcripts using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>Returning transcript abundance at gene level.</span></div><div class='output co'>#&gt; <span class='message'>reading in files with read_tsv</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>5 </span></div><div class='output co'>#&gt; <span class='message'>6 </span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>bcbio GTF file: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf</span></div><div class='output co'>#&gt; <span class='message'>bcbio GTF file is not accessible.</span></div><div class='output co'>#&gt; <span class='message'>Slotting empty ranges into rowRanges().</span></div><div class='input'><span class='st'>"aligned"</span> <span class='kw'>%in%</span> <span class='fu'>assayNames</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>bcb</span> <span class='kw'>&lt;-</span> <span class='fu'>slotAlignedCounts</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Importing aligned counts from featureCounts.</span></div><div class='output co'>#&gt; <span class='message'>Importing combined.counts using readr::read_tsv().</span></div><div class='input'><span class='st'>"aligned"</span> <span class='kw'>%in%</span> <span class='fu'>assayNames</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#legacy-bcbiornadataset-class">Legacy <code>bcbioRNADataSet</code> class</a></li>
-
-      <li><a href="#legacy-bcbiornaseq-package">Legacy <code>bcbioRnaseq</code> package</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>Michael Steinbaugh</p>
   </div>
 </div>
 

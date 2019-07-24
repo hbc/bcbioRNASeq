@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Show an object — show • bcbioRNASeq</title>
+<title>Objects exported from other packages — reexports • bcbioRNASeq</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -34,13 +34,13 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Show an object — show" />
+<meta property="og:title" content="Objects exported from other packages — reexports" />
 
-<meta property="og:description" content="Display the object, by printing, plotting or whatever suits its
-  class.  This function exists to be specialized by methods.  The
-  default method calls showDefault.
-Formal methods for show will
-  usually be invoked for automatic printing (see the details)." />
+<meta property="og:description" content="These objects are imported from other packages. Follow the links
+below to see their documentation.
+
+  DESeqAnalysisplotMeanAverage
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,93 +115,29 @@ Formal methods for show will
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Show an object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/show-methods.R'><code>R/show-methods.R</code></a></small>
-    <div class="hidden name"><code>show.Rd</code></div>
+    <h1>Objects exported from other packages</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/reexports.R'><code>R/reexports.R</code></a></small>
+    <div class="hidden name"><code>reexports.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Display the object, by printing, plotting or whatever suits its
-  class.  This function exists to be specialized by methods.  The
-  default method calls <code>showDefault</code>.</p>
-<p>Formal methods for <code>show</code> will
-  usually be invoked for automatic printing (see the details).</p>
+    <p>These objects are imported from other packages. Follow the links
+below to see their documentation.</p>
+<dl class='dl-horizontal'>
+  <dt>DESeqAnalysis</dt><dd><p><code><a href='https://rdrr.io/pkg/DESeqAnalysis/man/plotMA.html'>plotMeanAverage</a></code></p></dd>
+</dl>
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>show</span>(<span class='no'>object</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>object</th>
-      <td><p>Any R object</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+        
 
-    <p><code>show</code> returns an invisible <code>NULL</code>.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Objects from an S4 class (a class defined by a call to
-  <code>setClass</code>) will be displayed automatically is if by a
-  call to <code>show</code>.  S4 objects that occur as attributes of S3
-objects will also be displayed in this form; conversely, S3 objects
-encountered as slots in S4 objects will be printed using the S3
-convention, as if by a call to <code><a href='https://rdrr.io/r/base/print.html'>print</a></code>.</p>
-<p>Methods defined for <code>show</code> will only be inherited  by simple
-inheritance, since otherwise the method would not receive the
-complete, original object, with misleading results.  See the
-<code>simpleInheritanceOnly</code> argument to <code>setGeneric</code> and
-the discussion in <code>setIs</code> for the general concept.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code>showMethods</code> prints all the methods for one or more
-  functions.</p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>show</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
-#&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-23
-#&gt; level: genes
-#&gt; caller: salmon
-#&gt; organism: Mus musculus
-#&gt; interestingGroups(2): treatment day
-#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 100 6 
-#&gt; metadata(26): version level ... wd sessionInfo
-#&gt; assays(7): counts tpm ... vst fpkm
-#&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
-#&gt;   ENSMUSG00000062661 ENSMUSG00000074340
-#&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
-#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
+                </ul>
 
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Michael Steinbuagh</p>
   </div>
 </div>
 

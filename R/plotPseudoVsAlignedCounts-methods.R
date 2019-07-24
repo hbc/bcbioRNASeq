@@ -5,7 +5,7 @@
 #'   `counts` assay.
 #'
 #' @name plotPseudoVsAlignedCounts
-#' @export
+#' @inheritParams basejump::params
 #'
 #' @examples
 #' data(bcb)

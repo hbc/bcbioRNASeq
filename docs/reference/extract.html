@@ -182,9 +182,11 @@
     </tr>
     <tr>
       <th>recalculate</th>
-      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>. Recalculate DESeq2 normalized counts and
-variance-stabilizing transformations defined in <code>assays</code>. Recommended by
-default, but can take a long time for large datasets.</p></td>
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
+Recalculate DESeq2 normalized counts and variance-stabilizing
+transformations defined in <code>assays</code>. Recommended by default, but can take a
+long time for large datasets. If <code>FALSE</code>, these assays will be removed
+automatically: <code>normalized</code>, <code>rlog</code>, <code>vst</code>.</p></td>
     </tr>
     </table>
     
@@ -195,8 +197,7 @@ default, but can take a long time for large datasets.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Internal count transformations are rescaled automatically, if defined. DESeq2
-transformations will only be updated when <code>recalculate = TRUE</code> and either
-<code>rlog</code> or <code>vst</code> counts are defined in <code>assays</code>.</p>
+transformations will only be updated when <code>recalculate = TRUE</code>.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -211,83 +212,83 @@ transformations will only be updated when <code>recalculate = TRUE</code> and ei
 
 <span class='co'>## Minimum of 100 genes, 2 samples.</span>
 <span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>object</span>), <span class='fl'>100L</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>genes</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346"
-#&gt; [4] "ENSMUSG00000000740" "ENSMUSG00000001175" "ENSMUSG00000001666"</div><div class='input'><span class='no'>samples</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>object</span>), <span class='fl'>2L</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>genes</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000001" "ENSMUSG00000000003" "ENSMUSG00000000028"
+#&gt; [4] "ENSMUSG00000000049" "ENSMUSG00000000058" "ENSMUSG00000000078"</div><div class='input'><span class='no'>samples</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>object</span>), <span class='fl'>2L</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>samples</span>)</div><div class='output co'>#&gt; [1] "control_rep1" "control_rep2"</div><div class='input'>
 <span class='co'>## Extract by sample name.</span>
-<span class='no'>object</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in colData.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.11
-#&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-18
+<span class='no'>object</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
+#&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-23
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
-#&gt; interestingGroups: treatment
-#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 500 2 
-#&gt; metadata(28): version level ... subset previousVersion
-#&gt; assays(6): counts tpm ... vst fpkm
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
-#&gt; colnames(2): control_rep1 control_rep2
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div><div class='input'>
-<span class='co'>## Extract by gene list.</span>
-<span class='no'>object</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in rowRanges.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.11
-#&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-18
-#&gt; level: genes
-#&gt; caller: salmon
-#&gt; organism: Mus musculus
-#&gt; interestingGroups: treatment
-#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 100 6 
-#&gt; metadata(28): version level ... subset previousVersion
-#&gt; assays(6): counts tpm ... vst fpkm
-#&gt; rownames(100): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000024503 ENSMUSG00000024610
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
-#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div><div class='input'>
-<span class='co'>## Extract by both genes and samples.</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in rowRanges.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in colData.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.11
-#&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-18
-#&gt; level: genes
-#&gt; caller: salmon
-#&gt; organism: Mus musculus
-#&gt; interestingGroups: treatment
+#&gt; interestingGroups(2): treatment day
 #&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 100 2 
-#&gt; metadata(28): version level ... subset previousVersion
-#&gt; assays(6): counts tpm ... vst fpkm
-#&gt; rownames(100): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000024503 ENSMUSG00000024610
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(7): counts tpm ... vst fpkm
+#&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
+#&gt;   ENSMUSG00000062661 ENSMUSG00000074340
+#&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(2): control_rep1 control_rep2
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "counts"      "tpm"         "avgTxLength" "normalized"  "vst"        
-#&gt; [6] "fpkm"       </div><div class='input'>
-<span class='co'>## Fast subsetting, by skipping DESeq2 recalculations.</span>
-<span class='co'>## Note that `normalized`, `rlog`, and `vst` assays will not be defined.</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[, <span class='no'>samples</span>, <span class='kw'>recalculate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Releveling factors in colData.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.11
-#&gt; uploadDir: /mnt/O2/hbc/bcbioRNASeq/F1000v2/GSE65267-merged/final
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-18
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'>
+<span class='co'>## Extract by gene list.</span>
+<span class='no'>object</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Returning unmodified.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
+#&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-23
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
-#&gt; interestingGroups: treatment
+#&gt; interestingGroups(2): treatment day
 #&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 500 2 
-#&gt; metadata(28): version level ... subset previousVersion
-#&gt; assays(3): counts tpm avgTxLength
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; dim: 100 6 
+#&gt; metadata(26): version level ... wd sessionInfo
+#&gt; assays(7): counts tpm ... vst fpkm
+#&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
+#&gt;   ENSMUSG00000062661 ENSMUSG00000074340
+#&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
+#&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'>
+<span class='co'>## Extract by both genes and samples.</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
+#&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-23
+#&gt; level: genes
+#&gt; caller: salmon
+#&gt; organism: Mus musculus
+#&gt; interestingGroups(2): treatment day
+#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 100 2 
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(7): counts tpm ... vst fpkm
+#&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
+#&gt;   ENSMUSG00000062661 ENSMUSG00000074340
+#&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(2): control_rep1 control_rep2
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='fu'>assays</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "counts"      "tpm"         "avgTxLength"</div></pre>
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "counts"      "tpm"         "avgTxLength" "aligned"     "normalized" 
+#&gt; [6] "vst"         "fpkm"       </div><div class='input'>
+<span class='co'>## Fast subsetting, by skipping DESeq2 recalculations.</span>
+<span class='co'>## Note that `normalized`, `rlog`, and `vst` assays will be removed.</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[, <span class='no'>samples</span>, <span class='kw'>recalculate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 normalizations.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
+#&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-23
+#&gt; level: genes
+#&gt; caller: salmon
+#&gt; organism: Mus musculus
+#&gt; interestingGroups(2): treatment day
+#&gt; class: RangedSummarizedExperiment 
+#&gt; dim: 100 2 
+#&gt; metadata(27): version level ... sessionInfo subset
+#&gt; assays(4): counts tpm avgTxLength aligned
+#&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
+#&gt;   ENSMUSG00000062661 ENSMUSG00000074340
+#&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
+#&gt; colnames(2): control_rep1 control_rep2
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
+#&gt;   treatment</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='fu'>assays</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "counts"      "tpm"         "avgTxLength" "aligned"    </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -5,9 +5,7 @@
 #' correlations with the primary pseudoaligned counts.
 #'
 #' @name slotAlignedCounts
-#' @export
-#'
-#' @inheritParams params
+#' @inheritParams basejump::params
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")

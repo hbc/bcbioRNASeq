@@ -220,9 +220,9 @@ Plot style.</p></td>
 
 <span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>basejump</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/basejump/man/Gene2Symbol-class.html'>Gene2Symbol</a></span>(<span class='no'>bcb</span>)
 <span class='no'>geneIDs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneID"</span>]])
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000088" "ENSMUSG00000000326" "ENSMUSG00000000346"
-#&gt; [4] "ENSMUSG00000000740" "ENSMUSG00000001175" "ENSMUSG00000001666"</div><div class='input'><span class='no'>geneNames</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneName"</span>]])
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>geneNames</span>)</div><div class='output co'>#&gt; [1] "Cox5a"  "Comt"   "Dazap2" "Rpl13"  "Calm1"  "Ddt"   </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000001" "ENSMUSG00000000003" "ENSMUSG00000000028"
+#&gt; [4] "ENSMUSG00000000049" "ENSMUSG00000000058" "ENSMUSG00000000078"</div><div class='input'><span class='no'>geneNames</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneName"</span>]])
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>geneNames</span>)</div><div class='output co'>#&gt; [1] "Gnai3" "Pbsn"  "Cdc45" "Apoh"  "Cav2"  "Klf6" </div><div class='input'>
 <span class='fu'>plotCounts</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb</span>,
     <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneIDs</span>,

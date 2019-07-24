@@ -175,7 +175,6 @@ offsets for a log-link GLM.</p></li>
 
     <div class='dont-index'>
 <ul>
-<li><p><a href='https://bioconductor.org/packages/devel/bioc/vignettes/tximport/inst/doc/tximport.html'>tximport vignette</a>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/tximport/man/tximport.html'>tximport::tximport()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html'>DESeq2::DESeqDataSetFromTximport()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/edgeR/man/DGEList.html'>edgeR::DGEList()</a></code>.</p></li>
@@ -188,30 +187,30 @@ offsets for a log-link GLM.</p></li>
 
 <span class='co'>## bcbioRNASeq to DESeqDataSet ====</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Vector-class.html'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
-#&gt; [5] "geneID"         "geneName"       "seqCoordSystem"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
+#&gt; [5] "geneID"         "geneIDVersion"  "geneName"       "seqCoordSystem"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
 #&gt; attr(,"package")
 #&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
-#&gt; dim: 500 6 
+#&gt; dim: 100 6 
 #&gt; metadata(11): version caller ... date sessionInfo
 #&gt; assays(1): counts
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
+#&gt;   ENSMUSG00000062661 ENSMUSG00000074340
+#&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
 #&gt;   treatment</div><div class='input'>
 <span class='co'>## bcbioRNASeq to RangedSummarizedExperiment ====</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
 <span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
 #&gt; [5] "elementMetadata" "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
-#&gt; dim: 500 6 
-#&gt; metadata(28): version level ... subset previousVersion
-#&gt; assays(6): counts tpm ... vst fpkm
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; dim: 100 6 
+#&gt; metadata(26): version level ... wd sessionInfo
+#&gt; assays(7): counts tpm ... vst fpkm
+#&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
+#&gt;   ENSMUSG00000062661 ENSMUSG00000074340
+#&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
 #&gt;   treatment</div><div class='input'>
 <span class='co'>## bcbioRNASeq to SummarizedExperiment ====</span>
 <span class='co'>## Coerce to RangedSummarizedExperiment first.</span>
@@ -221,14 +220,14 @@ offsets for a log-link GLM.</p></li>
 #&gt; attr(,"package")
 #&gt; [1] "SummarizedExperiment"</div><div class='input'><span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "colData"         "assays"          "NAMES"           "elementMetadata"
 #&gt; [5] "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: SummarizedExperiment 
-#&gt; dim: 500 6 
-#&gt; metadata(28): version level ... subset previousVersion
-#&gt; assays(6): counts tpm ... vst fpkm
-#&gt; rownames(500): ENSMUSG00000000088 ENSMUSG00000000326 ...
-#&gt;   ENSMUSG00000114367 ENSMUSG00000114458
-#&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
+#&gt; dim: 100 6 
+#&gt; metadata(26): version level ... wd sessionInfo
+#&gt; assays(7): counts tpm ... vst fpkm
+#&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
+#&gt;   ENSMUSG00000062661 ENSMUSG00000074340
+#&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
+#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
 #&gt;   treatment</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

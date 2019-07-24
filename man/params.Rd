@@ -12,6 +12,10 @@ Which normalization method to apply:
 \item "\code{rlog}": DESeq2 log2 regularized log transformation.
 \item "\code{vst}": DESeq2 log2 variance stabilizing transformation.
 }}
+
+\item{object}{Object.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 No value.

@@ -9,4 +9,6 @@
 #'   - "`tmm`": edgeR trimmed mean of M-values. Calculated on the fly.
 #'   - "`rlog`": DESeq2 log2 regularized log transformation.
 #'   - "`vst`": DESeq2 log2 variance stabilizing transformation.
+#' @param object Object.
+#' @param ... Additional arguments.
 NULL

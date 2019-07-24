@@ -4,14 +4,11 @@
 \alias{defunct}
 \alias{loadRNASeq}
 \alias{plotCountDensity}
-\alias{resultsTables}
 \title{Defunct functions}
 \usage{
 loadRNASeq(...)
 
 plotCountDensity(...)
-
-resultsTables(...)
 }
 \arguments{
 \item{...}{Additional arguments.}

@@ -35,7 +35,7 @@ citation("bcbioRNASeq")
 ```
 
 ```{r message=FALSE}
-library(bcbioRNASeq)
+suppressPackageStartupMessages(library(bcbioRNASeq))
 ```
 
 # Loading bcbio data
@@ -153,13 +153,11 @@ print(bcb)
 
 ## Variance stabilization
 
-During the `bcbioRNASeq` constructor call, variance stabilizaton of gene-level counts can be calculated automatically, and is recommended. This is performed internally by the DESeq2 package. These transformations will be slotted into `assays` as `vst` and/or `rlog` matrices. The `vst` matrix is calculated by `DESeq2::varianceStabilizingTransformation` and `rlog` by `DESeq2::rlog`. For large datasets, `rlog` calculation can take a long time, so we are currently recommending calculation of only `vst` by default.
+During the `bcbioRNASeq` constructor call, variance stabilizaton of gene-level counts can be calculated automatically, and is recommended. This is performed internally by the DESeq2 package, using the `DESeq2::varianceStabilizingTransformation` function. This transformation will be slotted into `assays` as a `vst` matrix.
 
 ```{r}
-bcb <- bcbioRNASeq(uploadDir = uploadDir, vst = TRUE, rlog = TRUE)
 assayNames(bcb)
 summary(counts(bcb, normalized = "vst"))
-summary(counts(bcb, normalized = "rlog"))
 ```
 
 # Use case dataset
@@ -174,9 +172,9 @@ rm(bcb)
 
 ```{r}
 loadRemoteData(pasteURL(
-  "github.com", "hbc", "bcbioRNASeq",
-  "raw", "f1000v2", "data", "bcb.rda",
-  protocol = "https"
+    "github.com", "hbc", "bcbioRNASeq",
+    "raw", "f1000v2", "data", "bcb.rda",
+    protocol = "https"
 ))
 bcb <- updateObject(bcb)
 print(bcb)
@@ -259,7 +257,7 @@ plotCountsPerFeature(bcb, geom = "density")
 
 ## Variance stabilization
 
-These plots show the standard deviation of normalized counts using `log2`, `varianceStabilizingTransform`, `rlog`, and `tmm` by `rank(mean)`. Note that all counts shown are log2 scale.
+These plots show the standard deviation of normalized counts using `log2`, `varianceStabilizingTransform`, and `tmm` by `rank(mean)`. Note that all counts shown are log2 scale.
 
 ```{r}
 plotMeanSD(bcb)
@@ -288,7 +286,6 @@ The `counts` accessor function returns raw counts by default. Multiple normaliza
 - `"tpm"`: Transcripts per million, calculated by tximport.
 - `"tmm"`: Trimmed mean of M-values normalization method.
 - `"vst"`: Variance stabilization transformation.
-- `"rlog"`: Regularized log transformation.
 - `"rle"`: Relative log expression transformation.
 
 We are providing `bcbioRNASeq` method support for the `export` function, which can automatically write these counts and corresponding metadata (e.g. `rowData`, `colData`) to disk in a single call.

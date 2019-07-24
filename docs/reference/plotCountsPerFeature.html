@@ -156,10 +156,10 @@ Which normalization method to apply:</p><ul>
     </tr>
     <tr>
       <th>minCounts</th>
-      <td><p><code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>.
-Minimum count threshold to apply. Filters using "greater than or equal to"
-logic internally. Note that this threshold gets applied prior to
-logarithmic transformation, when <code>trans</code> argument applies.</p></td>
+      <td><p><code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code> or <code>NULL</code>.
+Minimum count threshold to apply. Disable with <code>NULL</code>. Filters using
+"greater than or equal to" logic internally. Note that this threshold gets
+applied prior to logarithmic transformation, when <code>trans</code> argument applies.</p></td>
     </tr>
     <tr>
       <th>minCountsMethod</th>
@@ -240,7 +240,7 @@ TMM-normalized counts per gene to be similar for every sample.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotCountsPerFeature</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='output co'>#&gt; <span class='message'>500 / 500 features passed minimum rowSums() &gt;= 1 expression cutoff.</span></div><div class='output co'>#&gt; <span class='message'>Applying log2(x + 1) transformation.</span></div><div class='img'><img src='plotCountsPerFeature-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotCountsPerFeature</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='output co'>#&gt; <span class='message'>89 / 100 features passed minimum rowSums() &gt;= 1 expression cutoff.</span></div><div class='output co'>#&gt; <span class='message'>Applying log2(x + 1) transformation.</span></div><div class='img'><img src='plotCountsPerFeature-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
