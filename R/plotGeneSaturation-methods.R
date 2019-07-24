@@ -26,7 +26,8 @@ NULL
 
 
 
-plotGeneSaturation.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotGeneSaturation,bcbioRNASeq` <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -57,7 +58,7 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         assert(identical(colnames(counts), data[["sampleID"]]))
         data[["geneCount"]] <- colSums(counts >= minCounts)
 
-        # Convert to per million, if desired.
+        ## Convert to per million, if desired.
         xLab <- "mapped reads"
         if (isTRUE(perMillion)) {
             data <- mutate(data, mappedReads = !!sym("mappedReads") / 1e6L)
@@ -99,10 +100,8 @@ plotGeneSaturation.bcbioRNASeq <-  # nolint
         p
     }
 
-formals(plotGeneSaturation.bcbioRNASeq)[["color"]] <-
-    formalsList[["color.discrete"]]
-formals(plotGeneSaturation.bcbioRNASeq)[["label"]] <-
-    formalsList[["label"]]
+formals(`plotGeneSaturation,bcbioRNASeq`)[c("color", "label")] <-
+    formalsList[c("color.discrete", "label")]
 
 
 
@@ -111,5 +110,5 @@ formals(plotGeneSaturation.bcbioRNASeq)[["label"]] <-
 setMethod(
     f = "plotGeneSaturation",
     signature = signature("bcbioRNASeq"),
-    definition = plotGeneSaturation.bcbioRNASeq
+    definition = `plotGeneSaturation,bcbioRNASeq`
 )

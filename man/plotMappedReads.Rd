@@ -12,7 +12,7 @@ plotMappedReads(object, ...)
   limit = 10000000L, perMillion = TRUE, fill = getOption(x =
   "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
   flip = getOption(x = "acid.flip", default = TRUE),
-  title = "mapped reads")
+  title = "Mapped reads")
 }
 \arguments{
 \item{object}{Object.}

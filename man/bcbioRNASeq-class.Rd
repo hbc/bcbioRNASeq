@@ -11,8 +11,8 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   samples = NULL, censorSamples = NULL, sampleMetadataFile = NULL,
   organism = NULL, genomeBuild = NULL, ensemblRelease = NULL,
   gffFile = NULL, transgeneNames = NULL, spikeNames = NULL,
-  countsFromAbundance = "lengthScaledTPM", vst = TRUE, rlog = FALSE,
-  interestingGroups = "sampleName", ...)
+  countsFromAbundance = "lengthScaledTPM",
+  interestingGroups = "sampleName", fast = FALSE, ...)
 }
 \arguments{
 \item{uploadDir}{\code{character(1)}.
@@ -80,19 +80,12 @@ the library size. Refer to \code{\link[tximport:tximport]{tximport::tximport()}}
 this parameter, but it should only ever be changed when loading some
 datasets at transcript level (e.g. for DTU analsyis).}
 
-\item{vst}{\code{logical(1)}.
-Calculate variance-stabilizing transformation using
-\code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}. Recommended by default for
-visualization.}
-
-\item{rlog}{\code{logical(1)}.
-Calcualte regularized log transformation using \code{\link[DESeq2:rlog]{DESeq2::rlog()}}. This
-calculation is slow for large datasets and now discouraged by default for
-visualization.}
-
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to
 \code{sampleName}.}
+
+\item{fast}{\code{logical(1)}.
+Fast mode. Skip internal DESeq2 transformations.}
 
 \item{...}{Additional arguments.}
 }
@@ -226,13 +219,9 @@ used in place of GRCh37/hg19 if possible.
 \section{DESeq2}{
 
 
-DESeq2 is run automatically when \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} is called. Internally, this
-automatically slots normalized counts into
-\code{\link[SummarizedExperiment:assays]{assays()}}, and optionally generates
-variance-stabilized counts (e.g. \code{vst}, \code{rlog}), depending on the call. When
-loading a dataset with a large number of samples (i.e. > 50), we recommend
-disabling the \code{rlog} transformation, since it can take a long time to
-compute.
+DESeq2 is run automatically when \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} is called, unless \code{fast = TRUE} is set. Internally, this automatically slots normalized counts into
+\code{\link[SummarizedExperiment:assays]{assays()}}, and generates variance-stabilized
+counts.
 }
 
 \section{Remote connections}{
@@ -266,6 +255,9 @@ object <- bcbioRNASeq(
     ensemblRelease = 87L
 )
 print(object)
+
+## Fast mode.
+object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
 }
 \seealso{
 \itemize{

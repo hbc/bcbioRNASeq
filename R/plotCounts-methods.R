@@ -41,12 +41,13 @@ NULL
 
 
 
-plotCounts.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotCounts,bcbioRNASeq` <-  # nolint
     function(object, genes, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
         counts <- counts(object, normalized = normalized)
-        # Ensure counts are always log2 scale.
+        ## Ensure counts are always log2 scale.
         if (!normalized %in% c("rlog", "vst")) {
             counts <- log2(counts + 1L)
         }
@@ -65,7 +66,7 @@ plotCounts.bcbioRNASeq <-  # nolint
         )
     }
 
-f1 <- formals(plotCounts.bcbioRNASeq)
+f1 <- formals(`plotCounts,bcbioRNASeq`)
 f2 <- methodFormals(
     f = "plotCounts",
     signature = "SummarizedExperiment",
@@ -74,7 +75,7 @@ f2 <- methodFormals(
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay", "countsAxisLabel"))]
 f <- c(f1, f2)
 f[["normalized"]] <- normalizedCounts
-formals(plotCounts.bcbioRNASeq) <- f
+formals(`plotCounts,bcbioRNASeq`) <- f
 
 
 
@@ -83,5 +84,5 @@ formals(plotCounts.bcbioRNASeq) <- f
 setMethod(
     f = "plotCounts",
     signature = signature("bcbioRNASeq"),
-    definition = plotCounts.bcbioRNASeq
+    definition = `plotCounts,bcbioRNASeq`
 )

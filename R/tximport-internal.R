@@ -23,6 +23,8 @@
 #' @seealso [tximport::tximport()].
 #'
 #' @return `list`.
+
+## Updated 2019-07-23.
 .tximport <- function(
     sampleDirs,
     type = c("salmon", "kallisto", "sailfish"),
@@ -43,7 +45,7 @@
         choices = eval(formals(tximport)[["countsFromAbundance"]])
     )
 
-    # Locate the counts files --------------------------------------------------
+    ## Locate the counts files -------------------------------------------------
     subdirs <- file.path(sampleDirs, type)
     assert(all(isDirectory(subdirs)))
     if (type %in% c("salmon", "sailfish")) {
@@ -55,18 +57,19 @@
     assert(all(isFile(files)))
     names(files) <- names(sampleDirs)
 
-    # tx2gene ------------------------------------------------------------------
+    ## tx2gene -----------------------------------------------------------------
     tx2gene <- as.data.frame(tx2gene)
     if (isTRUE(ignoreTxVersion)) {
-        # Ensure transcript IDs are stripped from tx2gene.
+        ## Ensure transcript IDs are stripped from tx2gene.
         tx2gene[["transcriptID"]] <-
             stripTranscriptVersions(tx2gene[["transcriptID"]])
         rownames(tx2gene) <- tx2gene[["transcriptID"]]
     }
 
-    # Import counts using tximport ---------------------------------------------
-    # Note that this step can take a long time when processing a lot of samples,
-    # and is recommended to be run on an HPC cluster, rather than locally.
+    ## Import counts using tximport --------------------------------------------
+    ## Note that this step can take a long time when processing a lot of
+    ## samples, and is recommended to be run on an HPC cluster, rather than
+    ## locally.
     message(paste0(
         "Reading ", type, " transcript-level counts from ",
         basename(files[[1L]]), " files using tximport ",
@@ -89,23 +92,23 @@
         ignoreTxVersion = ignoreTxVersion
     )
 
-    # tximport version-specific settings.
-    # This ensures backward compatibility with R 3.4.
+    ## tximport version-specific settings.
+    ## This ensures backward compatibility with R 3.4.
     if (packageVersion("tximport") < "1.10") {
         args[["importer"]] <- readr::read_tsv
     } else {
-        # Defaults to `read_tsv()` if installed, don't need to set.
+        ## Defaults to `read_tsv()` if installed, don't need to set.
         args[["importer"]] <- NULL
         args[["existenceOptional"]] <- FALSE
         args[["ignoreAfterBar"]] <- FALSE
-        # Ensure that we're mapping these IDs correctly.
+        ## Ensure that we're mapping these IDs correctly.
         args[["geneIdCol"]] <- "geneID"
         args[["txIdCol"]] <- "transcriptID"
     }
 
     txi <- do.call(what = tximport, args = args)
 
-    # Assert checks before return.
+    ## Assert checks before return.
     invisible(lapply(
         X = txi[c("abundance", "counts", "length")],
         FUN = function(x) {
@@ -115,16 +118,18 @@
             )
         }
     ))
-    assert(.isTximport(txi))
+    assert(.isTximportReturn(txi))
 
     txi
 }
 
 
 
-.isTximport <- function(txi) {
+## Detect if object is tximport list return.
+## Updated 2019-07-23.
+.isTximportReturn <- function(list) {
     assert(
-        is.list(txi),
+        is.list(list),
         areIntersectingSets(
             x = c(
                 "abundance",
@@ -133,22 +138,22 @@
                 "length",
                 "countsFromAbundance"
             ),
-            y = names(txi)
+            y = names(list)
         )
     )
 
-    abundance <- txi[["abundance"]]
-    counts <- txi[["counts"]]
-    infReps <- txi[["infReps"]]
-    length <- txi[["length"]]
-    countsFromAbundance <- txi[["countsFromAbundance"]]
+    abundance <- list[["abundance"]]
+    counts <- list[["counts"]]
+    infReps <- list[["infReps"]]
+    length <- list[["length"]]
+    countsFromAbundance <- list[["countsFromAbundance"]]
 
     assert(
         identical(dimnames(abundance), dimnames(counts)),
         identical(dimnames(abundance), dimnames(length))
     )
 
-    # Inferential replicates added in v1.9.
+    ## Inferential replicates added in v1.9.
     if (is.list(infReps) && hasLength(infReps)) {
         assert(
             identical(names(infReps), colnames(abundance)),

@@ -41,7 +41,8 @@ NULL
 
 
 
-plotMeanSD.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotMeanSD,bcbioRNASeq` <-  # nolint
     function(
         object,
         fill = ggplot2::scale_fill_gradient(low = "grey25", high = "purple"),
@@ -55,7 +56,7 @@ plotMeanSD.bcbioRNASeq <-  # nolint
             isString(lineColor, nullOK = TRUE)
         )
 
-        # Determine which genes are non-zero, and should be included in plot.
+        ## Determine which genes are non-zero, and should be included in plot.
         raw <- counts(object, normalized = FALSE)
         nonzero <- rowSums(raw) > 0L
 
@@ -74,7 +75,7 @@ plotMeanSD.bcbioRNASeq <-  # nolint
             FUN.VALUE = logical(1L)
         )
 
-        # Get the requested counts from object.
+        ## Get the requested counts from object.
         assays <- mapply(
             normalized = normalized,
             log2 = log2,
@@ -127,12 +128,12 @@ plotMeanSD.bcbioRNASeq <-  # nolint
                     .[["gg"]] +
                     ggtitle(paste(title, "(log2)"))
 
-                # Improve the fill aesthetics.
+                ## Improve the fill aesthetics.
                 if (is(fill, "ScaleContinuous")) {
                     suppressMessages(p <- p + fill)
                 }
 
-                # Improve the line aesthetics.
+                ## Improve the line aesthetics.
                 p[["layers"]][[2L]][["aes_params"]][["colour"]] <- lineColor
                 p[["layers"]][[2L]][["aes_params"]][["size"]] <- 1L
 
@@ -142,7 +143,7 @@ plotMeanSD.bcbioRNASeq <-  # nolint
             USE.NAMES = FALSE
         )
 
-        # Remove the plot (color) legend, if desired.
+        ## Remove the plot (color) legend, if desired.
         if (!isTRUE(legend)) {
             plotlist <- lapply(plotlist, function(p) {
                 p <- p + theme(legend.position = "none")
@@ -152,7 +153,7 @@ plotMeanSD.bcbioRNASeq <-  # nolint
         plot_grid(plotlist = plotlist)
     }
 
-formals(plotMeanSD.bcbioRNASeq)[["legend"]] <- formalsList[["legend"]]
+formals(`plotMeanSD,bcbioRNASeq`)[["legend"]] <- formalsList[["legend"]]
 
 
 
@@ -161,5 +162,5 @@ formals(plotMeanSD.bcbioRNASeq)[["legend"]] <- formalsList[["legend"]]
 setMethod(
     f = "plotMeanSD",
     signature = signature("bcbioRNASeq"),
-    definition = plotMeanSD.bcbioRNASeq
+    definition = `plotMeanSD,bcbioRNASeq`
 )

@@ -25,13 +25,15 @@ setClassUnion(
 #'
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
+
+## Updated 2019-07-23.
 setClass(
     Class = "bcbioRNASeq",
     contains = "RangedSummarizedExperiment",
     validity = function(object) {
         metadata <- metadata(object)
 
-        # Return invalid for all objects older than v0.2.
+        ## Return invalid for all objects older than v0.2.
         version <- metadata[["version"]]
         ok <- validate(
             is(version, "package_version"),
@@ -45,12 +47,12 @@ setClass(
         )
         if (!isTRUE(ok)) return(ok)
 
-        # Metadata -------------------------------------------------------------
+        ## Metadata ------------------------------------------------------------
         ok <- validate(
-            # Check for legacy metrics stashed in metadata, rather than defined
-            # in colData.
+            ## Check for legacy metrics stashed in metadata, rather than defined
+            ## in colData.
             is.null(metadata[["metrics"]]),
-            # Check that interesting groups defined in metadata are valid.
+            ## Check that interesting groups defined in metadata are valid.
             isSubset(
                 x = metadata[["interestingGroups"]],
                 y = colnames(colData(object))
@@ -58,7 +60,7 @@ setClass(
         )
         if (!isTRUE(ok)) return(ok)
 
-        # Error on legacy slot detection.
+        ## Error on legacy slot detection.
         intersect <- intersect(
             x = names(metadata),
             y = c(
@@ -76,13 +78,13 @@ setClass(
             )
         )
         ok <- validate(
-            # Use `as.logical()` here for R 3.4/BioC 3.6 compatibility.
+            ## Use `as.logical()` here for R 3.4/BioC 3.6 compatibility.
             as.logical(!hasLength(intersect)),
             msg = sprintf("Legacy metadata: %s", toString(intersect))
         )
         if (!isTRUE(ok)) return(ok)
 
-        # Class checks (order independent).
+        ## Class checks (order independent).
         ok <- validateClasses(
             object = metadata,
             expected = list(
@@ -117,7 +119,7 @@ setClass(
         )
         if (!isTRUE(ok)) return(ok)
 
-        # tximport checks.
+        ## tximport checks.
         ok <- validate(
             isSubset(metadata[["caller"]], validCallers),
             isSubset(metadata[["level"]], validLevels),
@@ -128,19 +130,19 @@ setClass(
         )
         if (!isTRUE(ok)) return(ok)
 
-        # Assays ---------------------------------------------------------------
+        ## Assays --------------------------------------------------------------
         assayNames <- assayNames(object)
         ok <- validate(isSubset(requiredAssays, assayNames))
         if (!isTRUE(ok)) return(ok)
 
-        # Check that all assays are matrices.
-        # Note that in previous versions, we slotted `DESeqDataSet` and
-        # `DESeqTransform`, which can result in metadata mismatches because
-        # those objects contain their own `colData` and `rowData`.
+        ## Check that all assays are matrices.
+        ## Note that in previous versions, we slotted `DESeqDataSet` and
+        ## `DESeqTransform`, which can result in metadata mismatches because
+        ## those objects contain their own `colData` and `rowData`.
         ok <- validate(all(bapply(assays(object), is.matrix)))
         if (!isTRUE(ok)) return(ok)
 
-        # Caller-specific checks.
+        ## Caller-specific checks.
         caller <- metadata[["caller"]]
         ok <- validate(isString(caller))
         if (!isTRUE(ok)) return(ok)
@@ -151,7 +153,7 @@ setClass(
         }
         if (!isTRUE(ok)) return(ok)
 
-        # Check for average transcript length matrix, if necessary.
+        ## Check for average transcript length matrix, if necessary.
         if (
             metadata[["caller"]] %in% tximportCallers &&
             metadata[["countsFromAbundance"]] == "no"
@@ -160,25 +162,25 @@ setClass(
             if (!isTRUE(ok)) return(ok)
         }
 
-        # Row data -------------------------------------------------------------
+        ## Row data ------------------------------------------------------------
         rowRanges <- rowRanges(object)
         rowData <- rowData(object)
         ok <- validate(
             is(rowRanges, "GRanges"),
             is(rowData, "DataFrame"),
             identical(names(rowRanges), rownames(object))
-            # This check fails on BioC 3.6; SummarizedExperiment 1.8.
-            # nolint start
-            # > identical(rownames(rowData), rownames(object))
-            # nolint end
+            ## This check fails on BioC 3.6; SummarizedExperiment 1.8.
+            ## nolint start
+            ## > identical(rownames(rowData), rownames(object))
+            ## nolint end
         )
         if (!isTRUE(ok)) return(ok)
 
         if (hasLength(colnames(rowData))) {
-            # Note that GTF/GFF annotations won't contain description.
-            # The description column only gets returned via ensembldb.
-            # This check will fail for bcbioRNASeq objects created prior to v0.3
-            # update because we didn't use S4 Rle run-length encoding.
+            ## Note that GTF/GFF annotations won't contain description. The
+            ## description column only gets returned via ensembldb. This check
+            ## will fail for bcbioRNASeq objects created prior to v0.3 update
+            ## because we didn't use S4 Rle run-length encoding.
             ok <- validateClasses(
                 object = rowData,
                 expected = list(
@@ -192,12 +194,12 @@ setClass(
             if (!isTRUE(ok)) return(ok)
         }
 
-        # Column data ----------------------------------------------------------
+        ## Column data ---------------------------------------------------------
         colData <- colData(object)
         ok <- validate(
             identical(rownames(colData), colnames(object)),
             isSubset("sampleName", colnames(colData)),
-            # sampleID is never allowed in colData.
+            ## sampleID is never allowed in colData.
             areDisjointSets(colnames(colData), "sampleID"),
             areDisjointSets(colnames(colData), legacyMetricsCols)
         )

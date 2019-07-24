@@ -1,8 +1,9 @@
 context("plotGenderMarkers")
 
-test_that("plotGenderMarkers", {
-    expect_s3_class(
+## Current minimal example doesn't contain dimorphic genes.
+test_that("bcbioRNASeq", {
+    expect_message(
         object = plotGenderMarkers(object),
-        class = "ggplot"
+        regexp = "ENSMUSG"
     )
 })

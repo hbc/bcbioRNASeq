@@ -131,8 +131,8 @@ analysis.</p>
   <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>censorSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sampleMetadataFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>organism</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genomeBuild</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>gffFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>transgeneNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>spikeNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>countsFromAbundance</span> <span class='kw'>=</span> <span class='st'>"lengthScaledTPM"</span>, <span class='kw'>vst</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rlog</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>countsFromAbundance</span> <span class='kw'>=</span> <span class='st'>"lengthScaledTPM"</span>,
+  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='st'>"sampleName"</span>, <span class='kw'>fast</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -229,24 +229,15 @@ this parameter, but it should only ever be changed when loading some
 datasets at transcript level (e.g. for DTU analsyis).</p></td>
     </tr>
     <tr>
-      <th>vst</th>
-      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
-Calculate variance-stabilizing transformation using
-<code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation()</a></code>. Recommended by default for
-visualization.</p></td>
-    </tr>
-    <tr>
-      <th>rlog</th>
-      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
-Calcualte regularized log transformation using <code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code>. This
-calculation is slow for large datasets and now discouraged by default for
-visualization.</p></td>
-    </tr>
-    <tr>
       <th>interestingGroups</th>
       <td><p><code>character</code>.
 Groups of interest that define the samples. If left unset, defaults to
 <code>sampleName</code>.</p></td>
+    </tr>
+    <tr>
+      <th>fast</th>
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
+Fast mode. Skip internal DESeq2 transformations.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -382,13 +373,9 @@ used in place of GRCh37/hg19 if possible.</p>
     
 
 
-<p>DESeq2 is run automatically when <code>bcbioRNASeq()</code> is called. Internally, this
-automatically slots normalized counts into
-<code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>assays()</a></code>, and optionally generates
-variance-stabilized counts (e.g. <code>vst</code>, <code>rlog</code>), depending on the call. When
-loading a dataset with a large number of samples (i.e. &gt; 50), we recommend
-disabling the <code>rlog</code> transformation, since it can take a long time to
-compute.</p>
+<p>DESeq2 is run automatically when <code>bcbioRNASeq()</code> is called, unless <code>fast = TRUE</code> is set. Internally, this automatically slots normalized counts into
+<code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>assays()</a></code>, and generates variance-stabilized
+counts.</p>
     
     <h2 class="hasAnchor" id="remote-connections"><a class="anchor" href="#remote-connections"></a>Remote connections</h2>
 
@@ -425,16 +412,25 @@ possible.</p>
     <span class='kw'>ensemblRelease</span> <span class='kw'>=</span> <span class='fl'>87L</span>
 )</div><div class='output co'>#&gt; <span class='message'>Dated project directory: 2018-03-18_GSE65267-merged</span></div><div class='output co'>#&gt; <span class='message'>6 samples detected:</span>
 #&gt; <span class='message'>[1] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" "fa_day7_rep2"</span>
-#&gt; <span class='message'>[6] "fa_day7_rep3"</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Failed to detect sequencing lanes.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon transcript-level counts from quant.sf files using tximport 1.12.3.</span></div><div class='output co'>#&gt; <span class='message'>Scaling transcripts using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>Returning transcript abundance at gene level.</span></div><div class='output co'>#&gt; <span class='message'>reading in files with read_tsv</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>5 </span></div><div class='output co'>#&gt; <span class='message'>6 </span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Using makeGRangesFromEnsembl() for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.16.0 (2019-05-02).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span>
+#&gt; <span class='message'>[6] "fa_day7_rep3"</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Failed to detect sequencing lanes.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon transcript-level counts from quant.sf files using tximport 1.12.3.</span></div><div class='output co'>#&gt; <span class='message'>Scaling transcripts using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>Returning transcript abundance at gene level.</span></div><div class='output co'>#&gt; <span class='message'>reading in files with read_tsv</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>5 </span></div><div class='output co'>#&gt; <span class='message'>6 </span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>Importing aligned counts from featureCounts.</span></div><div class='output co'>#&gt; <span class='message'>Importing combined.counts using readr::read_tsv().</span></div><div class='output co'>#&gt; <span class='message'>Parsed with column specification:</span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  id = <span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  control_rep1 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  control_rep2 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  control_rep3 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  fa_day7_rep1 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  fa_day7_rep2 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  fa_day7_rep3 = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; <span class='message'>Using makeGRangesFromEnsembl() for annotations.</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from Ensembl.</span></div><div class='output co'>#&gt; <span class='message'>Matching EnsDb from AnnotationHub 2.16.0 (2019-05-02).</span></div><div class='output co'>#&gt; <span class='message'>AH53222: Ensembl 87 EnsDb for Mus Musculus</span>
 #&gt; <span class='message'>Run this code to download EnsDb manually:</span>
 #&gt; <span class='message'>  &gt; library(AnnotationHub)</span>
 #&gt; <span class='message'>  &gt; ah &lt;- AnnotationHub()</span>
 #&gt; <span class='message'>  &gt; edb &lt;- ah[["AH53222"]]</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
-#&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneBiotype, geneName, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM using DESeq2::fpkm().</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.21
-#&gt; uploadDir: /data00/R/site-library/3.6/bcbioRNASeq/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-18
+#&gt; <span class='message'>  - Level: genes</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneBiotype, geneName, seqnames</span></div><div class='output co'>#&gt; <span class='message'>Arranging by geneID.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM using DESeq2::fpkm().</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
+#&gt; uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.6/bcbioRNASeq/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-23
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -442,7 +438,7 @@ possible.</p>
 #&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 100 6 
 #&gt; metadata(26): version level ... wd sessionInfo
-#&gt; assays(6): counts tpm ... vst fpkm
+#&gt; assays(7): counts tpm ... vst fpkm
 #&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
 #&gt;   ENSMUSG00000062661 ENSMUSG00000074340
 #&gt; rowData names(7): broadClass description ... geneName seqCoordSystem
@@ -465,9 +461,9 @@ possible.</p>
 #&gt; <span class='message'>  &gt; edb &lt;- ah[["AH53222"]]</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: Mus musculus</span>
 #&gt; <span class='message'>  - Genome Build: GRCm38</span>
 #&gt; <span class='message'>  - Ensembl Release: 87</span>
-#&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations: gene_name, gene_biotype, seq_coord_system, description, symbol, entrezid</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, seqnames, transcriptBiotype</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.21
-#&gt; uploadDir: /data00/R/site-library/3.6/bcbioRNASeq/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-18
+#&gt; <span class='message'>  - Level: transcripts</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations: gene_name, gene_biotype, seq_coord_system, description, symbol, entrezid</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, seqnames, transcriptBiotype</span></div><div class='output co'>#&gt; <span class='message'>Arranging by transcriptID.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
+#&gt; uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.6/bcbioRNASeq/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-23
 #&gt; level: transcripts
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -482,7 +478,11 @@ possible.</p>
 #&gt;   transcriptSupportLevel
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
 #&gt; colData names(26): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div></pre>
+#&gt;   treatment</div><div class='input'>
+<span class='co'>## Fast mode.</span>
+<span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'>bcbioRNASeq</span>(<span class='kw'>uploadDir</span> <span class='kw'>=</span> <span class='no'>uploadDir</span>, <span class='kw'>fast</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Dated project directory: 2018-03-18_GSE65267-merged</span></div><div class='output co'>#&gt; <span class='message'>6 samples detected:</span>
+#&gt; <span class='message'>[1] "control_rep1" "control_rep2" "control_rep3" "fa_day7_rep1" "fa_day7_rep2"</span>
+#&gt; <span class='message'>[6] "fa_day7_rep3"</span></div><div class='output co'>#&gt; <span class='message'>Importing project-summary.yaml using yaml::yaml.load_file().</span></div><div class='output co'>#&gt; <span class='message'>Data versions are missing.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Importing bcbio-nextgen-commands.log using readr::read_lines().</span></div><div class='output co'>#&gt; <span class='message'>bcbio-nextgen-commands.log file is empty.</span></div><div class='output co'>#&gt; <span class='message'>Failed to detect sequencing lanes.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metadata from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Getting sample metrics from YAML.</span></div><div class='output co'>#&gt; <span class='message'>Reading salmon transcript-level counts from quant.sf files using tximport 1.12.3.</span></div><div class='output co'>#&gt; <span class='message'>Scaling transcripts using lengthScaledTPM.</span></div><div class='output co'>#&gt; <span class='message'>Returning transcript abundance at gene level.</span></div><div class='output co'>#&gt; <span class='message'>reading in files with read_tsv</span></div><div class='output co'>#&gt; <span class='message'>1 </span></div><div class='output co'>#&gt; <span class='message'>2 </span></div><div class='output co'>#&gt; <span class='message'>3 </span></div><div class='output co'>#&gt; <span class='message'>4 </span></div><div class='output co'>#&gt; <span class='message'>5 </span></div><div class='output co'>#&gt; <span class='message'>6 </span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>summarizing abundance</span></div><div class='output co'>#&gt; <span class='message'>summarizing counts</span></div><div class='output co'>#&gt; <span class='message'>summarizing length</span></div><div class='output co'>#&gt; <span class='message'>bcbio GTF file: /n/app/bcbio/dev/genomes/Mmusculus/GRCm38_90/rnaseq/ref-transcripts.gtf</span></div><div class='output co'>#&gt; <span class='message'>bcbio GTF file is not accessible.</span></div><div class='output co'>#&gt; <span class='message'>Slotting empty ranges into rowRanges().</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

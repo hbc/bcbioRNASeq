@@ -2,13 +2,13 @@
 % Please edit documentation in R/deprecated.R
 \name{defunct}
 \alias{defunct}
+\alias{loadRNASeq}
 \alias{plotCountDensity}
-\alias{resultsTables}
 \title{Defunct functions}
 \usage{
-plotCountDensity(...)
+loadRNASeq(...)
 
-resultsTables(...)
+plotCountDensity(...)
 }
 \arguments{
 \item{...}{Additional arguments.}

@@ -20,26 +20,27 @@
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
 #' @importFrom acidplots acid_geom_abline acid_geom_label acid_geom_label_repel
 #'   acid_coord_flip acid_geom_bar acid_scale_y_continuous_nopad
-#'   plotCorrelationHeatmap plotFeaturesDetected plotHeatmap plotPCA
-#' @importFrom basejump Gene2Symbol Tx2Gene camel coerceS4ToList
+#'   plotCorrelationHeatmap plotCountsCorrelation plotCountsCorrelationHeatmap
+#'   plotFeaturesDetected plotHeatmap plotPCA
+#' @importFrom basejump Gene2Symbol Tx2Gene camelCase coerceS4ToList
 #'   convertGenesToSymbols detectLanes detectOrganism emptyRanges formalsList
 #'   import initDir interestingGroups interestingGroups<- lanePattern
 #'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups
 #'   matchesGene2Symbol meltCounts methodFormals metrics organism
-#'   prepareTemplate printString realpath relevelColData relevelRowRanges
-#'   removeNA sampleData sampleData<- separator showSlotInfo snake
-#'   standardizeCall stripTranscriptVersions uniteInterestingGroups
+#'   prepareTemplate printString realpath relevel removeNA sampleData
+#'   sampleData<- separator showSlotInfo standardizeCall stripTranscriptVersions
+#'   uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML metadataBlacklist projectDir projectDirPattern
 #'   readDataVersions readProgramVersions readSampleData readTx2Gene runDate
 #'   sampleDirs
 #' @importFrom cowplot draw_plot ggdraw plot_grid
-#' @importFrom dplyr arrange bind_cols desc everything filter group_by left_join
-#'   mutate mutate_all mutate_if pull rename row_number select select_if
-#'   starts_with ungroup
-#' @importFrom edgeR DGEList calcNormFactors cpm
+#' @importFrom dplyr arrange bind_cols bind_rows desc everything filter group_by
+#'   left_join mutate mutate_all mutate_if pull rename row_number select
+#'   select_if starts_with ungroup
+#' @importFrom edgeR DGEList calcNormFactors cpm scaleOffset
 #' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
 #'   element_blank element_text expand_limits facet_wrap geom_bar geom_boxplot
 #'   geom_density geom_hline geom_jitter geom_point geom_polygon geom_ribbon

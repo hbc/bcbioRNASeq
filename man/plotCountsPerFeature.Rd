@@ -30,10 +30,10 @@ Which normalization method to apply:
 \item "\code{vst}": DESeq2 log2 variance stabilizing transformation.
 }}
 
-\item{minCounts}{\code{integer(1)}.
-Minimum count threshold to apply. Filters using "greater than or equal to"
-logic internally. Note that this threshold gets applied prior to
-logarithmic transformation, when \code{trans} argument applies.}
+\item{minCounts}{\code{integer(1)} or \code{NULL}.
+Minimum count threshold to apply. Disable with \code{NULL}. Filters using
+"greater than or equal to" logic internally. Note that this threshold gets
+applied prior to logarithmic transformation, when \code{trans} argument applies.}
 
 \item{minCountsMethod}{\code{character(1)}.
 Uses \code{\link[base:match.arg]{match.arg()}}.

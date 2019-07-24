@@ -83,16 +83,17 @@ NULL
 
 
 
-counts.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`counts,bcbioRNASeq` <-  # nolint
     function(object, normalized = FALSE) {
         validObject(object)
         assert(
             isAny(normalized, classes = c("character", "logical")),
-            # Ensure that primary assay matches counts.
+            ## Ensure that primary assay matches counts.
             identical(assayNames(object)[[1L]], "counts")
         )
 
-        # Restrict the `normalized` arguments for transcript-level objects.
+        ## Restrict the `normalized` arguments for transcript-level objects.
         if (.isTranscriptLevel(object)) {
             assert(isSubset(normalized, list(FALSE, "tpm")))
         }
@@ -101,7 +102,7 @@ counts.bcbioRNASeq <-  # nolint
             assayName <- "counts"
         } else if (
             identical(normalized, TRUE) ||
-            # `sf` is short for library size factor normalized.
+            ## `sf` is short for library size factor normalized.
             identical(normalized, "sf")
         ) {
             assayName <- "normalized"
@@ -133,5 +134,5 @@ counts.bcbioRNASeq <-  # nolint
 setMethod(
     f = "counts",
     signature = signature("bcbioRNASeq"),
-    definition = counts.bcbioRNASeq
+    definition = `counts,bcbioRNASeq`
 )

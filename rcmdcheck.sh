@@ -2,7 +2,7 @@
 set -Eeuxo pipefail
 
 # R package checks
-# Updated 2019-07-16.
+# Updated 2019-07-21.
 #
 # See also:
 # - R CMD build --help
@@ -27,6 +27,10 @@ Rscript -e "utils::sessionInfo()"
 Rscript -e "sessioninfo::session_info()"
 echo "travis_fold:end:session_info"
 
+echo "travis_fold:start:lints"
+./lints.R
+echo "travis_fold:end:lints"
+
 echo "travis_fold:start:r_cmd_check"
 # Set `--as-cran` flag for extra verbose incoming package checks.
 R CMD build . --no-build-vignettes --no-manual
@@ -48,10 +52,6 @@ Rscript -e "BiocCheck::BiocCheck( \
 echo "travis_fold:end:bioc_check"
 
 rm "$PKG_TARBALL"
-
-echo "travis_fold:start:lints"
-./lints.R
-echo "travis_fold:end:lints"
 
 echo "travis_fold:start:coverage"
 ./coverage.R

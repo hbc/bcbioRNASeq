@@ -23,7 +23,8 @@ NULL
 
 
 
-plotTotalReads.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotTotalReads,bcbioRNASeq` <-  # nolint
     function(
         object,
         interestingGroups = NULL,
@@ -48,7 +49,7 @@ plotTotalReads.bcbioRNASeq <-  # nolint
 
         data <- metrics(object)
 
-        # Convert to per million, if desired.
+        ## Convert to per million, if desired.
         yLab <- "reads"
         if (isTRUE(perMillion)) {
             data[["totalReads"]] <- data[["totalReads"]] / 1e6L
@@ -98,10 +99,9 @@ plotTotalReads.bcbioRNASeq <-  # nolint
         p
     }
 
-formals(plotTotalReads.bcbioRNASeq)[["fill"]] <-
-    formalsList[["fill.discrete"]]
-formals(plotTotalReads.bcbioRNASeq)[["flip"]] <-
-    formalsList[["flip"]]
+formals(`plotTotalReads,bcbioRNASeq`)[c("fill", "flip")] <-
+    formalsList[c("fill.discrete", "flip")]
+
 
 
 #' @rdname plotTotalReads
@@ -109,5 +109,5 @@ formals(plotTotalReads.bcbioRNASeq)[["flip"]] <-
 setMethod(
     f = "plotTotalReads",
     signature = signature("bcbioRNASeq"),
-    definition = plotTotalReads.bcbioRNASeq
+    definition = `plotTotalReads,bcbioRNASeq`
 )

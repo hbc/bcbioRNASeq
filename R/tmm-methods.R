@@ -22,7 +22,8 @@ NULL
 
 
 
-tmm.matrix <-  # nolint
+## Updated 2019-07-23.
+`tmm,matrix` <-  # nolint
     function(object) {
         message("Applying trimmed mean of M-values (TMM) normalization.")
         object %>%
@@ -38,12 +39,13 @@ tmm.matrix <-  # nolint
 setMethod(
     f = "tmm",
     signature = signature("matrix"),
-    definition = tmm.matrix
+    definition = `tmm,matrix`
 )
 
 
 
-tmm.SummarizedExperiment <-  # nolint
+## Updated 2019-07-23.
+`tmm,SummarizedExperiment` <-  # nolint
     function(object) {
         validObject(object)
         tmm(counts(object))
@@ -56,5 +58,5 @@ tmm.SummarizedExperiment <-  # nolint
 setMethod(
     f = "tmm",
     signature = signature("SummarizedExperiment"),
-    definition = tmm.SummarizedExperiment
+    definition = `tmm,SummarizedExperiment`
 )

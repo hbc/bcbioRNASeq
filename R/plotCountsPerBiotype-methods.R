@@ -32,7 +32,8 @@ NULL
 
 
 
-plotCountsPerBiotype.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotCountsPerBiotype,bcbioRNASeq` <-  # nolint
     function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
@@ -46,7 +47,7 @@ plotCountsPerBiotype.bcbioRNASeq <-  # nolint
         )
     }
 
-f1 <- formals(plotCountsPerBiotype.bcbioRNASeq)
+f1 <- formals(`plotCountsPerBiotype,bcbioRNASeq`)
 f2 <- methodFormals(
     f = "plotCountsPerBiotype",
     signature = "SummarizedExperiment",
@@ -54,9 +55,9 @@ f2 <- methodFormals(
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
-# Ensure TPM is set first.
+## Ensure TPM is set first.
 f[["normalized"]] <- unique(c("tpm", normalizedCounts))
-formals(plotCountsPerBiotype.bcbioRNASeq) <- f
+formals(`plotCountsPerBiotype,bcbioRNASeq`) <- f
 
 
 
@@ -65,12 +66,13 @@ formals(plotCountsPerBiotype.bcbioRNASeq) <- f
 setMethod(
     f = "plotCountsPerBiotype",
     signature = signature("bcbioRNASeq"),
-    definition = plotCountsPerBiotype.bcbioRNASeq
+    definition = `plotCountsPerBiotype,bcbioRNASeq`
 )
 
 
 
-plotCountsPerBroadClass.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotCountsPerBroadClass,bcbioRNASeq` <-  # nolint
     function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
@@ -87,7 +89,7 @@ plotCountsPerBroadClass.bcbioRNASeq <-  # nolint
         )
     }
 
-f1 <- formals(plotCountsPerBroadClass.bcbioRNASeq)
+f1 <- formals(`plotCountsPerBroadClass,bcbioRNASeq`)
 f2 <- methodFormals(
     f = "plotCountsPerBroadClass",
     signature = "SummarizedExperiment",
@@ -95,10 +97,10 @@ f2 <- methodFormals(
 )
 f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
 f <- c(f1, f2)
-# Ensure TPM is set first.
+## Ensure TPM is set first.
 f[["normalized"]] <- unique(c("tpm", normalizedCounts))
 f[["trans"]] <- trans
-formals(plotCountsPerBroadClass.bcbioRNASeq) <- f
+formals(`plotCountsPerBroadClass,bcbioRNASeq`) <- f
 
 
 
@@ -107,5 +109,5 @@ formals(plotCountsPerBroadClass.bcbioRNASeq) <- f
 setMethod(
     f = "plotCountsPerBroadClass",
     signature = signature("bcbioRNASeq"),
-    definition = plotCountsPerBroadClass.bcbioRNASeq
+    definition = `plotCountsPerBroadClass,bcbioRNASeq`
 )

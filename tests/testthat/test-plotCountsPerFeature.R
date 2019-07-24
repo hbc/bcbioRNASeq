@@ -1,6 +1,6 @@
 context("plotCountsPerFeature")
 
-geom <- eval(formals(plotCountsPerFeature.bcbioRNASeq)[["geom"]])
+geom <- eval(formals(`plotCountsPerFeature,bcbioRNASeq`)[["geom"]])
 
 with_parameters_test_that(
     "bcbioRNASeq", {

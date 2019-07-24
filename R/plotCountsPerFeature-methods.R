@@ -35,7 +35,8 @@ NULL
 
 
 
-plotCountsPerFeature.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotCountsPerFeature,bcbioRNASeq` <-  # nolint
     function(object, normalized) {
         normalized <- match.arg(normalized)
         args <- .dynamicTrans(object = object, normalized = normalized)
@@ -48,7 +49,7 @@ plotCountsPerFeature.bcbioRNASeq <-  # nolint
         )
     }
 
-f1 <- formals(plotCountsPerFeature.bcbioRNASeq)
+f1 <- formals(`plotCountsPerFeature,bcbioRNASeq`)
 f2 <- methodFormals(
     f = "plotCountsPerFeature",
     signature = "SummarizedExperiment",
@@ -59,9 +60,9 @@ f2 <- f2[setdiff(
     y = c(names(f1), "assay", "countsAxisLabel", "trans")
 )]
 f <- c(f1, f2)
-# Ensure TPM is set first.
+## Ensure TPM is set first.
 f[["normalized"]] <- unique(c("tmm", normalizedCounts))
-formals(plotCountsPerFeature.bcbioRNASeq) <- f
+formals(`plotCountsPerFeature,bcbioRNASeq`) <- f
 
 
 
@@ -70,5 +71,5 @@ formals(plotCountsPerFeature.bcbioRNASeq) <- f
 setMethod(
     f = "plotCountsPerFeature",
     signature = signature("bcbioRNASeq"),
-    definition = plotCountsPerFeature.bcbioRNASeq
+    definition = `plotCountsPerFeature,bcbioRNASeq`
 )

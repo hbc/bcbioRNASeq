@@ -21,7 +21,8 @@ NULL
 
 
 
-plotQC.bcbioRNASeq <-  # nolint
+## Updated 2019-07-23.
+`plotQC,bcbioRNASeq` <-  # nolint
     function(object) {
         validObject(object)
         plot_grid(
@@ -48,5 +49,5 @@ plotQC.bcbioRNASeq <-  # nolint
 setMethod(
     f = "plotQC",
     signature = signature("bcbioRNASeq"),
-    definition = plotQC.bcbioRNASeq
+    definition = `plotQC,bcbioRNASeq`
 )

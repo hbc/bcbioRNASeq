@@ -2,12 +2,12 @@ context("counts")
 
 with_parameters_test_that(
     "Slotted assays", {
-        # Check that all are matrices.
+        ## Check that all are matrices.
         expect_is(
             object = counts(object, normalized = normalized),
             class = "matrix"
         )
-        # Check that we're matching the expected assay matrix.
+        ## Check that we're matching the expected assay matrix.
         expect_identical(
             object = counts(object, normalized = normalized),
             expected = assays(object)[[assay]]
