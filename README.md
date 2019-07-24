@@ -17,18 +17,31 @@ citation("bcbioRNASeq")
 
 ## Installation
 
-### [Bioconductor][] method
+### [R][] method
 
-We recommend installing the package with [BiocManager][].
+```r
+if (!requireNamespace("remotes", quietly = TRUE)) {
+    install.packages("remotes")
+}
+Sys.setenv(R_REMOTES_UPGRADE = "always")
+# Set `GITHUB_PAT` in `~/.Renviron` if you get a rate limit error.
+remotes::install_github("hbc/bcbioRNASeq")
+```
+
+Here's how to update to the latest version on GitHub:
 
 ```r
 Sys.setenv(R_REMOTES_UPGRADE = "always")
+remotes::update_packages()
+```
+
+Always check that your Bioconductor installation is valid before proceeding.
+
+```r
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
-library(BiocManager)
-install("remotes")
-install("hbc/bcbioRNASeq")
+BiocManager::valid()
 ```
 
 ### [conda][] method
@@ -65,7 +78,7 @@ Now you're ready to install `r-bcbiornaseq`.
 conda install -c bioconda r-bcbiornaseq
 ```
 
-Note that there is currently a bug with [conda][] and `libgfortran`. You may need to install `libgfortran-ng` to get the bcbioRNASeq package to load in [R][].
+If you encounter a `libgfortran` error, install `libgfortran-ng`.
 
 ```sh
 conda install libgfortran-ng
