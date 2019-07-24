@@ -1,11 +1,12 @@
 ---
 # Alternatively, consider using our pfgsea package for fast preranked GSEA.
+# We're setting mouse genome here by default, to follow the vignette example.
 # Updated 2019-07-24.
 params:
   title: "Functional analysis"
-  # DESeqDataSet object
+  # DESeqDataSet
   dds_file: "data/YYYY-MM-DD/dds.rds"
-  # DESeqResults object
+  # DESeqResults
   res_file: "data/YYYY-MM-DD/res.rds"
   organism: "Mus musculus"
   go_class: "BP"
@@ -19,8 +20,11 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-library(bcbioRNASeq)
+library(tibble)
+library(stringr)
 library(dplyr)
+library(DEGreport)
+library(bcbioRNASeq)
 prepareTemplate(package = "bcbioRNASeq")
 source("_setup.R")
 ```
@@ -130,7 +134,7 @@ dds <- dds[rownames(res), , drop = FALSE]
 # Use the all_genes vector for background (aka universe).
 all_genes <- rownames(res)
 
-# help("significants", "DEGreport")
+# > help("significants", "DEGreport")
 sig_genes <- significants(
     object = res,
     fc = params$lfc_threshold,
@@ -237,7 +241,7 @@ summary(gene_list)
 
 ```{r gse-go}
 # Now we're ready to run GSEA.
-# help("gseGO", "clusterProfiler")
+# > help("gseGO", "clusterProfiler")
 # Consider: minGSSize = 100
 gsea_go <- gseGO(
     geneList = gene_list,
@@ -300,7 +304,6 @@ gene2entrez <- lapply(gene2entrez, function(x) {
 gene2entrez <- Filter(Negate(is.null), gene2entrez)
 # Ensembl gene IDs are names; Entrez gene ID are values.
 gene2entrez <- unlist(gene2entrez)
-str(gene2entrez)
 saveData(gene2entrez, dir = params$data_dir)
 ```
 
@@ -443,7 +446,7 @@ gsea_kegg_tbl
 ```
 
 ```{r pathview-kegg-plots, message=FALSE, results="asis"}
-# help("pathview", "pathview")
+# > help("pathview", "pathview")
 # 
 # There is currently no way to set the output path of the pathview PNG files, so
 # we're changing the working directory. Generally this is not recommended!
