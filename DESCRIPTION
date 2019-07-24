@@ -144,7 +144,6 @@ Suggests:
     pathview,
     rhdf5,
     patrick (>= 0.0.1),
-    rdrop2 (>= 0.8),
     rmarkdown (>= 1.14),
     roxygen2 (>= 6.1),
     testthat (>= 2.1),
