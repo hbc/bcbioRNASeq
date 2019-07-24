@@ -1,4 +1,5 @@
 ---
+# Updated 2019-07-24.
 params:
   title: "Quality control"
   bcb_file: "data/YYYY-MM-DD/object.rds"
@@ -10,9 +11,10 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-# Updated 2019-07-18.
 library(bcbioRNASeq)
 library(ggplot2)
+library(knitr)
+library(tidyverse)
 prepareTemplate(package = "bcbioRNASeq")
 source("_setup.R")
 ```
@@ -145,7 +147,7 @@ plotCountsPerBroadClass(object)
 
 # Variance stabilization
 
-These plots show the standard deviation of normalized counts using `log2()`, `varianceStabilizingTransform()`, `rlog()`, and `tmm()` by `rank(mean)`. Note that all counts shown are log2 scale.
+These plots show the standard deviation of normalized counts.
 
 ```{r plot-mean-sd}
 plotMeanSD(object)

@@ -1,5 +1,16 @@
 ---
 # Alternatively, consider using our DESeqAnalysis package for complex contrasts.
+#
+# Example bcbioRNASeq object to check the template (from vignette):
+#  
+# > loadRemoteData(pasteURL(
+# >     "github.com", "hbc", "bcbioRNASeq",
+# >     "raw", "f1000v2", "data", "bcb.rda",
+# >     protocol = "https"
+# > ))
+# > bcb <- updateObject(bcb)
+#
+# Updated 2019-07-24.
 params:
   title: "Differential expression"
   bcb_file: "data/YYYY-MM-DD/bcb.rds"
@@ -17,17 +28,15 @@ params:
   lfc_threshold: 0
   data_dir: !r file.path("data", Sys.Date())
   results_dir: !r file.path("results", Sys.Date(), "differential-expression")
-  dropbox_dir: NULL
 title: "`r params$title`"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 ---
 
-```{r setup, message=FALSE}
-# Last modified 2019-06-06
+```{r setup, cache=FALSE, message=FALSE}
 library(bcbioRNASeq)
-library(DESeq)
+library(DESeq2)
 prepareTemplate(package = "bcbioRNASeq")
 source("_setup.R")
 ```
@@ -38,14 +47,6 @@ invisible(mapply(
     path = c(params$data_dir, params$results_dir),
     MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
-```
-
-```{r dropbox-auth}
-# Authenticate with Dropbox, if enabled.
-if (!is.null(params$dropbox_dir)) {
-    library(rdrop2)
-    drop_auth()
-}
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -72,15 +73,17 @@ Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a
 
 ```{r coerce-bcb-to-dds}
 # Coerce bcbioRNASeq to DESeqDataSet.
-# help("coerce", "bcbioRNASeq")
-# getMethod(
-#     f = "coerce",
-#     signature = signature(
-#         from = "bcbioRNASeq",
-#         to = "DESeqDataSet"
-#     )
-# )
+# > help("coerce", "bcbioRNASeq")
+# > getMethod(
+# >     f = "coerce",
+# >     signature = signature(
+# >         from = "bcbioRNASeq",
+# >         to = "DESeqDataSet"
+# >     )
+# > )
 dds <- as(object, "DESeqDataSet")
+stopifnot(is(dds, "DESeqDataSet"))
+invisible(validObject(dds))
 print(dds)
 ```
 
@@ -100,7 +103,7 @@ sampleData(dds) <- sd
 ```
 
 ```{r design}
-# colnames(colData(dds))
+# > colnames(colData(dds))
 design(dds) <- params$design
 ```
 
@@ -152,9 +155,11 @@ assignAndSaveData(
 After we perform the differential expression, we need to calculate variance-stabilized counts, which are stored in a `DESeqTransform` object. These transformed counts are useful for visualization. We currently recommend using `varianceStabilizingTransformation()` but `rlog()` is a good alternate.
 
 ```{r variance-stabilization}
-# Alternatively, can use `rlog()` here, but it is slower.
+# Alternatively, can use `rlog()` here instead, but it is slower.
 dt <- varianceStabilizingTransformation(dds)
+stopifnot(is(dt, "DESeqTransform"))
 interestingGroups(dt) <- "treatment"
+invisible(validObject(dt))
 assignAndSaveData(
     name = paste(name, "dt", sep = "_"),
     object = dt,
@@ -172,8 +177,8 @@ For contrast argument as character vector:
 
 ```{r contrasts}
 # factor; numerator; denominator
-# levels(dds$genotype)
-# help("results", "DESeq2")
+# > levels(dds$genotype)
+# > help("results", "DESeq2")
 stopifnot(is.list(params$contrasts))
 contrasts <- params$contrasts
 names <- vapply(
@@ -188,13 +193,14 @@ names(contrasts) <- names
 print(contrasts)
 ```
 
-```{r res_unshrunken}
+```{r res-unshrunken}
 res_list_unshrunken <- mapply(
     FUN = results,
     contrast = contrasts,
     MoreArgs = list(
         object = dds,
-        alpha = params$alpha
+        alpha = params$alpha,
+        lfcThreshold = params$lfc_threshold
     ),
     SIMPLIFY = FALSE,
     USE.NAMES = FALSE
@@ -209,14 +215,14 @@ assignAndSaveData(
 
 Now let's calculate shrunken log2 fold change values with `DESeq2::lfcShrink()`. We're using the "normal" shrinkage estimator (default in DESeq2); the "apeglm" shrinkage estimator is also promising but doens't work well with complex contrast designs.
 
-```{r res_shrunken}
+```{r res-shrunken}
 # For `type` arguments other than "normal", `coef` argument is required.
 # Otherwise can use `contrast`, which is more intuitive and readable.
 # If using `coef` number, must match order in `resultsNames(dds)`.
 # The new apeglm method is great but currently only works with coef.
-# help("lfcShrink", "DESeq2")
-# help("coef", "DESeq2")
-# help("resultsNames", "DESeq2")
+# > help("lfcShrink", "DESeq2")
+# > help("coef", "DESeq2")
+# > help("resultsNames", "DESeq2")
 # This step can be a little slow and sped up with the `parallel` argument.
 res_list_shrunken <- mapply(
     FUN = lfcShrink,
@@ -224,7 +230,9 @@ res_list_shrunken <- mapply(
     contrast = contrasts,
     MoreArgs = list(
         dds = dds,
-        type = "normal"
+        type = "normal",
+        alpha = params$alpha,
+        lfcThreshold = params$lfc_threshold
     ),
     SIMPLIFY = FALSE,
     USE.NAMES = TRUE
@@ -238,8 +246,8 @@ assignAndSaveData(
 
 Let's save a copy of the prior information used during the shrinkage procedure.
 
-```{r prior_info}
-lapply(res_list_shrunken, priorInfo)
+```{r prior-info}
+lapply(X = res_list_shrunken, FUN = priorInfo)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of `r params$alpha` and a log fold-change (LFC) ratio cutoff of `r params$lfc_threshold`.
@@ -250,37 +258,26 @@ We performed the analysis using a BH adjusted *P* value cutoff of `r params$alph
 
 An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang2002-sx].
 
-```{r plot_ma}
-mapply(
-    FUN = plotMA,
-    object = res_list_shrunken,
-    MoreArgs = list(lfcThreshold = params$lfc),
-    SIMPLIFY = FALSE
-)
+```{r plot-ma}
+lapply(X = res_list_shrunken, FUN = plotMA)
 ```
 
 ## Volcano
 
 A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui2003-rn; @Li2014-ll]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
-```{r plot_volcano}
-mapply(
-    FUN = plotVolcano,
-    object = res_list_shrunken,
-    MoreArgs = list(lfcThreshold = params$lfc),
-    SIMPLIFY = FALSE
-)
+```{r plot-volcano}
+lapply(X = res_list_shrunken, FUN = plotVolcano)
 ```
 
 ## PCA
 
-```{r plot_deg_pca}
-# help("pheatmap", "pheatmap")
+```{r plot-deg-pca}
 mapply(
     FUN = plotDEGPCA,
-    results = res_list_shrunken,
+    object = res_list_shrunken,
     MoreArgs = list(
-        counts = dt,
+        DESeqTransform = dt,
         label = TRUE
     ),
     SIMPLIFY = FALSE
@@ -291,13 +288,12 @@ mapply(
 
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@Ward1963-xf].
 
-```{r plot_deg_heatmap}
-# help("pheatmap", "pheatmap")
+```{r plot-deg-heatmap}
 invisible(mapply(
     FUN = plotDEGHeatmap,
-    results = res_list_shrunken,
+    object = res_list_shrunken,
     MoreArgs = list(
-        counts = dt,
+        DESeqTransform = dt,
         clusteringMethod = "ward.D2",
         scale = "row"
     ),
@@ -305,33 +301,61 @@ invisible(mapply(
 ))
 ```
 
-# Results tables
+## Top tables
+
+Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
+
+```{r top-tables, results="asis"}
+invisible(mapply(
+    FUN = topTables,
+    object = res_list_shrunken,
+    MoreArgs = list(
+        DESeqDataSet = dds,
+        n = 20L
+    )
+))
+```
+
+# Export results tables
 
 Subset the results into separate tables, containing all genes, differentially expressed genes in both directions, and directional tables.
 
-```{r results_tables, results="asis"}
+```{r results-tables}
 # Here we're creating subset tables of the DEGs, and adding the normalized
 # counts used by DESeq2 for the differential expression analysis.
 res_tbl_list <- mapply(
     FUN = resultsTables,
-    results = res_list_shrunken,
+    object = res_list_shrunken,
     MoreArgs = list(
-        counts = dds,
-        lfcThreshold = params$lfc,
-        summary = TRUE,
-        headerLevel = 2,
-        write = TRUE,
-        dir = params$results_dir,
-        dropboxDir = params$dropbox_dir
+        DESeqDataSet = dds,
+        alpha = params$alpha,
+        lfcThreshold = params$lfc_threshold
     ),
     SIMPLIFY = FALSE,
     USE.NAMES = TRUE
 )
-saveData(
+assignAndSaveData(
     name = paste(name, "res_tbl_list", sep = "_"),
     object = res_tbl_list,
     dir = params$data_dir
 )
+```
+
+```{r export-results-tables}
+list <- res_tbl_list
+for (a in seq_along(list)) {
+    for (b in seq_along(list[[a]])) {
+        subdir_name <- 
+        file_name <- 
+        file <- file.path(
+            params$results_dir,
+            names(list)[[a]],
+            paste0(names(list[[a]])[[b]], ".csv.gz")
+        )
+        message(paste("Exporting", file))
+        export(object = list[[a]][[b]], file = file)
+    }
+}
 ```
 
 Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:
@@ -342,18 +366,6 @@ Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, an
 - `stat`: Wald statistic.
 - `pvalue`: Walt test *P* value.
 - `padj`: BH adjusted Wald test *P* value (corrected for multiple comparisons; aka FDR).
-
-## Top tables
-
-Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
-
-```{r top_tables, results="asis"}
-invisible(mapply(
-    FUN = topTables,
-    object = res_tbl_list,
-    MoreArgs = list(n = 20L, coding = FALSE)
-))
-```
 
 ```{r footer, child="_footer.Rmd"}
 ```

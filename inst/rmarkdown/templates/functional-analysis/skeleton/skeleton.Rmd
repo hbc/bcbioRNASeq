@@ -1,5 +1,6 @@
 ---
 # Alternatively, consider using our pfgsea package for fast preranked GSEA.
+# Updated 2019-07-24.
 params:
   title: "Functional analysis"
   # DESeqDataSet object
@@ -17,8 +18,7 @@ date: "`r Sys.Date()`"
 bibliography: bibliography.bib
 ---
 
-```{r setup, message=FALSE}
-# Last modified 2019-06-06
+```{r setup, cache=FALSE, message=FALSE}
 library(bcbioRNASeq)
 library(dplyr)
 prepareTemplate(package = "bcbioRNASeq")
