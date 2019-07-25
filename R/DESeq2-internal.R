@@ -26,7 +26,7 @@
         level <- metadata(se)[["level"]]
         assert(isString(level))
         if (level != "genes") {
-            stop("Gene-level counts are required.")
+            stop("Gene-level counts are required.")  # nocov
         }
 
         ## Subset the assays. Average transcript length matrix should only be
@@ -69,25 +69,6 @@
         ## Generate the DESeqDataSet.
         ## Using an empty design formula.
         dds <- DESeqDataSet(se = se, design = ~ 1L)
-        validObject(dds)
-        dds
-    }
-
-
-
-.DESeqDataSetFromMatrix <-  # nolint
-    function(countData) {
-        .ddsMsg()
-        assert(is.matrix(countData))
-        ## Integer counts are required.
-        countData <- round(countData, digits = 0L)
-        mode(countData) <- "integer"
-        colData <- DataFrame(row.names = colnames(countData))
-        dds <- DESeqDataSetFromMatrix(
-            countData = countData,
-            colData = colData,
-            design = ~ 1L
-        )
         validObject(dds)
         dds
     }
