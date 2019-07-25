@@ -34,7 +34,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-07-25.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -81,7 +81,7 @@ NULL
             if (metadata[["caller"]] %in% tximportCallers) {
                 countsFromAbundance <- "lengthScaledTPM"
             } else {
-                countsFromAbundance <- "no"
+                countsFromAbundance <- "no"  # nocov
             }
             message(paste0(
                 "Setting countsFromAbundance as ", countsFromAbundance, "."
@@ -263,18 +263,13 @@ NULL
         ## will always be length scaled.
         if (level == "genes") {
             ## DESeq2 normalized counts.
-            msg <- "Updating size factor normalied counts."
             if (is(assays[["normalized"]], "DESeqDataSet")) {
-                message(msg)
+                message(
+                    "Coercing `normalized` assay from DESeqDataSet to matrix."
+                )
                 dds <- assays[["normalized"]]
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
-            } else if (!"normalized" %in% names(assays)) {
-                message(msg)
-                dds <- .DESeqDataSetFromMatrix(assays[["counts"]])
-                dds <- DESeq(dds)
-                assays[["normalized"]] <- counts(dds, normalized = TRUE)
             }
-            rm(msg)
 
             ## Variance-stabilizing transformation.
             if (is(assays[["vst"]], "DESeqTransform")) {
@@ -311,13 +306,11 @@ NULL
                 "Object already contains rowRanges.",
                 "Don't attempt to slot new ones with rowRanges argument.",
                 sep = "\n"
-            ), call. = FALSE)
+            ))
         } else if (.hasSlot(object, "rowRanges")) {
             rowRanges <- rowRanges(object)
         } else if (is.null(rowRanges)) {
-            warning(paste(
-                "rowRanges are now recommended for gene annotations."
-            ), call. = FALSE)
+            message("rowRanges are now recommended for gene annotations.")
             message("Generating empty ranges.")
             rowRanges <- emptyRanges(names = rownames(assays[[1L]]))
             rowData <- slot(object, "elementMetadata")

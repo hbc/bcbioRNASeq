@@ -543,6 +543,7 @@ bcbioRNASeq <- function(
         bcbioLog = log,
         bcbioCommandsLog = commandsLog,
         allSamples = allSamples,
+        fast = fast,
         call = match.call()
     )
 
