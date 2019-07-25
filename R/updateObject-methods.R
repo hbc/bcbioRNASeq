@@ -34,7 +34,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-07-25.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -263,18 +263,13 @@ NULL
         ## will always be length scaled.
         if (level == "genes") {
             ## DESeq2 normalized counts.
-            msg <- "Updating size factor normalied counts."
             if (is(assays[["normalized"]], "DESeqDataSet")) {
-                message(msg)
+                message(
+                    "Coercing `normalized` assay from DESeqDataSet to matrix."
+                )
                 dds <- assays[["normalized"]]
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
-            } else if (!"normalized" %in% names(assays)) {
-                message(msg)
-                dds <- .DESeqDataSetFromMatrix(assays[["counts"]])
-                dds <- DESeq(dds)
-                assays[["normalized"]] <- counts(dds, normalized = TRUE)
             }
-            rm(msg)
 
             ## Variance-stabilizing transformation.
             if (is(assays[["vst"]], "DESeqTransform")) {
