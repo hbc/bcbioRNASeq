@@ -120,12 +120,14 @@ test_that("countsFromAbundance", {
     expect_identical(
         object = round(assay(x)[1L, , drop = TRUE], digits = 2L),
         expected = c(
+            ## nolint start
             control_rep1 = 472,
             control_rep2 = 1832,
             control_rep3 = 473,
             fa_day7_rep1 = 1094,
             fa_day7_rep2 = 1051,
             fa_day7_rep3 = 1092
+            ## nolint end
         )
     )
 

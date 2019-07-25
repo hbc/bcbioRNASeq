@@ -11,7 +11,7 @@ test_that("bcbioRNASeq", {
         .[["aligned"]] %>%
         rowSums() %>%
         sort() %>%
-        tail(n = 2) %>%
+        tail(n = 2L) %>%
         names()
     p <- plotPseudoVsAlignedCounts(bcb, genes = genes)
     expect_s3_class(p, "ggplot")
