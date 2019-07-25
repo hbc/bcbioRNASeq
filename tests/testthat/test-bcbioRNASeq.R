@@ -1,9 +1,5 @@
 context("bcbioRNASeq")
 
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-organism <- "Mus musculus"
-ensemblRelease <- 90L
-
 test_that("Import salmon counts (default)", {
     object <- bcbioRNASeq(uploadDir)
     expect_s4_class(object, "bcbioRNASeq")
