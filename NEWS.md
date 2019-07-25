@@ -414,6 +414,12 @@ avoid any disruption for active RNA-seq experiments.
 - Removed defunct `download` function.
 - New deprecations: `plotCountDensity`, `plotPCACovariates`, `resultsTables`.
 
+## bcbioRNASeq 0.2.10 (2019-05-29)
+
+### Minor changes
+
+- Update to support basejump v0.10+ release series.
+
 ## bcbioRNASeq 0.2.9 (2019-05-03)
 
 ### Major changes
