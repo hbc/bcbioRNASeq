@@ -1,6 +1,6 @@
 context("slotAlignedCounts")
 
-test_that("slotAlignedCounts", {
+test_that("bcbioRNASeq", {
     ## Fast mode skips import of aligned counts.
     bcb <- bcbioRNASeq(uploadDir, fast = TRUE)
     expect_false("aligned" %in% assayNames(bcb))

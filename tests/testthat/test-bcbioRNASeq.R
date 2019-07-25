@@ -75,6 +75,107 @@ test_that("Fast mode", {
     )
 })
 
+test_that("countsFromAbundance", {
+    colSums <- c(
+        control_rep1 = 17658.87,
+        control_rep2 = 60245.14,
+        control_rep3 = 16104.51,
+        fa_day7_rep1 = 29481.62,
+        fa_day7_rep2 = 26272.19,
+        fa_day7_rep3 = 29883.19
+    )
+
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        level = "genes",
+        countsFromAbundance = "lengthScaledTPM"
+    )
+    expect_true(isSubset(c("avgTxLength", "normalized"), assayNames(x)))
+    expect_identical(
+        object = round(colSums(assay(x)), digits = 2L),
+        expected = colSums
+    )
+    expect_identical(
+        object = round(assay(x)[1L, , drop = TRUE], digits = 2L),
+        expected = c(
+            control_rep1 = 473.71,
+            control_rep2 = 1860.57,
+            control_rep3 = 458.73,
+            fa_day7_rep1 = 1106.95,
+            fa_day7_rep2 = 1048.79,
+            fa_day7_rep3 = 1089.97
+        )
+    )
+
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        level = "genes",
+        countsFromAbundance = "no"
+    )
+    expect_true(isSubset(c("avgTxLength", "normalized"), assayNames(x)))
+    expect_identical(
+        object = round(colSums(assay(x)), digits = 2L),
+        expected = colSums
+    )
+    expect_identical(
+        object = round(assay(x)[1L, , drop = TRUE], digits = 2L),
+        expected = c(
+            control_rep1 = 472,
+            control_rep2 = 1832,
+            control_rep3 = 473,
+            fa_day7_rep1 = 1094,
+            fa_day7_rep2 = 1051,
+            fa_day7_rep3 = 1092
+        )
+    )
+
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        level = "transcripts",
+        countsFromAbundance = "lengthScaledTPM"
+    )
+    expect_true("avgTxLength" %in% assayNames(x))
+    expect_false("normalized" %in% assayNames(x))
+    expect_identical(
+        object = round(colSums(assay(x)), digits = 2L),
+        expected = colSums
+    )
+    expect_identical(
+        object = round(assay(x)[1L, , drop = TRUE], digits = 2L),
+        expected = c(
+            control_rep1 = 473.75,
+            control_rep2 = 1860.89,
+            control_rep3 = 459.31,
+            fa_day7_rep1 = 1110.09,
+            fa_day7_rep2 = 1051.12,
+            fa_day7_rep3 = 1093.84
+        )
+    )
+
+    x <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        level = "transcripts",
+        countsFromAbundance = "no"
+    )
+    expect_true("avgTxLength" %in% assayNames(x))
+    expect_false("normalized" %in% assayNames(x))
+    expect_identical(
+        object = round(colSums(assay(x)), digits = 2L),
+        expected = colSums
+    )
+    expect_identical(
+        object = round(colSums(assay(x)), digits = 2L),
+        expected = c(
+            control_rep1 = 17658.87,
+            control_rep2 = 60245.14,
+            control_rep3 = 16104.51,
+            fa_day7_rep1 = 29481.62,
+            fa_day7_rep2 = 26272.19,
+            fa_day7_rep3 = 29883.19
+        )
+    )
+})
+
 ## Testing both gene and transcript level.
 with_parameters_test_that(
     "AnnotationHub", {
