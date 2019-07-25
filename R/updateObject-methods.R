@@ -81,7 +81,7 @@ NULL
             if (metadata[["caller"]] %in% tximportCallers) {
                 countsFromAbundance <- "lengthScaledTPM"
             } else {
-                countsFromAbundance <- "no"
+                countsFromAbundance <- "no"  # nocov
             }
             message(paste0(
                 "Setting countsFromAbundance as ", countsFromAbundance, "."
@@ -306,13 +306,11 @@ NULL
                 "Object already contains rowRanges.",
                 "Don't attempt to slot new ones with rowRanges argument.",
                 sep = "\n"
-            ), call. = FALSE)
+            ))
         } else if (.hasSlot(object, "rowRanges")) {
             rowRanges <- rowRanges(object)
         } else if (is.null(rowRanges)) {
-            warning(paste(
-                "rowRanges are now recommended for gene annotations."
-            ), call. = FALSE)
+            message("rowRanges are now recommended for gene annotations.")
             message("Generating empty ranges.")
             rowRanges <- emptyRanges(names = rownames(assays[[1L]]))
             rowData <- slot(object, "elementMetadata")

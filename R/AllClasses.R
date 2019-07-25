@@ -26,7 +26,7 @@ setClassUnion(
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
 
-## Updated 2019-07-23.
+## Updated 2019-07-25.
 setClass(
     Class = "bcbioRNASeq",
     contains = "RangedSummarizedExperiment",
