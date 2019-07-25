@@ -1,12 +1,12 @@
 ---
-# Alternatively, consider using our pfgsea package for fast preranked GSEA.
-# We're setting mouse genome here by default, to follow the vignette example.
-# Updated 2019-07-24.
+## Alternatively, consider using the pfgsea package for fast preranked GSEA.
+## We're setting mouse genome here by default, to follow the vignette example.
+## Updated 2019-07-25.
 params:
   title: "Functional analysis"
-  # DESeqDataSet
+  ## DESeqDataSet
   dds_file: "data/YYYY-MM-DD/dds.rds"
-  # DESeqResults
+  ## DESeqResults
   res_file: "data/YYYY-MM-DD/res.rds"
   organism: "Mus musculus"
   go_class: "BP"
@@ -30,18 +30,18 @@ source("_setup.R")
 ```
 
 ```{r bioc-packages, message=FALSE}
-# Load Bioconductor packages.
+## Load Bioconductor packages.
 
-# Only the current Bioconductor release for this template is supported, because
-# it's too difficult to unit test and properly handle code changes.
-stopifnot(BiocManager::version() >= 3.9)
+## Only the current Bioconductor release for this template is supported,
+## because it's too difficult to unit test and properly handle code changes.
+stopifnot(BiocManager::version() >= "3.9")
 
-# - KEGG supported organisms
-#   http://www.genome.jp/kegg/catalog/org_list.html
-# - OrgDb supported organisms
-#   http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
+## - KEGG supported organisms
+##   http://www.genome.jp/kegg/catalog/org_list.html
+## - OrgDb supported organisms
+##   http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
 
-# Get OrgDb package from organism name (e.g. "org.Mm.eg.db").
+## Get OrgDb package from organism name (e.g. "org.Mm.eg.db").
 match <- str_match(
     string = params$organism,
     pattern = "^([A-Z])[a-z]+\\s([a-z])[a-z]+$"
@@ -65,24 +65,24 @@ packages <- c(
 invisible(lapply(
     X = basename(packages),
     FUN = function(package) {
-        # Use `BiocManager::install()` to install missing packages.
+        ## Use `BiocManager::install()` to install missing packages.
         stopifnot(require(package, character.only = TRUE))
     }
 ))
 ```
 
 ```{r check-db-codes}
-# KEGG organism code (e.g. "mmu" for Mus musculus).
+## KEGG organism code (e.g. "mmu" for Mus musculus).
 kegg_code <- params$organism %>%
     search_kegg_organism("scientific_name") %>%
     pull("kegg_code")
 stopifnot(length(kegg_code) == 1)
 stopifnot(grepl("^[a-z]{3}$", kegg_code))
 
-# Check for valid GO class.
-# - BP: Biological Process
-# - CC: Cellular Component
-# - MF: Molecular Function
+## Check for valid GO class.
+## - BP: Biological Process
+## - CC: Cellular Component
+## - MF: Molecular Function
 stopifnot(params$go_class %in% c("BP", "CC", "MF"))
 ```
 
@@ -117,24 +117,25 @@ print(res)
 ```
 
 ```{r check-dds-res-identical}
-# Ensure that DESeqDataSet and DESeqResults are matched.
+## Ensure that DESeqDataSet and DESeqResults are matched.
 stopifnot(identical(rownames(dds), rownames(res)))
 ```
 
 ```{r results}
 alpha <- metadata(res)$alpha
 
-# Subset NA adjusted P values.
+## Subset NA adjusted P values.
 message("Dropping genes without an adjusted P value.")
 res <- res[!is.na(res$padj), , drop = FALSE]
 res_df <- as.data.frame(res)
-# Match the DESeqDataSet.
+
+## Match the DESeqDataSet.
 dds <- dds[rownames(res), , drop = FALSE]
 
-# Use the all_genes vector for background (aka universe).
+## Use the all_genes vector for background (aka universe).
 all_genes <- rownames(res)
 
-# > help("significants", "DEGreport")
+## > help("significants", "DEGreport")
 sig_genes <- significants(
     object = res,
     fc = params$lfc_threshold,
@@ -150,7 +151,7 @@ sig_res_df <- res_df %>%
 
 lfc_vec <- sig_res_df$log2FoldChange
 names(lfc_vec) <- rownames(sig_res_df)
-# Sort from upregulated to downregulated.
+## Sort from upregulated to downregulated.
 lfc_vec <- sort(lfc_vec, decreasing = TRUE)
 summary(lfc_vec)
 ```
@@ -227,12 +228,12 @@ cnetplot(enrich_go, foldChange = lfc_vec)
 A common approach in analyzing gene expression profiles was identifying differential expressed genes that are deemed interesting. The enrichment analysis we demonstrated previously were based on these differentially expressed genes. This approach will find genes where the difference is large, but it will not detect a situation where the difference is small, but evidenced in coordinated way in a set of related genes. [Gene Set Enrichment Analysis (GSEA)][GSEA] directly addresses this limitation. All genes can be used in [GSEA][]; [GSEA][] aggregates the per gene statistics across genes within a gene set, therefore making it possible to detect situations where all genes in a predefined set change in a small but coordinated way. Since it is likely that many relevant phenotypic differences are manifested by small but consistent changes in a set of genes.
 
 ```{r ranked-gene-list}
-# Prepare the ranked gene list using Wald test statistic, which is directional.
+## Prepare the ranked list using Wald test statistic, which is directional.
 gene_list <- res_df$stat
 
-# Alternatively, you can rank using BH adjusted P value ("padj"), but you'll
-# likely encounter ties.
-# > gene_list <- 1 - res_df$padj
+## Alternatively, you can rank using BH adjusted P value ("padj"), but you'll
+## likely encounter ties.
+## > gene_list <- 1 - res_df$padj
 
 names(gene_list) <- rownames(res_df)
 gene_list <- sort(gene_list, decreasing = TRUE)
@@ -240,9 +241,9 @@ summary(gene_list)
 ```
 
 ```{r gse-go}
-# Now we're ready to run GSEA.
-# > help("gseGO", "clusterProfiler")
-# Consider: minGSSize = 100
+## Now we're ready to run GSEA.
+## > help("gseGO", "clusterProfiler")
+## Consider: minGSSize = 100
 gsea_go <- gseGO(
     geneList = gene_list,
     ont = params$go_class,
@@ -287,12 +288,12 @@ gsea_go_tbl
 [Entrez][] IDs are required for [Kyoto Encyclopedia of Genes and Genomes (KEGG)][KEGG] analysis. Here we are defining 1:1 mappings of the [Ensembl][] gene IDs to [Entrez][] IDs. For genes that map to multiple [Entrez][] IDs, we are using the oldest [Entrez][] ID to define the 1:1 mapping.
 
 ```{r gene2entrez}
-# Define the Ensembl gene to Entrez identifier mappings.
+## Define the Ensembl gene to Entrez identifier mappings.
 gene2entrez <- rowData(dds)$entrezID
 stopifnot(is.list(gene2entrez))
 stopifnot(!is.null(names(gene2entrez)))
-# For genes that don't map 1:1 with Entrez, use the oldest Entrez ID.
-# Also, ensure the IDs are coerced to character.
+## For genes that don't map 1:1 with Entrez, use the oldest Entrez ID.
+## Also, ensure the IDs are coerced to character.
 gene2entrez <- lapply(gene2entrez, function(x) {
     if (all(is.na(x))) {
         NULL
@@ -300,9 +301,9 @@ gene2entrez <- lapply(gene2entrez, function(x) {
         as.character(sort(x)[[1L]])
     }
 })
-# Drop genes that don't match to Entrez.
+## Drop genes that don't match to Entrez.
 gene2entrez <- Filter(Negate(is.null), gene2entrez)
-# Ensembl gene IDs are names; Entrez gene ID are values.
+## Ensembl gene IDs are names; Entrez gene ID are values.
 gene2entrez <- unlist(gene2entrez)
 saveData(gene2entrez, dir = params$data_dir)
 ```
@@ -310,7 +311,7 @@ saveData(gene2entrez, dir = params$data_dir)
 Now let's get the background of unique Entrez IDs.
 
 ```{r all-entrez}
-# Unique Entrez IDs to use for background.
+## Unique Entrez IDs to use for background.
 all_entrez <- gene2entrez %>%
     unique() %>%
     as.integer() %>%
@@ -322,10 +323,10 @@ str(all_entrez)
 Now we need to map the DESeqResults values to our Entrez IDs. Let's obtain a vector of significant genes that map to Entrez.
 
 ```{r sig-gene2entrez}
-# Significant genes that map to Entrez ID.
+## Significant genes that map to Entrez ID.
 sig_gene2entrez <- gene2entrez[intersect(sig_genes, names(gene2entrez))]
 
-# Note that these can be duplicated.
+## Note that these can be duplicated.
 if (any(duplicated(sig_gene2entrez))) {
   message("Duplicate Entrez IDs detected.")
 }
@@ -338,24 +339,24 @@ Note that this vector can contain duplicate Entrez IDs, which we will resolve by
 ```{r entrez-res}
 stopifnot(all(names(sig_gene2entrez) %in% rownames(res_df)))
 
-# Filter to contain only significant genes that map to Entrez.
+## Filter to contain only significant genes that map to Entrez.
 sig_entrez_res_df <- res_df %>%
     .[names(sig_gene2entrez), , drop = FALSE] %>%
     rownames_to_column("geneID") %>%
     as_tibble() %>%
     mutate(entrezID = sig_gene2entrez) %>%
     group_by(entrezID) %>%
-    # Get the most significant result, per Entrez ID.
+    ## Get the most significant result, per Entrez ID.
     top_n(n = 1, wt = padj) %>%
     as.data.frame() %>%
     set_rownames(.$entrezID)
 saveData(sig_entrez_res_df, dir = params$data_dir)
 sig_entrez <- pull(sig_entrez_res_df, entrezID)
 
-# Extract the fold changes.
+## Extract the fold changes.
 entrez_lfc_vec <- sig_entrez_res_df$log2FoldChange
 names(entrez_lfc_vec) <- sig_entrez_res_df$entrezID
-# Sort from upregulated to downregulated.
+## Sort from upregulated to downregulated.
 entrez_lfc_vec <- sort(entrez_lfc_vec, decreasing = TRUE)
 str(entrez_lfc_vec)
 ```
@@ -446,21 +447,21 @@ gsea_kegg_tbl
 ```
 
 ```{r pathview-kegg-plots, message=FALSE, results="asis"}
-# > help("pathview", "pathview")
-# 
-# There is currently no way to set the output path of the pathview PNG files, so
-# we're changing the working directory. Generally this is not recommended!
-#
-# Also, We're using `tryCatch()` here to return to the user any pathways that
-# didn't output graphics correctly.
+## > help("pathview", "pathview")
+##
+## There is currently no way to set the output path of the pathview PNG files, so
+## we're changing the working directory. Generally this is not recommended!
+##
+## Also, We're using `tryCatch()` here to return to the user any pathways that
+## didn't output graphics correctly.
 pathways <- gsea_kegg_tbl$id
 if (length(pathways)) {
-    # dplyr must be unloaded for pathview to work.
+    ## dplyr must be unloaded for pathview to work.
     suppressWarnings(detach("package:dplyr", unload = TRUE, force = TRUE))
     wd <- getwd()
     setwd(kegg_plots_dir)
     invisible(lapply(pathways, function(pathway) {
-        # `gene.data` vector should be numeric with Entrez IDs as names.
+        ## `gene.data` vector should be numeric with Entrez IDs as names.
         tryCatch(
             pathview(
                 gene.data = entrez_lfc_vec,
@@ -469,7 +470,7 @@ if (length(pathways)) {
                 limit = list(gene = 2, cpd = 1)
             ),
             error = function(e) {
-                # Return a warning instead of an error.
+                ## Return a warning instead of an error.
                 warning(paste(pathway, "failed to plot."), call. = FALSE)
             }
         )
