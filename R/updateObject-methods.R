@@ -34,7 +34,7 @@ NULL
 
 
 
-## Updated 2019-07-25.
+## Updated 2019-07-26.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -214,15 +214,7 @@ NULL
         metadata[["version"]] <- .version
 
         ## Assays --------------------------------------------------------------
-        ## Coerce the assays (e.g. ShallowSimpleListAssays) back to list. Using
-        ## slot() here to avoid error on missing rowRanges. Ensure this comes
-        ## before the rowRanges handling (see below).
-        assays <- slot(object, "assays")
-        assays <- lapply(seq_along(assays), function(a) {
-            assays[[a]]
-        })
-        names(assays) <- assayNames(object)
-
+        ## These variables are needed for assay handling.
         caller <- metadata[["caller"]]
         assert(
             isString(caller),
@@ -234,6 +226,56 @@ NULL
             isString(level),
             isSubset(level, validLevels)
         )
+
+        ## Using `slot()` here to avoid error on missing rowRanges. Ensure this
+        ## comes before the rowRanges handling (see below).
+        assays <- slot(object, "assays")
+
+        ## nolint start
+
+        ## Coerce the assays (e.g. ShallowSimpleListAssays) back to list.
+        ##
+        ## FIXME This approach is currently broken on Bioc Devel (3.10).
+        ##
+        ## Error in assays[[a]] : wrong arguments for subsetting an environment
+        ##
+        ## > showClass("ShallowSimpleListAssays")
+        ## Class "ShallowSimpleListAssays" [package "SummarizedExperiment"]
+        ##
+        ## Slots:
+        ##
+        ## Name:       .xData
+        ## Class: environment
+        ##
+        ## Extends:
+        ## Class "ShallowData", directly
+        ## Class "Assays", directly
+        ## Class "envRefClass", by class "ShallowData", distance 2
+        ## Class ".environment", by class "ShallowData", distance 3
+        ## Class "refClass", by class "ShallowData", distance 3
+        ## Class "environment", by class "ShallowData", distance 4, with explicit
+        ##   coerce
+        ## Class "refObject", by class "ShallowData", distance 4
+        ## Class "AssayData", by class "ShallowData", distance 5, with explicit
+        ##   coerce
+        ##
+        ## > is.environment(assays)
+        ## [1] TRUE
+        ##
+        ## > as(assays, "List")
+        ## Error in relist(from, IRanges::PartitioningByEnd(seq_along(from),
+        ## names = names(from))) : shape of 'skeleton' is not compatible with
+        ## 'NROW(flesh)'
+
+        ## nolint end
+
+        assays <- lapply(
+            X = seq_along(assays),
+            FUN = function(a) {
+                assays[[a]]
+            }
+        )
+        names(assays) <- assayNames(object)
 
         ## Ensure raw counts are always named "counts".
         if ("raw" %in% names(assays)) {
