@@ -49,39 +49,7 @@ BiocManager::valid()
 Configure [conda][] to use the [bioconda][] channels.
 
 ```sh
-conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
-```
-
-To avoid version issues, your `.condarc` file should only contain the following channels, in this order:
-
-```
-channels:
-  - conda-forge
-  - bioconda
-  - defaults
-```
-
-We recommend installing into a clean [conda][] environment:
-
-```sh
-conda create --name r
-conda activate r
-```
-
-Launch [R][] and check that it is set up correctly with the `capabilities()` function. Note that `X11 = TRUE` is required for graphical output, and requires X11 forwarding over SSH.
-
-Now you're ready to install `r-bcbiornaseq`.
-
-```sh
 conda install -c bioconda r-bcbiornaseq
-```
-
-If you encounter a `libgfortran` error, install `libgfortran-ng`.
-
-```sh
-conda install libgfortran-ng
 ```
 
 ## Load [bcbio][] RNA-seq data
