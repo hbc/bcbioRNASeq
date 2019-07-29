@@ -108,7 +108,7 @@ Imports:
     DESeqAnalysis (>= 0.2),
     acidplots (>= 0.2.8),
     bcbioBase (>= 0.6.7),
-    bioverbs (>= 0.2.0),
+    bioverbs (>= 0.2),
     goalie (>= 0.3),
     BiocGenerics,
     DEGreport,
