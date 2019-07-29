@@ -152,7 +152,7 @@
 <li>Renamed <code>maxSamples</code> parameter in <code>loadRNASeq</code> to <code>transformationLimit</code>. If there are more samples than this limit, then the DESeq2 transformations will be skipped. In this case, <code>rlog</code> and <code>vst</code> will not be slotted into <code>assays</code>.</li>
 <li>Added a colData sanitization step in <code>loadRNASeq</code> to ensure rows are in the same order as the columns in the counts matrix. Otherwise, DESeq will report an error at the <code>DESeqDataSetFromTximport</code> step. We’re also ensuring the factor levels get updated here.</li>
 <li>Now using <code>glimpse</code> instead of <code>str</code> in examples, where applicable.</li>
-<li>Added <code>colData&lt;-</code> assignment method support. This requires a <code>DataFrame</code> class object. Upon assignment, the internal colData at <code>bcbio(object, "DESeqDataSet")</code>, <code>assays(object)[["rlog"]]</code> and <code>assays(object)[["vst"]]</code> are also updated to match.</li>
+<li>Added <code>colData&lt;-</code> assignment method support. This requires a <code>DataFrame</code> class object. Upon assignment, the internal colData at <code>bcbio(object,   "DESeqDataSet")</code>, <code>assays(object)[["rlog"]]</code> and <code>assays(object)[["vst"]]</code> are also updated to match.</li>
 <li>Initial assignment support for <code>design</code>, which will update the internal DESeqDataSet.</li>
 <li>Added method support for <code>gene2symbol</code> generic, which will now return a 2 column <code>data.frame</code> with <code>ensgene</code> and <code>symbol</code> columns. This is helpful for downstream gene to symbol mapping operations.</li>
 <li>Added working example for <code>interestingGroups&lt;-</code> in the documentation.</li>

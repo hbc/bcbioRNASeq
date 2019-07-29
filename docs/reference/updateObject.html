@@ -157,6 +157,10 @@ it can be left <code>NULL</code>.</p></td>
 information metadata is preserved from the time when the bcbio data was
 originally loaded into R.</p>
     
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Updated 2019-07-29.</p>
+    
     <h2 class="hasAnchor" id="legacy-bcbiornadataset-class"><a class="anchor" href="#legacy-bcbiornadataset-class"></a>Legacy <code>bcbioRNADataSet</code> class</h2>
 
     
@@ -197,7 +201,7 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
 <span class='fu'>updateObject</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Updating from 0.3.22 to 0.3.22.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
 #&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-23
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-29
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -211,7 +215,11 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 #&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
 #&gt; colData names(25): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div></pre>
+#&gt;   treatment</div><div class='input'>
+## Example that depends on remote file:
+## > loadRemoteData(file.path(bcbioRNASeqTestsURL, "bcb_invalid.rda"))
+## > updateObject(bcb_invalid)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -221,6 +229,8 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#legacy-bcbiornadataset-class">Legacy <code>bcbioRNADataSet</code> class</a></li>
 

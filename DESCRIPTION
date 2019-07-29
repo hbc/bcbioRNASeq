@@ -103,13 +103,13 @@ LazyData: false
 Depends:
     R (>= 3.5),
     SummarizedExperiment,
-    basejump (>= 0.11.1)
+    basejump (>= 0.11.2)
 Imports:
-    DESeqAnalysis (>= 0.2.0),
-    acidplots (>= 0.2.7),
+    DESeqAnalysis (>= 0.2),
+    acidplots (>= 0.2.8),
     bcbioBase (>= 0.6.7),
     bioverbs (>= 0.2.0),
-    goalie (>= 0.2.19),
+    goalie (>= 0.3),
     BiocGenerics,
     DEGreport,
     DESeq2,
