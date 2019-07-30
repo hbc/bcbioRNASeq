@@ -1,9 +1,9 @@
 # bcbioRNASeq
 
-[![Travis CI](https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRNASeq)
-[![AppVeyor CI](https://ci.appveyor.com/api/projects/status/s0rrc28fwr0ua2wr/branch/master?svg=true)](https://ci.appveyor.com/project/mjsteinbaugh/bcbiornaseq/branch/master)
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Anaconda-Server Badge](https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg)](https://anaconda.org/bioconda/r-bcbiornaseq)
+[![Repo status: active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Travis CI build status](https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRNASeq)
+[![AppVeyor CI build status](https://ci.appveyor.com/api/projects/status/s0rrc28fwr0ua2wr/branch/master?svg=true)](https://ci.appveyor.com/project/mjsteinbaugh/bcbiornaseq/branch/master)
+[![Anaconda version](https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg) ![Anaconda latest release date](https://anaconda.org/bioconda/r-bcbiornaseq/badges/latest_release_date.svg) ![Anaconda downloads](https://anaconda.org/bioconda/r-bcbiornaseq/badges/downloads.svg)](https://anaconda.org/bioconda/r-bcbiornaseq)
 
 [R][] package for [bcbio][] RNA-seq analysis.
 
