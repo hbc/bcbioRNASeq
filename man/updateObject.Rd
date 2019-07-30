@@ -36,7 +36,7 @@ information metadata is preserved from the time when the bcbio data was
 originally loaded into R.
 }
 \note{
-Updated 2019-07-29.
+Updated 2019-07-30.
 }
 \section{Legacy \code{bcbioRNADataSet} class}{
 
@@ -57,9 +57,10 @@ objects from versions <= 0.0.20. We changed the name of the package to
 data(bcb)
 updateObject(bcb)
 
-## Example that depends on remote file:
-## > loadRemoteData(file.path(bcbioRNASeqTestsURL, "bcb_invalid.rda"))
-## > updateObject(bcb_invalid)
+## Example that depends on remote file.
+## > x <- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))
+## > x <- updateObject(x)
+## > x
 }
 \seealso{
 \itemize{

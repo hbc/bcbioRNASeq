@@ -1,7 +1,7 @@
 #' @name updateObject
 #' @author Michael Steinbaugh
 #' @inherit BiocGenerics::updateObject
-#' @note Updated 2019-07-29.
+#' @note Updated 2019-07-30.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -32,9 +32,10 @@
 #' data(bcb)
 #' updateObject(bcb)
 #'
-#' ## Example that depends on remote file:
-#' ## > loadRemoteData(file.path(bcbioRNASeqTestsURL, "bcb_invalid.rda"))
-#' ## > updateObject(bcb_invalid)
+#' ## Example that depends on remote file.
+#' ## > x <- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))
+#' ## > x <- updateObject(x)
+#' ## > x
 NULL
 
 

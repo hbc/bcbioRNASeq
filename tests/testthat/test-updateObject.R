@@ -3,21 +3,21 @@ context("updateObject")
 skip_if_not(hasInternet())
 
 ## Load a legacy object that doesn't contain rowRanges.
-load(file.path("cache", "bcb_invalid.rda"))
+invalid <- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))
 
-test_that("bcb_invalid", {
+test_that("v0.1.4 up", {
     expect_error(
-        object = validObject(bcb_invalid),
+        object = validObject(invalid),
         regexp = "rowRanges"
     )
     expect_identical(
-        object = slot(bcb_invalid, "metadata")[["version"]],
+        object = slot(invalid, "metadata")[["version"]],
         expected = package_version("0.1.4")
     )
 })
 
 test_that("Expected success", {
-    x <- updateObject(bcb_invalid)
+    x <- updateObject(invalid)
     expect_s4_class(x, "bcbioRNASeq")
     expect_true(validObject(x))
     expect_identical(
@@ -32,14 +32,14 @@ test_that("Expected success", {
 
 test_that("metadata slot updates", {
     ## genomeBuild
-    metadata(bcb_invalid)[["genomeBuild"]] <- FALSE
+    metadata(invalid)[["genomeBuild"]] <- FALSE
 
     ## gtf
-    metadata(bcb_invalid)[["gtf"]] <- TRUE
+    metadata(invalid)[["gtf"]] <- TRUE
 
     ## gtfFile
     gffFile <- "XXX.gtf.gz"
-    metadata(bcb_invalid)[["gtfFile"]] <- gffFile
+    metadata(invalid)[["gtfFile"]] <- gffFile
 
     ## missingGenes
     missingGenes <- "XXX"
@@ -47,7 +47,7 @@ test_that("metadata slot updates", {
     ## yamlFile
     yamlFile <- "XXX"
 
-    x <- updateObject(bcb_invalid)
+    x <- updateObject(invalid)
     expect_true(validObject(x))
 
     ## genomeBuild
