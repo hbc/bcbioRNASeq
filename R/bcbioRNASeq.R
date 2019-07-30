@@ -234,7 +234,11 @@ bcbioRNASeq <- function(
     if ("vst" %in% names(call)) {
         stop("`vst` is defunct in favor of `fast` argument.")
     }
-    ## rlog
+    ## Error on unsupported arguments.
+    assert(isSubset(
+        x = setdiff(names(call), ""),
+        y = names(formals())
+    ))
     rm(call)
     ## nocov end
 
