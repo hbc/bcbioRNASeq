@@ -13,5 +13,6 @@ ensemblRelease <- 90L
 ## nolint start
 assay <- SummarizedExperiment::assay
 hasInternet <- goalie::hasInternet
+initDir <- basejump::initDir
 skip_on_docker <- goalie::skip_on_docker
 ## nolint end
