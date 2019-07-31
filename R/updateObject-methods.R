@@ -40,7 +40,10 @@ NULL
 
 
 
-## Updated 2019-07-29.
+## Row name extraction on invalid objects requires a fix for Bioc 3.10.
+## https://github.com/Bioconductor/SummarizedExperiment/issues/31
+
+## Updated 2019-07-31.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -60,8 +63,18 @@ NULL
         if (!.hasSlot(object, "rowRanges")) {
             if (is.null(rowRanges)) {
                 message("Slotting empty `rowRanges`.")
-                rowRanges <-
-                    emptyRanges(names = rownames(slot(object, "assays")[[1L]]))
+                assays <- slot(object, "assays")
+                ## Extract assay matrix from ShallowSimpleListAssays object.
+                if (packageVersion("SummarizedExperiment") >= "1.15") {
+                    ## Bioconductor 3.10+.
+                    assay <- getListElement(x = assays, i = 1L)
+                } else {
+                    ## Legacy method.
+                    assay <- assays[[1L]]
+                }
+                rownames <- rownames(assay)
+                assert(isCharacter(rownames))
+                rowRanges <- emptyRanges(names = rownames)
                 rowData <- slot(object, "elementMetadata")
                 mcols(rowRanges) <- rowData
             }
