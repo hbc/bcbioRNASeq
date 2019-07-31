@@ -1,9 +1,9 @@
 # bcbioRNASeq
 
-[![Travis CI](https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRNASeq)
-[![AppVeyor CI](https://ci.appveyor.com/api/projects/status/s0rrc28fwr0ua2wr/branch/master?svg=true)](https://ci.appveyor.com/project/mjsteinbaugh/bcbiornaseq/branch/master)
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Anaconda-Server Badge](https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg)](https://anaconda.org/bioconda/r-bcbiornaseq)
+[![Repo status: active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Travis CI build status](https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRNASeq)
+[![AppVeyor CI build status](https://ci.appveyor.com/api/projects/status/s0rrc28fwr0ua2wr/branch/master?svg=true)](https://ci.appveyor.com/project/mjsteinbaugh/bcbiornaseq/branch/master)
+[![Anaconda version](https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg) ![Anaconda latest release date](https://anaconda.org/bioconda/r-bcbiornaseq/badges/latest_release_date.svg) ![Anaconda downloads](https://anaconda.org/bioconda/r-bcbiornaseq/badges/downloads.svg)](https://anaconda.org/bioconda/r-bcbiornaseq)
 
 [R][] package for [bcbio][] RNA-seq analysis.
 
@@ -49,39 +49,7 @@ BiocManager::valid()
 Configure [conda][] to use the [bioconda][] channels.
 
 ```sh
-conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
-```
-
-To avoid version issues, your `.condarc` file should only contain the following channels, in this order:
-
-```
-channels:
-  - conda-forge
-  - bioconda
-  - defaults
-```
-
-We recommend installing into a clean [conda][] environment:
-
-```sh
-conda create --name r
-conda activate r
-```
-
-Launch [R][] and check that it is set up correctly with the `capabilities()` function. Note that `X11 = TRUE` is required for graphical output, and requires X11 forwarding over SSH.
-
-Now you're ready to install `r-bcbiornaseq`.
-
-```sh
 conda install -c bioconda r-bcbiornaseq
-```
-
-If you encounter a `libgfortran` error, install `libgfortran-ng`.
-
-```sh
-conda install libgfortran-ng
 ```
 
 ## Load [bcbio][] RNA-seq data

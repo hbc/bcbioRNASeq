@@ -14,8 +14,8 @@
 #'   estimateSizeFactors fpkm priorInfo results resultsNames rlog
 #'   varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
-#' @importFrom S4Vectors DataFrame Rle as.data.frame complete.cases decode head
-#'   mcols mcols<- metadata metadata<- na.omit
+#' @importFrom S4Vectors DataFrame Rle as.data.frame complete.cases decode
+#'   getListElement head mcols mcols<- metadata metadata<- na.omit
 #' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
 #' @importFrom acidplots acid_geom_abline acid_geom_label acid_geom_label_repel

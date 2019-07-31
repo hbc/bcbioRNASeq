@@ -1,6 +1,7 @@
 #' @name updateObject
 #' @author Michael Steinbaugh
 #' @inherit BiocGenerics::updateObject
+#' @note Updated 2019-07-30.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -30,28 +31,88 @@
 #' @examples
 #' data(bcb)
 #' updateObject(bcb)
+#'
+#' ## Example that depends on remote file.
+#' ## > x <- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))
+#' ## > x <- updateObject(x)
+#' ## > x
 NULL
 
 
 
-## Updated 2019-07-25.
+## Row name extraction on invalid objects requires a fix for Bioc 3.10.
+## https://github.com/Bioconductor/SummarizedExperiment/issues/31
+
+## Updated 2019-07-31.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
         rowRanges = NULL
     ) {
-        version <- slot(object, "metadata")[["version"]]
+        metadata <- metadata(object)
+        version <- metadata[["version"]]
         assert(is(version, c("package_version", "numeric_version")))
-        message(paste0("Updating from ", version, " to ", .version, "."))
+        message(sprintf(
+            fmt = "Updating bcbioRNASeq object from version %s to %s.",
+            as.character(version),
+            as.character(.version)
+        ))
+
+        ## Legacy SummarizedExperiment slot handling ---------------------------
+        ## rowRanges
+        if (!.hasSlot(object, "rowRanges")) {
+            if (is.null(rowRanges)) {
+                message("Slotting empty `rowRanges`.")
+                assays <- slot(object, "assays")
+                ## Extract assay matrix from ShallowSimpleListAssays object.
+                if (packageVersion("SummarizedExperiment") >= "1.15") {
+                    ## Bioconductor 3.10+.
+                    assay <- getListElement(x = assays, i = 1L)
+                } else {
+                    ## Legacy method.
+                    assay <- assays[[1L]]
+                }
+                rownames <- rownames(assay)
+                assert(isCharacter(rownames))
+                rowRanges <- emptyRanges(names = rownames)
+                rowData <- slot(object, "elementMetadata")
+                mcols(rowRanges) <- rowData
+            }
+            assert(isAny(rowRanges, c("GRanges", "GRangesList")))
+            slot(object, "rowRanges") <- rowRanges
+        } else if (
+            .hasSlot(object, "rowRanges") &&
+            !is.null(rowRanges)
+        ) {
+            stop(paste(
+                "Object already contains rowRanges.",
+                "Don't attempt to slot new ones with rowRanges argument.",
+                sep = "\n"
+            ))
+        }
+
+        ## NAMES
+        if (!is.null(slot(object, "NAMES"))) {
+            message("`NAMES` slot must be set to NULL.")
+            slot(object, "NAMES") <- NULL
+        }
+
+        ## elementMetadata
+        if (ncol(slot(object, "elementMetadata")) != 0L) {
+            message(paste(
+                "`elementMetadata` slot must contain a",
+                "zero-column DataFrame."
+            ))
+            slot(object, "elementMetadata") <-
+                as(matrix(nrow = nrow(object), ncol = 0L), "DataFrame")
+        }
 
         ## Check for legacy bcbio slot.
         if (.hasSlot(object, "bcbio")) {
-            message("Legacy bcbio() slot detected.")
+            message("Legacy `bcbio` slot detected.")
         }
 
         ## Metadata ------------------------------------------------------------
-        metadata <- metadata(object)
-
         ## bcbioLog
         if (is.null(metadata[["bcbioLog"]])) {
             message("Setting bcbioLog as empty character.")
@@ -214,15 +275,9 @@ NULL
         metadata[["version"]] <- .version
 
         ## Assays --------------------------------------------------------------
-        ## Coerce the assays (e.g. ShallowSimpleListAssays) back to list. Using
-        ## slot() here to avoid error on missing rowRanges. Ensure this comes
-        ## before the rowRanges handling (see below).
-        assays <- slot(object, "assays")
-        assays <- lapply(seq_along(assays), function(a) {
-            assays[[a]]
-        })
-        names(assays) <- assayNames(object)
+        assays <- assays(object)
 
+        ## These variables are needed for assay handling.
         caller <- metadata[["caller"]]
         assert(
             isString(caller),
@@ -300,23 +355,7 @@ NULL
         }
 
         ## Row ranges ----------------------------------------------------------
-        ## Error if object has rowRanges and the user is trying to reslot.
-        if (.hasSlot(object, "rowRanges") && !is.null(rowRanges)) {
-            stop(paste(
-                "Object already contains rowRanges.",
-                "Don't attempt to slot new ones with rowRanges argument.",
-                sep = "\n"
-            ))
-        } else if (.hasSlot(object, "rowRanges")) {
-            rowRanges <- rowRanges(object)
-        } else if (is.null(rowRanges)) {
-            message("rowRanges are now recommended for gene annotations.")
-            message("Generating empty ranges.")
-            rowRanges <- emptyRanges(names = rownames(assays[[1L]]))
-            rowData <- slot(object, "elementMetadata")
-            mcols(rowRanges) <- rowData
-        }
-        assert(is(rowRanges, "GRanges"))
+        rowRanges <- rowRanges(object)
 
         ## rowRangesMetadata
         if ("rowRangesMetadata" %in% names(metadata)) {

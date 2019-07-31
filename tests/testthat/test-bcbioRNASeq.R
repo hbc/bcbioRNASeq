@@ -249,14 +249,14 @@ test_that("Sample selection", {
     )
 })
 
-## Testing both gene and transcript level.
+## Testing both gene and transcript level. GFF3 files are also supported, but
+## we're only testing GTF here for speed. This functionality is covered in
+## basejump tests also.
 with_parameters_test_that(
     "GTF/GFF file", {
         skip_on_appveyor()
         skip_on_docker()
-        ## GFF3 files are also supported, but we're only testing GTF here for
-        ## speed. This functionality is covered in basejump tests also.
-        gtfURL <- paste(
+        gffURL <- paste(
             "ftp://ftp.ensembl.org",
             "pub",
             "release-90",
@@ -265,15 +265,16 @@ with_parameters_test_that(
             "Mus_musculus.GRCm38.90.gtf.gz",
             sep = "/"
         )
-        gtfFile <- file.path("cache", basename(gtfURL))
-        if (!file.exists(gtfFile)) {
-            download.file(url = gtfURL, destfile = gtfFile)
+        gffFile <- file.path("cache", basename(gffURL))
+        if (!file.exists(gffFile)) {
+            initDir("cache")
+            download.file(url = gffURL, destfile = gffFile)
         }
         object <- bcbioRNASeq(
             uploadDir = uploadDir,
             level = level,
             organism = organism,
-            gffFile = gtfFile
+            gffFile = gffFile
         )
         expect_s4_class(object, "bcbioRNASeq")
     },

@@ -1,3 +1,13 @@
+## bcbioRNASeq 0.3.23 (2019-07-29)
+
+### Major changes
+
+- `updateObject`: Worked internal approach to be compatible with upcoming
+  Bioconductor 3.10 release. Has to rethink the strategy to handling assays
+  internally, which can no longer be easily coerced from assays slot in the
+  `bcbioRNASeq` object, due to changes in `ShallowSimpleListAssays` handling.
+  This should return an object in exactly the same manner as previous releases.
+
 ## bcbioRNASeq 0.3.22 (2019-07-23)
 
 ### Major changes
