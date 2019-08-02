@@ -7,8 +7,10 @@ branches:
   only:
     - master
 
+install:
+  - curl -sSL https://raw.githubusercontent.com/acidgenomics/Rcheck/master/install | bash
+
 before_script:
-  - chmod +x *.sh
     # Avoid BiocCheck > checkCodingPractice > checkLogicalUseFiles error.
   - touch inst/rmarkdown/templates/{differential-expression,functional-analysis,quality-control}/skeleton/_{footer,header,links}.Rmd
 
@@ -16,16 +18,16 @@ jobs:
   include:
     - stage: test
       name: "bioc-3.9"
-      script: image="r-bcbio" tag="bioc-3.9" ./docker.sh
+      script: image="r-bcbio" tag="bioc-3.9" ./.Rcheck/docker
     - stage: test
       name: "bioc-3.8"
-      script: image="r-bcbio" tag="bioc-3.8" ./docker.sh
+      script: image="r-bcbio" tag="bioc-3.8" ./.Rcheck/docker
     - stage: test
       name: "bioc-3.7"
-      script: image="r-bcbio" tag="bioc-3.7" ./docker.sh
+      script: image="r-bcbio" tag="bioc-3.7" ./.Rcheck/docker
     - stage: test
       name: "bioc-devel"
-      script: image="r-bcbio" tag="bioc-devel" ./docker.sh
+      script: image="r-bcbio" tag="bioc-devel" ./.Rcheck/docker
 
 matrix:
   allow_failures:
@@ -33,7 +35,7 @@ matrix:
   fast_finish: true
 
 after_failure:
-  - ./docker-failure.sh
+  - ./.Rcheck/docker-failure
 
 notifications:
   email:
