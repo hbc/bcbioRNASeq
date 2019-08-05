@@ -3,7 +3,8 @@
 #' @importMethodsFrom acidplots plotPCA
 #' @inherit acidplots::plotPCA
 #'
-#' @inheritParams params
+#' @inheritParams plotCounts
+#' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples

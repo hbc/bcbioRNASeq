@@ -8,8 +8,9 @@
 #' @name extract
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @inherit base::Extract params references
-#' @inheritParams params
+#' @note Updated 2019-08-05.
 #'
+#' @inheritParams acidroxygen::params
 #' @param recalculate `logical(1)`.
 #'   Recalculate DESeq2 normalized counts and variance-stabilizing
 #'   transformations defined in `assays`. Recommended by default, but can take a

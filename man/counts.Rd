@@ -56,6 +56,9 @@ Count matrix.
 By default, return the raw counts. Normalized counts in a variety of formats
 can be accessed using the \code{normalized} argument.
 }
+\note{
+Updated 2019-08-05.
+}
 \examples{
 data(bcb)
 summary(counts(bcb))

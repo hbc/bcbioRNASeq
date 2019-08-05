@@ -2,7 +2,8 @@
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::plotQC
 #'
-#' @inheritParams params
+#' @inheritParams acidplots::params
+#' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples

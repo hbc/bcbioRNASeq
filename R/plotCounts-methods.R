@@ -3,7 +3,8 @@
 #' @inherit acidplots::plotCounts
 #'
 #' @inheritParams acidroxygen::params
-#' @inheritParams params
+#' @param normalized `character(1)`.
+#'   Type of normalized counts to visualize.
 #' @param ... Additional parameters.
 #'
 #' @examples

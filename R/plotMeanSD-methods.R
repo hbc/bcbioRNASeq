@@ -2,10 +2,9 @@
 #' @author Michael Steinbaugh, Lorena Patano
 #' @inherit bioverbs::plotMeanSD
 #'
+#' @inheritParams bcbioRNASeq
 #' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
-#' @inheritParams params
-#' @inheritParams bcbioRNASeq
 #' @param lineColor `character(1)`.
 #'   Line color.
 #' @param ... Additional arguments.

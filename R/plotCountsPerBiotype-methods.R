@@ -2,9 +2,9 @@
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @inherit acidplots::plotCountsPerBiotype
 #'
+#' @inheritParams plotCounts
 #' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
-#' @inheritParams params
 #' @param ... Additional arguments.
 #'
 #' @examples

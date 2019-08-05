@@ -2,9 +2,9 @@
 #' @author Michael Steinbaugh
 #' @inherit acidplots::plotGenderMarkers
 #'
+#' @inheritParams plotCounts
 #' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
-#' @inheritParams params
 #' @param ... Additional arguments.
 #'
 #' @examples

@@ -20,13 +20,7 @@
 \item{object}{Object.}
 
 \item{normalized}{\code{character(1)}.
-Which normalization method to apply:
-\itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 log2 regularized log transformation.
-\item "\code{vst}": DESeq2 log2 variance stabilizing transformation.
-}}
+Type of normalized counts to visualize.}
 
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to
@@ -87,6 +81,9 @@ Plot title.}
 }
 \description{
 Correlation heatmap
+}
+\note{
+Updated 2019-08-05.
 }
 \examples{
 data(bcb)

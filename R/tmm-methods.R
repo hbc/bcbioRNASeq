@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::tmm
 #'
-#' @inheritParams params
+#' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples

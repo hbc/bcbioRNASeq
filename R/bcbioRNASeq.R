@@ -120,10 +120,8 @@
 #'
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
-#' @inheritParams basejump::makeSummarizedExperiment
 #' @inheritParams acidroxygen::params
-#' @inheritParams bcbioBase::params
-#' @inheritParams params
+#' @inheritParams basejump::makeSummarizedExperiment
 #'
 #' @param level `character(1)`.
 #'   Import counts at gene level ("`genes`"; *default*) or transcript level

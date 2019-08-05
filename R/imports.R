@@ -57,8 +57,8 @@
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
-#' @importFrom methods as as<- is new setAs setClass show slot slot<-
-#'   validObject .hasSlot
+#' @importFrom methods as as<- is new setAs setClass setMethod setValidity show
+#'   slot slot<- validObject .hasSlot
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom rlang !! !!! := UQ sym syms
 #' @importFrom scales pretty_breaks

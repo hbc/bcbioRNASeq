@@ -2,7 +2,7 @@
 #' @author Lorena Pantano, Michael Steinbaugh
 #' @inherit bioverbs::relativeLogExpression
 #'
-#' @inheritParams params
+#' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples

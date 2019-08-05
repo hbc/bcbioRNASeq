@@ -1,9 +1,13 @@
 #' @name plotCorrelationHeatmap
 #' @author Michael Steinbaugh
-#' @importMethodsFrom acidplots plotCorrelationHeatmap
 #' @inherit acidplots::plotCorrelationHeatmap
+#' @importMethodsFrom acidplots plotCorrelationHeatmap
+#' @note Updated 2019-08-05.
+#'
+#' @inheritParams plotCounts
+#' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
-#' @inheritParams params
+#'
 #' @examples
 #' data(bcb)
 #' plotCorrelationHeatmap(bcb, method = "pearson")

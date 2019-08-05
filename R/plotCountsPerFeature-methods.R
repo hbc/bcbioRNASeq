@@ -2,9 +2,9 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit acidplots::plotCountsPerFeature
 #'
+#' @inheritParams plotCounts
 #' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
-#' @inheritParams params
 #' @param ... Additional arguments.
 #'
 #' @section Trimmed Mean of M-Values:

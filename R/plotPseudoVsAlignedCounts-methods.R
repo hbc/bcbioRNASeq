@@ -6,7 +6,6 @@
 #'
 #' @name plotPseudoVsAlignedCounts
 #' @inheritParams acidroxygen::params
-#' @inheritParams params
 #'
 #' @examples
 #' data(bcb)

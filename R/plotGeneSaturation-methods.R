@@ -4,7 +4,6 @@
 #'
 #' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
-#' @inheritParams params
 #' @param trendline `logical(1)`.
 #'   Include a trendline for each group.
 #' @param ... Additional arguments.

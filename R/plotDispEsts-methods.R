@@ -6,7 +6,6 @@
 #'
 #' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
-#' @inheritParams params
 #' @param ... Additional arguments.
 #'
 #' @details
