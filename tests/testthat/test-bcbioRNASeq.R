@@ -1,3 +1,7 @@
+## FIXME Checks are failing after SimpleList update.
+
+
+
 context("bcbioRNASeq")
 
 test_that("Import salmon counts (default)", {
