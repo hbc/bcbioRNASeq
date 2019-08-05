@@ -7,7 +7,7 @@
 #'
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
-#' @inheritParams basejump::params
+#' @inheritParams acidroxygen::params
 #' @inheritParams params
 #'
 #' @param normalized `character(1)` or `logical(1)`.

@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh
 #' @inherit acidplots::plotCounts
 #'
-#' @inheritParams basejump::params
+#' @inheritParams acidroxygen::params
 #' @inheritParams params
 #' @param ... Additional parameters.
 #'

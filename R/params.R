@@ -1,5 +1,5 @@
 #' @name params
-#' @inherit basejump::params
+#' @inherit acidroxygen::params
 #' @keywords internal
 #'
 #' @param normalized `character(1)`.

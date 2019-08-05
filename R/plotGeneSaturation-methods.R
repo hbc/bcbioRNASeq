@@ -3,7 +3,7 @@
 #' @inherit bioverbs::plotGeneSaturation
 #'
 #' @inheritParams acidplots::params
-#' @inheritParams basejump::params
+#' @inheritParams acidroxygen::params
 #' @inheritParams params
 #' @param trendline `logical(1)`.
 #'   Include a trendline for each group.

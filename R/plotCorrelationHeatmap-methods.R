@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom acidplots plotCorrelationHeatmap
 #' @inherit acidplots::plotCorrelationHeatmap
-#' @inheritParams basejump::params
+#' @inheritParams acidroxygen::params
 #' @inheritParams params
 #' @examples
 #' data(bcb)

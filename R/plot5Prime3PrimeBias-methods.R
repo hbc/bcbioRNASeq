@@ -3,7 +3,7 @@
 #' @inherit bioverbs::plot5Prime3PrimeBias
 #'
 #' @inheritParams acidplots::params
-#' @inheritParams basejump::params
+#' @inheritParams acidroxygen::params
 #' @inheritParams params
 #' @param ... Additional arguments.
 #'

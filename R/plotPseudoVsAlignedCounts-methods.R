@@ -5,7 +5,7 @@
 #'   `counts` assay.
 #'
 #' @name plotPseudoVsAlignedCounts
-#' @inheritParams basejump::params
+#' @inheritParams acidroxygen::params
 #' @inheritParams params
 #'
 #' @examples

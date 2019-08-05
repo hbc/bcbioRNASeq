@@ -2,7 +2,7 @@
 % Please edit documentation in R/params.R
 \name{params}
 \alias{params}
-\title{Parameters}
+\title{Shared parameter documentation}
 \arguments{
 \item{normalized}{\code{character(1)}.
 Which normalization method to apply:
@@ -24,6 +24,6 @@ Plot title.}
 No value.
 }
 \description{
-Parameters
+Shared parameter documentation
 }
 \keyword{internal}
