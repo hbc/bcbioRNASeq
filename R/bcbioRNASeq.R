@@ -189,8 +189,6 @@
 #'
 #' ## Fast mode.
 #' object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
-
-## Updated 2019-07-23.
 bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
