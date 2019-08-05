@@ -107,7 +107,7 @@ Depends:
 Imports:
     DESeqAnalysis (>= 0.2.2),
     acidplots (>= 0.2.9),
-    bcbioBase (>= 0.6.7),
+    bcbioBase (>= 0.6.8),
     bioverbs (>= 0.2.1),
     goalie (>= 0.3.1),
     BiocGenerics,
