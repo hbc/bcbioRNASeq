@@ -20,7 +20,13 @@
 \item{object}{Object.}
 
 \item{normalized}{\code{character(1)}.
-Type of normalized counts to visualize.}
+Type of normalized counts to visualize:
+\itemize{
+\item \code{tpm} Transcripts per million.
+\item \code{tmm}: edgeR trimmed mean of M-values.
+\item \code{rlog}: DESeq2 log2 regularized log transformation.
+\item \code{vst}: DESeq2 log2 variance stabilizing transformation.
+}}
 
 \item{interestingGroups}{\code{character}.
 Groups of interest that define the samples. If left unset, defaults to

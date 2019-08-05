@@ -22,7 +22,13 @@ plotCountsPerFeature(object, ...)
 \item{object}{Object.}
 
 \item{normalized}{\code{character(1)}.
-Type of normalized counts to visualize.}
+Type of normalized counts to visualize:
+\itemize{
+\item \code{tpm} Transcripts per million.
+\item \code{tmm}: edgeR trimmed mean of M-values.
+\item \code{rlog}: DESeq2 log2 regularized log transformation.
+\item \code{vst}: DESeq2 log2 variance stabilizing transformation.
+}}
 
 \item{minCounts}{\code{integer(1)} or \code{NULL}.
 Minimum count threshold to apply. Disable with \code{NULL}. Filters using
