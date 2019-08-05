@@ -473,7 +473,7 @@ NULL
         colData[["description"]] <- NULL
 
         ## Return --------------------------------------------------------------
-        `.new,bcbioRNASeq`(
+        `new,bcbioRNASeq`(
             assays = assays,
             rowRanges = rowRanges,
             colData = colData,

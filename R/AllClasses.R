@@ -1,3 +1,7 @@
+## FIXME Add validity checks for camelCase names in all slots.
+
+
+
 setClassUnion(
     name = "missingOrNULL",
     members = c("missing", "NULL")

@@ -413,7 +413,7 @@ bcbioRNASeq <- function(
     )
 
     ## Assays ------------------------------------------------------------------
-    assays <- list()
+    assays <- SimpleList()
     ## Use tximport by default for transcript-aware callers. Otherwise, resort
     ## to loading the featureCounts aligned counts data. As of v0.3.22, we're
     ## alternatively slotting the aligned counts as "aligned" matrix when
@@ -550,7 +550,7 @@ bcbioRNASeq <- function(
     )
 
     ## Generate bcbioRNASeq object ---------------------------------------------
-    bcb <- `.new,bcbioRNASeq`(
+    bcb <- `new,bcbioRNASeq`(
         assays = assays,
         rowRanges = rowRanges,
         colData = colData,
@@ -607,7 +607,7 @@ bcbioRNASeq <- function(
 
 
 ## Updated 2019-07-23.
-`.new,bcbioRNASeq` <-  # nolint
+`new,bcbioRNASeq` <-  # nolint
     function(...) {
         new(Class = "bcbioRNASeq", makeSummarizedExperiment(...))
     }

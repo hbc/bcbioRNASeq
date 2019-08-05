@@ -106,7 +106,7 @@ NULL
             ## if the number of samples and/or genes change.
             if (isTRUE(recalculate)) {
                 message("Recalculating DESeq2 normalizations.")
-                dds <- `.new,DESeqDataSet`(se = rse)
+                dds <- `new,DESeqDataSet`(se = rse)
                 dds <- DESeq(dds)
                 ## Normalized counts.
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
@@ -161,7 +161,7 @@ NULL
         }
 
         ## Return --------------------------------------------------------------
-        `.new,bcbioRNASeq`(
+        `new,bcbioRNASeq`(
             assays = assays,
             rowRanges = rowRanges,
             colData = colData,

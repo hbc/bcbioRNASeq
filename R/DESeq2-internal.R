@@ -16,8 +16,8 @@
 
 
 
-## Updated 2019-07-23.
-`.new,DESeqDataSet` <-  # nolint
+## Updated 2019-08-05.
+`new,DESeqDataSet` <-  # nolint
     function(se) {
         .ddsMsg()
         assert(is(se, "SummarizedExperiment"))

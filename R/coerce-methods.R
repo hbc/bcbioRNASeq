@@ -76,7 +76,7 @@ NULL
     function(from) {
         validObject(from)
         rse <- as(from, "RangedSummarizedExperiment")
-        `.new,DESeqDataSet`(se = rse)
+        `new,DESeqDataSet`(se = rse)
     }
 
 
