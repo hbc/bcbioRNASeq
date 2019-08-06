@@ -1,3 +1,8 @@
+## FIXME Rework sizeFactors support.
+## FIXME Calculate normalized counts on the fly, like DESeq2.
+
+
+
 #' @rdname bcbioRNASeq-class
 #' @export
 #'
