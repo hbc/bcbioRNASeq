@@ -89,6 +89,18 @@ The samples in the [bcbio][] run must map to the `description` column. The value
 
 The package provides multiple [R Markdown][] templates, including quality control, differential expression using [DESeq2][], and functional enrichment analysis. These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
 
+## Troubleshooting
+
+### Invalid object
+
+If you encounter a `validObject` error when attempting to load a `bcbioRNASeq` object from a previous analysis, run this step to update the object to the current version of the package:
+
+```r
+object <- updateObject(object)
+validObject(object)
+## [1] TRUE
+```
+
 ## References
 
 The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
