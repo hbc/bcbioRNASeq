@@ -1,17 +1,3 @@
-## FIXME Add validity checks for camelCase names in all slots.
-## FIXME Don't fail validity check on objects created by v0.2.9 (conda).
-## FIXME Add timestamps to all documentation.
-## FIXME Split out documentation on bcbioRNASeq-class and generator.
-
-
-
-setClassUnion(
-    name = "missingOrNULL",
-    members = c("missing", "NULL")
-)
-
-
-
 #' bcbio RNA-Seq data set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
@@ -27,7 +13,7 @@ setClassUnion(
 #' - File paths and timestamps.
 #' - R session information.
 #'
-#' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
+#' @author Michael Steinbaugh, Lorena Pantano
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
 #' @note Updated 2019-08-01.
