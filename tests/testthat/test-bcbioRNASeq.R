@@ -11,6 +11,7 @@ test_that("Import salmon counts (default)", {
             "aligned",
             "avgTxLength",
             "tpm",
+            "normalized",
             "vst"
         )
     )
@@ -196,7 +197,7 @@ test_that("STAR aligned counts", {
     expect_s4_class(object, "bcbioRNASeq")
     expect_identical(
         object = assayNames(object),
-        expected = c("counts", "vst")
+        expected = c("counts", "normalized", "vst")
     )
     ## Aligned counts are integer.
     expect_identical(
