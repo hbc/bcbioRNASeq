@@ -3,7 +3,6 @@
 #' @inherit bioverbs::plotMeanSD
 #'
 #' @inheritParams bcbioRNASeq
-#' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
 #' @param lineColor `character(1)`.
 #'   Line color.

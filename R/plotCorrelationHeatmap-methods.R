@@ -5,7 +5,6 @@
 #' @note Updated 2019-08-05.
 #'
 #' @inheritParams plotCounts
-#' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
 #'
 #' @examples

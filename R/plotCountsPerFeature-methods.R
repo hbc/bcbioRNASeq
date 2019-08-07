@@ -3,7 +3,6 @@
 #' @inherit acidplots::plotCountsPerFeature
 #'
 #' @inheritParams plotCounts
-#' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'

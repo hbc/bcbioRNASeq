@@ -2,10 +2,7 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotGeneSaturation
 #'
-#' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
-#' @param trendline `logical(1)`.
-#'   Include a trendline for each group.
 #' @param ... Additional arguments.
 #'
 #' @examples

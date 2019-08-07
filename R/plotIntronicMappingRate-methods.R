@@ -2,7 +2,6 @@
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotIntronicMappingRate
 #'
-#' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'

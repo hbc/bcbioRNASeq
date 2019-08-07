@@ -2,7 +2,6 @@
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::plot5Prime3PrimeBias
 #'
-#' @inheritParams acidplots::params
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'
