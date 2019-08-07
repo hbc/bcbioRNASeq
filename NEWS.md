@@ -1,3 +1,5 @@
+## bcbioRNASeq 0.3.24 (UNRELEASED)
+
 ## bcbioRNASeq 0.3.23 (2019-07-29)
 
 ### Major changes
