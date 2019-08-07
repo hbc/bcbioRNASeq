@@ -116,12 +116,12 @@
 <h2 class="hasAnchor">
 <a href="#load-bcbio-rna-seq-data" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq data</h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bcbioRNASeq)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">bcb &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">object &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="dt">uploadDir =</span> <span class="st">"bcbio_rnaseq_run/final"</span>,</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="dt">interestingGroups =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="kw">saveData</span>(bcb, <span class="dt">dir =</span> <span class="st">"."</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="kw">saveData</span>(object, <span class="dt">dir =</span> <span class="st">"."</span>)</a></code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor function documentation for detailed information on the supported parameters:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</a></code></pre></div>
 <div id="sample-metadata" class="section level3">

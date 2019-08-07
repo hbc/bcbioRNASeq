@@ -56,12 +56,12 @@ conda install -c bioconda r-bcbiornaseq
 
 ```r
 library(bcbioRNASeq)
-bcb <- bcbioRNASeq(
+object <- bcbioRNASeq(
     uploadDir = "bcbio_rnaseq_run/final",
     interestingGroups = c("genotype", "treatment"),
     organism = "Homo sapiens"
 )
-saveData(bcb, dir = ".")
+saveData(object, dir = ".")
 ```
 
 This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class. Consult the `bcbioRNASeq()` constructor function documentation for detailed information on the supported parameters:
