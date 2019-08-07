@@ -68,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.24</span>
       </span>
     </div>
 
@@ -199,6 +199,10 @@ automatically: <code>normalized</code>, <code>rlog</code>, <code>vst</code>.</p>
     <p>Internal count transformations are rescaled automatically, if defined. DESeq2
 transformations will only be updated when <code>recalculate = TRUE</code>.</p>
     
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Updated 2019-08-07.</p>
+    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988)
@@ -218,21 +222,21 @@ transformations will only be updated when <code>recalculate = TRUE</code>.</p>
 <span class='co'>## Extract by sample name.</span>
 <span class='no'>object</span>[, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
 #&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-29
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-07
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
 #&gt; interestingGroups(2): treatment day
 #&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 100 2 
-#&gt; metadata(27): version level ... sessionInfo subset
-#&gt; assays(7): counts tpm ... vst fpkm
+#&gt; metadata(27): allSamples bcbioCommandsLog ... wd yaml
+#&gt; assays(7): counts aligned ... tpm vst
 #&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
 #&gt;   ENSMUSG00000062661 ENSMUSG00000074340
 #&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(2): control_rep1 control_rep2
-#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div><div class='input'>
+#&gt; colData names(26): averageInsertSize averageReadLength ... treatment
+#&gt;   x5x3Bias</div><div class='input'>
 <span class='co'>## Extract by gene list.</span>
 <span class='no'>object</span>[<span class='no'>genes</span>, ]</div><div class='output co'>#&gt; <span class='message'>Returning unmodified.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
 #&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
@@ -254,41 +258,41 @@ transformations will only be updated when <code>recalculate = TRUE</code>.</p>
 <span class='co'>## Extract by both genes and samples.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[<span class='no'>genes</span>, <span class='no'>samples</span>]</div><div class='output co'>#&gt; <span class='message'>Recalculating DESeq2 normalizations.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>estimating size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
 #&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-29
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-07
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
 #&gt; interestingGroups(2): treatment day
 #&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 100 2 
-#&gt; metadata(27): version level ... sessionInfo subset
-#&gt; assays(7): counts tpm ... vst fpkm
+#&gt; metadata(27): allSamples bcbioCommandsLog ... wd yaml
+#&gt; assays(7): counts aligned ... tpm vst
 #&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
 #&gt;   ENSMUSG00000062661 ENSMUSG00000074340
 #&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(2): control_rep1 control_rep2
-#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "counts"      "tpm"         "avgTxLength" "aligned"     "normalized" 
-#&gt; [6] "vst"         "fpkm"       </div><div class='input'>
+#&gt; colData names(26): averageInsertSize averageReadLength ... treatment
+#&gt;   x5x3Bias</div><div class='input'><span class='fu'>assayNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "counts"      "aligned"     "avgTxLength" "fpkm"        "normalized" 
+#&gt; [6] "tpm"         "vst"        </div><div class='input'>
 <span class='co'>## Fast subsetting, by skipping DESeq2 recalculations.</span>
 <span class='co'>## Note that `normalized`, `rlog`, and `vst` assays will be removed.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>object</span>[, <span class='no'>samples</span>, <span class='kw'>recalculate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]</div><div class='output co'>#&gt; <span class='message'>Skipping DESeq2 normalizations.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.22
 #&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-29
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-07
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
 #&gt; interestingGroups(2): treatment day
 #&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 100 2 
-#&gt; metadata(27): version level ... sessionInfo subset
-#&gt; assays(4): counts tpm avgTxLength aligned
+#&gt; metadata(27): allSamples bcbioCommandsLog ... wd yaml
+#&gt; assays(4): counts aligned avgTxLength tpm
 #&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
 #&gt;   ENSMUSG00000062661 ENSMUSG00000074340
 #&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(2): control_rep1 control_rep2
-#&gt; colData names(26): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='fu'>assays</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "counts"      "tpm"         "avgTxLength" "aligned"    </div></pre>
+#&gt; colData names(26): averageInsertSize averageReadLength ... treatment
+#&gt;   x5x3Bias</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='fu'>assays</span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "counts"      "aligned"     "avgTxLength" "tpm"        </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -298,6 +302,8 @@ transformations will only be updated when <code>recalculate = TRUE</code>.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#references">References</a></li>
       

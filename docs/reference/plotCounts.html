@@ -68,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.24</span>
       </span>
     </div>
 
@@ -142,25 +142,23 @@
     <tr>
       <th>genes</th>
       <td><p><code>character</code>.
-Gene identifiers. It is considered better practice to input the stable gene
-identifiers from Ensembl (e.g. "ENSG00000000003") and not the (HGNC) gene
-symbols (e.g. "TSPN6"), if possible.</p></td>
+Gene identifiers.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 log2 regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 log2 variance stabilizing transformation.</p></li>
+Type of normalized counts to visualize:</p><ul>
+<li><p><code>tpm</code> Transcripts per million.</p></li>
+<li><p><code>tmm</code>: edgeR trimmed mean of M-values.</p></li>
+<li><p><code>rlog</code>: DESeq2 log2 regularized log transformation.</p></li>
+<li><p><code>vst</code>: DESeq2 log2 variance stabilizing transformation.</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>interestingGroups</th>
       <td><p><code>character</code>.
-Groups of interest that define the samples. If left unset, defaults to
-<code>sampleName</code>.</p></td>
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.</p></td>
     </tr>
     <tr>
       <th>trans</th>
@@ -187,7 +185,7 @@ are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/ref
     <tr>
       <th>legend</th>
       <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
-Show plot legend.</p></td>
+Include plot legend.</p></td>
     </tr>
     <tr>
       <th>style</th>
@@ -209,6 +207,10 @@ Plot style.</p></td>
 <li><p><code>style = "wide"</code>: <code>ggplot</code> in wide format, with genes on the x-axis.</p></li>
 </ul>
 
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Updated 2019-08-07.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -241,6 +243,8 @@ Plot style.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

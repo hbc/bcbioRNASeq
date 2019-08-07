@@ -68,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.24</span>
       </span>
     </div>
 
@@ -142,14 +142,12 @@
     <tr>
       <th>genes</th>
       <td><p><code>character</code>.
-Gene identifiers. It is considered better practice to input the stable gene
-identifiers from Ensembl (e.g. "ENSG00000000003") and not the (HGNC) gene
-symbols (e.g. "TSPN6"), if possible.</p></td>
+Gene identifiers.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code>NULL</code>.
-Plot title.</p></td>
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
+Title.</p></td>
     </tr>
     </table>
     
@@ -158,6 +156,7 @@ Plot title.</p></td>
     <p>Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
 <code>counts</code> assay.</p>
+<p>Updated 2019-08-07.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

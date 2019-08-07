@@ -69,7 +69,7 @@ unless the library sizes or total RNA expression are different." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.24</span>
       </span>
     </div>
 
@@ -147,11 +147,11 @@ unless the library sizes or total RNA expression are different.</p>
     <tr>
       <th>normalized</th>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 log2 regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 log2 variance stabilizing transformation.</p></li>
+Type of normalized counts to visualize:</p><ul>
+<li><p><code>tpm</code> Transcripts per million.</p></li>
+<li><p><code>tmm</code>: edgeR trimmed mean of M-values.</p></li>
+<li><p><code>rlog</code>: DESeq2 log2 regularized log transformation.</p></li>
+<li><p><code>vst</code>: DESeq2 log2 variance stabilizing transformation.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -175,8 +175,8 @@ operation. This applies to all counts, not per feature.</p></li>
     <tr>
       <th>interestingGroups</th>
       <td><p><code>character</code>.
-Groups of interest that define the samples. If left unset, defaults to
-<code>sampleName</code>.</p></td>
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.</p></td>
     </tr>
     <tr>
       <th>geom</th>
@@ -209,7 +209,7 @@ Flip x and y axes. Recommended for plots containing many samples.</p></td>
     <tr>
       <th>title</th>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Plot title.</p></td>
+Title.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -220,6 +220,10 @@ Plot title.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>ggplot</code>.</p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Updated 2019-08-07.</p>
     
     <h2 class="hasAnchor" id="trimmed-mean-of-m-values"><a class="anchor" href="#trimmed-mean-of-m-values"></a>Trimmed Mean of M-Values</h2>
 
@@ -248,6 +252,8 @@ TMM-normalized counts per gene to be similar for every sample.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#trimmed-mean-of-m-values">Trimmed Mean of M-Values</a></li>
 
