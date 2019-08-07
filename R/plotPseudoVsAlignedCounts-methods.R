@@ -4,7 +4,7 @@
 #' @note Currently supported for salmon or kallisto. The function will
 #'   intentionally error for datasets containing aligned counts in the primary
 #'   `counts` assay.
-#' @note Updated 2019-08-06.
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams acidroxygen::params
 #'

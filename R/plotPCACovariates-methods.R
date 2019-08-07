@@ -1,6 +1,7 @@
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit bioverbs::plotPCACovariates
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params

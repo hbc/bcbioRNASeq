@@ -1,7 +1,7 @@
 #' @name updateObject
 #' @author Michael Steinbaugh
 #' @inherit BiocGenerics::updateObject
-#' @note Updated 2019-07-30.
+#' @note Updated 2019-08-07.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session

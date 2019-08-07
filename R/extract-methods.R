@@ -8,7 +8,7 @@
 #' @name extract
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @inherit base::Extract params references
-#' @note Updated 2019-08-05.
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams acidroxygen::params
 #' @param recalculate `logical(1)`.

@@ -1,6 +1,7 @@
 #' @name plotMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotMappingRate
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.

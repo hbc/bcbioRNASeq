@@ -6,13 +6,14 @@
 #' Normalized counts are loaded as length-scaled transcripts per million.
 #' Consult this [vignette](https://goo.gl/h6fm15) for more information.
 #'
-#' @note Ignoring transcript versions should work by default. There may be
-#' an issue with genomes containing non-Ensembl transcript IDs, such as
-#' C. elegans, although we need to double check.
-#'
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @keywords internal
 #' @noRd
+#'
+#' @note Ignoring transcript versions should work by default. There may be
+#' an issue with genomes containing non-Ensembl transcript IDs, such as
+#' C. elegans, although we need to double check.
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams tximport::tximport
 #' @param sampleDirs `character`.
@@ -23,8 +24,6 @@
 #' @seealso [tximport::tximport()].
 #'
 #' @return `list`.
-
-## Updated 2019-07-23.
 .tximport <- function(
     sampleDirs,
     type = c("salmon", "kallisto", "sailfish"),

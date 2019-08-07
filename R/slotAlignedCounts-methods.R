@@ -5,6 +5,8 @@
 #' correlations with the primary pseudoaligned counts.
 #'
 #' @name slotAlignedCounts
+#' @note Updated 2019-08-07.
+#'
 #' @inheritParams acidroxygen::params
 #'
 #' @examples

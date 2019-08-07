@@ -1,6 +1,7 @@
 #' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit acidplots::plotCountsPerFeature
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params

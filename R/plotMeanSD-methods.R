@@ -1,6 +1,7 @@
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
 #' @inherit bioverbs::plotMeanSD
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams bcbioRNASeq
 #' @inheritParams acidroxygen::params

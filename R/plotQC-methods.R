@@ -1,6 +1,7 @@
 #' @name plotQC
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::plotQC
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.

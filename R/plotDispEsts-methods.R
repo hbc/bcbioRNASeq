@@ -10,6 +10,7 @@
 #' @name plotDispEsts
 #' @author Michael Steinbaugh
 #' @inherit DESeq2::plotDispEsts description params
+#' @note Updated 2019-08-07.
 #'
 #' @param object Object.
 #' @param ... Additional arguments.

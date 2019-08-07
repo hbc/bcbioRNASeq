@@ -1,6 +1,7 @@
 #' @name relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
 #' @inherit bioverbs::relativeLogExpression
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.

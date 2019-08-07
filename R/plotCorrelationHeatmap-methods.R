@@ -1,8 +1,8 @@
 #' @name plotCorrelationHeatmap
 #' @author Michael Steinbaugh
-#' @inherit acidplots::plotCorrelationHeatmap
 #' @importMethodsFrom acidplots plotCorrelationHeatmap
-#' @note Updated 2019-08-05.
+#' @inherit acidplots::plotCorrelationHeatmap
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params

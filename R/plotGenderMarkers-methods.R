@@ -1,6 +1,7 @@
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
 #' @inherit acidplots::plotGenderMarkers
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params

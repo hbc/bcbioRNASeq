@@ -2,6 +2,7 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom acidplots plotPCA
 #' @inherit acidplots::plotPCA
+#' @note Updated 2019-08-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
