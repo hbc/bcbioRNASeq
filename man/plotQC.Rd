@@ -21,6 +21,9 @@ plotQC(object, ...)
 \description{
 Quality control
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 plotQC(bcb)

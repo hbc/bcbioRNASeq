@@ -46,6 +46,9 @@ Title.}
 \description{
 The majority of reads should map to exons and not introns.
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 plotIntronicMappingRate(bcb)

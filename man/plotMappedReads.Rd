@@ -49,6 +49,9 @@ Title.}
 \description{
 The number of mapped reads should correspond to the number of total reads.
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 plotMappedReads(bcb)

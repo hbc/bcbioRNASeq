@@ -63,6 +63,9 @@ transcript.
 \item Median is calculated for the representative set of 1000 transcripts.
 }
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 plot5Prime3PrimeBias(bcb)

@@ -47,6 +47,9 @@ Plot row standard deviations vs. row means
 \item edgeR log2 TMM: log2 \strong{t}rimmed \strong{m}ean of \strong{M}-values transformation.
 }
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 plotMeanSD(bcb)

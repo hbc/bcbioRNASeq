@@ -47,6 +47,9 @@ The genomic mapping rate represents the percentage of reads mapping to the
 reference genome. Low mapping rates are indicative of sample contamination,
 poor sequencing quality or other artifacts.
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 plotMappingRate(bcb)

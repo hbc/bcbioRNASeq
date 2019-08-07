@@ -20,6 +20,9 @@ This function loads aligned counts (e.g. STAR, HISAT2) from the bcbio final
 output directory into the bcbioRNASeq object, so we can visually inspect
 correlations with the primary pseudoaligned counts.
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 ## Fast mode skips import of aligned counts.

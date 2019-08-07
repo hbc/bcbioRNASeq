@@ -35,6 +35,9 @@ Type of normalized counts to visualize:
 \description{
 Find correlation between principal components (PCs) and covariates
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 plotPCACovariates(bcb)

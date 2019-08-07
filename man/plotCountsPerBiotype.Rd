@@ -73,6 +73,9 @@ Title.}
 \description{
 Plot counts per biotype
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 plotCountsPerBiotype(bcb)

@@ -25,6 +25,9 @@ tmm(object, ...)
 TMM normalization is recommended for RNA-seq data generally when the majority
 of genes are not differentially expressed.
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 x <- tmm(bcb)

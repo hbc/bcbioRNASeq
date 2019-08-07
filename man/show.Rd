@@ -36,6 +36,9 @@ complete, original object, with misleading results.  See the
 \code{simpleInheritanceOnly} argument to \code{\link{setGeneric}} and
 the discussion in \code{\link{setIs}} for the general concept.
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 show(bcb)

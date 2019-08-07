@@ -50,6 +50,9 @@ Title.}
 High quality RNA-seq samples ideally should have at least 10 million reads
 per sample.
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 plotTotalReads(bcb)

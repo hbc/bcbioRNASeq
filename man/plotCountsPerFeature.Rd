@@ -83,6 +83,9 @@ Title.}
 Generally, we expect similar count spreads for all genes between samples
 unless the library sizes or total RNA expression are different.
 }
+\note{
+Updated 2019-08-07.
+}
 \section{Trimmed Mean of M-Values}{
 
 
