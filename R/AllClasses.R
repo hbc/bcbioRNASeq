@@ -1,5 +1,7 @@
 ## FIXME Add validity checks for camelCase names in all slots.
 ## FIXME Don't fail validity check on objects created by v0.2.9 (conda).
+## FIXME Add timestamps to all documentation.
+## FIXME Split out documentation on bcbioRNASeq-class and generator.
 
 
 
