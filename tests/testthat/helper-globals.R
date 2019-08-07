@@ -1,3 +1,10 @@
+## Fix for pheatmap partial match warning.
+## https://github.com/raivokolde/pheatmap/issues/46
+options(
+    warnPartialMatchAttr = FALSE,
+    warnPartialMatchDollar = FALSE
+)
+
 data(bcb, envir = environment())
 invisible(validObject(bcb))
 
