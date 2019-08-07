@@ -46,8 +46,8 @@ operation. This applies to all counts, not per feature.
 }}
 
 \item{interestingGroups}{\code{character}.
-Groups of interest that define the samples. If left unset, defaults to
-\code{sampleName}.}
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.}
 
 \item{geom}{\code{character(1)}.
 Type of ggplot2 geometric object to use.}
@@ -72,7 +72,7 @@ To set the discrete fill palette globally, use:\preformatted{options(acid.fill.d
 Flip x and y axes. Recommended for plots containing many samples.}
 
 \item{title}{\code{character(1)}.
-Plot title.}
+Title.}
 
 \item{...}{Additional arguments.}
 }

@@ -19,9 +19,7 @@ plotCounts(object, ...)
 \item{object}{Object.}
 
 \item{genes}{\code{character}.
-Gene identifiers. It is considered better practice to input the stable gene
-identifiers from Ensembl (e.g. "ENSG00000000003") and not the (HGNC) gene
-symbols (e.g. "TSPN6"), if possible.}
+Gene identifiers.}
 
 \item{normalized}{\code{character(1)}.
 Type of normalized counts to visualize:
@@ -33,8 +31,8 @@ Type of normalized counts to visualize:
 }}
 
 \item{interestingGroups}{\code{character}.
-Groups of interest that define the samples. If left unset, defaults to
-\code{sampleName}.}
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.}
 
 \item{trans}{\code{character(1)}.
 Name of the axis scale transformation to apply.
@@ -55,7 +53,7 @@ To set the discrete color palette globally, use:\preformatted{options(acid.color
 }}
 
 \item{legend}{\code{logical(1)}.
-Show plot legend.}
+Include plot legend.}
 
 \item{style}{\code{character(1)}.
 Plot style.}

@@ -1,4 +1,4 @@
-#' Plot Dispersion Estimates
+#' Plot dispersion estimates
 #'
 #' @details
 #' This plot shows the dispersion by mean of normalized counts. We expect the
@@ -9,9 +9,9 @@
 #'
 #' @name plotDispEsts
 #' @author Michael Steinbaugh
-#' @inherit DESeq2::plotDispEsts
+#' @inherit DESeq2::plotDispEsts description params
 #'
-#' @inheritParams acidroxygen::params
+#' @param object Object.
 #' @param ... Additional arguments.
 #'
 #' @seealso [DESeq2::plotDispEsts()].

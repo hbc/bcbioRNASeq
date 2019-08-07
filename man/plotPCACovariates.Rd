@@ -33,8 +33,7 @@ Type of normalized counts to visualize:
 \code{ggplot}.
 }
 \description{
-\code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting \code{bcbioRNASeq}
-class.
+Find correlation between principal components (PCs) and covariates
 }
 \examples{
 data(bcb)

@@ -18,11 +18,11 @@ plotIntronicMappingRate(object, ...)
 \item{object}{Object.}
 
 \item{interestingGroups}{\code{character}.
-Groups of interest that define the samples. If left unset, defaults to
-\code{sampleName}.}
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.}
 
 \item{limit}{\code{numeric(1)}.
-Threshold to denote on the plot, using a dashed line.}
+Threshold limit.}
 
 \item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
 Desired ggplot2 fill scale. Must supply discrete values. When set to
@@ -36,7 +36,7 @@ To set the discrete fill palette globally, use:\preformatted{options(acid.fill.d
 Flip x and y axes. Recommended for plots containing many samples.}
 
 \item{title}{\code{character(1)}.
-Plot title.}
+Title.}
 
 \item{...}{Additional arguments.}
 }

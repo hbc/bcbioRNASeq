@@ -28,7 +28,7 @@ To set the discrete fill palette globally, use:\preformatted{options(acid.fill.d
 Line color.}
 
 \item{legend}{\code{logical(1)}.
-Show plot legend.}
+Include plot legend.}
 
 \item{...}{Additional arguments.}
 }

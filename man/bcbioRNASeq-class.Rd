@@ -62,8 +62,8 @@ available can vary, depending on the versions of AnnotationHub and
 ensembldb in use.}
 
 \item{gffFile}{\code{character(1)}.
-GFF/GTF (General Feature Format) file. Generally, we recommend using a GTF
-(GFFv2) instead of a GFFv3 file if possible.}
+GFF/GTF (General Feature Format) file.
+Generally, we recommend using GTF (GFFv2) instead of GFFv3.}
 
 \item{transgeneNames}{\code{character}.
 Vector indicating which assay rows denote transgenes (e.g. EGFP, TDTOMATO).}
@@ -80,8 +80,8 @@ this parameter, but it should only ever be changed when loading some
 datasets at transcript level (e.g. for DTU analsyis).}
 
 \item{interestingGroups}{\code{character}.
-Groups of interest that define the samples. If left unset, defaults to
-\code{sampleName}.}
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.}
 
 \item{fast}{\code{logical(1)}.
 Fast mode. Skip internal DESeq2 transformations.}
