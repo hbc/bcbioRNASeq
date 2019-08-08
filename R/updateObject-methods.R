@@ -1,3 +1,7 @@
+## FIXME Improve S4 rename calls (see bcbioSingleCell).
+
+
+
 #' @name updateObject
 #' @author Michael Steinbaugh
 #' @inherit BiocGenerics::updateObject
