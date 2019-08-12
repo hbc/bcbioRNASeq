@@ -161,6 +161,7 @@ NULL
         }
 
         ## Return --------------------------------------------------------------
+        ## FIXME Just resize the object rather than regenerating...this is slow.
         `new,bcbioRNASeq`(
             assays = assays,
             rowRanges = rowRanges,
