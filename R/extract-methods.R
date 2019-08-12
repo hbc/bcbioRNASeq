@@ -49,7 +49,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-08-12.
 `extract,bcbioRNASeq` <-  # nolint
     function(
         x, i, j,
@@ -58,31 +58,26 @@ NULL
     ) {
         validObject(x)
         assert(
-            ## Not currently allowing the user to drop on extraction.
             identical(drop, FALSE),
             isFlag(recalculate)
         )
 
-        ## Genes (rows)
+        ## Genes (rows).
         if (missing(i)) {
             i <- seq_len(nrow(x))
         }
         ## Require at least 50 genes.
         assert(isInRange(length(i), lower = 50L, upper = Inf))
 
-        ## Samples (columns)
+        ## Samples (columns).
         if (missing(j)) {
             j <- seq_len(ncol(x))
         }
         ## Require at least 2 samples.
         assert(isInRange(length(j), lower = 2L, upper = Inf))
 
-        ## Don't attempt to recalculate normalizations if the dimensions remain
-        ## unchanged.
-        if (identical(
-            x = dim(x),
-            y = c(length(i), length(j))
-        )) {
+        ## Determine whether we should stash subset in metadata.
+        if (identical(x = dim(x), y = c(length(i), length(j)))) {
             subset <- FALSE
         } else {
             subset <- TRUE
@@ -100,7 +95,6 @@ NULL
 
         ## Assays --------------------------------------------------------------
         assays <- assays(rse)
-
         if (isTRUE(subset)) {
             ## Recalculate DESeq2 normalized counts and variance stabilizations
             ## if the number of samples and/or genes change.
@@ -133,32 +127,24 @@ NULL
                 assays[["fpkm"]] <- NULL
             }
         }
+        ## Drop any `NULL` items in assays.
+        assays <- Filter(f = Negate(is.null), x = assays)
 
         ## Row data ------------------------------------------------------------
         ## Ensure factors get releveled, if necessary.
-        rowRanges <- rowRanges(rse)
-        if (
-            ncol(mcols(rowRanges)) > 0L &&
-            !identical(rownames(rse), rownames(x))
-        ) {
-            rowRanges <- relevel(rowRanges)
-        }
+        rowRanges <- relevel(rowRanges(rse))
 
         ## Column data ---------------------------------------------------------
         ## Ensure factors get releveled, if necessary.
-        colData <- colData(rse)
-        if (
-            ncol(colData) > 0L &&
-            !identical(colnames(rse), colnames(x))
-        ) {
-            colData <- relevel(colData)
-        }
+        colData <- relevel(colData(rse))
 
         ## Metadata ------------------------------------------------------------
         metadata <- metadata(rse)
         if (isTRUE(subset)) {
             metadata[["subset"]] <- TRUE
         }
+        ## Drop any `NULL` items in metadata.
+        metadata <- Filter(f = Negate(is.null), x = metadata)
 
         ## Return --------------------------------------------------------------
         rse <- SummarizedExperiment(
