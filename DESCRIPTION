@@ -103,13 +103,13 @@ LazyData: false
 Depends:
     R (>= 3.5),
     SummarizedExperiment,
-    basejump (>= 0.11.4)
+    basejump (>= 0.11.5)
 Imports:
     DESeqAnalysis (>= 0.2.3),
-    acidplots (>= 0.2.10),
+    acidplots (>= 0.2.11),
     bcbioBase (>= 0.6.8),
-    bioverbs (>= 0.2.1),
-    goalie (>= 0.3.1),
+    bioverbs (>= 0.2.4),
+    goalie (>= 0.3.3),
     BiocGenerics,
     DEGreport,
     DESeq2,
@@ -134,7 +134,7 @@ Imports:
     methods,
     utils
 Suggests:
-    acidroxygen (>= 0.0.1),
+    acidroxygen (>= 0.1),
     BiocStyle,
     DOSE,
     EnsDb.Hsapiens.v75,
