@@ -305,7 +305,7 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(log)),
         error = function(e) {
-            message("bcbio-nextgen.log file is empty.")
+            message("'bcbio-nextgen.log' file is empty.")
         }
     )
 
@@ -314,7 +314,7 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(commandsLog)),
         error = function(e) {
-            message("bcbio-nextgen-commands.log file is empty.")
+            message("'bcbio-nextgen-commands.log' file is empty.")
         }
     )
 
@@ -379,8 +379,8 @@ bcbioRNASeq <- function(
     if (length(samples) < length(sampleDirs)) {
         sampleDirs <- sampleDirs[samples]
         message(sprintf(
-            fmt = "Loading a subset of samples:\n%s",
-            str_trunc(toString(basename(sampleDirs)), width = 80L)
+            fmt = "Loading a subset of samples: %s.",
+            toString(basename(sampleDirs), width = 100L)
         ))
         allSamples <- FALSE
     } else {
