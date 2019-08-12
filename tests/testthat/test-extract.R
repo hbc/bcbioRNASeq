@@ -38,12 +38,12 @@ test_that("Calculate DESeq2 transforms by default", {
         object = assayNames(object[seq_len(nrow), ]),
         expected = c(
             "counts",
-            "aligned",
-            "avgTxLength",
-            "fpkm",
-            "normalized",
             "tpm",
-            "vst"
+            "avgTxLength",
+            "aligned",
+            "normalized",
+            "vst",
+            "fpkm"
         )
     )
 })
@@ -53,9 +53,9 @@ test_that("Allow the user to skip transforms, using `recalculate` argument", {
         object = assayNames(object[seq_len(nrow), , recalculate = FALSE]),
         expected = c(
             "counts",
-            "aligned",
+            "tpm",
             "avgTxLength",
-            "tpm"
+            "aligned"
         )
     )
 })
