@@ -17,6 +17,9 @@ plotGenesDetected(object, ...)
 \item{...}{Additional arguments.}
 
 \item{object}{Object.}
+
+\item{title}{\code{character(1)}.
+Title.}
 }
 \value{
 \code{.Deprecated}.

@@ -48,7 +48,8 @@ To set the discrete color palette globally, use:\preformatted{options(acid.color
 }}
 
 \item{pointSize}{\code{numeric(1)}.
-Point size for dots in the plot.}
+Point size for dots in the plot.
+In the range of 1-3 is generally recommended.}
 
 \item{title}{\code{character(1)}.
 Title.}
