@@ -8,7 +8,7 @@
 #' @name extract
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @inherit base::Extract params references
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-08-12.
 #'
 #' @inheritParams acidroxygen::params
 #' @param recalculate `logical(1)`.
@@ -161,13 +161,15 @@ NULL
         }
 
         ## Return --------------------------------------------------------------
-        ## FIXME Just resize the object rather than regenerating...this is slow.
-        `new,bcbioRNASeq`(
+        rse <- SummarizedExperiment(
             assays = assays,
             rowRanges = rowRanges,
             colData = colData,
             metadata = metadata
         )
+        bcb <- new(Class = "bcbioRNASeq", rse)
+        validObject(bcb)
+        bcb
     }
 
 
