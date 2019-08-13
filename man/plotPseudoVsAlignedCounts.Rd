@@ -18,12 +18,10 @@ plotPseudoVsAlignedCounts(object, ...)
 \item{...}{Additional arguments.}
 
 \item{genes}{\code{character}.
-Gene identifiers. It is considered better practice to input the stable gene
-identifiers from Ensembl (e.g. "ENSG00000000003") and not the (HGNC) gene
-symbols (e.g. "TSPN6"), if possible.}
+Gene identifiers.}
 
-\item{title}{\code{character(1)} or \code{NULL}.
-Plot title.}
+\item{title}{\code{character(1)}.
+Title.}
 }
 \description{
 Compare pseudoaligned counts to aligned counts.
@@ -32,6 +30,8 @@ Compare pseudoaligned counts to aligned counts.
 Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
 \code{counts} assay.
+
+Updated 2019-08-07.
 }
 \examples{
 data(bcb)

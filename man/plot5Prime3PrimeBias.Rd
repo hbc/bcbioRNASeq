@@ -18,8 +18,8 @@ plot5Prime3PrimeBias(object, ...)
 \item{object}{Object.}
 
 \item{interestingGroups}{\code{character}.
-Groups of interest that define the samples. If left unset, defaults to
-\code{sampleName}.}
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.}
 
 \item{color}{\code{ScaleDiscrete}.
 Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
@@ -33,7 +33,7 @@ To set the discrete color palette globally, use:\preformatted{options(acid.color
 Flip x and y axes. Recommended for plots containing many samples.}
 
 \item{title}{\code{character(1)}.
-Plot title.}
+Title.}
 
 \item{...}{Additional arguments.}
 }
@@ -62,6 +62,9 @@ For example:
 transcript.
 \item Median is calculated for the representative set of 1000 transcripts.
 }
+}
+\note{
+Updated 2019-08-07.
 }
 \examples{
 data(bcb)

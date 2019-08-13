@@ -56,12 +56,12 @@ conda install -c bioconda r-bcbiornaseq
 
 ```r
 library(bcbioRNASeq)
-bcb <- bcbioRNASeq(
+object <- bcbioRNASeq(
     uploadDir = "bcbio_rnaseq_run/final",
     interestingGroups = c("genotype", "treatment"),
     organism = "Homo sapiens"
 )
-saveData(bcb, dir = ".")
+saveData(object, dir = ".")
 ```
 
 This will return a `bcbioRNASeq` object, which is an extension of the [Bioconductor][] [RangedSummarizedExperiment][] container class. Consult the `bcbioRNASeq()` constructor function documentation for detailed information on the supported parameters:
@@ -88,6 +88,18 @@ The samples in the [bcbio][] run must map to the `description` column. The value
 ## [R Markdown][] templates
 
 The package provides multiple [R Markdown][] templates, including quality control, differential expression using [DESeq2][], and functional enrichment analysis. These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
+
+## Troubleshooting
+
+### Invalid object
+
+If you encounter a `validObject` error when attempting to load a `bcbioRNASeq` object from a previous analysis, run this step to update the object to the current version of the package:
+
+```r
+object <- updateObject(object)
+validObject(object)
+## [1] TRUE
+```
 
 ## References
 

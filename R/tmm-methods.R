@@ -1,8 +1,9 @@
 #' @name tmm
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::tmm
+#' @note Updated 2019-08-07.
 #'
-#' @inheritParams params
+#' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples

@@ -18,17 +18,17 @@ plotGeneSaturation(object, ...)
 \item{object}{Object.}
 
 \item{interestingGroups}{\code{character}.
-Groups of interest that define the samples. If left unset, defaults to
-\code{sampleName}.}
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.}
 
 \item{minCounts}{\code{integer(1)}.
-Minimum number of counts per gene in the count matrix.}
+Minimum number of counts per feature (i.e. gene).}
 
 \item{perMillion}{\code{logical(1)}.
 Display as counts per million.}
 
 \item{trendline}{\code{logical(1)}.
-Include a trendline for each group.}
+Include trendline on plot.}
 
 \item{label}{\code{logical(1)}.
 Superimpose sample text labels on the plot.}
@@ -42,7 +42,7 @@ To set the discrete color palette globally, use:\preformatted{options(acid.color
 }}
 
 \item{title}{\code{character(1)}.
-Plot title.}
+Title.}
 
 \item{...}{Additional arguments.}
 }
@@ -53,6 +53,9 @@ Plot title.}
 We should observe a linear trend in the number of genes detected with the
 number of mapped reads, which indicates that the sample input was not
 overloaded.
+}
+\note{
+Updated 2019-08-07.
 }
 \examples{
 data(bcb)

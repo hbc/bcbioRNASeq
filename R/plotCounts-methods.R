@@ -1,9 +1,16 @@
 #' @name plotCounts
 #' @author Michael Steinbaugh
 #' @inherit acidplots::plotCounts
+#' @note Updated 2019-08-07.
 #'
-#' @inheritParams basejump::params
-#' @inheritParams params
+#' @inheritParams acidroxygen::params
+#' @param normalized `character(1)`.
+#'   Type of normalized counts to visualize:
+#'
+#'   - `tpm` Transcripts per million.
+#'   - `tmm`: edgeR trimmed mean of M-values.
+#'   - `rlog`: DESeq2 log2 regularized log transformation.
+#'   - `vst`: DESeq2 log2 variance stabilizing transformation.
 #' @param ... Additional parameters.
 #'
 #' @examples

@@ -70,7 +70,7 @@ overloaded." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.24</span>
       </span>
     </div>
 
@@ -145,13 +145,13 @@ overloaded.</p>
     <tr>
       <th>interestingGroups</th>
       <td><p><code>character</code>.
-Groups of interest that define the samples. If left unset, defaults to
-<code>sampleName</code>.</p></td>
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.</p></td>
     </tr>
     <tr>
       <th>minCounts</th>
       <td><p><code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>.
-Minimum number of counts per gene in the count matrix.</p></td>
+Minimum number of counts per feature (i.e. gene).</p></td>
     </tr>
     <tr>
       <th>perMillion</th>
@@ -161,7 +161,7 @@ Display as counts per million.</p></td>
     <tr>
       <th>trendline</th>
       <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
-Include a trendline for each group.</p></td>
+Include trendline on plot.</p></td>
     </tr>
     <tr>
       <th>label</th>
@@ -180,7 +180,7 @@ are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/ref
     <tr>
       <th>title</th>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Plot title.</p></td>
+Title.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -191,6 +191,10 @@ Plot title.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>ggplot</code>.</p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Updated 2019-08-07.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -203,6 +207,8 @@ Plot title.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

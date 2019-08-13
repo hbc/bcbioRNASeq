@@ -9,6 +9,9 @@
 \description{
 Force an object to belong to a class.
 }
+\note{
+Updated 2019-08-07.
+}
 \section{bcbioRNASeq to DESeqDataSet}{
 
 \enumerate{

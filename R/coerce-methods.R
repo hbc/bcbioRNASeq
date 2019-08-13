@@ -6,6 +6,7 @@
 #' @author Michael Steinbaugh
 #' @importFrom methods coerce
 #' @exportMethod coerce
+#' @note Updated 2019-08-07.
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'
@@ -76,7 +77,7 @@ NULL
     function(from) {
         validObject(from)
         rse <- as(from, "RangedSummarizedExperiment")
-        `.new,DESeqDataSet`(se = rse)
+        `new,DESeqDataSet`(se = rse)
     }
 
 

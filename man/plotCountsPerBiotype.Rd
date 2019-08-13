@@ -30,20 +30,20 @@ plotCountsPerBroadClass(object, ...)
 \item{object}{Object.}
 
 \item{normalized}{\code{character(1)}.
-Which normalization method to apply:
+Type of normalized counts to visualize:
 \itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 log2 regularized log transformation.
-\item "\code{vst}": DESeq2 log2 variance stabilizing transformation.
+\item \code{tpm} Transcripts per million.
+\item \code{tmm}: edgeR trimmed mean of M-values.
+\item \code{rlog}: DESeq2 log2 regularized log transformation.
+\item \code{vst}: DESeq2 log2 variance stabilizing transformation.
 }}
 
 \item{n}{\code{integer(1)}.
 Number to include.}
 
 \item{interestingGroups}{\code{character}.
-Groups of interest that define the samples. If left unset, defaults to
-\code{sampleName}.}
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.}
 
 \item{trans}{\code{character(1)}.
 Name of the axis scale transformation to apply.
@@ -63,7 +63,7 @@ To set the discrete fill palette globally, use:\preformatted{options(acid.fill.d
 Counts axis label.}
 
 \item{title}{\code{character(1)}.
-Plot title.}
+Title.}
 
 \item{...}{Additional arguments.}
 }
@@ -72,6 +72,9 @@ Plot title.}
 }
 \description{
 Plot counts per biotype
+}
+\note{
+Updated 2019-08-07.
 }
 \examples{
 data(bcb)

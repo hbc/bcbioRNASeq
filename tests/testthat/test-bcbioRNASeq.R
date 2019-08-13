@@ -8,9 +8,9 @@ test_that("Import salmon counts (default)", {
         object = assayNames(object),
         expected = c(
             "counts",
-            "tpm",
-            "avgTxLength",
             "aligned",
+            "avgTxLength",
+            "tpm",
             "normalized",
             "vst"
         )
@@ -69,8 +69,8 @@ test_that("Fast mode", {
         object = assayNames(object),
         expected = c(
             "counts",
-            "tpm",
-            "avgTxLength"
+            "avgTxLength",
+            "tpm"
         )
     )
 })
@@ -90,7 +90,7 @@ test_that("countsFromAbundance", {
         level = "genes",
         countsFromAbundance = "lengthScaledTPM"
     )
-    expect_true(isSubset(c("avgTxLength", "normalized"), assayNames(x)))
+    expect_true(isSubset("avgTxLength", assayNames(x)))
     expect_identical(
         object = round(colSums(assay(x)), digits = 2L),
         expected = colSums
@@ -112,7 +112,7 @@ test_that("countsFromAbundance", {
         level = "genes",
         countsFromAbundance = "no"
     )
-    expect_true(isSubset(c("avgTxLength", "normalized"), assayNames(x)))
+    expect_true(isSubset("avgTxLength", assayNames(x)))
     expect_identical(
         object = round(colSums(assay(x)), digits = 2L),
         expected = colSums
@@ -137,7 +137,6 @@ test_that("countsFromAbundance", {
         countsFromAbundance = "lengthScaledTPM"
     )
     expect_true("avgTxLength" %in% assayNames(x))
-    expect_false("normalized" %in% assayNames(x))
     expect_identical(
         object = round(colSums(assay(x)), digits = 2L),
         expected = colSums
@@ -160,7 +159,6 @@ test_that("countsFromAbundance", {
         countsFromAbundance = "no"
     )
     expect_true("avgTxLength" %in% assayNames(x))
-    expect_false("normalized" %in% assayNames(x))
     expect_identical(
         object = round(colSums(assay(x)), digits = 2L),
         expected = colSums

@@ -1,12 +1,12 @@
 #' Compare pseudoaligned counts to aligned counts.
 #'
+#' @name plotPseudoVsAlignedCounts
 #' @note Currently supported for salmon or kallisto. The function will
 #'   intentionally error for datasets containing aligned counts in the primary
 #'   `counts` assay.
+#' @note Updated 2019-08-07.
 #'
-#' @name plotPseudoVsAlignedCounts
-#' @inheritParams basejump::params
-#' @inheritParams params
+#' @inheritParams acidroxygen::params
 #'
 #' @examples
 #' data(bcb)

@@ -4,7 +4,7 @@
 \name{plotDispEsts}
 \alias{plotDispEsts}
 \alias{plotDispEsts,bcbioRNASeq-method}
-\title{Plot Dispersion Estimates}
+\title{Plot dispersion estimates}
 \usage{
 plotDispEsts(object, ...)
 
@@ -55,6 +55,9 @@ dispersion to decrease as the mean of normalized counts increases.
 
 Here we're generating a \code{DESeqDataSet} object on the fly, which already has
 method support for plotting dispersion, provided by the DESeq2 package.
+}
+\note{
+Updated 2019-08-07.
 }
 \examples{
 data(bcb)

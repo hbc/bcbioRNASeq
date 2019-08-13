@@ -1,10 +1,10 @@
 #' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit acidplots::plotCountsPerFeature
+#' @note Updated 2019-08-07.
 #'
-#' @inheritParams acidplots::params
-#' @inheritParams basejump::params
-#' @inheritParams params
+#' @inheritParams plotCounts
+#' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'
 #' @section Trimmed Mean of M-Values:

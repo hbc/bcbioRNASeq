@@ -36,8 +36,7 @@
   
 <meta property="og:title" content="Find correlation between principal components (PCs) and covariates — plotPCACovariates" />
 
-<meta property="og:description" content="DEGreport::degCovariates() wrapper supporting bcbioRNASeq
-class." />
+<meta property="og:description" content="Find correlation between principal components (PCs) and covariates" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +68,7 @@ class." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.24</span>
       </span>
     </div>
 
@@ -119,8 +118,7 @@ class." />
 
     <div class="ref-description">
     
-    <p><code><a href='http://lpantano.github.io/DEGreport/reference/degCovariates.html'>DEGreport::degCovariates()</a></code> wrapper supporting <code>bcbioRNASeq</code>
-class.</p>
+    <p>Find correlation between principal components (PCs) and covariates</p>
     
     </div>
 
@@ -146,11 +144,11 @@ be specified here as a character vector.</p></td>
     <tr>
       <th>normalized</th>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Which normalization method to apply:</p><ul>
-<li><p>"<code>tpm</code>": Transcripts per million (tximport).</p></li>
-<li><p>"<code>tmm</code>": edgeR trimmed mean of M-values. Calculated on the fly.</p></li>
-<li><p>"<code>rlog</code>": DESeq2 log2 regularized log transformation.</p></li>
-<li><p>"<code>vst</code>": DESeq2 log2 variance stabilizing transformation.</p></li>
+Type of normalized counts to visualize:</p><ul>
+<li><p><code>tpm</code> Transcripts per million.</p></li>
+<li><p><code>tmm</code>: edgeR trimmed mean of M-values.</p></li>
+<li><p><code>rlog</code>: DESeq2 log2 regularized log transformation.</p></li>
+<li><p><code>vst</code>: DESeq2 log2 variance stabilizing transformation.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -162,6 +160,10 @@ Which normalization method to apply:</p><ul>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>ggplot</code>.</p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Updated 2019-08-07.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -188,6 +190,8 @@ Which normalization method to apply:</p><ul>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

@@ -19,12 +19,12 @@ Defaults to include all metrics columns (\code{TRUE}), but desired columns can
 be specified here as a character vector.}
 
 \item{normalized}{\code{character(1)}.
-Which normalization method to apply:
+Type of normalized counts to visualize:
 \itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 log2 regularized log transformation.
-\item "\code{vst}": DESeq2 log2 variance stabilizing transformation.
+\item \code{tpm} Transcripts per million.
+\item \code{tmm}: edgeR trimmed mean of M-values.
+\item \code{rlog}: DESeq2 log2 regularized log transformation.
+\item \code{vst}: DESeq2 log2 variance stabilizing transformation.
 }}
 
 \item{...}{Additional arguments, passed to \code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}}.}
@@ -33,8 +33,10 @@ Which normalization method to apply:
 \code{ggplot}.
 }
 \description{
-\code{\link[DEGreport:degCovariates]{DEGreport::degCovariates()}} wrapper supporting \code{bcbioRNASeq}
-class.
+Find correlation between principal components (PCs) and covariates
+}
+\note{
+Updated 2019-08-07.
 }
 \examples{
 data(bcb)

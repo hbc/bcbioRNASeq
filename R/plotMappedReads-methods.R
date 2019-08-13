@@ -1,10 +1,9 @@
 #' @name plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotMappedReads
+#' @note Updated 2019-08-07.
 #'
-#' @inheritParams acidplots::params
-#' @inheritParams basejump::params
-#' @inheritParams params
+#' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -76,7 +75,7 @@ NULL
         if (isPositive(limit)) {
             if (isTRUE(perMillion)) {
                 if (limit < 1e6L) {
-                    warning("`limit`: Use absolute value, not per million.")
+                    warning("'limit': Use absolute value, not per million.")
                 } else {
                     limit <- limit / 1e6L
                 }

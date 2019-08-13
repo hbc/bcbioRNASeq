@@ -18,11 +18,11 @@ plotMappedReads(object, ...)
 \item{object}{Object.}
 
 \item{interestingGroups}{\code{character}.
-Groups of interest that define the samples. If left unset, defaults to
-\code{sampleName}.}
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.}
 
 \item{limit}{\code{numeric(1)}.
-Threshold to denote on the plot, using a dashed line.}
+Threshold limit.}
 
 \item{perMillion}{\code{logical(1)}.
 Display as counts per million.}
@@ -39,7 +39,7 @@ To set the discrete fill palette globally, use:\preformatted{options(acid.fill.d
 Flip x and y axes. Recommended for plots containing many samples.}
 
 \item{title}{\code{character(1)}.
-Plot title.}
+Title.}
 
 \item{...}{Additional arguments.}
 }
@@ -48,6 +48,9 @@ Plot title.}
 }
 \description{
 The number of mapped reads should correspond to the number of total reads.
+}
+\note{
+Updated 2019-08-07.
 }
 \examples{
 data(bcb)

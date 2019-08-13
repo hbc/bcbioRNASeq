@@ -1,3 +1,10 @@
+## bcbioRNASeq 0.3.24 (2019-08-12)
+
+### Minor changes
+
+- Simplified internal object creation in `bcbioRNASeq`, `[`, and `updateObject`.
+- Improved message consistency.
+
 ## bcbioRNASeq 0.3.23 (2019-07-29)
 
 ### Major changes

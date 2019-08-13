@@ -1,13 +1,4 @@
-#' Plot Dispersion Estimates
-#'
-#' @name plotDispEsts
-#' @author Michael Steinbaugh
-#' @inherit DESeq2::plotDispEsts
-#'
-#' @inheritParams acidplots::params
-#' @inheritParams basejump::params
-#' @inheritParams params
-#' @param ... Additional arguments.
+#' Plot dispersion estimates
 #'
 #' @details
 #' This plot shows the dispersion by mean of normalized counts. We expect the
@@ -16,7 +7,13 @@
 #' Here we're generating a `DESeqDataSet` object on the fly, which already has
 #' method support for plotting dispersion, provided by the DESeq2 package.
 #'
+#' @name plotDispEsts
+#' @author Michael Steinbaugh
+#' @inherit DESeq2::plotDispEsts description params
+#' @note Updated 2019-08-07.
+#'
 #' @param object Object.
+#' @param ... Additional arguments.
 #'
 #' @seealso [DESeq2::plotDispEsts()].
 #'

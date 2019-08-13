@@ -1,10 +1,3 @@
-setClassUnion(
-    name = "missingOrNULL",
-    members = c("missing", "NULL")
-)
-
-
-
 #' bcbio RNA-Seq data set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
@@ -20,17 +13,18 @@ setClassUnion(
 #' - File paths and timestamps.
 #' - R session information.
 #'
-#' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @export
-#'
+#' @author Michael Steinbaugh, Lorena Pantano
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
-
-## Updated 2019-07-25.
+#' @note Updated 2019-08-01.
+#' @export
 setClass(
     Class = "bcbioRNASeq",
-    contains = "RangedSummarizedExperiment",
-    validity = function(object) {
+    contains = "RangedSummarizedExperiment"
+)
+setValidity(
+    Class = "bcbioRNASeq",
+    method = function(object) {
         metadata <- metadata(object)
 
         ## Return invalid for all objects older than v0.2.

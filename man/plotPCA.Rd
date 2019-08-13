@@ -20,17 +20,17 @@ plotPCA(object, ...)
 \item{object}{Object.}
 
 \item{normalized}{\code{character(1)}.
-Which normalization method to apply:
+Type of normalized counts to visualize:
 \itemize{
-\item "\code{tpm}": Transcripts per million (tximport).
-\item "\code{tmm}": edgeR trimmed mean of M-values. Calculated on the fly.
-\item "\code{rlog}": DESeq2 log2 regularized log transformation.
-\item "\code{vst}": DESeq2 log2 variance stabilizing transformation.
+\item \code{tpm} Transcripts per million.
+\item \code{tmm}: edgeR trimmed mean of M-values.
+\item \code{rlog}: DESeq2 log2 regularized log transformation.
+\item \code{vst}: DESeq2 log2 variance stabilizing transformation.
 }}
 
 \item{interestingGroups}{\code{character}.
-Groups of interest that define the samples. If left unset, defaults to
-\code{sampleName}.}
+Groups of interest to use for visualization.
+Corresponds to factors describing the columns of the object.}
 
 \item{ntop}{\code{integer(1)} or \code{Inf}.
 Number of most variable genes to plot.
@@ -48,13 +48,14 @@ To set the discrete color palette globally, use:\preformatted{options(acid.color
 }}
 
 \item{pointSize}{\code{numeric(1)}.
-Point size for dots in the plot.}
+Point size for dots in the plot.
+In the range of 1-3 is generally recommended.}
 
 \item{title}{\code{character(1)}.
-Plot title.}
+Title.}
 
 \item{subtitle}{\code{character(1)}.
-Plot subtitle.}
+Subtitle.}
 
 \item{return}{\code{character(1)}.
 Return type. Uses \code{\link[base:match.arg]{match.arg()}} internally and defaults
@@ -67,6 +68,9 @@ to the first argument in the \code{character} vector.}
 }
 \description{
 Principal component analysis plot
+}
+\note{
+Updated 2019-08-07.
 }
 \section{Principal component analysis}{
 

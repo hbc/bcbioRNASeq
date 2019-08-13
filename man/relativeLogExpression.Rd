@@ -24,6 +24,9 @@ relativeLogExpression(object, ...)
 \description{
 Relative log expression
 }
+\note{
+Updated 2019-08-07.
+}
 \examples{
 data(bcb)
 relativeLogExpression(bcb)

@@ -2,6 +2,7 @@
 #' @name show
 #' @author Michael Steinbuagh
 #' @inherit methods::show
+#' @note Updated 2019-08-07.
 #' @examples
 #' data(bcb)
 #' show(bcb)

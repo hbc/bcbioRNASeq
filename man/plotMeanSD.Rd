@@ -28,7 +28,7 @@ To set the discrete fill palette globally, use:\preformatted{options(acid.fill.d
 Line color.}
 
 \item{legend}{\code{logical(1)}.
-Show plot legend.}
+Include plot legend.}
 
 \item{...}{Additional arguments.}
 }
@@ -46,6 +46,9 @@ Plot row standard deviations vs. row means
 \item DESeq2 VST: \strong{v}ariance-\strong{s}tabilizing \strong{t}ransformation.
 \item edgeR log2 TMM: log2 \strong{t}rimmed \strong{m}ean of \strong{M}-values transformation.
 }
+}
+\note{
+Updated 2019-08-07.
 }
 \examples{
 data(bcb)

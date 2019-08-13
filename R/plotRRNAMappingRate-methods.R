@@ -1,10 +1,9 @@
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotRRNAMappingRate
+#' @note Updated 2019-08-07.
 #'
-#' @inheritParams acidplots::params
-#' @inheritParams basejump::params
-#' @inheritParams params
+#' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -74,7 +73,7 @@ NULL
             ## Convert to percentage
             if (limit > 1L) {
                 ## nocov start
-                warning("`limit`: Use ratio (0-1) instead of percentage.")
+                warning("'limit': Use ratio (0-1) instead of percentage.")
                 ## nocov end
             } else {
                 limit <- limit * 100L

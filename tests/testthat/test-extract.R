@@ -35,9 +35,7 @@ test_that("Check for unmodified return when using empty brackets", {
 test_that("Calculate DESeq2 transforms by default", {
     ## Transform enabled by default (if calculated).
     expect_identical(
-        object = object %>%
-            .[seq_len(nrow), ] %>%
-            assayNames(),
+        object = assayNames(object[seq_len(nrow), ]),
         expected = c(
             "counts",
             "tpm",
@@ -52,9 +50,7 @@ test_that("Calculate DESeq2 transforms by default", {
 
 test_that("Allow the user to skip transforms, using `recalculate` argument", {
     expect_identical(
-        object = object %>%
-            .[seq_len(nrow), , recalculate = FALSE] %>%
-            assayNames(),
+        object = assayNames(object[seq_len(nrow), , recalculate = FALSE]),
         expected = c(
             "counts",
             "tpm",

@@ -14,8 +14,8 @@
 #'   estimateSizeFactors fpkm priorInfo results resultsNames rlog
 #'   varianceStabilizingTransformation
 #' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
-#' @importFrom S4Vectors DataFrame Rle as.data.frame complete.cases decode
-#'   getListElement head mcols mcols<- metadata metadata<- na.omit
+#' @importFrom S4Vectors DataFrame Rle SimpleList as.data.frame complete.cases
+#'   decode getListElement head mcols mcols<- metadata metadata<- na.omit
 #' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
 #' @importFrom acidplots acid_geom_abline acid_geom_label acid_geom_label_repel
@@ -57,8 +57,8 @@
 #' @importFrom grid arrow unit
 #' @importFrom knitr kable
 #' @importFrom magrittr %>% set_colnames set_rownames
-#' @importFrom methods as as<- is new setAs setClass show slot slot<-
-#'   validObject .hasSlot
+#' @importFrom methods as as<- is new setAs setClass setMethod setValidity show
+#'   slot slot<- validObject .hasSlot
 #' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom rlang !! !!! := UQ sym syms
 #' @importFrom scales pretty_breaks

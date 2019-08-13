@@ -1,11 +1,10 @@
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit bioverbs::plotPCACovariates
-#' @inheritParams params
+#' @note Updated 2019-08-07.
 #'
-#' @description [DEGreport::degCovariates()] wrapper supporting `bcbioRNASeq`
-#'   class.
-#'
+#' @inheritParams plotCounts
+#' @inheritParams acidroxygen::params
 #' @param metrics `boolean`. Include sample summary metrics as covariates.
 #'   Defaults to include all metrics columns (`TRUE`), but desired columns can
 #'   be specified here as a character vector.

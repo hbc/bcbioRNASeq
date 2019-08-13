@@ -3,13 +3,13 @@
 \docType{data}
 \name{bcb}
 \alias{bcb}
-\title{bcbio RNA-Seq example data set}
+\title{bcbio RNA-seq example data set}
 \format{An object of class \code{bcbioRNASeq} with 100 rows and 6 columns.}
 \usage{
 bcb
 }
 \description{
-bcbio RNA-Seq example data set
+bcbio RNA-seq example data set
 }
 \examples{
 data(bcb)
