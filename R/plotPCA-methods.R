@@ -30,7 +30,7 @@ NULL
     function(object, normalized) {
         validObject(object)
         normalized <- match.arg(normalized)
-        message(paste("Using", normalized, "counts."))
+        message(sprintf("Using %s counts.", normalized))
         rse <- as(object, "RangedSummarizedExperiment")
         assays(rse) <- list(counts(object, normalized = normalized))
         do.call(

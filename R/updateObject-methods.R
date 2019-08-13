@@ -84,11 +84,10 @@ NULL
             .hasSlot(object, "rowRanges") &&
             !is.null(rowRanges)
         ) {
-            stop(paste(
-                "Object already contains 'rowRanges()'.",
-                "Don't attempt to slot new ones with 'rowRanges' argument.",
-                sep = "\n"
-            ))
+            stop(
+                "Object already contains 'rowRanges()'.\n",
+                "Don't attempt to slot new ones with 'rowRanges' argument."
+            )
         }
 
         ## NAMES
@@ -99,10 +98,10 @@ NULL
 
         ## elementMetadata
         if (ncol(slot(object, "elementMetadata")) != 0L) {
-            message(paste(
-                "'elementMetadata' slot must contain a",
+            message(
+                "'elementMetadata' slot must contain a ",
                 "zero-column DataFrame."
-            ))
+            )
             slot(object, "elementMetadata") <-
                 as(matrix(nrow = nrow(object), ncol = 0L), "DataFrame")
         }
@@ -310,10 +309,10 @@ NULL
 
         ## Drop legacy TMM counts.
         if ("tmm" %in% names(assays)) {
-            message(paste(
-                "Dropping 'tmm' from 'assays()'.",
+            message(
+                "Dropping 'tmm' from 'assays()'. ",
                 "Calculating on the fly instead."
-            ))
+            )
             assays[["tmm"]] <- NULL
         }
 

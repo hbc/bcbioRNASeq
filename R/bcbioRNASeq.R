@@ -510,10 +510,10 @@ bcbioRNASeq <- function(
         organism <- tryCatch(
             expr = detectOrganism(rownames(assays[[1L]])),
             error = function(e) {
-                warning(paste(
-                    "Failed to detect organism automatically.",
+                warning(
+                    "Failed to detect organism automatically.\n",
                     "Specify with 'organism' argument."
-                ))
+                )
             }
         )
     }
@@ -588,10 +588,10 @@ bcbioRNASeq <- function(
             message("Calculating FPKM using 'DESeq2::fpkm()'.")
             assays(bcb)[["fpkm"]] <- fpkm(dds)
         } else {
-            message(paste(
-                "'rowRanges()' contains empty ranges.",
+            message(
+                "'rowRanges()' contains empty ranges.\n",
                 "Skipping FPKM calculation."
-            ))
+            )
         }
     }
 
