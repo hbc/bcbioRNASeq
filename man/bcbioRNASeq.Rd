@@ -24,12 +24,12 @@ counts from featureCounts-compatible callers (e.g. STAR, HISAT2) can only
 be loaded at gene level.}
 
 \item{caller}{\code{character(1)}.
-Expression caller:\preformatted{- "`salmon`" (*default*): [Salmon][] alignment-free, quasi-mapped counts.
-- "`kallisto`": [Kallisto][] alignment-free, pseudo-aligned counts.
-- "`sailfish`": [Sailfish][] alignment-free, lightweight counts.
-- "`star`": [STAR][] (Spliced Transcripts Alignment to a Reference)
+Expression caller:\preformatted{- `"salmon"` (*default*): [Salmon][] alignment-free, quasi-mapped counts.
+- `"kallisto"`: [Kallisto][] alignment-free, pseudo-aligned counts.
+- `"sailfish"`: [Sailfish][] alignment-free, lightweight counts.
+- `"star"`: [STAR][] (Spliced Transcripts Alignment to a Reference)
   aligned counts.
-- "`hisat2`": [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
+- `"hisat2"`: [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
   Transcripts) graph-based aligned counts.
 }}
 

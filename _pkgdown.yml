@@ -32,7 +32,7 @@ news:
 reference:
   - title: S4 classes
     contents:
-      - ends_with("-class")
+      - starts_with("bcbioRNASeq")
       - coerce
       - extract
       - show
