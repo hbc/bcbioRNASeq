@@ -8,9 +8,9 @@
 
 ## Updated 2019-07-23.
 .ddsMsg <- function() {
-    message(paste0(
-        "Generating DESeqDataSet with DESeq2 ",
-        packageVersion("DESeq2"), "."
+    message(sprintf(
+        "Generating DESeqDataSet with DESeq2 %s.",
+        packageVersion("DESeq2")
     ))
 }
 

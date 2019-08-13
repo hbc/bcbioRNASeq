@@ -144,8 +144,9 @@ NULL
             } else {
                 countsFromAbundance <- "no"  # nocov
             }
-            message(paste0(
-                "Setting 'countsFromAbundance' as ", countsFromAbundance, "."
+            message(sprintf(
+                "Setting 'countsFromAbundance' as %s.",
+                countsFromAbundance
             ))
             metadata[["countsFromAbundance"]] <- countsFromAbundance
         }

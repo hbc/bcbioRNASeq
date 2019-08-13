@@ -69,13 +69,12 @@
     ## Note that this step can take a long time when processing a lot of
     ## samples, and is recommended to be run on an HPC cluster, rather than
     ## locally.
-    message(paste0(
-        "Reading ", type, " transcript-level counts from ",
-        basename(files[[1L]]), " files using tximport ",
-        packageVersion("tximport"), "."
+    message(sprintf(
+        "Reading %s transcript-level counts from %s files using tximport %s.",
+        type, basename(files[[1L]]), packageVersion("tximport")
     ))
     if (countsFromAbundance != "no") {
-        message(paste0("Scaling transcripts using ", countsFromAbundance, "."))
+        message(sprintf("Scaling transcripts using %s.", countsFromAbundance))
     }
     if (identical(txOut, FALSE)) {
         message("Returning transcript abundance at gene level.")
