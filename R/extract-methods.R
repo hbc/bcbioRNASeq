@@ -130,14 +130,6 @@ NULL
         ## Drop any `NULL` items in assays.
         assays <- Filter(f = Negate(is.null), x = assays)
 
-        ## Row data ------------------------------------------------------------
-        ## Ensure factors get releveled, if necessary.
-        rowRanges <- relevel(rowRanges(rse))
-
-        ## Column data ---------------------------------------------------------
-        ## Ensure factors get releveled, if necessary.
-        colData <- relevel(colData(rse))
-
         ## Metadata ------------------------------------------------------------
         metadata <- metadata(rse)
         if (isTRUE(subset)) {
@@ -153,6 +145,7 @@ NULL
             colData = colData,
             metadata = metadata
         )
+        rse <- droplevels(rse)
         bcb <- new(Class = "bcbioRNASeq", rse)
         validObject(bcb)
         bcb

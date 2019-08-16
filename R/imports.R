@@ -23,13 +23,13 @@
 #'   plotCorrelationHeatmap plotCountsCorrelation plotCountsCorrelationHeatmap
 #'   plotFeaturesDetected plotHeatmap plotPCA
 #' @importFrom basejump Gene2Symbol Tx2Gene camelCase coerceS4ToList
-#'   convertGenesToSymbols detectLanes detectOrganism emptyRanges formalsList
+#'   convertGenesToSymbols detectLanes detectOrganism droplevels emptyRanges formalsList
 #'   import initDir interestingGroups interestingGroups<- lanePattern
 #'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups
 #'   matchesGene2Symbol meltCounts methodFormals metrics organism
-#'   prepareTemplate printString realpath relevel removeNA sampleData
+#'   prepareTemplate printString realpath removeNA sampleData
 #'   sampleData<- separator showSlotInfo standardizeCall stripTranscriptVersions
 #'   uniteInterestingGroups
 #' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
