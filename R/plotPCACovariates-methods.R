@@ -1,7 +1,8 @@
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit bioverbs::plotPCACovariates
-#' @note Updated 2019-08-07.
+#' @note Requires the DEGreport package to be installed.
+#' @note Updated 2019-08-20.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
@@ -31,7 +32,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-08-20.
 `plotPCACovariates,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -40,7 +41,10 @@ NULL
         ...
     ) {
         validObject(object)
-        assert(isAny(metrics, c("character", "logical")))
+        assert(
+            requireNamespace("DEGreport", quietly = TRUE),
+            isAny(metrics, c("character", "logical"))
+        )
         normalized <- match.arg(normalized)
 
         ## Get the normalized counts.
@@ -80,7 +84,7 @@ NULL
 
         ## Handle warnings in DEGreport more gracefully.
         withCallingHandlers(
-            expr = degCovariates(
+            expr = DEGreport::degCovariates(
                 counts = counts,
                 metadata = metadata,
                 ...
