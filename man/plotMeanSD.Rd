@@ -48,7 +48,9 @@ Plot row standard deviations vs. row means
 }
 }
 \note{
-Updated 2019-08-07.
+Requires the vsn package to be installed.
+
+Updated 2019-08-20.
 }
 \examples{
 data(bcb)
