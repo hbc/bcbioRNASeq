@@ -32,7 +32,8 @@
 #'   sampleData sampleData<- separator showSlotInfo standardizeCall
 #'   stripTranscriptVersions uniteInterestingGroups
 #' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
-#'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions runDate sampleDirs
+#'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
+#'   runDate sampleDirs
 #' @importFrom cowplot draw_plot ggdraw plot_grid
 #' @importFrom edgeR DGEList calcNormFactors cpm scaleOffset
 #' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
@@ -57,11 +58,4 @@
 #' @importFrom stringr str_match str_trunc
 #' @importFrom tximport tximport
 #' @importFrom utils capture.output globalVariables packageVersion
-#'
-#'
-#'
-#' @importFrom dplyr arrange bind_cols bind_rows desc everything filter group_by
-#'   left_join mutate mutate_all mutate_if pull rename row_number select
-#'   select_if starts_with ungroup
-#' @importFrom magrittr %>% set_colnames set_rownames
 NULL
