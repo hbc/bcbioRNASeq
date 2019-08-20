@@ -1,7 +1,7 @@
 #' @name tmm
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::tmm
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-08-20.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -23,14 +23,14 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-08-20.
 `tmm,matrix` <-  # nolint
     function(object) {
         message("Applying trimmed mean of M-values (TMM) normalization.")
-        object %>%
-            DGEList() %>%
-            calcNormFactors(method = "TMM") %>%
-            cpm(normalized.lib.sizes = TRUE)
+        object <- DGEList(object)
+        object <- calcNormFactors(object, method = "TMM")
+        object <- cpm(object, normalized.lib.sizes = TRUE)
+        object
     }
 
 
