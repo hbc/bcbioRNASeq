@@ -27,8 +27,8 @@
 #'   runDate sampleDirs
 #' @importFrom cowplot plot_grid
 #' @importFrom edgeR DGEList calcNormFactors cpm scaleOffset
-#' @importFrom ggplot2 aes expand_limits geom_point ggplot ggtitle guides labs
-#'   scale_y_continuous theme
+#' @importFrom ggplot2 aes expand_limits geom_point geom_smooth ggplot ggtitle
+#'   guides labs scale_y_continuous theme
 #' @importFrom goalie areDisjointSets areIntersectingSets assert bapply
 #'   containsAURL hasDimnames hasLength hasUniqueCols hasValidDimnames
 #'   isADirectory isAFile isAny isCharacter isDirectory isFile isFlag isGGScale
