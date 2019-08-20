@@ -68,6 +68,4 @@
 #'   left_join mutate mutate_all mutate_if pull rename row_number select
 #'   select_if starts_with ungroup
 #' @importFrom readr read_csv read_tsv write_csv
-#' @importFrom tibble as_tibble column_to_rownames remove_rownames
-#'   rownames_to_column tibble
 NULL
