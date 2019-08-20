@@ -8,7 +8,6 @@
 #'
 #' @importFrom BiocGenerics cbind colSums density design lapply sapply
 #'   updateObject width
-#' @importFrom DEGreport degCovariates
 #' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
 #'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
 #'   estimateSizeFactors fpkm priorInfo results resultsNames rlog
@@ -23,23 +22,19 @@
 #'   plotCorrelationHeatmap plotCountsCorrelation plotCountsCorrelationHeatmap
 #'   plotFeaturesDetected plotHeatmap plotPCA
 #' @importFrom basejump Gene2Symbol Tx2Gene camelCase coerceS4ToList
-#'   convertGenesToSymbols detectLanes detectOrganism droplevels emptyRanges formalsList
-#'   import initDir interestingGroups interestingGroups<- lanePattern
-#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   convertGenesToSymbols detectLanes detectOrganism droplevels emptyRanges
+#'   formalsList import initDir interestingGroups interestingGroups<-
+#'   lanePattern makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups
 #'   matchesGene2Symbol meltCounts methodFormals metrics organism
-#'   prepareTemplate printString realpath removeNA sampleData
-#'   sampleData<- separator showSlotInfo standardizeCall stripTranscriptVersions
-#'   uniteInterestingGroups
-#' @importFrom bcbioBase copyToDropbox getGTFFileFromYAML getMetricsFromYAML
+#'   prepareTemplate printString readSampleData readTx2Gene realpath removeNA
+#'   sampleData sampleData<- separator showSlotInfo standardizeCall
+#'   stripTranscriptVersions uniteInterestingGroups
+#' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML metadataBlacklist projectDir projectDirPattern
-#'   readDataVersions readProgramVersions readSampleData readTx2Gene runDate
-#'   sampleDirs
+#'   readDataVersions readProgramVersions runDate sampleDirs
 #' @importFrom cowplot draw_plot ggdraw plot_grid
-#' @importFrom dplyr arrange bind_cols bind_rows desc everything filter group_by
-#'   left_join mutate mutate_all mutate_if pull rename row_number select
-#'   select_if starts_with ungroup
 #' @importFrom edgeR DGEList calcNormFactors cpm scaleOffset
 #' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
 #'   element_blank element_text expand_limits facet_wrap geom_bar geom_boxplot
@@ -59,14 +54,20 @@
 #' @importFrom magrittr %>% set_colnames set_rownames
 #' @importFrom methods as as<- is new setAs setClass setMethod setValidity show
 #'   slot slot<- validObject .hasSlot
-#' @importFrom readr read_csv read_tsv write_csv
 #' @importFrom rlang !! !!! := UQ sym syms
 #' @importFrom scales pretty_breaks
 #' @importFrom sessioninfo session_info
 #' @importFrom stringr str_match str_trunc
-#' @importFrom tibble as_tibble column_to_rownames remove_rownames
-#'   rownames_to_column tibble
 #' @importFrom tximport tximport
 #' @importFrom utils capture.output globalVariables packageVersion
 #' @importFrom vsn meanSdPlot
+#'
+#'
+#'
+#' @importFrom dplyr arrange bind_cols bind_rows desc everything filter group_by
+#'   left_join mutate mutate_all mutate_if pull rename row_number select
+#'   select_if starts_with ungroup
+#' @importFrom readr read_csv read_tsv write_csv
+#' @importFrom tibble as_tibble column_to_rownames remove_rownames
+#'   rownames_to_column tibble
 NULL
