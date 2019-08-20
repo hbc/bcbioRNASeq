@@ -13,9 +13,6 @@ bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
   interestingGroups = "sampleName", fast = FALSE, ...)
 }
 \arguments{
-\item{uploadDir}{\code{character(1)}.
-Final upload directory path.}
-
 \item{level}{\code{character(1)}.
 Import counts at gene level ("\code{genes}"; \emph{default}) or transcript level
 ("\code{transcripts}"; \emph{advanced use}). Only tximport-compatible callers (e.g.
@@ -33,36 +30,6 @@ Expression caller:\preformatted{- `"salmon"` (*default*): [Salmon][] alignment-f
   Transcripts) graph-based aligned counts.
 }}
 
-\item{samples}{\code{character}.
-Sample identifiers.}
-
-\item{censorSamples}{\code{character}.
-Specify a subset of samples to censor.}
-
-\item{sampleMetadataFile}{\code{character(1)}.
-Sample metadata file path. CSV or TSV is preferred, but Excel worksheets
-are also supported. Check the documentation for conventions and required
-columns.}
-
-\item{organism}{\code{character(1)}.
-Full Latin organism name (e.g. \code{"Homo sapiens"}).}
-
-\item{genomeBuild}{\code{character(1)}.
-Ensembl genome build assembly name (e.g. \code{"GRCh38"}). If set \code{NULL},
-defaults to the most recent build available.
-Note: don't pass in UCSC build IDs (e.g. \code{"hg38"}).}
-
-\item{ensemblRelease}{\code{integer(1)}.
-Ensembl release version (e.g. \code{90}). We recommend setting this value if
-possible, for improved reproducibility. When left unset, the latest release
-available via AnnotationHub/ensembldb is used. Note that the latest version
-available can vary, depending on the versions of AnnotationHub and
-ensembldb in use.}
-
-\item{gffFile}{\code{character(1)}.
-GFF/GTF (General Feature Format) file.
-Generally, we recommend using GTF (GFFv2) instead of GFFv3.}
-
 \item{transgeneNames}{\code{character}.
 Vector indicating which assay rows denote transgenes (e.g. EGFP, TDTOMATO).}
 
@@ -76,10 +43,6 @@ counts are scaled using the average transcript length over samples and then
 the library size. Refer to \code{\link[tximport:tximport]{tximport::tximport()}} for more information on
 this parameter, but it should only ever be changed when loading some
 datasets at transcript level (e.g. for DTU analsyis).}
-
-\item{interestingGroups}{\code{character}.
-Groups of interest to use for visualization.
-Corresponds to factors describing the columns of the object.}
 
 \item{fast}{\code{logical(1)}.
 Fast mode. Skip internal DESeq2 transformations.}

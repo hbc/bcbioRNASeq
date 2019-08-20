@@ -12,17 +12,6 @@ plotPseudoVsAlignedCounts(object, ...)
 \S4method{plotPseudoVsAlignedCounts}{bcbioRNASeq}(object, genes = NULL,
   title = "pseudo vs. aligned counts", ...)
 }
-\arguments{
-\item{object}{Object.}
-
-\item{...}{Additional arguments.}
-
-\item{genes}{\code{character}.
-Gene identifiers.}
-
-\item{title}{\code{character(1)}.
-Title.}
-}
 \description{
 Compare pseudoaligned counts to aligned counts.
 }

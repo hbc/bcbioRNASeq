@@ -6,13 +6,9 @@
 #'
 #' @importMethodsFrom basejump coerce
 #'
-#' @importFrom BiocGenerics cbind colSums density design lapply sapply
-#'   updateObject width
-#' @importFrom DESeq2 DESeq DESeqDataSet DESeqDataSetFromMatrix
-#'   DESeqDataSetFromTximport DESeqResults DESeqTransform estimateDispersions
-#'   estimateSizeFactors fpkm priorInfo results resultsNames rlog
+#' @importFrom BiocGenerics cbind colSums lapply sapply updateObject width
+#' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
-#' @importFrom GenomicFeatures genes makeTxDbFromGFF transcripts
 #' @importFrom S4Vectors DataFrame Rle SimpleList as.data.frame complete.cases
 #'   decode getListElement head mcols mcols<- metadata metadata<- na.omit
 #' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
