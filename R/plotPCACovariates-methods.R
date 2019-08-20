@@ -46,25 +46,19 @@ NULL
             isAny(metrics, c("character", "logical"))
         )
         normalized <- match.arg(normalized)
-
         ## Get the normalized counts.
         counts <- counts(object, normalized = normalized)
-
-        ## Note that we're ungrouping the tibble here, otherwise the downstream
-        ## factor/numeric column selection won't work as expected.
-        data <- ungroup(metrics(object))
-        factors <- select_if(data, is.factor)
-        ## Drop columns that are all zeroes (not useful to plot).
-        ## @roryk Sometimes we are missing values for some samples but not
-        ## others; plotPCACovariates was failing in those cases when checking if
-        ## a column was a numeric. Here we ignore the NAs for numeric column
-        ## checking. Adding the `na.rm` here fixes the issue.
-        numerics <- data %>%
-            select_if(is.numeric) %>%
-            .[, colSums(., na.rm = TRUE) > 0L, drop = FALSE]
+        data <- metrics(object)
+        factors <- data[, bapply(data, is.factor)]
+        ## Drop columns that are all zeroes (not useful to plot). Sometimes we
+        ## are missing values for some samples but not others; plotPCACovariates
+        ## was failing in those cases when checking if a column was a numeric.
+        ## Here we ignore the NAs for numeric column checking. Adding the
+        ## `na.rm` here fixes the issue.
+        numerics <- data[, which(bapply(data, is.numeric)), ]
+        numerics <- numerics[, which(colSums(numerics, na.rm = TRUE) > 0L), ]
         metadata <- cbind(factors, numerics)
         rownames(metadata) <- data[["sampleID"]]
-
         ## Select the metrics to use for plot.
         if (identical(metrics, TRUE)) {
             ## Sort columns alphabetically.
@@ -75,13 +69,12 @@ NULL
         } else if (is.character(metrics)) {
             col <- metrics
         }
-
+        ## Check for minimum number of metrics.
         if (length(col) < 2L) {
-            stop("plotPCACovariates() requires >= 2 metrics.")
+            stop("'plotPCACovariates()' requires >= 2 metrics.")
         }
         assert(isSubset(col, colnames(metadata)))
-        metadata <- metadata[, col, drop = FALSE]
-
+        metadata <- metadata[, col]
         ## Handle warnings in DEGreport more gracefully.
         withCallingHandlers(
             expr = DEGreport::degCovariates(
