@@ -55,7 +55,7 @@ number of mapped reads, which indicates that the sample input was not
 overloaded.
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-08-20.
 }
 \examples{
 data(bcb)
