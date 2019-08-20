@@ -52,7 +52,7 @@
 #' @importFrom grid arrow unit
 #' @importFrom methods as as<- is new setAs setClass setMethod setValidity show
 #'   slot slot<- validObject .hasSlot
-#' @importFrom rlang !! !!! := UQ sym syms
+#' @importFrom rlang !! sym
 #' @importFrom scales pretty_breaks
 #' @importFrom sessioninfo session_info
 #' @importFrom stringr str_match str_trunc
