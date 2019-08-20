@@ -30,11 +30,10 @@
 #' @importFrom ggplot2 aes expand_limits geom_point ggplot ggtitle guides labs
 #'   scale_y_continuous theme
 #' @importFrom goalie areDisjointSets areIntersectingSets assert bapply
-#'   containsAURL hasDimnames hasLength hasRownames hasUniqueCols
-#'   hasValidDimnames isADirectory isAFile isAny isCharacter isDirectory isFile
-#'   isFlag isGGScale isInt isInRange isNonEmpty isNonNegative isNumber
-#'   isPositive isProportion isString isSubset validNames validate
-#'   validateClasses
+#'   containsAURL hasDimnames hasLength hasUniqueCols hasValidDimnames
+#'   isADirectory isAFile isAny isCharacter isDirectory isFile isFlag isGGScale
+#'   isInt isInRange isNonEmpty isNonNegative isNumber isPositive isProportion
+#'   isString isSubset validNames validate validateClasses
 #' @importFrom methods as as<- is new setAs setClass setMethod setValidity show
 #'   slot slot<- validObject .hasSlot
 #' @importFrom rlang !! sym
