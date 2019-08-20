@@ -1,7 +1,7 @@
 #' @name plotExonicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotExonicMappingRate
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-08-20.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -25,7 +25,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-08-20.
 `plotExonicMappingRate,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -47,14 +47,15 @@ NULL
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
 
-        p <- metrics(object) %>%
-            ggplot(
-                mapping = aes(
-                    x = !!sym("sampleName"),
-                    y = !!sym("exonicRate") * 100L,
-                    fill = !!sym("interestingGroups")
-                )
-            ) +
+        data <- metrics(object)
+        p <- ggplot(
+            data = data,
+            mapping = aes(
+                x = !!sym("sampleName"),
+                y = !!sym("exonicRate") * 100L,
+                fill = !!sym("interestingGroups")
+            )
+        ) +
             acid_geom_bar() +
             acid_scale_y_continuous_nopad(limits = c(0L, 100L)) +
             labs(

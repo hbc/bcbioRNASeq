@@ -2,24 +2,21 @@
 % Please edit documentation in R/deprecated.R
 \name{deprecated}
 \alias{deprecated}
-\alias{prepareRNASeqTemplate}
 \alias{plotCountsPerGene}
 \alias{plotGenesDetected}
 \title{Deprecated functions}
 \usage{
-prepareRNASeqTemplate(...)
-
 plotCountsPerGene(object, title = "Counts per gene", ...)
 
 plotGenesDetected(object, ...)
 }
 \arguments{
-\item{...}{Additional arguments.}
-
 \item{object}{Object.}
 
 \item{title}{\code{character(1)}.
 Title.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{.Deprecated}.

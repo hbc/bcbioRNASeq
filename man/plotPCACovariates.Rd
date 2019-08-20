@@ -36,7 +36,9 @@ Type of normalized counts to visualize:
 Find correlation between principal components (PCs) and covariates
 }
 \note{
-Updated 2019-08-07.
+Requires the DEGreport package to be installed.
+
+Updated 2019-08-20.
 }
 \examples{
 data(bcb)

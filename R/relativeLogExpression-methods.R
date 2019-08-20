@@ -1,7 +1,7 @@
 #' @name relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
 #' @inherit bioverbs::relativeLogExpression
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-08-20.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -22,14 +22,14 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-08-20.
 `relativeLogExpression,matrix` <-  # nolint
     function(object) {
         message("Applying relative log expression (RLE) normalization.")
-        object %>%
-            DGEList() %>%
-            calcNormFactors(method = "RLE") %>%
-            cpm(normalized.lib.sizes = TRUE)
+        object <- DGEList(object)
+        object <- calcNormFactors(object, method = "RLE")
+        object <- cpm(object, normalized.lib.sizes = TRUE)
+        object
     }
 
 

@@ -45,7 +45,7 @@ are also supported. Check the documentation for conventions and required
 columns.}
 
 \item{organism}{\code{character(1)}.
-Full Latin organism name (e.g. "\code{Homo sapiens}").}
+Full Latin organism name (e.g. \code{"Homo sapiens"}).}
 
 \item{genomeBuild}{\code{character(1)}.
 Ensembl genome build assembly name (e.g. \code{"GRCh38"}). If set \code{NULL},

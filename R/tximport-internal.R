@@ -13,7 +13,7 @@
 #' @note Ignoring transcript versions should work by default. There may be
 #' an issue with genomes containing non-Ensembl transcript IDs, such as
 #' C. elegans, although we need to double check.
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-08-20.
 #'
 #' @inheritParams tximport::tximport
 #' @param sampleDirs `character`.
@@ -69,18 +69,18 @@
     ## Note that this step can take a long time when processing a lot of
     ## samples, and is recommended to be run on an HPC cluster, rather than
     ## locally.
-    message(paste0(
-        "Reading ", type, " transcript-level counts from ",
-        basename(files[[1L]]), " files using tximport ",
-        packageVersion("tximport"), "."
+    message(sprintf(
+        "Reading %s transcript-level counts from %s files using tximport %s.",
+        type, basename(files[[1L]]), packageVersion("tximport")
     ))
     if (countsFromAbundance != "no") {
-        message(paste0("Scaling transcripts using ", countsFromAbundance, "."))
+        message(sprintf("Scaling transcripts using %s.", countsFromAbundance))
     }
     if (identical(txOut, FALSE)) {
         message("Returning transcript abundance at gene level.")
     }
-
+    ## We're using a `do.call()` approach here so we can apply version-specific
+    ## tximport fixes, if necessary.
     args <- list(
         files = files,
         type = type,
@@ -88,25 +88,11 @@
         txOut = txOut,
         countsFromAbundance = countsFromAbundance,
         tx2gene = tx2gene,
-        ignoreTxVersion = ignoreTxVersion
+        ignoreTxVersion = ignoreTxVersion,
+        geneIdCol = "geneID",
+        txIdCol = "transcriptID"
     )
-
-    ## tximport version-specific settings.
-    ## This ensures backward compatibility with R 3.4.
-    if (packageVersion("tximport") < "1.10") {
-        args[["importer"]] <- readr::read_tsv
-    } else {
-        ## Defaults to `read_tsv()` if installed, don't need to set.
-        args[["importer"]] <- NULL
-        args[["existenceOptional"]] <- FALSE
-        args[["ignoreAfterBar"]] <- FALSE
-        ## Ensure that we're mapping these IDs correctly.
-        args[["geneIdCol"]] <- "geneID"
-        args[["txIdCol"]] <- "transcriptID"
-    }
-
     txi <- do.call(what = tximport, args = args)
-
     ## Assert checks before return.
     invisible(lapply(
         X = txi[c("abundance", "counts", "length")],
@@ -118,14 +104,13 @@
         }
     ))
     assert(.isTximportReturn(txi))
-
     txi
 }
 
 
 
 ## Detect if object is tximport list return.
-## Updated 2019-07-23.
+## Updated 2019-08-20.
 .isTximportReturn <- function(list) {
     assert(
         is.list(list),
@@ -140,18 +125,15 @@
             y = names(list)
         )
     )
-
     abundance <- list[["abundance"]]
     counts <- list[["counts"]]
     infReps <- list[["infReps"]]
     length <- list[["length"]]
     countsFromAbundance <- list[["countsFromAbundance"]]
-
     assert(
         identical(dimnames(abundance), dimnames(counts)),
         identical(dimnames(abundance), dimnames(length))
     )
-
     ## Inferential replicates added in v1.9.
     if (is.list(infReps) && hasLength(infReps)) {
         assert(
@@ -159,11 +141,9 @@
             identical(rownames(infReps[[1L]]), rownames(abundance))
         )
     }
-
     assert(
         isString(countsFromAbundance),
         isNonEmpty(countsFromAbundance)
     )
-
     TRUE
 }

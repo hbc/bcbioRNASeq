@@ -1,7 +1,8 @@
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit bioverbs::plotPCACovariates
-#' @note Updated 2019-08-07.
+#' @note Requires the DEGreport package to be installed.
+#' @note Updated 2019-08-20.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
@@ -31,7 +32,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-08-20.
 `plotPCACovariates,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -40,27 +41,28 @@ NULL
         ...
     ) {
         validObject(object)
-        assert(isAny(metrics, c("character", "logical")))
+        assert(
+            requireNamespace("DEGreport", quietly = TRUE),
+            isAny(metrics, c("character", "logical"))
+        )
         normalized <- match.arg(normalized)
-
         ## Get the normalized counts.
         counts <- counts(object, normalized = normalized)
-
-        ## Note that we're ungrouping the tibble here, otherwise the downstream
-        ## factor/numeric column selection won't work as expected.
-        data <- ungroup(metrics(object))
-        factors <- select_if(data, is.factor)
-        ## Drop columns that are all zeroes (not useful to plot).
-        ## @roryk Sometimes we are missing values for some samples but not
-        ## others; plotPCACovariates was failing in those cases when checking if
-        ## a column was a numeric. Here we ignore the NAs for numeric column
-        ## checking. Adding the `na.rm` here fixes the issue.
-        numerics <- data %>%
-            select_if(is.numeric) %>%
-            .[, colSums(., na.rm = TRUE) > 0L, drop = FALSE]
+        data <- metrics(object)
+        ## Get factor (metadata) columns.
+        keep <- which(bapply(data, is.factor))
+        factors <- data[, keep, drop = FALSE]
+        ## Drop columns that are all zeroes (not useful to plot). Sometimes we
+        ## are missing values for some samples but not others; plotPCACovariates
+        ## was failing in those cases when checking if a column was a numeric.
+        ## Here we ignore the NAs for numeric column checking. Adding the
+        ## `na.rm` here fixes the issue.
+        keep <- which(bapply(data, is.numeric))
+        numerics <- data[, keep, drop = FALSE]
+        keep <- which(colSums(numerics, na.rm = TRUE) > 0L)
+        numerics <- numerics[, keep, drop = FALSE]
         metadata <- cbind(factors, numerics)
         rownames(metadata) <- data[["sampleID"]]
-
         ## Select the metrics to use for plot.
         if (identical(metrics, TRUE)) {
             ## Sort columns alphabetically.
@@ -71,16 +73,15 @@ NULL
         } else if (is.character(metrics)) {
             col <- metrics
         }
-
+        ## Check for minimum number of metrics.
         if (length(col) < 2L) {
-            stop("plotPCACovariates() requires >= 2 metrics.")
+            stop("'plotPCACovariates()' requires >= 2 metrics.")
         }
         assert(isSubset(col, colnames(metadata)))
-        metadata <- metadata[, col, drop = FALSE]
-
+        metadata <- metadata[, col]
         ## Handle warnings in DEGreport more gracefully.
         withCallingHandlers(
-            expr = degCovariates(
+            expr = DEGreport::degCovariates(
                 counts = counts,
                 metadata = metadata,
                 ...

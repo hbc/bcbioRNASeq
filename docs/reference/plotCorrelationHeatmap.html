@@ -68,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.24</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.25</span>
       </span>
     </div>
 
@@ -159,9 +159,9 @@ Corresponds to factors describing the columns of the object.</p></td>
     <tr>
       <th>method</th>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Correlation coefficient (or covariance) method to be computed. Defaults to
-"<code>pearson</code>" but "<code>spearman</code>" or "<code>kendall</code>" can also be used. Refer to the
-<code><a href='https://rdrr.io/r/stats/cor.html'>stats::cor()</a></code> documentation for details.</p></td>
+Correlation coefficient (or covariance) method to be computed.
+Defaults to pearson, but spearman or kendall can also be used.
+Refer to the <code><a href='https://rdrr.io/r/stats/cor.html'>cor()</a></code> documentation for details.</p></td>
     </tr>
     <tr>
       <th>clusteringMethod</th>
@@ -239,7 +239,7 @@ Title.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating correlation matrix using pearson method.</span></div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating correlation matrix using spearman method.</span></div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating correlation matrix using 'pearson' method.</span></div><div class='img'><img src='plotCorrelationHeatmap-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>bcb</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"spearman"</span>)</div><div class='output co'>#&gt; <span class='message'>Using vst counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating correlation matrix using 'spearman' method.</span></div><div class='img'><img src='plotCorrelationHeatmap-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

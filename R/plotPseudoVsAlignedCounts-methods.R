@@ -16,12 +16,8 @@
 #'
 #' ## Individual genes.
 #' ## Checking the most expressed aligned genes here.
-#' genes <- assays(bcb) %>%
-#'     .[["aligned"]] %>%
-#'     rowSums() %>%
-#'     sort() %>%
-#'     tail(n = 2) %>%
-#'     names()
+#' aligned <- assay(bcb, i = "aligned")
+#' genes <- rowSums(aligned) %>% sort %>% tail(n = 2L) %>% names()
 #' plotPseudoVsAlignedCounts(bcb, genes = genes)
 NULL
 

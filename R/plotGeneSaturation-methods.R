@@ -1,7 +1,7 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotGeneSaturation
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-08-20.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -23,7 +23,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-08-20.
 `plotGeneSaturation,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -58,7 +58,7 @@ NULL
         ## Convert to per million, if desired.
         xLab <- "mapped reads"
         if (isTRUE(perMillion)) {
-            data <- mutate(data, mappedReads = !!sym("mappedReads") / 1e6L)
+            data[["mappedReads"]] <- data[["mappedReads"]] / 1e6L
             xLab <- paste(xLab, "per million")
         }
 

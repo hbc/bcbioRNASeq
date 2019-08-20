@@ -124,9 +124,9 @@ setAs(
     function(from) {
         validObject(from)
 
-        message(paste0(
-            "Generating DGEList with edgeR ",
-            packageVersion("edgeR"), "."
+        message(sprintf(
+            "Generating DGEList with edgeR %s.",
+            packageVersion("edgeR")
         ))
 
         ## Raw counts (i.e. txi$counts)

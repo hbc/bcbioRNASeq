@@ -48,7 +48,7 @@ test_that("Calculate DESeq2 transforms by default", {
     )
 })
 
-test_that("Allow the user to skip transforms, using `recalculate` argument", {
+test_that("Allow the user to skip transforms, using 'recalculate'", {
     expect_identical(
         object = assayNames(object[seq_len(nrow), , recalculate = FALSE]),
         expected = c(
