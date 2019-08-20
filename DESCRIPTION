@@ -116,14 +116,11 @@ Imports:
     edgeR,
     tximport,
     cowplot (>= 1.0),
-    dplyr (>= 0.8),
     ggplot2 (>= 3.2),
     rlang (>= 0.4),
     scales (>= 1.0),
     sessioninfo (>= 1.1),
-    stringr (>= 1.4),
     tibble (>= 2.1),
-    grid,
     methods,
     utils
 Suggests:

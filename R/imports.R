@@ -35,13 +35,11 @@
 #'   isFlag isGGScale isInt isInRange isNonEmpty isNonNegative isNumber
 #'   isPositive isProportion isString isSubset validNames validate
 #'   validateClasses
-#' @importFrom grid arrow unit
 #' @importFrom methods as as<- is new setAs setClass setMethod setValidity show
 #'   slot slot<- validObject .hasSlot
 #' @importFrom rlang !! sym
 #' @importFrom scales pretty_breaks
 #' @importFrom sessioninfo session_info
-#' @importFrom stringr str_match str_trunc
 #' @importFrom tximport tximport
 #' @importFrom utils capture.output globalVariables packageVersion
 NULL
