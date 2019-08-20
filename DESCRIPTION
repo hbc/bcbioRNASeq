@@ -120,7 +120,6 @@ Imports:
     rlang (>= 0.4),
     scales (>= 1.0),
     sessioninfo (>= 1.1),
-    tibble (>= 2.1),
     methods,
     utils
 Suggests:
