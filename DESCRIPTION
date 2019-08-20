@@ -118,8 +118,6 @@ Imports:
     cowplot (>= 1.0),
     dplyr (>= 0.8),
     ggplot2 (>= 3.2),
-    ggrepel (>= 0.8),
-    magrittr (>= 1.5),
     rlang (>= 0.4),
     scales (>= 1.0),
     sessioninfo (>= 1.1),
