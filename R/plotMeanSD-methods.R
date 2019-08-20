@@ -1,7 +1,8 @@
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
 #' @inherit bioverbs::plotMeanSD
-#' @note Updated 2019-08-07.
+#' @note Requires the vsn package to be installed.
+#' @note Updated 2019-08-20.
 #'
 #' @inheritParams bcbioRNASeq
 #' @inheritParams acidroxygen::params
@@ -40,7 +41,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-08-20.
 `plotMeanSD,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -50,15 +51,14 @@ NULL
     ) {
         validObject(object)
         assert(
+            requireNamespace("vsn", quietly = TRUE),
             isFlag(legend),
             isGGScale(fill, scale = "continuous", aes = "fill", nullOK = TRUE),
             isString(lineColor, nullOK = TRUE)
         )
-
         ## Determine which genes are non-zero, and should be included in plot.
         raw <- counts(object, normalized = FALSE)
         nonzero <- rowSums(raw) > 0L
-
         args <- list(
             sf =   list(log2 = FALSE, title = "DESeq2 size factor"),
             rlog = list(log2 = TRUE,  title = "DESeq2 rlog"),
@@ -66,14 +66,12 @@ NULL
             tmm =  list(log2 = FALSE, title = "edgeR TMM"),
             rle =  list(log2 = FALSE, title = "edgeR RLE")
         )
-
         normalized <- names(args)
         log2 <- vapply(
             X = args,
             FUN = function(x) x[["log2"]],
             FUN.VALUE = logical(1L)
         )
-
         ## Get the requested counts from object.
         assays <- mapply(
             normalized = normalized,
@@ -101,14 +99,12 @@ NULL
             USE.NAMES = TRUE
         )
         assays <- Filter(f = Negate(is.null), x = assays)
-
         titles <- vapply(
             X = args,
             FUN = function(x) x[["title"]],
             FUN.VALUE = character(1L)
         )
         titles <- titles[names(assays)]
-
         plotlist <- mapply(
             assay = assays,
             title = titles,
@@ -118,7 +114,7 @@ NULL
                 lineColor = lineColor
             ),
             FUN = function(assay, title, fill, legend, lineColor) {
-                p <- meanSdPlot(
+                p <- vsn::meanSdPlot(
                     x = assay,
                     ranks = TRUE,
                     plot = FALSE,
@@ -131,24 +127,20 @@ NULL
                 if (is(fill, "ScaleContinuous")) {
                     suppressMessages(p <- p + fill)
                 }
-
                 ## Improve the line aesthetics.
                 p[["layers"]][[2L]][["aes_params"]][["colour"]] <- lineColor
                 p[["layers"]][[2L]][["aes_params"]][["size"]] <- 1L
-
                 p
             },
             SIMPLIFY = FALSE,
             USE.NAMES = FALSE
         )
-
         ## Remove the plot (color) legend, if desired.
         if (!isTRUE(legend)) {
             plotlist <- lapply(plotlist, function(p) {
                 p <- p + theme(legend.position = "none")
             })
         }
-
         plot_grid(plotlist = plotlist)
     }
 
