@@ -16,7 +16,7 @@
 #' @importFrom acidplots acid_coord_flip acid_geom_abline  acid_geom_bar
 #'  acid_geom_label_repel acid_scale_y_continuous_nopad
 #'   plotCountsCorrelation plotCountsCorrelationHeatmap
-#'   plotFeaturesDetected plotPCA
+#'   plotFeaturesDetected
 #' @importFrom basejump Gene2Symbol Tx2Gene camelCase coerceS4ToList
 #'   convertGenesToSymbols detectLanes detectOrganism droplevels emptyRanges
 #'   encode formalsList import initDir interestingGroups interestingGroups<-
