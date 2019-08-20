@@ -10,6 +10,8 @@
 \S4method{counts}{bcbioRNASeq}(object, normalized = FALSE)
 }
 \arguments{
+\item{object}{Object.}
+
 \item{normalized}{\code{character(1)} or \code{logical(1)}.
 Which normalization method to apply:
 \itemize{

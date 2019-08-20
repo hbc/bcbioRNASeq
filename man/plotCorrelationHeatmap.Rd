@@ -33,9 +33,9 @@ Groups of interest to use for visualization.
 Corresponds to factors describing the columns of the object.}
 
 \item{method}{\code{character(1)}.
-Correlation coefficient (or covariance) method to be computed. Defaults to
-"\code{pearson}" but "\code{spearman}" or "\code{kendall}" can also be used. Refer to the
-\code{\link[stats:cor]{stats::cor()}} documentation for details.}
+Correlation coefficient (or covariance) method to be computed.
+Defaults to pearson, but spearman or kendall can also be used.
+Refer to the \code{\link[stats:cor]{cor()}} documentation for details.}
 
 \item{clusteringMethod}{\code{character(1)}.
 Clustering method. Accepts the same values as \code{\link[stats:hclust]{hclust()}}.}

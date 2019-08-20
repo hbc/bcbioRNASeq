@@ -9,14 +9,14 @@
 #' @importFrom BiocGenerics cbind colSums lapply sapply updateObject width
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
-#' @importFrom S4Vectors DataFrame Rle SimpleList as.data.frame complete.cases
-#'   decode getListElement head mcols mcols<- metadata metadata<- na.omit
+#' @importFrom S4Vectors DataFrame Rle SimpleList as.data.frame
+#'   getListElement head mcols mcols<- metadata metadata<-
 #' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
-#' @importFrom acidplots acid_geom_abline acid_geom_label acid_geom_label_repel
-#'   acid_coord_flip acid_geom_bar acid_scale_y_continuous_nopad
-#'   plotCorrelationHeatmap plotCountsCorrelation plotCountsCorrelationHeatmap
-#'   plotFeaturesDetected plotHeatmap plotPCA
+#' @importFrom acidplots acid_coord_flip acid_geom_abline  acid_geom_bar
+#'  acid_geom_label_repel acid_scale_y_continuous_nopad
+#'   plotCountsCorrelation plotCountsCorrelationHeatmap
+#'   plotFeaturesDetected plotPCA
 #' @importFrom basejump Gene2Symbol Tx2Gene camelCase coerceS4ToList
 #'   convertGenesToSymbols detectLanes detectOrganism droplevels emptyRanges
 #'   encode formalsList import initDir interestingGroups interestingGroups<-

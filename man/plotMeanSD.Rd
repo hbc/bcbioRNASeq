@@ -16,8 +16,19 @@ plotMeanSD(object, ...)
 \arguments{
 \item{object}{Object.}
 
+\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
+Desired ggplot2 fill scale. Must supply discrete values. When set to
+\code{NULL}, the default ggplot2 color palette will be used. If manual color
+definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
+
+To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
+}}
+
 \item{lineColor}{\code{character(1)}.
 Line color.}
+
+\item{legend}{\code{logical(1)}.
+Include plot legend.}
 
 \item{...}{Additional arguments.}
 }
