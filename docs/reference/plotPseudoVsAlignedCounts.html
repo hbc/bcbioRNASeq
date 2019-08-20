@@ -68,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.24</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.25</span>
       </span>
     </div>
 
@@ -166,12 +166,8 @@ intentionally error for datasets containing aligned counts in the primary
 <span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Censoring 29 genes.</span></div><div class='img'><img src='plotPseudoVsAlignedCounts-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Individual genes.</span>
 <span class='co'>## Checking the most expressed aligned genes here.</span>
-<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'>assays</span>(<span class='no'>bcb</span>) <span class='kw'>%&gt;%</span>
-    <span class='no'>.</span><span class='kw'>[[</span><span class='st'>"aligned"</span>]] <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>()
+<span class='no'>aligned</span> <span class='kw'>&lt;-</span> <span class='fu'>assay</span>(<span class='no'>bcb</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='st'>"aligned"</span>)
+<span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span>(<span class='no'>aligned</span>) <span class='kw'>%&gt;%</span> <span class='no'>sort</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2L</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>()
 <span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotPseudoVsAlignedCounts-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
