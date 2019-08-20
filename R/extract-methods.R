@@ -8,7 +8,7 @@
 #' @name extract
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @inherit base::Extract params references
-#' @note Updated 2019-08-12.
+#' @note Updated 2019-08-20.
 #'
 #' @inheritParams acidroxygen::params
 #' @param recalculate `logical(1)`.
@@ -49,7 +49,7 @@ NULL
 
 
 
-## Updated 2019-08-12.
+## Updated 2019-08-20.
 `extract,bcbioRNASeq` <-  # nolint
     function(
         x, i, j,
@@ -89,7 +89,6 @@ NULL
 
         ## Early return original object, if unmodified.
         if (identical(assay(rse), assay(x))) {
-            message("Returning unmodified.")
             return(x)
         }
 
@@ -129,6 +128,7 @@ NULL
         }
         ## Drop any `NULL` items in assays.
         assays <- Filter(f = Negate(is.null), x = assays)
+        assays(rse) <- assays
 
         ## Metadata ------------------------------------------------------------
         metadata <- metadata(rse)
@@ -137,14 +137,9 @@ NULL
         }
         ## Drop any `NULL` items in metadata.
         metadata <- Filter(f = Negate(is.null), x = metadata)
+        metadata(rse) <- metadata
 
         ## Return --------------------------------------------------------------
-        rse <- SummarizedExperiment(
-            assays = assays,
-            rowRanges = rowRanges,
-            colData = colData,
-            metadata = metadata
-        )
         rse <- droplevels(rse)
         bcb <- new(Class = "bcbioRNASeq", rse)
         validObject(bcb)
