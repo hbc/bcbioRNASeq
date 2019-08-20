@@ -30,7 +30,7 @@
 #' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
 #'   runDate sampleDirs
-#' @importFrom cowplot draw_plot ggdraw plot_grid
+#' @importFrom cowplot plot_grid
 #' @importFrom edgeR DGEList calcNormFactors cpm scaleOffset
 #' @importFrom ggplot2 aes annotation_logticks coord_fixed coord_flip
 #'   element_blank element_text expand_limits facet_wrap geom_bar geom_boxplot
