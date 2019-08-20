@@ -49,14 +49,18 @@ NULL
         ## Get the normalized counts.
         counts <- counts(object, normalized = normalized)
         data <- metrics(object)
-        factors <- data[, bapply(data, is.factor)]
+        ## Get factor (metadata) columns.
+        keep <- which(bapply(data, is.factor))
+        factors <- data[, keep, drop = FALSE]
         ## Drop columns that are all zeroes (not useful to plot). Sometimes we
         ## are missing values for some samples but not others; plotPCACovariates
         ## was failing in those cases when checking if a column was a numeric.
         ## Here we ignore the NAs for numeric column checking. Adding the
         ## `na.rm` here fixes the issue.
-        numerics <- data[, which(bapply(data, is.numeric)), ]
-        numerics <- numerics[, which(colSums(numerics, na.rm = TRUE) > 0L), ]
+        keep <- which(bapply(data, is.numeric))
+        numerics <- data[, keep, drop = FALSE]
+        keep <- which(colSums(numerics, na.rm = TRUE) > 0L)
+        numerics <- numerics[, keep, drop = FALSE]
         metadata <- cbind(factors, numerics)
         rownames(metadata) <- data[["sampleID"]]
         ## Select the metrics to use for plot.
