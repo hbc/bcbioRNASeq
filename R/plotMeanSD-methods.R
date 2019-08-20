@@ -119,10 +119,8 @@ NULL
                     ranks = TRUE,
                     plot = FALSE,
                     bins = 50L
-                ) %>%
-                    .[["gg"]] +
-                    ggtitle(paste(title, "(log2)"))
-
+                )
+                p <- p[["gg"]] + ggtitle(paste(title, "(log2)"))
                 ## Improve the fill aesthetics.
                 if (is(fill, "ScaleContinuous")) {
                     suppressMessages(p <- p + fill)
