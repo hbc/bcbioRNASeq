@@ -14,19 +14,14 @@
 #' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
 #' @importFrom acidplots acid_coord_flip acid_geom_abline  acid_geom_bar
-#'  acid_geom_label_repel acid_scale_y_continuous_nopad
-#'   plotCountsCorrelation plotCountsCorrelationHeatmap
-#'   plotFeaturesDetected
-#' @importFrom basejump Gene2Symbol Tx2Gene camelCase coerceS4ToList
-#'   convertGenesToSymbols detectLanes detectOrganism droplevels emptyRanges
-#'   encode formalsList import initDir interestingGroups interestingGroups<-
-#'   lanePattern makeGRangesFromEnsembl makeGRangesFromGFF makeNames
-#'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
-#'   markdownPlotlist matchArgsToDoCall matchInterestingGroups
-#'   matchesGene2Symbol meltCounts methodFormals metrics organism
-#'   prepareTemplate printString readSampleData readTx2Gene realpath removeNA
-#'   sampleData sampleData<- separator showSlotInfo standardizeCall
-#'   stripTranscriptVersions uniteInterestingGroups
+#'   acid_geom_label_repel acid_scale_y_continuous_nopad plotCountsCorrelation
+#'   plotCountsCorrelationHeatmap
+#' @importFrom basejump Tx2Gene camelCase detectLanes detectOrganism droplevels
+#'   emptyRanges encode formalsList import interestingGroups interestingGroups<-
+#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeSummarizedExperiment matchArgsToDoCall matchInterestingGroups
+#'   methodFormals metrics readSampleData readTx2Gene realpath sampleData
+#'   showSlotInfo standardizeCall stripTranscriptVersions
 #' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
 #'   runDate sampleDirs

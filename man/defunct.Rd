@@ -4,11 +4,14 @@
 \alias{defunct}
 \alias{loadRNASeq}
 \alias{plotCountDensity}
+\alias{prepareRNASeqTemplate}
 \title{Defunct functions}
 \usage{
 loadRNASeq(...)
 
 plotCountDensity(...)
+
+prepareRNASeqTemplate(...)
 }
 \arguments{
 \item{...}{Additional arguments.}

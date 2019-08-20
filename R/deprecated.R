@@ -38,11 +38,10 @@ plotCountDensity <- function(...) {
 
 
 ## v0.3.16 ======================================================================
-#' @rdname deprecated
+#' @rdname defunct
 #' @export
 prepareRNASeqTemplate <- function(...) {
-    .Deprecated("prepareTemplate(package = \"bcbioRNASeq\")")
-    prepareTemplate(package = "bcbioRNASeq", ...)
+    .Defunct("prepareTemplate(package = \"bcbioRNASeq\")")
 }
 
 
