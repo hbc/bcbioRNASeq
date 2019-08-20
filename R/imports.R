@@ -19,7 +19,7 @@
 #'   plotFeaturesDetected plotHeatmap plotPCA
 #' @importFrom basejump Gene2Symbol Tx2Gene camelCase coerceS4ToList
 #'   convertGenesToSymbols detectLanes detectOrganism droplevels emptyRanges
-#'   formalsList import initDir interestingGroups interestingGroups<-
+#'   encode formalsList import initDir interestingGroups interestingGroups<-
 #'   lanePattern makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames markdownHeader markdownList
 #'   markdownPlotlist matchArgsToDoCall matchInterestingGroups
