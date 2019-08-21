@@ -114,7 +114,7 @@ analysis." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>bcbio RNA-Seq data set</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/bcbioRNASeq.R'><code>R/bcbioRNASeq.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerators.R'><code>R/AllGenerators.R</code></a></small>
     <div class="hidden name"><code>bcbioRNASeq.Rd</code></div>
     </div>
 
@@ -401,11 +401,11 @@ possible.</p>
 #&gt; <span class='message'>  &gt; library(AnnotationHub)</span>
 #&gt; <span class='message'>  &gt; ah &lt;- AnnotationHub()</span>
 #&gt; <span class='message'>  &gt; edb &lt;- ah[["AH53222"]]</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: "Mus musculus"</span>
-#&gt; <span class='message'>  - Genome Build: "GRCm38"</span>
-#&gt; <span class='message'>  - Ensembl Release: 87L</span>
-#&gt; <span class='message'>  - Level: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneBiotype, geneName, seqnames.</span></div><div class='output co'>#&gt; <span class='message'>Arranging by 'geneID'.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM using 'DESeq2::fpkm()'.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.24
+#&gt; <span class='message'>  - Genome build: "GRCm38"</span>
+#&gt; <span class='message'>  - Ensembl release: 87L</span>
+#&gt; <span class='message'>  - Level: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneBiotype, geneName, seqnames.</span></div><div class='output co'>#&gt; <span class='message'>Arranging by 'geneID'.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM using 'DESeq2::fpkm()'.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.25
 #&gt; uploadDir: /data00/R/site-library/3.6/bcbioRNASeq/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-20
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-21
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -434,11 +434,11 @@ possible.</p>
 #&gt; <span class='message'>  &gt; library(AnnotationHub)</span>
 #&gt; <span class='message'>  &gt; ah &lt;- AnnotationHub()</span>
 #&gt; <span class='message'>  &gt; edb &lt;- ah[["AH53222"]]</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: "Mus musculus"</span>
-#&gt; <span class='message'>  - Genome Build: "GRCm38"</span>
-#&gt; <span class='message'>  - Ensembl Release: 87L</span>
-#&gt; <span class='message'>  - Level: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations: gene_name, gene_biotype, seq_coord_system, description, symbol, entrezid.</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, seqnames, transcriptBiotype.</span></div><div class='output co'>#&gt; <span class='message'>Arranging by 'transcriptID'.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.24
+#&gt; <span class='message'>  - Genome build: "GRCm38"</span>
+#&gt; <span class='message'>  - Ensembl release: 87L</span>
+#&gt; <span class='message'>  - Level: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations: gene_name, gene_biotype, seq_coord_system, description, symbol, entrezid.</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, seqnames, transcriptBiotype.</span></div><div class='output co'>#&gt; <span class='message'>Arranging by 'transcriptID'.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.25
 #&gt; uploadDir: /data00/R/site-library/3.6/bcbioRNASeq/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-20
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-21
 #&gt; level: transcripts
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
