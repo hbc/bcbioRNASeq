@@ -91,6 +91,14 @@ Correlation heatmap
 \note{
 Updated 2019-08-07.
 }
+\section{Methods (by class)}{
+
+\itemize{
+\item \code{SingleCellExperiment}: Applies \code{\link[=pseudobulk]{pseudobulk()}} calculation to
+average gene expression at sample level prior to plotting.
+}
+}
+
 \examples{
 data(bcb)
 plotCorrelationHeatmap(bcb, method = "pearson")

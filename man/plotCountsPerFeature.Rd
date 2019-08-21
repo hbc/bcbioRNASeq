@@ -97,6 +97,14 @@ for total RNA expression by sample, we expect the spread of the
 TMM-normalized counts per gene to be similar for every sample.
 }
 
+\section{Methods (by class)}{
+
+\itemize{
+\item \code{SingleCellExperiment}: Applies \code{\link[=aggregateCellsToSamples]{aggregateCellsToSamples()}}
+calculation to summarize at sample level prior to plotting.
+}
+}
+
 \examples{
 data(bcb)
 plotCountsPerFeature(bcb)
