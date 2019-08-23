@@ -133,13 +133,13 @@
 #' @param caller `character(1)`.
 #'   Expression caller:
 #'
-#'     - `"salmon"` (*default*): [Salmon][] alignment-free, quasi-mapped counts.
-#'     - `"kallisto"`: [Kallisto][] alignment-free, pseudo-aligned counts.
-#'     - `"sailfish"`: [Sailfish][] alignment-free, lightweight counts.
-#'     - `"star"`: [STAR][] (Spliced Transcripts Alignment to a Reference)
-#'       aligned counts.
-#'     - `"hisat2"`: [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
-#'       Transcripts) graph-based aligned counts.
+#'   - `"salmon"` (*default*): [Salmon][] alignment-free, quasi-mapped counts.
+#'   - `"kallisto"`: [Kallisto][] alignment-free, pseudo-aligned counts.
+#'   - `"sailfish"`: [Sailfish][] alignment-free, lightweight counts.
+#'   - `"star"`: [STAR][] (Spliced Transcripts Alignment to a Reference)
+#'      aligned counts.
+#'   - `"hisat2"`: [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
+#'     Transcripts) graph-based aligned counts.
 #'
 #'   [HISAT2]: https://ccb.jhu.edu/software/hisat2/
 #'   [Kallisto]: https://pachterlab.github.io/kallisto/
