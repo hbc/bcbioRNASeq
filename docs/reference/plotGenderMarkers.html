@@ -69,7 +69,7 @@ genes, and overall gene experssion for the X and Y chromosomes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.25</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.26</span>
       </span>
     </div>
 
@@ -201,7 +201,17 @@ Plot style.</p></td>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Updated 2019-08-07.</p>
+    <p>Updated 2019-08-27.</p>
+    
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+
+    
+
+<ul>
+<li><p><code>SingleCellExperiment</code>: Applies <code>pseudobulk()</code> calculation to average
+gene expression at sample level prior to plotting.</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -210,7 +220,8 @@ Plot style.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Error in (function (object, genes, strict = TRUE) : All genes failed to map: ENSMUSG00000086503, ENSMUSG00000069045, ENSMUSG00000056673, ENSMUSG00000068457.</span></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>bcb</span>)[<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>2L</span>)] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ENSMUSG00000086503"</span>, <span class='st'>"ENSMUSG00000069045"</span>)
+<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Some genes failed to map: ENSMUSG00000056673, ENSMUSG00000068457.</span></div><div class='output co'>#&gt; <span class='message'>2 / 2 features passed 'perRow' &gt;= 1 cutoff.</span></div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -220,6 +231,8 @@ Plot style.</p></td>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#note">Note</a></li>
+
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

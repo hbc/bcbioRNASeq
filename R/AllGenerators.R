@@ -133,13 +133,13 @@
 #' @param caller `character(1)`.
 #'   Expression caller:
 #'
-#'     - `"salmon"` (*default*): [Salmon][] alignment-free, quasi-mapped counts.
-#'     - `"kallisto"`: [Kallisto][] alignment-free, pseudo-aligned counts.
-#'     - `"sailfish"`: [Sailfish][] alignment-free, lightweight counts.
-#'     - `"star"`: [STAR][] (Spliced Transcripts Alignment to a Reference)
-#'       aligned counts.
-#'     - `"hisat2"`: [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
-#'       Transcripts) graph-based aligned counts.
+#'   - `"salmon"` (*default*): [Salmon][] alignment-free, quasi-mapped counts.
+#'   - `"kallisto"`: [Kallisto][] alignment-free, pseudo-aligned counts.
+#'   - `"sailfish"`: [Sailfish][] alignment-free, lightweight counts.
+#'   - `"star"`: [STAR][] (Spliced Transcripts Alignment to a Reference)
+#'      aligned counts.
+#'   - `"hisat2"`: [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
+#'     Transcripts) graph-based aligned counts.
 #'
 #'   [HISAT2]: https://ccb.jhu.edu/software/hisat2/
 #'   [Kallisto]: https://pachterlab.github.io/kallisto/
@@ -293,13 +293,12 @@ bcbioRNASeq <- function(
     assert(is.list(yaml))
 
     ## bcbio run information ---------------------------------------------------
-    dataVersions <- readDataVersions(file.path(projectDir, "data_versions.csv"))
+    dataVersions <-
+        importDataVersions(file.path(projectDir, "data_versions.csv"))
     assert(is(dataVersions, "DataFrame"))
-
     programVersions <-
-        readProgramVersions(file.path(projectDir, "programs.txt"))
+        importProgramVersions(file.path(projectDir, "programs.txt"))
     assert(is(programVersions, "DataFrame"))
-
     log <- import(file.path(projectDir, "bcbio-nextgen.log"))
     ## This step enables our minimal dataset inside the package to pass checks.
     tryCatch(
@@ -308,7 +307,6 @@ bcbioRNASeq <- function(
             message("'bcbio-nextgen.log' file is empty.")
         }
     )
-
     commandsLog <- import(file.path(projectDir, "bcbio-nextgen-commands.log"))
     ## This step enables our minimal dataset inside the package to pass checks.
     tryCatch(
@@ -319,7 +317,7 @@ bcbioRNASeq <- function(
     )
 
     ## Transcript-to-gene mappings ---------------------------------------------
-    tx2gene <- readTx2Gene(
+    tx2gene <- importTx2Gene(
         file = file.path(projectDir, "tx2gene.csv"),
         organism = organism,
         genomeBuild = genomeBuild,
@@ -341,9 +339,8 @@ bcbioRNASeq <- function(
         if (file.exists(sampleMetadataFile)) {
             sampleMetadataFile <- realpath(sampleMetadataFile)
         }
-        ## User-defined external file.
-        ## Note that `readSampleData()` also supports URLs.
-        sampleData <- readSampleData(file = sampleMetadataFile, lanes = lanes)
+        ## User-defined metadata file.
+        sampleData <- importSampleData(file = sampleMetadataFile, lanes = lanes)
     } else {
         ## Automatic metadata from YAML file.
         sampleData <- getSampleDataFromYAML(yaml)

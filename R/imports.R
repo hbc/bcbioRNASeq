@@ -6,24 +6,24 @@
 #'
 #' @importMethodsFrom basejump coerce
 #'
-#' @importFrom BiocGenerics cbind colSums lapply sapply updateObject width
+#' @importFrom BiocGenerics colSums rowSums updateObject
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
-#' @importFrom S4Vectors DataFrame Rle SimpleList as.data.frame
-#'   getListElement head mcols mcols<- metadata metadata<-
+#' @importFrom S4Vectors DataFrame Rle SimpleList as.data.frame cbind do.call
+#'   getListElement head lapply mcols mcols<- metadata metadata<- sapply width
 #' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
 #' @importFrom acidplots acid_coord_flip acid_geom_abline  acid_geom_bar
 #'   acid_geom_label_repel acid_scale_y_continuous_nopad plotCountsCorrelation
 #'   plotCountsCorrelationHeatmap
 #' @importFrom basejump Tx2Gene camelCase detectLanes detectOrganism droplevels
-#'   emptyRanges encode formalsList import interestingGroups interestingGroups<-
-#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
-#'   makeSummarizedExperiment matchArgsToDoCall matchInterestingGroups
-#'   methodFormals metrics readSampleData readTx2Gene realpath sampleData
+#'   emptyRanges encode formalsList import importSampleData importTx2Gene
+#'   interestingGroups interestingGroups<- makeGRangesFromEnsembl
+#'   makeGRangesFromGFF makeNames makeSummarizedExperiment matchArgsToDoCall
+#'   matchInterestingGroups methodFormals metrics realpath sampleData
 #'   showSlotInfo standardizeCall stripTranscriptVersions
 #' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
-#'   getSampleDataFromYAML projectDir readDataVersions readProgramVersions
+#'   getSampleDataFromYAML importDataVersions importProgramVersions projectDir
 #'   runDate sampleDirs
 #' @importFrom cowplot plot_grid
 #' @importFrom edgeR DGEList calcNormFactors cpm scaleOffset
