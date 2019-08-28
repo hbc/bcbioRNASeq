@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.3.25
-Date: 2019-08-20
+Version: 0.3.26
+Date: 2019-08-27
 Authors@R: c(
     person(
         given = "Michael",
@@ -101,20 +101,20 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
 Depends:
-    R (>= 3.5),
-    SummarizedExperiment,
-    basejump (>= 0.11.8)
+    R (>= 3.6),
+    SummarizedExperiment (>= 1.14),
+    basejump (>= 0.11.11)
 Imports:
-    DESeqAnalysis (>= 0.2.4),
-    acidplots (>= 0.2.12),
-    bcbioBase (>= 0.6.9),
-    bioverbs (>= 0.2.5),
-    goalie (>= 0.3.5),
-    BiocGenerics,
-    DESeq2,
-    S4Vectors,
-    edgeR,
-    tximport,
+    DESeqAnalysis (>= 0.2.5),
+    acidplots (>= 0.2.14),
+    bcbioBase (>= 0.6.10),
+    bioverbs (>= 0.2.7),
+    goalie (>= 0.3.6),
+    BiocGenerics (>= 0.30),
+    DESeq2 (>= 1.24),
+    S4Vectors (>= 0.22),
+    edgeR (>= 3.26),
+    tximport (>= 1.12),
     cowplot (>= 1.0),
     ggplot2 (>= 3.2),
     rlang (>= 0.4),
@@ -124,21 +124,21 @@ Imports:
     utils
 Suggests:
     acidroxygen (>= 0.1),
-    BiocStyle,
-    DEGreport,
-    DOSE,
-    EnsDb.Hsapiens.v75,
-    clusterProfiler,
-    hexbin,
-    org.Hs.eg.db,
-    org.Mm.eg.db,
-    pathview,
-    rhdf5,
-    vsn,
+    BiocStyle (>= 2.12),
+    DEGreport (>= 1.20),
+    DOSE (>= 3.10),
+    EnsDb.Hsapiens.v75 (>= 2.99),
+    clusterProfiler (>= 3.12),
+    hexbin (>= 1.27),
+    org.Hs.eg.db (>= 3.8),
+    org.Mm.eg.db (>= 3.8),
+    pathview (>= 1.24),
+    rhdf5 (>= 2.28),
+    vsn (>= 3.52),
     patrick (>= 0.0.1),
-    rmarkdown (>= 1.14),
+    rmarkdown (>= 1.15),
     roxygen2 (>= 6.1),
-    testthat (>= 2.1),
+    testthat (>= 2.2),
     tidyverse (>= 1.2),
     viridis (>= 0.5)
 Remotes:
