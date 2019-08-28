@@ -57,7 +57,7 @@ conda install -c bioconda r-bcbiornaseq
 ```r
 library(bcbioRNASeq)
 object <- bcbioRNASeq(
-    uploadDir = "bcbio_rnaseq_run/final",
+    uploadDir = file.path("bcbio", "final"),
     interestingGroups = c("genotype", "treatment"),
     organism = "Homo sapiens"
 )

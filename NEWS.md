@@ -1,3 +1,27 @@
+## bcbioRNASeq 0.3.26 (2019-08-27)
+
+### Minor changes
+
+- Now requiring R 3.6, as we near a candidate Bioconductor release.
+- Updated basejump dependencies.
+
+## bcbioRNASeq 0.3.25 (2019-08-20)
+
+### Major changes
+
+- Made subsetting factor for extract (`[`) operations.
+- `updateObject`: Improved `rowRanges` handling.
+
+### Minor changes
+
+- `bcbioRNASeq` generator now captures call using `standardizeCall` instead of
+  `match.call`, and automatically expands all default arguments.
+- Improved NAMESPACE and basejump dependencies.
+- Made vsn and DEGreport packages optional, to reduce the number of dependencies
+  required for installation.
+- `plotPCACovariates`: Reworked internal code to not depend on dplyr.
+- Removed internal code dependencies on magrittr pipe.
+
 ## bcbioRNASeq 0.3.24 (2019-08-12)
 
 ### Minor changes

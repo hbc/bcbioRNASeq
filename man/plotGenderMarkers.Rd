@@ -65,7 +65,7 @@ This is a convenience function that quickly plots known sexually dimorphic
 genes, and overall gene experssion for the X and Y chromosomes.
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-08-27.
 }
 \section{Methods (by class)}{
 
@@ -77,6 +77,7 @@ gene expression at sample level prior to plotting.
 
 \examples{
 data(bcb)
+rownames(bcb)[seq_len(2L)] <- c("ENSMUSG00000086503", "ENSMUSG00000069045")
 plotGenderMarkers(bcb)
 }
 \seealso{

@@ -102,12 +102,12 @@ Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 3.6),
-    SummarizedExperiment,
+    SummarizedExperiment (>= 1.14),
     basejump (>= 0.11.11)
 Imports:
     DESeqAnalysis (>= 0.2.5),
     acidplots (>= 0.2.14),
-    bcbioBase (>= 0.6.9),
+    bcbioBase (>= 0.6.10),
     bioverbs (>= 0.2.7),
     goalie (>= 0.3.6),
     BiocGenerics (>= 0.30),
@@ -130,6 +130,7 @@ Suggests:
     EnsDb.Hsapiens.v75 (>= 2.99),
     clusterProfiler (>= 3.12),
     hexbin (>= 1.27),
+    knitr (>= 1.24),
     org.Hs.eg.db (>= 3.8),
     org.Mm.eg.db (>= 3.8),
     pathview (>= 1.24),

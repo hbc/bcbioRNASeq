@@ -70,7 +70,7 @@ analysis." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.25</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.26</span>
       </span>
     </div>
 
@@ -154,14 +154,15 @@ be loaded at gene level.</p></td>
     <tr>
       <th>caller</th>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Expression caller:</p><pre>- `"salmon"` (*default*): [Salmon][] alignment-free, quasi-mapped counts.
-- `"kallisto"`: [Kallisto][] alignment-free, pseudo-aligned counts.
-- `"sailfish"`: [Sailfish][] alignment-free, lightweight counts.
-- `"star"`: [STAR][] (Spliced Transcripts Alignment to a Reference)
-  aligned counts.
-- `"hisat2"`: [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
-  Transcripts) graph-based aligned counts.
-</pre></td>
+Expression caller:</p><ul>
+<li><p><code>"salmon"</code> (<em>default</em>): <a href='https://combine-lab.github.io/salmon/'>Salmon</a> alignment-free, quasi-mapped counts.</p></li>
+<li><p><code>"kallisto"</code>: <a href='https://pachterlab.github.io/kallisto/'>Kallisto</a> alignment-free, pseudo-aligned counts.</p></li>
+<li><p><code>"sailfish"</code>: <a href='http://www.cs.cmu.edu/~ckingsf/software/sailfish/'>Sailfish</a> alignment-free, lightweight counts.</p></li>
+<li><p><code>"star"</code>: <a href='https://github.com/alexdobin/STAR/'>STAR</a> (Spliced Transcripts Alignment to a Reference)
+aligned counts.</p></li>
+<li><p><code>"hisat2"</code>: <a href='https://ccb.jhu.edu/software/hisat2/'>HISAT2</a> (Hierarchical Indexing for Spliced Alignment of
+Transcripts) graph-based aligned counts.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>samples</th>
@@ -403,9 +404,9 @@ possible.</p>
 #&gt; <span class='message'>  &gt; edb &lt;- ah[["AH53222"]]</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: "Mus musculus"</span>
 #&gt; <span class='message'>  - Genome build: "GRCm38"</span>
 #&gt; <span class='message'>  - Ensembl release: 87L</span>
-#&gt; <span class='message'>  - Level: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneBiotype, geneName, seqnames.</span></div><div class='output co'>#&gt; <span class='message'>Arranging by 'geneID'.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM using 'DESeq2::fpkm()'.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.25
-#&gt; uploadDir: /data00/R/site-library/3.6/bcbioRNASeq/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-21
+#&gt; <span class='message'>  - Level: "genes"</span></div><div class='output co'>#&gt; <span class='message'>Defining 'broadClass' using: geneBiotype, geneName, seqnames.</span></div><div class='output co'>#&gt; <span class='message'>Arranging by 'geneID'.</span></div><div class='output co'>#&gt; <span class='message'>50143 genes detected.</span></div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.24.0.</span></div><div class='output co'>#&gt; <span class='message'>Calculating normalized counts.</span></div><div class='output co'>#&gt; <span class='message'>Calculating transformations.</span></div><div class='output co'>#&gt; <span class='message'>using pre-existing size factors</span></div><div class='output co'>#&gt; <span class='message'>estimating dispersions</span></div><div class='output co'>#&gt; <span class='message'>gene-wise dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>mean-dispersion relationship</span></div><div class='output co'>#&gt; <span class='message'>final dispersion estimates</span></div><div class='output co'>#&gt; <span class='message'>fitting model and testing</span></div><div class='output co'>#&gt; <span class='message'>Applying variance-stabilizing transformation.</span></div><div class='output co'>#&gt; <span class='message'>Calculating FPKM using 'DESeq2::fpkm()'.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.26
+#&gt; uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.6/bcbioRNASeq/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-27
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
@@ -436,9 +437,9 @@ possible.</p>
 #&gt; <span class='message'>  &gt; edb &lt;- ah[["AH53222"]]</span></div><div class='output co'>#&gt; <span class='message'>Making GRanges from EnsDb object.</span></div><div class='output co'>#&gt; <span class='message'>  - Organism: "Mus musculus"</span>
 #&gt; <span class='message'>  - Genome build: "GRCm38"</span>
 #&gt; <span class='message'>  - Ensembl release: 87L</span>
-#&gt; <span class='message'>  - Level: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations: gene_name, gene_biotype, seq_coord_system, description, symbol, entrezid.</span></div><div class='output co'>#&gt; <span class='message'>Defining broadClass using: geneName, seqnames, transcriptBiotype.</span></div><div class='output co'>#&gt; <span class='message'>Arranging by 'transcriptID'.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.25
-#&gt; uploadDir: /data00/R/site-library/3.6/bcbioRNASeq/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-21
+#&gt; <span class='message'>  - Level: "transcripts"</span></div><div class='output co'>#&gt; <span class='message'>Merging gene-level annotations: gene_name, gene_biotype, seq_coord_system, description, symbol, entrezid.</span></div><div class='output co'>#&gt; <span class='message'>Defining 'broadClass' using: geneName, seqnames, transcriptBiotype.</span></div><div class='output co'>#&gt; <span class='message'>Arranging by 'transcriptID'.</span></div><div class='output co'>#&gt; <span class='message'>124168 transcripts detected.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>object</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.26
+#&gt; uploadDir: /Users/mike/R/x86_64-apple-darwin15.6.0-library/3.6/bcbioRNASeq/extdata/bcbio
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-08-27
 #&gt; level: transcripts
 #&gt; caller: salmon
 #&gt; organism: Mus musculus

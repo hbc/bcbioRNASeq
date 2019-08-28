@@ -1,7 +1,7 @@
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
 #' @inherit acidplots::plotGenderMarkers
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-08-27.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
@@ -9,6 +9,7 @@
 #'
 #' @examples
 #' data(bcb)
+#' rownames(bcb)[seq_len(2L)] <- c("ENSMUSG00000086503", "ENSMUSG00000069045")
 #' plotGenderMarkers(bcb)
 NULL
 

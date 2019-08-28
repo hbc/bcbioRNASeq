@@ -1,9 +1,8 @@
 context("plotGenderMarkers")
 
-## Current minimal example doesn't contain dimorphic genes.
 test_that("bcbioRNASeq", {
-    expect_message(
-        object = plotGenderMarkers(object),
-        regexp = "ENSMUSG"
-    )
+    rownames(object)[seq_len(2L)] <-
+        c("ENSMUSG00000086503", "ENSMUSG00000069045")
+    p <- plotGenderMarkers(object)
+    expect_s3_class(p, "ggplot")
 })
