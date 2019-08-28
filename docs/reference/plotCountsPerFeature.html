@@ -69,7 +69,7 @@ unless the library sizes or total RNA expression are different." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.25</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.26</span>
       </span>
     </div>
 
@@ -128,10 +128,10 @@ unless the library sizes or total RNA expression are different.</p>
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCountsPerFeature</span>(<span class='no'>object</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tmm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>),
-  <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>minCountsMethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"perFeature"</span>, <span class='st'>"absolute"</span>),
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"boxplot"</span>, <span class='st'>"density"</span>, <span class='st'>"jitter"</span>),
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.color.discrete"</span>, <span class='kw'>default</span> <span class='kw'>=</span>
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tmm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>), <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>minMethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"perRow"</span>, <span class='st'>"absolute"</span>), <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"boxplot"</span>, <span class='st'>"density"</span>, <span class='st'>"jitter"</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span>
+  <span class='st'>"acid.color.discrete"</span>, <span class='kw'>default</span> <span class='kw'>=</span>
   <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/acidplots/man/synesthesia.html'>scale_colour_synesthesia_d</a></span>()), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span>
   <span class='st'>"acid.fill.discrete"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/acidplots/man/synesthesia.html'>scale_fill_synesthesia_d</a></span>()),
   <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.flip"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
@@ -155,17 +155,18 @@ Type of normalized counts to visualize:</p><ul>
 </ul></td>
     </tr>
     <tr>
-      <th>minCounts</th>
+      <th>min</th>
       <td><p><code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code> or <code>NULL</code>.
-Minimum count threshold to apply. Disable with <code>NULL</code>. Filters using
-"greater than or equal to" logic internally. Note that this threshold gets
-applied prior to logarithmic transformation, when <code>trans</code> argument applies.</p></td>
+Minimum count threshold to apply. Filters using "greater than or equal to"
+logic internally. Note that this threshold gets applied prior to
+logarithmic transformation, when <code>trans</code> argument applies.</p></td>
     </tr>
     <tr>
-      <th>minCountsMethod</th>
+      <th>minMethod</th>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
+Only applies when <code>min</code> argument is numeric.
 Uses <code><a href='https://rdrr.io/r/base/match.arg.html'>match.arg()</a></code>.</p><ul>
-<li><p><code>perFeature</code>: <em>Recommended</em>. Applies cutoff per row feature (i.e. gene).
+<li><p><code>perRow</code>: <em>Recommended</em>. Applies cutoff per row (i.e. gene).
 Internally, <code><a href='https://rdrr.io/r/base/colSums.html'>rowSums()</a></code> values are checked against this
 cutoff threshold prior to the melt operation.</p></li>
 <li><p><code>absolute</code>: Applies hard cutoff to <code>counts</code> column after the melt
@@ -254,7 +255,7 @@ calculation to summarize at sample level prior to plotting.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotCountsPerFeature</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='output co'>#&gt; <span class='message'>89 / 100 features passed minimum 'rowSums()' &gt;= 1 cutoff.</span></div><div class='output co'>#&gt; <span class='message'>Applying 'log2(x + 1L)' transformation.</span></div><div class='img'><img src='plotCountsPerFeature-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotCountsPerFeature</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='output co'>#&gt; <span class='message'>89 / 100 features passed 'perRow' &gt;= 1 cutoff.</span></div><div class='output co'>#&gt; <span class='message'>Applying 'log2(x + 1L)' transformation.</span></div><div class='img'><img src='plotCountsPerFeature-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

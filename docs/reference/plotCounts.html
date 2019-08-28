@@ -68,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.25</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.26</span>
       </span>
     </div>
 
@@ -212,6 +212,17 @@ Plot style.</p></td>
 
     <p>Updated 2019-08-07.</p>
     
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+
+    
+
+<ul>
+<li><p><code>DESeqDataSet</code>: Automatically plots normalized counts. Arguments pass
+through to <code>SummarizedExperiment</code> method, but <code>assay</code> and <code>countsAxisLabel</code>
+are automatic.</p></li>
+</ul>
+
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/DESeq2/man/plotCounts.html'>DESeq2::plotCounts()</a></code>.</p></div>
@@ -230,12 +241,12 @@ Plot style.</p></td>
     <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneIDs</span>,
     <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
     <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"facet"</span>
-)</div><div class='img'><img src='plotCounts-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCounts</span>(
+)</div><div class='output co'>#&gt; <span class='message'>6 / 6 features passed 'perRow' &gt;= 1 cutoff.</span></div><div class='img'><img src='plotCounts-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCounts</span>(
     <span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>bcb</span>,
     <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneNames</span>,
     <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='st'>"vst"</span>,
     <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"wide"</span>
-)</div><div class='img'><img src='plotCounts-2.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>6 / 6 features passed 'perRow' &gt;= 1 cutoff.</span></div><div class='img'><img src='plotCounts-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -245,6 +256,8 @@ Plot style.</p></td>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#note">Note</a></li>
+
+      <li><a href="#methods-by-class-">Methods (by class)</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
