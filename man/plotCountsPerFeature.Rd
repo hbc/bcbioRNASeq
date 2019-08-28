@@ -9,10 +9,10 @@
 plotCountsPerFeature(object, ...)
 
 \S4method{plotCountsPerFeature}{bcbioRNASeq}(object,
-  normalized = c("tmm", "vst", "rlog", "rle", "tpm", "fpkm"),
-  minCounts = 1L, minCountsMethod = c("perFeature", "absolute"),
-  interestingGroups = NULL, geom = c("boxplot", "density", "jitter"),
-  color = getOption(x = "acid.color.discrete", default =
+  normalized = c("tmm", "vst", "rlog", "rle", "tpm", "fpkm"), min = 1L,
+  minMethod = c("perRow", "absolute"), interestingGroups = NULL,
+  geom = c("boxplot", "density", "jitter"), color = getOption(x =
+  "acid.color.discrete", default =
   acidplots::scale_colour_synesthesia_d()), fill = getOption(x =
   "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
   flip = getOption(x = "acid.flip", default = TRUE),
@@ -30,15 +30,16 @@ Type of normalized counts to visualize:
 \item \code{vst}: DESeq2 log2 variance stabilizing transformation.
 }}
 
-\item{minCounts}{\code{integer(1)} or \code{NULL}.
-Minimum count threshold to apply. Disable with \code{NULL}. Filters using
-"greater than or equal to" logic internally. Note that this threshold gets
-applied prior to logarithmic transformation, when \code{trans} argument applies.}
+\item{min}{\code{integer(1)} or \code{NULL}.
+Minimum count threshold to apply. Filters using "greater than or equal to"
+logic internally. Note that this threshold gets applied prior to
+logarithmic transformation, when \code{trans} argument applies.}
 
-\item{minCountsMethod}{\code{character(1)}.
+\item{minMethod}{\code{character(1)}.
+Only applies when \code{min} argument is numeric.
 Uses \code{\link[base:match.arg]{match.arg()}}.
 \itemize{
-\item \code{perFeature}: \emph{Recommended}. Applies cutoff per row feature (i.e. gene).
+\item \code{perRow}: \emph{Recommended}. Applies cutoff per row (i.e. gene).
 Internally, \code{\link[base:rowSums]{rowSums()}} values are checked against this
 cutoff threshold prior to the melt operation.
 \item \code{absolute}: Applies hard cutoff to \code{counts} column after the melt
