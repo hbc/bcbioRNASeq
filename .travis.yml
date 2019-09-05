@@ -20,9 +20,6 @@ jobs:
       name: "bioc-3.9"
       script: image="r-bcbio" tag="bioc-3.9" ./.Rcheck/docker
     - stage: test
-      name: "bioc-3.8"
-      script: image="r-bcbio" tag="bioc-3.8" ./.Rcheck/docker
-    - stage: test
       name: "bioc-devel"
       script: image="r-bcbio" tag="bioc-devel" ./.Rcheck/docker
 
