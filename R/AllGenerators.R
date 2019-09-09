@@ -340,7 +340,11 @@ bcbioRNASeq <- function(
             sampleMetadataFile <- realpath(sampleMetadataFile)
         }
         ## User-defined metadata file.
-        sampleData <- importSampleData(file = sampleMetadataFile, lanes = lanes)
+        sampleData <- importSampleData(
+            file = sampleMetadataFile,
+            lanes = lanes,
+            pipeline = "bcbio"
+        )
     } else {
         ## Automatic metadata from YAML file.
         sampleData <- getSampleDataFromYAML(yaml)
