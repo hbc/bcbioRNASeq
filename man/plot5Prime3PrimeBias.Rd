@@ -64,7 +64,7 @@ transcript.
 }
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-13.
 }
 \examples{
 data(bcb)

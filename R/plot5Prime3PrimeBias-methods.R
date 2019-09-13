@@ -1,7 +1,7 @@
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::plot5Prime3PrimeBias
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-13.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -22,7 +22,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-13.
 `plot5Prime3PrimeBias,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -40,9 +40,7 @@ NULL
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
-
         data <- metrics(object)
-
         ## The formatting of this column can vary depending on the version of
         ## `camelCase()` used. This grep match fix was added in v0.2.7.
         yCol <- grep(
@@ -51,7 +49,6 @@ NULL
             ignore.case = TRUE,
             value = TRUE
         )
-
         p <- ggplot(
             data = data,
             mapping = aes(
@@ -68,19 +65,19 @@ NULL
                 colour = paste(interestingGroups, collapse = ":\n")
             ) +
             acid_geom_abline(yintercept = 1L)
-
+        ## Color.
         if (is(color, "ScaleDiscrete")) {
             p <- p + color
         }
-
+        ## Flip.
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
         }
-
+        ## Hide sample name legend.
         if (identical(interestingGroups, "sampleName")) {
             p <- p + guides(color = FALSE)
         }
-
+        ## Return.
         p
     }
 
