@@ -1,3 +1,7 @@
+## nolint start
+
+
+
 context("F1000 workflow paper")
 
 ## FIXME Switch paper to use `deg()` instead of `significants()`.
@@ -196,3 +200,7 @@ dotplot(ego, showCategory = 25)
 ## Enrichment plot of top 25.
 ## FIXME This is no longer in clusterProfiler...
 enrichMap(ego, n = 25, vertex.label.cex = 0.5)
+
+
+
+## nolint end
