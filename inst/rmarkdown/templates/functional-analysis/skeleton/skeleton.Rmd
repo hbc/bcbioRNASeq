@@ -1,7 +1,7 @@
 ---
 ## Alternatively, consider using the pfgsea package for fast preranked GSEA.
 ## We're setting mouse genome here by default, to follow the vignette example.
-## Updated 2019-07-25.
+## Updated 2019-09-13.
 params:
   title: "Functional analysis"
   ## DESeqDataSet
@@ -69,6 +69,31 @@ invisible(lapply(
         stopifnot(require(package, character.only = TRUE))
     }
 ))
+
+## FIXME There's a logical coercion error in DOSE.
+## Report this issue to package author.
+## 
+##  ----------- FAILURE REPORT --------------
+##  --- failure: length > 1 in coercion to logical ---
+##  --- srcref ---
+## :
+##  --- package (from environment) ---
+## DOSE
+##  --- call from context ---
+## build_Anno(GO2GENE, get_GO2TERM_table())
+##  --- call from argument ---
+## missing(path2name) || is.null(path2name) || is.na(path2name)
+##  --- R stacktrace ---
+## where 1: build_Anno(GO2GENE, get_GO2TERM_table())
+## where 2: get_GO_data(OrgDb, ont, keyType)
+## where 3: enrichGO(gene = sig_genes, OrgDb = "org.Mm.eg.db", keyType = "ENSEMBL",
+##     ont = "BP", universe = all_genes, qvalueCutoff = 0.05, readable = TRUE)
+##
+##  --- value of length: 90100 type: logical ---
+Sys.setenv(
+    "_R_CHECK_LENGTH_1_CONDITION_" = "false",
+    "_R_CHECK_LENGTH_1_LOGIC2_" = "false"
+)
 ```
 
 ```{r check-db-codes}
