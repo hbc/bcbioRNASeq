@@ -48,7 +48,7 @@ reference genome. Low mapping rates are indicative of sample contamination,
 poor sequencing quality or other artifacts.
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-15.
 }
 \examples{
 data(bcb)

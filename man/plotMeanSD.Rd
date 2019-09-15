@@ -9,9 +9,11 @@
 plotMeanSD(object, ...)
 
 \S4method{plotMeanSD}{bcbioRNASeq}(object,
-  fill = ggplot2::scale_fill_gradient(low = "grey25", high = "purple"),
-  lineColor = "darkorange", legend = getOption(x = "acid.legend",
-  default = TRUE))
+  fill = ggplot2::scale_fill_gradient(low =
+  acidplots::lightPalette[["gray"]], high =
+  acidplots::lightPalette[["purple"]]),
+  lineColor = acidplots::lightPalette[["orange"]], legend = getOption(x
+  = "acid.legend", default = TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -39,7 +41,7 @@ Include plot legend.}
 Plot row standard deviations vs. row means
 }
 \details{
-\code{vsn::meanSdPlot()} wrapper that plots count transformations on a log2 scale.
+\code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}} wrapper that plots count transformations on a log2 scale.
 \itemize{
 \item DESeq2 log2: log2 library size factor-adjusted normalized counts.
 \item DESeq2 rlog: \strong{r}egularized \strong{log} transformation.
@@ -50,7 +52,7 @@ Plot row standard deviations vs. row means
 \note{
 Requires the vsn package to be installed.
 
-Updated 2019-08-20.
+Updated 2019-09-15.
 }
 \examples{
 data(bcb)

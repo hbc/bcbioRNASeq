@@ -47,7 +47,7 @@ Title.}
 The majority of reads should map to exons and not introns.
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-15.
 }
 \examples{
 data(bcb)

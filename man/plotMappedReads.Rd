@@ -50,7 +50,7 @@ Title.}
 The number of mapped reads should correspond to the number of total reads.
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-15.
 }
 \examples{
 data(bcb)

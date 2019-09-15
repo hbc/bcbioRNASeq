@@ -47,7 +47,7 @@ Title.}
 Ideally, at least 60 percent of total reads should map to exons for RNA-seq.
 }
 \note{
-Updated 2019-08-20.
+Updated 2019-09-15.
 }
 \examples{
 data(bcb)
