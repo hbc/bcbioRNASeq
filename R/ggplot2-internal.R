@@ -6,12 +6,14 @@
 #' @noRd
 .dynamicTrans <- function(object, normalized, ...) {
     validObject(object)
+    normalized <- match.arg(arg = normalized, choices = normalizedCounts)
     dots <- list(...)
     assert(areDisjointSets(c("countsAxisLabel", "trans"), names(dots)))
-    normalized <- match.arg(arg = normalized, choices = normalizedCounts)
+    countsAxisLabel <- paste(normalized, "counts")
     ## Check for DESeqTransform that are already log2 scale and update `trans`.
     if (normalized %in% c("rlog", "vst")) {
         trans <- "identity"
+        countsAxisLabel <- paste(countsAxisLabel, "(log2)")
     } else {
         trans <- "log2"
     }
@@ -21,9 +23,7 @@
     names(assays) <- normalized
     rse <- as(object, "RangedSummarizedExperiment")
     assays(rse) <- assays
-    ## Set the counts axis label.
-    countsAxisLabel <- paste(normalized, "counts")
-    ## Return.
+    ## Return arguments list.
     out <- list(
         object = rse,
         trans = trans,
