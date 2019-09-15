@@ -4,19 +4,15 @@
 \name{plotCountsPerFeature}
 \alias{plotCountsPerFeature}
 \alias{plotCountsPerFeature,bcbioRNASeq-method}
+\alias{plotCountDensity}
 \title{Plot counts per feature}
 \usage{
 plotCountsPerFeature(object, ...)
 
 \S4method{plotCountsPerFeature}{bcbioRNASeq}(object,
-  normalized = c("tmm", "vst", "rlog", "rle", "tpm", "fpkm"), min = 1L,
-  minMethod = c("perRow", "absolute"), interestingGroups = NULL,
-  geom = c("boxplot", "density", "jitter"), color = getOption(x =
-  "acid.color.discrete", default =
-  acidplots::scale_colour_synesthesia_d()), fill = getOption(x =
-  "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
-  flip = getOption(x = "acid.flip", default = TRUE),
-  title = "Counts per feature")
+  normalized = c("tmm", "vst", "rlog", "rle", "tpm", "fpkm"), ...)
+
+plotCountDensity(object, ...)
 }
 \arguments{
 \item{object}{Object.}
@@ -30,52 +26,8 @@ Type of normalized counts to visualize:
 \item \code{vst}: DESeq2 log2 variance stabilizing transformation.
 }}
 
-\item{min}{\code{integer(1)} or \code{NULL}.
-Minimum count threshold to apply. Filters using "greater than or equal to"
-logic internally. Note that this threshold gets applied prior to
-logarithmic transformation, when \code{trans} argument applies.}
-
-\item{minMethod}{\code{character(1)}.
-Only applies when \code{min} argument is numeric.
-Uses \code{\link[base:match.arg]{match.arg()}}.
-\itemize{
-\item \code{perRow}: \emph{Recommended}. Applies cutoff per row (i.e. gene).
-Internally, \code{\link[base:rowSums]{rowSums()}} values are checked against this
-cutoff threshold prior to the melt operation.
-\item \code{absolute}: Applies hard cutoff to \code{counts} column after the melt
-operation. This applies to all counts, not per feature.
-}}
-
-\item{interestingGroups}{\code{character}.
-Groups of interest to use for visualization.
-Corresponds to factors describing the columns of the object.}
-
-\item{geom}{\code{character(1)}.
-Type of ggplot2 geometric object to use.}
-
-\item{color}{\code{ScaleDiscrete}.
-Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
-the default ggplot2 color palette will be used. If manual color definitions
-are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
-
-To set the discrete color palette globally, use:\preformatted{options(acid.color.discrete = ggplot2::scale_color_viridis_d())
-}}
-
-\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
-Desired ggplot2 fill scale. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual()}}.
-
-To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
-}}
-
-\item{flip}{\code{logical(1)}.
-Flip x and y axes. Recommended for plots containing many samples.}
-
-\item{title}{\code{character(1)}.
-Title.}
-
-\item{...}{Additional arguments.}
+\item{...}{Passthrough to \code{SummarizedExperiment} method defined in acidplots.
+See \code{\link[acidplots:plotCountsPerFeature]{acidplots::plotCountsPerFeature()}} for details.}
 }
 \value{
 \code{ggplot}.
@@ -85,7 +37,7 @@ Generally, we expect similar count spreads for all genes between samples
 unless the library sizes or total RNA expression are different.
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-15.
 }
 \section{Trimmed Mean of M-Values}{
 

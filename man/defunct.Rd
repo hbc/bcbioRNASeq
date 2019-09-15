@@ -3,13 +3,10 @@
 \name{defunct}
 \alias{defunct}
 \alias{loadRNASeq}
-\alias{plotCountDensity}
 \alias{prepareRNASeqTemplate}
 \title{Defunct functions}
 \usage{
 loadRNASeq(...)
-
-plotCountDensity(...)
 
 prepareRNASeqTemplate(...)
 }
