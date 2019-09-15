@@ -2,10 +2,12 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom acidplots plotCorrelationHeatmap
 #' @inherit acidplots::plotCorrelationHeatmap
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-15.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
+#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
+#'   See [acidplots::plotCorrelationHeatmap()] for details.
 #'
 #' @examples
 #' data(bcb)
