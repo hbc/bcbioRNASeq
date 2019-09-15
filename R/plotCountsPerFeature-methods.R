@@ -8,17 +8,6 @@
 #' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
 #'   See [acidplots::plotCountsPerFeature()] for details.
 #'
-#' @section Trimmed Mean of M-Values:
-#'
-#' We recommend visualizing counts normalized with the **T**rimmed **M**ean of
-#' **M**-Values (TMM) method here. TMM normalization equates the overall
-#' expression levels of genes between samples under the assumption that the
-#' majority of them are not differentially expressed. Therefore, by normalizing
-#' for total RNA expression by sample, we expect the spread of the
-#' TMM-normalized counts per gene to be similar for every sample.
-#'
-#' @references TMM: Robinson, et al., 2010.
-#'
 #' @examples
 #' data(bcb)
 #' plotCountsPerFeature(bcb)
