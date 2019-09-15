@@ -1,3 +1,21 @@
+#' Coerce to SummarizedExperiment with normalized counts as primary assay
+#'
+#' @note Updated 2019-09-15.
+#' @noRd
+.normalizedSE <- function(object, normalized) {
+    validObject(object)
+    normalized <- match.arg(arg = normalized, choices = normalizedCounts)
+    message(sprintf("Using %s counts.", normalized))
+    counts <- counts(object = object, normalized = normalized)
+    assays <- SimpleList(counts)
+    names(assays) <- normalized
+    se <- as(object, "RangedSummarizedExperiment")
+    assays(se) <- assays
+    se
+}
+
+
+
 #' Dynamic handling of axis transformation
 #'
 #' Applies to counts that need to be log scaled or are already log2.
@@ -5,8 +23,7 @@
 #' @note Updated 2019-09-15.
 #' @noRd
 .dynamicTrans <- function(object, normalized, ...) {
-    validObject(object)
-    normalized <- match.arg(arg = normalized, choices = normalizedCounts)
+    se <- .normalizedSE(object = object, normalized = normalized)
     dots <- list(...)
     assert(areDisjointSets(c("countsAxisLabel", "trans"), names(dots)))
     countsAxisLabel <- paste(normalized, "counts")
@@ -17,15 +34,9 @@
     } else {
         trans <- "log2"
     }
-    ## Coerce to RangedSummarizedExperiment.
-    counts <- counts(object, normalized = normalized)
-    assays <- SimpleList(counts)
-    names(assays) <- normalized
-    rse <- as(object, "RangedSummarizedExperiment")
-    assays(rse) <- assays
     ## Return arguments list.
     out <- list(
-        object = rse,
+        object = se,
         trans = trans,
         countsAxisLabel = countsAxisLabel
     )
