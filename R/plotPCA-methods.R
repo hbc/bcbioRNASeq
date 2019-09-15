@@ -41,7 +41,7 @@ NULL
         )
     }
 
-formals(`plotPCA,bcbioRNASeq`)[["normalized"]] <- normalizedCounts
+formals(`plotPCA,bcbioRNASeq`)[["normalized"]] <- dt
 
 
 
