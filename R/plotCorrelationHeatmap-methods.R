@@ -23,35 +23,22 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-15.
 `plotCorrelationHeatmap,bcbioRNASeq` <-  # nolint
-    function(object, normalized) {
-        validObject(object)
-        normalized <- match.arg(normalized)
-        ## Coerce to RangedSummarizedExperiment.
-        rse <- as(object, "RangedSummarizedExperiment")
-        message(sprintf("Using %s counts.", normalized))
-        counts <- counts(object, normalized = normalized)
-        assays(rse) <- list(counts)
-        assayNames(rse) <- normalized
+    function(object, normalized, ...) {
         do.call(
             what = plotCorrelationHeatmap,
-            args = matchArgsToDoCall(
-                args = list(object = rse),
-                removeFormals = "normalized"
+            args = list(
+                object = .normalizedSE(
+                    object = object,
+                    normalized = match.arg(normalized)
+                ),
+                ...
             )
         )
     }
 
-f1 <- formals(`plotCorrelationHeatmap,bcbioRNASeq`)
-f2 <- methodFormals(
-    f = "plotCorrelationHeatmap",
-    signature = "SummarizedExperiment",
-    package = "acidplots"
-)
-f <- c(f1, f2[setdiff(names(f2), c(names(f1), "assay"))])
-f[["normalized"]] <- normalizedCounts
-formals(`plotCorrelationHeatmap,bcbioRNASeq`) <- f
+formals(`plotCorrelationHeatmap,bcbioRNASeq`)[["normalized"]] <- dt
 
 
 
