@@ -1,11 +1,12 @@
 #' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit acidplots::plotCountsPerFeature
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-15.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
-#' @param ... Additional arguments.
+#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
+#'   See [acidplots::plotCountsPerFeature()] for details.
 #'
 #' @section Trimmed Mean of M-Values:
 #'
@@ -35,32 +36,15 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-15.
 `plotCountsPerFeature,bcbioRNASeq` <-  # nolint
-    function(object, normalized) {
+    function(object, normalized, ...) {
         normalized <- match.arg(normalized)
-        args <- .dynamicTrans(object = object, normalized = normalized)
-        do.call(
-            what = plotCountsPerFeature,
-            args = matchArgsToDoCall(
-                args = args,
-                removeFormals = "normalized"
-            )
-        )
+        args <- .dynamicTrans(object = object, normalized = normalized, ...)
+        do.call(what = plotCountsPerFeature, args = args)
     }
 
-f1 <- formals(`plotCountsPerFeature,bcbioRNASeq`)
-f2 <- methodFormals(
-    f = "plotCountsPerFeature",
-    signature = "SummarizedExperiment",
-    package = "acidplots"
-)
-f2 <- f2[setdiff(
-    x = names(f2),
-    y = c(names(f1), "assay", "countsAxisLabel", "trans")
-)]
-f <- c(f1, f2)
-## Ensure TPM is set first.
+f <- formals(`plotCountsPerFeature,bcbioRNASeq`)
 f[["normalized"]] <- unique(c("tmm", normalizedCounts))
 formals(`plotCountsPerFeature,bcbioRNASeq`) <- f
 
@@ -73,3 +57,13 @@ setMethod(
     signature = signature("bcbioRNASeq"),
     definition = `plotCountsPerFeature,bcbioRNASeq`
 )
+
+
+
+## Note that this function is defined in F1000 v2 workflow paper.
+
+#' @rdname plotCountsPerFeature
+#' @export
+plotCountDensity <- function(object, ...) {
+    plotCountsPerFeature(object = object, geom = "density", ...)
+}
