@@ -14,15 +14,15 @@ bcbioRNASeqTestsURL <- paste0(
     "v", .version$major, ".", .version$minor  # nolint
 )
 
-validLevels <- c("genes", "transcripts")
+.levels <- c("genes", "transcripts")
 
-requiredAssays <- "counts"
-tximportAssays <- c(requiredAssays, "tpm")
-featureCountsAssays <- requiredAssays
+.assays <- "counts"
+tximportAssays <- c(.assays, "tpm")
+featureCountsAssays <- .assays
 
 tximportCallers <- c("salmon", "kallisto", "sailfish")
 featureCountsCallers <- c("star", "hisat2")
-validCallers <- c(tximportCallers, featureCountsCallers)
+.callers <- c(tximportCallers, featureCountsCallers)
 
 ## DESeqTransform.
 .dt <- c("vst", "rlog")
