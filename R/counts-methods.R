@@ -11,7 +11,7 @@
 #'
 #' @inheritParams acidroxygen::params
 #' @param normalized `character(1)` or `logical(1)`.
-#'   Which normalization method to apply:
+#'   Normalization method to apply:
 #'
 #'   - `FALSE`: Raw counts.
 #'     When using a [tximport][]-compatible caller, these are length scaled
@@ -45,6 +45,10 @@
 #'   - `"rle"`: **R**elative **l**og **e**xpression transformation.\cr
 #'     Calculated on the fly.\cr
 #'     See [relativeLogExpression()] for details.
+#'
+#'     Note that `logical(1)` support only applies to `counts()`. Other
+#'     functions in the package require `character(1)` and use
+#'     [`match.arg()`][base::match.arg] internally.
 #'
 #' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
 #' [tximport]: https://bioconductor.org/packages/tximport/
