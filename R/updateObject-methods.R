@@ -131,7 +131,7 @@ NULL
         }
         ## countsFromAbundance
         if (!"countsFromAbundance" %in% names(metadata)) {
-            if (metadata[["caller"]] %in% tximportCallers) {
+            if (metadata[["caller"]] %in% .tximportCallers) {
                 countsFromAbundance <- "lengthScaledTPM"
             } else {
                 countsFromAbundance <- "no"  # nocov

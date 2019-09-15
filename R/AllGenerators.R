@@ -244,7 +244,7 @@ bcbioRNASeq <- function(
     level <- match.arg(level)
     caller <- match.arg(caller)
     if (level == "transcripts") {
-        assert(isSubset(caller, tximportCallers))
+        assert(isSubset(caller, .tximportCallers))
     }
     assert(
         isAny(samples, classes = c("character", "NULL")),
@@ -442,7 +442,7 @@ bcbioRNASeq <- function(
                 genes = rownames(txi[["counts"]])
             )
         }
-    } else if (caller %in% featureCountsCallers) {
+    } else if (caller %in% .featureCountsCallers) {
         txi <- NULL
         countsFromAbundance <- "no"
         assert(identical(level, "genes"))

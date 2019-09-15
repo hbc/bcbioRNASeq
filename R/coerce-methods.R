@@ -123,37 +123,30 @@ setAs(
 `coerce,bcbioRNASeq,DGEList` <-  # nolint
     function(from) {
         validObject(from)
-
         message(sprintf(
             "Generating DGEList with edgeR %s.",
             packageVersion("edgeR")
         ))
-
         ## Raw counts (i.e. txi$counts)
         cts <- counts(from)
         ## Average transcript length (i.e. txi$length)
         normMat <- assays(from)[["avgTxLength"]]
-
         ## Obtain per-observation scaling factors for length, adjusted to avoid
         ## changing the magnitude of the counts.
         normMat <- normMat / exp(rowMeans(log(normMat)))
         normCts <- cts / normMat
-
         ## Computing effective library sizes from scaled counts, to account for
         ## composition biases between samples.
         effLib <- calcNormFactors(normCts) * colSums(normCts)
-
         ## Combine effective library sizes with the length factors, and
         ## calculate offsets for a log-link GLM.
         normMat <- sweep(x = normMat, MARGIN = 2L, STATS = effLib, FUN = "*")
         normMat <- log(normMat)
-
         ## Creating a DGEList object for use in edgeR.
         to <- DGEList(cts)
         to <- scaleOffset(to, offset = normMat)
         ## Note that tximport guide recommends `filterByExpr()` step but we're
         ## intentionally skipping that step here.
-
         assert(identical(dimnames(from), dimnames(to)))
         validObject(to)
         to
