@@ -4,9 +4,12 @@
 #' @note Currently supported for salmon or kallisto. The function will
 #'   intentionally error for datasets containing aligned counts in the primary
 #'   `counts` assay.
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-15.
 #'
 #' @inheritParams acidroxygen::params
+#' @param ... Passthrough to [acidplots::plotCountsCorrelationHeatmap()] when
+#'   `genes = NULL` or [acidplots::plotCountsCorrelation()] when `genes` are
+#'   defined.
 #'
 #' @examples
 #' data(bcb)
@@ -23,12 +26,12 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-15.
 `plotPseudoVsAlignedCounts,bcbioRNASeq` <-  # nolint
     function(
         object,
         genes = NULL,
-        title = "pseudo vs. aligned counts",
+        title = "Pseudoaligned vs. aligned counts",
         ...
     ) {
         validObject(object)
@@ -55,7 +58,13 @@ NULL
             )
             pseudo <- pseudo[genes, , drop = FALSE]
             aligned <- aligned[genes, , drop = FALSE]
-            plotCountsCorrelation(x = pseudo, y = aligned)
+            ## FIXME Title isn't supported here yet.
+            plotCountsCorrelation(
+                x = pseudo,
+                y = aligned,
+                title = title,
+                ...
+            )
         } else {
             ## Censor genes that aren't present in both, otherwise the
             ## correlation matrix calculation will fail.
@@ -65,7 +74,12 @@ NULL
             pseudo <- pseudo[keep, , drop = FALSE]
             aligned <- aligned[keep, , drop = FALSE]
             assert(!anyNA(aligned))
-            plotCountsCorrelationHeatmap(x = pseudo, y = aligned)
+            plotCountsCorrelationHeatmap(
+                x = pseudo,
+                y = aligned,
+                title = title,
+                ...
+            )
         }
     }
 
