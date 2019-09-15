@@ -1,7 +1,7 @@
 #' @name plotCountsPerBiotype
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @inherit acidplots::plotCountsPerBiotype
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-15.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
@@ -32,30 +32,20 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-15.
 `plotCountsPerBiotype,bcbioRNASeq` <-  # nolint
-    function(object, normalized) {
-        validObject(object)
-        normalized <- match.arg(normalized)
-        args <- .dynamicTrans(object = object, normalized = normalized)
+    function(object, normalized, ...) {
         do.call(
             what = plotCountsPerBiotype,
-            args = matchArgsToDoCall(
-                args = args,
-                removeFormals = "normalized"
+            args = .dynamicTrans(
+                object = object,
+                normalized = match.arg(normalized),
+                ...
             )
         )
     }
 
-f1 <- formals(`plotCountsPerBiotype,bcbioRNASeq`)
-f2 <- methodFormals(
-    f = "plotCountsPerBiotype",
-    signature = "SummarizedExperiment",
-    package = "acidplots"
-)
-f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
-f <- c(f1, f2)
-## Ensure TPM is set first.
+f <- formals(`plotCountsPerBiotype,bcbioRNASeq`)
 f[["normalized"]] <- unique(c("tpm", normalizedCounts))
 formals(`plotCountsPerBiotype,bcbioRNASeq`) <- f
 
@@ -71,36 +61,21 @@ setMethod(
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-15.
 `plotCountsPerBroadClass,bcbioRNASeq` <-  # nolint
-    function(object, normalized) {
-        validObject(object)
-        normalized <- match.arg(normalized)
-        args <- .dynamicTrans(
-            object = object,
-            normalized = normalized
-        )
+    function(object, normalized, ...) {
         do.call(
             what = plotCountsPerBroadClass,
-            args = matchArgsToDoCall(
-                args = args,
-                removeFormals = "normalized"
+            args = .dynamicTrans(
+                object = object,
+                normalized = match.arg(normalized),
+                ...
             )
         )
     }
 
-f1 <- formals(`plotCountsPerBroadClass,bcbioRNASeq`)
-f2 <- methodFormals(
-    f = "plotCountsPerBroadClass",
-    signature = "SummarizedExperiment",
-    package = "acidplots"
-)
-f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
-f <- c(f1, f2)
-## Ensure TPM is set first.
-f[["normalized"]] <- unique(c("tpm", normalizedCounts))
-f[["trans"]] <- trans
-formals(`plotCountsPerBroadClass,bcbioRNASeq`) <- f
+formals(`plotCountsPerBroadClass,bcbioRNASeq`) <-
+    formals(`plotCountsPerBiotype,bcbioRNASeq`)
 
 
 

@@ -39,9 +39,14 @@ NULL
 ## Updated 2019-09-15.
 `plotCountsPerFeature,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {
-        normalized <- match.arg(normalized)
-        args <- .dynamicTrans(object = object, normalized = normalized, ...)
-        do.call(what = plotCountsPerFeature, args = args)
+        do.call(
+            what = plotCountsPerFeature,
+            args = .dynamicTrans(
+                object = object,
+                normalized = match.arg(normalized),
+                ...
+            )
+        )
     }
 
 f <- formals(`plotCountsPerFeature,bcbioRNASeq`)
