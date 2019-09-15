@@ -317,10 +317,10 @@ NULL
         assert(isSubset(.assays, names(assays)))
         assays <- assays[unique(c(.assays, names(assays)))]
         ## Check for required caller-specific assays.
-        if (caller %in% tximportCallers) {
-            assert(isSubset(tximportAssays, names(assays)))
-        } else if (caller %in% featureCountsCallers) {
-            assert(isSubset(featureCountsAssays, names(assays)))
+        if (caller %in% .tximportCallers) {
+            assert(isSubset(.tximportAssays, names(assays)))
+        } else if (caller %in% .featureCountsCallers) {
+            assert(isSubset(.featureCountsAssays, names(assays)))
         }
         ## Filter NULL assays.
         assays <- Filter(f = Negate(is.null), x = assays)

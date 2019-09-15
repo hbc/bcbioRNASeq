@@ -415,7 +415,7 @@ bcbioRNASeq <- function(
     ## to loading the featureCounts aligned counts data. As of v0.3.22, we're
     ## alternatively slotting the aligned counts as "aligned" matrix when
     ## pseudoaligned counts are defined in the primary "counts" assay.
-    if (caller %in% tximportCallers) {
+    if (caller %in% .tximportCallers) {
         if (level == "transcripts") {
             txOut <- TRUE
         } else {

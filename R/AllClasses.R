@@ -133,15 +133,15 @@ setValidity(
         caller <- metadata[["caller"]]
         ok <- validate(isString(caller))
         if (!isTRUE(ok)) return(ok)
-        if (caller %in% tximportCallers) {
-            ok <- validate(isSubset(tximportAssays, assayNames))
-        } else if (caller %in% featureCountsCallers) {
-            ok <- validate(isSubset(featureCountsAssays, assayNames))
+        if (caller %in% .tximportCallers) {
+            ok <- validate(isSubset(.tximportAssays, assayNames))
+        } else if (caller %in% .featureCountsCallers) {
+            ok <- validate(isSubset(.featureCountsAssays, assayNames))
         }
         if (!isTRUE(ok)) return(ok)
         ## Check for average transcript length matrix, if necessary.
         if (
-            metadata[["caller"]] %in% tximportCallers &&
+            metadata[["caller"]] %in% .tximportCallers &&
             metadata[["countsFromAbundance"]] == "no"
         ) {
             ok <- validate(isSubset("avgTxLength", assayNames))
@@ -169,10 +169,10 @@ setValidity(
             ok <- validateClasses(
                 object = rowData,
                 expected = list(
-                    broadClass = Rle,
-                    geneBiotype = Rle,
-                    geneID = Rle,
-                    geneName = Rle
+                    broadClass = .Rle,
+                    geneBiotype = .Rle,
+                    geneID = .Rle,
+                    geneName = .Rle
                 ),
                 subset = TRUE
             )
@@ -186,7 +186,7 @@ setValidity(
             isSubset("sampleName", colnames(colData)),
             ## sampleID is never allowed in colData.
             areDisjointSets(colnames(colData), "sampleID"),
-            areDisjointSets(colnames(colData), legacyMetricsCols)
+            areDisjointSets(colnames(colData), .legacyMetricsCols)
         )
         if (!isTRUE(ok)) return(ok)
 
