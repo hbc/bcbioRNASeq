@@ -45,9 +45,8 @@ NULL
         )
     }
 
-f <- formals(`plotCountsPerBiotype,bcbioRNASeq`)
-f[["normalized"]] <- unique(c("tpm", normalizedCounts))
-formals(`plotCountsPerBiotype,bcbioRNASeq`) <- f
+formals(`plotCountsPerBiotype,bcbioRNASeq`)[["normalized"]] <-
+    unique(c("tpm", normalizedCounts))
 
 
 
