@@ -24,22 +24,27 @@
 #'
 #' Additional gene-level-specific normalizations:
 #'
-#'   - `TRUE` or `"sf"`: Size factor-adjusted counts.\cr
+#'   - `TRUE` / `"sf"`: **S**ize **f**actor (i.e. library size) normalized
+#'     counts.\cr
 #'     See [DESeq2::sizeFactors()] for details.
-#'   - `"vst"`: **V**ariance-**s**tabilizing **t**ransformation.\cr
-#'     Requires `vst = TRUE` to be set during `bcbioRNASeq` call.\cr
-#'     See `DESeq2::varianceStabilizingTransformation` for more information.
-#'   - `"rlog"`: **R**egularized **log** transformation (log2).\cr
-#'     Requires `rlog = TRUE` to be set during `bcbioRNASeq` call.\cr
-#'     See `DESeq2::rlog` for more information.
-#'   - `"tmm"`: **T**rimmed **m**ean of **M**-values.\cr
-#'     See `edgeR::calcNormFactors` for more information.
-#'   - `"rle"`: **R**elative **l**og **e**xpression transformation.
 #'   - `"fpkm"`: **F**ragments **p**er **k**ilobase per **m**illion mapped
 #'     fragments.\cr
-#'     Requires annotations in `rowRanges` with defined `width`; otherwise,
-#'     will be skipped during the `bcbioRNASeq` load call.\cr
-#'     See [BiocGenerics::width()] and [DESeq2::fpkm()] for details.
+#'     Requires `fpkm = TRUE` in [bcbioRNASeq()] call and gene annotations in
+#'     [`rowRanges()`][SummarizedExperiment::rowRanges] with defined
+#'     [`width`][BiocGenerics::width].\cr
+#'     See [DESeq2::fpkm()] for details.
+#'   - `"vst"`: **V**ariance-**s**tabilizing **t**ransformation (log2).\cr
+#'     Requires `vst = TRUE` to be set during [bcbioRNASeq()] call.\cr
+#'     See `DESeq2::varianceStabilizingTransformation` for more information.
+#'   - `"rlog"`: **R**egularized **log** transformation (log2).\cr
+#'     Requires `rlog = TRUE` to be set during [bcbioRNASeq()] call.\cr
+#'     See [DESeq2::rlog()] for details.
+#'   - `"tmm"`: **T**rimmed **m**ean of **M**-values.\cr
+#'     Calculated on the fly.\cr
+#'     See [edgeR::calcNormFactors()] for details.
+#'   - `"rle"`: **R**elative **l**og **e**xpression transformation.\cr
+#'     Calculated on the fly.\cr
+#'     See [relativeLogExpression()] for details.
 #'
 #' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
 #' [tximport]: https://bioconductor.org/packages/tximport/
