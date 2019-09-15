@@ -22,7 +22,9 @@ tximportCallers <- c("salmon", "kallisto", "sailfish")
 featureCountsCallers <- c("star", "hisat2")
 validCallers <- c(tximportCallers, featureCountsCallers)
 
-normalizedCounts <- c("vst", "rlog", "tmm", "rle", "tpm", "fpkm")
+## "sf" denotes size-factor adjusted counts. This corresponds to
+## `normalized = TRUE`, and is recommended by default for plots.
+normalizedCounts <- c("tpm", "sf", "fpkm", "vst", "rlog", "tmm", "rle")
 
 legacyMetricsCols <- c("name", "x53Bias")
 
