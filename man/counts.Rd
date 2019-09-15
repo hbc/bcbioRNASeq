@@ -28,8 +28,8 @@ When using a \href{http://bioinf.wehi.edu.au/featureCounts/}{featureCounts}-comp
 
 Additional gene-level-specific normalizations:
 \itemize{
-\item \code{TRUE}: Size factor-adjusted counts.\cr
-See \code{DESeq2::sizeFactors} for more information.
+\item \code{TRUE} or \code{"sf"}: Size factor-adjusted counts.\cr
+See \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}} for details.
 \item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation.\cr
 Requires \code{vst = TRUE} to be set during \code{bcbioRNASeq} call.\cr
 See \code{DESeq2::varianceStabilizingTransformation} for more information.
@@ -43,7 +43,7 @@ See \code{edgeR::calcNormFactors} for more information.
 fragments.\cr
 Requires annotations in \code{rowRanges} with defined \code{width}; otherwise,
 will be skipped during the \code{bcbioRNASeq} load call.\cr
-See \code{BiocGenerics::width} and \code{DESeq2::fpkm} for more information.
+See \code{\link[BiocGenerics:width]{BiocGenerics::width()}} and \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}} for details.
 }}
 }
 \value{

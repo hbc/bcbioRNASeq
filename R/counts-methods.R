@@ -24,8 +24,8 @@
 #'
 #' Additional gene-level-specific normalizations:
 #'
-#'   - `TRUE`: Size factor-adjusted counts.\cr
-#'     See `DESeq2::sizeFactors` for more information.
+#'   - `TRUE` or `"sf"`: Size factor-adjusted counts.\cr
+#'     See [DESeq2::sizeFactors()] for details.
 #'   - `"vst"`: **V**ariance-**s**tabilizing **t**ransformation.\cr
 #'     Requires `vst = TRUE` to be set during `bcbioRNASeq` call.\cr
 #'     See `DESeq2::varianceStabilizingTransformation` for more information.
@@ -39,7 +39,7 @@
 #'     fragments.\cr
 #'     Requires annotations in `rowRanges` with defined `width`; otherwise,
 #'     will be skipped during the `bcbioRNASeq` load call.\cr
-#'     See `BiocGenerics::width` and `DESeq2::fpkm` for more information.
+#'     See [BiocGenerics::width()] and [DESeq2::fpkm()] for details.
 #'
 #' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
 #' [tximport]: https://bioconductor.org/packages/tximport/
@@ -92,12 +92,10 @@ NULL
             ## Ensure that primary assay matches counts.
             identical(assayNames(object)[[1L]], "counts")
         )
-
         ## Restrict the `normalized` arguments for transcript-level objects.
         if (.isTranscriptLevel(object)) {
             assert(isSubset(normalized, list(FALSE, "tpm")))
         }
-
         if (identical(normalized, FALSE)) {
             assayName <- "counts"
         } else if (
@@ -109,7 +107,6 @@ NULL
         } else {
             assayName <- match.arg(arg = normalized, choices = normalizedCounts)
         }
-
         if (assayName == "tmm") {
             counts <- assays(object)[["counts"]]
             counts <- tmm(counts)
@@ -122,7 +119,6 @@ NULL
             }
             counts <- assays(object)[[assayName]]
         }
-
         assert(is.matrix(counts))
         counts
     }
