@@ -13,7 +13,7 @@
 \item{object}{Object.}
 
 \item{normalized}{\code{character(1)} or \code{logical(1)}.
-Which normalization method to apply:
+Normalization method to apply:
 \itemize{
 \item \code{FALSE}: Raw counts.
 When using a \href{https://bioconductor.org/packages/tximport/}{tximport}-compatible caller, these are length scaled
