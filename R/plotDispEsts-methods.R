@@ -9,11 +9,12 @@
 #'
 #' @name plotDispEsts
 #' @author Michael Steinbaugh
-#' @inherit DESeq2::plotDispEsts description params
-#' @note Updated 2019-08-07.
+#' @inherit DESeq2::plotDispEsts description
+#' @note Updated 2019-09-15.
 #'
 #' @param object Object.
-#' @param ... Additional arguments.
+#' @param ... Passthrough to `DESeqDataSet` method defined in DESeq2.
+#'   See [DESeq2::plotDispEsts()] for details.
 #'
 #' @seealso [DESeq2::plotDispEsts()].
 #'
@@ -43,9 +44,9 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-15.
 `plotDispEsts,bcbioRNASeq` <-  # nolint
-    function() {
+    function(object, ...) {
         validObject(object)
         ## Warn and early return if any samples are duplicated.
         if (!hasUniqueCols(object)) {
@@ -54,19 +55,9 @@ NULL
         }
         dds <- as(object, "DESeqDataSet")
         ## Expecting warning about empty design formula.
-        dds <- suppressWarnings(DESeq(dds))
-        do.call(
-            what = plotDispEsts,
-            args = matchArgsToDoCall(args = list(object = dds))
-        )
+        suppressWarnings(dds <- DESeq(dds))
+        plotDispEsts(object = dds, ...)
     }
-
-formals(`plotDispEsts,bcbioRNASeq`) <-
-    methodFormals(
-        f = "plotDispEsts",
-        signature = "DESeqDataSet",
-        package = "DESeq2"
-    )
 
 
 
