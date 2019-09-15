@@ -105,11 +105,11 @@ Depends:
     SummarizedExperiment (>= 1.14),
     basejump (>= 0.11.14)
 Imports:
-    DESeqAnalysis (>= 0.2.5),
-    acidplots (>= 0.2.14),
+    DESeqAnalysis (>= 0.2.7),
+    acidplots (>= 0.2.15),
     bcbioBase (>= 0.6.10),
-    bioverbs (>= 0.2.9),
-    goalie (>= 0.3.7),
+    bioverbs (>= 0.2.10),
+    goalie (>= 0.3.8),
     BiocGenerics (>= 0.30),
     DESeq2 (>= 1.24),
     S4Vectors (>= 0.22),
