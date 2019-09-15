@@ -43,7 +43,7 @@ NULL
             isFlag(perMillion),
             isFlag(trendline),
             isFlag(label),
-            isGGScale(color, scale = "discrete", aes = "colour", nullOK = TRUE),
+            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE),
             isString(title, nullOK = TRUE)
         )
         interestingGroups(object) <-
@@ -67,7 +67,7 @@ NULL
             mapping = aes(
                 x = !!sym("mappedReads"),
                 y = !!sym("geneCount"),
-                colour = !!sym("interestingGroups")
+                color = !!sym("interestingGroups")
             )
         ) +
             geom_point(size = 3L) +
@@ -77,7 +77,7 @@ NULL
                 title = title,
                 x = xLab,
                 y = "gene count",
-                colour = paste(interestingGroups, collapse = ":\n")
+                color = paste(interestingGroups, collapse = ":\n")
             )
 
         if (isTRUE(trendline)) {

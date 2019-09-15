@@ -33,7 +33,7 @@ NULL
     ) {
         validObject(object)
         assert(
-            isGGScale(color, scale = "discrete", aes = "colour", nullOK = TRUE),
+            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE),
             isFlag(flip),
             isString(title, nullOK = TRUE)
         )
@@ -54,7 +54,7 @@ NULL
             mapping = aes(
                 x = !!sym("sampleName"),
                 y = !!sym(yCol),
-                colour = !!sym("interestingGroups")
+                color = !!sym("interestingGroups")
             )
         ) +
             geom_point(size = 3L) +
@@ -62,7 +62,7 @@ NULL
                 title = title,
                 x = NULL,
                 y = "5'->3' bias",
-                colour = paste(interestingGroups, collapse = ":\n")
+                color = paste(interestingGroups, collapse = ":\n")
             ) +
             acid_geom_abline(yintercept = 1L)
         ## Color.
