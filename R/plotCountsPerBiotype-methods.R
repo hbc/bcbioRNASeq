@@ -45,7 +45,7 @@ NULL
         )
     }
 
-formals(`plotCountsPerBiotype,bcbioRNASeq`)[["normalized"]] <- normalizedCounts
+formals(`plotCountsPerBiotype,bcbioRNASeq`)[["normalized"]] <- .normalized
 
 
 

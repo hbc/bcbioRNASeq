@@ -92,7 +92,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-15.
 `counts,bcbioRNASeq` <-  # nolint
     function(object, normalized = FALSE) {
         validObject(object)
@@ -114,12 +114,12 @@ NULL
         ) {
             assayName <- "normalized"
         } else {
-            assayName <- match.arg(arg = normalized, choices = normalizedCounts)
+            assayName <- match.arg(arg = normalized, choices = .normalized)
         }
-        if (assayName == "tmm") {
+        if (identical(assayName, "tmm")) {
             counts <- assays(object)[["counts"]]
             counts <- tmm(counts)
-        } else if (assayName == "rle") {
+        } else if (identical(assayName, "rle")) {
             counts <- assays(object)[["counts"]]
             counts <- relativeLogExpression(counts)
         } else {

@@ -4,7 +4,7 @@
 #' @noRd
 .normalizedSE <- function(object, normalized) {
     validObject(object)
-    normalized <- match.arg(arg = normalized, choices = normalizedCounts)
+    normalized <- match.arg(arg = normalized, choices = .normalized)
     message(sprintf("Using %s counts.", normalized))
     counts <- counts(object = object, normalized = normalized)
     assays <- SimpleList(counts)

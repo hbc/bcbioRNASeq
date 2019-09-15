@@ -104,7 +104,7 @@ NULL
         )
     }
 
-formals(`plotPCACovariates,bcbioRNASeq`)[["normalized"]] <- normalizedCounts
+formals(`plotPCACovariates,bcbioRNASeq`)[["normalized"]] <- .normalized
 
 
 
