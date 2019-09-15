@@ -49,6 +49,10 @@ See \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}} for details.
 \item \code{"rle"}: \strong{R}elative \strong{l}og \strong{e}xpression transformation.\cr
 Calculated on the fly.\cr
 See \code{\link[=relativeLogExpression]{relativeLogExpression()}} for details.
+
+Note that \code{logical(1)} support only applies to \code{counts()}. Other
+functions in the package require \code{character(1)} and use
+\code{\link[base:match.arg]{match.arg()}} internally.
 }}
 }
 \value{
@@ -62,7 +66,7 @@ By default, return the raw counts. Normalized counts in a variety of formats
 can be accessed using the \code{normalized} argument.
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-15.
 }
 \examples{
 data(bcb)

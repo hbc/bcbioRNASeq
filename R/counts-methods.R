@@ -7,7 +7,7 @@
 #'
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-15.
 #'
 #' @inheritParams acidroxygen::params
 #' @param normalized `character(1)` or `logical(1)`.
