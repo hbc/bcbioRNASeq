@@ -1,3 +1,5 @@
+## FIXME Prefix non-exported globals with a ".".
+
 globalVariables(".")
 
 .version <- packageVersion("bcbioRNASeq")
@@ -22,9 +24,12 @@ tximportCallers <- c("salmon", "kallisto", "sailfish")
 featureCountsCallers <- c("star", "hisat2")
 validCallers <- c(tximportCallers, featureCountsCallers)
 
+## DESeqTransform.
+dt <- c("vst", "rlog")
+
 ## "sf" denotes size-factor adjusted counts. This corresponds to
 ## `normalized = TRUE`, and is recommended by default for plots.
-normalizedCounts <- c("tpm", "sf", "fpkm", "vst", "rlog", "tmm", "rle")
+normalizedCounts <- c("tpm", "sf", "fpkm", dt, "tmm", "rle")
 
 legacyMetricsCols <- c("name", "x53Bias")
 
