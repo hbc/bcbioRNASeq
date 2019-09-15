@@ -8,8 +8,8 @@
 \usage{
 plotCounts(object, ...)
 
-\S4method{plotCounts}{bcbioRNASeq}(object, genes, normalized = c("vst",
-  "rlog", "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL,
+\S4method{plotCounts}{bcbioRNASeq}(object, genes, normalized = c("tpm",
+  "sf", "fpkm", "vst", "rlog", "tmm", "rle"), interestingGroups = NULL,
   trans = c("identity", "log2", "log10"), medianLine = TRUE,
   color = getOption(x = "acid.color.discrete", default =
   acidplots::scale_colour_synesthesia_d()), legend = getOption(x =
