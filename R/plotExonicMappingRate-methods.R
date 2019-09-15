@@ -1,7 +1,7 @@
 #' @name plotExonicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotExonicMappingRate
-#' @note Updated 2019-08-20.
+#' @note Updated 2019-09-15.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -46,7 +46,6 @@ NULL
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
-
         data <- metrics(object)
         p <- ggplot(
             data = data,
@@ -64,7 +63,7 @@ NULL
                 y = "exonic mapping rate (%)",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
-
+        ## Limit.
         if (isPositive(limit)) {
             ## Convert to percentage.
             if (limit > 1L) {
@@ -78,19 +77,19 @@ NULL
                 p <- p + acid_geom_abline(yintercept = limit)
             }
         }
-
+        ## Fill.
         if (is(fill, "ScaleDiscrete")) {
             p <- p + fill
         }
-
+        ## Flip.
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
         }
-
+        ## Hide sample name legend.
         if (identical(interestingGroups, "sampleName")) {
             p <- p + guides(fill = FALSE)
         }
-
+        ## Return.
         p
     }
 

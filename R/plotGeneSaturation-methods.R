@@ -1,7 +1,7 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotGeneSaturation
-#' @note Updated 2019-08-20.
+#' @note Updated 2019-09-15.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -23,7 +23,7 @@ NULL
 
 
 
-## Updated 2019-08-20.
+## Updated 2019-09-15.
 `plotGeneSaturation,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -49,19 +49,16 @@ NULL
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
-
         counts <- counts(object, normalized = FALSE)
         data <- metrics(object)
         assert(identical(colnames(counts), data[["sampleID"]]))
         data[["geneCount"]] <- colSums(counts >= minCounts)
-
         ## Convert to per million, if desired.
         xLab <- "mapped reads"
         if (isTRUE(perMillion)) {
             data[["mappedReads"]] <- data[["mappedReads"]] / 1e6L
             xLab <- paste(xLab, "per million")
         }
-
         p <- ggplot(
             data = data,
             mapping = aes(
@@ -79,21 +76,21 @@ NULL
                 y = "gene count",
                 color = paste(interestingGroups, collapse = ":\n")
             )
-
+        ## Trendline.
         if (isTRUE(trendline)) {
             p <- p + geom_smooth(method = "lm", se = FALSE)
         }
-
+        ## Color.
         if (is(color, "ScaleDiscrete")) {
             p <- p + color
         }
-
+        ## Hide sample name legend.
         if (isTRUE(label)) {
             p <- p + acid_geom_label_repel(
                 mapping = aes(label = !!sym("sampleName"))
             )
         }
-
+        ## Return.
         p
     }
 

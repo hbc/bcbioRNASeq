@@ -1,7 +1,7 @@
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotRRNAMappingRate
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-15.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -22,7 +22,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-15.
 `plotRRNAMappingRate,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -43,15 +43,12 @@ NULL
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
-
         data <- metrics(object)
-
         ## Warn and early return if rRNA rate was not calculated.
         if (!"rrnaRate" %in% colnames(data)) {
             warning("rRNA mapping rate was not calculated. Skipping plot.")
             return(invisible())
         }
-
         p <- ggplot(
             data = data,
             mapping = aes(
@@ -68,7 +65,7 @@ NULL
                 y = "rRNA mapping rate (%)",
                 fill = paste(interestingGroups, collapse = ":\n")
             )
-
+        ## Limit.
         if (isPositive(limit)) {
             ## Convert to percentage
             if (limit > 1L) {
@@ -82,19 +79,19 @@ NULL
                 p <- p + acid_geom_abline(yintercept = limit)
             }
         }
-
+        ## Fill.
         if (is(fill, "ScaleDiscrete")) {
             p <- p + fill
         }
-
+        ## Flip.
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
         }
-
+        ## Hide sample name legend.
         if (identical(interestingGroups, "sampleName")) {
             p <- p + guides(fill = FALSE)
         }
-
+        ## Return.
         p
     }
 
