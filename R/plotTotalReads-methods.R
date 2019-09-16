@@ -1,7 +1,3 @@
-## FIXME Use samplesAxis and metricAxis instead of x, y
-
-
-
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotTotalReads
@@ -37,8 +33,8 @@ NULL
         labels = list(
             title = "Total reads",
             subtitle = NULL,
-            x = NULL,
-            y = "reads"
+            sampleAxis = NULL,
+            metricAxis = "reads"
         ),
         flip
     ) {
@@ -60,8 +56,9 @@ NULL
         data <- metrics(object)
         if (isTRUE(perMillion)) {
             data[["totalReads"]] <- data[["totalReads"]] / 1e6L
-            if (isString(labels[["y"]])) {
-                labels[["y"]] <- paste(labels[["y"]], "(per million)")
+            if (isString(labels[["metricAxis"]])) {
+                labels[["metricAxis"]] <-
+                    paste(labels[["metricAxis"]], "(per million)")
             }
         }
         p <- ggplot(
@@ -77,6 +74,8 @@ NULL
         ## Labels.
         if (is.list(labels)) {
             labels[["fill"]] <- paste(interestingGroups, collapse = ":\n")
+            names(labels)[names(labels) == "sampleAxis"] <- "x"
+            names(labels)[names(labels) == "metricAxis"] <- "y"
             p <- p + do.call(what = labs, args = labels)
         }
         ## Limit.

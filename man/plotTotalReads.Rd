@@ -11,8 +11,9 @@ plotTotalReads(object, ...)
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups = NULL,
   limit = 20000000L, perMillion = TRUE, fill = getOption(x =
   "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
-  labels = list(title = "Total reads", subtitle = NULL, x = NULL, y =
-  "reads"), flip = getOption(x = "acid.flip", default = TRUE))
+  labels = list(title = "Total reads", subtitle = NULL, sampleAxis =
+  NULL, metricAxis = "reads"), flip = getOption(x = "acid.flip", default
+  = TRUE))
 }
 \arguments{
 \item{object}{Object.}

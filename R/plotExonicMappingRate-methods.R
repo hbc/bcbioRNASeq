@@ -68,6 +68,8 @@ NULL
         ## Labels.
         if (is.list(labels)) {
             labels[["fill"]] <- paste(interestingGroups, collapse = ":\n")
+            names(labels)[names(labels) == "sampleAxis"] <- "x"
+            names(labels)[names(labels) == "metricAxis"] <- "y"
             p <- p + do.call(what = labs, args = labels)
         }
         ## Limit.

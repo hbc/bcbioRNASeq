@@ -1,3 +1,7 @@
+## FIXME Switch to labels.
+
+
+
 #' Compare pseudoaligned counts to aligned counts.
 #'
 #' @name plotPseudoVsAlignedCounts

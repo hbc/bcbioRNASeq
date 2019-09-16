@@ -10,8 +10,10 @@ plotMappingRate(object, ...)
 
 \S4method{plotMappingRate}{bcbioRNASeq}(object, interestingGroups = NULL,
   limit = 0.7, fill = getOption(x = "acid.fill.discrete", default =
-  acidplots::scale_fill_synesthesia_d()), flip = getOption(x =
-  "acid.flip", default = TRUE), title = "Mapping rate")
+  acidplots::scale_fill_synesthesia_d()), labels = list(title =
+  "Mapping rate", subtitle = NULL, sampleAxis = NULL, metricAxis =
+  "mapping rate (\%)"), flip = getOption(x = "acid.flip", default =
+  TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -31,11 +33,12 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
 }}
 
+\item{labels}{\code{list}.
+ggplot2 labels.
+See \code{\link[ggplot2:labs]{ggplot2::labs()}} for details.}
+
 \item{flip}{\code{logical(1)}.
 Flip x and y axes. Recommended for plots containing many samples.}
-
-\item{title}{\code{character(1)}.
-Title.}
 
 \item{...}{Additional arguments.}
 }
@@ -48,7 +51,7 @@ reference genome. Low mapping rates are indicative of sample contamination,
 poor sequencing quality or other artifacts.
 }
 \note{
-Updated 2019-09-15.
+Updated 2019-09-16.
 }
 \examples{
 data(bcb)

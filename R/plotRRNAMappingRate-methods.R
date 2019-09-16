@@ -1,3 +1,7 @@
+## FIXME Switch to labels.
+
+
+
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotRRNAMappingRate

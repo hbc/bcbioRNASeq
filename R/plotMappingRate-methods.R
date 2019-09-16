@@ -1,7 +1,7 @@
 #' @name plotMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotMappingRate
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -22,23 +22,31 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2019-09-16.
 `plotMappingRate,bcbioRNASeq` <-  # nolint
     function(
         object,
         interestingGroups = NULL,
         limit = 0.7,
         fill,
-        flip,
-        title = "Mapping rate"
+        labels = list(
+            title = "Mapping rate",
+            subtitle = NULL,
+            sampleAxis = NULL,
+            metricAxis = "mapping rate (%)"
+        ),
+        flip
     ) {
         validObject(object)
         assert(
             isNumber(limit),
             isProportion(limit),
             isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
-            isFlag(flip),
-            isString(title, nullOK = TRUE)
+            isFlag(flip)
+        )
+        labels <- matchLabels(
+            labels = labels,
+            choices = eval(formals()[["labels"]])
         )
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
@@ -52,13 +60,14 @@ NULL
             )
         ) +
             acid_geom_bar() +
-            acid_scale_y_continuous_nopad(limits = c(0L, 100L)) +
-            labs(
-                title = title,
-                x = NULL,
-                y = "mapping rate (%)",
-                fill = paste(interestingGroups, collapse = ":\n")
-            )
+            acid_scale_y_continuous_nopad(limits = c(0L, 100L))
+        ## Labels.
+        if (is.list(labels)) {
+            labels[["fill"]] <- paste(interestingGroups, collapse = ":\n")
+            names(labels)[names(labels) == "sampleAxis"] <- "x"
+            names(labels)[names(labels) == "metricAxis"] <- "y"
+            p <- p + do.call(what = labs, args = labels)
+        }
         ## Limit.
         if (isPositive(limit)) {
             ## Convert to percentage.
