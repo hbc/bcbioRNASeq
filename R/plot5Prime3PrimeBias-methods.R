@@ -30,14 +30,23 @@ NULL
         object,
         interestingGroups = NULL,
         color,
-        flip,
-        title = "5'->3' bias"
+        labels = list(
+            title = "5'->3' bias",
+            subtitle = NULL,
+            x = NULL,
+            y = "5'->3' bias"
+        ),
+        flip
     ) {
         validObject(object)
         assert(
             isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE),
-            isFlag(flip),
-            isString(title, nullOK = TRUE)
+            is.list(labels),
+            areSetEqual(
+                x = names(labels),
+                y = names(eval(formals()[["labels"]]))
+            ),
+            isFlag(flip)
         )
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
@@ -60,13 +69,12 @@ NULL
             )
         ) +
             geom_point(size = 3L) +
-            labs(
-                title = title,
-                x = NULL,
-                y = "5'->3' bias",
-                color = paste(interestingGroups, collapse = ":\n")
-            ) +
             acid_geom_abline(yintercept = 1L)
+        ## Labels.
+        if (is.list(labels)) {
+            labels[["color"]] <- paste(interestingGroups, collapse = ":\n")
+            p <- p + do.call(what = labs, args = labels)
+        }
         ## Color.
         if (is(color, "ScaleDiscrete")) {
             p <- p + color

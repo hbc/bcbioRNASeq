@@ -11,8 +11,8 @@ plot5Prime3PrimeBias(object, ...)
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object,
   interestingGroups = NULL, color = getOption(x =
   "acid.color.discrete", default = acidplots::scale_color_synesthesia_d()),
-  flip = getOption(x = "acid.flip", default = TRUE),
-  title = "5'->3' bias")
+  labels = list(title = "5'->3' bias", subtitle = NULL, x = NULL, y =
+  "5'->3' bias"), flip = getOption(x = "acid.flip", default = TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -29,11 +29,12 @@ are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2:
 To set the discrete color palette globally, use:\preformatted{options(acid.color.discrete = ggplot2::scale_color_viridis_d())
 }}
 
+\item{labels}{\code{list}.
+ggplot2 labels.
+See \code{\link[ggplot2:labs]{ggplot2::labs()}} for details.}
+
 \item{flip}{\code{logical(1)}.
 Flip x and y axes. Recommended for plots containing many samples.}
-
-\item{title}{\code{character(1)}.
-Title.}
 
 \item{...}{Additional arguments.}
 }
