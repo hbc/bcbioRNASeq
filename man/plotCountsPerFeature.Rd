@@ -71,7 +71,7 @@ Generally, we expect similar count spreads for all genes between samples
 unless the library sizes or total RNA expression are different.
 }
 \note{
-Updated 2019-09-15.
+Updated 2019-09-16.
 }
 \section{Methods (by class)}{
 

@@ -1,11 +1,7 @@
-## FIXME Need to rethink dynamicTrans approach to axis labeling.
-
-
-
 #' @name plotCountsPerBiotype
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @inherit acidplots::plotCountsPerBiotype
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
@@ -36,12 +32,12 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2019-09-16.
 `plotCountsPerBiotype,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {
         do.call(
             what = plotCountsPerBiotype,
-            args = .dynamicTrans(
+            args = .normalizedPlotArgs(
                 object = object,
                 normalized = match.arg(normalized),
                 ...
@@ -63,12 +59,12 @@ setMethod(
 
 
 
-## Updated 2019-09-15.
+## Updated 2019-09-16.
 `plotCountsPerBroadClass,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {
         do.call(
             what = plotCountsPerBroadClass,
-            args = .dynamicTrans(
+            args = .normalizedPlotArgs(
                 object = object,
                 normalized = match.arg(normalized),
                 ...

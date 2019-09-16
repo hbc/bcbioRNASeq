@@ -1,11 +1,7 @@
-## FIXME Gender markers plot needs a title by default.
-
-
-
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
 #' @inherit acidplots::plotGenderMarkers
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
@@ -30,12 +26,12 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2019-09-16.
 `plotGenderMarkers,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {
         do.call(
             what = plotGenderMarkers,
-            args = .dynamicTrans(
+            args = .normalizedPlotArgs(
                 object = object,
                 normalized = match.arg(normalized),
                 ...

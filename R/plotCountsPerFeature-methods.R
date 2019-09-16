@@ -1,7 +1,7 @@
 #' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit acidplots::plotCountsPerFeature
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
@@ -25,12 +25,12 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2019-09-16.
 `plotCountsPerFeature,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {
         do.call(
             what = plotCountsPerFeature,
-            args = .dynamicTrans(
+            args = .normalizedPlotArgs(
                 object = object,
                 normalized = match.arg(normalized),
                 ...
