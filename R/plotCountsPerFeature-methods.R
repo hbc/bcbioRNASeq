@@ -39,7 +39,7 @@ NULL
     }
 
 formals(`plotCountsPerFeature,bcbioRNASeq`)[["normalized"]] <-
-    unique(c("tmm", normalizedCounts))
+    unique(c("tmm", .normalized))
 
 
 

@@ -25,6 +25,8 @@ NULL
 
 
 
+## FIXME Rework labels
+
 ## Updated 2019-08-20.
 `plotExonicMappingRate,bcbioRNASeq` <-  # nolint
     function(
