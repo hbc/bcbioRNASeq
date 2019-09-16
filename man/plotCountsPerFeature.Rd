@@ -77,7 +77,8 @@ Updated 2019-09-15.
 
 \itemize{
 \item \code{SingleCellExperiment}: Applies \code{\link[=aggregateCellsToSamples]{aggregateCellsToSamples()}}
-calculation to summarize at sample level prior to plotting.
+calculation to summarize at sample level prior to plotting.\cr
+Passes \code{...} to \code{SummarizedExperiment} method.
 }
 }
 

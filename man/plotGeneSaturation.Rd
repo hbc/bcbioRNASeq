@@ -12,7 +12,7 @@ plotGeneSaturation(object, ...)
   interestingGroups = NULL, minCounts = 1L, perMillion = TRUE,
   trendline = FALSE, label = getOption(x = "acid.label", default =
   FALSE), color = getOption(x = "acid.color.discrete", default =
-  acidplots::scale_colour_synesthesia_d()), title = "Gene saturation")
+  acidplots::scale_color_synesthesia_d()), title = "Gene saturation")
 }
 \arguments{
 \item{object}{Object.}
