@@ -1,5 +1,5 @@
 ## bcbioRNASeq example objects.
-## Updated 2019-07-23.
+## Updated 2019-09-16.
 
 library(usethis)
 library(pryr)
@@ -21,12 +21,6 @@ bcb <- bcbioRNASeq(
 
 object_size(bcb)
 ## 889 kB
-
-## The rowRanges are quite large. Need to resize the levels automatically.
-lapply(coerceS4ToList(bcb), object_size)
-
-## Check the size of the metadata.
-lapply(metadata(bcb), object_size)
 
 ## DESeq2 doesn't like spaces in design formula factors.
 bcb[["treatment"]] <- snake(bcb[["treatment"]])
