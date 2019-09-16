@@ -1,14 +1,10 @@
-## FIXME Switch to labels.
-
-
-
 #' Compare pseudoaligned counts to aligned counts.
 #'
 #' @name plotPseudoVsAlignedCounts
 #' @note Currently supported for salmon or kallisto. The function will
 #'   intentionally error for datasets containing aligned counts in the primary
 #'   `counts` assay.
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Passthrough to [acidplots::plotCountsCorrelationHeatmap()] when
@@ -30,7 +26,7 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2019-09-16.
 `plotPseudoVsAlignedCounts,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -44,40 +40,59 @@ NULL
             isSubset(c("counts", "aligned"), assayNames(object)),
             isString(title, nullOK = TRUE)
         )
-        pseudo <- assays(object)[["counts"]]
-        aligned <- assays(object)[["aligned"]]
+        ## Coercing to SummarizedExperiment, for fast subsetting.
+        object <- as(object, "RangedSummarizedExperiment")
+        ## Note that `i` here denotes the rows to keep.
+        if (is.character(genes)) {
+            assert(length(genes) <= 10L)
+            i <- mapGenesToRownames(object = object, genes = genes)
+        } else {
+            ## Censor genes that aren't present in both, otherwise the
+            ## correlation matrix calculation will fail.
+            i <- !apply(
+                X = assay(object, i = "aligned"),
+                MARGIN = 1L,
+                FUN = anyNA
+            )
+            if (sum(i) < nrow(object)) {
+                n <- sum(!i, na.rm = TRUE)
+                message(sprintf(
+                    "Censoring %d %s containing an NA value.",
+                    n,
+                    ngettext(
+                        n = n,
+                        msg1 = "gene",
+                        msg2 = "genes"
+                    )
+                ))
+            }
+        }
+        object <- object[i, , drop = FALSE]
+        if (is.character(genes)) {
+            object <- humanize(object)
+        }
+        pseudo <- assay(object, i = "counts")
+        aligned <- assay(object, i = "aligned")
         assert(
             is.matrix(pseudo),
             !is.integer(pseudo),
             !anyNA(pseudo),
             is.matrix(aligned),
-            is.integer(aligned)
+            is.integer(aligned),
+            !anyNA(aligned)
         )
         if (is.character(genes)) {
-            assert(
-                isCharacter(genes),
-                length(genes) <= 10L,
-                isSubset(genes, rownames(pseudo)),
-                isSubset(genes, rownames(aligned))
-            )
-            pseudo <- pseudo[genes, , drop = FALSE]
-            aligned <- aligned[genes, , drop = FALSE]
-            ## FIXME Title isn't supported here yet.
             plotCountsCorrelation(
                 x = pseudo,
                 y = aligned,
-                title = title,
+                labels = list(
+                    title = title
+                ),
+                .xname = "pseudoaligned",
+                .yname = "aligned",
                 ...
             )
         } else {
-            ## Censor genes that aren't present in both, otherwise the
-            ## correlation matrix calculation will fail.
-            censor <- apply(X = aligned, MARGIN = 1L, FUN = anyNA)
-            message(sprintf("Censoring %d genes.", sum(censor)))
-            keep <- !censor
-            pseudo <- pseudo[keep, , drop = FALSE]
-            aligned <- aligned[keep, , drop = FALSE]
-            assert(!anyNA(aligned))
             plotCountsCorrelationHeatmap(
                 x = pseudo,
                 y = aligned,
