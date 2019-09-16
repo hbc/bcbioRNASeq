@@ -16,29 +16,36 @@
 
 
 
+
+## FIXME This approach is now broken due to "countsAxisLabel"
+
 #' Dynamic handling of axis transformation
 #'
 #' Applies to counts that need to be log scaled or are already log2.
 #'
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-09-16.
 #' @noRd
 .dynamicTrans <- function(object, normalized, ...) {
     se <- .normalizedSE(object = object, normalized = normalized)
     dots <- list(...)
+    ## FIXME
     assert(areDisjointSets(c("countsAxisLabel", "trans"), names(dots)))
-    countsAxisLabel <- paste(normalized, "counts")
+    ## FIXME
+    ## > countsAxisLabel <- paste(normalized, "counts")
     ## Check for DESeqTransform that are already log2 scale and update `trans`.
     if (normalized %in% c("rlog", "vst")) {
         trans <- "identity"
-        countsAxisLabel <- paste(countsAxisLabel, "(log2)")
+        ## FIXME
+        ## > countsAxisLabel <- paste(countsAxisLabel, "(log2)")
     } else {
         trans <- "log2"
     }
     ## Return arguments list.
     out <- list(
         object = se,
-        trans = trans,
-        countsAxisLabel = countsAxisLabel
+        trans = trans
+        ## FIXME
+        ## > countsAxisLabel = countsAxisLabel
     )
     out <- c(out, dots)
     out
