@@ -1,7 +1,7 @@
 #' @name plotCounts
 #' @author Michael Steinbaugh
 #' @inherit acidplots::plotCounts
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
 #' @inheritParams counts
@@ -33,15 +33,15 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2019-09-16.
 `plotCounts,bcbioRNASeq` <-  # nolint
     function(object, genes, normalized, ...) {
-        args = .dynamicTrans(
+        args = .normalizedArgs(
             object = object,
+            genes = genes,
             normalized = match.arg(normalized),
             ...
         )
-        args[["genes"]] <- genes
         do.call(what = plotCounts, args = args)
     }
 
