@@ -1,3 +1,7 @@
+## FIXME Need to rethink dynamicTrans approach to axis labeling.
+
+
+
 #' @name plotCountsPerBiotype
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @inherit acidplots::plotCountsPerBiotype

@@ -1,7 +1,3 @@
-## FIXME Migrate this to acidplots.
-
-
-
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #' @inherit bioverbs::plot5Prime3PrimeBias
