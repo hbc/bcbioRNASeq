@@ -42,6 +42,7 @@ NULL
         )
         ## Coercing to SummarizedExperiment, for fast subsetting.
         object <- as(object, "RangedSummarizedExperiment")
+        object <- humanize(object)
         ## Note that `i` here denotes the rows to keep.
         if (is.character(genes)) {
             assert(length(genes) <= 10L)
@@ -68,9 +69,6 @@ NULL
             }
         }
         object <- object[i, , drop = FALSE]
-        if (is.character(genes)) {
-            object <- humanize(object)
-        }
         pseudo <- assay(object, i = "counts")
         aligned <- assay(object, i = "aligned")
         assert(
