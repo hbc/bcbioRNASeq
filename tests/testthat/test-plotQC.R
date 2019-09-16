@@ -14,11 +14,13 @@ with_parameters_test_that(
         expect_s3_class(x, "ggplot")
     },
     fun = list(
+        ## plotCountsPerGene,
+        ## plotGenesDetected,
         plot5Prime3PrimeBias,
-        plotCountsPerGene,
+        plotCountsPerFeature,
         plotExonicMappingRate,
         plotGeneSaturation,
-        plotGenesDetected,
+        plotFeaturesDetected,
         plotIntronicMappingRate,
         plotMappedReads,
         plotMappingRate,
