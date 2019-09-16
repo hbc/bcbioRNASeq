@@ -38,6 +38,8 @@ prepareRNASeqTemplate <- function(...) {
 
 
 ## v0.3.17 ======================================================================
+## FIXME Rework this...
+
 #' @rdname deprecated
 #' @export
 plotCountsPerGene <- function(object, title = "Counts per gene", ...) {
@@ -55,6 +57,7 @@ plotGenesDetected <- function(object, ...) {
     plotFeaturesDetected(
         object = object,
         countsAxisLabel = "genes",
+        ## FIXME Need to rework this arg...
         title = "Genes detected",
         ...
     )
