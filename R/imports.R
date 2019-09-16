@@ -17,8 +17,8 @@
 #'   acid_geom_label_repel acid_scale_y_continuous_nopad matchLabels
 #'   plotCountsCorrelation plotCountsCorrelationHeatmap
 #' @importFrom basejump Tx2Gene camelCase detectLanes detectOrganism droplevels
-#'   emptyRanges encode formalsList import importSampleData importTx2Gene
-#'   interestingGroups interestingGroups<- makeGRangesFromEnsembl
+#'   emptyRanges encode formalsList humanize import importSampleData
+#'   importTx2Gene interestingGroups interestingGroups<- makeGRangesFromEnsembl
 #'   makeGRangesFromGFF makeNames makeSummarizedExperiment matchArgsToDoCall
 #'   matchInterestingGroups methodFormals metrics realpath sampleData
 #'   showSlotInfo standardizeCall stripTranscriptVersions
