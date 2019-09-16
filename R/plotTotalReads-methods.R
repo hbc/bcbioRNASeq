@@ -1,11 +1,7 @@
-## FIXME Improve per million in title
-
-
-
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotTotalReads
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -26,7 +22,7 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2019-09-16.
 `plotTotalReads,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -34,8 +30,13 @@ NULL
         limit = 20e6L,
         perMillion = TRUE,
         fill,
-        flip,
-        title = "Total reads"
+        labels = list(
+            title = "Total reads",
+            subtitle = NULL,
+            x = NULL,
+            y = "reads"
+        ),
+        flip
     ) {
         validObject(object)
         assert(
@@ -43,18 +44,19 @@ NULL
             isNonNegative(limit),
             isFlag(perMillion),
             isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
-            isFlag(flip),
-            isString(title, nullOK = TRUE)
+            isFlag(flip)
+        )
+        labels <- matchLabels(
+            labels = labels,
+            choices = eval(formals()[["labels"]])
         )
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
         data <- metrics(object)
-        ## Convert to per million, if desired.
-        yLab <- "reads"
         if (isTRUE(perMillion)) {
             data[["totalReads"]] <- data[["totalReads"]] / 1e6L
-            yLab <- paste(yLab, "per million")
+            labels[["y"]] <- paste(labels[["y"]], "(per million)")
         }
         p <- ggplot(
                 data = data,
@@ -65,13 +67,12 @@ NULL
                 )
             ) +
             acid_geom_bar() +
-            acid_scale_y_continuous_nopad() +
-            labs(
-                title = title,
-                x = NULL,
-                y = yLab,
-                fill = paste(interestingGroups, collapse = ":\n")
-            )
+            acid_scale_y_continuous_nopad()
+        ## Labels.
+        if (is.list(labels)) {
+            labels[["fill"]] <- paste(interestingGroups, collapse = ":\n")
+            p <- p + do.call(what = labs, args = labels)
+        }
         ## Limit.
         if (isPositive(limit)) {
             if (isTRUE(perMillion)) {
