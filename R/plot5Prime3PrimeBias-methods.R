@@ -31,8 +31,8 @@ NULL
         labels = list(
             title = "5'->3' bias",
             subtitle = NULL,
-            sampleCol = NULL,
-            metricCol = "5'->3' bias"
+            sampleAxis = NULL,
+            metricAxis = "5'->3' bias"
         ),
         flip
     ) {
