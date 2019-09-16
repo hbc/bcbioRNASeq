@@ -1,3 +1,7 @@
+## FIXME Use samplesAxis and metricAxis instead of x, y
+
+
+
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotTotalReads
@@ -56,7 +60,9 @@ NULL
         data <- metrics(object)
         if (isTRUE(perMillion)) {
             data[["totalReads"]] <- data[["totalReads"]] / 1e6L
-            labels[["y"]] <- paste(labels[["y"]], "(per million)")
+            if (isString(labels[["y"]])) {
+                labels[["y"]] <- paste(labels[["y"]], "(per million)")
+            }
         }
         p <- ggplot(
                 data = data,
