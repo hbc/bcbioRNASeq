@@ -80,7 +80,7 @@ Updated 2019-09-16.
 
 \itemize{
 \item \code{DESeqDataSet}: Automatically plots normalized counts. Arguments pass
-through to \code{SummarizedExperiment} method, but \code{assay} and \code{countsAxisLabel}
+through to \code{SummarizedExperiment} method, but \code{assay} and \code{countAxisLabel}
 are automatic.
 }
 }

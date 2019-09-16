@@ -31,8 +31,8 @@ NULL
         labels = list(
             title = "5'->3' bias",
             subtitle = NULL,
-            x = NULL,
-            y = "5'->3' bias"
+            sampleCol = NULL,
+            metricCol = "5'->3' bias"
         ),
         flip
     ) {
@@ -62,6 +62,8 @@ NULL
         ## Labels.
         if (is.list(labels)) {
             labels[["color"]] <- paste(interestingGroups, collapse = ":\n")
+            names(labels)[names(labels) == "sampleAxis"] <- "x"
+            names(labels)[names(labels) == "metricAxis"] <- "y"
             p <- p + do.call(what = labs, args = labels)
         }
         ## Color.

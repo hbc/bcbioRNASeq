@@ -11,8 +11,9 @@ plot5Prime3PrimeBias(object, ...)
 \S4method{plot5Prime3PrimeBias}{bcbioRNASeq}(object,
   interestingGroups = NULL, color = getOption(x =
   "acid.color.discrete", default = acidplots::scale_color_synesthesia_d()),
-  labels = list(title = "5'->3' bias", subtitle = NULL, x = NULL, y =
-  "5'->3' bias"), flip = getOption(x = "acid.flip", default = TRUE))
+  labels = list(title = "5'->3' bias", subtitle = NULL, sampleCol = NULL,
+  metricCol = "5'->3' bias"), flip = getOption(x = "acid.flip", default =
+  TRUE))
 }
 \arguments{
 \item{object}{Object.}
