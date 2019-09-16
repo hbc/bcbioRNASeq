@@ -36,7 +36,7 @@ NULL
 ## Updated 2019-09-16.
 `plotCounts,bcbioRNASeq` <-  # nolint
     function(object, genes, normalized, ...) {
-        args = .normalizedArgs(
+        args = .normalizedPlotArgs(
             object = object,
             genes = genes,
             normalized = match.arg(normalized),
