@@ -1,3 +1,7 @@
+## FIXME Improve per million in title
+
+
+
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotTotalReads
