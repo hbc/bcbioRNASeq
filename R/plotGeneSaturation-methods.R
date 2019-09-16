@@ -1,11 +1,7 @@
-## FIXME Improve per million in title
-
-
-
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotGeneSaturation
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -27,7 +23,7 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2019-09-16.
 `plotGeneSaturation,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -37,7 +33,12 @@ NULL
         trendline = FALSE,
         label,
         color,
-        title = "Gene saturation"
+        labels = list(
+            title = "Gene saturation",
+            subtitle = NULL,
+            x = "mapped reads",
+            y = "gene count"
+        )
     ) {
         validObject(object)
         assert(
@@ -47,8 +48,11 @@ NULL
             isFlag(perMillion),
             isFlag(trendline),
             isFlag(label),
-            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE),
-            isString(title, nullOK = TRUE)
+            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE)
+        )
+        labels <- matchLabels(
+            labels = labels,
+            choices = eval(formals()[["labels"]])
         )
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
@@ -58,10 +62,11 @@ NULL
         assert(identical(colnames(counts), data[["sampleID"]]))
         data[["geneCount"]] <- colSums(counts >= minCounts)
         ## Convert to per million, if desired.
-        xLab <- "mapped reads"
         if (isTRUE(perMillion)) {
             data[["mappedReads"]] <- data[["mappedReads"]] / 1e6L
-            xLab <- paste(xLab, "per million")
+            if (isString(labels[["x"]])) {
+                labels[["x"]] <- paste(labels[["x"]], "(per million)")
+            }
         }
         p <- ggplot(
             data = data,
@@ -73,13 +78,12 @@ NULL
         ) +
             geom_point(size = 3L) +
             scale_y_continuous(breaks = pretty_breaks()) +
-            expand_limits(x = 0L, y = 0L) +
-            labs(
-                title = title,
-                x = xLab,
-                y = "gene count",
-                color = paste(interestingGroups, collapse = ":\n")
-            )
+            expand_limits(x = 0L, y = 0L)
+        ## Labels.
+        if (is.list(labels)) {
+            labels[["color"]] <- paste(interestingGroups, collapse = ":\n")
+            p <- p + do.call(what = labs, args = labels)
+        }
         ## Trendline.
         if (isTRUE(trendline)) {
             p <- p + geom_smooth(method = "lm", se = FALSE)
