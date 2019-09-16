@@ -38,29 +38,20 @@ prepareRNASeqTemplate <- function(...) {
 
 
 ## v0.3.17 ======================================================================
-## FIXME Rework this...
-
 #' @rdname deprecated
 #' @export
-plotCountsPerGene <- function(object, title = "Counts per gene", ...) {
+plotCountsPerGene <- function(object, ...) {
+    .Deprecated("plotCountsPerFeature")
     assert(.isGeneLevel(object))
-    do.call(
-        what = plotCountsPerFeature,
-        args = matchArgsToDoCall()
-    )
+    plotCountsPerFeature(object, ...)
 }
 
 #' @rdname deprecated
 #' @export
 plotGenesDetected <- function(object, ...) {
+    .Deprecated("plotFeaturesDetected")
     assert(.isGeneLevel(object))
-    plotFeaturesDetected(
-        object = object,
-        countsAxisLabel = "genes",
-        ## FIXME Need to rework this arg...
-        title = "Genes detected",
-        ...
-    )
+    plotFeaturesDetected(object, ...)
 }
 
 
