@@ -31,18 +31,18 @@
         trans = "log2",
         dots
     )
-    countsAxis <- paste(normalized, "counts")
+    countAxis <- paste(normalized, "counts")
     ## Check for DESeqTransform that are already log2 scale and update `trans`.
     if (normalized %in% c("rlog", "vst")) {
         args[["trans"]] <- "identity"
-        countsAxis <- paste(countsAxis, "(log2)")
+        countAxis <- paste(countAxis, "(log2)")
     }
     ## Automatically stash counts axis label.
     labels <- args[["labels"]]
     if (is.null(labels)) {
         labels <- list()
     }
-    labels[["countsAxis"]] <- countsAxis
+    labels[["countAxis"]] <- countAxis
     args[["labels"]] <- labels
     args
 }
