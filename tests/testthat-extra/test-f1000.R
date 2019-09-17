@@ -4,11 +4,9 @@
 
 context("F1000 workflow paper")
 
-## FIXME Switch paper to use `deg()` instead of `significants()`.
-
-require(DEGreport)
-require(DESeqAnalysis)
-require(clusterProfiler)
+requireNamespace("DEGreport")
+requireNamespace("DESeqAnalysis")
+requireNamespace("clusterProfiler")
 
 dir <- "f1000"
 unlink(dir, recursive = TRUE)
@@ -44,19 +42,23 @@ expect_s3_class(p, "ggplot")
 p <- plotIntronicMappingRate(bcb)
 expect_s3_class(p, "ggplot")
 
-p <- plotGenesDetected(bcb)
-expect_s3_class(p, "ggplot")
+expect_warning(
+    object = plotGenesDetected(bcb),
+    regexp = "deprecated"
+)
 
 p <- plotGeneSaturation(bcb)
 expect_s3_class(p, "ggplot")
 
-p <- plotCountsPerGene(bcb)
-expect_s3_class(p, "ggplot")
+expect_warning(
+    object = plotCountsPerGene(bcb),
+    regexp = "deprecated"
+)
 
-## FIXME There's a difference in n now: 38142 vs. 27041.
-## > p <- plotCountsPerFeature(bcb, geom = "density")
+p <- plotCountsPerFeature(bcb, geom = "density")
+expect_identical(nrow(p$data), 457704L)
+expect_match(p$labels$subtitle, "38142")
 
-## FIXME This is in paper, but now defunct in package.
 p <- plotCountDensity(bcb)
 expect_s3_class(p, "ggplot")
 
@@ -200,6 +202,8 @@ dotplot(ego, showCategory = 25)
 ## Enrichment plot of top 25.
 ## FIXME This is no longer in clusterProfiler...
 enrichMap(ego, n = 25, vertex.label.cex = 0.5)
+
+unlink(dir, recursive = TRUE)
 
 
 
