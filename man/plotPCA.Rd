@@ -8,60 +8,57 @@
 \usage{
 plotPCA(object, ...)
 
-\S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog",
-  "tmm", "rle", "tpm", "fpkm"), interestingGroups = NULL, ntop = 500L,
-  label = getOption(x = "acid.label", default = FALSE),
-  color = getOption(x = "acid.color.discrete", default =
-  acidplots::scale_colour_synesthesia_d()), pointSize = getOption(x =
-  "acid.point.size", default = 3L), title = "PCA", subtitle = NULL,
-  return = c("ggplot", "DataFrame"), ...)
+\S4method{plotPCA}{bcbioRNASeq}(object, normalized = c("vst", "rlog"),
+  ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{\code{character(1)}.
-Type of normalized counts to visualize:
+\item{normalized}{\code{character(1)} or \code{logical(1)}.
+Normalization method to apply:
 \itemize{
-\item \code{tpm} Transcripts per million.
-\item \code{tmm}: edgeR trimmed mean of M-values.
-\item \code{rlog}: DESeq2 log2 regularized log transformation.
-\item \code{vst}: DESeq2 log2 variance stabilizing transformation.
+\item \code{FALSE}: Raw counts.
+When using a \href{https://bioconductor.org/packages/tximport/}{tximport}-compatible caller, these are length scaled
+by default (see \code{countsFromAbundance} argument).
+When using a \href{http://bioinf.wehi.edu.au/featureCounts/}{featureCounts}-compatible caller, these are \code{integer}.
+}
+
+\href{https://bioconductor.org/packages/tximport/}{tximport} caller-specific normalizations:
+\itemize{
+\item \code{"tpm"}: \strong{T}ranscripts \strong{p}er \strong{m}illion.
+}
+
+Additional gene-level-specific normalizations:
+\itemize{
+\item \code{TRUE} / \code{"sf"}: \strong{S}ize \strong{f}actor (i.e. library size) normalized
+counts.\cr
+See \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}} for details.
+\item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
+fragments.\cr
+Requires \code{fpkm = TRUE} in \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call and gene annotations in
+\code{\link[SummarizedExperiment:rowRanges]{rowRanges()}} with defined
+\code{\link[BiocGenerics:width]{width}}.\cr
+See \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}} for details.
+\item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation (log2).\cr
+Requires \code{vst = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
+See \code{DESeq2::varianceStabilizingTransformation} for more information.
+\item \code{"rlog"}: \strong{R}egularized \strong{log} transformation (log2).\cr
+Requires \code{rlog = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
+See \code{\link[DESeq2:rlog]{DESeq2::rlog()}} for details.
+\item \code{"tmm"}: \strong{T}rimmed \strong{m}ean of \strong{M}-values.\cr
+Calculated on the fly.\cr
+See \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}} for details.
+\item \code{"rle"}: \strong{R}elative \strong{l}og \strong{e}xpression transformation.\cr
+Calculated on the fly.\cr
+See \code{\link[=relativeLogExpression]{relativeLogExpression()}} for details.
+
+Note that \code{logical(1)} support only applies to \code{counts()}. Other
+functions in the package require \code{character(1)} and use
+\code{\link[base:match.arg]{match.arg()}} internally.
 }}
 
-\item{interestingGroups}{\code{character}.
-Groups of interest to use for visualization.
-Corresponds to factors describing the columns of the object.}
-
-\item{ntop}{\code{integer(1)} or \code{Inf}.
-Number of most variable genes to plot.
-Use \code{Inf} to include all genes (\emph{not recommended}).}
-
-\item{label}{\code{logical(1)}.
-Superimpose sample text labels on the plot.}
-
-\item{color}{\code{ScaleDiscrete}.
-Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
-the default ggplot2 color palette will be used. If manual color definitions
-are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual()}}.
-
-To set the discrete color palette globally, use:\preformatted{options(acid.color.discrete = ggplot2::scale_color_viridis_d())
-}}
-
-\item{pointSize}{\code{numeric(1)}.
-Point size for dots in the plot.
-In the range of 1-3 is generally recommended.}
-
-\item{title}{\code{character(1)}.
-Title.}
-
-\item{subtitle}{\code{character(1)}.
-Subtitle.}
-
-\item{return}{\code{character(1)}.
-Return type. Uses \code{\link[base:match.arg]{match.arg()}} internally and defaults
-to the first argument in the \code{character} vector.}
-
-\item{...}{Additional arguments.}
+\item{...}{Passthrough to \code{SummarizedExperiment} method defined in acidplots.
+See \code{\link[acidplots:plotPCA]{acidplots::plotPCA()}} for details.}
 }
 \value{
 \code{ggplot} or \code{DataFrame}.
@@ -70,7 +67,7 @@ to the first argument in the \code{character} vector.}
 Principal component analysis plot
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-15.
 }
 \section{Principal component analysis}{
 

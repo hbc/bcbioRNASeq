@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.28</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>object</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"pseudo vs. aligned counts"</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Pseudoaligned vs. aligned counts"</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,7 +137,9 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments.</p></td>
+      <td><p>Passthrough to <code><a href='https://rdrr.io/pkg/acidplots/man/plotCountsCorrelationHeatmap.html'>acidplots::plotCountsCorrelationHeatmap()</a></code> when
+<code>genes = NULL</code> or <code><a href='https://rdrr.io/pkg/acidplots/man/plotCountsCorrelation.html'>acidplots::plotCountsCorrelation()</a></code> when <code>genes</code> are
+defined.</p></td>
     </tr>
     <tr>
       <th>genes</th>
@@ -156,18 +158,18 @@ Title.</p></td>
     <p>Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
 <code>counts</code> assay.</p>
-<p>Updated 2019-08-07.</p>
+<p>Updated 2019-09-16.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
 
 <span class='co'>## Correlation heatmap.</span>
-<span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Censoring 29 genes.</span></div><div class='img'><img src='plotPseudoVsAlignedCounts-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Making the rownames and colnames human readable.</span></div><div class='output co'>#&gt; <span class='message'>Returning with the sample names unmodified.</span></div><div class='output co'>#&gt; <span class='message'>Censoring 29 genes containing an NA value.</span></div><div class='img'><img src='plotPseudoVsAlignedCounts-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Individual genes.</span>
 <span class='co'>## Checking the most expressed aligned genes here.</span>
 <span class='no'>aligned</span> <span class='kw'>&lt;-</span> <span class='fu'>assay</span>(<span class='no'>bcb</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='st'>"aligned"</span>)
 <span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span>(<span class='no'>aligned</span>) <span class='kw'>%&gt;%</span> <span class='no'>sort</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2L</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>()
-<span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='img'><img src='plotPseudoVsAlignedCounts-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'>Making the rownames and colnames human readable.</span></div><div class='output co'>#&gt; <span class='message'>Returning with the sample names unmodified.</span></div><div class='img'><img src='plotPseudoVsAlignedCounts-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -187,7 +189,7 @@ intentionally error for datasets containing aligned counts in the primary
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

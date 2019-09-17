@@ -1,7 +1,7 @@
 #' @name plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotMappedReads
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -22,7 +22,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-16.
 `plotMappedReads,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -30,8 +30,13 @@ NULL
         limit = 10e6L,
         perMillion = TRUE,
         fill,
-        flip,
-        title = "Mapped reads"
+        labels = list(
+            title = "Mapped reads",
+            subtitle = NULL,
+            sampleAxis = NULL,
+            metricAxis = "reads"
+        ),
+        flip
     ) {
         validObject(object)
         assert(
@@ -39,22 +44,24 @@ NULL
             isNonNegative(limit),
             isFlag(perMillion),
             isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
-            isFlag(flip),
-            isString(title, nullOK = TRUE)
+            isFlag(flip)
+        )
+        labels <- matchLabels(
+            labels = labels,
+            choices = eval(formals()[["labels"]])
         )
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
-
         data <- metrics(object)
-
         ## Convert to per million, if desired.
-        yLab <- "reads"
         if (isTRUE(perMillion)) {
             data[["mappedReads"]] <- data[["mappedReads"]] / 1e6L
-            yLab <- paste(yLab, "per million")
+            if (isString(labels[["metricAxis"]])) {
+                labels[["metricAxis"]] <-
+                    paste(labels[["metricAxis"]], "(per million)")
+            }
         }
-
         p <- ggplot(
             data = data,
             mapping = aes(
@@ -64,14 +71,15 @@ NULL
             )
         ) +
             acid_geom_bar() +
-            acid_scale_y_continuous_nopad() +
-            labs(
-                title = title,
-                x = NULL,
-                y = yLab,
-                fill = paste(interestingGroups, collapse = ":\n")
-            )
-
+            acid_scale_y_continuous_nopad()
+        ## Labels.
+        if (is.list(labels)) {
+            labels[["fill"]] <- paste(interestingGroups, collapse = ":\n")
+            names(labels)[names(labels) == "sampleAxis"] <- "x"
+            names(labels)[names(labels) == "metricAxis"] <- "y"
+            p <- p + do.call(what = labs, args = labels)
+        }
+        ## Limit.
         if (isPositive(limit)) {
             if (isTRUE(perMillion)) {
                 if (limit < 1e6L) {
@@ -82,19 +90,19 @@ NULL
             }
             p <- p + acid_geom_abline(yintercept = limit)
         }
-
+        ## Fill.
         if (is(fill, "ScaleDiscrete")) {
             p <- p + fill
         }
-
+        ## Flip.
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
         }
-
+        ## Hide sample name legend.
         if (identical(interestingGroups, "sampleName")) {
             p <- p + guides(fill = FALSE)
         }
-
+        ## Return.
         p
     }
 

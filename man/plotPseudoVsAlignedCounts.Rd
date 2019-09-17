@@ -10,12 +10,14 @@
 plotPseudoVsAlignedCounts(object, ...)
 
 \S4method{plotPseudoVsAlignedCounts}{bcbioRNASeq}(object, genes = NULL,
-  title = "pseudo vs. aligned counts", ...)
+  title = "Pseudoaligned vs. aligned counts", ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Additional arguments.}
+\item{...}{Passthrough to \code{\link[acidplots:plotCountsCorrelationHeatmap]{acidplots::plotCountsCorrelationHeatmap()}} when
+\code{genes = NULL} or \code{\link[acidplots:plotCountsCorrelation]{acidplots::plotCountsCorrelation()}} when \code{genes} are
+defined.}
 
 \item{genes}{\code{character}.
 Gene identifiers.}
@@ -31,7 +33,7 @@ Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
 \code{counts} assay.
 
-Updated 2019-08-07.
+Updated 2019-09-16.
 }
 \examples{
 data(bcb)

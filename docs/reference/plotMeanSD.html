@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.28</span>
       </span>
     </div>
 
@@ -126,9 +126,11 @@
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotMeanSD</span>(<span class='no'>object</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span>(<span class='kw'>low</span> <span class='kw'>=</span> <span class='st'>"grey25"</span>, <span class='kw'>high</span> <span class='kw'>=</span> <span class='st'>"purple"</span>),
-  <span class='kw'>lineColor</span> <span class='kw'>=</span> <span class='st'>"darkorange"</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.legend"</span>,
-  <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</pre>
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span>(<span class='kw'>low</span> <span class='kw'>=</span>
+  <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/palettes.html'>lightPalette</a></span><span class='kw'>[[</span><span class='st'>"gray"</span>]], <span class='kw'>high</span> <span class='kw'>=</span>
+  <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/palettes.html'>lightPalette</a></span><span class='kw'>[[</span><span class='st'>"purple"</span>]]),
+  <span class='kw'>lineColor</span> <span class='kw'>=</span> <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/palettes.html'>lightPalette</a></span><span class='kw'>[[</span><span class='st'>"orange"</span>]], <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span>
+  <span class='kw'>=</span> <span class='st'>"acid.legend"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,7 +179,7 @@ Include plot legend.</p></td>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Requires the vsn package to be installed.</p>
-<p>Updated 2019-08-20.</p>
+<p>Updated 2019-09-15.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
@@ -217,7 +219,7 @@ Include plot legend.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

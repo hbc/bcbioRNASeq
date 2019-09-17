@@ -6,15 +6,12 @@
 \alias{plotGenesDetected}
 \title{Deprecated functions}
 \usage{
-plotCountsPerGene(object, title = "Counts per gene", ...)
+plotCountsPerGene(object, ...)
 
 plotGenesDetected(object, ...)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{title}{\code{character(1)}.
-Title.}
 
 \item{...}{Additional arguments.}
 }

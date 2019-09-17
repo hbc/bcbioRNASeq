@@ -12,20 +12,23 @@ bcbioRNASeqTestsURL <- paste0(
     "v", .version$major, ".", .version$minor  # nolint
 )
 
-validLevels <- c("genes", "transcripts")
+.levels <- c("genes", "transcripts")
 
-requiredAssays <- "counts"
-tximportAssays <- c(requiredAssays, "tpm")
-featureCountsAssays <- requiredAssays
+.assays <- "counts"
+.tximportAssays <- c(.assays, "tpm")
+.featureCountsAssays <- .assays
 
-tximportCallers <- c("salmon", "kallisto", "sailfish")
-featureCountsCallers <- c("star", "hisat2")
-validCallers <- c(tximportCallers, featureCountsCallers)
+.tximportCallers <- c("salmon", "kallisto", "sailfish")
+.featureCountsCallers <- c("star", "hisat2")
+.callers <- c(.tximportCallers, .featureCountsCallers)
 
-normalizedCounts <- c("vst", "rlog", "tmm", "rle", "tpm", "fpkm")
+## DESeqTransform types.
+.dt <- c("vst", "rlog")
 
-legacyMetricsCols <- c("name", "x53Bias")
+## "sf" denotes size-factor adjusted counts. This corresponds to
+## `normalized = TRUE`, and is recommended by default for plots.
+.normalized <- c("tpm", "sf", "fpkm", .dt, "tmm", "rle")
 
-trans <- c("log2", "log10")
+.legacyMetricsCols <- c("name", "x53Bias")
 
-Rle <- structure("Rle", package = "S4Vectors")  # nolint
+.Rle <- structure("Rle", package = "S4Vectors")  # nolint

@@ -1,7 +1,7 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit bioverbs::plotGeneSaturation
-#' @note Updated 2019-08-20.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -23,7 +23,7 @@ NULL
 
 
 
-## Updated 2019-08-20.
+## Updated 2019-09-16.
 `plotGeneSaturation,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -33,7 +33,12 @@ NULL
         trendline = FALSE,
         label,
         color,
-        title = "Gene saturation"
+        labels = list(
+            title = "Gene saturation",
+            subtitle = NULL,
+            x = "mapped reads",
+            y = "gene count"
+        )
     ) {
         validObject(object)
         assert(
@@ -43,57 +48,57 @@ NULL
             isFlag(perMillion),
             isFlag(trendline),
             isFlag(label),
-            isGGScale(color, scale = "discrete", aes = "colour", nullOK = TRUE),
-            isString(title, nullOK = TRUE)
+            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE)
+        )
+        labels <- matchLabels(
+            labels = labels,
+            choices = eval(formals()[["labels"]])
         )
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
-
         counts <- counts(object, normalized = FALSE)
         data <- metrics(object)
         assert(identical(colnames(counts), data[["sampleID"]]))
         data[["geneCount"]] <- colSums(counts >= minCounts)
-
         ## Convert to per million, if desired.
-        xLab <- "mapped reads"
         if (isTRUE(perMillion)) {
             data[["mappedReads"]] <- data[["mappedReads"]] / 1e6L
-            xLab <- paste(xLab, "per million")
+            if (isString(labels[["x"]])) {
+                labels[["x"]] <- paste(labels[["x"]], "(per million)")
+            }
         }
-
         p <- ggplot(
             data = data,
             mapping = aes(
                 x = !!sym("mappedReads"),
                 y = !!sym("geneCount"),
-                colour = !!sym("interestingGroups")
+                color = !!sym("interestingGroups")
             )
         ) +
             geom_point(size = 3L) +
             scale_y_continuous(breaks = pretty_breaks()) +
-            expand_limits(x = 0L, y = 0L) +
-            labs(
-                title = title,
-                x = xLab,
-                y = "gene count",
-                colour = paste(interestingGroups, collapse = ":\n")
-            )
-
+            expand_limits(x = 0L, y = 0L)
+        ## Labels.
+        if (is.list(labels)) {
+            labels[["color"]] <- paste(interestingGroups, collapse = ":\n")
+            p <- p + do.call(what = labs, args = labels)
+        }
+        ## Trendline.
         if (isTRUE(trendline)) {
             p <- p + geom_smooth(method = "lm", se = FALSE)
         }
-
+        ## Color.
         if (is(color, "ScaleDiscrete")) {
             p <- p + color
         }
-
+        ## Hide sample name legend.
         if (isTRUE(label)) {
             p <- p + acid_geom_label_repel(
                 mapping = aes(label = !!sym("sampleName"))
             )
         }
-
+        ## Return.
         p
     }
 

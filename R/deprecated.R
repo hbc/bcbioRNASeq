@@ -28,15 +28,6 @@ loadRNASeq <- function(...) {
 
 
 
-## v0.3.0 =======================================================================
-#' @rdname defunct
-#' @export
-plotCountDensity <- function(...) {
-    .Defunct("plotCountsPerFeature(object, geom = \"density\")")
-}
-
-
-
 ## v0.3.16 ======================================================================
 #' @rdname defunct
 #' @export
@@ -49,24 +40,18 @@ prepareRNASeqTemplate <- function(...) {
 ## v0.3.17 ======================================================================
 #' @rdname deprecated
 #' @export
-plotCountsPerGene <- function(object, title = "Counts per gene", ...) {
+plotCountsPerGene <- function(object, ...) {
+    .Deprecated("plotCountsPerFeature")
     assert(.isGeneLevel(object))
-    do.call(
-        what = plotCountsPerFeature,
-        args = matchArgsToDoCall()
-    )
+    plotCountsPerFeature(object, ...)
 }
 
 #' @rdname deprecated
 #' @export
 plotGenesDetected <- function(object, ...) {
+    .Deprecated("plotFeaturesDetected")
     assert(.isGeneLevel(object))
-    plotFeaturesDetected(
-        object = object,
-        countsAxisLabel = "genes",
-        title = "Genes detected",
-        ...
-    )
+    plotFeaturesDetected(object, ...)
 }
 
 

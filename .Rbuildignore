@@ -8,3 +8,4 @@
 ^Meta$
 ^pkgdown$
 ^vignettes/\.$
+^doc$

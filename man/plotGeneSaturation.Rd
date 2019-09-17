@@ -12,7 +12,9 @@ plotGeneSaturation(object, ...)
   interestingGroups = NULL, minCounts = 1L, perMillion = TRUE,
   trendline = FALSE, label = getOption(x = "acid.label", default =
   FALSE), color = getOption(x = "acid.color.discrete", default =
-  acidplots::scale_colour_synesthesia_d()), title = "Gene saturation")
+  acidplots::scale_color_synesthesia_d()), labels = list(title =
+  "Gene saturation", subtitle = NULL, x = "mapped reads", y =
+  "gene count"))
 }
 \arguments{
 \item{object}{Object.}
@@ -41,8 +43,9 @@ are desired, we recommend using \code{\link[ggplot2:scale_color_manual]{ggplot2:
 To set the discrete color palette globally, use:\preformatted{options(acid.color.discrete = ggplot2::scale_color_viridis_d())
 }}
 
-\item{title}{\code{character(1)}.
-Title.}
+\item{labels}{\code{list}.
+ggplot2 labels.
+See \code{\link[ggplot2:labs]{ggplot2::labs()}} for details.}
 
 \item{...}{Additional arguments.}
 }
@@ -55,7 +58,7 @@ number of mapped reads, which indicates that the sample input was not
 overloaded.
 }
 \note{
-Updated 2019-08-20.
+Updated 2019-09-16.
 }
 \examples{
 data(bcb)

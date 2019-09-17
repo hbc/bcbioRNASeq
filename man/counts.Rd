@@ -13,7 +13,7 @@
 \item{object}{Object.}
 
 \item{normalized}{\code{character(1)} or \code{logical(1)}.
-Which normalization method to apply:
+Normalization method to apply:
 \itemize{
 \item \code{FALSE}: Raw counts.
 When using a \href{https://bioconductor.org/packages/tximport/}{tximport}-compatible caller, these are length scaled
@@ -28,22 +28,31 @@ When using a \href{http://bioinf.wehi.edu.au/featureCounts/}{featureCounts}-comp
 
 Additional gene-level-specific normalizations:
 \itemize{
-\item \code{TRUE}: Size factor-adjusted counts.\cr
-See \code{DESeq2::sizeFactors} for more information.
-\item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation.\cr
-Requires \code{vst = TRUE} to be set during \code{bcbioRNASeq} call.\cr
-See \code{DESeq2::varianceStabilizingTransformation} for more information.
-\item \code{"rlog"}: \strong{R}egularized \strong{log} transformation (log2).\cr
-Requires \code{rlog = TRUE} to be set during \code{bcbioRNASeq} call.\cr
-See \code{DESeq2::rlog} for more information.
-\item \code{"tmm"}: \strong{T}rimmed \strong{m}ean of \strong{M}-values.\cr
-See \code{edgeR::calcNormFactors} for more information.
-\item \code{"rle"}: \strong{R}elative \strong{l}og \strong{e}xpression transformation.
+\item \code{TRUE} / \code{"sf"}: \strong{S}ize \strong{f}actor (i.e. library size) normalized
+counts.\cr
+See \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}} for details.
 \item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
 fragments.\cr
-Requires annotations in \code{rowRanges} with defined \code{width}; otherwise,
-will be skipped during the \code{bcbioRNASeq} load call.\cr
-See \code{BiocGenerics::width} and \code{DESeq2::fpkm} for more information.
+Requires \code{fpkm = TRUE} in \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call and gene annotations in
+\code{\link[SummarizedExperiment:rowRanges]{rowRanges()}} with defined
+\code{\link[BiocGenerics:width]{width}}.\cr
+See \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}} for details.
+\item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation (log2).\cr
+Requires \code{vst = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
+See \code{DESeq2::varianceStabilizingTransformation} for more information.
+\item \code{"rlog"}: \strong{R}egularized \strong{log} transformation (log2).\cr
+Requires \code{rlog = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
+See \code{\link[DESeq2:rlog]{DESeq2::rlog()}} for details.
+\item \code{"tmm"}: \strong{T}rimmed \strong{m}ean of \strong{M}-values.\cr
+Calculated on the fly.\cr
+See \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}} for details.
+\item \code{"rle"}: \strong{R}elative \strong{l}og \strong{e}xpression transformation.\cr
+Calculated on the fly.\cr
+See \code{\link[=relativeLogExpression]{relativeLogExpression()}} for details.
+
+Note that \code{logical(1)} support only applies to \code{counts()}. Other
+functions in the package require \code{character(1)} and use
+\code{\link[base:match.arg]{match.arg()}} internally.
 }}
 }
 \value{
@@ -57,7 +66,7 @@ By default, return the raw counts. Normalized counts in a variety of formats
 can be accessed using the \code{normalized} argument.
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-15.
 }
 \examples{
 data(bcb)

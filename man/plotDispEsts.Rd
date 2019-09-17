@@ -8,39 +8,13 @@
 \usage{
 plotDispEsts(object, ...)
 
-\S4method{plotDispEsts}{bcbioRNASeq}(object, ymin, CV = FALSE,
-  genecol = "black", fitcol = "red", finalcol = "dodgerblue",
-  legend = TRUE, xlab, ylab, log = "xy", cex = 0.45, ...)
+\S4method{plotDispEsts}{bcbioRNASeq}(object, ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{ymin}{the lower bound for points on the plot, points beyond this
-are drawn as triangles at ymin}
-
-\item{CV}{logical, whether to plot the asymptotic or biological
-coefficient of variation (the square root of dispersion) on the y-axis.
-As the mean grows to infinity, the square root of dispersion gives
-the coefficient of variation for the counts. Default is \code{FALSE},
-plotting dispersion.}
-
-\item{genecol}{the color for gene-wise dispersion estimates}
-
-\item{fitcol}{the color of the fitted estimates}
-
-\item{finalcol}{the color of the final estimates used for testing}
-
-\item{legend}{logical, whether to draw a legend}
-
-\item{xlab}{xlab}
-
-\item{ylab}{ylab}
-
-\item{log}{log}
-
-\item{cex}{cex}
-
-\item{...}{Additional arguments.}
+\item{...}{Passthrough to \code{DESeqDataSet} method defined in DESeq2.
+See \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}} for details.}
 }
 \value{
 \code{ggplot}.
@@ -57,7 +31,7 @@ Here we're generating a \code{DESeqDataSet} object on the fly, which already has
 method support for plotting dispersion, provided by the DESeq2 package.
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-15.
 }
 \examples{
 data(bcb)

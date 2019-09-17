@@ -9,16 +9,18 @@ test_that("Assays", {
     }
     ## Transcript-to-gene counts aren't integer, so we're rounding here to
     ## check the values more easily.
+    sums <- unlist(lapply(assays(bcb), assaySum))
+    sums <- sums[sort(names(sums))]
     expect_identical(
-        object = lapply(assays(bcb), assaySum),
-        expected = list(
-            counts = 179646L,
-            tpm = 3456L,
-            avgTxLength = 1389741L,
+        object = sums,
+        expected = c(
             aligned = 138365L,
+            avgTxLength = 1389741L,
+            counts = 179646L,
+            fpkm = 511409L,
             normalized = 163383L,
-            vst = 4044L,
-            fpkm = 511409L
+            tpm = 3456L,
+            vst = 4044L
         )
     )
 })

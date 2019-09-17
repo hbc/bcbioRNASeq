@@ -1,22 +1,12 @@
 #' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit acidplots::plotCountsPerFeature
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
-#' @param ... Additional arguments.
-#'
-#' @section Trimmed Mean of M-Values:
-#'
-#' We recommend visualizing counts normalized with the **T**rimmed **M**ean of
-#' **M**-Values (TMM) method here. TMM normalization equates the overall
-#' expression levels of genes between samples under the assumption that the
-#' majority of them are not differentially expressed. Therefore, by normalizing
-#' for total RNA expression by sample, we expect the spread of the
-#' TMM-normalized counts per gene to be similar for every sample.
-#'
-#' @references TMM: Robinson, et al., 2010.
+#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
+#'   See [acidplots::plotCountsPerFeature()] for details.
 #'
 #' @examples
 #' data(bcb)
@@ -35,34 +25,21 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-16.
 `plotCountsPerFeature,bcbioRNASeq` <-  # nolint
-    function(object, normalized) {
-        normalized <- match.arg(normalized)
-        args <- .dynamicTrans(object = object, normalized = normalized)
+    function(object, normalized, ...) {
         do.call(
             what = plotCountsPerFeature,
-            args = matchArgsToDoCall(
-                args = args,
-                removeFormals = "normalized"
+            args = .normalizedPlotArgs(
+                object = object,
+                normalized = match.arg(normalized),
+                ...
             )
         )
     }
 
-f1 <- formals(`plotCountsPerFeature,bcbioRNASeq`)
-f2 <- methodFormals(
-    f = "plotCountsPerFeature",
-    signature = "SummarizedExperiment",
-    package = "acidplots"
-)
-f2 <- f2[setdiff(
-    x = names(f2),
-    y = c(names(f1), "assay", "countsAxisLabel", "trans")
-)]
-f <- c(f1, f2)
-## Ensure TPM is set first.
-f[["normalized"]] <- unique(c("tmm", normalizedCounts))
-formals(`plotCountsPerFeature,bcbioRNASeq`) <- f
+formals(`plotCountsPerFeature,bcbioRNASeq`)[["normalized"]] <-
+    unique(c("tmm", .normalized))
 
 
 
@@ -73,3 +50,13 @@ setMethod(
     signature = signature("bcbioRNASeq"),
     definition = `plotCountsPerFeature,bcbioRNASeq`
 )
+
+
+
+## Note that this function is defined in F1000 v2 workflow paper.
+
+#' @rdname plotCountsPerFeature
+#' @export
+plotCountDensity <- function(object, ...) {
+    plotCountsPerFeature(object = object, geom = "density", ...)
+}

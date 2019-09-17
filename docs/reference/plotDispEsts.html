@@ -72,7 +72,7 @@ estimates together with the fitted mean-dispersion relationship." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.28</span>
       </span>
     </div>
 
@@ -127,9 +127,7 @@ estimates together with the fitted mean-dispersion relationship.</p>
     <pre class="usage"><span class='fu'>plotDispEsts</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotDispEsts</span>(<span class='no'>object</span>, <span class='no'>ymin</span>, <span class='kw'>CV</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>genecol</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>fitcol</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>finalcol</span> <span class='kw'>=</span> <span class='st'>"dodgerblue"</span>,
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>xlab</span>, <span class='no'>ylab</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='st'>"xy"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.45</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plotDispEsts</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,53 +137,9 @@ estimates together with the fitted mean-dispersion relationship.</p>
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>ymin</th>
-      <td><p>the lower bound for points on the plot, points beyond this
-are drawn as triangles at ymin</p></td>
-    </tr>
-    <tr>
-      <th>CV</th>
-      <td><p>logical, whether to plot the asymptotic or biological
-coefficient of variation (the square root of dispersion) on the y-axis.
-As the mean grows to infinity, the square root of dispersion gives
-the coefficient of variation for the counts. Default is <code>FALSE</code>,
-plotting dispersion.</p></td>
-    </tr>
-    <tr>
-      <th>genecol</th>
-      <td><p>the color for gene-wise dispersion estimates</p></td>
-    </tr>
-    <tr>
-      <th>fitcol</th>
-      <td><p>the color of the fitted estimates</p></td>
-    </tr>
-    <tr>
-      <th>finalcol</th>
-      <td><p>the color of the final estimates used for testing</p></td>
-    </tr>
-    <tr>
-      <th>legend</th>
-      <td><p>logical, whether to draw a legend</p></td>
-    </tr>
-    <tr>
-      <th>xlab</th>
-      <td><p>xlab</p></td>
-    </tr>
-    <tr>
-      <th>ylab</th>
-      <td><p>ylab</p></td>
-    </tr>
-    <tr>
-      <th>log</th>
-      <td><p>log</p></td>
-    </tr>
-    <tr>
-      <th>cex</th>
-      <td><p>cex</p></td>
-    </tr>
-    <tr>
       <th>...</th>
-      <td><p>Additional arguments.</p></td>
+      <td><p>Passthrough to <code>DESeqDataSet</code> method defined in DESeq2.
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/plotDispEsts.html'>DESeq2::plotDispEsts()</a></code> for details.</p></td>
     </tr>
     </table>
 
@@ -200,7 +154,7 @@ dispersion to decrease as the mean of normalized counts increases.</p>
 method support for plotting dispersion, provided by the DESeq2 package.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Updated 2019-08-07.</p>
+    <p>Updated 2019-09-15.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/DESeq2/man/plotDispEsts.html'>DESeq2::plotDispEsts()</a></code>.</p></div>
@@ -239,7 +193,7 @@ method support for plotting dispersion, provided by the DESeq2 package.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

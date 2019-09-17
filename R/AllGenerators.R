@@ -244,7 +244,7 @@ bcbioRNASeq <- function(
     level <- match.arg(level)
     caller <- match.arg(caller)
     if (level == "transcripts") {
-        assert(isSubset(caller, tximportCallers))
+        assert(isSubset(caller, .tximportCallers))
     }
     assert(
         isAny(samples, classes = c("character", "NULL")),
@@ -415,7 +415,7 @@ bcbioRNASeq <- function(
     ## to loading the featureCounts aligned counts data. As of v0.3.22, we're
     ## alternatively slotting the aligned counts as "aligned" matrix when
     ## pseudoaligned counts are defined in the primary "counts" assay.
-    if (caller %in% tximportCallers) {
+    if (caller %in% .tximportCallers) {
         if (level == "transcripts") {
             txOut <- TRUE
         } else {
@@ -442,7 +442,7 @@ bcbioRNASeq <- function(
                 genes = rownames(txi[["counts"]])
             )
         }
-    } else if (caller %in% featureCountsCallers) {
+    } else if (caller %in% .featureCountsCallers) {
         txi <- NULL
         countsFromAbundance <- "no"
         assert(identical(level, "genes"))

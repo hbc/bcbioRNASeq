@@ -1,18 +1,24 @@
 ---
 ## Alternatively, consider using the pfgsea package for fast preranked GSEA.
-## We're setting mouse genome here by default, to follow the vignette example.
-## Updated 2019-07-25.
+##
+## - KEGG supported organisms
+##   http://www.genome.jp/kegg/catalog/org_list.html
+## - OrgDb supported organisms
+##   http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
+##
+## Updated 2019-09-17.
 params:
-  title: "Functional analysis"
+  title: "Functional analysis with clusterProfiler"
   ## DESeqDataSet
   dds_file: "data/YYYY-MM-DD/dds.rds"
   ## DESeqResults
   res_file: "data/YYYY-MM-DD/res.rds"
-  organism: "Mus musculus"
+  organism: "Homo sapiens"
   go_class: "BP"
-  lfc_threshold: 0
   data_dir: !r file.path("data", Sys.Date())
   results_dir: !r file.path("results", Sys.Date(), "functional-analysis")
+  ## Pathview KEGG plots tend to be slow to render.
+  pathview: FALSE
 title: "`r params$title`"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
@@ -20,27 +26,19 @@ bibliography: bibliography.bib
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-library(tibble)
-library(stringr)
-library(dplyr)
-library(DEGreport)
+library(magrittr)
+library(tidyverse)
 library(bcbioRNASeq)
-prepareTemplate(package = "bcbioRNASeq")
+prepareTemplate()
 source("_setup.R")
+deg <- DESeqAnalysis::deg
 ```
 
 ```{r bioc-packages, message=FALSE}
-## Load Bioconductor packages.
-
-## Only the current Bioconductor release for this template is supported,
-## because it's too difficult to unit test and properly handle code changes.
+## Load Bioconductor packages. Only the current Bioconductor release for this
+## template is supported, because it's too difficult to unit test and properly
+## handle code changes.
 stopifnot(BiocManager::version() >= "3.9")
-
-## - KEGG supported organisms
-##   http://www.genome.jp/kegg/catalog/org_list.html
-## - OrgDb supported organisms
-##   http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
-
 ## Get OrgDb package from organism name (e.g. "org.Mm.eg.db").
 match <- str_match(
     string = params$organism,
@@ -54,14 +52,12 @@ org_db <- paste(
     sep = "."
 )
 rm(match)
-
 packages <- c(
     "clusterProfiler",
     "DOSE",
     "pathview",
     org_db
 )
-
 invisible(lapply(
     X = basename(packages),
     FUN = function(package) {
@@ -69,6 +65,12 @@ invisible(lapply(
         stopifnot(require(package, character.only = TRUE))
     }
 ))
+## Avoid logical coercion error in DOSE.
+## Report this issue to package author.
+Sys.setenv(
+    "_R_CHECK_LENGTH_1_CONDITION_" = "false",
+    "_R_CHECK_LENGTH_1_LOGIC2_" = "false"
+)
 ```
 
 ```{r check-db-codes}
@@ -78,7 +80,6 @@ kegg_code <- params$organism %>%
     pull("kegg_code")
 stopifnot(length(kegg_code) == 1)
 stopifnot(grepl("^[a-z]{3}$", kegg_code))
-
 ## Check for valid GO class.
 ## - BP: Biological Process
 ## - CC: Cellular Component
@@ -122,36 +123,27 @@ stopifnot(identical(rownames(dds), rownames(res)))
 ```
 
 ```{r results}
+## Not allowing the user to apply post-hoc LFC filtering in params.
 alpha <- metadata(res)$alpha
-
+lfc_threshold <- metadata(res)$lfcThreshold
 ## Subset NA adjusted P values.
 message("Dropping genes without an adjusted P value.")
 res <- res[!is.na(res$padj), , drop = FALSE]
 res_df <- as.data.frame(res)
-
 ## Match the DESeqDataSet.
 dds <- dds[rownames(res), , drop = FALSE]
-
 ## Use the all_genes vector for background (aka universe).
 all_genes <- rownames(res)
-
-## > help("significants", "DEGreport")
-sig_genes <- significants(
-    object = res,
-    fc = params$lfc_threshold,
-    padj = alpha
-)
-
+## > help(topic = "deg", package = "DESeqAnalysis")
+sig_genes <- deg(res)
 length(all_genes)
 length(sig_genes)
-
 sig_res_df <- res_df %>%
     .[sig_genes, , drop = FALSE] %>%
     .[order(.$padj), , drop = FALSE]
-
+## LFC ranked list vector. 
 lfc_vec <- sig_res_df$log2FoldChange
 names(lfc_vec) <- rownames(sig_res_df)
-## Sort from upregulated to downregulated.
 lfc_vec <- sort(lfc_vec, decreasing = TRUE)
 summary(lfc_vec)
 ```
@@ -171,12 +163,10 @@ enrich_go <- enrichGO(
     readable = TRUE
 )
 print(enrich_go)
-
 enrich_go_tbl <- enrich_go %>%
     slot("result") %>%
     as_tibble() %>%
-    camel()
-
+    camelCase()
 saveData(enrich_go, enrich_go_tbl, dir = params$data_dir)
 export(
     object = enrich_go_tbl,
@@ -190,15 +180,14 @@ export(
                 "padj",
                 alpha,
                 "lfc",
-                params$lfc_threshold,
+                lfc_threshold,
                 sep = "_"
             ),
             ".csv.gz"
         )
     )
 )
-
-enrich_go_tbl
+print(enrich_go_tbl)
 ```
 
 ## Dot plot
@@ -230,11 +219,9 @@ A common approach in analyzing gene expression profiles was identifying differen
 ```{r ranked-gene-list}
 ## Prepare the ranked list using Wald test statistic, which is directional.
 gene_list <- res_df$stat
-
 ## Alternatively, you can rank using BH adjusted P value ("padj"), but you'll
 ## likely encounter ties.
 ## > gene_list <- 1 - res_df$padj
-
 names(gene_list) <- rownames(res_df)
 gene_list <- sort(gene_list, decreasing = TRUE)
 summary(gene_list)
@@ -252,12 +239,10 @@ gsea_go <- gseGO(
     pvalueCutoff = 0.05
 )
 print(gsea_go)
-
 gsea_go_tbl <- gsea_go %>%
     slot("result") %>%
     as_tibble() %>%
-    camel()
-
+    camelCase()
 saveData(gsea_go, gsea_go_tbl, dir = params$data_dir)
 export(
     object = gsea_go_tbl,
@@ -270,15 +255,14 @@ export(
                 "padj",
                 alpha,
                 "lfc",
-                params$lfc_threshold,
+                lfc_threshold,
                 sep = "_"
             ),
             ".csv.gz"
         )
     )
 )
-
-gsea_go_tbl
+print(gsea_go_tbl)
 ```
 
 # KEGG enrichment analysis
@@ -290,8 +274,10 @@ gsea_go_tbl
 ```{r gene2entrez}
 ## Define the Ensembl gene to Entrez identifier mappings.
 gene2entrez <- rowData(dds)$entrezID
-stopifnot(is.list(gene2entrez))
-stopifnot(!is.null(names(gene2entrez)))
+stopifnot(
+    is.list(gene2entrez),
+    !is.null(names(gene2entrez))
+)
 ## For genes that don't map 1:1 with Entrez, use the oldest Entrez ID.
 ## Also, ensure the IDs are coerced to character.
 gene2entrez <- lapply(gene2entrez, function(x) {
@@ -325,12 +311,10 @@ Now we need to map the DESeqResults values to our Entrez IDs. Let's obtain a vec
 ```{r sig-gene2entrez}
 ## Significant genes that map to Entrez ID.
 sig_gene2entrez <- gene2entrez[intersect(sig_genes, names(gene2entrez))]
-
 ## Note that these can be duplicated.
 if (any(duplicated(sig_gene2entrez))) {
-  message("Duplicate Entrez IDs detected.")
+    message("Duplicate Entrez IDs detected.")
 }
-
 str(sig_gene2entrez)
 ```
 
@@ -338,7 +322,6 @@ Note that this vector can contain duplicate Entrez IDs, which we will resolve by
 
 ```{r entrez-res}
 stopifnot(all(names(sig_gene2entrez) %in% rownames(res_df)))
-
 ## Filter to contain only significant genes that map to Entrez.
 sig_entrez_res_df <- res_df %>%
     .[names(sig_gene2entrez), , drop = FALSE] %>%
@@ -352,7 +335,6 @@ sig_entrez_res_df <- res_df %>%
     set_rownames(.$entrezID)
 saveData(sig_entrez_res_df, dir = params$data_dir)
 sig_entrez <- pull(sig_entrez_res_df, entrezID)
-
 ## Extract the fold changes.
 entrez_lfc_vec <- sig_entrez_res_df$log2FoldChange
 names(entrez_lfc_vec) <- sig_entrez_res_df$entrezID
@@ -370,12 +352,10 @@ kegg <- enrichKEGG(
     qvalueCutoff = 0.05
 )
 print(kegg)
-
 kegg_tbl <- kegg %>%
     slot("result") %>%
     as_tibble() %>%
-    camel()
-
+    camelCase()
 saveData(kegg, kegg_tbl, dir = params$data_dir)
 export(
     object = kegg_tbl,
@@ -388,15 +368,14 @@ export(
                 "padj",
                 alpha,
                 "lfc",
-                params$lfc_threshold,
+                lfc_threshold,
                 sep = "_"
             ),
             ".csv.gz"
         )
     )
 )
-
-kegg_tbl
+print(kegg_tbl)
 ```
 
 ## KEGG GSEA analysis
@@ -416,12 +395,10 @@ gsea_kegg <- gseKEGG(
     keyType = "ncbi-geneid"
 )
 print(gsea_kegg)
-
 gsea_kegg_tbl <- gsea_kegg %>%
     slot("result") %>%
     as_tibble() %>%
-    camel()
-
+    camelCase()
 saveData(gsea_kegg, dir = params$data_dir)
 export(
     object = gsea_kegg_tbl,
@@ -435,18 +412,17 @@ export(
                 "padj",
                 alpha,
                 "lfc",
-                params$lfc_threshold,
+                lfc_threshold,
                 sep = "_"
             ),
             ".csv.gz"
         )
     )
 )
-
-gsea_kegg_tbl
+print(gsea_kegg_tbl)
 ```
 
-```{r pathview-kegg-plots, message=FALSE, results="asis"}
+```{r pathview-kegg-plots, message=FALSE, results="asis", eval=params$pathview}
 ## > help("pathview", "pathview")
 ##
 ## There is currently no way to set the output path of the pathview PNG files, so
@@ -455,9 +431,9 @@ gsea_kegg_tbl
 ## Also, We're using `tryCatch()` here to return to the user any pathways that
 ## didn't output graphics correctly.
 pathways <- gsea_kegg_tbl$id
-if (length(pathways)) {
-    ## dplyr must be unloaded for pathview to work.
-    suppressWarnings(detach("package:dplyr", unload = TRUE, force = TRUE))
+if (length(pathways) > 0L) {
+    ## dplyr may need to be unloaded for pathview to work.
+    ## > suppressWarnings(detach("package:dplyr", unload = TRUE, force = TRUE))
     wd <- getwd()
     setwd(kegg_plots_dir)
     invisible(lapply(pathways, function(pathway) {
@@ -488,4 +464,7 @@ if (length(pathways)) {
 ```
 
 ```{r footer, child="_footer.Rmd"}
+```
+
+```{r links, child="_links.Rmd"}
 ```

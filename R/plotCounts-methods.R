@@ -1,17 +1,12 @@
 #' @name plotCounts
 #' @author Michael Steinbaugh
 #' @inherit acidplots::plotCounts
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
-#' @param normalized `character(1)`.
-#'   Type of normalized counts to visualize:
-#'
-#'   - `tpm` Transcripts per million.
-#'   - `tmm`: edgeR trimmed mean of M-values.
-#'   - `rlog`: DESeq2 log2 regularized log transformation.
-#'   - `vst`: DESeq2 log2 variance stabilizing transformation.
-#' @param ... Additional parameters.
+#' @inheritParams counts
+#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
+#'   See [acidplots::plotCounts()] for details.
 #'
 #' @examples
 #' data(bcb)
@@ -22,18 +17,8 @@
 #' geneNames <- head(g2s[["geneName"]])
 #' print(geneNames)
 #'
-#' plotCounts(
-#'     object = bcb,
-#'     genes = geneIDs,
-#'     normalized = "vst",
-#'     style = "facet"
-#' )
-#' plotCounts(
-#'     object = bcb,
-#'     genes = geneNames,
-#'     normalized = "vst",
-#'     style = "wide"
-#' )
+#' plotCounts(bcb, genes = geneIDs, style = "facet")
+#' plotCounts(bcb, genes = geneNames, style = "wide")
 NULL
 
 
@@ -48,41 +33,19 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-16.
 `plotCounts,bcbioRNASeq` <-  # nolint
-    function(object, genes, normalized) {
-        validObject(object)
-        normalized <- match.arg(normalized)
-        counts <- counts(object, normalized = normalized)
-        ## Ensure counts are always log2 scale.
-        if (!normalized %in% c("rlog", "vst")) {
-            counts <- log2(counts + 1L)
-        }
-        rse <- as(object, "RangedSummarizedExperiment")
-        assays(rse) <- list(counts)
-        do.call(
-            what = plotCounts,
-            args = matchArgsToDoCall(
-                args = list(
-                    object = rse,
-                    genes = genes,
-                    countsAxisLabel = paste(normalized, "counts (log2)")
-                ),
-                removeFormals = "normalized"
-            )
+    function(object, genes, normalized, ...) {
+        args = .normalizedPlotArgs(
+            object = object,
+            genes = genes,
+            normalized = match.arg(normalized),
+            ...
         )
+        do.call(what = plotCounts, args = args)
     }
 
-f1 <- formals(`plotCounts,bcbioRNASeq`)
-f2 <- methodFormals(
-    f = "plotCounts",
-    signature = "SummarizedExperiment",
-    package = "acidplots"
-)
-f2 <- f2[setdiff(names(f2), c(names(f1), "assay", "countsAxisLabel"))]
-f <- c(f1, f2)
-f[["normalized"]] <- normalizedCounts
-formals(`plotCounts,bcbioRNASeq`) <- f
+formals(`plotCounts,bcbioRNASeq`)[["normalized"]] <- .normalized
 
 
 

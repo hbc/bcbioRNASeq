@@ -2,11 +2,12 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom acidplots plotPCA
 #' @inherit acidplots::plotPCA
-#' @note Updated 2019-08-07.
+#' @note Updated 2019-09-15.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
-#' @param ... Additional arguments.
+#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
+#'   See [acidplots::plotPCA()] for details.
 #'
 #' @examples
 #' data(bcb)
@@ -25,33 +26,22 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-15.
 `plotPCA,bcbioRNASeq` <-  # nolint
-    function(object, normalized) {
-        validObject(object)
-        normalized <- match.arg(normalized)
-        message(sprintf("Using %s counts.", normalized))
-        rse <- as(object, "RangedSummarizedExperiment")
-        assays(rse) <- list(counts(object, normalized = normalized))
+    function(object, normalized, ...) {
         do.call(
             what = plotPCA,
-            args = matchArgsToDoCall(
-                args = list(object = rse),
-                removeFormals = "normalized"
+            args = list(
+                object = .normalizedSE(
+                    object = object,
+                    normalized = match.arg(normalized)
+                ),
+                ...
             )
         )
     }
 
-f1 <- formals(`plotPCA,bcbioRNASeq`)
-f2 <- methodFormals(
-    f = "plotPCA",
-    signature = "SummarizedExperiment",
-    package = "acidplots"
-)
-f2 <- f2[setdiff(names(f2), c(names(f1), "assay"))]
-f <- c(f1, f2)
-f[["normalized"]] <- normalizedCounts
-formals(`plotPCA,bcbioRNASeq`) <- f
+formals(`plotPCA,bcbioRNASeq`)[["normalized"]] <- .dt
 
 
 

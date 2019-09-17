@@ -7,80 +7,56 @@
 \title{Correlation heatmap}
 \usage{
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object,
-  normalized = c("vst", "rlog", "tmm", "rle", "tpm", "fpkm"),
-  interestingGroups = NULL, method = c("pearson", "kendall",
-  "spearman"), clusteringMethod = "ward.D2", showRownames = TRUE,
-  showColnames = TRUE, treeheightRow = 0L, treeheightCol = 50L,
-  color = getOption(x = "acid.heatmap.color", default =
-  acidplots::synesthesia), legendColor = getOption(x =
-  "acid.heatmap.color", default = acidplots::synesthesia),
-  borderColor = NULL, title = TRUE, ...)
+  normalized = c("vst", "rlog"), ...)
 }
 \arguments{
 \item{object}{Object.}
 
-\item{normalized}{\code{character(1)}.
-Type of normalized counts to visualize:
+\item{normalized}{\code{character(1)} or \code{logical(1)}.
+Normalization method to apply:
 \itemize{
-\item \code{tpm} Transcripts per million.
-\item \code{tmm}: edgeR trimmed mean of M-values.
-\item \code{rlog}: DESeq2 log2 regularized log transformation.
-\item \code{vst}: DESeq2 log2 variance stabilizing transformation.
-}}
-
-\item{interestingGroups}{\code{character}.
-Groups of interest to use for visualization.
-Corresponds to factors describing the columns of the object.}
-
-\item{method}{\code{character(1)}.
-Correlation coefficient (or covariance) method to be computed.
-Defaults to pearson, but spearman or kendall can also be used.
-Refer to the \code{\link[stats:cor]{cor()}} documentation for details.}
-
-\item{clusteringMethod}{\code{character(1)}.
-Clustering method. Accepts the same values as \code{\link[stats:hclust]{hclust()}}.}
-
-\item{showRownames}{\code{logical(1)}.
-Show row or column names.}
-
-\item{showColnames}{\code{logical(1)}.
-Show row or column names.}
-
-\item{treeheightRow}{\code{integer(1)}.
-Size of the row and column dendrograms. Use \code{0} to disable.}
-
-\item{treeheightCol}{\code{integer(1)}.
-Size of the row and column dendrograms. Use \code{0} to disable.}
-
-\item{color}{\code{function}, \code{character}, or \code{NULL}.
-Hexadecimal color function or values to use for plot.
-
-We generally recommend these hexadecimal functions from the viridis
-package, in addition to our \code{\link[=synesthesia]{synesthesia()}} palette:
-\itemize{
-\item \code{viridis::viridis()}.
-\item \code{viridis::inferno()}.
-\item \code{viridis::magma()}.
-\item \code{viridis::plasma()}.
+\item \code{FALSE}: Raw counts.
+When using a \href{https://bioconductor.org/packages/tximport/}{tximport}-compatible caller, these are length scaled
+by default (see \code{countsFromAbundance} argument).
+When using a \href{http://bioinf.wehi.edu.au/featureCounts/}{featureCounts}-compatible caller, these are \code{integer}.
 }
 
-Alternatively, colors can be defined manually using hexadecimal values
-(e.g. \code{c("#FF0000", "#0000FF")}), but this is not generally recommended.
-Refer to the RColorBrewer package for hexadecimal color palettes that may
-be suitable. If set \code{NULL}, will use the default pheatmap colors.}
+\href{https://bioconductor.org/packages/tximport/}{tximport} caller-specific normalizations:
+\itemize{
+\item \code{"tpm"}: \strong{T}ranscripts \strong{p}er \strong{m}illion.
+}
 
-\item{legendColor}{\code{function} or \code{NULL}.
-Hexadecimal color function to use for legend labels. Note that hexadecimal
-values are not supported. If set \code{NULL}, will use the default pheatmap
-colors.}
+Additional gene-level-specific normalizations:
+\itemize{
+\item \code{TRUE} / \code{"sf"}: \strong{S}ize \strong{f}actor (i.e. library size) normalized
+counts.\cr
+See \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}} for details.
+\item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
+fragments.\cr
+Requires \code{fpkm = TRUE} in \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call and gene annotations in
+\code{\link[SummarizedExperiment:rowRanges]{rowRanges()}} with defined
+\code{\link[BiocGenerics:width]{width}}.\cr
+See \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}} for details.
+\item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation (log2).\cr
+Requires \code{vst = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
+See \code{DESeq2::varianceStabilizingTransformation} for more information.
+\item \code{"rlog"}: \strong{R}egularized \strong{log} transformation (log2).\cr
+Requires \code{rlog = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
+See \code{\link[DESeq2:rlog]{DESeq2::rlog()}} for details.
+\item \code{"tmm"}: \strong{T}rimmed \strong{m}ean of \strong{M}-values.\cr
+Calculated on the fly.\cr
+See \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}} for details.
+\item \code{"rle"}: \strong{R}elative \strong{l}og \strong{e}xpression transformation.\cr
+Calculated on the fly.\cr
+See \code{\link[=relativeLogExpression]{relativeLogExpression()}} for details.
 
-\item{borderColor}{\code{character(1)} or \code{NULL}.
-Border color.}
+Note that \code{logical(1)} support only applies to \code{counts()}. Other
+functions in the package require \code{character(1)} and use
+\code{\link[base:match.arg]{match.arg()}} internally.
+}}
 
-\item{title}{\code{character(1)}.
-Title.}
-
-\item{...}{Additional arguments.}
+\item{...}{Passthrough to \code{SummarizedExperiment} method defined in acidplots.
+See \code{\link[acidplots:plotCorrelationHeatmap]{acidplots::plotCorrelationHeatmap()}} for details.}
 }
 \value{
 \code{pheatmap}.
@@ -89,13 +65,14 @@ Title.}
 Correlation heatmap
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-15.
 }
 \section{Methods (by class)}{
 
 \itemize{
 \item \code{SingleCellExperiment}: Applies \code{\link[=pseudobulk]{pseudobulk()}} calculation to
-average gene expression at sample level prior to plotting.
+average gene expression at sample level prior to plotting.\cr
+Passes \code{...} to \code{SummarizedExperiment} method.
 }
 }
 

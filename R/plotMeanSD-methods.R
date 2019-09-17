@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh, Lorena Patano
 #' @inherit bioverbs::plotMeanSD
 #' @note Requires the vsn package to be installed.
-#' @note Updated 2019-08-20.
+#' @note Updated 2019-09-15.
 #'
 #' @inheritParams bcbioRNASeq
 #' @inheritParams acidroxygen::params
@@ -11,7 +11,7 @@
 #' @param ... Additional arguments.
 #'
 #' @details
-#' `vsn::meanSdPlot()` wrapper that plots count transformations on a log2 scale.
+#' [vsn::meanSdPlot()] wrapper that plots count transformations on a log2 scale.
 #'
 #' - DESeq2 log2: log2 library size factor-adjusted normalized counts.
 #' - DESeq2 rlog: **r**egularized **log** transformation.
@@ -41,12 +41,15 @@ NULL
 
 
 
-## Updated 2019-08-20.
+## Updated 2019-09-15.
 `plotMeanSD,bcbioRNASeq` <-  # nolint
     function(
         object,
-        fill = ggplot2::scale_fill_gradient(low = "grey25", high = "purple"),
-        lineColor = "darkorange",
+        fill = ggplot2::scale_fill_gradient(
+            low = acidplots::lightPalette[["gray"]],
+            high = acidplots::lightPalette[["purple"]]
+        ),
+        lineColor = acidplots::lightPalette[["orange"]],
         legend
     ) {
         validObject(object)
@@ -60,11 +63,11 @@ NULL
         raw <- counts(object, normalized = FALSE)
         nonzero <- rowSums(raw) > 0L
         args <- list(
-            sf =   list(log2 = FALSE, title = "DESeq2 size factor"),
-            rlog = list(log2 = TRUE,  title = "DESeq2 rlog"),
-            vst =  list(log2 = TRUE,  title = "DESeq2 VST"),
-            tmm =  list(log2 = FALSE, title = "edgeR TMM"),
-            rle =  list(log2 = FALSE, title = "edgeR RLE")
+            sf =   list(log2 = FALSE, title = "sf"),
+            rlog = list(log2 = TRUE,  title = "rlog"),
+            vst =  list(log2 = TRUE,  title = "vst"),
+            tmm =  list(log2 = FALSE, title = "tmm"),
+            rle =  list(log2 = FALSE, title = "rle")
         )
         normalized <- names(args)
         log2 <- vapply(

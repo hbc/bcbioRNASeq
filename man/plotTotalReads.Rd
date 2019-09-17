@@ -11,8 +11,9 @@ plotTotalReads(object, ...)
 \S4method{plotTotalReads}{bcbioRNASeq}(object, interestingGroups = NULL,
   limit = 20000000L, perMillion = TRUE, fill = getOption(x =
   "acid.fill.discrete", default = acidplots::scale_fill_synesthesia_d()),
-  flip = getOption(x = "acid.flip", default = TRUE),
-  title = "Total reads")
+  labels = list(title = "Total reads", subtitle = NULL, sampleAxis =
+  NULL, metricAxis = "reads"), flip = getOption(x = "acid.flip", default
+  = TRUE))
 }
 \arguments{
 \item{object}{Object.}
@@ -35,11 +36,12 @@ definitions are desired, we recommend using \code{\link[ggplot2:scale_fill_manua
 To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
 }}
 
+\item{labels}{\code{list}.
+ggplot2 labels.
+See \code{\link[ggplot2:labs]{ggplot2::labs()}} for details.}
+
 \item{flip}{\code{logical(1)}.
 Flip x and y axes. Recommended for plots containing many samples.}
-
-\item{title}{\code{character(1)}.
-Title.}
 
 \item{...}{Additional arguments.}
 }
@@ -51,7 +53,7 @@ High quality RNA-seq samples ideally should have at least 10 million reads
 per sample.
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-09-16.
 }
 \examples{
 data(bcb)

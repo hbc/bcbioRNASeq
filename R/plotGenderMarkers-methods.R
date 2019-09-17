@@ -1,11 +1,12 @@
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
 #' @inherit acidplots::plotGenderMarkers
-#' @note Updated 2019-08-27.
+#' @note Updated 2019-09-16.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
-#' @param ... Additional arguments.
+#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
+#'   See [acidplots::plotGenderMarkers()] for details.
 #'
 #' @examples
 #' data(bcb)
@@ -25,44 +26,20 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2019-09-16.
 `plotGenderMarkers,bcbioRNASeq` <-  # nolint
-    function(object, normalized) {
-        validObject(object)
-        normalized <- match.arg(normalized)
-        counts <- counts(object, normalized = normalized)
-        ## Ensure counts are log2 scale.
-        if (!normalized %in% c("rlog", "vst")) {
-            counts <- log2(counts + 1L)
-        }
-        countsAxisLabel <- paste(normalized, "counts (log2)")
-        rse <- as(object, "RangedSummarizedExperiment")
-        assay(rse) <- counts
+    function(object, normalized, ...) {
         do.call(
             what = plotGenderMarkers,
-            args = matchArgsToDoCall(
-                args = list(
-                    object = rse,
-                    countsAxisLabel = countsAxisLabel
-                ),
-                removeFormals = "normalized"
+            args = .normalizedPlotArgs(
+                object = object,
+                normalized = match.arg(normalized),
+                ...
             )
         )
     }
 
-f1 <- formals(`plotGenderMarkers,bcbioRNASeq`)
-f2 <- methodFormals(
-    f = "plotGenderMarkers",
-    signature = "SummarizedExperiment",
-    package = "acidplots"
-)
-f2 <- f2[setdiff(
-    x = names(f2),
-    y = c(names(f1), "assay", "countsAxisLabel")
-)]
-f <- c(f1, f2)
-f[["normalized"]] <- normalizedCounts
-formals(`plotGenderMarkers,bcbioRNASeq`) <- f
+formals(`plotGenderMarkers,bcbioRNASeq`)[["normalized"]] <- .normalized
 
 
 
