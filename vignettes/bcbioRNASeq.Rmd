@@ -331,29 +331,29 @@ utils::sessionInfo()
 
 The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 
-[AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
+[annotationhub]: https://bioconductor.org/packages/AnnotationHub/
 [bcbio]: https://bcbio-nextgen.readthedocs.io/
-[bcbioRNASeq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
-[clusterProfiler]: https://bioconductor.org/packages/clusterProfiler/
-[DESeq2]: https://bioconductor.org/packages/DESeq2/
-[Ensembl]: https://www.ensembl.org/
-[edgeR]: https://bioconductor.org/packages/edgeR/
+[bcbiornaseq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
+[clusterprofiler]: https://bioconductor.org/packages/clusterProfiler/
+[deseq2]: https://bioconductor.org/packages/DESeq2/
+[edger]: https://bioconductor.org/packages/edgeR/
+[ensembl]: https://www.ensembl.org/
 [ensembldb]: https://bioconductor.org/packages/ensembldb/
-[F1000 paper]: http://dx.doi.org/10.12688/f1000research.12093.2
-[featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
-[GenomicRanges]: https://bioconductor.org/packages/GenomicRanges/
-[GFF]: https://useast.ensembl.org/info/website/upload/gff.html
-[GEO]: https://www.ncbi.nlm.nih.gov/geo/
-[GSE65267]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
-[GSEA]: http://software.broadinstitute.org/gsea/
-[HISAT2]: https://ccb.jhu.edu/software/hisat2/
-[KEGG]: https://www.genome.jp/kegg/
-[Kallisto]: https://pachterlab.github.io/kallisto/
-[Paperpile]: https://paperpile.com/
-[R]: https://www.r-project.org/
-[R Markdown]: https://rmarkdown.rstudio.com/
-[Salmon]: https://combine-lab.github.io/salmon/
-[Sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
-[STAR]: https://github.com/alexdobin/STAR/
-[SummarizedExperiment]: https://bioconductor.org/packages/SummarizedExperiment/
+[f1000 paper]: http://dx.doi.org/10.12688/f1000research.12093.2
+[featurecounts]: http://bioinf.wehi.edu.au/featureCounts/
+[genomicranges]: https://bioconductor.org/packages/GenomicRanges/
+[geo]: https://www.ncbi.nlm.nih.gov/geo/
+[gff]: https://useast.ensembl.org/info/website/upload/gff.html
+[gse65267]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
+[gsea]: http://software.broadinstitute.org/gsea/
+[hisat2]: https://ccb.jhu.edu/software/hisat2/
+[kallisto]: https://pachterlab.github.io/kallisto/
+[kegg]: https://www.genome.jp/kegg/
+[paperpile]: https://paperpile.com/
+[r markdown]: https://rmarkdown.rstudio.com/
+[r]: https://www.r-project.org/
+[sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
+[salmon]: https://combine-lab.github.io/salmon/
+[star]: https://github.com/alexdobin/STAR/
+[summarizedexperiment]: https://bioconductor.org/packages/SummarizedExperiment/
 [tximport]: https://bioconductor.org/packages/tximport/
