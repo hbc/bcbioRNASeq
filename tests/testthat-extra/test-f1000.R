@@ -4,9 +4,9 @@
 
 context("F1000 workflow paper")
 
-requireNamespace("DEGreport")
-requireNamespace("DESeqAnalysis")
-requireNamespace("clusterProfiler")
+library(DESeq2)
+library(DEGreport)
+library(DESeqAnalysis)
 
 dir <- "f1000"
 unlink(dir, recursive = TRUE)
@@ -94,15 +94,11 @@ x <- capture.output(
     )
 )
 expect_identical(
-    x[[2L]],
-    "LFC > 0 (up)    1521  1102"
+    object = x[[2L]],
+    expected = "LFC > 0 (up)    1521  1102"
 )
 
-res <- results(
-    object = dds,
-    name = "day_7_vs_0",
-    alpha = 0.05
-)
+res <- results(object = dds, name = "day_7_vs_0", alpha = 0.05)
 expect_s4_class(res, "DESeqResults")
 
 p <- plotMeanAverage(res)
@@ -112,96 +108,24 @@ p <- plotVolcano(res)
 expect_s3_class(p, "ggplot")
 
 ## Note that the generic formals have been renamed here.
+## object : results
+## DESeqTransform : counts
 p <- plotDEGHeatmap(
     object = res,
     DESeqTransform = vst
 )
 expect_s3_class(p, "pheatmap")
 
-## Note that "log" argument has been changed to "log2" and flipped.
-p <- degPlot(
-    bcb,
-    xs = "day",
-    res = res,
-    n = 3,
-    slot = "vst",
-    log2 = FALSE,
-    ann = c("geneID", "geneName"),
-)
-expect_s3_class(p, "ggplot")
 
-dds_lrt <- DESeq(dds, test = "LRT", reduced = ~1)
-res_lrt <- results(dds_lrt)
 
-ma <- counts(bcb, "vst")[significants(res, fc = 2), ]
-expect_is(ma, "matrix")
-expect_identical(dim(ma), c(1036L, 12L))
-
-res_patterns <- degPatterns(
-    ma = ma,
-    metadata = colData(bcb),
-    time = "day",
-    minc = 60
-)
-expect_is(res_patterns, "list")
-## FIXME Take this code out in paper...
-## > res_patterns[["plot"]]
-expect_s3_class(res_patterns[["plot"]], "ggplot")
-
-x <- subset(res_patterns[["df"]], cluster == 3, select = "genes")
-expect_is(x, "data.frame")
-
-## FIXME Return has changed from tibble list to SplitDataFrameList.
-## FIXME Change the default back in DESeqAnalysis?
-res_tbl <- resultsTables(res, lfc = 1)
+## lfc argument renamed to lfcThreshold.
+res_tbl <- resultsTables(res, lfcThreshold = 1)
 expect_is(res_tbl, "list")
 expect_is(res_tbl[[1L]], "tbl_df")
 
 ## FIXME This doesn't work with SimpleDataFrameList (see above).
 ## FIXME Need to add `list` method back to support F1000 paper.
 topTables(res_tbl, n = 5)
-
-## Generate the gene IDs for the DE list of genes and the background list of
-## genes.
-all_genes <- rownames(res) %>%
-    .[!is.na(res[["padj"]])] %>%
-    as.character()
-sig_genes <- significants(
-    object = res,
-    fc = 1,
-    padj = 0.05
-)
-
-## Generate fold change values for significant results.
-sig_results <- as.data.frame(res)[sig_genes, ]
-fold_changes <- sig_results$log2FoldChange
-names(fold_changes) <- rownames(sig_results)
-
-## Run GO enrichment analysis.
-
-ego <- enrichGO(
-    gene = sig_genes,
-    OrgDb = "org.Mm.eg.db",
-    keyType = "ENSEMBL",
-    ont = "BP",
-    universe = all_genes,
-    qvalueCutoff = 0.05,
-    readable = TRUE
-)
-
-ego_summary <- slot(ego, "result") %>%
-    as_tibble() %>%
-    camel()
-
-# Dotplot of top 25
-
-## FIXME wrong orderBy parameter; set to default `orderBy = "x"`
-## Report to DOSE package author.
-dotplot(ego, showCategory = 25)
-
-## Enrichment plot of top 25.
-## FIXME This is no longer in clusterProfiler...
-enrichMap(ego, n = 25, vertex.label.cex = 0.5)
 
 unlink(dir, recursive = TRUE)
 
