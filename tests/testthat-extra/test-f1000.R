@@ -2,9 +2,29 @@
 
 
 
+## Functions.
+DESeq <- DESeq2::DESeq
+design <- DESeq2::design
+`design<-` <- `DESeq2::design<-`
+render <- rmarkdown::render
+results <- DESeq2::results
+varianceStabilizingTransformation <- DESeq2::varianceStabilizingTransformation
+
+## bcbioRNASeq object.
 object <- import("https://github.com/hbc/bcbioRNASeq/raw/f1000v2/data/bcb.rda")
 object <- updateObject(object)
 expect_s4_class(object, "bcbioRNASeq")
+
+## DESeq2 example objects.
+bcb <- object
+dds <- as(object, "DESeqDataSet")
+group <- "day"
+contrast <- c(group = group, numerator = "7", denominator = "0")
+design_formula <- as.formula(paste0("~", group))
+design(dds) <- design_formula
+dds <- DESeq(dds)
+vst <- varianceStabilizingTransformation(dds)
+res <- results(object = dds, contrast = contrast, alpha = 0.05)
 
 
 
@@ -60,6 +80,8 @@ test_that("Quality control", {
     p <- plotCountDensity(object)
     expect_s3_class(p, "ggplot")
 
+    ## Skipping these, they're slow.
+
     ## > p <- plotMeanSD(object)
     ## > expect_s3_class(p, "ggplot")
 
@@ -77,21 +99,10 @@ test_that("Quality control", {
 })
 
 test_that("Differential expression", {
-    results <- DESeq2::results
-
-    dds <- as(object, "DESeqDataSet")
-    design(dds) <- ~ day
-    dds <- DESeq(dds)
-    vst <- varianceStabilizingTransformation(dds)
-
     x <- capture.output(
         alphaSummary(
             object = dds,
-            contrast = c(
-                factor = "day",
-                numerator = "7",
-                denominator = "0"
-            ),
+            contrast = contrast,
             alpha = c(0.1, 0.05)
         )
     )
@@ -99,9 +110,6 @@ test_that("Differential expression", {
         object = x[[2L]],
         expected = "LFC > 0 (up)    1521  1102"
     )
-
-    res <- results(object = dds, name = "day_7_vs_0", alpha = 0.05)
-    expect_s4_class(res, "DESeqResults")
 
     p <- plotMeanAverage(res)
     expect_s3_class(p, "ggplot")
@@ -128,13 +136,96 @@ test_that("Differential expression", {
 
 
 
-context("R Markdown templates")
+context("Render R Markdown templates")
 
-## FIXME
+## Modified, updated version of bcbio_rnaseq_output_example repo.
+## https://github.com/bcbio/bcbio_rnaseq_output_example/
 
+templates_dir <- system.file("rmarkdown", "templates", package = "bcbioRNASeq")
+render_dir <- "render"
+unlink(render_dir, recursive = TRUE)
 
+render_files <- saveData(
+    bcb, dds, res,
+    dir = render_dir,
+    ext = "rds",
+    overwrite = TRUE
+)
 
-unlink(dir, recursive = TRUE)
+setwd(render_dir)
+
+test_that("Quality Control", {
+    file.copy(
+        from = file.path(
+            templates_dir,
+            "quality-control",
+            "skeleton",
+            "skeleton.Rmd"
+        ),
+        to = "quality-control.Rmd",
+        overwrite = TRUE
+    )
+    x <- render(
+        input = "quality-control.Rmd",
+        params = list(bcb_file = render_files[["bcb"]]),
+        clean = TRUE
+    )
+    expect_identical(
+        object = basename(x),
+        expected = "quality-control.html"
+    )
+})
+
+test_that("Differential Expression", {
+    file.copy(
+        from = file.path(
+            templates_dir,
+            "differential-expression",
+            "skeleton",
+            "skeleton.Rmd"
+        ),
+        to = "differential-expression.Rmd",
+        overwrite = TRUE
+    )
+    x <- render(
+        input = "differential-expression.Rmd",
+        params = list(
+            bcb_file = render_files[["bcb"]],
+            design = design_formula,
+            contrasts = list(contrast)
+        ),
+        clean = TRUE
+    )
+    expect_identical(
+        object = basename(x),
+        expected = "differential-expression.html"
+    )
+})
+
+test_that("Functional Analysis", {
+    file.copy(
+        from = file.path(
+            templates_dir,
+            "functional-analysis",
+            "skeleton",
+            "skeleton.Rmd"
+        ),
+        to = "functional-analysis.Rmd",
+        overwrite = TRUE
+    )
+    x <- render(
+        input = "functional-analysis.Rmd",
+        params = list(
+            dds_file = dds_file,
+            res_file = res_file,
+            organism = "Mus musculus",
+            data_dir = data_dir
+        )
+    )
+    expect_identical(basename(x), "fa.html")
+})
+
+setwd("..")
 
 
 

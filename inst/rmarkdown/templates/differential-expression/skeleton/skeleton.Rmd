@@ -1,27 +1,17 @@
 ---
 ## Alternatively, use the DESeqAnalysis package for complex contrasts.
-##
-## Example bcbioRNASeq object to check the template (from vignette):
-##
-## > loadRemoteData(pasteURL(
-## >     "github.com", "hbc", "bcbioRNASeq",
-## >     "raw", "f1000v2", "data", "bcb.rda",
-## >     protocol = "https"
-## > ))
-## > bcb <- updateObject(bcb)
-##
-## Updated 2019-07-24.
+## Updated 2019-09-17.
 params:
   title: "Differential expression"
   bcb_file: "data/YYYY-MM-DD/bcb.rds"
   ## Design formula must contain columns defined in `colData()`.
-  design: !r formula("~ treatment")
+  design: !r formula("~ group")
   ## Multiple contrasts are supported here.
   contrasts: !r list(
       c(
-        factor = "treatment",
-        numerator = "folic_acid",
-        denominator = "control"
+        factor = "group",
+        numerator = "B",
+        denominator = "A"
       )
     )
   alpha: 0.01
@@ -37,7 +27,7 @@ bibliography: bibliography.bib
 ```{r setup, cache=FALSE, message=FALSE}
 library(bcbioRNASeq)
 library(DESeq2)
-prepareTemplate(package = "bcbioRNASeq")
+prepareTemplate()
 source("_setup.R")
 ```
 
@@ -67,7 +57,7 @@ invisible(validObject(object))
 print(object)
 ```
 
-# Create `DESeqDataSet`
+# Create DESeqDataSet
 
 Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a `DESeqDataSet`. This prepares a gene-level `RangedSummarizedExperiment` with raw integer counts defined in the `assay()` slot. Internally this uses the `DESeqDataSet()` constructor function and sets an empty design formula. The desired design formula can be set with the `design()` function.
 
@@ -91,16 +81,7 @@ print(dds)
 
 The design formula, specified with the `design()` function, must contain factor columns in `colData()` / `sampleData()`.
 
-Ensure that all relevant factor columns in `sampleData()` contain valid names (see `make.names()` for details) prior to setting the design. Here we are using the `snake()` function to automatically sanitize all factors into snake case.
-
-```{r sanitize-factors}
-sd <- sampleData(dds)
-rn <- rownames(sd)
-sd <- lapply(X = sd, FUN = snake)
-sd <- as(sd, "DataFrame")
-rownames(sd) <- rn
-sampleData(dds) <- sd
-```
+Ensure that all relevant factor columns in `sampleData()` contain valid names (see `make.names()` for details) prior to setting the design. We recommend using the `snakeCase()` function to automatically sanitize all factors into snake case.
 
 ```{r design}
 ## > colnames(colData(dds))
@@ -111,7 +92,7 @@ design(dds) <- params$design
 
 While it is not necessary to pre-filter low count genes before running the DESeq2 functions, there are two reasons which make pre-filtering useful: by removing rows in which there are very few reads, we reduce the memory size of the dds data object, and we increase the speed of the transformation and testing functions within DESeq2. Here we perform a minimal pre-filtering to keep only rows that have at least 10 reads total. Note that more strict filtering to increase power is automatically applied via independent filtering on the mean of normalized counts within the `results()` function.
 
-```{r prefilter}
+```{r prefilter, eval=FALSE}
 ## Note that this criteria can be made more stringent.
 ## Refer to DESeq2 vignette for examples.
 keep <- rowSums(counts(dds)) >= 10
@@ -127,14 +108,14 @@ By default, [R][] will choose a reference level for factors based on alphabetica
 ## Including this code here for reference only.
 
 ## Specify the reference level (preferred).
-dds$treatment <- relevel(dds$treatment, ref = "wildtype")
+dds$treatment <- relevel(dds$group, ref = "control")
 
 ## Alternatively, can explicitly define, using `factor()`.
 ## When using this approach, put the reference level (control) first.
-dds$treatment <- factor(dds$treatment, levels = c("folic_acid", "control"))
+dds$treatment <- factor(dds$group, levels = c("treatment", "control"))
 
 ## If samples have been subset, ensure that the levels match.
-dds$treatment <- droplevels(dds$treatment)
+dds$treatment <- droplevels(dds$group)
 ```
 
 # Differential expression analysis
@@ -216,14 +197,7 @@ assignAndSaveData(
 Now let's calculate shrunken log2 fold change values with `DESeq2::lfcShrink()`. We're using the "normal" shrinkage estimator (default in DESeq2); the "apeglm" shrinkage estimator is also promising but doens't work well with complex contrast designs.
 
 ```{r res-shrunken}
-## For `type` arguments other than "normal", `coef` argument is required.
-## Otherwise can use `contrast`, which is more intuitive and readable.
-## If using `coef` number, must match order in `resultsNames(dds)`.
-## The new apeglm method is great but currently only works with coef.
-## > help("lfcShrink", "DESeq2")
-## > help("coef", "DESeq2")
-## > help("resultsNames", "DESeq2")
-## This step can be a little slow and sped up with the `parallel` argument.
+## Refer to DESeqAnalysis package if you want to use apeglm instead.
 res_list_shrunken <- mapply(
     FUN = lfcShrink,
     res = res_list_unshrunken,
@@ -278,7 +252,7 @@ mapply(
     object = res_list_shrunken,
     MoreArgs = list(
         DESeqTransform = dt,
-        label = TRUE
+        label = FALSE
     ),
     SIMPLIFY = FALSE
 )
@@ -368,4 +342,7 @@ Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, an
 - `padj`: BH adjusted Wald test *P* value (corrected for multiple comparisons; aka FDR).
 
 ```{r footer, child="_footer.Rmd"}
+```
+
+```{r links, child="_links.Rmd"}
 ```
