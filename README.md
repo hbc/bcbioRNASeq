@@ -123,15 +123,15 @@ validObject(object)
 The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen/
-[BiocManager]: https://cran.r-project.org/package=BiocManager
+[biocmanager]: https://cran.r-project.org/package=BiocManager
 [bioconda]: https://bioconda.github.io/
-[Bioconductor]: https://bioconductor.org/
+[bioconductor]: https://bioconductor.org/
 [conda]: https://conda.io/
-[DESeq2]: http://bioconductor.org/packages/DESeq2/
-[edgeR]: http://bioconductor.org/packages/edgeR/
-[Paperpile]: https://paperpile.com/
-[R]: https://www.r-project.org/
-[R Markdown]: http://rmarkdown.rstudio.com/
-[RStudio]: https://www.rstudio.com/
-[RangedSummarizedExperiment]: http://bioconductor.org/packages/SummarizedExperiment/
-[Workflow paper]: https://doi.org/10.12688/f1000research.12093.2
+[deseq2]: http://bioconductor.org/packages/DESeq2/
+[edger]: http://bioconductor.org/packages/edgeR/
+[paperpile]: https://paperpile.com/
+[r markdown]: http://rmarkdown.rstudio.com/
+[r]: https://www.r-project.org/
+[rangedsummarizedexperiment]: http://bioconductor.org/packages/SummarizedExperiment/
+[rstudio]: https://www.rstudio.com/
+[workflow paper]: https://doi.org/10.12688/f1000research.12093.2

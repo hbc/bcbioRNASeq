@@ -1026,46 +1026,46 @@ Last set of code fixes before F1000v2 resubmission.
 - Start of package development.
 - Initial draft release supporting automatic loading of [bcbio][] run data.
 
-[AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
-[AppVeyor CI]: https://ci.appveyor.com/
+[annotationhub]: https://bioconductor.org/packages/AnnotationHub/
+[appveyor ci]: https://ci.appveyor.com/
 [basejump]: https://basejump.acidgenomics.com/
 [bcbio]: https://github.com/chapmanb/bcbio-nextgen/
-[bcbioBase]: https://bioinformatics.sph.harvard.edu/bcbioBase/
-[bcbioRNASeq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
-[bcbioSingleCell]: https://bioinformatics.sph.harvard.edu/bcbioSingleCell/
-[bcbioSmallRNA]: https://github.com/lpantano/bcbioSmallRna/
+[bcbiobase]: https://bioinformatics.sph.harvard.edu/bcbioBase/
+[bcbiornaseq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
+[bcbiosinglecell]: https://bioinformatics.sph.harvard.edu/bcbioSingleCell/
+[bcbiosmallrna]: https://github.com/lpantano/bcbioSmallRna/
 [bioconda]: https://bioconda.github.io/
-[Bioconductor]: https://bioconductor.org/
-[biomaRt]: https://bioconductor.org/packages/biomaRt/
+[bioconductor]: https://bioconductor.org/
+[biomart]: https://bioconductor.org/packages/biomaRt/
 [bioverbs]: https://bioverbs.acidgenomics.com/
-[CHBUtils]: https://github.com/hbc/CHBUtils/
-[clusterProfiler]: https://bioconductor.org/packages/clusterProfiler/
+[chbutils]: https://github.com/hbc/CHBUtils/
+[clusterprofiler]: https://bioconductor.org/packages/clusterProfiler/
 [covr]: https://github.com/jimhester/covr/
-[DEGreport]: https://bioconductor.org/packages/DEGreport/
-[DESeq2]: https://bioconductor.org/packages/DESeq2/
-[DESeqAnalysis]: https://deseqanalysis.acidgenomcis.com/
+[degreport]: https://bioconductor.org/packages/DEGreport/
+[deseq2]: https://bioconductor.org/packages/DESeq2/
+[deseqanalysis]: https://deseqanalysis.acidgenomcis.com/
 [dplyr]: https://dplyr.tidyverse.org/
-[Dropbox]: https://dropbox.com/
-[edgeR]: https://bioconductor.org/packages/edgeR/
-[Ensembl]: https://www.ensembl.org/
-[EnsDb.Hsapiens.v75]: https://bioconductor.org/packages/EnsDb.Hsapiens.v75/
+[dropbox]: https://dropbox.com/
+[edger]: https://bioconductor.org/packages/edgeR/
+[ensdb.hsapiens.v75]: https://bioconductor.org/packages/EnsDb.Hsapiens.v75/
+[ensembl]: https://www.ensembl.org/
 [ensembldb]: https://bioconductor.org/packages/ensembldb/
-[F1000]: https://f1000.com/
-[F1000 workflow]: http://dx.doi.org/10.12688/f1000research.12093.2
+[f1000 workflow]: http://dx.doi.org/10.12688/f1000research.12093.2
+[f1000]: https://f1000.com/
 [ggplot2]: https://ggplot2.tidyverse.org/
-[HBC]: https://bioinformatics.sph.harvard.edu/
+[hbc]: https://bioinformatics.sph.harvard.edu/
 [lintr]: https://github.com/jimhester/lintr/
-[macOS]: https://www.apple.com/macos/
-[Markdown]: https://daringfireball.net/projects/markdown/syntax/
-[R]: https://www.r-project.org/
-[R Markdown]: https://rmarkdown.rstudio.com/
-[RDAVIDWebService]: https://bioconductor.org/packages/RDAVIDWebService/
+[macos]: https://www.apple.com/macos/
+[markdown]: https://daringfireball.net/projects/markdown/syntax/
+[r markdown]: https://rmarkdown.rstudio.com/
+[r]: https://www.r-project.org/
+[rdavidwebservice]: https://bioconductor.org/packages/RDAVIDWebService/
 [rlang]: https://cran.r-project.org/package=rlang
-[Stem Cell Commons]: http://stemcellcommons.org/
+[stem cell commons]: http://stemcellcommons.org/
 [testthat]: https://github.com/hadley/testthat/
 [tidyeval]: http://dplyr.tidyverse.org/articles/programming.html
 [tidyverse]: https://www.tidyverse.org/
-[Travis CI]: https://travis-ci.org/
+[travis ci]: https://travis-ci.org/
 [tximport]: https://bioconductor.org/packages/tximport/
 [viridis]: https://cran.r-project.org/web/packages/viridis/index.html
-[Windows]: https://www.microsoft.com/en-us/windows/
+[windows]: https://www.microsoft.com/en-us/windows/
