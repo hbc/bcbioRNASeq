@@ -142,17 +142,18 @@ context("Render R Markdown templates")
 ## https://github.com/bcbio/bcbio_rnaseq_output_example/
 
 templates_dir <- system.file("rmarkdown", "templates", package = "bcbioRNASeq")
-render_dir <- "render"
-unlink(render_dir, recursive = TRUE)
 
+render_dir <- paste("render", Sys.Date(), sep = "-")
+unlink(render_dir, recursive = TRUE)
 render_files <- saveData(
     bcb, dds, res,
     dir = render_dir,
     ext = "rds",
     overwrite = TRUE
 )
-
+wd <- getwd()
 setwd(render_dir)
+prepareTemplate()
 
 test_that("Quality Control", {
     file.copy(
@@ -216,16 +217,20 @@ test_that("Functional Analysis", {
     x <- render(
         input = "functional-analysis.Rmd",
         params = list(
-            dds_file = dds_file,
-            res_file = res_file,
-            organism = "Mus musculus",
-            data_dir = data_dir
+            dds_file = render_files[["dds"]],
+            res_file = render_files[["res"]],
+            organism = organism(dds),
+            ## Pathview KEGG plots are slow to run for our example dataset.
+            pathview = FALSE
         )
     )
-    expect_identical(basename(x), "fa.html")
+    expect_identical(
+        object = basename(x),
+        expected = "functional-analysis.html"
+    )
 })
 
-setwd("..")
+setwd(wd)
 
 
 

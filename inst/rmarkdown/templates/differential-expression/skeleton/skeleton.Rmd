@@ -2,7 +2,7 @@
 ## Alternatively, use the DESeqAnalysis package for complex contrasts.
 ## Updated 2019-09-17.
 params:
-  title: "Differential expression"
+  title: "Differential expression with DESeq2"
   bcb_file: "data/YYYY-MM-DD/bcb.rds"
   ## Design formula must contain columns defined in `colData()`.
   design: !r formula("~ group")
