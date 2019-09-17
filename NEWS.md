@@ -1,3 +1,11 @@
+## bcbioRNASeq 0.3.28 (2019-09-17)
+
+### Minor changes
+
+- Reworked quality control plots to use "labels" instead of "title".
+- Updated R Markdown templates and added render code coverage in testthat-extra.
+- Updated vignette to use shared bibliography.bib file from basejump.
+
 ## bcbioRNASeq 0.3.27 (2019-09-09)
 
 ### Minor changes

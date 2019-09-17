@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.28</span>
       </span>
     </div>
 
@@ -157,7 +157,7 @@ information metadata is preserved from the time when the bcbio data was
 originally loaded into R.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Updated 2019-08-12.</p>
+    <p>Updated 2019-09-15.</p>
     <h2 class="hasAnchor" id="legacy-bcbiornadataset-class"><a class="anchor" href="#legacy-bcbiornadataset-class"></a>Legacy <code>bcbioRNADataSet</code> class</h2>
 
     
@@ -193,23 +193,23 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>updateObject</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Updating bcbioRNASeq object from version 0.3.22 to 0.3.27.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.27
+<span class='fu'>updateObject</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Updating bcbioRNASeq object from version 0.3.27 to 0.3.28.</span></div><div class='output co'>#&gt; bcbioRNASeq 0.3.28
 #&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
-#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-07-23
+#&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-09-16
 #&gt; level: genes
 #&gt; caller: salmon
 #&gt; organism: Mus musculus
 #&gt; interestingGroups(2): treatment day
 #&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 100 6 
-#&gt; metadata(27): version level ... sessionInfo previousVersion
-#&gt; assays(7): counts tpm ... vst fpkm
+#&gt; metadata(28): allSamples bcbioCommandsLog ... yaml previousVersion
+#&gt; assays(7): counts aligned ... vst fpkm
 #&gt; rownames(100): ENSMUSG00000000001 ENSMUSG00000000003 ...
 #&gt;   ENSMUSG00000062661 ENSMUSG00000074340
 #&gt; rowData names(8): broadClass description ... geneName seqCoordSystem
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
-#&gt; colData names(25): averageInsertSize averageReadLength ... tissue
-#&gt;   treatment</div><div class='input'>
+#&gt; colData names(25): averageInsertSize averageReadLength ... treatment
+#&gt;   x5x3Bias</div><div class='input'>
 ## Example that depends on remote file.
 ## > x <- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))
 ## > x <- updateObject(x)
@@ -241,7 +241,7 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

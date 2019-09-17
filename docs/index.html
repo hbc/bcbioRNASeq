@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.28</span>
       </span>
     </div>
 
@@ -77,11 +77,11 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#bcbiornaseq" class="anchor"></a>bcbioRNASeq</h1></div>
 
-<p><a href="https://www.r-project.org">R</a> package for <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq analysis.</p>
+<p><a href="https://www.r-project.org/">R</a> package for <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> RNA-seq analysis.</p>
 <div id="workflow-paper" class="section level2">
 <h2 class="hasAnchor">
 <a href="#workflow-paper" class="anchor"></a>Workflow paper</h2>
-<p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). <a href="https://f1000research.com/articles/6-1976/v2">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
+<p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). <a href="https://doi.org/10.12688/f1000research.12093.2">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"bcbioRNASeq"</span>)</code></pre>
 </div>
 <div id="installation" class="section level2">
@@ -89,7 +89,7 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div id="r-method" class="section level3">
 <h3 class="hasAnchor">
-<a href="#r-method" class="anchor"></a><a href="https://www.r-project.org">R</a> method</h3>
+<a href="#r-method" class="anchor"></a><a href="https://www.r-project.org/">R</a> method</h3>
 <pre class="sourceCode r"><code class="sourceCode r">if (!<span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"remotes"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {
     <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
 }
@@ -107,31 +107,31 @@ BiocManager::<span class="kw">valid</span>()</code></pre>
 </div>
 <div id="conda-method" class="section level3">
 <h3 class="hasAnchor">
-<a href="#conda-method" class="anchor"></a><a href="https://conda.io">conda</a> method</h3>
-<p>Configure <a href="https://conda.io">conda</a> to use the <a href="https://bioconda.github.io">bioconda</a> channels.</p>
+<a href="#conda-method" class="anchor"></a><a href="https://conda.io/">conda</a> method</h3>
+<p>Configure <a href="https://conda.io/">conda</a> to use the <a href="https://bioconda.github.io/">bioconda</a> channels.</p>
 <pre class="sh"><code>conda install -c bioconda r-bcbiornaseq</code></pre>
 </div>
 </div>
 <div id="load-bcbio-rna-seq-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#load-bcbio-rna-seq-data" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq data</h2>
+<a href="#load-bcbio-rna-seq-data" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> RNA-seq data</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bcbioRNASeq)
-object &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/bcbioRNASeq/man/bcbioRNASeq.html">bcbioRNASeq</a></span>(
+object &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(
     <span class="dt">uploadDir =</span> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"bcbio"</span>, <span class="st">"final"</span>),
     <span class="dt">interestingGroups =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),
     <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span>
 )
 <span class="kw">saveData</span>(object, <span class="dt">dir =</span> <span class="st">"."</span>)</code></pre>
-<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org">Bioconductor</a> <a href="https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment">RangedSummarizedExperiment</a> container class. Consult the <code><a href="https://rdrr.io/pkg/bcbioRNASeq/man/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor function documentation for detailed information on the supported parameters:</p>
+<p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org/">Bioconductor</a> <a href="http://bioconductor.org/packages/SummarizedExperiment/">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor function documentation for detailed information on the supported parameters:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</code></pre>
 <div id="sample-metadata" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sample-metadata" class="anchor"></a>Sample metadata</h3>
-<p>When loading a <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> RNA-seq run, the sample metadata will be imported automatically from the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="https://rdrr.io/pkg/bcbioRNASeq/man/bcbioRNASeq.html">bcbioRNASeq()</a></code> using the <code>sampleMetadataFile</code> argument.</p>
+<p>When loading a <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> RNA-seq run, the sample metadata will be imported automatically from the <code>project-summary.yaml</code> file in the final upload directory. If you notice any typos in your metadata after completing the run, these can be corrected by editing the YAML file. Alternatively, you can pass in a sample metadata file into <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> using the <code>sampleMetadataFile</code> argument.</p>
 <div id="metadata-file-example" class="section level4">
 <h4 class="hasAnchor">
 <a href="#metadata-file-example" class="anchor"></a>Metadata file example</h4>
-<p>The samples in the <a href="https://github.com/chapmanb/bcbio-nextgen">bcbio</a> run must map to the <code>description</code> column. The values provided in <code>description</code> must be unique. These values will be sanitized into syntactically valid names (see <code><a href="https://rdrr.io/r/utils/help.html">help("make.names")</a></code>), and assigned as the column names of the <code>bcbioRNASeq</code> object. The original values are stored as the <code>sampleName</code> column in <code>colData()</code>, and are used for all plotting functions.</p>
+<p>The samples in the <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> run must map to the <code>description</code> column. The values provided in <code>description</code> must be unique. These values will be sanitized into syntactically valid names (see <code><a href="https://rdrr.io/r/utils/help.html">help("make.names")</a></code>), and assigned as the column names of the <code>bcbioRNASeq</code> object. The original values are stored as the <code>sampleName</code> column in <code>colData()</code>, and are used for all plotting functions.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">description</th>
@@ -159,10 +159,19 @@ object &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/p
 </div>
 </div>
 </div>
+<div id="differential-expression" class="section level2">
+<h2 class="hasAnchor">
+<a href="#differential-expression" class="anchor"></a>Differential expression</h2>
+<p>We’ve designed bcbioRNASeq to easily hand off to <a href="http://bioconductor.org/packages/DESeq2/">DESeq2</a> or <a href="http://bioconductor.org/packages/edgeR/">edgeR</a> for differential expression analysis.</p>
+<p>DESeq2: Coerce <code>bcbioRNASeq</code> to <code>DESeqDataSet</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">dds &lt;-<span class="st"> </span><span class="kw">as</span>(object, <span class="st">"DESeqDataSet"</span>)</code></pre>
+<p>edgeR: Coerce <code>bcbioRNASeq</code> to <code>DGEList</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">dge &lt;-<span class="st"> </span><span class="kw">as</span>(object, <span class="st">"DGEList"</span>)</code></pre>
+</div>
 <div id="r-markdown-templates" class="section level2">
 <h2 class="hasAnchor">
-<a href="#r-markdown-templates" class="anchor"></a><a href="http://rmarkdown.rstudio.com">R Markdown</a> templates</h2>
-<p>The package provides multiple <a href="http://rmarkdown.rstudio.com">R Markdown</a> templates, including quality control, differential expression using <a href="https://doi.org/doi:10.18129/B9.bioc.DESeq2">DESeq2</a>, and functional enrichment analysis. These are available in <a href="https://www.rstudio.com">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
+<a href="#r-markdown-templates" class="anchor"></a><a href="http://rmarkdown.rstudio.com/">R Markdown</a> templates</h2>
+<p>The package provides multiple <a href="http://rmarkdown.rstudio.com/">R Markdown</a> templates, including quality control, differential expression using <a href="http://bioconductor.org/packages/DESeq2/">DESeq2</a>, and functional enrichment analysis. These are available in <a href="https://www.rstudio.com/">RStudio</a> at <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code> -&gt; <code>From Template</code>.</p>
 </div>
 <div id="troubleshooting" class="section level2">
 <h2 class="hasAnchor">
@@ -171,7 +180,7 @@ object &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/p
 <h3 class="hasAnchor">
 <a href="#invalid-object" class="anchor"></a>Invalid object</h3>
 <p>If you encounter a <code>validObject</code> error when attempting to load a <code>bcbioRNASeq</code> object from a previous analysis, run this step to update the object to the current version of the package:</p>
-<pre class="sourceCode r"><code class="sourceCode r">object &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/bcbioRNASeq/man/updateObject.html">updateObject</a></span>(object)
+<pre class="sourceCode r"><code class="sourceCode r">object &lt;-<span class="st"> </span><span class="kw"><a href="reference/updateObject.html">updateObject</a></span>(object)
 <span class="kw">validObject</span>(object)
 ## [1] TRUE</code></pre>
 </div>
@@ -179,7 +188,7 @@ object &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/p
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<p>The papers and software cited in our workflows are available as a <a href="https://paperpile.com/shared/e1q8fn">shared library</a> on <a href="https://paperpile.com">Paperpile</a>.</p>
+<p>The papers and software cited in our workflows are available as a <a href="https://paperpile.com/shared/e1q8fn">shared library</a> on <a href="https://paperpile.com/">Paperpile</a>.</p>
 </div>
 </div>
   </div>
@@ -264,7 +273,7 @@ object &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

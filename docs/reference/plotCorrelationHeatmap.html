@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.28</span>
       </span>
     </div>
 
@@ -124,14 +124,7 @@
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCorrelationHeatmap</span>(<span class='no'>object</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"tpm"</span>, <span class='st'>"fpkm"</span>),
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"pearson"</span>, <span class='st'>"kendall"</span>,
-  <span class='st'>"spearman"</span>), <span class='kw'>clusteringMethod</span> <span class='kw'>=</span> <span class='st'>"ward.D2"</span>, <span class='kw'>showRownames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>showColnames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>treeheightRow</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>treeheightCol</span> <span class='kw'>=</span> <span class='fl'>50L</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.heatmap.color"</span>, <span class='kw'>default</span> <span class='kw'>=</span>
-  <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/synesthesia.html'>synesthesia</a></span>), <span class='kw'>legendColor</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span>
-  <span class='st'>"acid.heatmap.color"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/synesthesia.html'>synesthesia</a></span>),
-  <span class='kw'>borderColor</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"vst"</span>, <span class='st'>"rlog"</span>), <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,89 +135,49 @@
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Type of normalized counts to visualize:</p><ul>
-<li><p><code>tpm</code> Transcripts per million.</p></li>
-<li><p><code>tmm</code>: edgeR trimmed mean of M-values.</p></li>
-<li><p><code>rlog</code>: DESeq2 log2 regularized log transformation.</p></li>
-<li><p><code>vst</code>: DESeq2 log2 variance stabilizing transformation.</p></li>
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
+Normalization method to apply:</p><ul>
+<li><p><code>FALSE</code>: Raw counts.
+When using a <a href='https://bioconductor.org/packages/tximport/'>tximport</a>-compatible caller, these are length scaled
+by default (see <code>countsFromAbundance</code> argument).
+When using a <a href='http://bioinf.wehi.edu.au/featureCounts/'>featureCounts</a>-compatible caller, these are <code>integer</code>.</p></li>
+</ul>
+
+<p><a href='https://bioconductor.org/packages/tximport/'>tximport</a> caller-specific normalizations:</p><ul>
+<li><p><code>"tpm"</code>: <strong>T</strong>ranscripts <strong>p</strong>er <strong>m</strong>illion.</p></li>
+</ul>
+
+<p>Additional gene-level-specific normalizations:</p><ul>
+<li><p><code>TRUE</code> / <code>"sf"</code>: <strong>S</strong>ize <strong>f</strong>actor (i.e. library size) normalized
+counts.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/sizeFactors.html'>DESeq2::sizeFactors()</a></code> for details.</p></li>
+<li><p><code>"fpkm"</code>: <strong>F</strong>ragments <strong>p</strong>er <strong>k</strong>ilobase per <strong>m</strong>illion mapped
+fragments.<br />
+Requires <code>fpkm = TRUE</code> in <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call and gene annotations in
+<code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>rowRanges()</a></code> with defined
+<code><a href='https://rdrr.io/pkg/BiocGenerics/man/start.html'>width</a></code>.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/fpkm.html'>DESeq2::fpkm()</a></code> for details.</p></li>
+<li><p><code>"vst"</code>: <strong>V</strong>ariance-<strong>s</strong>tabilizing <strong>t</strong>ransformation (log2).<br />
+Requires <code>vst = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation</a></code> for more information.</p></li>
+<li><p><code>"rlog"</code>: <strong>R</strong>egularized <strong>log</strong> transformation (log2).<br />
+Requires <code>rlog = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code> for details.</p></li>
+<li><p><code>"tmm"</code>: <strong>T</strong>rimmed <strong>m</strong>ean of <strong>M</strong>-values.<br />
+Calculated on the fly.<br />
+See <code><a href='https://rdrr.io/pkg/edgeR/man/calcNormFactors.html'>edgeR::calcNormFactors()</a></code> for details.</p></li>
+<li><p><code>"rle"</code>: <strong>R</strong>elative <strong>l</strong>og <strong>e</strong>xpression transformation.<br />
+Calculated on the fly.<br />
+See <code><a href='relativeLogExpression.html'>relativeLogExpression()</a></code> for details.</p>
+<p>Note that <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> support only applies to <code><a href='counts.html'>counts()</a></code>. Other
+functions in the package require <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> and use
+<code><a href='https://rdrr.io/r/base/match.arg.html'>match.arg()</a></code> internally.</p></li>
 </ul></td>
     </tr>
     <tr>
-      <th>interestingGroups</th>
-      <td><p><code>character</code>.
-Groups of interest to use for visualization.
-Corresponds to factors describing the columns of the object.</p></td>
-    </tr>
-    <tr>
-      <th>method</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Correlation coefficient (or covariance) method to be computed.
-Defaults to pearson, but spearman or kendall can also be used.
-Refer to the <code><a href='https://rdrr.io/r/stats/cor.html'>cor()</a></code> documentation for details.</p></td>
-    </tr>
-    <tr>
-      <th>clusteringMethod</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Clustering method. Accepts the same values as <code><a href='https://rdrr.io/r/stats/hclust.html'>hclust()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>showRownames</th>
-      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
-Show row or column names.</p></td>
-    </tr>
-    <tr>
-      <th>showColnames</th>
-      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
-Show row or column names.</p></td>
-    </tr>
-    <tr>
-      <th>treeheightRow</th>
-      <td><p><code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>.
-Size of the row and column dendrograms. Use <code>0</code> to disable.</p></td>
-    </tr>
-    <tr>
-      <th>treeheightCol</th>
-      <td><p><code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>.
-Size of the row and column dendrograms. Use <code>0</code> to disable.</p></td>
-    </tr>
-    <tr>
-      <th>color</th>
-      <td><p><code>function</code>, <code>character</code>, or <code>NULL</code>.
-Hexadecimal color function or values to use for plot.</p>
-<p>We generally recommend these hexadecimal functions from the viridis
-package, in addition to our <code>synesthesia()</code> palette:</p><ul>
-<li><p><code><a href='https://rdrr.io/pkg/viridis/man/reexports.html'>viridis::viridis()</a></code>.</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/viridis/man/reexports.html'>viridis::inferno()</a></code>.</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/viridis/man/reexports.html'>viridis::magma()</a></code>.</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/viridis/man/reexports.html'>viridis::plasma()</a></code>.</p></li>
-</ul>
-
-<p>Alternatively, colors can be defined manually using hexadecimal values
-(e.g. <code><a href='https://rdrr.io/r/base/c.html'>c("#FF0000", "#0000FF")</a></code>), but this is not generally recommended.
-Refer to the RColorBrewer package for hexadecimal color palettes that may
-be suitable. If set <code>NULL</code>, will use the default pheatmap colors.</p></td>
-    </tr>
-    <tr>
-      <th>legendColor</th>
-      <td><p><code>function</code> or <code>NULL</code>.
-Hexadecimal color function to use for legend labels. Note that hexadecimal
-values are not supported. If set <code>NULL</code>, will use the default pheatmap
-colors.</p></td>
-    </tr>
-    <tr>
-      <th>borderColor</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code>NULL</code>.
-Border color.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Title.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
-      <td><p>Additional arguments.</p></td>
+      <td><p>Passthrough to <code>SummarizedExperiment</code> method defined in acidplots.
+See <code><a href='https://rdrr.io/pkg/acidplots/man/plotCorrelationHeatmap.html'>acidplots::plotCorrelationHeatmap()</a></code> for details.</p></td>
     </tr>
     </table>
 
@@ -233,14 +186,15 @@ Title.</p></td>
     <p><code>pheatmap</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Updated 2019-08-07.</p>
+    <p>Updated 2019-09-15.</p>
     <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
 
     
 
 <ul>
 <li><p><code>SingleCellExperiment</code>: Applies <code>pseudobulk()</code> calculation to
-average gene expression at sample level prior to plotting.</p></li>
+average gene expression at sample level prior to plotting.<br />
+Passes <code>...</code> to <code>SummarizedExperiment</code> method.</p></li>
 </ul>
 
 
@@ -270,7 +224,7 @@ average gene expression at sample level prior to plotting.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

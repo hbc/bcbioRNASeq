@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.28</span>
       </span>
     </div>
 
@@ -128,19 +128,11 @@
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCountsPerBiotype</span>(<span class='no'>object</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"fpkm"</span>), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>9L</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"identity"</span>, <span class='st'>"log2"</span>, <span class='st'>"log10"</span>),
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.fill.discrete"</span>, <span class='kw'>default</span> <span class='kw'>=</span>
-  <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/acidplots/man/synesthesia.html'>scale_fill_synesthesia_d</a></span>()), <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Counts per biotype"</span>)
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCountsPerBroadClass</span>(<span class='no'>object</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>, <span class='st'>"fpkm"</span>),
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"log2"</span>, <span class='st'>"log10"</span>),
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.fill.discrete"</span>, <span class='kw'>default</span> <span class='kw'>=</span>
-  <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/acidplots/man/synesthesia.html'>scale_fill_synesthesia_d</a></span>()), <span class='kw'>countsAxisLabel</span> <span class='kw'>=</span> <span class='st'>"counts"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Counts per broad class"</span>)</pre>
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,50 +143,44 @@
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Type of normalized counts to visualize:</p><ul>
-<li><p><code>tpm</code> Transcripts per million.</p></li>
-<li><p><code>tmm</code>: edgeR trimmed mean of M-values.</p></li>
-<li><p><code>rlog</code>: DESeq2 log2 regularized log transformation.</p></li>
-<li><p><code>vst</code>: DESeq2 log2 variance stabilizing transformation.</p></li>
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
+Normalization method to apply:</p><ul>
+<li><p><code>FALSE</code>: Raw counts.
+When using a <a href='https://bioconductor.org/packages/tximport/'>tximport</a>-compatible caller, these are length scaled
+by default (see <code>countsFromAbundance</code> argument).
+When using a <a href='http://bioinf.wehi.edu.au/featureCounts/'>featureCounts</a>-compatible caller, these are <code>integer</code>.</p></li>
+</ul>
+
+<p><a href='https://bioconductor.org/packages/tximport/'>tximport</a> caller-specific normalizations:</p><ul>
+<li><p><code>"tpm"</code>: <strong>T</strong>ranscripts <strong>p</strong>er <strong>m</strong>illion.</p></li>
+</ul>
+
+<p>Additional gene-level-specific normalizations:</p><ul>
+<li><p><code>TRUE</code> / <code>"sf"</code>: <strong>S</strong>ize <strong>f</strong>actor (i.e. library size) normalized
+counts.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/sizeFactors.html'>DESeq2::sizeFactors()</a></code> for details.</p></li>
+<li><p><code>"fpkm"</code>: <strong>F</strong>ragments <strong>p</strong>er <strong>k</strong>ilobase per <strong>m</strong>illion mapped
+fragments.<br />
+Requires <code>fpkm = TRUE</code> in <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call and gene annotations in
+<code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>rowRanges()</a></code> with defined
+<code><a href='https://rdrr.io/pkg/BiocGenerics/man/start.html'>width</a></code>.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/fpkm.html'>DESeq2::fpkm()</a></code> for details.</p></li>
+<li><p><code>"vst"</code>: <strong>V</strong>ariance-<strong>s</strong>tabilizing <strong>t</strong>ransformation (log2).<br />
+Requires <code>vst = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation</a></code> for more information.</p></li>
+<li><p><code>"rlog"</code>: <strong>R</strong>egularized <strong>log</strong> transformation (log2).<br />
+Requires <code>rlog = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code> for details.</p></li>
+<li><p><code>"tmm"</code>: <strong>T</strong>rimmed <strong>m</strong>ean of <strong>M</strong>-values.<br />
+Calculated on the fly.<br />
+See <code><a href='https://rdrr.io/pkg/edgeR/man/calcNormFactors.html'>edgeR::calcNormFactors()</a></code> for details.</p></li>
+<li><p><code>"rle"</code>: <strong>R</strong>elative <strong>l</strong>og <strong>e</strong>xpression transformation.<br />
+Calculated on the fly.<br />
+See <code><a href='relativeLogExpression.html'>relativeLogExpression()</a></code> for details.</p>
+<p>Note that <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> support only applies to <code><a href='counts.html'>counts()</a></code>. Other
+functions in the package require <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> and use
+<code><a href='https://rdrr.io/r/base/match.arg.html'>match.arg()</a></code> internally.</p></li>
 </ul></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p><code><a href='https://rdrr.io/r/base/integer.html'>integer(1)</a></code>.
-Number to include.</p></td>
-    </tr>
-    <tr>
-      <th>interestingGroups</th>
-      <td><p><code>character</code>.
-Groups of interest to use for visualization.
-Corresponds to factors describing the columns of the object.</p></td>
-    </tr>
-    <tr>
-      <th>trans</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Name of the axis scale transformation to apply.</p>
-<p>For more information:</p><pre>help(topic = "scale_x_continuous", package = "ggplot2")
-</pre></td>
-    </tr>
-    <tr>
-      <th>fill</th>
-      <td><p><code>ggproto</code>/<code>ScaleDiscrete</code>.
-Desired ggplot2 fill scale. Must supply discrete values. When set to
-<code>NULL</code>, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_fill_manual()</a></code>.</p>
-<p>To set the discrete fill palette globally, use:</p><pre>options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
-</pre></td>
-    </tr>
-    <tr>
-      <th>countsAxisLabel</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Counts axis label.</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
-Title.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -207,11 +193,11 @@ Title.</p></td>
     <p><code>ggplot</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Updated 2019-08-07.</p>
+    <p>Updated 2019-09-16.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotCountsPerBiotype</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>63 / 100 features passed 'perRow' &gt;= 1 cutoff.</span></div><div class='output co'>#&gt; <span class='message'>Applying 'log2(x + 1L)' transformation.</span></div><div class='img'><img src='plotCountsPerBiotype-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotCountsPerBiotype</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Using tpm counts.</span></div><div class='output co'>#&gt; <span class='message'>63 / 100 features passed 'perRow' &gt;= 1 cutoff.</span></div><div class='output co'>#&gt; <span class='message'>Applying 'log2(x + 1L)' transformation.</span></div><div class='img'><img src='plotCountsPerBiotype-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -234,7 +220,7 @@ Title.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

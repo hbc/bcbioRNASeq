@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.28</span>
       </span>
     </div>
 
@@ -135,7 +135,7 @@
     <tr>
       <th>normalized</th>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> or <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
-Which normalization method to apply:</p><ul>
+Normalization method to apply:</p><ul>
 <li><p><code>FALSE</code>: Raw counts.
 When using a <a href='https://bioconductor.org/packages/tximport/'>tximport</a>-compatible caller, these are length scaled
 by default (see <code>countsFromAbundance</code> argument).
@@ -147,22 +147,30 @@ When using a <a href='http://bioinf.wehi.edu.au/featureCounts/'>featureCounts</a
 </ul>
 
 <p>Additional gene-level-specific normalizations:</p><ul>
-<li><p><code>TRUE</code>: Size factor-adjusted counts.<br />
-See <code><a href='https://rdrr.io/pkg/DESeq2/man/sizeFactors.html'>DESeq2::sizeFactors</a></code> for more information.</p></li>
-<li><p><code>"vst"</code>: <strong>V</strong>ariance-<strong>s</strong>tabilizing <strong>t</strong>ransformation.<br />
-Requires <code>vst = TRUE</code> to be set during <code>bcbioRNASeq</code> call.<br />
-See <code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation</a></code> for more information.</p></li>
-<li><p><code>"rlog"</code>: <strong>R</strong>egularized <strong>log</strong> transformation (log2).<br />
-Requires <code>rlog = TRUE</code> to be set during <code>bcbioRNASeq</code> call.<br />
-See <code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog</a></code> for more information.</p></li>
-<li><p><code>"tmm"</code>: <strong>T</strong>rimmed <strong>m</strong>ean of <strong>M</strong>-values.<br />
-See <code><a href='https://rdrr.io/pkg/edgeR/man/calcNormFactors.html'>edgeR::calcNormFactors</a></code> for more information.</p></li>
-<li><p><code>"rle"</code>: <strong>R</strong>elative <strong>l</strong>og <strong>e</strong>xpression transformation.</p></li>
+<li><p><code>TRUE</code> / <code>"sf"</code>: <strong>S</strong>ize <strong>f</strong>actor (i.e. library size) normalized
+counts.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/sizeFactors.html'>DESeq2::sizeFactors()</a></code> for details.</p></li>
 <li><p><code>"fpkm"</code>: <strong>F</strong>ragments <strong>p</strong>er <strong>k</strong>ilobase per <strong>m</strong>illion mapped
 fragments.<br />
-Requires annotations in <code>rowRanges</code> with defined <code>width</code>; otherwise,
-will be skipped during the <code>bcbioRNASeq</code> load call.<br />
-See <code><a href='https://rdrr.io/pkg/BiocGenerics/man/start.html'>BiocGenerics::width</a></code> and <code><a href='https://rdrr.io/pkg/DESeq2/man/fpkm.html'>DESeq2::fpkm</a></code> for more information.</p></li>
+Requires <code>fpkm = TRUE</code> in <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call and gene annotations in
+<code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>rowRanges()</a></code> with defined
+<code><a href='https://rdrr.io/pkg/BiocGenerics/man/start.html'>width</a></code>.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/fpkm.html'>DESeq2::fpkm()</a></code> for details.</p></li>
+<li><p><code>"vst"</code>: <strong>V</strong>ariance-<strong>s</strong>tabilizing <strong>t</strong>ransformation (log2).<br />
+Requires <code>vst = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation</a></code> for more information.</p></li>
+<li><p><code>"rlog"</code>: <strong>R</strong>egularized <strong>log</strong> transformation (log2).<br />
+Requires <code>rlog = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code> for details.</p></li>
+<li><p><code>"tmm"</code>: <strong>T</strong>rimmed <strong>m</strong>ean of <strong>M</strong>-values.<br />
+Calculated on the fly.<br />
+See <code><a href='https://rdrr.io/pkg/edgeR/man/calcNormFactors.html'>edgeR::calcNormFactors()</a></code> for details.</p></li>
+<li><p><code>"rle"</code>: <strong>R</strong>elative <strong>l</strong>og <strong>e</strong>xpression transformation.<br />
+Calculated on the fly.<br />
+See <code><a href='relativeLogExpression.html'>relativeLogExpression()</a></code> for details.</p>
+<p>Note that <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> support only applies to <code>counts()</code>. Other
+functions in the package require <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> and use
+<code><a href='https://rdrr.io/r/base/match.arg.html'>match.arg()</a></code> internally.</p></li>
 </ul></td>
     </tr>
     </table>
@@ -176,7 +184,7 @@ See <code><a href='https://rdrr.io/pkg/BiocGenerics/man/start.html'>BiocGenerics
 can be accessed using the <code>normalized</code> argument.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Updated 2019-08-07.</p>
+    <p>Updated 2019-09-15.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -196,8 +204,8 @@ can be accessed using the <code>normalized</code> argument.</p>
 <li><p><code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/DESeq2/man/fpkm.html'>DESeq2::fpkm()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/edgeR/man/calcNormFactors.html'>edgeR::calcNormFactors()</a></code>.</p></li>
-<li><p><code>tmm()</code>.</p></li>
-<li><p><code>relativeLogExpression()</code>.</p></li>
+<li><p><code><a href='tmm.html'>tmm()</a></code>.</p></li>
+<li><p><code><a href='relativeLogExpression.html'>relativeLogExpression()</a></code>.</p></li>
 </ul>
 </div>
 
@@ -242,7 +250,7 @@ can be accessed using the <code>normalized</code> argument.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
