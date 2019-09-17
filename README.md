@@ -85,6 +85,23 @@ The samples in the [bcbio][] run must map to the `description` column. The value
 | sample3     | wildtype |
 | sample4     | knockout |
 
+## Differential expression
+
+We've designed bcbioRNASeq to easily hand off to [DESeq2][] or [edgeR][] for
+differential expression analysis.
+
+DESeq2: Coerce `bcbioRNASeq` to `DESeqDataSet`.
+
+```r
+dds <- as(object, "DESeqDataSet")
+```
+
+edgeR: Coerce `bcbioRNASeq` to `DGEList`.
+
+```r
+dge <- as(object, "DGEList")
+```
+
 ## [R Markdown][] templates
 
 The package provides multiple [R Markdown][] templates, including quality control, differential expression using [DESeq2][], and functional enrichment analysis. These are available in [RStudio][] at `File` -> `New File` -> `R Markdown...` -> `From Template`.
@@ -105,15 +122,16 @@ validObject(object)
 
 The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 
-[bcbio]: https://github.com/chapmanb/bcbio-nextgen
+[bcbio]: https://github.com/chapmanb/bcbio-nextgen/
 [BiocManager]: https://cran.r-project.org/package=BiocManager
-[bioconda]: https://bioconda.github.io
-[Bioconductor]: https://bioconductor.org
-[conda]: https://conda.io
-[DESeq2]: https://doi.org/doi:10.18129/B9.bioc.DESeq2
-[Paperpile]: https://paperpile.com
-[R]: https://www.r-project.org
-[R Markdown]: http://rmarkdown.rstudio.com
-[RStudio]: https://www.rstudio.com
-[RangedSummarizedExperiment]: https://doi.org/doi:10.18129/B9.bioc.SummarizedExperiment
-[Workflow paper]: https://f1000research.com/articles/6-1976/v2
+[bioconda]: https://bioconda.github.io/
+[Bioconductor]: https://bioconductor.org/
+[conda]: https://conda.io/
+[DESeq2]: http://bioconductor.org/packages/DESeq2/
+[edgeR]: http://bioconductor.org/packages/edgeR/
+[Paperpile]: https://paperpile.com/
+[R]: https://www.r-project.org/
+[R Markdown]: http://rmarkdown.rstudio.com/
+[RStudio]: https://www.rstudio.com/
+[RangedSummarizedExperiment]: http://bioconductor.org/packages/SummarizedExperiment/
+[Workflow paper]: https://doi.org/10.12688/f1000research.12093.2
