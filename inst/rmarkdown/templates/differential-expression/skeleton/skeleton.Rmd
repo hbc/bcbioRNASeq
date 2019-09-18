@@ -3,6 +3,7 @@
 ## Updated 2019-09-17.
 params:
   title: "Differential expression with DESeq2"
+  ## bcbioRNASeq object.
   bcb_file: "data/YYYY-MM-DD/bcb.rds"
   ## Design formula must contain columns defined in `colData()`.
   design: !r formula("~ group")
