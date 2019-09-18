@@ -9,14 +9,14 @@
 ## Updated 2019-09-17.
 params:
   title: "Functional analysis with clusterProfiler"
-  ## DESeqDataSet
+  ## DESeqDataSet object.
   dds_file: "data/YYYY-MM-DD/dds.rds"
-  ## DESeqResults
+  ## DESeqResults object.
   res_file: "data/YYYY-MM-DD/res.rds"
   organism: "Homo sapiens"
   go_class: "BP"
   data_dir: !r file.path("data", Sys.Date())
-  results_dir: !r file.path("results", Sys.Date(), "functional-analysis")
+  output_dir: !r file.path("results", Sys.Date(), "functional-analysis")
   ## Pathview KEGG plots tend to be slow to render.
   pathview: FALSE
 title: "`r params$title`"
@@ -88,10 +88,10 @@ stopifnot(params$go_class %in% c("BP", "CC", "MF"))
 ```
 
 ```{r dir-create}
-kegg_plots_dir <- file.path(params$results_dir, "kegg-plots")
+kegg_plots_dir <- file.path(params$output_dir, "kegg-plots")
 invisible(mapply(
     FUN = dir.create,
-    path = c(params$data_dir, params$results_dir, kegg_plots_dir),
+    path = c(params$data_dir, params$output_dir, kegg_plots_dir),
     MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
 ```
@@ -171,7 +171,7 @@ saveData(enrich_go, enrich_go_tbl, dir = params$data_dir)
 export(
     object = enrich_go_tbl,
     file = file.path(
-        params$results_dir,
+        params$output_dir,
         paste0(
             paste(
                 "go",
@@ -247,7 +247,7 @@ saveData(gsea_go, gsea_go_tbl, dir = params$data_dir)
 export(
     object = gsea_go_tbl,
     file = file.path(
-        params$results_dir,
+        params$output_dir,
         paste0(
             paste(
                 "gsea",
@@ -360,7 +360,7 @@ saveData(kegg, kegg_tbl, dir = params$data_dir)
 export(
     object = kegg_tbl,
     file = file.path(
-        params$results_dir,
+        params$output_dir,
         paste0(
             paste(
                 "kegg",
@@ -403,7 +403,7 @@ saveData(gsea_kegg, dir = params$data_dir)
 export(
     object = gsea_kegg_tbl,
     file = file.path(
-        params$results_dir, 
+        params$output_dir, 
         paste0(
             paste(
                 "gsea",

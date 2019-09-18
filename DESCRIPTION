@@ -103,7 +103,7 @@ LazyData: false
 Depends:
     R (>= 3.6),
     SummarizedExperiment (>= 1.14),
-    basejump (>= 0.11.14)
+    basejump (>= 0.11.15)
 Imports:
     DESeqAnalysis (>= 0.2.7),
     acidplots (>= 0.2.15),
