@@ -355,7 +355,7 @@ bcbioRNASeq <- function(
     if (is.character(samples) || is.character(censorSamples)) {
         ## Matching against the YAML "description" input here.
         description <- as.character(sampleData[["description"]])
-        assert(isNonEmpty(description))
+        assert(hasLength(description))
         if (is.character(samples)) {
             assert(isSubset(samples, description))
         } else {
