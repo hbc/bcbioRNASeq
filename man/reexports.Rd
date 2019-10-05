@@ -6,15 +6,6 @@
 \alias{plotFeaturesDetected}
 \alias{plotHeatmap}
 \alias{plotQuantileHeatmap}
-\alias{alphaSummary}
-\alias{contrastName}
-\alias{plotDEGHeatmap}
-\alias{plotDEGPCA}
-\alias{plotMA}
-\alias{plotMeanAverage}
-\alias{plotVolcano}
-\alias{resultsTables}
-\alias{topTables}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -23,7 +14,5 @@ below to see their documentation.
 
 \describe{
   \item{acidplots}{\code{\link[acidplots]{plotFeaturesDetected}}, \code{\link[acidplots]{plotHeatmap}}, \code{\link[acidplots]{plotQuantileHeatmap}}}
-
-  \item{DESeqAnalysis}{\code{\link[DESeqAnalysis]{alphaSummary}}, \code{\link[DESeqAnalysis]{contrastName}}, \code{\link[DESeqAnalysis]{plotDEGHeatmap}}, \code{\link[DESeqAnalysis]{plotDEGPCA}}, \code{\link[DESeqAnalysis]{plotMA}}, \code{\link[DESeqAnalysis]{plotMeanAverage}}, \code{\link[DESeqAnalysis]{plotVolcano}}, \code{\link[DESeqAnalysis]{resultsTables}}, \code{\link[DESeqAnalysis]{topTables}}}
 }}
 

@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.3.28
-Date: 2019-09-17
+Version: 0.3.29
+Date: 2019-10-05
 Authors@R: c(
     person(
         given = "Michael",
@@ -105,7 +105,6 @@ Depends:
     SummarizedExperiment (>= 1.14),
     basejump (>= 0.11.15)
 Imports:
-    DESeqAnalysis (>= 0.2.7),
     acidplots (>= 0.2.15),
     bcbioBase (>= 0.6.10),
     bioverbs (>= 0.2.10),
@@ -143,7 +142,6 @@ Suggests:
     tidyverse (>= 1.2),
     viridis (>= 0.5)
 Remotes:
-    acidgenomics/DESeqAnalysis,
     acidgenomics/acidplots,
     acidgenomics/acidroxygen,
     acidgenomics/basejump,
