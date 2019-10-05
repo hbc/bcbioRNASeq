@@ -1,6 +1,6 @@
 ---
 ## Alternatively, use the DESeqAnalysis package for complex contrasts.
-## Updated 2019-09-17.
+## Updated 2019-10-05.
 params:
   title: "Differential expression with DESeq2"
   ## bcbioRNASeq object.
@@ -28,6 +28,7 @@ bibliography: bibliography.bib
 ```{r setup, cache=FALSE, message=FALSE}
 library(bcbioRNASeq)
 library(DESeq2)
+library(DESeqAnalysis)
 prepareTemplate()
 source("_setup.R")
 ```
