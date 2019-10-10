@@ -10,10 +10,6 @@ branches:
 install:
   - curl -sSL https://raw.githubusercontent.com/acidgenomics/Rcheck/master/install | bash
 
-before_script:
-    # Avoid BiocCheck > checkCodingPractice > checkLogicalUseFiles error.
-  - touch inst/rmarkdown/templates/{differential-expression,functional-analysis,quality-control}/skeleton/_{footer,header,links}.Rmd
-
 jobs:
   include:
     - stage: test
