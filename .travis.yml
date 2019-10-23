@@ -17,8 +17,8 @@ before_script:
 jobs:
   include:
     - stage: test
-      name: "bioc-3.9"
-      script: image="r-bcbio" tag="bioc-3.9" ./.Rcheck/docker
+      name: "bioc-release"
+      script: image="r-bcbio" tag="bioc-release" ./.Rcheck/docker
     - stage: test
       name: "bioc-devel"
       script: image="r-bcbio" tag="bioc-devel" ./.Rcheck/docker
