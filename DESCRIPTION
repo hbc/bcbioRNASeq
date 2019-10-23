@@ -108,7 +108,7 @@ Imports:
     acidplots (>= 0.2.15),
     bcbioBase (>= 0.6.10),
     bioverbs (>= 0.2.10),
-    goalie (>= 0.3.8),
+    goalie (>= 0.4.0),
     BiocGenerics (>= 0.30),
     DESeq2 (>= 1.24),
     S4Vectors (>= 0.22),
