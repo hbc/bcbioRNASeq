@@ -1,5 +1,7 @@
 context("plotPCACovariates")
 
+skip_if_not_installed("DEGreport")
+
 test_that("plotPCACovariates", {
     x <- plotPCACovariates(object)
     expect_is(x, "list")

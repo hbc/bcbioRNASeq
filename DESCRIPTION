@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.3.29
-Date: 2019-10-05
+Date: 2019-10-30
 Authors@R: c(
     person(
         given = "Michael",
@@ -103,45 +103,45 @@ LazyData: false
 Depends:
     R (>= 3.6),
     SummarizedExperiment (>= 1.14),
-    basejump (>= 0.11.15)
+    basejump (>= 0.11.20)
 Imports:
-    acidplots (>= 0.2.15),
-    bcbioBase (>= 0.6.10),
-    bioverbs (>= 0.2.10),
-    goalie (>= 0.4.0),
     BiocGenerics (>= 0.30),
     DESeq2 (>= 1.24),
     S4Vectors (>= 0.22),
-    edgeR (>= 3.26),
-    tximport (>= 1.12),
+    acidplots (>= 0.2.16),
+    bcbioBase (>= 0.6.10),
+    bioverbs (>= 0.2.10),
     cowplot (>= 1.0),
+    edgeR (>= 3.26),
     ggplot2 (>= 3.2),
+    goalie (>= 0.4.0),
     rlang (>= 0.4),
     scales (>= 1.0),
     sessioninfo (>= 1.1),
+    tximport (>= 1.12),
     methods,
     utils
 Suggests:
-    acidroxygen (>= 0.1.3),
     BiocStyle (>= 2.12),
     DEGreport (>= 1.20),
-    DESeqAnalysis (>= 0.2.8),
+    DESeqAnalysis (>= 0.2.10),
     DOSE (>= 3.10),
     EnsDb.Hsapiens.v75 (>= 2.99),
+    acidroxygen (>= 0.1.3),
     clusterProfiler (>= 3.12),
     hexbin (>= 1.27),
     knitr (>= 1.24),
     org.Hs.eg.db (>= 3.8),
     org.Mm.eg.db (>= 3.8),
     pathview (>= 1.24),
-    rhdf5 (>= 2.28),
-    vsn (>= 3.52),
     patrick (>= 0.0.1),
+    rhdf5 (>= 2.28),
     rmarkdown (>= 1.15),
     roxygen2 (>= 6.1),
     testthat (>= 2.2),
     tidyverse (>= 1.2),
-    viridis (>= 0.5)
+    viridis (>= 0.5),
+    vsn (>= 3.52)
 Remotes:
     acidgenomics/DESeqAnalysis,
     acidgenomics/acidplots,
