@@ -1,3 +1,12 @@
+## bcbioRNASeq 0.3.29 (2019-10-30)
+
+### Minor changes
+
+- Added support for Bioconductor 3.10.
+- Updated internal `DataFrame` validity checks to also check for `DFrame` class,
+  which has changed in latest S4Vectors 0.23 release.
+- Updated basejump dependency versions.
+
 ## bcbioRNASeq 0.3.28 (2019-09-17)
 
 ### Minor changes
