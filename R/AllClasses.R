@@ -16,7 +16,7 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-10-30.
 #' @export
 setClass(
     Class = "bcbioRNASeq",

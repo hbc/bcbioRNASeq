@@ -140,8 +140,8 @@ Suggests:
     roxygen2 (>= 6.1),
     testthat (>= 2.2),
     tidyverse (>= 1.2),
-    viridis (>= 0.5)
-    vsn (>= 3.52),
+    viridis (>= 0.5),
+    vsn (>= 3.52)
 Remotes:
     acidgenomics/DESeqAnalysis,
     acidgenomics/acidplots,
