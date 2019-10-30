@@ -75,6 +75,10 @@ setValidity(
         )
         if (!isTRUE(ok)) return(ok)
         ## Class checks (order independent).
+        df <- "DataFrame"
+        if (packageVersion("S4Vectors") >= "0.23") {
+            df <- c("DFrame", df)
+        }
         ok <- validateClasses(
             object = metadata,
             expected = list(
@@ -84,7 +88,7 @@ setValidity(
                 call = "call",
                 caller = "character",
                 countsFromAbundance = "character",
-                dataVersions = "DataFrame",
+                dataVersions = df,
                 date = "Date",
                 ensemblRelease = "integer",
                 genomeBuild = "character",
@@ -93,7 +97,7 @@ setValidity(
                 lanes = "integer",
                 level = "character",
                 organism = "character",
-                programVersions = "DataFrame",
+                programVersions = df,
                 projectDir = "character",
                 runDate = "Date",
                 sampleDirs = "character",
