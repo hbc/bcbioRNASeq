@@ -72,11 +72,13 @@ Find correlation between principal components (PCs) and covariates
 \note{
 Requires the DEGreport package to be installed.
 
-Updated 2019-08-20.
+Updated 2019-10-30.
 }
 \examples{
 data(bcb)
-plotPCACovariates(bcb)
+if (requireNamespace("DEGreport", quietly = TRUE)) {
+    plotPCACovariates(bcb)
+}
 }
 \seealso{
 \itemize{

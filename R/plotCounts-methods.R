@@ -1,7 +1,7 @@
 #' @name plotCounts
 #' @author Michael Steinbaugh
 #' @inherit acidplots::plotCounts
-#' @note Updated 2019-09-16.
+#' @note Updated 2019-09-18.
 #'
 #' @inheritParams acidroxygen::params
 #' @inheritParams counts
@@ -33,10 +33,10 @@ NULL
 
 
 
-## Updated 2019-09-16.
+## Updated 2019-09-18.
 `plotCounts,bcbioRNASeq` <-  # nolint
     function(object, genes, normalized, ...) {
-        args = .normalizedPlotArgs(
+        args <- .normalizedPlotArgs(
             object = object,
             genes = genes,
             normalized = match.arg(normalized),

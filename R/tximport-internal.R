@@ -141,9 +141,6 @@
             identical(rownames(infReps[[1L]]), rownames(abundance))
         )
     }
-    assert(
-        isString(countsFromAbundance),
-        isNonEmpty(countsFromAbundance)
-    )
+    assert(isString(countsFromAbundance))
     TRUE
 }

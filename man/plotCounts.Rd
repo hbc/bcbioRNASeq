@@ -74,7 +74,7 @@ See \code{\link[acidplots:plotCounts]{acidplots::plotCounts()}} for details.}
 Plot counts
 }
 \note{
-Updated 2019-09-16.
+Updated 2019-09-18.
 }
 \examples{
 data(bcb)
