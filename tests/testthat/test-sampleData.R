@@ -10,14 +10,14 @@ test_that("Clean mode", {
 
 test_that("Verbose mode", {
     x <- sampleData(object, clean = FALSE)
-
     ## Return `interestingGroups` factor column by default.
     expect_is(x[["interestingGroups"]], "factor")
-
     ## Otherwise it should be identical to `colData`.
     x[["interestingGroups"]] <- NULL
+    ## This check fails due to "DFrame"/"DataFrame" class mismatch on
+    ## Bioconductor 3.10, unless we coerce to DataFrame here.
     expect_identical(
-        object = x,
+        object = as(x, "DataFrame"),
         expected = colData(object)
     )
 })
