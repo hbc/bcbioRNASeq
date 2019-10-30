@@ -56,7 +56,9 @@ Updated 2019-09-15.
 }
 \examples{
 data(bcb)
-plotMeanSD(bcb)
+if (requireNamespace("vsn", quietly = TRUE)) {
+    plotMeanSD(bcb)
+}
 }
 \seealso{
 \itemize{

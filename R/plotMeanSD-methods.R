@@ -27,7 +27,9 @@
 #'
 #' @examples
 #' data(bcb)
-#' plotMeanSD(bcb)
+#' if (requireNamespace("vsn", quietly = TRUE)) {
+#'     plotMeanSD(bcb)
+#' }
 NULL
 
 
