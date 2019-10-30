@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh, Lorena Patano
 #' @inherit bioverbs::plotMeanSD
 #' @note Requires the vsn package to be installed.
-#' @note Updated 2019-09-15.
+#' @note Updated 2019-10-30.
 #'
 #' @inheritParams bcbioRNASeq
 #' @inheritParams acidroxygen::params

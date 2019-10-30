@@ -52,7 +52,7 @@ Plot row standard deviations vs. row means
 \note{
 Requires the vsn package to be installed.
 
-Updated 2019-09-15.
+Updated 2019-10-30.
 }
 \examples{
 data(bcb)

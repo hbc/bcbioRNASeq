@@ -2,7 +2,7 @@
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit bioverbs::plotPCACovariates
 #' @note Requires the DEGreport package to be installed.
-#' @note Updated 2019-08-20.
+#' @note Updated 2019-10-30.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
@@ -18,7 +18,9 @@
 #'
 #' @examples
 #' data(bcb)
-#' plotPCACovariates(bcb)
+#' if (requireNamespace("DEGreport", quietly = TRUE)) {
+#'     plotPCACovariates(bcb)
+#' }
 NULL
 
 
