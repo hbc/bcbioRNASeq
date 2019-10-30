@@ -14,10 +14,10 @@ jobs:
   include:
     - stage: test
       name: "bioc-release"
-      script: image="r-bcbio" tag="bioc-release" ./.Rcheck/docker
+      script: image="bcbiornaseq" tag="bioc-release" ./.Rcheck/docker
     - stage: test
       name: "bioc-devel"
-      script: image="r-bcbio" tag="bioc-devel" ./.Rcheck/docker
+      script: image="bcbiornaseq" tag="bioc-devel" ./.Rcheck/docker
 
 matrix:
   allow_failures:
