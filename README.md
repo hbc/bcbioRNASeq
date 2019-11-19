@@ -44,12 +44,29 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::valid()
 ```
 
-### [conda][] method
+### [Conda][] method
 
-Configure [conda][] to use the [bioconda][] channels.
+Configure [Conda][] to use the [Bioconda][] channels.
 
 ```sh
-conda install -c bioconda r-bcbiornaseq
+# Don't install recipe into base environment.
+name="r-bcbiornaseq"
+conda create --name="$name" "$name"
+conda activate "$name"
+R
+```
+
+### [Docker][] method
+
+```sh
+image="acidgenomics/bcbiornaseq"
+workdir="/work"
+docker pull "$image"
+docker run -it \
+    --volume="${PWD}:${workdir}" \
+    --workdir="$workdir" \
+    "$image" \
+    R
 ```
 
 ## Load [bcbio][] RNA-seq data
@@ -128,6 +145,7 @@ The papers and software cited in our workflows are available as a [shared librar
 [bioconductor]: https://bioconductor.org/
 [conda]: https://conda.io/
 [deseq2]: http://bioconductor.org/packages/DESeq2/
+[docker]: https://www.docker.com/
 [edger]: http://bioconductor.org/packages/edgeR/
 [paperpile]: https://paperpile.com/
 [r markdown]: http://rmarkdown.rstudio.com/
