@@ -14,37 +14,14 @@
 \code{show} returns an invisible \code{NULL}.
 }
 \description{
-Display the object, by printing, plotting or whatever suits its
-  class.  This function exists to be specialized by methods.  The
-  default method calls \code{\link[methods]{showDefault}}.
-
-  Formal methods for \code{show} will
-  usually be invoked for automatic printing (see the details).
-}
-\details{
-Objects from an S4 class (a class defined by a call to
-  \code{\link[methods]{setClass}}) will be displayed automatically is if by a
-  call to \code{show}.  S4 objects that occur as attributes of S3
-objects will also be displayed in this form; conversely, S3 objects
-encountered as slots in S4 objects will be printed using the S3
-convention, as if by a call to \code{\link[methods]{print}}.
-
-Methods defined for \code{show} will only be inherited  by simple
-inheritance, since otherwise the method would not receive the
-complete, original object, with misleading results.  See the
-\code{simpleInheritanceOnly} argument to \code{\link[methods]{setGeneric}} and
-the discussion in \code{\link[methods]{setIs}} for the general concept.
+Show an object
 }
 \note{
-Updated 2019-08-07.
+Updated 2019-11-19.
 }
 \examples{
 data(bcb)
 show(bcb)
-}
-\seealso{
-\code{\link[methods]{showMethods}} prints all the methods for one or more
-  functions.
 }
 \author{
 Michael Steinbuagh
