@@ -125,12 +125,13 @@
     <pre class="usage"><span class='fu'>plotMeanSD</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotMeanSD</span>(<span class='no'>object</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span>(<span class='kw'>low</span> <span class='kw'>=</span>
-  <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/palettes.html'>lightPalette</a></span><span class='kw'>[[</span><span class='st'>"gray"</span>]], <span class='kw'>high</span> <span class='kw'>=</span>
-  <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/palettes.html'>lightPalette</a></span><span class='kw'>[[</span><span class='st'>"purple"</span>]]),
-  <span class='kw'>lineColor</span> <span class='kw'>=</span> <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/palettes.html'>lightPalette</a></span><span class='kw'>[[</span><span class='st'>"orange"</span>]], <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span>
-  <span class='kw'>=</span> <span class='st'>"acid.legend"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</pre>
+<span class='fu'>plotMeanSD</span>(
+  <span class='no'>object</span>,
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span>(<span class='kw'>low</span> <span class='kw'>=</span> <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/palettes.html'>lightPalette</a></span><span class='kw'>[[</span><span class='st'>"gray"</span>]], <span class='kw'>high</span> <span class='kw'>=</span>
+    <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/palettes.html'>lightPalette</a></span><span class='kw'>[[</span><span class='st'>"purple"</span>]]),
+  <span class='kw'>lineColor</span> <span class='kw'>=</span> <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/acidplots/man/palettes.html'>lightPalette</a></span><span class='kw'>[[</span><span class='st'>"orange"</span>]],
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.legend"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

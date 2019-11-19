@@ -4,13 +4,24 @@
 \alias{bcbioRNASeq}
 \title{bcbio RNA-Seq data set}
 \usage{
-bcbioRNASeq(uploadDir, level = c("genes", "transcripts"),
+bcbioRNASeq(
+  uploadDir,
+  level = c("genes", "transcripts"),
   caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
-  samples = NULL, censorSamples = NULL, sampleMetadataFile = NULL,
-  organism = NULL, genomeBuild = NULL, ensemblRelease = NULL,
-  gffFile = NULL, transgeneNames = NULL, spikeNames = NULL,
+  samples = NULL,
+  censorSamples = NULL,
+  sampleMetadataFile = NULL,
+  organism = NULL,
+  genomeBuild = NULL,
+  ensemblRelease = NULL,
+  gffFile = NULL,
+  transgeneNames = NULL,
+  spikeNames = NULL,
   countsFromAbundance = "lengthScaledTPM",
-  interestingGroups = "sampleName", fast = FALSE, ...)
+  interestingGroups = "sampleName",
+  fast = FALSE,
+  ...
+)
 }
 \arguments{
 \item{uploadDir}{\code{character(1)}.

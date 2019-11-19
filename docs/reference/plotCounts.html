@@ -125,8 +125,12 @@
     <pre class="usage"><span class='fu'>plotCounts</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotCounts</span>(<span class='no'>object</span>, <span class='no'>genes</span>, <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpm"</span>,
-  <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)</pre>
+<span class='fu'>plotCounts</span>(
+  <span class='no'>object</span>,
+  <span class='no'>genes</span>,
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>),
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,8 +141,13 @@
     </tr>
     <tr>
       <th>genes</th>
-      <td><p><code>character</code>.
-Gene identifiers.</p></td>
+      <td><p><code>character</code> or <code>missing</code>.
+Gene identifiers. The function will automatically match identifiers
+corresponding to the rownames of the object, or gene symbols defined in
+<code>rowData(object)[["geneName"]]</code>. This is handled internally by
+<code>matchGenesToRownames()</code>. Currently a
+maximum of 20 genes is supported. If missing, the object should contain a
+subset of rows corresponding to the desired genes.</p></td>
     </tr>
     <tr>
       <th>normalized</th>

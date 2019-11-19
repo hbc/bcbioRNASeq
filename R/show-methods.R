@@ -1,8 +1,8 @@
 #' Show an object
 #' @name show
 #' @author Michael Steinbuagh
-#' @inherit methods::show
-#' @note Updated 2019-08-07.
+#' @inherit methods::show params return title
+#' @note Updated 2019-11-19.
 #' @examples
 #' data(bcb)
 #' show(bcb)

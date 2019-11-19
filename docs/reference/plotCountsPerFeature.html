@@ -127,8 +127,11 @@ unless the library sizes or total RNA expression are different.</p>
     <pre class="usage"><span class='fu'>plotCountsPerFeature</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotCountsPerFeature</span>(<span class='no'>object</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"rle"</span>), <span class='no'>...</span>)
+<span class='fu'>plotCountsPerFeature</span>(
+  <span class='no'>object</span>,
+  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"rle"</span>),
+  <span class='no'>...</span>
+)
 
 <span class='fu'>plotCountDensity</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
 
@@ -193,12 +196,12 @@ See <code><a href='https://rdrr.io/pkg/acidplots/man/plotCountsPerFeature.html'>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Updated 2019-09-16.</p>
-    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 
 <ul>
-<li><p><code>SingleCellExperiment</code>: Applies <code>aggregateCellsToSamples()</code>
+<li><p><code>plotCountsPerFeature,SingleCellExperiment-method</code>: Applies <code>aggregateCellsToSamples()</code>
 calculation to summarize at sample level prior to plotting.<br />
 Passes <code>...</code> to <code>SummarizedExperiment</code> method.</p></li>
 </ul>
@@ -216,7 +219,7 @@ Passes <code>...</code> to <code>SummarizedExperiment</code> method.</p></li>
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#note">Note</a></li>
-      <li><a href="#methods-by-class-">Methods (by class)</a></li>
+      <li><a href="#functions">Functions</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
