@@ -82,7 +82,7 @@
 <h2 class="hasAnchor">
 <a href="#workflow-paper" class="anchor"></a>Workflow paper</h2>
 <p>Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). <a href="https://doi.org/10.12688/f1000research.12093.2">bcbioRNASeq: R package for bcbio RNA-seq analysis.</a> <em>F1000Research</em> 6:1976.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"bcbioRNASeq"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"bcbioRNASeq"</span>)</a></code></pre></div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -90,40 +90,56 @@
 <div id="r-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#r-method" class="anchor"></a><a href="https://www.r-project.org/">R</a> method</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"remotes"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a>}</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="dt">R_REMOTES_UPGRADE =</span> <span class="st">"always"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># Set `GITHUB_PAT` in `~/.Renviron` if you get a rate limit error.</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"remotes"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">    <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="dt">R_REMOTES_UPGRADE =</span> <span class="st">"always"</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># Set `GITHUB_PAT` in `~/.Renviron` if you get a rate limit error.</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>)</a></code></pre></div>
 <p>Here’s how to update to the latest version on GitHub:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="dt">R_REMOTES_UPGRADE =</span> <span class="st">"always"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/update_packages.html">update_packages</a></span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="dt">R_REMOTES_UPGRADE =</span> <span class="st">"always"</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/update_packages.html">update_packages</a></span>()</a></code></pre></div>
 <p>Always check that your Bioconductor installation is valid before proceeding.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>    <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3"></a>}</span>
-<span id="cb4-4"><a href="#cb4-4"></a>BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/valid.html">valid</a></span>()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">    <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/valid.html">valid</a></span>()</a></code></pre></div>
 </div>
 <div id="conda-method" class="section level3">
 <h3 class="hasAnchor">
-<a href="#conda-method" class="anchor"></a><a href="https://conda.io/">conda</a> method</h3>
-<p>Configure <a href="https://conda.io/">conda</a> to use the <a href="https://bioconda.github.io/">bioconda</a> channels.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">conda</span> install -c bioconda r-bcbiornaseq</span></code></pre></div>
+<a href="#conda-method" class="anchor"></a><a href="https://conda.io/">Conda</a> method</h3>
+<p>Configure <a href="https://conda.io/">Conda</a> to use the <a href="https://bioconda.github.io/">Bioconda</a> channels.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Don't install recipe into base environment.</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="va">name=</span><span class="st">"r-bcbiornaseq"</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="ex">conda</span> create --name=<span class="st">"</span><span class="va">$name</span><span class="st">"</span> <span class="st">"</span><span class="va">$name</span><span class="st">"</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="ex">conda</span> activate <span class="st">"</span><span class="va">$name</span><span class="st">"</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="ex">R</span></a></code></pre></div>
+</div>
+<div id="docker-method" class="section level3">
+<h3 class="hasAnchor">
+<a href="#docker-method" class="anchor"></a><a href="https://www.docker.com/">Docker</a> method</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="va">image=</span><span class="st">"acidgenomics/bcbiornaseq"</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="va">workdir=</span><span class="st">"/work"</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="ex">docker</span> pull <span class="st">"</span><span class="va">$image</span><span class="st">"</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="ex">docker</span> run -it \</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">    --volume=<span class="st">"</span><span class="va">${PWD}</span><span class="st">:</span><span class="va">${workdir}</span><span class="st">"</span> \</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">    --workdir=<span class="st">"</span><span class="va">$workdir</span><span class="st">"</span> \</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="st">"</span><span class="va">$image</span><span class="st">"</span> \</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">    R</a></code></pre></div>
 </div>
 </div>
 <div id="load-bcbio-rna-seq-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-bcbio-rna-seq-data" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> RNA-seq data</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bcbioRNASeq)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>object &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(</span>
-<span id="cb6-3"><a href="#cb6-3"></a>    <span class="dt">uploadDir =</span> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"bcbio"</span>, <span class="st">"final"</span>),</span>
-<span id="cb6-4"><a href="#cb6-4"></a>    <span class="dt">interestingGroups =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),</span>
-<span id="cb6-5"><a href="#cb6-5"></a>    <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>)</span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="kw">saveData</span>(object, <span class="dt">dir =</span> <span class="st">"."</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(bcbioRNASeq)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">object &lt;-<span class="st"> </span><span class="kw"><a href="reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">    <span class="dt">uploadDir =</span> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"bcbio"</span>, <span class="st">"final"</span>),</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="dt">interestingGroups =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">organism =</span> <span class="st">"Homo sapiens"</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="kw">saveData</span>(object, <span class="dt">dir =</span> <span class="st">"."</span>)</a></code></pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org/">Bioconductor</a> <a href="http://bioconductor.org/packages/SummarizedExperiment/">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor function documentation for detailed information on the supported parameters:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="dt">topic =</span> <span class="st">"bcbioRNASeq"</span>, <span class="dt">package =</span> <span class="st">"bcbioRNASeq"</span>)</a></code></pre></div>
 <div id="sample-metadata" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sample-metadata" class="anchor"></a>Sample metadata</h3>
@@ -164,9 +180,9 @@
 <a href="#differential-expression" class="anchor"></a>Differential expression</h2>
 <p>We’ve designed bcbioRNASeq to easily hand off to <a href="http://bioconductor.org/packages/DESeq2/">DESeq2</a> or <a href="http://bioconductor.org/packages/edgeR/">edgeR</a> for differential expression analysis.</p>
 <p>DESeq2: Coerce <code>bcbioRNASeq</code> to <code>DESeqDataSet</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>dds &lt;-<span class="st"> </span><span class="kw">as</span>(object, <span class="st">"DESeqDataSet"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">dds &lt;-<span class="st"> </span><span class="kw">as</span>(object, <span class="st">"DESeqDataSet"</span>)</a></code></pre></div>
 <p>edgeR: Coerce <code>bcbioRNASeq</code> to <code>DGEList</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>dge &lt;-<span class="st"> </span><span class="kw">as</span>(object, <span class="st">"DGEList"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">dge &lt;-<span class="st"> </span><span class="kw">as</span>(object, <span class="st">"DGEList"</span>)</a></code></pre></div>
 </div>
 <div id="r-markdown-templates" class="section level2">
 <h2 class="hasAnchor">
@@ -180,9 +196,9 @@
 <h3 class="hasAnchor">
 <a href="#invalid-object" class="anchor"></a>Invalid object</h3>
 <p>If you encounter a <code>validObject</code> error when attempting to load a <code>bcbioRNASeq</code> object from a previous analysis, run this step to update the object to the current version of the package:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>object &lt;-<span class="st"> </span><span class="kw"><a href="reference/updateObject.html">updateObject</a></span>(object)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">validObject</span>(object)</span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">object &lt;-<span class="st"> </span><span class="kw"><a href="reference/updateObject.html">updateObject</a></span>(object)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">validObject</span>(object)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">## [1] TRUE</span></a></code></pre></div>
 </div>
 </div>
 <div id="references" class="section level2">
