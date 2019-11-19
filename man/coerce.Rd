@@ -16,7 +16,7 @@ Updated 2019-08-07.
 
 \enumerate{
 \item Coerce to \code{RangedSummarizedExperiment}.
-\item Round raw counts to \code{integer matrix}.
+\item Round raw counts to \verb{integer matrix}.
 \item Subset \code{\link[SummarizedExperiment:colData]{colData()}} to include only clean
 factor columns. See \code{\link[basejump:sampleData]{sampleData()}} for details.
 \item Simplify \code{\link[S4Vectors:metadata]{metadata()}} to include only relevant
