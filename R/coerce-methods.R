@@ -6,7 +6,7 @@
 #' @author Michael Steinbaugh
 #' @importFrom methods coerce
 #' @exportMethod coerce
-#' @note Updated 2019-08-07.
+#' @note Updated 2020-01-17.
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'
@@ -33,14 +33,20 @@
 #'
 #' @section bcbioRNASeq to DGEList:
 #'
-#' 1. Obtain per-observation scaling factors for length, adjusted to avoid
+#' When `countsFromAbundance = "lengthScaledTPM"` (default):
+#'
+#' 1. Call [edgeR::DGEList()].
+#'
+#' When `countsFromAbundance = "no"`:
+#'
+#' 1. Call [edgeR::DGEList()].
+#' 2. Obtain per-observation scaling factors for length, adjusted to avoid
 #'    changing the magnitude of the counts.
-#' 2. Computing effective library sizes from scaled counts, to account for
+#' 3. Computing effective library sizes from scaled counts, to account for
 #'    composition biases between samples.
-#' 3. Combine effective library sizes with the length factors, and calculate
+#' 4. Combine effective library sizes with the length factors, and calculate
 #'    offsets for a log-link GLM.
-#' 4. Call [edgeR::DGEList()]
-#' 4. Apply offset matrix using [edgeR::scaleOffset()].
+#' 5. Apply offset matrix using [edgeR::scaleOffset()].
 #'
 #' @seealso
 #' - [tximport::tximport()].
@@ -72,12 +78,36 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Check that the user input contains valid countsFromAbundance parameter used
+## with tximport, for coercion to DESeqDataSet, DGEList objects.
+## Updated 2020-01-17.
+.assertHasValidCFA <- function(object) {
+    assert(is(object, "SummarizedExperiment"))
+    cfa <- metadata(object)[["countsFromAbundance"]]
+    assert(isCharacter(cfa))
+    if (!isSubset(cfa, c("lengthScaledTPM", "no"))) {
+        stop(
+            "Unsupported 'countsFromAbundance' type: ", cfa, ".\n",
+            "Use either 'lengthScaledTPM' or 'no'. ",
+            "See `bcbioRNASeq()` and `tximport()` documentation for details."
+        )
+    }
+    TRUE
+}
+
+
+
+## Updated 2020-01-17.
 `coerce,bcbioRNASeq,DESeqDataSet` <-  # nolint
     function(from) {
         validObject(from)
+        .assertHasValidCFA(from)
         rse <- as(from, "RangedSummarizedExperiment")
-        `new,DESeqDataSet`(se = rse)
+        to <- `new,DESeqDataSet`(se = rse)
+        message(
+            "Set the design formula with `design()` and then run `DESeq()`."
+        )
+        to
     }
 
 
@@ -92,14 +122,13 @@ setAs(
 
 
 
-## Updated 2019-07-23.
+## Updated 2020-01-17.
 `coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
     function(from) {
         validObject(from)
         dds <- as(from, "DESeqDataSet")
-        ## Expect warning about empty design formula.
-        dds <- suppressWarnings(DESeq(dds))
-        validObject(dds)
+        ## Expecting warning about empty design formula.
+        suppressWarnings(dds <- DESeq(dds, quiet = TRUE))
         message("Applying variance stabilizing transformation.")
         dt <- varianceStabilizingTransformation(dds)
         validObject(dt)
@@ -119,36 +148,40 @@ setAs(
 
 
 ## Note that we're following the tximport recommendations here.
-## Updated 2019-07-23.
+## Updated 2020-01-17.
 `coerce,bcbioRNASeq,DGEList` <-  # nolint
     function(from) {
         validObject(from)
+        .assertHasValidCFA(from)
         message(sprintf(
             "Generating DGEList with edgeR %s.",
             packageVersion("edgeR")
         ))
-        ## Raw counts (i.e. txi$counts)
-        cts <- counts(from)
-        ## Average transcript length (i.e. txi$length)
-        normMat <- assays(from)[["avgTxLength"]]
-        ## Obtain per-observation scaling factors for length, adjusted to avoid
-        ## changing the magnitude of the counts.
-        normMat <- normMat / exp(rowMeans(log(normMat)))
-        normCts <- cts / normMat
-        ## Computing effective library sizes from scaled counts, to account for
-        ## composition biases between samples.
-        effLib <- calcNormFactors(normCts) * colSums(normCts)
-        ## Combine effective library sizes with the length factors, and
-        ## calculate offsets for a log-link GLM.
-        normMat <- sweep(x = normMat, MARGIN = 2L, STATS = effLib, FUN = "*")
-        normMat <- log(normMat)
-        ## Creating a DGEList object for use in edgeR.
-        to <- DGEList(cts)
-        to <- scaleOffset(to, offset = normMat)
-        ## Note that tximport guide recommends `filterByExpr()` step but we're
-        ## intentionally skipping that step here.
+        counts <- counts(from)
+        to <- DGEList(counts = counts)
+        cfa <- metadata(from)[["countsFromAbundance"]]
+        if (identical(cfa, "no")) {
+            ## Average transcript length (i.e. txi$length).
+            normMat <- assays(from)[["avgTxLength"]]
+            ## Obtain per-observation scaling factors for length, adjusted to
+            ## avoid changing the magnitude of the counts.
+            normMat <- normMat / exp(rowMeans(log(normMat)))
+            normCounts <- counts / normMat
+            ## Computing effective library sizes from scaled counts, to account
+            ## for composition biases between samples.
+            effLib <- calcNormFactors(normCounts) * colSums(normCounts)
+            ## Combine effective library sizes with the length factors, and
+            ## calculate offsets for a log-link GLM.
+            normMat <- sweep(normMat, MARGIN = 2L, STATS = effLib, FUN = "*")
+            normMat <- log(normMat)
+            to <- scaleOffset(to, offset = normMat)
+        }
         assert(identical(dimnames(from), dimnames(to)))
         validObject(to)
+        message(
+            "Subset genes with `filterByExpr()` ",
+            "and then run `calcNormFactors()`."
+        )
         to
     }
 
