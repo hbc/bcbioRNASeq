@@ -78,6 +78,43 @@ NULL
 
 
 
+## Refer to Downstream DGE in Bioconductor in tximport vignette for details.
+## https://bioconductor.org/packages/release/bioc/vignettes/tximport/inst/doc/
+##     tximport.html#downstream_dge_in_bioconductor
+##
+## Note: there are two suggested ways of importing estimates for use with
+## differential gene expression (DGE) methods. The first method, which we show
+## below for edgeR and for DESeq2, is to use the gene-level estimated counts
+## from the quantification tools, and additionally to use the transcript-level
+## abundance estimates to calculate a gene-level offset that corrects for
+## changes to the average transcript length across samples. The code examples
+## below accomplish these steps for you, keeping track of appropriate matrices
+## and calculating these offsets. For edgeR you need to assign a matrix to
+## y$offset, but the function DESeqDataSetFromTximport takes care of creation of
+## the offset for you. Let’s call this method "original counts and offset".
+##
+## The second method is to use the tximport argument
+## countsFromAbundance="lengthScaledTPM" or "scaledTPM", and then to use the
+## gene-level count matrix txi$counts directly as you would a regular count
+## matrix with these software. Let’s call this method "bias corrected counts
+## without an offset".
+##
+## Note: Do not manually pass the original gene-level counts to downstream
+## methods without an offset. The only case where this would make sense is if
+## there is no length bias to the counts, as happens in 3’ tagged RNA-seq data
+## (see section below). The original gene-level counts are in txi$counts when
+## tximport was run with countsFromAbundance="no". This is simply passing the
+## summed estimated transcript counts, and does not correct for potential
+## differential isoform usage (the offset), which is the point of the tximport
+## methods (Soneson, Love, and Robinson 2015) for gene-level analysis. Passing
+## uncorrected gene-level counts without an offset is not recommended by the
+## tximport package authors. The two methods we provide here are: "original
+## counts and offset" or "bias corrected counts without an offset". Passing txi
+## to DESeqDataSetFromTximport as outlined below is correct: the function
+## creates the appropriate offset for you to perform gene-level differential
+## expression.
+
+
 ## Check that the user input contains valid countsFromAbundance parameter used
 ## with tximport, for coercion to DESeqDataSet, DGEList objects.
 ## Updated 2020-01-17.
@@ -98,16 +135,38 @@ NULL
 
 
 ## Updated 2020-01-17.
+`as.DESeqDataSet,bcbioRNASeq` <-  # nolint
+    function(x, quiet = FALSE) {
+        assert(isFlag(quiet))
+        validObject(x)
+        .assertHasValidCFA(x)
+        se <- as(x, "RangedSummarizedExperiment")
+        to <- `new,DESeqDataSet`(se = se, quiet = quiet)
+        if (!isTRUE(quiet)) {
+            message(
+                "Next, set the design formula with `design()` ",
+                "and run `DESeq()`."
+            )
+        }
+        to
+    }
+
+
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DESeqDataSet",
+    signature = signature("bcbioRNASeq"),
+    definition = `as.DESeqDataSet,bcbioRNASeq`
+)
+
+
+
+## Updated 2020-01-17.
 `coerce,bcbioRNASeq,DESeqDataSet` <-  # nolint
     function(from) {
-        validObject(from)
-        .assertHasValidCFA(from)
-        rse <- as(from, "RangedSummarizedExperiment")
-        to <- `new,DESeqDataSet`(se = rse)
-        message(
-            "Set the design formula with `design()` and then run `DESeq()`."
-        )
-        to
+        as.DESeqDataSet(from)
     }
 
 
@@ -123,16 +182,32 @@ setAs(
 
 
 ## Updated 2020-01-17.
-`coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
-    function(from) {
-        validObject(from)
-        dds <- as(from, "DESeqDataSet")
-        ## Expecting warning about empty design formula.
-        suppressWarnings(dds <- DESeq(dds, quiet = TRUE))
-        message("Applying variance stabilizing transformation.")
+`as.DESeqTransform,bcbioRNASeq` <-  # nolint
+    function(x) {
+        validObject(x)
+        dds <- as.DESeqDataSet(x, quiet = TRUE)
+        dds <- DESeq(dds, quiet = TRUE)
         dt <- varianceStabilizingTransformation(dds)
         validObject(dt)
         dt
+    }
+
+
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DESeqTransform",
+    signature = signature("bcbioRNASeq"),
+    definition = `as.DESeqTransform,bcbioRNASeq`
+)
+
+
+
+## Updated 2020-01-17.
+`coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
+    function(from) {
+        as.DESeqTransform(from)
     }
 
 
@@ -147,22 +222,33 @@ setAs(
 
 
 
-## Note that we're following the tximport recommendations here.
-## Updated 2020-01-17.
-`coerce,bcbioRNASeq,DGEList` <-  # nolint
-    function(from) {
-        validObject(from)
-        .assertHasValidCFA(from)
-        message(sprintf(
-            "Generating DGEList with edgeR %s.",
-            packageVersion("edgeR")
-        ))
-        counts <- counts(from)
-        to <- DGEList(counts = counts)
-        cfa <- metadata(from)[["countsFromAbundance"]]
+## Updated 2020-01-12.
+`as.DGEList,bcbioRNASeq` <-  # nolint
+    function(x, quiet = FALSE) {
+        assert(isFlag(quiet))
+        validObject(x)
+        .assertHasValidCFA(x)
+        if (!isTRUE(quiet)) {
+            message(sprintf(
+                "Generating DGEList with edgeR %s.",
+                packageVersion("edgeR")
+            ))
+        }
+        counts <- counts(x)
+        y <- DGEList(counts = counts)
+        cfa <- metadata(x)[["countsFromAbundance"]]
+        if (!isTRUE(quiet)) {
+            message("countsFromAbundance: ", cfa)
+        }
         if (identical(cfa, "no")) {
+            if (!isTRUE(quiet)) {
+                message(
+                    "Mode: original counts and offset ",
+                    "(see tximport vignette for details)."
+                )
+            }
             ## Average transcript length (i.e. txi$length).
-            normMat <- assays(from)[["avgTxLength"]]
+            normMat <- assays(x)[["avgTxLength"]]
             ## Obtain per-observation scaling factors for length, adjusted to
             ## avoid changing the magnitude of the counts.
             normMat <- normMat / exp(rowMeans(log(normMat)))
@@ -174,15 +260,41 @@ setAs(
             ## calculate offsets for a log-link GLM.
             normMat <- sweep(normMat, MARGIN = 2L, STATS = effLib, FUN = "*")
             normMat <- log(normMat)
-            to <- scaleOffset(to, offset = normMat)
+            ## This will assign `y$offset` matrix. See above for details.
+            y <- scaleOffset(y, offset = normMat)
+        } else {
+            if (!isTRUE(quiet)) {
+                message(
+                    "Mode: bias corrected counts without an offset ",
+                    "(see tximport vignette for details)."
+                )
+            }
         }
-        assert(identical(dimnames(from), dimnames(to)))
-        validObject(to)
+        assert(identical(dimnames(x), dimnames(y)))
+        validObject(y)
         message(
-            "Subset genes with `filterByExpr()` ",
-            "and then run `calcNormFactors()`."
+            "Next, subset genes with `filterByExpr()` ",
+            "and run `calcNormFactors()`."
         )
-        to
+        y
+    }
+
+
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DGEList",
+    signature = signature("bcbioRNASeq"),
+    definition = `as.DGEList,bcbioRNASeq`
+)
+
+
+
+## Updated 2020-01-17.
+`coerce,bcbioRNASeq,DGEList` <-  # nolint
+    function(from) {
+        as.DGEList(from)
     }
 
 
