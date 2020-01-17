@@ -18,9 +18,12 @@
 
 ## Updated 2020-01-17.
 `new,DESeqDataSet` <-  # nolint
-    function(se) {
+    function(se, quiet = FALSE) {
+        assert(isFlag(quiet))
         .assertHasValidCFA(se)
-        .ddsMsg()
+        if (!isTRUE(quiet)) {
+            .ddsMsg()
+        }
         assert(is(se, "SummarizedExperiment"))
         ## Assert that counts are gene level.
         level <- metadata(se)[["level"]]
@@ -34,7 +37,9 @@
             metadata(se)[["caller"]] %in% .tximportCallers &&
             metadata(se)[["countsFromAbundance"]] == "no"
         ) {
-            message("Including average transcript length matrix.")
+            if (!isTRUE(quiet)) {
+                message("Including average transcript length matrix.")
+            }
             assayNames <- c("counts", "avgTxLength")
         } else {
             assayNames <- "counts"
