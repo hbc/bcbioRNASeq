@@ -115,6 +115,7 @@ NULL
 ## expression.
 
 
+
 ## Check that the user input contains valid countsFromAbundance parameter used
 ## with tximport, for coercion to DESeqDataSet, DGEList objects.
 ## Updated 2020-01-17.
@@ -144,7 +145,7 @@ NULL
         to <- `new,DESeqDataSet`(se = se, quiet = quiet)
         if (!isTRUE(quiet)) {
             message(
-                "Next, set the design formula with `design()` ",
+                "NEXT: Set the design formula with `design()` ",
                 "and run `DESeq()`."
             )
         }
@@ -247,7 +248,7 @@ setAs(
                     "(see tximport vignette for details)."
                 )
                 message(
-                    "Note: This DGEList object is suitable for use only with ",
+                    "NOTE: This DGEList object is suitable for use only with ",
                     "edgeR. If handing off to limma-voom, countsFromAbundance ",
                     "must be set to 'lengthScaledTPM' instead."
                 )
@@ -274,7 +275,7 @@ setAs(
                     "(see tximport vignette for details)."
                 )
                 message(
-                    "Note: This DGEList object is suitable for use with edgeR ",
+                    "NOTE: This DGEList object is suitable for use with edgeR ",
                     "and/or limma-voom."
                 )
             }
@@ -282,7 +283,7 @@ setAs(
         assert(identical(dimnames(x), dimnames(y)))
         validObject(y)
         message(
-            "Next, subset genes with `filterByExpr()` ",
+            "NEXT: Subset genes with `filterByExpr()` ",
             "and run `calcNormFactors()`."
         )
         y
