@@ -125,10 +125,10 @@ NULL
         se <- as(x, "RangedSummarizedExperiment")
         to <- `new,DESeqDataSet`(se = se, quiet = quiet)
         if (!isTRUE(quiet)) {
-            message(
-                "NEXT: Set the design formula with `design()` ",
-                "and run `DESeq()`."
-            )
+            cli_alert_info(paste(
+                "Set the design formula with {.fun design} ",
+                "and run {.fun DESeq}."
+            ))
         }
         to
     }
@@ -148,7 +148,7 @@ setMethod(
 ## Updated 2020-01-17.
 `coerce,bcbioRNASeq,DESeqDataSet` <-  # nolint
     function(from) {
-        as.DESeqDataSet(from)
+        as.DESeqDataSet(from, quiet = TRUE)
     }
 
 
@@ -165,10 +165,14 @@ setAs(
 
 ## Updated 2020-01-17.
 `as.DESeqTransform,bcbioRNASeq` <-  # nolint
-    function(x) {
+    function(x, quiet = FALSE) {
+        assert(isFlag(quiet))
         validObject(x)
-        dds <- as.DESeqDataSet(x, quiet = TRUE)
-        dds <- DESeq(dds, quiet = TRUE)
+        dds <- as.DESeqDataSet(x, quiet = quiet)
+        dds <- DESeq(dds, quiet = quiet)
+        if (!isTRUE(quiet)) {
+            cli_alert("{.fun varianceStabilizingTransformation}")
+        }
         dt <- varianceStabilizingTransformation(dds)
         validObject(dt)
         dt
@@ -189,7 +193,7 @@ setMethod(
 ## Updated 2020-01-17.
 `coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
     function(from) {
-        as.DESeqTransform(from)
+        as.DESeqTransform(from, quiet = TRUE)
     }
 
 
@@ -210,30 +214,27 @@ setAs(
         assert(isFlag(quiet))
         validObject(x)
         .assertHasValidCFA(x)
+        cfa <- metadata(x)[["countsFromAbundance"]]
         if (!isTRUE(quiet)) {
-            message(sprintf(
-                "Generating DGEList with edgeR %s.",
+            cli_text(sprintf(
+                "Generating {.var DGEList} with {.pkg edgeR} %s.",
                 packageVersion("edgeR")
             ))
+            cli_dl(c(countsFromAbundance = cfa))
         }
         counts <- counts(x)
         y <- DGEList(counts = counts)
-        cfa <- metadata(x)[["countsFromAbundance"]]
         if (!isTRUE(quiet)) {
-            message("countsFromAbundance: ", cfa)
+            if (identical(cfa, "no")) {
+                mode <- "original counts and offset"
+            } else {
+                mode <- "bias corrected counts without an offset"
+            }
+            cli_dl(c(
+                mode = paste(mode, "(see {.pkg tximport} vignette).")
+            ))
         }
         if (identical(cfa, "no")) {
-            if (!isTRUE(quiet)) {
-                message(
-                    "Mode: original counts and offset ",
-                    "(see tximport vignette for details)."
-                )
-                message(
-                    "NOTE: This DGEList object is suitable for use only with ",
-                    "edgeR. If handing off to limma-voom, countsFromAbundance ",
-                    "must be set to 'lengthScaledTPM' instead."
-                )
-            }
             ## Average transcript length (i.e. txi$length).
             normMat <- assays(x)[["avgTxLength"]]
             ## Obtain per-observation scaling factors for length, adjusted to
@@ -249,24 +250,30 @@ setAs(
             normMat <- log(normMat)
             ## This will assign `y$offset` matrix. See above for details.
             y <- scaleOffset(y, offset = normMat)
+            if (!isTRUE(quiet)) {
+                cli_alert_info(paste(
+                    "This {.var DGEList} is suitable for use only with",
+                    "{.pkg edgeR}. If handing off to {.pkg limma-voom},",
+                    "{.arg countsFromAbundance} must be set to",
+                    "{.val lengthScaledTPM} instead."
+                ))
+            }
         } else {
             if (!isTRUE(quiet)) {
-                message(
-                    "Mode: bias corrected counts without an offset ",
-                    "(see tximport vignette for details)."
-                )
-                message(
-                    "NOTE: This DGEList object is suitable for use with edgeR ",
-                    "and/or limma-voom."
-                )
+                cli_alert_info(paste(
+                    "This {.var DGEList} is suitable for use with {.pkg edgeR}",
+                    "and/or {.pkg limma-voom}."
+                ))
             }
         }
         assert(identical(dimnames(x), dimnames(y)))
         validObject(y)
-        message(
-            "NEXT: Subset genes with `filterByExpr()` ",
-            "and run `calcNormFactors()`."
-        )
+        if (!isTRUE(quiet)) {
+            cli_alert_info(paste(
+                "Subset genes with {.fun filterByExpr} ",
+                "and run {.fun calcNormFactors}."
+            ))
+        }
         y
     }
 
