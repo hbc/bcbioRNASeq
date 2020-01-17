@@ -246,6 +246,11 @@ setAs(
                     "Mode: original counts and offset ",
                     "(see tximport vignette for details)."
                 )
+                message(
+                    "Note: This DGEList object is suitable for use only with ",
+                    "edgeR. If handing off to limma-voom, countsFromAbundance ",
+                    "must be set to 'lengthScaledTPM' instead."
+                )
             }
             ## Average transcript length (i.e. txi$length).
             normMat <- assays(x)[["avgTxLength"]]
@@ -267,6 +272,10 @@ setAs(
                 message(
                     "Mode: bias corrected counts without an offset ",
                     "(see tximport vignette for details)."
+                )
+                message(
+                    "Note: This DGEList object is suitable for use with edgeR ",
+                    "and/or limma-voom."
                 )
             }
         }
