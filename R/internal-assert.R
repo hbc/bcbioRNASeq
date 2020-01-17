@@ -17,6 +17,14 @@
 
 
 
+## Check the `bcbio-nextgen.log` file to see if fastrnaseq pipeline was run.
+## Updated 2020-01-17.
+.isFastMode <- function(log) {
+    any(grepl(pattern = "fastrnaseq", x = log, fixed = TRUE))
+}
+
+
+
 ## Updated 2020-01-17.
 .isGeneLevel <- function(object) {
     identical(metadata(object)[["level"]], "genes")
