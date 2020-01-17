@@ -10,7 +10,7 @@
 Force an object to belong to a class.
 }
 \note{
-Updated 2019-08-07.
+Updated 2020-01-17.
 }
 \section{bcbioRNASeq to DESeqDataSet}{
 
@@ -43,14 +43,21 @@ isn't scaled during tximport call (see \code{countsFromAbundance} in
 
 \section{bcbioRNASeq to DGEList}{
 
+
+When \code{countsFromAbundance = "lengthScaledTPM"} (default):
 \enumerate{
+\item Call \code{\link[edgeR:DGEList]{edgeR::DGEList()}}
+}
+
+When \code{countsFromAbundance = "no"}:
+\enumerate{
+\item Call \code{\link[edgeR:DGEList]{edgeR::DGEList()}}.
 \item Obtain per-observation scaling factors for length, adjusted to avoid
 changing the magnitude of the counts.
 \item Computing effective library sizes from scaled counts, to account for
 composition biases between samples.
 \item Combine effective library sizes with the length factors, and calculate
 offsets for a log-link GLM.
-\item Call \code{\link[edgeR:DGEList]{edgeR::DGEList()}}
 \item Apply offset matrix using \code{\link[edgeR:scaleOffset]{edgeR::scaleOffset()}}.
 }
 }
