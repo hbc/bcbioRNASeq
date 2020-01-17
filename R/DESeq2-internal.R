@@ -16,9 +16,10 @@
 
 
 
-## Updated 2019-08-05.
+## Updated 2020-01-17.
 `new,DESeqDataSet` <-  # nolint
     function(se) {
+        .assertHasValidCFA(se)
         .ddsMsg()
         assert(is(se, "SummarizedExperiment"))
         ## Assert that counts are gene level.
