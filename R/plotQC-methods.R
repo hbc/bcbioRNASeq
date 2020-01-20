@@ -1,6 +1,6 @@
 #' @name plotQC
 #' @author Michael Steinbaugh
-#' @inherit bioverbs::plotQC
+#' @inherit acidgenerics::plotQC
 #' @note Updated 2019-08-07.
 #'
 #' @inheritParams acidroxygen::params
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname plotQC
 #' @name plotQC
-#' @importFrom bioverbs plotQC
+#' @importFrom acidgenerics plotQC
 #' @usage plotQC(object, ...)
 #' @export
 NULL

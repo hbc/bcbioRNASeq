@@ -119,7 +119,7 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2019-08-12.
+#' @note Updated 2020-01-20.
 #' @export
 #'
 #' @inheritParams basejump::makeSummarizedExperiment
@@ -375,8 +375,8 @@ bcbioRNASeq <- function(
     )
     if (length(samples) < length(sampleDirs)) {
         sampleDirs <- sampleDirs[samples]
-        message(sprintf(
-            fmt = "Loading a subset of samples: %s.",
+        cli_alert(sprintf(
+            fmt = "Loading a subset of samples: {.var %s}.",
             toString(basename(sampleDirs), width = 100L)
         ))
         allSamples <- FALSE
@@ -454,7 +454,7 @@ bcbioRNASeq <- function(
         txi <- NULL
         countsFromAbundance <- "no"
         assert(identical(level, "genes"))
-        message("Slotting aligned counts into primary 'counts' assay.")
+        cli_alert("Slotting aligned counts into primary {.fun counts} assay.")
         assays[["counts"]] <- .featureCounts(
             projectDir = projectDir,
             samples = samples
@@ -499,7 +499,6 @@ bcbioRNASeq <- function(
         }
     }
     assert(is(rowRanges, "GRanges"))
-
     ## Attempt to get genome build and Ensembl release if not declared. Note
     ## that these will remain NULL when using GTF file (see above).
     if (is.null(genomeBuild)) {

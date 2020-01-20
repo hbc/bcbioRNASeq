@@ -1,6 +1,6 @@
 #' @name plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit bioverbs::plotMappedReads
+#' @inherit acidgenerics::plotMappedReads
 #' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname plotMappedReads
 #' @name plotMappedReads
-#' @importFrom bioverbs plotMappedReads
+#' @importFrom acidgenerics plotMappedReads
 #' @usage plotMappedReads(object, ...)
 #' @export
 NULL

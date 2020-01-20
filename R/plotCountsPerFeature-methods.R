@@ -17,7 +17,7 @@ NULL
 
 #' @rdname plotCountsPerFeature
 #' @name plotCountsPerFeature
-#' @importFrom bioverbs plotCountsPerFeature
+#' @importFrom acidgenerics plotCountsPerFeature
 #' @importMethodsFrom acidplots plotCountsPerFeature
 #' @usage plotCountsPerFeature(object, ...)
 #' @export

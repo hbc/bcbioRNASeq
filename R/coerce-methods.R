@@ -6,7 +6,7 @@
 #' @author Michael Steinbaugh
 #' @importFrom methods coerce
 #' @exportMethod coerce
-#' @note Updated 2020-01-17.
+#' @note Updated 2020-01-20.
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'
@@ -47,6 +47,8 @@
 #' 4. Combine effective library sizes with the length factors, and calculate
 #'    offsets for a log-link GLM.
 #' 5. Apply offset matrix using [edgeR::scaleOffset()].
+#'
+#' @inheritParams acidroxygen::params
 #'
 #' @seealso
 #' - [tximport::tximport()].

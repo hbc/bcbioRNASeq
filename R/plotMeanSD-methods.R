@@ -1,6 +1,6 @@
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
-#' @inherit bioverbs::plotMeanSD
+#' @inherit acidgenerics::plotMeanSD
 #' @note Requires the vsn package to be installed.
 #' @note Updated 2019-10-30.
 #'
@@ -36,7 +36,7 @@ NULL
 
 #' @rdname plotMeanSD
 #' @name plotMeanSD
-#' @importFrom bioverbs plotMeanSD
+#' @importFrom acidgenerics plotMeanSD
 #' @usage plotMeanSD(object, ...)
 #' @export
 NULL
