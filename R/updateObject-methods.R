@@ -91,7 +91,7 @@ NULL
         }
         ## NAMES
         if (!is.null(slot(object, "NAMES"))) {
-            sli_alert_warning("{.var NAMES} slot must be set to {.val NULL}.")
+            cli_alert_warning("{.var NAMES} slot must be set to {.val NULL}.")
             slot(object, "NAMES") <- NULL
         }
         ## elementMetadata
