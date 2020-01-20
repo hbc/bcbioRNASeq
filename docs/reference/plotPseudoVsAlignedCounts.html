@@ -168,7 +168,7 @@ intentionally error for datasets containing aligned counts in the primary
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
 
 <span class='co'>## Correlation heatmap.</span>
-<span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #BBBB00;'>!</span><span> Returning with the sample names unmodified.</span></div><div class='output co'>#&gt; <span class='message'>Censoring 29 genes containing an NA value.</span></div><div class='img'><img src='plotPseudoVsAlignedCounts-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #BBBB00;'>!</span><span> Returning with the sample names unmodified.</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #BBBB00;'>!</span><span> Censoring 29 genes containing an NA value.</span></div><div class='img'><img src='plotPseudoVsAlignedCounts-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Individual genes.</span>
 <span class='co'>## Checking the most expressed aligned genes here.</span>
 <span class='no'>aligned</span> <span class='kw'>&lt;-</span> <span class='fu'>assay</span>(<span class='no'>bcb</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='st'>"aligned"</span>)

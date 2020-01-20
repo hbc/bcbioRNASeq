@@ -132,15 +132,32 @@
 <span class='fu'>as.DESeqDataSet</span>(<span class='no'>x</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>as.DESeqTransform</span>(<span class='no'>x</span>)
+<span class='fu'>as.DESeqTransform</span>(<span class='no'>x</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>as.DGEList</span>(<span class='no'>x</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
+    </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
+Perform command quietly, suppressing messages.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Updated 2020-01-17.</p>
+    <p>Updated 2020-01-20.</p>
     <h2 class="hasAnchor" id="bcbiornaseq-to-deseqdataset"><a class="anchor" href="#bcbiornaseq-to-deseqdataset"></a>bcbioRNASeq to DESeqDataSet</h2>
 
     
@@ -205,7 +222,8 @@ offsets for a log-link GLM.</p></li>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
 
 <span class='co'>## bcbioRNASeq to DESeqDataSet ====</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.26.0.</span></div><div class='output co'>#&gt; <span class='message'>Next, set the design formula with `design()` and run `DESeq()`.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Vector-class.html'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Vector-class.html'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
 #&gt; [5] "geneID"         "geneIDVersion"  "geneName"       "seqCoordSystem"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
 #&gt; attr(,"package")
 #&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
@@ -252,6 +270,7 @@ offsets for a log-link GLM.</p></li>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#note">Note</a></li>
       <li><a href="#bcbiornaseq-to-deseqdataset">bcbioRNASeq to DESeqDataSet</a></li>
       <li><a href="#bcbiornaseq-to-deseqtransform">bcbioRNASeq to DESeqTransform</a></li>
