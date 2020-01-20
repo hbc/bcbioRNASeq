@@ -178,10 +178,10 @@
 <div id="differential-expression" class="section level2">
 <h2 class="hasAnchor">
 <a href="#differential-expression" class="anchor"></a>Differential expression</h2>
-<p>We’ve designed bcbioRNASeq to easily hand off to <a href="http://bioconductor.org/packages/DESeq2/">DESeq2</a> or <a href="http://bioconductor.org/packages/edgeR/">edgeR</a> for differential expression analysis.</p>
+<p>We’ve designed bcbioRNASeq to easily hand off to <a href="http://bioconductor.org/packages/DESeq2/">DESeq2</a>, <a href="http://bioconductor.org/packages/edgeR/">edgeR</a>, or <a href="https://bioconductor.org/packages/limma/">limma-voom</a> for differential expression analysis.</p>
 <p>DESeq2: Coerce <code>bcbioRNASeq</code> to <code>DESeqDataSet</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">dds &lt;-<span class="st"> </span><span class="kw">as</span>(object, <span class="st">"DESeqDataSet"</span>)</a></code></pre></div>
-<p>edgeR: Coerce <code>bcbioRNASeq</code> to <code>DGEList</code>.</p>
+<p>edgeR or limma-voom: Coerce <code>bcbioRNASeq</code> to <code>DGEList</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">dge &lt;-<span class="st"> </span><span class="kw">as</span>(object, <span class="st">"DGEList"</span>)</a></code></pre></div>
 </div>
 <div id="r-markdown-templates" class="section level2">
