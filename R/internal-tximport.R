@@ -13,7 +13,7 @@
 #' @note Ignoring transcript versions should work by default. There may be
 #' an issue with genomes containing non-Ensembl transcript IDs, such as
 #' C. elegans, although we need to double check.
-#' @note Updated 2019-08-20.
+#' @note Updated 2020-01-17.
 #'
 #' @inheritParams tximport::tximport
 #' @param sampleDirs `character`.
@@ -69,16 +69,17 @@
     ## Note that this step can take a long time when processing a lot of
     ## samples, and is recommended to be run on an HPC cluster, rather than
     ## locally.
-    message(sprintf(
-        "Reading %s transcript-level counts from %s files using tximport %s.",
+    cli_alert(sprintf(
+        fmt = paste(
+            "Importing {.pkg %s} transcript-level counts from {.file %s}",
+            "files using {.pkg tximport} %s."
+        ),
         type, basename(files[[1L]]), packageVersion("tximport")
     ))
-    if (countsFromAbundance != "no") {
-        message(sprintf("Scaling transcripts using %s.", countsFromAbundance))
-    }
-    if (identical(txOut, FALSE)) {
-        message("Returning transcript abundance at gene level.")
-    }
+    cli_dl(c(
+        countsFromAbundance = countsFromAbundance,
+        txOut = txOut
+    ))
     ## We're using a `do.call()` approach here so we can apply version-specific
     ## tximport fixes, if necessary.
     args <- list(
