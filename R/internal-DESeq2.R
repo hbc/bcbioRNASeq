@@ -6,20 +6,17 @@
 
 
 
-## Updated 2019-07-23.
-.ddsMsg <- function() {
-    message(sprintf(
-        "Generating DESeqDataSet with DESeq2 %s.",
-        packageVersion("DESeq2")
-    ))
-}
-
-
-
-## Updated 2019-08-05.
+## Updated 2020-01-17.
 `new,DESeqDataSet` <-  # nolint
-    function(se) {
-        .ddsMsg()
+    function(se, quiet = FALSE) {
+        assert(isFlag(quiet))
+        .assertHasValidCFA(se)
+        if (!isTRUE(quiet)) {
+            cli_text(sprintf(
+                "Generating {.var DESeqDataSet} with {.pkg DESeq2} %s.",
+                packageVersion("DESeq2")
+            ))
+        }
         assert(is(se, "SummarizedExperiment"))
         ## Assert that counts are gene level.
         level <- metadata(se)[["level"]]
@@ -33,7 +30,6 @@
             metadata(se)[["caller"]] %in% .tximportCallers &&
             metadata(se)[["countsFromAbundance"]] == "no"
         ) {
-            message("Including average transcript length matrix.")
             assayNames <- c("counts", "avgTxLength")
         } else {
             assayNames <- "counts"

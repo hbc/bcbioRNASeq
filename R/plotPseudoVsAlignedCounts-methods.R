@@ -4,7 +4,7 @@
 #' @note Currently supported for salmon or kallisto. The function will
 #'   intentionally error for datasets containing aligned counts in the primary
 #'   `counts` assay.
-#' @note Updated 2019-09-16.
+#' @note Updated 2020-01-20.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Passthrough to [acidplots::plotCountsCorrelationHeatmap()] when
@@ -26,7 +26,7 @@ NULL
 
 
 
-## Updated 2019-09-16.
+## Updated 2020-01-20.
 `plotPseudoVsAlignedCounts,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -57,7 +57,7 @@ NULL
             )
             if (sum(i) < nrow(object)) {
                 n <- sum(!i, na.rm = TRUE)
-                message(sprintf(
+                cli_alert_warning(sprintf(
                     "Censoring %d %s containing an NA value.",
                     n,
                     ngettext(

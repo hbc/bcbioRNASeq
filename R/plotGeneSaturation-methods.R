@@ -1,6 +1,6 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit bioverbs::plotGeneSaturation
+#' @inherit acidgenerics::plotGeneSaturation
 #' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
@@ -16,7 +16,7 @@ NULL
 
 #' @rdname plotGeneSaturation
 #' @name plotGeneSaturation
-#' @importFrom bioverbs plotGeneSaturation
+#' @importFrom acidgenerics plotGeneSaturation
 #' @usage plotGeneSaturation(object, ...)
 #' @export
 NULL

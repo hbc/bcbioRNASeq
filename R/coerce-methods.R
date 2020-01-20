@@ -6,7 +6,7 @@
 #' @author Michael Steinbaugh
 #' @importFrom methods coerce
 #' @exportMethod coerce
-#' @note Updated 2019-08-07.
+#' @note Updated 2020-01-20.
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'
@@ -33,14 +33,22 @@
 #'
 #' @section bcbioRNASeq to DGEList:
 #'
-#' 1. Obtain per-observation scaling factors for length, adjusted to avoid
+#' When `countsFromAbundance = "lengthScaledTPM"` (default):
+#'
+#' 1. Call [edgeR::DGEList()].
+#'
+#' When `countsFromAbundance = "no"`:
+#'
+#' 1. Call [edgeR::DGEList()].
+#' 2. Obtain per-observation scaling factors for length, adjusted to avoid
 #'    changing the magnitude of the counts.
-#' 2. Computing effective library sizes from scaled counts, to account for
+#' 3. Computing effective library sizes from scaled counts, to account for
 #'    composition biases between samples.
-#' 3. Combine effective library sizes with the length factors, and calculate
+#' 4. Combine effective library sizes with the length factors, and calculate
 #'    offsets for a log-link GLM.
-#' 4. Call [edgeR::DGEList()]
-#' 4. Apply offset matrix using [edgeR::scaleOffset()].
+#' 5. Apply offset matrix using [edgeR::scaleOffset()].
+#'
+#' @inheritParams acidroxygen::params
 #'
 #' @seealso
 #' - [tximport::tximport()].
@@ -72,12 +80,77 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Refer to Downstream DGE in Bioconductor in tximport vignette for details.
+## https://bioconductor.org/packages/release/bioc/vignettes/tximport/inst/doc/
+##     tximport.html#downstream_dge_in_bioconductor
+##
+## Note: there are two suggested ways of importing estimates for use with
+## differential gene expression (DGE) methods. The first method, which we show
+## below for edgeR and for DESeq2, is to use the gene-level estimated counts
+## from the quantification tools, and additionally to use the transcript-level
+## abundance estimates to calculate a gene-level offset that corrects for
+## changes to the average transcript length across samples. The code examples
+## below accomplish these steps for you, keeping track of appropriate matrices
+## and calculating these offsets. For edgeR you need to assign a matrix to
+## y$offset, but the function DESeqDataSetFromTximport takes care of creation of
+## the offset for you. Let’s call this method "original counts and offset".
+##
+## The second method is to use the tximport argument
+## countsFromAbundance="lengthScaledTPM" or "scaledTPM", and then to use the
+## gene-level count matrix txi$counts directly as you would a regular count
+## matrix with these software. Let’s call this method "bias corrected counts
+## without an offset".
+##
+## Note: Do not manually pass the original gene-level counts to downstream
+## methods without an offset. The only case where this would make sense is if
+## there is no length bias to the counts, as happens in 3’ tagged RNA-seq data
+## (see section below). The original gene-level counts are in txi$counts when
+## tximport was run with countsFromAbundance="no". This is simply passing the
+## summed estimated transcript counts, and does not correct for potential
+## differential isoform usage (the offset), which is the point of the tximport
+## methods (Soneson, Love, and Robinson 2015) for gene-level analysis. Passing
+## uncorrected gene-level counts without an offset is not recommended by the
+## tximport package authors. The two methods we provide here are: "original
+## counts and offset" or "bias corrected counts without an offset". Passing txi
+## to DESeqDataSetFromTximport as outlined below is correct: the function
+## creates the appropriate offset for you to perform gene-level differential
+## expression.
+
+
+
+## Updated 2020-01-17.
+`as.DESeqDataSet,bcbioRNASeq` <-  # nolint
+    function(x, quiet = FALSE) {
+        assert(isFlag(quiet))
+        validObject(x)
+        .assertHasValidCFA(x)
+        se <- as(x, "RangedSummarizedExperiment")
+        to <- `new,DESeqDataSet`(se = se, quiet = quiet)
+        if (!isTRUE(quiet)) {
+            cli_alert_info(paste(
+                "Set the design formula with {.fun design} ",
+                "and run {.fun DESeq}."
+            ))
+        }
+        to
+    }
+
+
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DESeqDataSet",
+    signature = signature("bcbioRNASeq"),
+    definition = `as.DESeqDataSet,bcbioRNASeq`
+)
+
+
+
+## Updated 2020-01-17.
 `coerce,bcbioRNASeq,DESeqDataSet` <-  # nolint
     function(from) {
-        validObject(from)
-        rse <- as(from, "RangedSummarizedExperiment")
-        `new,DESeqDataSet`(se = rse)
+        as.DESeqDataSet(from, quiet = TRUE)
     }
 
 
@@ -92,18 +165,37 @@ setAs(
 
 
 
-## Updated 2019-07-23.
-`coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
-    function(from) {
-        validObject(from)
-        dds <- as(from, "DESeqDataSet")
-        ## Expect warning about empty design formula.
-        dds <- suppressWarnings(DESeq(dds))
-        validObject(dds)
-        message("Applying variance stabilizing transformation.")
+## Updated 2020-01-17.
+`as.DESeqTransform,bcbioRNASeq` <-  # nolint
+    function(x, quiet = FALSE) {
+        assert(isFlag(quiet))
+        validObject(x)
+        dds <- as.DESeqDataSet(x, quiet = quiet)
+        dds <- DESeq(dds, quiet = quiet)
+        if (!isTRUE(quiet)) {
+            cli_alert("{.fun varianceStabilizingTransformation}")
+        }
         dt <- varianceStabilizingTransformation(dds)
         validObject(dt)
         dt
+    }
+
+
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DESeqTransform",
+    signature = signature("bcbioRNASeq"),
+    definition = `as.DESeqTransform,bcbioRNASeq`
+)
+
+
+
+## Updated 2020-01-17.
+`coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
+    function(from) {
+        as.DESeqTransform(from, quiet = TRUE)
     }
 
 
@@ -118,38 +210,91 @@ setAs(
 
 
 
-## Note that we're following the tximport recommendations here.
-## Updated 2019-07-23.
+## Updated 2020-01-12.
+`as.DGEList,bcbioRNASeq` <-  # nolint
+    function(x, quiet = FALSE) {
+        assert(isFlag(quiet))
+        validObject(x)
+        .assertHasValidCFA(x)
+        cfa <- metadata(x)[["countsFromAbundance"]]
+        if (!isTRUE(quiet)) {
+            cli_text(sprintf(
+                "Generating {.var DGEList} with {.pkg edgeR} %s.",
+                packageVersion("edgeR")
+            ))
+            cli_dl(c(countsFromAbundance = cfa))
+        }
+        counts <- counts(x)
+        y <- DGEList(counts = counts)
+        if (!isTRUE(quiet)) {
+            if (identical(cfa, "no")) {
+                mode <- "original counts and offset"
+            } else {
+                mode <- "bias corrected counts without an offset"
+            }
+            cli_dl(c(
+                mode = paste(mode, "(see {.pkg tximport} vignette).")
+            ))
+        }
+        if (identical(cfa, "no")) {
+            ## Average transcript length (i.e. txi$length).
+            normMat <- assays(x)[["avgTxLength"]]
+            ## Obtain per-observation scaling factors for length, adjusted to
+            ## avoid changing the magnitude of the counts.
+            normMat <- normMat / exp(rowMeans(log(normMat)))
+            normCounts <- counts / normMat
+            ## Computing effective library sizes from scaled counts, to account
+            ## for composition biases between samples.
+            effLib <- calcNormFactors(normCounts) * colSums(normCounts)
+            ## Combine effective library sizes with the length factors, and
+            ## calculate offsets for a log-link GLM.
+            normMat <- sweep(normMat, MARGIN = 2L, STATS = effLib, FUN = "*")
+            normMat <- log(normMat)
+            ## This will assign `y$offset` matrix. See above for details.
+            y <- scaleOffset(y, offset = normMat)
+            if (!isTRUE(quiet)) {
+                cli_alert_info(paste(
+                    "This {.var DGEList} is suitable for use only with",
+                    "{.pkg edgeR}. If handing off to {.pkg limma-voom},",
+                    "{.arg countsFromAbundance} must be set to",
+                    "{.val lengthScaledTPM} instead."
+                ))
+            }
+        } else {
+            if (!isTRUE(quiet)) {
+                cli_alert_info(paste(
+                    "This {.var DGEList} is suitable for use with {.pkg edgeR}",
+                    "and/or {.pkg limma-voom}."
+                ))
+            }
+        }
+        assert(identical(dimnames(x), dimnames(y)))
+        validObject(y)
+        if (!isTRUE(quiet)) {
+            cli_alert_info(paste(
+                "Subset genes with {.fun filterByExpr} ",
+                "and run {.fun calcNormFactors}."
+            ))
+        }
+        y
+    }
+
+
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DGEList",
+    signature = signature("bcbioRNASeq"),
+    definition = `as.DGEList,bcbioRNASeq`
+)
+
+
+
+## Updated 2020-01-17.
 `coerce,bcbioRNASeq,DGEList` <-  # nolint
     function(from) {
-        validObject(from)
-        message(sprintf(
-            "Generating DGEList with edgeR %s.",
-            packageVersion("edgeR")
-        ))
-        ## Raw counts (i.e. txi$counts)
-        cts <- counts(from)
-        ## Average transcript length (i.e. txi$length)
-        normMat <- assays(from)[["avgTxLength"]]
-        ## Obtain per-observation scaling factors for length, adjusted to avoid
-        ## changing the magnitude of the counts.
-        normMat <- normMat / exp(rowMeans(log(normMat)))
-        normCts <- cts / normMat
-        ## Computing effective library sizes from scaled counts, to account for
-        ## composition biases between samples.
-        effLib <- calcNormFactors(normCts) * colSums(normCts)
-        ## Combine effective library sizes with the length factors, and
-        ## calculate offsets for a log-link GLM.
-        normMat <- sweep(x = normMat, MARGIN = 2L, STATS = effLib, FUN = "*")
-        normMat <- log(normMat)
-        ## Creating a DGEList object for use in edgeR.
-        to <- DGEList(cts)
-        to <- scaleOffset(to, offset = normMat)
-        ## Note that tximport guide recommends `filterByExpr()` step but we're
-        ## intentionally skipping that step here.
-        assert(identical(dimnames(from), dimnames(to)))
-        validObject(to)
-        to
+        as.DGEList(from)
     }
 
 

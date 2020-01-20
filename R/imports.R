@@ -25,6 +25,8 @@
 #' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML importDataVersions importProgramVersions projectDir
 #'   runDate sampleDirs
+#' @importFrom cli cat_line cli_alert cli_alert_info cli_alert_success
+#'   cli_alert_warning cli_dl cli_h1 cli_h2 cli_h3 cli_text
 #' @importFrom cowplot plot_grid
 #' @importFrom edgeR DGEList calcNormFactors cpm scaleOffset
 #' @importFrom ggplot2 aes expand_limits geom_point geom_smooth ggplot ggtitle

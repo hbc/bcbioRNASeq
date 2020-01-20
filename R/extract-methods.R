@@ -8,7 +8,7 @@
 #' @name extract
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @inherit base::Extract params references
-#' @note Updated 2019-08-20.
+#' @note Updated 2020-01-20.
 #'
 #' @inheritParams acidroxygen::params
 #' @param recalculate `logical(1)`.
@@ -49,7 +49,7 @@ NULL
 
 
 
-## Updated 2019-08-20.
+## Updated 2020-01-20.
 `extract,bcbioRNASeq` <-  # nolint
     function(
         x, i, j,
@@ -61,32 +61,27 @@ NULL
             identical(drop, FALSE),
             isFlag(recalculate)
         )
-
         ## Genes (rows).
         if (missing(i)) {
             i <- seq_len(nrow(x))
         }
         ## Require at least 50 genes.
         assert(isInRange(length(i), lower = 50L, upper = Inf))
-
         ## Samples (columns).
         if (missing(j)) {
             j <- seq_len(ncol(x))
         }
         ## Require at least 2 samples.
         assert(isInRange(length(j), lower = 2L, upper = Inf))
-
         ## Determine whether we should stash subset in metadata.
         if (identical(x = dim(x), y = c(length(i), length(j)))) {
             subset <- FALSE
         } else {
             subset <- TRUE
         }
-
         ## Regenerate RangedSummarizedExperiment.
         rse <- as(x, "RangedSummarizedExperiment")
         rse <- rse[i, j, drop = FALSE]
-
         ## Early return original object, if unmodified.
         if (identical(assay(rse), assay(x))) {
             return(x)
@@ -98,14 +93,14 @@ NULL
             ## Recalculate DESeq2 normalized counts and variance stabilizations
             ## if the number of samples and/or genes change.
             if (isTRUE(recalculate)) {
-                message("Recalculating DESeq2 normalizations.")
+                cli_alert("Recalculating {.pkg DESeq2} normalizations.")
                 dds <- `new,DESeqDataSet`(se = rse)
                 dds <- DESeq(dds)
                 ## Normalized counts.
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
                 ## vst: variance-stabilizing transformation.
                 if ("vst" %in% names(assays)) {
-                    message("Applying variance-stabilizing transformation.")
+                    cli_alert("{.fun varianceStabilizingTransformation}")
                     assays[["vst"]] <-
                         assay(varianceStabilizingTransformation(dds))
                 }
@@ -114,12 +109,12 @@ NULL
                 ## during the `bcbioRNASeq()` call, because it's often too slow.
                 ## However, we're keeping support here for legacy objects.
                 if ("rlog" %in% names(assays)) {
-                    message("Applying rlog transformation.")
+                    cli_alert("{.fun rlog}")
                     assays[["rlog"]] <- assay(rlog(dds))
                 }
             } else {
                 ## Otherwise, remove previous calculations.
-                message("Skipping DESeq2 normalizations.")
+                cli_alert_warning("Skipping {.fun DESeq2} normalizations.")
                 assays[["normalized"]] <- NULL
                 assays[["rlog"]] <- NULL
                 assays[["vst"]] <- NULL

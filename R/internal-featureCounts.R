@@ -1,7 +1,7 @@
 ## Load up the featureCounts aligned counts matrix.
 ## Use the genes argument to dynamically resize the matrix. This is necessary
 ## when slotting this data into assays along with pseudoaligned counts.
-## Updated 2019-07-23.
+## Updated 2020-01-17.
 .featureCounts <-
     function(projectDir, samples, genes = NULL) {
         assert(
@@ -9,7 +9,7 @@
             isCharacter(samples),
             isCharacter(genes, nullOK = TRUE)
         )
-        message("Importing aligned counts from featureCounts.")
+        cli_alert("Importing aligned counts from {.pkg featureCounts}.")
         counts <- import(file = file.path(projectDir, "combined.counts"))
         assert(is.matrix(counts))
         colnames(counts) <- makeNames(colnames(counts))
