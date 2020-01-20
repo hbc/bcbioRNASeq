@@ -1,3 +1,9 @@
+## bcbioRNASeq 0.3.30 (2020-01-20)
+
+### Minor changes
+
+- Updated basejump dependencies, namely renaming bioverbs to acidgenerics.
+
 ## bcbioRNASeq 0.3.29 (2019-10-30)
 
 ### Minor changes

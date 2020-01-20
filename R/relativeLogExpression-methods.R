@@ -1,6 +1,6 @@
 #' @name relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
-#' @inherit bioverbs::relativeLogExpression
+#' @inherit acidgenerics::relativeLogExpression
 #' @note Updated 2019-08-20.
 #'
 #' @inheritParams acidroxygen::params
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname relativeLogExpression
 #' @name relativeLogExpression
-#' @importFrom bioverbs relativeLogExpression
+#' @importFrom acidgenerics relativeLogExpression
 #' @usage relativeLogExpression(object, ...)
 #' @export
 NULL

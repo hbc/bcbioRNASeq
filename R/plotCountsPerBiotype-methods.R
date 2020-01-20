@@ -16,7 +16,7 @@ NULL
 
 #' @rdname plotCountsPerBiotype
 #' @name plotCountsPerBiotype
-#' @importFrom bioverbs plotCountsPerBiotype
+#' @importFrom acidgenerics plotCountsPerBiotype
 #' @importMethodsFrom acidplots plotCountsPerBiotype
 #' @usage plotCountsPerBiotype(object, ...)
 #' @export
@@ -24,7 +24,7 @@ NULL
 
 #' @rdname plotCountsPerBiotype
 #' @name plotCountsPerBroadClass
-#' @importFrom bioverbs plotCountsPerBroadClass
+#' @importFrom acidgenerics plotCountsPerBroadClass
 #' @importMethodsFrom acidplots plotCountsPerBroadClass
 #' @usage plotCountsPerBroadClass(object, ...)
 #' @export

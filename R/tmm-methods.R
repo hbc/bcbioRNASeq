@@ -1,6 +1,6 @@
 #' @name tmm
 #' @author Michael Steinbaugh
-#' @inherit bioverbs::tmm
+#' @inherit acidgenerics::tmm
 #' @note Updated 2019-08-20.
 #'
 #' @inheritParams acidroxygen::params
@@ -16,7 +16,7 @@ NULL
 
 #' @rdname tmm
 #' @name tmm
-#' @importFrom bioverbs tmm
+#' @importFrom acidgenerics tmm
 #' @usage tmm(object, ...)
 #' @export
 NULL
