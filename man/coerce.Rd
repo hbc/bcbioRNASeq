@@ -25,11 +25,19 @@ as.DGEList(x, ...)
 
 \S4method{as.DGEList}{bcbioRNASeq}(x, quiet = FALSE)
 }
+\arguments{
+\item{x}{Object.}
+
+\item{...}{Additional arguments.}
+
+\item{quiet}{\code{logical(1)}.
+Perform command quietly, suppressing messages.}
+}
 \description{
 Force an object to belong to a class.
 }
 \note{
-Updated 2020-01-17.
+Updated 2020-01-20.
 }
 \section{bcbioRNASeq to DESeqDataSet}{
 

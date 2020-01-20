@@ -304,7 +304,7 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(log)),
         error = function(e) {
-            message("'bcbio-nextgen.log' file is empty.")
+            cli_alert_warning("'bcbio-nextgen.log' file is empty.")
         }
     )
     commandsLog <- import(file.path(projectDir, "bcbio-nextgen-commands.log"))
@@ -312,7 +312,7 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(commandsLog)),
         error = function(e) {
-            message("'bcbio-nextgen-commands.log' file is empty.")
+            cli_alert_warning("'bcbio-nextgen-commands.log' file is empty.")
         }
     )
 
@@ -350,7 +350,6 @@ bcbioRNASeq <- function(
         sampleData <- getSampleDataFromYAML(yaml)
     }
     assert(isSubset(rownames(sampleData), names(sampleDirs)))
-
     ## Subset the sample directories, if necessary.
     if (is.character(samples) || is.character(censorSamples)) {
         ## Matching against the YAML "description" input here.
@@ -379,8 +378,8 @@ bcbioRNASeq <- function(
     )
     if (length(samples) < length(sampleDirs)) {
         sampleDirs <- sampleDirs[samples]
-        message(sprintf(
-            fmt = "Loading a subset of samples: %s.",
+        cli_alert(sprintf(
+            fmt = "Loading a subset of samples: {.var %s}.",
             toString(basename(sampleDirs), width = 100L)
         ))
         allSamples <- FALSE
@@ -401,7 +400,7 @@ bcbioRNASeq <- function(
         colData <- colData[rownames(sampleData), , drop = FALSE]
         colData <- cbind(colData, sampleData)
     } else {
-        message("Fast mode detected. No metrics were calculated.")
+        cli_alert_warning("Fast mode detected. No metrics were calculated.")
         colData <- sampleData
     }
     assert(
@@ -446,7 +445,7 @@ bcbioRNASeq <- function(
         txi <- NULL
         countsFromAbundance <- "no"
         assert(identical(level, "genes"))
-        message("Slotting aligned counts into primary 'counts' assay.")
+        cli_alert("Slotting aligned counts into primary {.fun counts} assay.")
         assays[["counts"]] <- .featureCounts(
             projectDir = projectDir,
             samples = samples
@@ -467,7 +466,7 @@ bcbioRNASeq <- function(
     ##    complex datasets (e.g. multiple organisms).
     if (isString(organism) && is.numeric(ensemblRelease)) {
         ## AnnotationHub (ensembldb).
-        message("Using 'makeGRangesFromEnsembl()' for annotations.")
+        cli_alert("Using {.fun makeGRangesFromEnsembl } for annotations.")
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
@@ -481,16 +480,15 @@ bcbioRNASeq <- function(
             gffFile <- getGTFFileFromYAML(yaml)
         }
         if (!is.null(gffFile) && !isTRUE(fast)) {
-            message("Using 'makeGRangesFromGFF()' for annotations.")
+            cli_alert("Using {.fun makeGRangesFromGFF} for annotations.")
             gffFile <- realpath(gffFile)
             rowRanges <- makeGRangesFromGFF(file = gffFile, level = level)
         } else {
-            message("Slotting empty ranges into 'rowRanges()'.")
+            cli_alert("Slotting empty ranges into {.fun rowRanges}.")
             rowRanges <- emptyRanges(rownames(assays[[1L]]))
         }
     }
     assert(is(rowRanges, "GRanges"))
-
     ## Attempt to get genome build and Ensembl release if not declared. Note
     ## that these will remain NULL when using GTF file (see above).
     if (is.null(genomeBuild)) {
@@ -504,7 +502,6 @@ bcbioRNASeq <- function(
     ## Interesting groups.
     interestingGroups <- camelCase(interestingGroups)
     assert(isSubset(interestingGroups, colnames(colData)))
-
     ## Organism.
     ## Attempt to detect automatically if not declared by user.
     if (is.null(organism)) {
@@ -518,7 +515,6 @@ bcbioRNASeq <- function(
             }
         )
     }
-
     metadata <- list(
         allSamples = allSamples,
         bcbioCommandsLog = commandsLog,
@@ -560,12 +556,10 @@ bcbioRNASeq <- function(
     ## DESeq2 ------------------------------------------------------------------
     if (level == "genes" && !isTRUE(fast)) {
         dds <- as(bcb, "DESeqDataSet")
-
         ## Calculate size factors for normalized counts.
-        message("Calculating normalized counts.")
+        cli_alert("Calculating normalized counts.")
         dds <- estimateSizeFactors(dds)
         assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
-
         ## Skip full DESeq2 calculations (for internal bcbio test data).
         if (.dataHasVariation(dds)) {
             message("Calculating transformations.")
@@ -582,7 +576,6 @@ bcbioRNASeq <- function(
             message("Data has no variation. Skipping transformations.")
             ## nocov end
         }
-
         ## Calculate FPKM.
         ## Skip this step if we've slotted empty ranges.
         if (length(unique(width(rowRanges(dds)))) > 1L) {
