@@ -91,12 +91,12 @@ NULL
         }
         ## NAMES
         if (!is.null(slot(object, "NAMES"))) {
-            cli_alert_warning("{.var NAMES} slot must be set to {.val NULL}.")
+            cli_alert_info("{.var NAMES} slot must be set to {.val NULL}.")
             slot(object, "NAMES") <- NULL
         }
         ## elementMetadata
         if (ncol(slot(object, "elementMetadata")) != 0L) {
-            cli_alert_warning(paste(
+            cli_alert_info(paste(
                 "{.var elementMetadata} slot must contain a",
                 "zero-column {.var DataFrame}."
             ))
@@ -219,7 +219,7 @@ NULL
         ## Support for legacy devtoolsSessionInfo stash.
         ## Previously, we stashed both devtools* and utils* variants.
         if ("devtoolsSessionInfo" %in% names(metadata)) {
-            cli_alert_warning("Simplifying stashed {.var sessionInfo}.")
+            cli_alert("Simplifying stashed {.var sessionInfo}.")
             names(metadata)[
                 names(metadata) == "devtoolsSessionInfo"] <- "sessionInfo"
             metadata[["utilsSessionInfo"]] <- NULL
@@ -356,13 +356,13 @@ NULL
             "broadClass" %in% colnames(mcols(rowRanges)) &&
             is.character(mcols(rowRanges)[["broadClass"]])
         ) {
-            message("Setting 'broadClass' to factor.")
+            cli_alert("Setting {.var broadClass} to factor.")
             mcols(rowRanges)[["broadClass"]] <-
                 as.factor(mcols(rowRanges)[["broadClass"]])
         }
         ## ensgene
         if ("ensgene" %in% colnames(mcols(rowRanges))) {
-            message("Renaming 'ensgene' to 'geneID'.")
+            cli_alert("Renaming {.var ensgene} to {.var geneID}.")
             mcols(rowRanges)[["geneID"]] <-
                 as.character(mcols(rowRanges)[["ensgene"]])
             mcols(rowRanges)[["ensgene"]] <- NULL
