@@ -285,11 +285,12 @@ bcbioRNASeq <- function(
     cli_h1("Importing bcbio-nextgen RNA-seq run")
 
     ## Run info ----------------------------------------------------------------
-    cli_h2("Run info")
     uploadDir <- realpath(uploadDir)
     cli_dl(c(uploadDir = uploadDir))
     projectDir <- projectDir(uploadDir)
+    cat_line()
     sampleDirs <- sampleDirs(uploadDir)
+    cat_line()
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     yaml <- import(yamlFile)
     assert(is.list(yaml))
@@ -309,7 +310,7 @@ bcbioRNASeq <- function(
     )
     fastPipeline <- .isFastPipeline(log)
     if (isTRUE(fastPipeline)) {
-        cli_alert("Fast RNA-seq pipeline (fastrnaseq) detected.")
+        cli_text("Fast RNA-seq pipeline (fastrnaseq) detected.")
     }
     commandsLog <- import(file.path(projectDir, "bcbio-nextgen-commands.log"))
     ## This step enables our minimal dataset inside the package to pass checks.
@@ -607,6 +608,5 @@ bcbioRNASeq <- function(
     validObject(bcb)
     cat_line()
     cli_alert_success("bcbio RNA-seq run imported successfully.")
-    cat_line()
     bcb
 }
