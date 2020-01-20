@@ -52,13 +52,15 @@ NULL
         metadata <- metadata(object)
         version <- metadata[["version"]]
         assert(is(version, c("package_version", "numeric_version")))
-        cli_alert(sprintf(
+        cli_h1("Update object")
+        cli_text(sprintf(
             fmt = "Updating {.var bcbioRNASeq} object from version %s to %s.",
             as.character(version),
             as.character(.version)
         ))
 
-        ## Legacy SummarizedExperiment slot handling ---------------------------
+        ## Legacy slots --------------------------------------------------------
+        cli_h2("Legacy slots")
         ## NAMES
         if (!is.null(slot(object, "NAMES"))) {
             cli_alert_info("{.var NAMES} slot must be set to {.val NULL}.")
@@ -109,6 +111,7 @@ NULL
         }
 
         ## Metadata ------------------------------------------------------------
+        cli_h2("Metadata")
         ## bcbioLog
         if (is.null(metadata[["bcbioLog"]])) {
             cli_alert_warning("Setting {.var bcbioLog} as empty character.")
@@ -260,6 +263,7 @@ NULL
         metadata <- Filter(f = Negate(is.null), x = metadata)
 
         ## Assays --------------------------------------------------------------
+        cli_h2("Assays")
         assays <- assays(object)
         ## These variables are needed for assay handling.
         caller <- metadata[["caller"]]
@@ -333,6 +337,7 @@ NULL
         assays <- Filter(f = Negate(is.null), x = assays)
 
         ## Row ranges ----------------------------------------------------------
+        cli_h2("Row ranges")
         rowRanges <- rowRanges(object)
         ## rowRangesMetadata
         if ("rowRangesMetadata" %in% names(metadata)) {
@@ -379,6 +384,7 @@ NULL
         rowRanges <- encode(rowRanges)
 
         ## Column data ---------------------------------------------------------
+        cli_h2("Column data")
         colData <- colData(object)
         ## Move metrics from metadata into colData, if necessary.
         metrics <- metadata[["metrics"]]
@@ -430,6 +436,7 @@ NULL
         )
         bcb <- new(Class = "bcbioRNASeq", se)
         validObject(bcb)
+        cat_line()
         cli_alert_success("Update of {.var bcbioRNASeq} object was successful.")
         bcb
     }
