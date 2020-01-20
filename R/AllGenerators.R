@@ -451,8 +451,9 @@ bcbioRNASeq <- function(
         }
     } else if (caller %in% .featureCountsCallers) {
         cli_h3("featureCounts")
+        countsFromAbundance <- NULL
+        tx2gene <- NULL
         txi <- NULL
-        countsFromAbundance <- "no"
         assert(identical(level, "genes"))
         cli_alert("Slotting aligned counts into primary {.fun counts} assay.")
         assays[["counts"]] <- .featureCounts(

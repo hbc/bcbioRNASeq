@@ -16,7 +16,7 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
-#' @note Updated 2019-10-30.
+#' @note Updated 2020-01-20.
 #' @export
 setClass(
     Class = "bcbioRNASeq",
@@ -87,7 +87,6 @@ setValidity(
                 bcbioLog = "character",
                 call = "call",
                 caller = "character",
-                countsFromAbundance = "character",
                 dataVersions = df,
                 date = "Date",
                 ensemblRelease = "integer",
@@ -102,7 +101,6 @@ setValidity(
                 runDate = "Date",
                 sampleDirs = "character",
                 sampleMetadataFile = "character",
-                tx2gene = "Tx2Gene",
                 sessionInfo = "session_info",
                 uploadDir = "character",
                 version = "package_version",
@@ -112,16 +110,29 @@ setValidity(
             subset = TRUE
         )
         if (!isTRUE(ok)) return(ok)
-        ## tximport checks.
+        ## Caller (and tximport) checks.
         ok <- validate(
             isSubset(metadata[["caller"]], .callers),
-            isSubset(metadata[["level"]], .levels),
-            isSubset(
-                x = metadata[["countsFromAbundance"]],
-                y = eval(formals(tximport)[["countsFromAbundance"]])
-            )
+            isSubset(metadata[["level"]], .levels)
         )
         if (!isTRUE(ok)) return(ok)
+        if (isSubset(metadata[["caller"]], .tximportCallers)) {
+            ok <- validate(
+                isSubset(
+                    x = metadata[["countsFromAbundance"]],
+                    y = eval(formals(tximport)[["countsFromAbundance"]])
+                )
+            )
+            if (!isTRUE(ok)) return(ok)
+            ok <- validateClasses(
+                object = metadata,
+                expected = list(
+                    tx2gene = "Tx2Gene"
+                ),
+                subset = TRUE
+            )
+            if (!isTRUE(ok)) return(ok)
+        }
 
         ## Assays --------------------------------------------------------------
         assayNames <- assayNames(object)

@@ -137,19 +137,6 @@ NULL
             cli_alert_warning("Setting {.var caller} as salmon.")
             metadata[["caller"]] <- "salmon"
         }
-        ## countsFromAbundance
-        if (!"countsFromAbundance" %in% names(metadata)) {
-            if (metadata[["caller"]] %in% .tximportCallers) {
-                countsFromAbundance <- "lengthScaledTPM"
-            } else {
-                countsFromAbundance <- "no"  # nocov
-            }
-            cli_alert_warning(sprintf(
-                "Setting {.var countsFromAbundance} as {.val %s}.",
-                countsFromAbundance
-            ))
-            metadata[["countsFromAbundance"]] <- countsFromAbundance
-        }
         ## dataVersions
         dataVersions <- metadata[["dataVersions"]]
         if (is(dataVersions, "data.frame")) {
@@ -235,16 +222,6 @@ NULL
             cli_alert("Dropping legacy {.var template}.")
             metadata[["template"]] <- NULL
         }
-        ## tx2gene
-        tx2gene <- metadata[["tx2gene"]]
-        if (!is(tx2gene, "Tx2Gene")) {
-            cli_alert("Coercing {.var tx2gene} to {.var Tx2Gene} class.")
-            assert(is.data.frame(tx2gene))
-            tx2gene <- as(tx2gene, "DataFrame")
-            colnames(tx2gene) <- c("transcriptID", "geneID")
-            rownames(tx2gene) <- NULL
-            metadata[["tx2gene"]] <- Tx2Gene(tx2gene)
-        }
         ## Dead genes: "missing" or "unannotated".
         if ("missingGenes" %in% names(metadata)) {
             cli_alert_warning("Dropping {.var missingGenes} from metadata.")
@@ -262,6 +239,29 @@ NULL
         ## version
         metadata[["previousVersion"]] <- metadata[["version"]]
         metadata[["version"]] <- .version
+        ## tximport-specific
+        if (isSubset(metadata[["caller"]], .tximportCallers)) {
+            cli_h3("tximport")
+            ## countsFromAbundance
+            if (!"countsFromAbundance" %in% names(metadata)) {
+                countsFromAbundance <- "lengthScaledTPM"
+                cli_alert_warning(sprintf(
+                    "Setting {.var countsFromAbundance} as {.val %s}.",
+                    countsFromAbundance
+                ))
+                metadata[["countsFromAbundance"]] <- countsFromAbundance
+            }
+            ## tx2gene
+            tx2gene <- metadata[["tx2gene"]]
+            if (!is(tx2gene, "Tx2Gene")) {
+                cli_alert("Coercing {.var tx2gene} to {.var Tx2Gene} class.")
+                assert(is.data.frame(tx2gene))
+                tx2gene <- as(tx2gene, "DataFrame")
+                colnames(tx2gene) <- c("transcriptID", "geneID")
+                rownames(tx2gene) <- NULL
+                metadata[["tx2gene"]] <- Tx2Gene(tx2gene)
+            }
+        }
         ## Filter NULL metadata.
         metadata <- Filter(f = Negate(is.null), x = metadata)
 
