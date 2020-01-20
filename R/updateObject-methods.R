@@ -59,6 +59,20 @@ NULL
         ))
 
         ## Legacy SummarizedExperiment slot handling ---------------------------
+        ## NAMES
+        if (!is.null(slot(object, "NAMES"))) {
+            cli_alert_info("{.var NAMES} slot must be set to {.val NULL}.")
+            slot(object, "NAMES") <- NULL
+        }
+        ## elementMetadata
+        if (ncol(slot(object, "elementMetadata")) != 0L) {
+            cli_alert_info(paste(
+                "{.var elementMetadata} slot must contain a",
+                "zero-column {.var DataFrame}."
+            ))
+            slot(object, "elementMetadata") <-
+                as(matrix(nrow = nrow(object), ncol = 0L), "DataFrame")
+        }
         ## rowRanges
         if (!.hasSlot(object, "rowRanges")) {
             if (is.null(rowRanges)) {
@@ -88,20 +102,6 @@ NULL
                 "Object already contains 'rowRanges()'.\n",
                 "Don't attempt to slot new ones with 'rowRanges' argument."
             )
-        }
-        ## NAMES
-        if (!is.null(slot(object, "NAMES"))) {
-            cli_alert_info("{.var NAMES} slot must be set to {.val NULL}.")
-            slot(object, "NAMES") <- NULL
-        }
-        ## elementMetadata
-        if (ncol(slot(object, "elementMetadata")) != 0L) {
-            cli_alert_info(paste(
-                "{.var elementMetadata} slot must contain a",
-                "zero-column {.var DataFrame}."
-            ))
-            slot(object, "elementMetadata") <-
-                as(matrix(nrow = nrow(object), ncol = 0L), "DataFrame")
         }
         ## Check for legacy bcbio slot.
         if (.hasSlot(object, "bcbio")) {
@@ -430,6 +430,7 @@ NULL
         )
         bcb <- new(Class = "bcbioRNASeq", se)
         validObject(bcb)
+        cli_alert_success("Update of {.var bcbioRNASeq} object was successful.")
         bcb
     }
 
