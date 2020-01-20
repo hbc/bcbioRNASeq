@@ -54,7 +54,10 @@ NULL
         assert(is(version, c("package_version", "numeric_version")))
         cli_h1("Update object")
         cli_text(sprintf(
-            fmt = "Updating {.var bcbioRNASeq} object from version %s to %s.",
+            fmt = paste(
+                "Updating {.var bcbioRNASeq} object from version {.val %s}",
+                "to {.val %s}."
+            ),
             as.character(version),
             as.character(.version)
         ))
