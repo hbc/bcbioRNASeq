@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.29</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.30</span>
       </span>
     </div>
 
@@ -168,12 +168,12 @@ intentionally error for datasets containing aligned counts in the primary
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
 
 <span class='co'>## Correlation heatmap.</span>
-<span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Making the rownames and colnames human readable.</span></div><div class='output co'>#&gt; <span class='message'>Returning with the sample names unmodified.</span></div><div class='output co'>#&gt; <span class='message'>Censoring 29 genes containing an NA value.</span></div><div class='img'><img src='plotPseudoVsAlignedCounts-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #BBBB00;'>!</span><span> Returning with the sample names unmodified.</span></div><div class='output co'>#&gt; <span class='message'>Censoring 29 genes containing an NA value.</span></div><div class='img'><img src='plotPseudoVsAlignedCounts-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Individual genes.</span>
 <span class='co'>## Checking the most expressed aligned genes here.</span>
 <span class='no'>aligned</span> <span class='kw'>&lt;-</span> <span class='fu'>assay</span>(<span class='no'>bcb</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='st'>"aligned"</span>)
 <span class='no'>genes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span>(<span class='no'>aligned</span>) <span class='kw'>%&gt;%</span> <span class='no'>sort</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2L</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>()
-<span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'>Making the rownames and colnames human readable.</span></div><div class='output co'>#&gt; <span class='message'>Returning with the sample names unmodified.</span></div><div class='img'><img src='plotPseudoVsAlignedCounts-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotPseudoVsAlignedCounts</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>genes</span>)</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #BBBB00;'>!</span><span> Returning with the sample names unmodified.</span></div><div class='img'><img src='plotPseudoVsAlignedCounts-2.png' alt='' width='700' height='433' /></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
