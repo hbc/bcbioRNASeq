@@ -19,7 +19,8 @@
 
 ## Check the `bcbio-nextgen.log` file to see if fastrnaseq pipeline was run.
 ## Updated 2020-01-17.
-.isFastMode <- function(log) {
+.isFastPipeline <- function(log) {
+    if (!hasLength(log)) return(FALSE)
     any(grepl(pattern = "fastrnaseq", x = log, fixed = TRUE))
 }
 
