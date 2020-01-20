@@ -1,7 +1,7 @@
 #' @name relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
 #' @inherit acidgenerics::relativeLogExpression
-#' @note Updated 2019-08-20.
+#' @note Updated 2020-01-20.
 #'
 #' @inheritParams acidroxygen::params
 #' @param ... Additional arguments.
@@ -22,10 +22,10 @@ NULL
 
 
 
-## Updated 2019-08-20.
+## Updated 2020-01-20.
 `relativeLogExpression,matrix` <-  # nolint
     function(object) {
-        message("Applying relative log expression (RLE) normalization.")
+        cli_alert("Applying relative log expression (RLE) normalization.")
         object <- DGEList(object)
         object <- calcNormFactors(object, method = "RLE")
         object <- cpm(object, normalized.lib.sizes = TRUE)

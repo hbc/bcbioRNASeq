@@ -1,11 +1,11 @@
 #' Coerce to SummarizedExperiment with normalized counts as primary assay
 #'
-#' @note Updated 2019-09-15.
+#' @note Updated 2020-01-20.
 #' @noRd
 .normalizedSE <- function(object, normalized) {
     validObject(object)
     normalized <- match.arg(arg = normalized, choices = .normalized)
-    message(sprintf("Using %s counts.", normalized))
+    cli_alert_info(sprintf("Using {.var %s} counts.", normalized))
     counts <- counts(object = object, normalized = normalized)
     assays <- SimpleList(counts)
     names(assays) <- normalized
