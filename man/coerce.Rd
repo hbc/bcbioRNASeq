@@ -21,7 +21,7 @@ as.DGEList(x, ...)
 
 \S4method{as.DESeqDataSet}{bcbioRNASeq}(x, quiet = FALSE)
 
-\S4method{as.DESeqTransform}{bcbioRNASeq}(x)
+\S4method{as.DESeqTransform}{bcbioRNASeq}(x, quiet = FALSE)
 
 \S4method{as.DGEList}{bcbioRNASeq}(x, quiet = FALSE)
 }
