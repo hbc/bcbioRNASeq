@@ -76,10 +76,12 @@
         ),
         type, basename(files[[1L]]), packageVersion("tximport")
     ))
+    cli_div(theme = list(body = list("margin-left" = 4L)))
     cli_dl(c(
         countsFromAbundance = countsFromAbundance,
         txOut = txOut
     ))
+    cli_end()
     ## We're using a `do.call()` approach here so we can apply version-specific
     ## tximport fixes, if necessary.
     args <- list(

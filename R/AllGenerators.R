@@ -310,7 +310,7 @@ bcbioRNASeq <- function(
     )
     fastPipeline <- .isFastPipeline(log)
     if (isTRUE(fastPipeline)) {
-        cli_text("Fast RNA-seq pipeline (fastrnaseq) detected.")
+        cli_alert_info("Fast RNA-seq pipeline (fastrnaseq) detected.")
     }
     commandsLog <- import(file.path(projectDir, "bcbio-nextgen-commands.log"))
     ## This step enables our minimal dataset inside the package to pass checks.
