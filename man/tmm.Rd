@@ -25,7 +25,7 @@ TMM normalization is recommended for RNA-seq data generally when the majority
 of genes are not differentially expressed.
 }
 \note{
-Updated 2019-08-20.
+Updated 2020-01-20.
 }
 \examples{
 data(bcb)

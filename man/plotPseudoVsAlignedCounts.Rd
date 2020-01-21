@@ -36,7 +36,7 @@ Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
 \code{counts} assay.
 
-Updated 2019-09-16.
+Updated 2020-01-20.
 }
 \examples{
 data(bcb)
