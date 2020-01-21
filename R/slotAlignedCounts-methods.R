@@ -9,6 +9,8 @@
 #'
 #' @inheritParams acidroxygen::params
 #'
+#' @return Modified object, with aligned counts defined in `assays`.
+#'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #' ## Fast mode skips import of aligned counts.

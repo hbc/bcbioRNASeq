@@ -28,6 +28,9 @@ Gene identifiers.}
 \item{title}{\code{character(1)}.
 Title.}
 }
+\value{
+Plot.
+}
 \description{
 Compare pseudoaligned counts to aligned counts.
 }

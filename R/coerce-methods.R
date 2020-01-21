@@ -55,6 +55,8 @@
 #' - [DESeq2::DESeqDataSetFromTximport()].
 #' - [edgeR::DGEList()].
 #'
+#' @return Modified object, of desired coercion type.
+#'
 #' @examples
 #' data(bcb)
 #'

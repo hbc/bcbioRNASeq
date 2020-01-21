@@ -11,6 +11,8 @@
 #'   `genes = NULL` or [acidplots::plotCountsCorrelation()] when `genes` are
 #'   defined.
 #'
+#' @return Plot.
+#'
 #' @examples
 #' data(bcb)
 #'

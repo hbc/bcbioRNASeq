@@ -33,6 +33,9 @@ as.DGEList(x, ...)
 \item{quiet}{\code{logical(1)}.
 Perform command quietly, suppressing messages.}
 }
+\value{
+Modified object, of desired coercion type.
+}
 \description{
 Force an object to belong to a class.
 }

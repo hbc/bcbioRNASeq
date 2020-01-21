@@ -14,6 +14,9 @@ slotAlignedCounts(object, ...)
 
 \item{...}{Additional arguments.}
 }
+\value{
+Modified object, with aligned counts defined in \code{assays}.
+}
 \description{
 This function loads aligned counts (e.g. STAR, HISAT2) from the bcbio final
 output directory into the bcbioRNASeq object, so we can visually inspect
