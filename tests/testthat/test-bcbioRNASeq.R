@@ -61,7 +61,7 @@ test_that("Import salmon counts (default)", {
     )
 })
 
-test_that("Fast mode", {
+test_that("Fast mode in R", {
     object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
     expect_s4_class(object, "bcbioRNASeq")
     expect_true(validObject(object))
@@ -73,6 +73,11 @@ test_that("Fast mode", {
             "tpm"
         )
     )
+})
+
+test_that("bcbio fastrnaseq pipeline", {
+    uploadDir <- file.path("cache", "fastrnaseq")
+    object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
 })
 
 test_that("countsFromAbundance", {

@@ -81,7 +81,7 @@ Internal count transformations are rescaled automatically, if defined. DESeq2
 transformations will only be updated when \code{recalculate = TRUE}.
 }
 \note{
-Updated 2019-08-20.
+Updated 2020-01-20.
 }
 \examples{
 data(bcb)

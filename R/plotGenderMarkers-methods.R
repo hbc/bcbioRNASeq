@@ -18,7 +18,7 @@ NULL
 
 #' @rdname plotGenderMarkers
 #' @name plotGenderMarkers
-#' @importFrom bioverbs plotGenderMarkers
+#' @importFrom acidgenerics plotGenderMarkers
 #' @importMethodsFrom acidplots plotGenderMarkers
 #' @usage plotGenderMarkers(object, ...)
 #' @export

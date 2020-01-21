@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Methods for coercing an object to a class — coerce • bcbioRNASeq</title>
+<title>Methods for coercing an object to a class — as.DESeqDataSet • bcbioRNASeq</title>
 
 
 <!-- jquery -->
@@ -37,7 +37,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Methods for coercing an object to a class — coerce" />
+<meta property="og:title" content="Methods for coercing an object to a class — as.DESeqDataSet" />
 <meta property="og:description" content="Force an object to belong to a class." />
 <meta name="twitter:card" content="summary" />
 
@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.29</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.30</span>
       </span>
     </div>
 
@@ -114,7 +114,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Methods for coercing an object to a class</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/coerce-methods.R'><code>R/coerce-methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/coerce-methods.R'><code>R/coerce-methods.R</code></a></small>
     <div class="hidden name"><code>coerce.Rd</code></div>
     </div>
 
@@ -122,11 +122,45 @@
     <p>Force an object to belong to a class.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>as.DESeqDataSet</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
+<span class='fu'>as.DESeqTransform</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
+<span class='fu'>as.DGEList</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>as.DESeqDataSet</span>(<span class='no'>x</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>as.DESeqTransform</span>(<span class='no'>x</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>as.DGEList</span>(<span class='no'>x</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
+    </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
+Perform command quietly, suppressing messages.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Modified object, of desired coercion type.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Updated 2019-08-07.</p>
+    <p>Updated 2020-01-20.</p>
     <h2 class="hasAnchor" id="bcbiornaseq-to-deseqdataset"><a class="anchor" href="#bcbiornaseq-to-deseqdataset"></a>bcbioRNASeq to DESeqDataSet</h2>
 
     
@@ -161,14 +195,19 @@ isn't scaled during tximport call (see <code>countsFromAbundance</code> in
 
     
 
-<ol>
+
+<p>When <code>countsFromAbundance = "lengthScaledTPM"</code> (default):</p><ol>
+<li><p>Call <code><a href='https://rdrr.io/pkg/edgeR/man/DGEList.html'>edgeR::DGEList()</a></code>.</p></li>
+</ol>
+
+<p>When <code>countsFromAbundance = "no"</code>:</p><ol>
+<li><p>Call <code><a href='https://rdrr.io/pkg/edgeR/man/DGEList.html'>edgeR::DGEList()</a></code>.</p></li>
 <li><p>Obtain per-observation scaling factors for length, adjusted to avoid
 changing the magnitude of the counts.</p></li>
 <li><p>Computing effective library sizes from scaled counts, to account for
 composition biases between samples.</p></li>
 <li><p>Combine effective library sizes with the length factors, and calculate
 offsets for a log-link GLM.</p></li>
-<li><p>Call <code><a href='https://rdrr.io/pkg/edgeR/man/DGEList.html'>edgeR::DGEList()</a></code></p></li>
 <li><p>Apply offset matrix using <code><a href='https://rdrr.io/pkg/edgeR/man/scaleOffset.html'>edgeR::scaleOffset()</a></code>.</p></li>
 </ol>
 
@@ -186,7 +225,8 @@ offsets for a log-link GLM.</p></li>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
 
 <span class='co'>## bcbioRNASeq to DESeqDataSet ====</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)</div><div class='output co'>#&gt; <span class='message'>Generating DESeqDataSet with DESeq2 1.26.0.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Vector-class.html'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Vector-class.html'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
 #&gt; [5] "geneID"         "geneIDVersion"  "geneName"       "seqCoordSystem"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
 #&gt; attr(,"package")
 #&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
@@ -233,6 +273,8 @@ offsets for a log-link GLM.</p></li>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#note">Note</a></li>
       <li><a href="#bcbiornaseq-to-deseqdataset">bcbioRNASeq to DESeqDataSet</a></li>
       <li><a href="#bcbiornaseq-to-deseqtransform">bcbioRNASeq to DESeqTransform</a></li>

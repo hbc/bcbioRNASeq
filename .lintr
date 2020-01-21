@@ -3,7 +3,7 @@ linters: with_defaults(
     assignment_linter,
     closed_curly_linter,
     commas_linter,
-    cyclocomp_linter(50),
+    cyclocomp_linter = NULL,
     extraction_operator_linter,
     function_left_parentheses_linter,
     implicit_integer_linter,

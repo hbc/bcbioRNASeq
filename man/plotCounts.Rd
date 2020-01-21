@@ -17,13 +17,9 @@ plotCounts(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{genes}{\code{character} or \code{missing}.
-Gene identifiers. The function will automatically match identifiers
-corresponding to the rownames of the object, or gene symbols defined in
-\code{rowData(object)[["geneName"]]}. This is handled internally by
-\code{\link[basejump:matchGenesToRownames]{matchGenesToRownames()}}. Currently a
-maximum of 20 genes is supported. If missing, the object should contain a
-subset of rows corresponding to the desired genes.}
+\item{genes}{\code{character} or \code{missing}. Gene identifiers. The function will
+automatically match identifiers corresponding to the rownames of the
+object, or gene symbols defined in the object.}
 
 \item{normalized}{\code{character(1)} or \code{logical(1)}.
 Normalization method to apply:

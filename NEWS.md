@@ -1,3 +1,24 @@
+## bcbioRNASeq 0.3.30 (2020-01-20)
+
+### Major changes
+
+- Improved internal handling of `bcbioRNASeq` to `DGEList` coercion, for handoff
+  to edgeR and limma-voom. Now the code handles `countsFromAbundance` settings
+  more intelligently and informs the user whether downstream edgeR and/or
+  limma-voom handoff is appropriate.
+- Now exporting `as.DESeqDataSet`, `as.DESeqTransform`, and `as.DGEList` S4
+  generic methods, which support arguments. Note that quick coercion using
+  only `as` (see `coerce` documentation from Bioconductor) does not support
+  arguments.
+
+### Minor changes
+
+- Fixed support for bcbio fastrnaseq pipeline. Thanks to @kokyriakidis for
+  pointing this out. Added code coverage support for an example run produced
+  via this pipeline.
+- Updated basejump dependencies, namely renaming bioverbs to acidgenerics.
+- Now using cli package for improved messages.
+
 ## bcbioRNASeq 0.3.29 (2019-10-30)
 
 ### Minor changes

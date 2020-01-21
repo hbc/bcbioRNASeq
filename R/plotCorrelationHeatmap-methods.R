@@ -19,7 +19,7 @@ NULL
 
 #' @rdname plotCorrelationHeatmap
 #' @name plotCorrelationHeatmap
-#' @importFrom bioverbs plotCorrelationHeatmap
+#' @importFrom acidgenerics plotCorrelationHeatmap
 #' @export
 NULL
 

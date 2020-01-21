@@ -1,6 +1,6 @@
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
-#' @inherit bioverbs::plotPCACovariates
+#' @inherit acidgenerics::plotPCACovariates
 #' @note Requires the DEGreport package to be installed.
 #' @note Updated 2019-10-30.
 #'
@@ -27,7 +27,7 @@ NULL
 
 #' @rdname plotPCACovariates
 #' @name plotPCACovariates
-#' @importFrom bioverbs plotPCACovariates
+#' @importFrom acidgenerics plotPCACovariates
 #' @usage plotPCACovariates(object, ...)
 #' @export
 NULL

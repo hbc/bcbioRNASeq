@@ -72,7 +72,7 @@ genes, and overall gene experssion for the X and Y chromosomes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.29</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.30</span>
       </span>
     </div>
 
@@ -211,7 +211,7 @@ Passes <code>...</code> to <code>SummarizedExperiment</code> method.</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>bcb</span>)[<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>2L</span>)] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ENSMUSG00000086503"</span>, <span class='st'>"ENSMUSG00000069045"</span>)
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>Using tpm counts.</span></div><div class='output co'>#&gt; <span class='message'>Some genes failed to map: ENSMUSG00000056673, ENSMUSG00000068457.</span></div><div class='output co'>#&gt; <span class='message'>Applying 'log2(x + 1L)' transformation.</span></div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #000000;background-color: #BBBBBB;'>`tpm`</span><span> counts.</span></div><div class='output co'>#&gt; <span class='message'>Some genes failed to map: ENSMUSG00000056673, ENSMUSG00000068457.</span></div><div class='output co'>#&gt; <span class='message'>→ Applying </span><span style='color: #000000;background-color: #BBBBBB;'>`log2(x + 1L)()`</span><span> transformation.</span></div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

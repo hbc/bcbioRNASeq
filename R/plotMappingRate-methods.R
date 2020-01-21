@@ -1,6 +1,6 @@
 #' @name plotMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit bioverbs::plotMappingRate
+#' @inherit acidgenerics::plotMappingRate
 #' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname plotMappingRate
 #' @name plotMappingRate
-#' @importFrom bioverbs plotMappingRate
+#' @importFrom acidgenerics plotMappingRate
 #' @usage plotMappingRate(object, ...)
 #' @export
 NULL

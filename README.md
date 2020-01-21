@@ -104,8 +104,7 @@ The samples in the [bcbio][] run must map to the `description` column. The value
 
 ## Differential expression
 
-We've designed bcbioRNASeq to easily hand off to [DESeq2][] or [edgeR][] for
-differential expression analysis.
+We've designed bcbioRNASeq to easily hand off to [DESeq2][], [edgeR][], or [limma-voom][] for differential expression analysis.
 
 DESeq2: Coerce `bcbioRNASeq` to `DESeqDataSet`.
 
@@ -113,7 +112,7 @@ DESeq2: Coerce `bcbioRNASeq` to `DESeqDataSet`.
 dds <- as(object, "DESeqDataSet")
 ```
 
-edgeR: Coerce `bcbioRNASeq` to `DGEList`.
+edgeR or limma-voom: Coerce `bcbioRNASeq` to `DGEList`.
 
 ```r
 dge <- as(object, "DGEList")
@@ -147,6 +146,7 @@ The papers and software cited in our workflows are available as a [shared librar
 [deseq2]: http://bioconductor.org/packages/DESeq2/
 [docker]: https://www.docker.com/
 [edger]: http://bioconductor.org/packages/edgeR/
+[limma-voom]: https://bioconductor.org/packages/limma/
 [paperpile]: https://paperpile.com/
 [r markdown]: http://rmarkdown.rstudio.com/
 [r]: https://www.r-project.org/

@@ -1,6 +1,6 @@
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit bioverbs::plotTotalReads
+#' @inherit acidgenerics::plotTotalReads
 #' @note Updated 2019-09-16.
 #'
 #' @inheritParams acidroxygen::params
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname plotTotalReads
 #' @name plotTotalReads
-#' @importFrom bioverbs plotTotalReads
+#' @importFrom acidgenerics plotTotalReads
 #' @usage plotTotalReads(object, ...)
 #' @export
 NULL
