@@ -13,6 +13,9 @@
 
 ### Minor changes
 
+- Fixed support for bcbio fastrnaseq pipeline. Thanks to @kokyriakidis for
+  pointing this out. Added code coverage support for an example run produced
+  via this pipeline.
 - Updated basejump dependencies, namely renaming bioverbs to acidgenerics.
 - Now using cli package for improved messages.
 
