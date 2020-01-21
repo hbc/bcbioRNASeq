@@ -305,7 +305,7 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(log)),
         error = function(e) {
-            cli_alert_warning("'bcbio-nextgen.log' file is empty.")
+            cli_alert_warning("{.file bcbio-nextgen.log} file is empty.")
         }
     )
     fastPipeline <- .isFastPipeline(log)
@@ -317,7 +317,9 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(commandsLog)),
         error = function(e) {
-            cli_alert_warning("'bcbio-nextgen-commands.log' file is empty.")
+            cli_alert_warning(
+                "{.file bcbio-nextgen-commands.log} file is empty."
+            )
         }
     )
 
