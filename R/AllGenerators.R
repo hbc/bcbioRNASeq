@@ -282,9 +282,11 @@ bcbioRNASeq <- function(
         choices = eval(formals(tximport)[["countsFromAbundance"]])
     )
 
-    cli_h1("Importing bcbio-nextgen RNA-seq run")
+    cli_h1("bcbioRNASeq")
+    cli_text("Importing bcbio-nextgen RNA-seq run")
 
     ## Run info ----------------------------------------------------------------
+    cli_h2("Run info")
     uploadDir <- realpath(uploadDir)
     cli_dl(c(uploadDir = uploadDir))
     projectDir <- projectDir(uploadDir)
@@ -322,13 +324,8 @@ bcbioRNASeq <- function(
             )
         }
     )
-
-    ## Sequencing lanes --------------------------------------------------------
     lanes <- detectLanes(sampleDirs)
-    assert(
-        isInt(lanes) ||
-        identical(lanes, integer())
-    )
+    assert(isInt(lanes) || identical(lanes, integer()))
 
     ## Column data (samples) ---------------------------------------------------
     cli_h2("Sample metadata")
@@ -377,6 +374,7 @@ bcbioRNASeq <- function(
     )
     if (length(samples) < length(sampleDirs)) {
         sampleDirs <- sampleDirs[samples]
+        ## FIXME Rethink this approach.
         cli_alert(sprintf(
             fmt = "Loading a subset of samples: {.var %s}.",
             toString(basename(sampleDirs), width = 100L)
@@ -512,6 +510,7 @@ bcbioRNASeq <- function(
     }
 
     ## Metadata ----------------------------------------------------------------
+    cli_h2("Metadata")
     ## Interesting groups.
     interestingGroups <- camelCase(interestingGroups)
     assert(isSubset(interestingGroups, colnames(colData)))
