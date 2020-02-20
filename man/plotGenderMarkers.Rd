@@ -72,15 +72,6 @@ genes, and overall gene experssion for the X and Y chromosomes.
 \note{
 Updated 2019-09-16.
 }
-\section{Functions}{
-
-\itemize{
-\item \code{plotGenderMarkers,SingleCellExperiment-method}: Applies \code{\link[=pseudobulk]{pseudobulk()}} calculation to average
-gene expression at sample level prior to plotting.\cr
-Passes \code{...} to \code{SummarizedExperiment} method.
-}
-}
-
 \examples{
 data(bcb)
 rownames(bcb)[seq_len(2L)] <- c("ENSMUSG00000086503", "ENSMUSG00000069045")
