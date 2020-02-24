@@ -1,3 +1,11 @@
+## bcbioRNASeq 0.3.32 (2020-02-24)
+
+### Minor changes
+
+- `bcbioRNASeq`: Removed now defunct `spikeNames` argument. Refer to
+  `makeSummarizedExperiment` documentation and release notes in basejump
+  package for details.
+
 ## bcbioRNASeq 0.3.31 (2020-02-19)
 
 ### Minor changes

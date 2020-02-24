@@ -133,7 +133,7 @@ Alternatively, transcript-level annotations can also be obtained automatically u
 
 When working with a dataset generated against a poorly-annotated or non-standard genome, we provide a fallback method for loading gene annotations from a [general feature format (GFF)][GFF] file with the `gffFile` argument. If possible, we recommend providing a general transfer format (GTF) file, which is identical to GFF version 2. GFFv3 is more complicated and non-standard, but Ensembl GFFv3 files are also supported.
 
-If your dataset contains transgenes (e.g. EGFP, TDTOMATO) or spike-ins (e.g. ERCCs), these features can be defined with the `transgeneNames` and `spikeNames` arguments, which will automatically populate the `rowRanges` slot with placeholder metadata.
+If your dataset contains transgenes (e.g. EGFP, TDTOMATO), these features can be defined with the `transgeneNames` argument, which will automatically populate the `rowRanges` slot with placeholder metadata.
 
 We recommend loading up data per genome in its own `bcbioRNASeq` object when possible, so that rich metadata can be imported easily. In the edge case where you need to look at multiple genomes simultaneously, set `organism = NULL`, and bcbioRNASeq will skip the gene annotation acquisition step.
 
