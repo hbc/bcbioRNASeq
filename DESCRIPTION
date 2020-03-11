@@ -109,7 +109,7 @@ Imports:
     DESeq2 (>= 1.26),
     S4Vectors (>= 0.24),
     acidgenerics (>= 0.3.4),
-    acidplots (>= 0.2.23),
+    acidplots (>= 0.2.24),
     bcbioBase (>= 0.6.12),
     cli (>= 2.0),
     cowplot (>= 1.0),
