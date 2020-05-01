@@ -14,11 +14,9 @@ test_that("Verbose mode", {
     expect_is(x[["interestingGroups"]], "factor")
     ## Otherwise it should be identical to `colData`.
     x[["interestingGroups"]] <- NULL
-    ## This check fails due to "DFrame"/"DataFrame" class mismatch on
-    ## Bioconductor 3.10, unless we coerce to DataFrame here.
     expect_identical(
-        object = as(x, "DataFrame"),
-        expected = colData(object)
+        object = as.data.frame(x),
+        expected = as.data.frame(colData(object))
     )
 })
 
