@@ -16,7 +16,6 @@ bcbioRNASeq(
   ensemblRelease = NULL,
   gffFile = NULL,
   transgeneNames = NULL,
-  spikeNames = NULL,
   countsFromAbundance = "lengthScaledTPM",
   interestingGroups = "sampleName",
   fast = FALSE,
@@ -78,9 +77,6 @@ Generally, we recommend using GTF (GFFv2) instead of GFFv3.}
 
 \item{transgeneNames}{\code{character}.
 Vector indicating which assay rows denote transgenes (e.g. EGFP, TDTOMATO).}
-
-\item{spikeNames}{\code{character}.
-Vector indicating which assay rows denote spike-in sequences (e.g. ERCCs).}
 
 \item{countsFromAbundance}{\code{character(1)}.
 Whether to generate estimated counts using abundance estimates

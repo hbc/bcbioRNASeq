@@ -79,6 +79,10 @@ setValidity(
         if (packageVersion("S4Vectors") >= "0.23") {
             df <- c("DFrame", df)
         }
+        ## Relaxed validity checks against `dataVersions`, `programsVersions`
+        ## in v0.3.31, since this was reported to cause errors in upgrade from
+        ## v0.2.9, which is still used by bcbio-nextgen conda recipe.
+        ## See issue: https://github.com/hbc/bcbioRNASeq/issues/146
         ok <- validateClasses(
             object = metadata,
             expected = list(
@@ -87,7 +91,7 @@ setValidity(
                 bcbioLog = "character",
                 call = "call",
                 caller = "character",
-                dataVersions = df,
+                ## > dataVersions = df,
                 date = "Date",
                 ensemblRelease = "integer",
                 genomeBuild = "character",
@@ -96,7 +100,7 @@ setValidity(
                 lanes = "integer",
                 level = "character",
                 organism = "character",
-                programVersions = df,
+                ## > programVersions = df,
                 projectDir = "character",
                 runDate = "Date",
                 sampleDirs = "character",

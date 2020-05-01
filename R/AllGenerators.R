@@ -202,7 +202,6 @@ bcbioRNASeq <- function(
     ensemblRelease = NULL,
     gffFile = NULL,
     transgeneNames = NULL,
-    spikeNames = NULL,
     countsFromAbundance = "lengthScaledTPM",
     interestingGroups = "sampleName",
     fast = FALSE,
@@ -254,7 +253,6 @@ bcbioRNASeq <- function(
         isString(genomeBuild, nullOK = TRUE),
         isInt(ensemblRelease, nullOK = TRUE),
         isAny(transgeneNames, classes = c("character", "NULL")),
-        isAny(spikeNames, classes = c("character", "NULL")),
         isString(gffFile, nullOK = TRUE),
         isCharacter(interestingGroups),
         isFlag(fast)
@@ -560,8 +558,7 @@ bcbioRNASeq <- function(
         rowRanges = rowRanges,
         colData = colData,
         metadata = metadata,
-        transgeneNames = transgeneNames,
-        spikeNames = spikeNames
+        transgeneNames = transgeneNames
     )
     bcb <- new(Class = "bcbioRNASeq", rse)
 
