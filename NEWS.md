@@ -1,3 +1,10 @@
+## bcbioRNASeq 0.3.33 (2020-05-03)
+
+### Minor changes
+
+- `bcbioRNASeq` generator now has improved message support for selected samples.
+  Internally, this is managed by the cli package.
+
 ## bcbioRNASeq 0.3.32 (2020-02-24)
 
 ### Minor changes

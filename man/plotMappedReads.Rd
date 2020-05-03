@@ -14,8 +14,8 @@ plotMappedReads(object, ...)
   perMillion = TRUE,
   fill = getOption(x = "acid.fill.discrete", default =
     acidplots::scale_fill_synesthesia_d()),
-  labels = list(title = "Mapped reads", subtitle = NULL, sampleAxis = NULL, metricAxis =
-    "reads"),
+  labels = list(title = "Mapped reads", subtitle = NULL, sampleAxis = NULL, metricAxis
+    = "reads"),
   flip = getOption(x = "acid.flip", default = TRUE)
 )
 }

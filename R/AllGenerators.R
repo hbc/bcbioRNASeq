@@ -372,11 +372,8 @@ bcbioRNASeq <- function(
     )
     if (length(samples) < length(sampleDirs)) {
         sampleDirs <- sampleDirs[samples]
-        ## FIXME Rethink this approach.
-        cli_alert(sprintf(
-            fmt = "Loading a subset of samples: {.var %s}.",
-            toString(basename(sampleDirs), width = 100L)
-        ))
+        cli_text("Loading a subset of samples:")
+        cli_ul(basename(sampleDirs))
         allSamples <- FALSE
     } else {
         allSamples <- TRUE
