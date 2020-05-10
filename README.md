@@ -60,7 +60,7 @@ R
 
 ```sh
 image="acidgenomics/r-bcbiornaseq"
-workdir="/work"
+workdir="/mnt/work"
 docker pull "$image"
 docker run -it \
     --volume="${PWD}:${workdir}" \
