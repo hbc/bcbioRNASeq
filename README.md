@@ -59,7 +59,7 @@ R
 ### [Docker][] method
 
 ```sh
-image="acidgenomics/bcbiornaseq"
+image="acidgenomics/r-bcbiornaseq"
 workdir="/work"
 docker pull "$image"
 docker run -it \
