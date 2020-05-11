@@ -43,15 +43,6 @@ NULL
 ## Row name extraction on invalid objects requires a fix for Bioc 3.10.
 ## https://github.com/Bioconductor/SummarizedExperiment/issues/31
 ##
-## Need to add `...` passthrough to avoid `check = FALSE` error with Bioc 3.11.
-##
-## Backtrace:
-## 1. acidgenerics::`sampleData<-`(...)
-## 2. basejump::`sampleData<-`(...)
-## 3. basejump:::.local(object, ..., value)
-## 5. SummarizedExperiment::`colData<-`(...)
-## 7. bcbioRNASeq::updateObject(x, check = FALSE)
-##
 ## Updated 2020-05-11.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
