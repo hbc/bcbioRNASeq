@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.3.33
-Date: 2020-05-01
+Date: 2020-05-11
 Authors@R: c(
     person(
         given = "Michael",
@@ -103,19 +103,19 @@ LazyData: false
 Depends:
     R (>= 3.6),
     SummarizedExperiment (>= 1.16),
-    basejump (>= 0.12.3)
+    basejump (>= 0.12.6)
 Imports:
     BiocGenerics (>= 0.32),
     DESeq2 (>= 1.26),
     S4Vectors (>= 0.24),
     acidgenerics (>= 0.3.4),
-    acidplots (>= 0.2.24),
-    bcbioBase (>= 0.6.12),
+    acidplots (>= 0.2.26),
+    bcbioBase (>= 0.6.13),
     cli (>= 2.0),
     cowplot (>= 1.0),
     edgeR (>= 3.28),
     ggplot2 (>= 3.3),
-    goalie (>= 0.4.2),
+    goalie (>= 0.4.4),
     rlang (>= 0.4),
     scales (>= 1.1),
     sessioninfo (>= 1.1),
@@ -125,7 +125,7 @@ Imports:
 Suggests:
     BiocStyle (>= 2.14),
     DEGreport (>= 1.22),
-    DESeqAnalysis (>= 0.2.18),
+    DESeqAnalysis (>= 0.2.19),
     DOSE (>= 3.12),
     EnsDb.Hsapiens.v75 (>= 2.99),
     clusterProfiler (>= 3.14),

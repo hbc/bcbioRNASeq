@@ -1,9 +1,10 @@
-## bcbioRNASeq 0.3.33 (2020-05-03)
+## bcbioRNASeq 0.3.33 (2020-05-11)
 
 ### Minor changes
 
 - `bcbioRNASeq` generator now has improved message support for selected samples.
   Internally, this is managed by the cli package.
+- `updateObject`: Now supporting `verbose` argument, which defaults to `FALSE`.
 
 ## bcbioRNASeq 0.3.32 (2020-02-24)
 
