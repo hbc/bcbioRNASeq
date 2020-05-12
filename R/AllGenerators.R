@@ -280,9 +280,11 @@ bcbioRNASeq <- function(
         choices = eval(formals(tximport)[["countsFromAbundance"]])
     )
 
-    cli_h1("Importing bcbio-nextgen RNA-seq run")
+    cli_h1("bcbioRNASeq")
+    cli_text("Importing bcbio-nextgen RNA-seq run")
 
     ## Run info ----------------------------------------------------------------
+    cli_h2("Run info")
     uploadDir <- realpath(uploadDir)
     cli_dl(c(uploadDir = uploadDir))
     projectDir <- projectDir(uploadDir)
@@ -303,7 +305,7 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(log)),
         error = function(e) {
-            cli_alert_warning("'bcbio-nextgen.log' file is empty.")
+            cli_alert_warning("{.file bcbio-nextgen.log} file is empty.")
         }
     )
     fastPipeline <- .isFastPipeline(log)
@@ -315,16 +317,13 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(commandsLog)),
         error = function(e) {
-            cli_alert_warning("'bcbio-nextgen-commands.log' file is empty.")
+            cli_alert_warning(
+                "{.file bcbio-nextgen-commands.log} file is empty."
+            )
         }
     )
-
-    ## Sequencing lanes --------------------------------------------------------
     lanes <- detectLanes(sampleDirs)
-    assert(
-        isInt(lanes) ||
-        identical(lanes, integer())
-    )
+    assert(isInt(lanes) || identical(lanes, integer()))
 
     ## Column data (samples) ---------------------------------------------------
     cli_h2("Sample metadata")
@@ -373,10 +372,8 @@ bcbioRNASeq <- function(
     )
     if (length(samples) < length(sampleDirs)) {
         sampleDirs <- sampleDirs[samples]
-        cli_alert(sprintf(
-            fmt = "Loading a subset of samples: {.var %s}.",
-            toString(basename(sampleDirs), width = 100L)
-        ))
+        cli_text("Loading a subset of samples:")
+        cli_ul(basename(sampleDirs))
         allSamples <- FALSE
     } else {
         allSamples <- TRUE
@@ -508,6 +505,7 @@ bcbioRNASeq <- function(
     }
 
     ## Metadata ----------------------------------------------------------------
+    cli_h2("Metadata")
     ## Interesting groups.
     interestingGroups <- camelCase(interestingGroups)
     assert(isSubset(interestingGroups, colnames(colData)))

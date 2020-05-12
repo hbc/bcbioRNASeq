@@ -13,8 +13,8 @@ plotMappingRate(object, ...)
   limit = 0.7,
   fill = getOption(x = "acid.fill.discrete", default =
     acidplots::scale_fill_synesthesia_d()),
-  labels = list(title = "Mapping rate", subtitle = NULL, sampleAxis = NULL, metricAxis =
-    "mapping rate (\%)"),
+  labels = list(title = "Mapping rate", subtitle = NULL, sampleAxis = NULL, metricAxis
+    = "mapping rate (\%)"),
   flip = getOption(x = "acid.flip", default = TRUE)
 )
 }

@@ -15,10 +15,13 @@ jobs:
   include:
     - stage: test
       name: "bioc-release"
-      script: image="acidgenomics/bcbiornaseq" tag="bioc-release" ./.Rcheck/docker
+      script: image="acidgenomics/r-bcbiornaseq" tag="bioc-release" ./.Rcheck/docker
+    - stage: test
+      name: "bioc-oldrel"
+      script: image="acidgenomics/r-bcbiornaseq" tag="bioc-oldrel" ./.Rcheck/docker
     - stage: test
       name: "bioc-devel"
-      script: image="acidgenomics/bcbiornaseq" tag="bioc-devel" ./.Rcheck/docker
+      script: image="acidgenomics/r-bcbiornaseq" tag="bioc-devel" ./.Rcheck/docker
   allow_failures:
     - name: "bioc-devel"
   fast_finish: true

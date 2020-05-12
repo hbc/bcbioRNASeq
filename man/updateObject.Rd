@@ -5,7 +5,7 @@
 \alias{updateObject,bcbioRNASeq-method}
 \title{Update an object to its current class definition}
 \usage{
-\S4method{updateObject}{bcbioRNASeq}(object, rowRanges = NULL)
+\S4method{updateObject}{bcbioRNASeq}(object, rowRanges = NULL, ..., verbose = FALSE)
 }
 \arguments{
 \item{object}{
@@ -21,6 +21,17 @@ Row annotations. Since we converted to \code{RangedSummarizedExperiment} in
 v0.2.0, this option had to be added to enable updating of newly required
 \code{rowRanges} slot. Objects that are >= v0.2 don't require this argument and
 it can be left \code{NULL}.}
+
+\item{...}{
+    Additional arguments, for use in specific \code{updateObject}
+    methods.
+  }
+
+\item{verbose}{
+    \code{TRUE} or \code{FALSE}, indicating whether information about
+    the update should be reported. Use \code{\link[base]{message}} to
+    report this information.
+  }
 }
 \value{
 \code{bcbioRNASeq}.
@@ -35,7 +46,7 @@ information metadata is preserved from the time when the bcbio data was
 originally loaded into R.
 }
 \note{
-Updated 2020-01-20.
+Updated 2020-05-11.
 }
 \section{Legacy \code{bcbioRNADataSet} class}{
 

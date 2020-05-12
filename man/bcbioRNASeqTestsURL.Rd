@@ -4,7 +4,9 @@
 \name{bcbioRNASeqTestsURL}
 \alias{bcbioRNASeqTestsURL}
 \title{Cache URL}
-\format{An object of class \code{character} of length 1.}
+\format{
+An object of class \code{character} of length 1.
+}
 \usage{
 bcbioRNASeqTestsURL
 }
