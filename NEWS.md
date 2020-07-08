@@ -1,3 +1,11 @@
+## bcbioRNASeq 0.3.34 (2020-07-08)
+
+### Minor changes
+
+- Temporarily disabled `plotPCACovariates`, which causing CI checks to error due
+  to a dplyr bug in DEGreport. Will reenable when this gets fixed and is updated
+  on Bioconductor.
+
 ## bcbioRNASeq 0.3.33 (2020-05-11)
 
 ### Minor changes

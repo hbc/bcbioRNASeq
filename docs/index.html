@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.33</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.34</span>
       </span>
     </div>
 
@@ -109,23 +109,23 @@
 <h3 class="hasAnchor">
 <a href="#conda-method" class="anchor"></a><a href="https://conda.io/">Conda</a> method</h3>
 <p>Configure <a href="https://conda.io/">Conda</a> to use the <a href="https://bioconda.github.io/">Bioconda</a> channels.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Don't install recipe into base environment.</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="va">name=</span><span class="st">"r-bcbiornaseq"</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="ex">conda</span> create --name=<span class="st">"</span><span class="va">$name</span><span class="st">"</span> <span class="st">"</span><span class="va">$name</span><span class="st">"</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="ex">conda</span> activate <span class="st">"</span><span class="va">$name</span><span class="st">"</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="ex">R</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Don't install recipe into base environment.</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="va">name=</span><span class="st">"r-bcbiornaseq"</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="ex">conda</span> create --name=<span class="st">"</span><span class="va">$name</span><span class="st">"</span> <span class="st">"</span><span class="va">$name</span><span class="st">"</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="ex">conda</span> activate <span class="st">"</span><span class="va">$name</span><span class="st">"</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="ex">R</span></span></code></pre></div>
 </div>
 <div id="docker-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#docker-method" class="anchor"></a><a href="https://www.docker.com/">Docker</a> method</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="va">image=</span><span class="st">"acidgenomics/bcbiornaseq"</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="va">workdir=</span><span class="st">"/mnt/work"</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="ex">docker</span> pull <span class="st">"</span><span class="va">$image</span><span class="st">"</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="ex">docker</span> run -it \</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">    --volume=<span class="st">"</span><span class="va">${PWD}</span><span class="st">:</span><span class="va">${workdir}</span><span class="st">"</span> \</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">    --workdir=<span class="st">"</span><span class="va">$workdir</span><span class="st">"</span> \</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="st">"</span><span class="va">$image</span><span class="st">"</span> \</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">    R</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="va">image=</span><span class="st">"acidgenomics/r-bcbiornaseq"</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="va">workdir=</span><span class="st">"/mnt/work"</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="ex">docker</span> pull <span class="st">"</span><span class="va">$image</span><span class="st">"</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="ex">docker</span> run -it \</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    --volume=<span class="st">"</span><span class="va">${PWD}</span><span class="st">:</span><span class="va">${workdir}</span><span class="st">"</span> \</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    --workdir=<span class="st">"</span><span class="va">$workdir</span><span class="st">"</span> \</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="st">"</span><span class="va">$image</span><span class="st">"</span> \</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    R</span></code></pre></div>
 </div>
 </div>
 <div id="load-bcbio-rna-seq-data" class="section level2">
@@ -275,7 +275,7 @@
 <li><a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Repo status: active"></a></li>
 <li><a href="https://travis-ci.org/hbc/bcbioRNASeq"><img src="https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master" alt="Travis CI build status"></a></li>
 <li><a href="https://ci.appveyor.com/project/mjsteinbaugh/bcbiornaseq/branch/master"><img src="https://ci.appveyor.com/api/projects/status/s0rrc28fwr0ua2wr/branch/master?svg=true" alt="AppVeyor CI build status"></a></li>
-<li><a href="https://anaconda.org/bioconda/r-bcbiornaseq"><img src="https://anaconda.org/bioconda/r-bcbiornaseq/badges/version.svg" alt="Anaconda version"><img src="https://anaconda.org/bioconda/r-bcbiornaseq/badges/latest_release_date.svg" alt="Anaconda latest release date"><img src="https://anaconda.org/bioconda/r-bcbiornaseq/badges/downloads.svg" alt="Anaconda downloads"></a></li>
+<li><a href="http://bioconda.github.io/recipes/r-bcbiornaseq/README.html"><img src="https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat" alt="Install with Bioconda"></a></li>
 </ul>
 </div>
 </div>

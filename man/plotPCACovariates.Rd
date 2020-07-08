@@ -43,8 +43,8 @@ See \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}} for details.
 \item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
 fragments.\cr
 Requires \code{fpkm = TRUE} in \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call and gene annotations in
-\code{\link[SummarizedExperiment:rowRanges]{rowRanges()}} with defined
-\code{\link[BiocGenerics:width]{width}}.\cr
+\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{rowRanges()}} with defined
+\code{\link[BiocGenerics:start]{width}}.\cr
 See \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}} for details.
 \item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation (log2).\cr
 Requires \code{vst = TRUE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
