@@ -34,7 +34,7 @@ NULL
 
 
 
-## Updated 2019-08-20.
+## Updated 2020-07-08.
 `plotPCACovariates,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -42,6 +42,7 @@ NULL
         normalized,
         ...
     ) {
+        return(message("Disabled until bug is fixed in DEGreport."))
         validObject(object)
         assert(
             requireNamespace("DEGreport", quietly = TRUE),
