@@ -47,9 +47,9 @@ Updated 2020-01-20.
 \enumerate{
 \item Coerce to \code{RangedSummarizedExperiment}.
 \item Round raw counts to \verb{integer matrix}.
-\item Subset \code{\link[SummarizedExperiment:colData]{colData()}} to include only clean
+\item Subset \code{\link[SummarizedExperiment:SummarizedExperiment-class]{colData()}} to include only clean
 factor columns. See \code{\link[basejump:sampleData]{sampleData()}} for details.
-\item Simplify \code{\link[S4Vectors:metadata]{metadata()}} to include only relevant
+\item Simplify \code{\link[S4Vectors:Annotated-class]{metadata()}} to include only relevant
 information and updates \code{sessionInfo}.
 }
 
@@ -117,7 +117,7 @@ show(x)
 \seealso{
 \itemize{
 \item \code{\link[tximport:tximport]{tximport::tximport()}}.
-\item \code{\link[DESeq2:DESeqDataSetFromTximport]{DESeq2::DESeqDataSetFromTximport()}}.
+\item \code{\link[DESeq2:DESeqDataSet]{DESeq2::DESeqDataSetFromTximport()}}.
 \item \code{\link[edgeR:DGEList]{edgeR::DGEList()}}.
 }
 }

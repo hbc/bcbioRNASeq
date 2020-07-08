@@ -6,13 +6,13 @@
 ## - OrgDb supported organisms
 ##   http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
 ##
-## Updated 2019-09-17.
+## Updated 2020-07-08.
 params:
   title: "Functional analysis with clusterProfiler"
   ## DESeqDataSet object.
-  dds_file: "data/YYYY-MM-DD/dds.rds"
+  dds_file: "rds/YYYY-MM-DD/dds.rds"
   ## DESeqResults object.
-  res_file: "data/YYYY-MM-DD/res.rds"
+  res_file: "rds/YYYY-MM-DD/res.rds"
   organism: "Homo sapiens"
   go_class: "BP"
   data_dir: !r file.path("data", Sys.Date())

@@ -147,7 +147,7 @@ sample4 \tab knockout
 
 R is strict about values that are considered valid for use in
 \code{\link[base:names]{names()}} and \code{\link[base:dimnames]{dimnames()}} (i.e.
-\code{\link[base:rownames]{rownames()}} and \code{\link[base:colnames]{colnames()}}).
+\code{\link[base:colnames]{rownames()}} and \code{\link[base:colnames]{colnames()}}).
 Non-alphanumeric characters, spaces, and \strong{dashes} are not valid. Use either
 underscores or periods in place of dashes when working in R. Also note that
 names should \strong{not begin with a number}, and will be prefixed with an \code{X}
@@ -163,7 +163,7 @@ mismatches.
 
 \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} provides support for automatic import of genome annotations,
 which internally get processed into genomic ranges (\code{GRanges}) and are
-slotted into the \code{\link[SummarizedExperiment:rowRanges]{rowRanges()}} of the
+slotted into the \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{rowRanges()}} of the
 object. Currently, we offer support for (1) \href{https://ensembl.org/}{Ensembl} genome annotations
 from \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub} via \href{https://bioconductor.org/packages/ensembldb/}{ensembldb} (\emph{recommended}); or (2) direct
 import from a GTF/GFF file using \href{https://bioconductor.org/packages/rtracklayer/}{rtracklayer}.
@@ -203,7 +203,7 @@ specifically with either of these functions:
 Ensure that the organism and genome build used with bcio match correctly here
 in the function call. In particular, for the legacy \emph{Homo sapiens}
 GRCh37/hg19 genome build, ensure that \code{genomeBuild = "GRCh37"}. Otherwise,
-the genomic ranges set in \code{\link[SummarizedExperiment:rowRanges]{rowRanges()}}
+the genomic ranges set in \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{rowRanges()}}
 will mismatch. It is recommended for current projects that GRCh38/hg38 is
 used in place of GRCh37/hg19 if possible.
 }
@@ -212,7 +212,7 @@ used in place of GRCh37/hg19 if possible.
 
 
 DESeq2 is run automatically when \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} is called, unless \code{fast = TRUE} is set. Internally, this automatically slots normalized counts into
-\code{\link[SummarizedExperiment:assays]{assays()}}, and generates variance-stabilized
+\code{\link[SummarizedExperiment:SummarizedExperiment-class]{assays()}}, and generates variance-stabilized
 counts.
 }
 

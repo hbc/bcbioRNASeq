@@ -18,7 +18,7 @@ Updated 2020-01-20.
 \section{Automatic metadata}{
 
 
-The \code{\link[S4Vectors:metadata]{metadata()}} slot always contains:
+The \code{\link[S4Vectors:Annotated-class]{metadata()}} slot always contains:
 \itemize{
 \item Object version.
 \item bcbio data provenance information.
