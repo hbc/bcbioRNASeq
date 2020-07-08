@@ -1,10 +1,10 @@
 ---
 ## Alternatively, use the DESeqAnalysis package for complex contrasts.
-## Updated 2019-10-05.
+## Updated 2020-07-08.
 params:
   title: "Differential expression with DESeq2"
   ## bcbioRNASeq object.
-  bcb_file: "data/YYYY-MM-DD/bcb.rds"
+  bcb_file: "rds/YYYY-MM-DD/bcb.rds"
   ## Design formula must contain columns defined in `colData()`.
   design: !r formula("~ group")
   ## Multiple contrasts are supported here.
