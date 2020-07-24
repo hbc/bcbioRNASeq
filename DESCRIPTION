@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.3.34
-Date: 2020-07-08
+Version: 0.3.35
+Date: 2020-07-24
 Authors@R: c(
     person(
         given = "Michael",
@@ -101,47 +101,47 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: false
 Depends:
-    R (>= 3.6),
-    SummarizedExperiment (>= 1.16),
+    R (>= 4.0),
+    SummarizedExperiment (>= 1.18),
     basejump (>= 0.12.8)
 Imports:
-    BiocGenerics (>= 0.32),
-    DESeq2 (>= 1.26),
-    S4Vectors (>= 0.24),
+    BiocGenerics (>= 0.34),
+    DESeq2 (>= 1.28),
+    S4Vectors (>= 0.26),
     acidgenerics (>= 0.3.7),
-    acidplots (>= 0.2.28),
+    acidplots (>= 0.2.30),
     bcbioBase (>= 0.6.13),
     cli (>= 2.0),
     cowplot (>= 1.0),
-    edgeR (>= 3.28),
+    edgeR (>= 3.30),
     ggplot2 (>= 3.3),
     goalie (>= 0.4.5),
+    methods,
     rlang (>= 0.4),
     scales (>= 1.1),
     sessioninfo (>= 1.1),
-    tximport (>= 1.14),
-    methods,
+    tximport (>= 1.16),
     utils
 Suggests:
-    BiocStyle (>= 2.14),
-    DEGreport (>= 1.22),
-    DESeqAnalysis (>= 0.2.19),
-    DOSE (>= 3.12),
+    BiocStyle (>= 2.16),
+    DEGreport (>= 1.24.1),
+    DESeqAnalysis (>= 0.2.20),
+    DOSE (>= 3.14),
     EnsDb.Hsapiens.v75 (>= 2.99),
-    clusterProfiler (>= 3.14),
+    clusterProfiler (>= 3.16),
     hexbin (>= 1.28),
-    knitr (>= 1.26),
-    org.Hs.eg.db (>= 3.10),
-    org.Mm.eg.db (>= 3.10),
-    pathview (>= 1.26),
+    knitr (>= 1.29),
+    org.Hs.eg.db (>= 3.11),
+    org.Mm.eg.db (>= 3.11),
+    pathview (>= 1.28),
     patrick (>= 0.0.1),
-    rhdf5 (>= 2.30),
-    rmarkdown (>= 2.0),
-    roxygen2 (>= 7.0),
+    rhdf5 (>= 2.32),
+    rmarkdown (>= 2.3),
+    roxygen2 (>= 7.1),
     testthat (>= 2.3),
     tidyverse (>= 1.3),
     viridis (>= 0.5),
-    vsn (>= 3.54)
+    vsn (>= 3.56)
 Remotes:
     acidgenomics/DESeqAnalysis,
     acidgenomics/acidgenerics,

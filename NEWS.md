@@ -1,3 +1,9 @@
+## bcbioRNASeq 0.3.35 (2020-07-24)
+
+### Minor changes
+
+- Maintenance release, updating minimum R dependency to 4.0.
+
 ## bcbioRNASeq 0.3.34 (2020-07-08)
 
 ### Minor changes
