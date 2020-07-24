@@ -86,12 +86,12 @@ NULL
                 nonzero = nonzero
             ),
             FUN = function(normalized, log2, object, nonzero) {
-                suppressMessages(
+                suppressMessages({
                     mat <- tryCatch(
                         expr = counts(object, normalized = normalized),
                         error = function(e) NULL
                     )
-                )
+                })
                 if (!is.matrix(mat)) return(NULL)
                 assert(identical(length(nonzero), nrow(mat)))
                 mat <- mat[nonzero, , drop = FALSE]

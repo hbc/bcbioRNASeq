@@ -23,8 +23,6 @@ environment:
   matrix:
     - configuration: release
       R_VERSION: release
-    - configuration: oldrel
-      R_VERSION: oldrel
 
 matrix:
   fast_finish: true

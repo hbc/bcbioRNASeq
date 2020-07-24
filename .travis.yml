@@ -17,9 +17,6 @@ jobs:
       name: "bioc-release"
       script: image="acidgenomics/r-bcbiornaseq" tag="bioc-release" ./.Rcheck/docker
     - stage: test
-      name: "bioc-oldrel"
-      script: image="acidgenomics/r-bcbiornaseq" tag="bioc-oldrel" ./.Rcheck/docker
-    - stage: test
       name: "bioc-devel"
       script: image="acidgenomics/r-bcbiornaseq" tag="bioc-devel" ./.Rcheck/docker
   allow_failures:
