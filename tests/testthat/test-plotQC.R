@@ -5,17 +5,10 @@ test_that("plotQC", {
     expect_s3_class(x, "ggplot")
 })
 
-with_parameters_test_that(
-    "Interesting groups support", {
-        expect_is(fun, "function")
-        x <- fun(object)
-        expect_s3_class(x, "ggplot")
-        x <- fun(object, interestingGroups = "sampleName")
-        expect_s3_class(x, "ggplot")
-    },
-    fun = list(
-        ## plotCountsPerGene,
-        ## plotGenesDetected,
+test_that("Interesting groups support", {
+    for (fun in list(
+        ## plotCountsPerGene
+        ## plotGenesDetected
         plot5Prime3PrimeBias,
         plotCountsPerFeature,
         plotExonicMappingRate,
@@ -27,5 +20,11 @@ with_parameters_test_that(
         plotPCA,
         plotRRNAMappingRate,
         plotTotalReads
-    )
-)
+    )) {
+        expect_is(fun, "function")
+        x <- fun(object)
+        expect_s3_class(x, "ggplot")
+        x <- fun(object, interestingGroups = "sampleName")
+        expect_s3_class(x, "ggplot")
+    }
+})
