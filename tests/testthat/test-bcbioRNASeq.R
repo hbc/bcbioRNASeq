@@ -15,7 +15,6 @@ test_that("Import salmon counts (default)", {
             "vst"
         )
     )
-
     ## Dimensions.
     expect_identical(
         object = dim(object),
@@ -28,7 +27,6 @@ test_that("Import salmon counts (default)", {
             rep(seq_len(3L), times = 2L)
         )
     )
-
     ## Check that the assays contain expected counts.
     expect_identical(
         object = round(colSums(counts(object))),
@@ -43,7 +41,6 @@ test_that("Import salmon counts (default)", {
             ## nolint end
         )
     )
-
     ## Check that empty ranges were stashed.
     expect_identical(
         object = ncol(rowData(object)),
@@ -53,7 +50,6 @@ test_that("Import salmon counts (default)", {
         object = levels(seqnames(object)),
         expected = "unknown"
     )
-
     ## Detecting organism automatically if possible.
     expect_identical(
         object = metadata(object)[["organism"]],
@@ -89,7 +85,6 @@ test_that("countsFromAbundance", {
         fa_day7_rep2 = 26272.19,
         fa_day7_rep3 = 29883.19
     )
-
     x <- bcbioRNASeq(
         uploadDir = uploadDir,
         level = "genes",
@@ -111,7 +106,6 @@ test_that("countsFromAbundance", {
             fa_day7_rep3 = 1089.97
         )
     )
-
     x <- bcbioRNASeq(
         uploadDir = uploadDir,
         level = "genes",
@@ -135,7 +129,6 @@ test_that("countsFromAbundance", {
             ## nolint end
         )
     )
-
     x <- bcbioRNASeq(
         uploadDir = uploadDir,
         level = "transcripts",
@@ -157,7 +150,6 @@ test_that("countsFromAbundance", {
             fa_day7_rep3 = 1093.84
         )
     )
-
     x <- bcbioRNASeq(
         uploadDir = uploadDir,
         level = "transcripts",
@@ -182,8 +174,8 @@ test_that("countsFromAbundance", {
 })
 
 ## Testing both gene and transcript level.
-with_parameters_test_that(
-    "AnnotationHub", {
+test_that("AnnotationHub", {
+    for (level in eval(formals(bcbioRNASeq)[["level"]])) {
         object <- bcbioRNASeq(
             uploadDir = uploadDir,
             level = level,
@@ -192,9 +184,8 @@ with_parameters_test_that(
             ensemblRelease = ensemblRelease
         )
         expect_s4_class(object, "bcbioRNASeq")
-    },
-    level = eval(formals(bcbioRNASeq)[["level"]])
-)
+    }
+})
 
 ## Aligned counts can only be loaded at gene level.
 test_that("STAR aligned counts", {
@@ -255,10 +246,10 @@ test_that("Sample selection", {
 ## Testing both gene and transcript level. GFF3 files are also supported, but
 ## we're only testing GTF here for speed. This functionality is covered in
 ## basejump tests also.
-with_parameters_test_that(
-    "GTF/GFF file", {
-        skip_on_appveyor()
-        skip_on_docker()
+test_that("GTF/GFF file", {
+    skip_on_appveyor()
+    skip_on_docker()
+    for (level in eval(formals(bcbioRNASeq)[["level"]])) {
         gffURL <- paste(
             "ftp://ftp.ensembl.org",
             "pub",
@@ -280,6 +271,5 @@ with_parameters_test_that(
             gffFile = gffFile
         )
         expect_s4_class(object, "bcbioRNASeq")
-    },
-    level = eval(formals(bcbioRNASeq)[["level"]])
-)
+    }
+})

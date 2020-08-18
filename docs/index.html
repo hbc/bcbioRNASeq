@@ -91,48 +91,44 @@
 <div id="r-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#r-method" class="anchor"></a><a href="https://www.r-project.org/">R</a> method</h3>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"remotes"</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) {
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
-}
-<span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="kw">R_REMOTES_UPGRADE</span> <span class="kw">=</span> <span class="st">"always"</span>)
-<span class="co"># Set `GITHUB_PAT` in `~/.Renviron` if you get a rate limit error.</span>
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"hbc/bcbioRNASeq"</span>)</pre></div>
-<p>Here’s how to update to the latest version on GitHub:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span>(<span class="kw">R_REMOTES_UPGRADE</span> <span class="kw">=</span> <span class="st">"always"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/update_packages.html">update_packages</a></span>()</pre></div>
-<p>Always check that your Bioconductor installation is valid before proceeding.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) {
+<div class="sourceCode" id="cb2"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) {
     <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)
 }
-<span class="kw pkg">BiocManager</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/valid.html">valid</a></span>()</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(
+    <span class="kw">pkgs</span> <span class="kw">=</span> <span class="st">"bcbioRNASeq"</span>,
+    <span class="kw">repos</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
+        <span class="st">"r.acidgenomics.com"</span>,
+        <span class="kw pkg">BiocManager</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/repositories.html">repositories</a></span>()
+    )
+)</pre></div>
 </div>
 <div id="conda-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conda-method" class="anchor"></a><a href="https://conda.io/">Conda</a> method</h3>
 <p>Configure <a href="https://conda.io/">Conda</a> to use the <a href="https://bioconda.github.io/">Bioconda</a> channels.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Don't install recipe into base environment.</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="va">name=</span><span class="st">"r-bcbiornaseq"</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="ex">conda</span> create --name=<span class="st">"</span><span class="va">$name</span><span class="st">"</span> <span class="st">"</span><span class="va">$name</span><span class="st">"</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="ex">conda</span> activate <span class="st">"</span><span class="va">$name</span><span class="st">"</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="ex">R</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Don't install recipe into base environment.</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="va">name=</span><span class="st">"r-bcbiornaseq"</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="ex">conda</span> create --name=<span class="st">"</span><span class="va">$name</span><span class="st">"</span> <span class="st">"</span><span class="va">$name</span><span class="st">"</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="ex">conda</span> activate <span class="st">"</span><span class="va">$name</span><span class="st">"</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="ex">R</span></span></code></pre></div>
 </div>
 <div id="docker-method" class="section level3">
 <h3 class="hasAnchor">
 <a href="#docker-method" class="anchor"></a><a href="https://www.docker.com/">Docker</a> method</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="va">image=</span><span class="st">"acidgenomics/r-bcbiornaseq"</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="va">workdir=</span><span class="st">"/mnt/work"</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="ex">docker</span> pull <span class="st">"</span><span class="va">$image</span><span class="st">"</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="ex">docker</span> run -it \</span>
-<span id="cb6-5"><a href="#cb6-5"></a>    --volume=<span class="st">"</span><span class="va">${PWD}</span><span class="st">:</span><span class="va">${workdir}</span><span class="st">"</span> \</span>
-<span id="cb6-6"><a href="#cb6-6"></a>    --workdir=<span class="st">"</span><span class="va">$workdir</span><span class="st">"</span> \</span>
-<span id="cb6-7"><a href="#cb6-7"></a>    <span class="st">"</span><span class="va">$image</span><span class="st">"</span> \</span>
-<span id="cb6-8"><a href="#cb6-8"></a>    R</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="va">image=</span><span class="st">"acidgenomics/r-bcbiornaseq"</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="va">workdir=</span><span class="st">"/mnt/work"</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="ex">docker</span> pull <span class="st">"</span><span class="va">$image</span><span class="st">"</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="ex">docker</span> run -it \</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    --volume=<span class="st">"</span><span class="va">${PWD}</span><span class="st">:</span><span class="va">${workdir}</span><span class="st">"</span> \</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    --workdir=<span class="st">"</span><span class="va">$workdir</span><span class="st">"</span> \</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="st">"</span><span class="va">$image</span><span class="st">"</span> \</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    R</span></code></pre></div>
 </div>
 </div>
 <div id="load-bcbio-rna-seq-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-bcbio-rna-seq-data" class="anchor"></a>Load <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> RNA-seq data</h2>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">bcbioRNASeq</span>)
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">bcbioRNASeq</span>)
 <span class="no">object</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/bcbioRNASeq.html">bcbioRNASeq</a></span>(
     <span class="kw">uploadDir</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"bcbio"</span>, <span class="st">"final"</span>),
     <span class="kw">interestingGroups</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"genotype"</span>, <span class="st">"treatment"</span>),
@@ -140,7 +136,7 @@
 )
 <span class="fu">saveData</span>(<span class="no">object</span>, <span class="kw">dir</span> <span class="kw">=</span> <span class="st">"."</span>)</pre></div>
 <p>This will return a <code>bcbioRNASeq</code> object, which is an extension of the <a href="https://bioconductor.org/">Bioconductor</a> <a href="http://bioconductor.org/packages/SummarizedExperiment/">RangedSummarizedExperiment</a> container class. Consult the <code><a href="reference/bcbioRNASeq.html">bcbioRNASeq()</a></code> constructor function documentation for detailed information on the supported parameters:</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="kw">topic</span> <span class="kw">=</span> <span class="st">"bcbioRNASeq"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"bcbioRNASeq"</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="kw">topic</span> <span class="kw">=</span> <span class="st">"bcbioRNASeq"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"bcbioRNASeq"</span>)</pre></div>
 <div id="sample-metadata" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sample-metadata" class="anchor"></a>Sample metadata</h3>
@@ -181,9 +177,9 @@
 <a href="#differential-expression" class="anchor"></a>Differential expression</h2>
 <p>We’ve designed bcbioRNASeq to easily hand off to <a href="http://bioconductor.org/packages/DESeq2/">DESeq2</a>, <a href="http://bioconductor.org/packages/edgeR/">edgeR</a>, or <a href="https://bioconductor.org/packages/limma/">limma-voom</a> for differential expression analysis.</p>
 <p>DESeq2: Coerce <code>bcbioRNASeq</code> to <code>DESeqDataSet</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="no">dds</span> <span class="kw">&lt;-</span> <span class="fu">as</span>(<span class="no">object</span>, <span class="st">"DESeqDataSet"</span>)</pre></div>
+<div class="sourceCode" id="cb7"><pre class="r"><span class="no">dds</span> <span class="kw">&lt;-</span> <span class="fu">as</span>(<span class="no">object</span>, <span class="st">"DESeqDataSet"</span>)</pre></div>
 <p>edgeR or limma-voom: Coerce <code>bcbioRNASeq</code> to <code>DGEList</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="r"><span class="no">dge</span> <span class="kw">&lt;-</span> <span class="fu">as</span>(<span class="no">object</span>, <span class="st">"DGEList"</span>)</pre></div>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="no">dge</span> <span class="kw">&lt;-</span> <span class="fu">as</span>(<span class="no">object</span>, <span class="st">"DGEList"</span>)</pre></div>
 </div>
 <div id="r-markdown-templates" class="section level2">
 <h2 class="hasAnchor">
@@ -197,7 +193,7 @@
 <h3 class="hasAnchor">
 <a href="#invalid-object" class="anchor"></a>Invalid object</h3>
 <p>If you encounter a <code>validObject</code> error when attempting to load a <code>bcbioRNASeq</code> object from a previous analysis, run this step to update the object to the current version of the package:</p>
-<div class="sourceCode" id="cb11"><pre class="r"><span class="no">object</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/updateObject.html">updateObject</a></span>(<span class="no">object</span>)
+<div class="sourceCode" id="cb9"><pre class="r"><span class="no">object</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/updateObject.html">updateObject</a></span>(<span class="no">object</span>)
 <span class="fu">validObject</span>(<span class="no">object</span>)
 <span class="co">## [1] TRUE</span></pre></div>
 </div>

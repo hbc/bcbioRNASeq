@@ -1,6 +1,6 @@
 if (!isTRUE(goalie::hasInternet())) {
     warning("No Internet connection detected.")
-    return()
+    return(invisible())
 }
 dir.create("cache", showWarnings = FALSE)
 files <- "fastrnaseq.tar.gz"

@@ -99,13 +99,13 @@ test_that("Quality control", {
 })
 
 test_that("Differential expression", {
-    x <- capture.output(
+    x <- capture.output({
         alphaSummary(
             object = dds,
             contrast = contrast,
             alpha = c(0.1, 0.05)
         )
-    )
+    })
     expect_identical(
         object = x[[2L]],
         expected = "LFC > 0 (up)    1521  1102"
