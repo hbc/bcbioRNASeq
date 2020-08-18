@@ -51,7 +51,7 @@ NULL
         ## Warn and early return if any samples are duplicated.
         if (!hasUniqueCols(object)) {
             warning("Duplicate samples detected. Skipping plot.")
-            return()
+            return(invisible())
         }
         dds <- as(object, "DESeqDataSet")
         ## Expecting warning about empty design formula.
