@@ -56,7 +56,7 @@ NULL
         ## Warn and early return if rRNA rate was not calculated.
         if (!isSubset(metricCol, colnames(data))) {
             warning("rRNA mapping rate was not calculated. Skipping plot.")
-            return(invisible())
+            return(invisible(NULL))
         }
         p <- ggplot(
             data = data,

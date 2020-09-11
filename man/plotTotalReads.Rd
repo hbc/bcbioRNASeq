@@ -12,8 +12,8 @@ plotTotalReads(object, ...)
   interestingGroups = NULL,
   limit = 20000000L,
   perMillion = TRUE,
-  fill = getOption(x = "acid.fill.discrete", default =
-    acidplots::scale_fill_synesthesia_d()),
+  fill = getOption(x = "acid.fill.discrete", default = getOption(x =
+    "ggplot2.discrete.fill", default = acidplots::scale_fill_synesthesia_d())),
   labels = list(title = "Total reads", subtitle = NULL, sampleAxis = NULL, metricAxis =
     "reads"),
   flip = getOption(x = "acid.flip", default = TRUE)

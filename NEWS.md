@@ -1,3 +1,11 @@
+## bcbioRNASeq 0.3.36 (2020-09-11)
+
+### Minor changes
+
+- Decreased R package dependency versions a bit, so we can update the bioconda
+  recipe successfully. Some Bioconductor packages don't have point release
+  updates on bioconda.
+
 ## bcbioRNASeq 0.3.35 (2020-07-24)
 
 ### Minor changes
