@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.35</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.36</span>
       </span>
     </div>
 
@@ -145,9 +145,9 @@
 <li>Updated Functional Analysis R Markdown template.</li>
 </ul>
 </div>
-<div id="minor-changes-43" class="section level3">
+<div id="minor-changes-44" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-43" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-44" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>
 <code>validObject</code> is now required for all plotting functions. This check is also called in the R Markdown template. Legacy objects can be updated using <code>updateObject</code>.</li>
@@ -209,9 +209,9 @@
 <li>Improved internal code for <code>plotGene</code> and <code>plotGenderMarkers</code>.</li>
 </ul>
 </div>
-<div id="minor-changes-42" class="section level3">
+<div id="minor-changes-43" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-42" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-43" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Improved <a href="https://ci.appveyor.com/">AppVeyor CI</a> support to test against bioc-devel using <a href="https://www.r-project.org/">R</a> 3.5.</li>
 <li>Improved support and unit testing for <code>updateObject</code> method.</li>
@@ -227,9 +227,9 @@
     <div id="bcbiornaseq-022-2018-04-26" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-022-2018-04-26" class="anchor"></a>bcbioRNASeq 0.2.2 (2018-04-26)</h2>
-<div id="minor-changes-41" class="section level3">
+<div id="minor-changes-42" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-41" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-42" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Split out assertive imports so we can pin on <a href="https://bioconda.github.io/">bioconda</a>.</li>
 <li>Improved package documentation.</li>
@@ -251,9 +251,9 @@
 <li>Now recommending variance stabilizing transformation (<code>vst</code>) over <code>rlog</code> counts by default in plots, where applicable.</li>
 </ul>
 </div>
-<div id="minor-changes-40" class="section level3">
+<div id="minor-changes-41" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-40" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-41" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Tweaked Rory’s biotype plots in QC report to match formatting conventions in the package. These plots are now colored.</li>
 <li>Added <code>plotDEGPCA</code> to default differential expression <a href="https://rmarkdown.rstudio.com/">R Markdown</a> template.</li>
@@ -283,9 +283,9 @@
 <li>Made <code>alphaSummary</code> defunct for <code>bcbioRNASeq</code> object, in favor of <code>DESeqDataSet</code> only. This function is only useful when a proper design formula has been defined.</li>
 </ul>
 </div>
-<div id="minor-changes-39" class="section level3">
+<div id="minor-changes-40" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-39" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-40" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>
 <code>metrics</code> now contains an informative error for datasets that were analyzed using the <code>fast-rnaseq</code> <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> pipeline.</li>
@@ -310,9 +310,9 @@
     <div id="bcbiornaseq-025-2018-06-21" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-025-2018-06-21" class="anchor"></a>bcbioRNASeq 0.2.5 (2018-06-21)</h2>
-<div id="minor-changes-38" class="section level3">
+<div id="minor-changes-39" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-38" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-39" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Enable support <a href="https://github.com/chapmanb/bcbio-nextgen/">bcbio</a> integration, by modifying <code>bcbioRNASeq</code> constructor to work with minimal bcbio test data.</li>
 <li>Switched from internal usage of <code>aes_</code> in favor of consistent usage of <code>aes_string</code>. This will make the transition to <a href="https://ggplot2.tidyverse.org/">ggplot2</a> v2.3.0 easier in a future update.</li>
@@ -332,9 +332,9 @@
 <code>plotGeneSaturation</code> now supports <code>label</code> argument, similar to <code>plotPCA</code>.</li>
 </ul>
 </div>
-<div id="minor-changes-37" class="section level3">
+<div id="minor-changes-38" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-37" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-38" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Improved internal handling during <code>tximport</code> call to handle transcript version mismatch with tx2gene data.frame. This can result if the bcbio pipeline is using an old genome build.</li>
 <li>Ensure <code>genomeBuild</code> is detected from <a href="https://bioconductor.org/packages/AnnotationHub/">AnnotationHub</a> <code>rowRangesMetadata</code> if applicable, and not left <code>NULL</code> in the metadata.</li>
@@ -352,9 +352,9 @@
     <div id="bcbiornaseq-027-2018-08-22" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-027-2018-08-22" class="anchor"></a>bcbioRNASeq 0.2.7 (2018-08-22)</h2>
-<div id="minor-changes-36" class="section level3">
+<div id="minor-changes-37" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-36" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-37" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Bug fix for <code>as</code> coercion method support. Need to ensure <code>exportMethods(coerce)</code> is included in <code>NAMESPACE</code> file, otherwise <code>bcbioRNASeq</code> to <code>DESeqDataSet</code> coercion using <code>as(bcb, "DESeqDataSet")</code> won’t work when called from an Rscript without the package library loaded. Thanks <a href='https://github.com/roryk'>@roryk</a> for noticing this.</li>
 <li>Only run rRNA plots if rRNA is detected.</li>
@@ -383,9 +383,9 @@
     <div id="bcbiornaseq-0210-2019-05-29" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bcbiornaseq-0210-2019-05-29" class="anchor"></a>bcbioRNASeq 0.2.10 (2019-05-29)</h2>
-<div id="minor-changes-35" class="section level3">
+<div id="minor-changes-36" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-changes-35" class="anchor"></a>Minor changes</h3>
+<a href="#minor-changes-36" class="anchor"></a>Minor changes</h3>
 <ul>
 <li>Update to support basejump v0.10+ release series.</li>
 </ul>
