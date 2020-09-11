@@ -14,8 +14,8 @@ plotGeneSaturation(object, ...)
   perMillion = TRUE,
   trendline = FALSE,
   label = getOption(x = "acid.label", default = FALSE),
-  color = getOption(x = "acid.color.discrete", default =
-    acidplots::scale_color_synesthesia_d()),
+  color = getOption(x = "acid.color.discrete", default = getOption(x =
+    "ggplot2.discrete.colour", default = acidplots::scale_color_synesthesia_d())),
   labels = list(title = "Gene saturation", subtitle = NULL, x = "mapped reads", y =
     "gene count")
 )
