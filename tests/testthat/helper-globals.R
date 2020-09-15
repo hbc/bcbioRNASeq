@@ -8,7 +8,7 @@ options(
 data(bcb, envir = environment())
 invisible(validObject(bcb))
 
-bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds"))
+bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds"))  # nolint
 invisible(validObject(bcb_fast))
 
 object <- bcb
