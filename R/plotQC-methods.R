@@ -22,22 +22,25 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2020-09-15.
 `plotQC,bcbioRNASeq` <-  # nolint
     function(object) {
         validObject(object)
+        plotlist <- list(
+            totalReads = plotTotalReads(object),
+            mappingRate = plotMappingRate(object),
+            exonicMappingRate = plotExonicMappingRate(object),
+            intronicMappingRate = plotIntronicMappingRate(object),
+            rrnaMappingRate = plotRRNAMappingRate(object),
+            x5Prime3PrimeBias = plot5Prime3PrimeBias(object),
+            featuresDetected = plotFeaturesDetected(object),
+            countsPerFeature = plotCountsPerFeature(object)
+        )
+        if (!.isFastMode(object)) {
+            plotlist[["pca"]] <- plotPCA(object)
+        }
         plot_grid(
-            plotlist = list(
-                plotTotalReads(object),
-                plotMappingRate(object),
-                plotExonicMappingRate(object),
-                plotIntronicMappingRate(object),
-                plotRRNAMappingRate(object),
-                plot5Prime3PrimeBias(object),
-                plotFeaturesDetected(object),
-                plotCountsPerFeature(object),
-                plotPCA(object)
-            ),
+            plotlist = plotlist,
             nrow = 3L,
             ncol = 3L
         )
