@@ -5,6 +5,11 @@ test_that("plotQC", {
     expect_s3_class(x, "ggplot")
 })
 
+test_that("Fast mode", {
+    x <- plotQC(bcb_fast)
+    expect_s3_class(x, "ggplot")
+})
+
 test_that("Interesting groups support", {
     for (fun in list(
         ## plotCountsPerGene
