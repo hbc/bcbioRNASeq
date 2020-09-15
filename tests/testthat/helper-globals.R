@@ -8,6 +8,9 @@ options(
 data(bcb, envir = environment())
 invisible(validObject(bcb))
 
+bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds"))
+invisible(validObject(bcb_fast))
+
 object <- bcb
 g2s <- Gene2Symbol(object)
 geneIDs <- head(g2s[["geneID"]])

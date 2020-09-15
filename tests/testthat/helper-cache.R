@@ -3,7 +3,10 @@ if (!isTRUE(goalie::hasInternet())) {
     return(invisible(NULL))
 }
 dir.create("cache", showWarnings = FALSE)
-files <- "fastrnaseq.tar.gz"
+files <- c(
+    "bcb_fast.rds",
+    "fastrnaseq.tar.gz"
+)
 mapply(
     FUN = function(remoteDir, file, envir) {
         destfile <- file.path("cache", file)
