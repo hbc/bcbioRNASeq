@@ -1,3 +1,12 @@
+## bcbioRNASeq 0.3.37 (2020-09-15)
+
+### Minor changes
+
+- Hardened plotting functions against bcbioRNASeq objects created with
+  `fast = TRUE`.
+- `show`: Added display of `fast: TRUE` when applicable.
+- Documentation updates.
+
 ## bcbioRNASeq 0.3.36 (2020-09-11)
 
 ### Minor changes
