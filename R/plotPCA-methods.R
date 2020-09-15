@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom acidplots plotPCA
 #' @inherit acidplots::plotPCA
-#' @note Updated 2019-09-15.
+#' @note Updated 2020-09-15.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
@@ -26,7 +26,7 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2020-09-15.
 `plotPCA,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {
         do.call(

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot counts per feature — plotCountsPerFeature • bcbioRNASeq</title>
+<title>Plot counts per feature — plotCountsPerGene • bcbioRNASeq</title>
 
 
 <!-- jquery -->
@@ -41,7 +41,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Plot counts per feature — plotCountsPerFeature" />
+<meta property="og:title" content="Plot counts per feature — plotCountsPerGene" />
 <meta property="og:description" content="Generally, we expect similar count spreads for all genes between samples
 unless the library sizes or total RNA expression are different." />
 
@@ -75,7 +75,7 @@ unless the library sizes or total RNA expression are different." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.36</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.37</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@ unless the library sizes or total RNA expression are different." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot counts per feature</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotCountsPerFeature-methods.R'><code>R/plotCountsPerFeature-methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotCountsPerFeature-methods.R'><code>R/plotCountsPerFeature-methods.R</code></a></small>
     <div class="hidden name"><code>plotCountsPerFeature.Rd</code></div>
     </div>
 
@@ -127,7 +127,9 @@ unless the library sizes or total RNA expression are different." />
 unless the library sizes or total RNA expression are different.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotCountsPerFeature</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotCountsPerGene</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='fu'>plotCountsPerFeature</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>plotCountsPerFeature</span>(
@@ -144,6 +146,11 @@ unless the library sizes or total RNA expression are different.</p>
     <tr>
       <th>object</th>
       <td><p>Object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Passthrough to <code>SummarizedExperiment</code> method defined in acidplots.
+See <code><a href='https://rdrr.io/pkg/acidplots/man/plotCountsPerFeature.html'>acidplots::plotCountsPerFeature()</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
@@ -185,11 +192,6 @@ See <code><a href='relativeLogExpression.html'>relativeLogExpression()</a></code
 functions in the package require <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> and use
 <code><a href='https://rdrr.io/r/base/match.arg.html'>match.arg()</a></code> internally.</p></li>
 </ul></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Passthrough to <code>SummarizedExperiment</code> method defined in acidplots.
-See <code><a href='https://rdrr.io/pkg/acidplots/man/plotCountsPerFeature.html'>acidplots::plotCountsPerFeature()</a></code> for details.</p></td>
     </tr>
     </table>
 

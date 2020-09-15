@@ -91,7 +91,12 @@ Groups of interest to use for visualization.
 Corresponds to factors describing the columns of the object.}
 
 \item{fast}{\code{logical(1)}.
-Fast mode. Skip internal DESeq2 transformations.}
+Fast mode.
+Skip internal DESeq2 calculations and transformations.
+Don't enable this setting when using the quality control R Markdown
+template.
+Note that some plotting functions, such as \code{\link[=plotPCA]{plotPCA()}} will not work when
+this mode is enabled.}
 
 \item{...}{Additional arguments.}
 }

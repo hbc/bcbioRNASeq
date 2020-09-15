@@ -1,29 +1,22 @@
-## bcbioRNASeq example object.
-## Updated 2019-09-16.
+## bcbioRNASeq fast mode example object.
+## Updated 2020-09-14.
 
 library(usethis)
 library(pryr)
 
-## Restrict to 2 MB.
+## Restrict to 1 MB.
 ## Use `pryr::object_size()` instead of `utils::object.size()`.
-limit <- structure(2e6, class = "object_size")
+limit <- structure(1e6, class = "object_size")
 
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 
 bcb <- bcbioRNASeq(
     uploadDir = uploadDir,
-    level = "genes",
-    caller = "salmon",
-    interestingGroups = c("treatment", "day"),
-    organism = "Mus musculus",
-    ensemblRelease = 90L
+    fast = TRUE
 )
 
 object_size(bcb)
-## 889 kB
-
-## DESeq2 doesn't like spaces in design formula factors.
-bcb[["treatment"]] <- snake(bcb[["treatment"]])
+## 166 kB
 
 ## Report the size of each slot in bytes.
 lapply(coerceS4ToList(bcb), object_size)
@@ -34,4 +27,4 @@ stopifnot(object_size(bcb) < limit)
 stopifnot(is(bcb, "bcbioRNASeq"))
 validObject(bcb)
 
-usethis::use_data(bcb, overwrite = TRUE, compress = "xz")
+assignAndSaveData(name = "bcb_fast", object = bcb, dir = "~")

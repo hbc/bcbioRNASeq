@@ -25,7 +25,7 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2020-09-15.
 `plotCorrelationHeatmap,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {
         do.call(

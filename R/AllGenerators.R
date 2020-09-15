@@ -154,7 +154,12 @@
 #'   this parameter, but it should only ever be changed when loading some
 #'   datasets at transcript level (e.g. for DTU analsyis).
 #' @param fast `logical(1)`.
-#'   Fast mode. Skip internal DESeq2 transformations.
+#'   Fast mode.
+#'   Skip internal DESeq2 calculations and transformations.
+#'   Don't enable this setting when using the quality control R Markdown
+#'   template.
+#'   Note that some plotting functions, such as [plotPCA()] will not work when
+#'   this mode is enabled.
 #'
 #' @return `bcbioRNASeq`.
 #'

@@ -24,10 +24,11 @@ bcbioRNASeqTestsURL <- paste0(
 
 ## DESeqTransform types.
 .dt <- c("vst", "rlog")
+.deseqAssays <- c("fpkm", .dt)
 
 ## "sf" denotes size-factor adjusted counts. This corresponds to
 ## `normalized = TRUE`, and is recommended by default for plots.
-.normalized <- c("tpm", "sf", "fpkm", .dt, "tmm", "rle")
+.normalized <- c("tpm", "sf", .deseqAssays, "tmm", "rle")
 
 .legacyMetricsCols <- c("name", "x53Bias")
 

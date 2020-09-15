@@ -1,10 +1,13 @@
 #' Coerce to SummarizedExperiment with normalized counts as primary assay
 #'
-#' @note Updated 2020-01-20.
+#' @note Updated 2020-09-15.
 #' @noRd
 .normalizedSE <- function(object, normalized) {
     validObject(object)
     normalized <- match.arg(arg = normalized, choices = .normalized)
+    if (isSubset(normalized, .deseqAssays)) {
+        .assertIsNotFastMode(object)
+    }
     cli_alert_info(sprintf("Using {.var %s} counts.", normalized))
     counts <- counts(object = object, normalized = normalized)
     assays <- SimpleList(counts)

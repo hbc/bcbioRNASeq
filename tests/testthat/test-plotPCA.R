@@ -7,7 +7,9 @@ test_that("label", {
     expect_s3_class(x, "ggplot")
 })
 
-test_that("return", {
-    x <- plotPCA(object, return = "DataFrame")
-    expect_s4_class(x, "DataFrame")
+test_that("Fast mode", {
+    expect_error(
+        object = plotPCA(bcb_fast),
+        expected = "fast mode"
+    )
 })
