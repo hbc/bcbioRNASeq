@@ -2,7 +2,7 @@
 #' @name show
 #' @author Michael Steinbuagh
 #' @inherit methods::show params return title
-#' @note Updated 2019-11-19.
+#' @note Updated 2020-09-15.
 #' @examples
 #' data(bcb)
 #' show(bcb)
@@ -17,7 +17,7 @@ NULL
 
 
 
-## Updated 2019-07-23.
+## Updated 2020-09-15.
 `show,bcbioRNASeq` <-  # nolint
     function(object) {
         validObject(object)
@@ -26,7 +26,7 @@ NULL
         ## Row ranges metadata.
         rrm <- metadata(rowRanges(object))
         .showHeader(object, version = m[["version"]])
-        showSlotInfo(list(
+        list <- list(
             uploadDir = m[["uploadDir"]],
             dates = as.character(c(
                 bcbio = m[["runDate"]],
@@ -41,7 +41,11 @@ NULL
             ensemblRelease = rrm[["release"]],
             genomeBuild = rrm[["build"]],
             interestingGroups = m[["interestingGroups"]]
-        ))
+        )
+        if (.isFastMode(object)) {
+            list[["fast"]] <- TRUE
+        }
+        showSlotInfo(list)
         ## Extend the standard RangedSummarizedExperiment method.
         rse <- as(object, "RangedSummarizedExperiment")
         cat(capture.output(show(rse)), sep = "\n")
