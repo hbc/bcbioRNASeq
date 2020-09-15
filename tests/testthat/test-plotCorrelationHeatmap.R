@@ -19,3 +19,10 @@ test_that("method", {
         regexp = "'arg' should be one of"
     )
 })
+
+test_that("Fast mode", {
+    expect_error(
+        object = plotCorrelationHeatmap(bcb_fast),
+        expected = "fast mode"
+    )
+})
