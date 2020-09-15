@@ -17,7 +17,7 @@
 Show an object
 }
 \note{
-Updated 2019-11-19.
+Updated 2020-09-15.
 }
 \examples{
 data(bcb)

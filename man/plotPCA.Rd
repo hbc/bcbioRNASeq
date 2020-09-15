@@ -65,7 +65,7 @@ See \code{\link[acidplots:plotPCA]{acidplots::plotPCA()}} for details.}
 Principal component analysis plot
 }
 \note{
-Updated 2019-09-15.
+Updated 2020-09-15.
 }
 \section{Principal component analysis}{
 
