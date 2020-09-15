@@ -49,7 +49,7 @@
     assert(is(object, "bcbioRNASeq"))
     areDisjointSets(
         x = assayNames(object),
-        y = c("aligned", "fpkm", "normalized", "vst")
+        y = c("aligned", .deseqAssays)
     )
 }
 
