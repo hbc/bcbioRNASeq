@@ -2,12 +2,9 @@
 % Please edit documentation in R/deprecated.R
 \name{defunct}
 \alias{defunct}
-\alias{loadRNASeq}
 \alias{prepareRNASeqTemplate}
 \title{Defunct functions}
 \usage{
-loadRNASeq(...)
-
 prepareRNASeqTemplate(...)
 }
 \arguments{

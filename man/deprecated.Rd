@@ -2,7 +2,6 @@
 % Please edit documentation in R/deprecated.R
 \name{deprecated}
 \alias{deprecated}
-\alias{plotCountsPerGene}
 \alias{plotGenesDetected}
 \alias{alphaSummary}
 \alias{contrastName}
@@ -15,8 +14,6 @@
 \alias{topTables}
 \title{Deprecated functions}
 \usage{
-plotCountsPerGene(object, ...)
-
 plotGenesDetected(object, ...)
 
 alphaSummary(...)
