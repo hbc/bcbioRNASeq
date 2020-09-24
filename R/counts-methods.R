@@ -7,7 +7,7 @@
 #'
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
-#' @note Updated 2019-09-15.
+#' @note Updated 2020-09-23.
 #'
 #' @inheritParams acidroxygen::params
 #' @param normalized `character(1)` or `logical(1)`.
@@ -92,7 +92,7 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2020-09-23.
 `counts,bcbioRNASeq` <-  # nolint
     function(object, normalized = FALSE) {
         validObject(object)
@@ -108,7 +108,7 @@ NULL
         if (identical(normalized, FALSE)) {
             assayName <- "counts"
         } else if (
-            identical(normalized, TRUE) ||
+            isTRUE(normalized) ||
             ## `sf` is short for library size factor normalized.
             identical(normalized, "sf")
         ) {

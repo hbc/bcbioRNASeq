@@ -2,7 +2,7 @@
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit acidgenerics::plotPCACovariates
 #' @note Requires the DEGreport package to be installed.
-#' @note Updated 2019-10-30.
+#' @note Updated 2020-09-23.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams acidroxygen::params
@@ -34,7 +34,7 @@ NULL
 
 
 
-## Updated 2020-07-08.
+## Updated 2020-09-23.
 `plotPCACovariates,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -67,7 +67,7 @@ NULL
         metadata <- cbind(factors, numerics)
         rownames(metadata) <- data[["sampleID"]]
         ## Select the metrics to use for plot.
-        if (identical(metrics, TRUE)) {
+        if (isTRUE(metrics)) {
             ## Sort columns alphabetically.
             col <- sort(colnames(metadata))
         } else if (identical(metrics, FALSE)) {
