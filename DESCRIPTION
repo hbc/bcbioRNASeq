@@ -141,13 +141,6 @@ Suggests:
     tidyverse,
     viridis,
     vsn
-Remotes:
-    acidgenomics/DESeqAnalysis,
-    acidgenomics/acidgenerics,
-    acidgenomics/acidplots,
-    acidgenomics/basejump,
-    acidgenomics/goalie,
-    hbc/bcbioBase
 biocViews:
     DataImport,
     DataRepresentation,
