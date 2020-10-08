@@ -55,8 +55,8 @@ functions in the package require \code{character(1)} and use
 \code{\link[base:match.arg]{match.arg()}} internally.
 }}
 
-\item{...}{Passthrough to \code{SummarizedExperiment} method defined in acidplots.
-See \code{\link[acidplots:plotPCA]{acidplots::plotPCA()}} for details.}
+\item{...}{Passthrough to \code{SummarizedExperiment} method defined in AcidPlots.
+See \code{\link[AcidPlots:plotPCA]{AcidPlots::plotPCA()}} for details.}
 }
 \value{
 \code{ggplot} or \code{DataFrame}.

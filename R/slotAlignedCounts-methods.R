@@ -7,7 +7,7 @@
 #' @name slotAlignedCounts
 #' @note Updated 2019-08-07.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #'
 #' @return Modified object, with aligned counts defined in `assays`.
 #'

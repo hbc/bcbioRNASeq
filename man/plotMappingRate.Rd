@@ -12,7 +12,7 @@ plotMappingRate(object, ...)
   interestingGroups = NULL,
   limit = 0.7,
   fill = getOption(x = "acid.fill.discrete", default = getOption(x =
-    "ggplot2.discrete.fill", default = acidplots::scale_fill_synesthesia_d())),
+    "ggplot2.discrete.fill", default = AcidPlots::scale_fill_synesthesia_d())),
   labels = list(title = "Mapping rate", subtitle = NULL, sampleAxis = NULL, metricAxis
     = "mapping rate (\%)"),
   flip = getOption(x = "acid.flip", default = TRUE)

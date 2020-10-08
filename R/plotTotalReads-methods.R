@@ -1,9 +1,9 @@
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit acidgenerics::plotTotalReads
+#' @inherit AcidGenerics::plotTotalReads
 #' @note Updated 2019-09-16.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname plotTotalReads
 #' @name plotTotalReads
-#' @importFrom acidgenerics plotTotalReads
+#' @importFrom AcidGenerics plotTotalReads
 #' @usage plotTotalReads(object, ...)
 #' @export
 NULL

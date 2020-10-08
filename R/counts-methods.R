@@ -9,7 +9,7 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @note Updated 2019-09-15.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param normalized `character(1)` or `logical(1)`.
 #'   Normalization method to apply:
 #'

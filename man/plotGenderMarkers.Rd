@@ -59,8 +59,8 @@ functions in the package require \code{character(1)} and use
 \code{\link[base:match.arg]{match.arg()}} internally.
 }}
 
-\item{...}{Passthrough to \code{SummarizedExperiment} method defined in acidplots.
-See \code{\link[acidplots:plotGenderMarkers]{acidplots::plotGenderMarkers()}} for details.}
+\item{...}{Passthrough to \code{SummarizedExperiment} method defined in AcidPlots.
+See \code{\link[AcidPlots:plotGenderMarkers]{AcidPlots::plotGenderMarkers()}} for details.}
 }
 \value{
 \code{ggplot}.

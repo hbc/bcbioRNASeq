@@ -10,7 +10,7 @@
 #' @inherit base::Extract params references
 #' @note Updated 2020-01-20.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param recalculate `logical(1)`.
 #'   Recalculate DESeq2 normalized counts and variance-stabilizing
 #'   transformations defined in `assays`. Recommended by default, but can take a

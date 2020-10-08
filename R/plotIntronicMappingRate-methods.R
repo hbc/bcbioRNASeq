@@ -1,9 +1,9 @@
 #' @name plotIntronicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit acidgenerics::plotIntronicMappingRate
+#' @inherit AcidGenerics::plotIntronicMappingRate
 #' @note Updated 2019-09-16.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname plotIntronicMappingRate
 #' @name plotIntronicMappingRate
-#' @importFrom acidgenerics plotIntronicMappingRate
+#' @importFrom AcidGenerics plotIntronicMappingRate
 #' @usage plotIntronicMappingRate(object, ...)
 #' @export
 NULL

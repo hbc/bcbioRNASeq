@@ -1,9 +1,9 @@
 #' @name plotExonicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit acidgenerics::plotExonicMappingRate
+#' @inherit AcidGenerics::plotExonicMappingRate
 #' @note Updated 2019-09-16.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @description
@@ -18,7 +18,7 @@ NULL
 
 #' @rdname plotExonicMappingRate
 #' @name plotExonicMappingRate
-#' @importFrom acidgenerics plotExonicMappingRate
+#' @importFrom AcidGenerics plotExonicMappingRate
 #' @usage plotExonicMappingRate(object, ...)
 #' @export
 NULL

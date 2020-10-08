@@ -48,7 +48,7 @@
 #'    offsets for a log-link GLM.
 #' 5. Apply offset matrix using [edgeR::scaleOffset()].
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #'
 #' @seealso
 #' - [tximport::tximport()].

@@ -19,7 +19,7 @@
 #' objects from versions <= 0.0.20. We changed the name of the package to
 #' `bcbioRNASeq` starting in v0.0.21.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param rowRanges `GRanges` or `NULL`.
 #'   Row annotations. Since we converted to `RangedSummarizedExperiment` in
 #'   v0.2.0, this option had to be added to enable updating of newly required

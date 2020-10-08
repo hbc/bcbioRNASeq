@@ -1,12 +1,12 @@
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
-#' @inherit acidplots::plotGenderMarkers
+#' @inherit AcidPlots::plotGenderMarkers
 #' @note Updated 2019-09-16.
 #'
 #' @inheritParams plotCounts
-#' @inheritParams acidroxygen::params
-#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
-#'   See [acidplots::plotGenderMarkers()] for details.
+#' @inheritParams AcidRoxygen::params
+#' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
+#'   See [AcidPlots::plotGenderMarkers()] for details.
 #'
 #' @examples
 #' data(bcb)
@@ -18,8 +18,8 @@ NULL
 
 #' @rdname plotGenderMarkers
 #' @name plotGenderMarkers
-#' @importFrom acidgenerics plotGenderMarkers
-#' @importMethodsFrom acidplots plotGenderMarkers
+#' @importFrom AcidGenerics plotGenderMarkers
+#' @importMethodsFrom AcidPlots plotGenderMarkers
 #' @usage plotGenderMarkers(object, ...)
 #' @export
 NULL

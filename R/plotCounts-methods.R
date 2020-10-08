@@ -1,12 +1,12 @@
 #' @name plotCounts
 #' @author Michael Steinbaugh
-#' @inherit acidplots::plotCounts
+#' @inherit AcidPlots::plotCounts
 #' @note Updated 2019-09-18.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @inheritParams counts
-#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
-#'   See [acidplots::plotCounts()] for details.
+#' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
+#'   See [AcidPlots::plotCounts()] for details.
 #'
 #' @examples
 #' data(bcb)
@@ -25,8 +25,8 @@ NULL
 
 #' @rdname plotCounts
 #' @name plotCounts
-#' @importFrom acidgenerics plotCounts
-#' @importMethodsFrom acidplots plotCounts
+#' @importFrom AcidGenerics plotCounts
+#' @importMethodsFrom AcidPlots plotCounts
 #' @usage plotCounts(object, ...)
 #' @export
 NULL

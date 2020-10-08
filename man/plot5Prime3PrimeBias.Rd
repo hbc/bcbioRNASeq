@@ -11,7 +11,7 @@ plot5Prime3PrimeBias(object, ...)
   object,
   interestingGroups = NULL,
   color = getOption(x = "acid.color.discrete", default = getOption(x =
-    "ggplot2.discrete.colour", default = acidplots::scale_color_synesthesia_d())),
+    "ggplot2.discrete.colour", default = AcidPlots::scale_color_synesthesia_d())),
   labels = list(title = "5'->3' bias", subtitle = NULL, sampleAxis = NULL, metricAxis =
     "5'->3' bias"),
   flip = getOption(x = "acid.flip", default = TRUE)
