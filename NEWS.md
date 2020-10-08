@@ -1,3 +1,9 @@
+## bcbioRNASeq 0.3.38 (2020-10-08)
+
+### Minor changes
+
+- Maintenance release, updating minimum dependency package versions.
+
 ## bcbioRNASeq 0.3.37 (2020-09-15)
 
 ### Minor changes
@@ -74,7 +80,7 @@
 - Fixed support for bcbio fastrnaseq pipeline. Thanks to @kokyriakidis for
   pointing this out. Added code coverage support for an example run produced
   via this pipeline.
-- Updated basejump dependencies, namely renaming bioverbs to acidgenerics.
+- Updated basejump dependencies, namely renaming bioverbs to AcidGenerics.
 - Now using cli package for improved messages.
 
 ## bcbioRNASeq 0.3.29 (2019-10-30)

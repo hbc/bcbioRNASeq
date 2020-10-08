@@ -1,9 +1,9 @@
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit acidgenerics::plotRRNAMappingRate
+#' @inherit AcidGenerics::plotRRNAMappingRate
 #' @note Updated 2019-09-16.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname plotRRNAMappingRate
 #' @name plotRRNAMappingRate
-#' @importFrom acidgenerics plotRRNAMappingRate
+#' @importFrom AcidGenerics plotRRNAMappingRate
 #' @usage plotRRNAMappingRate(object, ...)
 #' @export
 NULL

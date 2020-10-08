@@ -1,9 +1,9 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit acidgenerics::plotGeneSaturation
+#' @inherit AcidGenerics::plotGeneSaturation
 #' @note Updated 2019-09-16.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -16,7 +16,7 @@ NULL
 
 #' @rdname plotGeneSaturation
 #' @name plotGeneSaturation
-#' @importFrom acidgenerics plotGeneSaturation
+#' @importFrom AcidGenerics plotGeneSaturation
 #' @usage plotGeneSaturation(object, ...)
 #' @export
 NULL

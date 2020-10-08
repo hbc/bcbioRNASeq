@@ -1,9 +1,9 @@
 #' @name relativeLogExpression
 #' @author Lorena Pantano, Michael Steinbaugh
-#' @inherit acidgenerics::relativeLogExpression
+#' @inherit AcidGenerics::relativeLogExpression
 #' @note Updated 2020-01-20.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname relativeLogExpression
 #' @name relativeLogExpression
-#' @importFrom acidgenerics relativeLogExpression
+#' @importFrom AcidGenerics relativeLogExpression
 #' @usage relativeLogExpression(object, ...)
 #' @export
 NULL

@@ -125,20 +125,20 @@
     <p>Force an object to belong to a class.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as.DESeqDataSet</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>as.DESeqDataSet</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>as.DESeqTransform</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>as.DESeqTransform</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>as.DGEList</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>as.DESeqDataSet</span>(<span class='no'>x</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>as.DGEList</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>as.DESeqTransform</span>(<span class='no'>x</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>as.DESeqDataSet</span><span class='op'>(</span><span class='va'>x</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>as.DGEList</span>(<span class='no'>x</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>as.DESeqTransform</span><span class='op'>(</span><span class='va'>x</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='co'># S4 method for bcbioRNASeq</span>
+<span class='fu'>as.DGEList</span><span class='op'>(</span><span class='va'>x</span>, quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,7 +172,7 @@ Perform command quietly, suppressing messages.</p></td>
 <li><p>Coerce to <code>RangedSummarizedExperiment</code>.</p></li>
 <li><p>Round raw counts to <code>integer matrix</code>.</p></li>
 <li><p>Subset <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html'>colData()</a></code> to include only clean
-factor columns. See <code><a href='https://rdrr.io/pkg/basejump/man/sampleData.html'>sampleData()</a></code> for details.</p></li>
+factor columns. See <code><a href='https://basejump.acidgenomics.com/reference/sampleData.html'>sampleData()</a></code> for details.</p></li>
 <li><p>Simplify <code><a href='https://rdrr.io/pkg/S4Vectors/man/Annotated-class.html'>metadata()</a></code> to include only relevant
 information and updates <code>sessionInfo</code>.</p></li>
 </ol>
@@ -223,16 +223,22 @@ offsets for a log-link GLM.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/edgeR/man/DGEList.html'>edgeR::DGEList()</a></code>.</p></li>
 </ul>
 </div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Steinbaugh</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
 
 <span class='co'>## bcbioRNASeq to DESeqDataSet ====</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"DESeqDataSet"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Vector-class.html'>mcols</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
-#&gt; [5] "geneID"         "geneIDVersion"  "geneName"       "seqCoordSystem"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "DESeqDataSet"
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>as</span><span class='op'>(</span><span class='va'>bcb</span>, <span class='st'>"DESeqDataSet"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'>S4Vectors</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Vector-class.html'>mcols</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "broadClass"     "description"    "entrezID"       "geneBiotype"   
+#&gt; [5] "geneID"         "geneIDVersion"  "geneName"       "seqCoordSystem"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "DESeqDataSet"
 #&gt; attr(,"package")
-#&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: DESeqDataSet 
+#&gt; [1] "DESeq2"</div><div class='input'><span class='fu'><a href='show.html'>show</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; class: DESeqDataSet 
 #&gt; dim: 100 6 
 #&gt; metadata(11): caller countsFromAbundance ... date sessionInfo
 #&gt; assays(1): counts
@@ -243,9 +249,11 @@ offsets for a log-link GLM.</p></li>
 #&gt; colData names(26): averageInsertSize averageReadLength ... treatment
 #&gt;   x5x3Bias</div><div class='input'>
 <span class='co'>## bcbioRNASeq to RangedSummarizedExperiment ====</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
-<span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
-#&gt; [5] "elementMetadata" "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>as</span><span class='op'>(</span><span class='va'>bcb</span>, <span class='st'>"RangedSummarizedExperiment"</span><span class='op'>)</span>
+<span class='fu'>slotNames</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "rowRanges"       "colData"         "assays"          "NAMES"          
+#&gt; [5] "elementMetadata" "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; class: RangedSummarizedExperiment 
 #&gt; dim: 100 6 
 #&gt; metadata(27): allSamples bcbioCommandsLog ... wd yaml
 #&gt; assays(7): counts aligned ... vst fpkm
@@ -257,12 +265,15 @@ offsets for a log-link GLM.</p></li>
 #&gt;   x5x3Bias</div><div class='input'>
 <span class='co'>## bcbioRNASeq to SummarizedExperiment ====</span>
 <span class='co'>## Coerce to RangedSummarizedExperiment first.</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>bcb</span>, <span class='st'>"RangedSummarizedExperiment"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>x</span>, <span class='st'>"SummarizedExperiment"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "SummarizedExperiment"
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>as</span><span class='op'>(</span><span class='va'>bcb</span>, <span class='st'>"RangedSummarizedExperiment"</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>as</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"SummarizedExperiment"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "SummarizedExperiment"
 #&gt; attr(,"package")
-#&gt; [1] "SummarizedExperiment"</div><div class='input'><span class='fu'>slotNames</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "colData"         "assays"          "NAMES"           "elementMetadata"
-#&gt; [5] "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; class: SummarizedExperiment 
+#&gt; [1] "SummarizedExperiment"</div><div class='input'><span class='fu'>slotNames</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "colData"         "assays"          "NAMES"           "elementMetadata"
+#&gt; [5] "metadata"       </div><div class='input'><span class='fu'><a href='show.html'>show</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; class: SummarizedExperiment 
 #&gt; dim: 100 6 
 #&gt; metadata(27): allSamples bcbioCommandsLog ... wd yaml
 #&gt; assays(7): counts aligned ... vst fpkm
@@ -287,7 +298,7 @@ offsets for a log-link GLM.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

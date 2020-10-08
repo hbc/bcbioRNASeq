@@ -1,9 +1,9 @@
 #' @name tmm
 #' @author Michael Steinbaugh
-#' @inherit acidgenerics::tmm
+#' @inherit AcidGenerics::tmm
 #' @note Updated 2020-01-20.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -16,7 +16,7 @@ NULL
 
 #' @rdname tmm
 #' @name tmm
-#' @importFrom acidgenerics tmm
+#' @importFrom AcidGenerics tmm
 #' @usage tmm(object, ...)
 #' @export
 NULL

@@ -127,13 +127,13 @@ of genes are not differentially expressed." />
 of genes are not differentially expressed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tmm</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>tmm</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for matrix</span>
-<span class='fu'>tmm</span>(<span class='no'>object</span>)
+<span class='fu'>tmm</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for SummarizedExperiment</span>
-<span class='fu'>tmm</span>(<span class='no'>object</span>)</pre>
+<span class='fu'>tmm</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,10 +165,15 @@ of genes are not differentially expressed.</p>
 <li><p><code><a href='https://rdrr.io/pkg/edgeR/man/cpm.html'>edgeR::cpm()</a></code>.</p></li>
 </ul>
 </div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Steinbaugh</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>tmm</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>→ Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;   control_rep1     control_rep2       control_rep3       fa_day7_rep1   
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>tmm</span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>→ Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   control_rep1     control_rep2       control_rep3       fa_day7_rep1   
 #&gt;  Min.   :     0   Min.   :     0.0   Min.   :     0.0   Min.   :     0  
 #&gt;  1st Qu.:     0   1st Qu.:     0.0   1st Qu.:     0.0   1st Qu.:     0  
 #&gt;  Median :   704   Median :   288.6   Median :   702.1   Median :  1028  
@@ -197,7 +202,7 @@ of genes are not differentially expressed.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

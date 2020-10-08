@@ -125,25 +125,25 @@
     <p>Deprecated functions</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotGenesDetected</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotGenesDetected</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>alphaSummary</span>(<span class='no'>...</span>)
+<span class='fu'>alphaSummary</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>contrastName</span>(<span class='no'>...</span>)
+<span class='fu'>contrastName</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>plotDEGHeatmap</span>(<span class='no'>...</span>)
+<span class='fu'>plotDEGHeatmap</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>plotDEGPCA</span>(<span class='no'>...</span>)
+<span class='fu'>plotDEGPCA</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>plotMA</span>(<span class='no'>...</span>)
+<span class='fu'>plotMA</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>plotMeanAverage</span>(<span class='no'>...</span>)
+<span class='fu'>plotMeanAverage</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>plotVolcano</span>(<span class='no'>...</span>)
+<span class='fu'>plotVolcano</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>resultsTables</span>(<span class='no'>...</span>)
+<span class='fu'>resultsTables</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>topTables</span>(<span class='no'>...</span>)</pre>
+<span class='fu'>topTables</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,22 +166,23 @@
     <div class='dont-index'><p><a href='https://rdrr.io/r/base/Deprecated.html'>Deprecated</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
-    <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>.Deprecated</a></span>(<span class='st'>"b"</span>)
-    <span class='fu'>b</span>(<span class='no'>...</span>)
-}
+    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>.Deprecated</a></span><span class='op'>(</span><span class='st'>"b"</span><span class='op'>)</span>
+    <span class='fu'>b</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+<span class='op'>}</span>
 
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) {
-    <span class='no'>x</span> + <span class='fl'>1L</span>
-}
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1L</span>
+<span class='op'>}</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/conditions.html'>withCallingHandlers</a></span>(
-    <span class='kw'>expr</span> <span class='kw'>=</span> <span class='fu'>a</span>(<span class='fl'>1L</span>),
-    <span class='kw'>warning</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>w</span>) {
-        <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>w</span>)
-        <span class='fu'><a href='https://rdrr.io/r/base/conditions.html'>invokeRestart</a></span>(<span class='st'>"muffleWarning"</span>)
-    }
-)</div><div class='output co'>#&gt; &lt;deprecatedWarning: 'a' is deprecated.
+<span class='fu'><a href='https://rdrr.io/r/base/conditions.html'>withCallingHandlers</a></span><span class='op'>(</span>
+    expr <span class='op'>=</span> <span class='fu'>a</span><span class='op'>(</span><span class='fl'>1L</span><span class='op'>)</span>,
+    warning <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>w</span><span class='op'>)</span> <span class='op'>{</span>
+        <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>w</span><span class='op'>)</span>
+        <span class='fu'><a href='https://rdrr.io/r/base/conditions.html'>invokeRestart</a></span><span class='op'>(</span><span class='st'>"muffleWarning"</span><span class='op'>)</span>
+    <span class='op'>}</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;deprecatedWarning: 'a' is deprecated.
 #&gt; Use 'b' instead.
 #&gt; See help("Deprecated")&gt;</div><div class='output co'>#&gt; [1] 2</div></pre>
   </div>
@@ -199,7 +200,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

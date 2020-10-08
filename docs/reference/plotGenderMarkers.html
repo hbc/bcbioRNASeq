@@ -127,14 +127,14 @@ genes, and overall gene experssion for the X and Y chromosomes." />
 genes, and overall gene experssion for the X and Y chromosomes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotGenderMarkers</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotGenderMarkers</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGenderMarkers</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>),
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>plotGenderMarkers</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  normalized <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,8 +186,8 @@ functions in the package require <code><a href='https://rdrr.io/r/base/character
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passthrough to <code>SummarizedExperiment</code> method defined in acidplots.
-See <code><a href='https://rdrr.io/pkg/acidplots/man/plotGenderMarkers.html'>acidplots::plotGenderMarkers()</a></code> for details.</p></td>
+      <td><p>Passthrough to <code>SummarizedExperiment</code> method defined in AcidPlots.
+See <code><a href='https://acidplots.acidgenomics.com/reference/plotGenderMarkers.html'>AcidPlots::plotGenderMarkers()</a></code> for details.</p></td>
     </tr>
     </table>
 
@@ -200,11 +200,15 @@ See <code><a href='https://rdrr.io/pkg/acidplots/man/plotGenderMarkers.html'>aci
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='plotCounts.html'>plotCounts()</a></code>.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Steinbaugh</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>bcb</span>)[<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>2L</span>)] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ENSMUSG00000086503"</span>, <span class='st'>"ENSMUSG00000069045"</span>)
-<span class='fu'>plotGenderMarkers</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #000000;background-color: #BBBBBB;'>`tpm`</span><span> counts.</span></div><div class='output co'>#&gt; <span class='message'>Some genes failed to map: ENSMUSG00000056673, ENSMUSG00000068457.</span></div><div class='output co'>#&gt; <span class='message'>→ Applying </span><span style='color: #000000;background-color: #BBBBBB;'>`log2(x + 1L)`</span><span> transformation.</span></div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div></span></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>2L</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ENSMUSG00000086503"</span>, <span class='st'>"ENSMUSG00000069045"</span><span class='op'>)</span>
+<span class='fu'>plotGenderMarkers</span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #000000;background-color: #BBBBBB;'>`tpm`</span><span> counts.</span></div><div class='output co'>#&gt; <span class='message'>Some genes failed to map: ENSMUSG00000056673, ENSMUSG00000068457.</span></div><div class='output co'>#&gt; <span class='message'>→ Applying </span><span style='color: #000000;background-color: #BBBBBB;'>`log2(x + 1L)`</span><span> transformation.</span></div><div class='img'><img src='plotGenderMarkers-1.png' alt='' width='700' height='433' /></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -220,7 +224,7 @@ See <code><a href='https://rdrr.io/pkg/acidplots/man/plotGenderMarkers.html'>aci
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

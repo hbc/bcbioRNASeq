@@ -1,13 +1,13 @@
 #' @name plotCorrelationHeatmap
 #' @author Michael Steinbaugh
-#' @importMethodsFrom acidplots plotCorrelationHeatmap
-#' @inherit acidplots::plotCorrelationHeatmap
+#' @importMethodsFrom AcidPlots plotCorrelationHeatmap
+#' @inherit AcidPlots::plotCorrelationHeatmap
 #' @note Updated 2019-09-15.
 #'
 #' @inheritParams plotCounts
-#' @inheritParams acidroxygen::params
-#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
-#'   See [acidplots::plotCorrelationHeatmap()] for details.
+#' @inheritParams AcidRoxygen::params
+#' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
+#'   See [AcidPlots::plotCorrelationHeatmap()] for details.
 #'
 #' @examples
 #' data(bcb)
@@ -19,7 +19,7 @@ NULL
 
 #' @rdname plotCorrelationHeatmap
 #' @name plotCorrelationHeatmap
-#' @importFrom acidgenerics plotCorrelationHeatmap
+#' @importFrom AcidGenerics plotCorrelationHeatmap
 #' @export
 NULL
 

@@ -125,15 +125,15 @@
     <p>Plot counts</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotCounts</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotCounts</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotCounts</span>(
-  <span class='no'>object</span>,
-  <span class='no'>genes</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>),
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>plotCounts</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>genes</span>,
+  normalized <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,8 +191,8 @@ functions in the package require <code><a href='https://rdrr.io/r/base/character
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passthrough to <code>SummarizedExperiment</code> method defined in acidplots.
-See <code><a href='https://rdrr.io/pkg/acidplots/man/plotCounts.html'>acidplots::plotCounts()</a></code> for details.</p></td>
+      <td><p>Passthrough to <code>SummarizedExperiment</code> method defined in AcidPlots.
+See <code><a href='https://acidplots.acidgenomics.com/reference/plotCounts.html'>AcidPlots::plotCounts()</a></code> for details.</p></td>
     </tr>
     </table>
 
@@ -211,16 +211,23 @@ See <code><a href='https://rdrr.io/pkg/acidplots/man/plotCounts.html'>acidplots:
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/DESeq2/man/plotCounts.html'>DESeq2::plotCounts()</a></code>.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Steinbaugh</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
 
-<span class='no'>g2s</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>basejump</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/basejump/man/Gene2Symbol.html'>Gene2Symbol</a></span>(<span class='no'>bcb</span>)
-<span class='no'>geneIDs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneID"</span>]])
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>geneIDs</span>)</div><div class='output co'>#&gt; [1] "ENSMUSG00000000001" "ENSMUSG00000000003" "ENSMUSG00000000028"
-#&gt; [4] "ENSMUSG00000000049" "ENSMUSG00000000058" "ENSMUSG00000000078"</div><div class='input'><span class='no'>geneNames</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>g2s</span><span class='kw'>[[</span><span class='st'>"geneName"</span>]])
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>geneNames</span>)</div><div class='output co'>#&gt; [1] "Gnai3" "Pbsn"  "Cdc45" "Apoh"  "Cav2"  "Klf6" </div><div class='input'>
-<span class='fu'>plotCounts</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneIDs</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"facet"</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #000000;background-color: #BBBBBB;'>`tpm`</span><span> counts.</span></div><div class='output co'>#&gt; <span class='message'>→ Applying </span><span style='color: #000000;background-color: #BBBBBB;'>`log2(x + 1L)`</span><span> transformation.</span></div><div class='img'><img src='plotCounts-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCounts</span>(<span class='no'>bcb</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='no'>geneNames</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"wide"</span>)</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #000000;background-color: #BBBBBB;'>`tpm`</span><span> counts.</span></div><div class='output co'>#&gt; <span class='message'>→ Applying </span><span style='color: #000000;background-color: #BBBBBB;'>`log2(x + 1L)`</span><span> transformation.</span></div><div class='img'><img src='plotCounts-2.png' alt='' width='700' height='433' /></div></span></pre>
+<span class='va'>g2s</span> <span class='op'>&lt;-</span> <span class='fu'>basejump</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/AcidGenomes/man/Gene2Symbol.html'>Gene2Symbol</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+<span class='va'>geneIDs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>g2s</span><span class='op'>[[</span><span class='st'>"geneID"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>geneIDs</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "ENSMUSG00000000001" "ENSMUSG00000000003" "ENSMUSG00000000028"
+#&gt; [4] "ENSMUSG00000000049" "ENSMUSG00000000058" "ENSMUSG00000000078"</div><div class='input'><span class='va'>geneNames</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>g2s</span><span class='op'>[[</span><span class='st'>"geneName"</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>geneNames</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Gnai3" "Pbsn"  "Cdc45" "Apoh"  "Cav2"  "Klf6" </div><div class='input'>
+<span class='fu'>plotCounts</span><span class='op'>(</span><span class='va'>bcb</span>, genes <span class='op'>=</span> <span class='va'>geneIDs</span>, style <span class='op'>=</span> <span class='st'>"facet"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #000000;background-color: #BBBBBB;'>`tpm`</span><span> counts.</span></div><div class='output co'>#&gt; <span class='message'>→ Applying </span><span style='color: #000000;background-color: #BBBBBB;'>`log2(x + 1L)`</span><span> transformation.</span></div><div class='img'><img src='plotCounts-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotCounts</span><span class='op'>(</span><span class='va'>bcb</span>, genes <span class='op'>=</span> <span class='va'>geneNames</span>, style <span class='op'>=</span> <span class='st'>"wide"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #000000;background-color: #BBBBBB;'>`tpm`</span><span> counts.</span></div><div class='output co'>#&gt; <span class='message'>→ Applying </span><span style='color: #000000;background-color: #BBBBBB;'>`log2(x + 1L)`</span><span> transformation.</span></div><div class='img'><img src='plotCounts-2.png' alt='' width='700' height='433' /></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -236,7 +243,7 @@ See <code><a href='https://rdrr.io/pkg/acidplots/man/plotCounts.html'>acidplots:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

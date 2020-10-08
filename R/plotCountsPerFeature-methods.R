@@ -1,12 +1,12 @@
 #' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit acidplots::plotCountsPerFeature
+#' @inherit AcidPlots::plotCountsPerFeature
 #' @note Updated 2019-09-16.
 #'
 #' @inheritParams plotCounts
-#' @inheritParams acidroxygen::params
-#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
-#'   See [acidplots::plotCountsPerFeature()] for details.
+#' @inheritParams AcidRoxygen::params
+#' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
+#'   See [AcidPlots::plotCountsPerFeature()] for details.
 #'
 #' @examples
 #' data(bcb)
@@ -17,8 +17,8 @@ NULL
 
 #' @rdname plotCountsPerFeature
 #' @name plotCountsPerFeature
-#' @importFrom acidgenerics plotCountsPerFeature
-#' @importMethodsFrom acidplots plotCountsPerFeature
+#' @importFrom AcidGenerics plotCountsPerFeature
+#' @importMethodsFrom AcidPlots plotCountsPerFeature
 #' @usage plotCountsPerFeature(object, ...)
 #' @export
 NULL

@@ -1,9 +1,9 @@
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
-#' @inherit acidgenerics::plot5Prime3PrimeBias
+#' @inherit AcidGenerics::plot5Prime3PrimeBias
 #' @note Updated 2019-09-16.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname plot5Prime3PrimeBias
 #' @name plot5Prime3PrimeBias
-#' @importFrom acidgenerics plot5Prime3PrimeBias
+#' @importFrom AcidGenerics plot5Prime3PrimeBias
 #' @usage plot5Prime3PrimeBias(object, ...)
 #' @export
 NULL

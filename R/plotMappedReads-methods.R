@@ -1,9 +1,9 @@
 #' @name plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit acidgenerics::plotMappedReads
+#' @inherit AcidGenerics::plotMappedReads
 #' @note Updated 2019-09-16.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname plotMappedReads
 #' @name plotMappedReads
-#' @importFrom acidgenerics plotMappedReads
+#' @importFrom AcidGenerics plotMappedReads
 #' @usage plotMappedReads(object, ...)
 #' @export
 NULL

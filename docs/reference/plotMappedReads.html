@@ -125,20 +125,20 @@
     <p>The number of mapped reads should correspond to the number of total reads.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotMappedReads</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotMappedReads</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotMappedReads</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>10000000L</span>,
-  <span class='kw'>perMillion</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.fill.discrete"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span>
-    <span class='st'>"ggplot2.discrete.fill"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/acidplots/man/synesthesia.html'>scale_fill_synesthesia_d</a></span>())),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Mapped reads"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sampleAxis</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>metricAxis</span>
-    <span class='kw'>=</span> <span class='st'>"reads"</span>),
-  <span class='kw'>flip</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.flip"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-)</pre>
+<span class='fu'>plotMappedReads</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  interestingGroups <span class='op'>=</span> <span class='cn'>NULL</span>,
+  limit <span class='op'>=</span> <span class='fl'>10000000L</span>,
+  perMillion <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"acid.fill.discrete"</span>, default <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span>x <span class='op'>=</span>
+    <span class='st'>"ggplot2.discrete.fill"</span>, default <span class='op'>=</span> <span class='fu'>AcidPlots</span><span class='fu'>::</span><span class='fu'><a href='https://acidplots.acidgenomics.com/reference/synesthesia.html'>scale_fill_synesthesia_d</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+  labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Mapped reads"</span>, subtitle <span class='op'>=</span> <span class='cn'>NULL</span>, sampleAxis <span class='op'>=</span> <span class='cn'>NULL</span>, metricAxis
+    <span class='op'>=</span> <span class='st'>"reads"</span><span class='op'>)</span>,
+  flip <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"acid.flip"</span>, default <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,7 +169,8 @@ Display as counts per million.</p></td>
 Desired ggplot2 fill scale. Must supply discrete values. When set to
 <code>NULL</code>, the default ggplot2 color palette will be used. If manual color
 definitions are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_fill_manual()</a></code>.</p>
-<p>To set the discrete fill palette globally, use:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>acid.fill.discrete</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_d</a></span>())</pre></td>
+<p>To set the discrete fill palette globally, use:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>acid.fill.discrete <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_d</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</pre></td>
     </tr>
     <tr>
       <th>labels</th>
@@ -194,10 +195,14 @@ Flip x and y axes. Recommended for plots containing many samples.</p></td>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Updated 2019-09-16.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Steinbaugh, Rory Kirchner, Victor Barrera</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotMappedReads</span>(<span class='no'>bcb</span>)</div><div class='img'><img src='plotMappedReads-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+<span class='fu'>plotMappedReads</span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+</div><div class='img'><img src='plotMappedReads-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -213,7 +218,7 @@ Flip x and y axes. Recommended for plots containing many samples.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

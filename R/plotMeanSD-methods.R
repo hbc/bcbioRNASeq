@@ -1,11 +1,11 @@
 #' @name plotMeanSD
 #' @author Michael Steinbaugh, Lorena Patano
-#' @inherit acidgenerics::plotMeanSD
+#' @inherit AcidGenerics::plotMeanSD
 #' @note Requires the vsn package to be installed.
 #' @note Updated 2019-10-30.
 #'
 #' @inheritParams bcbioRNASeq
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param lineColor `character(1)`.
 #'   Line color.
 #' @param ... Additional arguments.
@@ -36,7 +36,7 @@ NULL
 
 #' @rdname plotMeanSD
 #' @name plotMeanSD
-#' @importFrom acidgenerics plotMeanSD
+#' @importFrom AcidGenerics plotMeanSD
 #' @usage plotMeanSD(object, ...)
 #' @export
 NULL
@@ -48,10 +48,10 @@ NULL
     function(
         object,
         fill = ggplot2::scale_fill_gradient(
-            low = acidplots::lightPalette[["gray"]],
-            high = acidplots::lightPalette[["purple"]]
+            low = AcidPlots::lightPalette[["gray"]],
+            high = AcidPlots::lightPalette[["purple"]]
         ),
-        lineColor = acidplots::lightPalette[["orange"]],
+        lineColor = AcidPlots::lightPalette[["orange"]],
         legend
     ) {
         validObject(object)

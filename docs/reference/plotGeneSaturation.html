@@ -129,21 +129,21 @@ number of mapped reads, which indicates that the sample input was not
 overloaded.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotGeneSaturation</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotGeneSaturation</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotGeneSaturation</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>interestingGroups</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>minCounts</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>perMillion</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>trendline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.label"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"acid.color.discrete"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='kw'>x</span> <span class='kw'>=</span>
-    <span class='st'>"ggplot2.discrete.colour"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='kw pkg'>acidplots</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/acidplots/man/synesthesia.html'>scale_color_synesthesia_d</a></span>())),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Gene saturation"</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"mapped reads"</span>, <span class='kw'>y</span> <span class='kw'>=</span>
-    <span class='st'>"gene count"</span>)
-)</pre>
+<span class='fu'>plotGeneSaturation</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  interestingGroups <span class='op'>=</span> <span class='cn'>NULL</span>,
+  minCounts <span class='op'>=</span> <span class='fl'>1L</span>,
+  perMillion <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  trendline <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"acid.label"</span>, default <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>,
+  color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"acid.color.discrete"</span>, default <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span>x <span class='op'>=</span>
+    <span class='st'>"ggplot2.discrete.colour"</span>, default <span class='op'>=</span> <span class='fu'>AcidPlots</span><span class='fu'>::</span><span class='fu'><a href='https://acidplots.acidgenomics.com/reference/synesthesia.html'>scale_color_synesthesia_d</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+  labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Gene saturation"</span>, subtitle <span class='op'>=</span> <span class='cn'>NULL</span>, x <span class='op'>=</span> <span class='st'>"mapped reads"</span>, y <span class='op'>=</span>
+    <span class='st'>"gene count"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,7 +184,8 @@ Superimpose sample text labels on the plot.</p></td>
 Desired ggplot2 color scale. Must supply discrete values. When set <code>NULL</code>,
 the default ggplot2 color palette will be used. If manual color definitions
 are desired, we recommend using <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>ggplot2::scale_color_manual()</a></code>.</p>
-<p>To set the discrete color palette globally, use:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>acid.color.discrete</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_d</a></span>())</pre></td>
+<p>To set the discrete color palette globally, use:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>acid.color.discrete <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_d</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</pre></td>
     </tr>
     <tr>
       <th>labels</th>
@@ -204,10 +205,15 @@ See <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ggplot2::l
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Updated 2019-09-16.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Steinbaugh, Rory Kirchner, Victor Barrera</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plotGeneSaturation-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGeneSaturation</span>(<span class='no'>bcb</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plotGeneSaturation-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+<span class='fu'>plotGeneSaturation</span><span class='op'>(</span><span class='va'>bcb</span>, label <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plotGeneSaturation-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotGeneSaturation</span><span class='op'>(</span><span class='va'>bcb</span>, label <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plotGeneSaturation-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -223,7 +229,7 @@ See <code><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ggplot2::l
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
