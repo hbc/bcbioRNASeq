@@ -125,7 +125,7 @@
     <p>Defunct functions</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prepareRNASeqTemplate</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>prepareRNASeqTemplate</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,19 +144,20 @@
     <div class='dont-index'><p><a href='https://rdrr.io/r/base/Defunct.html'>Defunct</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
-    <span class='fu'><a href='https://rdrr.io/r/base/Defunct.html'>.Defunct</a></span>(<span class='st'>"b"</span>)
-}
+    <pre class="examples"><div class='input'><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/Defunct.html'>.Defunct</a></span><span class='op'>(</span><span class='st'>"b"</span><span class='op'>)</span>
+<span class='op'>}</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/conditions.html'>withCallingHandlers</a></span>(
-    <span class='kw'>expr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/conditions.html'>tryCatch</a></span>(
-        <span class='kw'>expr</span> <span class='kw'>=</span> <span class='fu'>a</span>(<span class='fl'>1L</span>),
-        <span class='kw'>error</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>e</span>) {
-            <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>e</span>)
-            <span class='fu'><a href='https://rdrr.io/r/base/invisible.html'>invisible</a></span>()
-        }
-    )
-)</div><div class='output co'>#&gt; &lt;defunctError: 'a' is defunct.
+<span class='fu'><a href='https://rdrr.io/r/base/conditions.html'>withCallingHandlers</a></span><span class='op'>(</span>
+    expr <span class='op'>=</span> <span class='kw'><a href='https://rdrr.io/r/base/conditions.html'>tryCatch</a></span><span class='op'>(</span>
+        expr <span class='op'>=</span> <span class='fu'>a</span><span class='op'>(</span><span class='fl'>1L</span><span class='op'>)</span>,
+        error <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>e</span><span class='op'>)</span> <span class='op'>{</span>
+            <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>e</span><span class='op'>)</span>
+            <span class='fu'><a href='https://rdrr.io/r/base/invisible.html'>invisible</a></span><span class='op'>(</span><span class='op'>)</span>
+        <span class='op'>}</span>
+    <span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;defunctError: 'a' is defunct.
 #&gt; Use 'b' instead.
 #&gt; See help("Defunct")&gt;</div></pre>
   </div>
@@ -174,7 +175,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

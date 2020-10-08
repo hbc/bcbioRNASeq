@@ -1,3 +1,9 @@
+## bcbioRNASeq 0.3.38 (2020-10-08)
+
+### Minor changes
+
+- Maintenance release, updating minimum dependency package versions.
+
 ## bcbioRNASeq 0.3.37 (2020-09-15)
 
 ### Minor changes

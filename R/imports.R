@@ -6,6 +6,9 @@
 #'
 #' @importMethodsFrom basejump coerce
 #'
+#' @importFrom AcidPlots acid_coord_flip acid_geom_abline acid_geom_bar
+#'   acid_geom_label_repel acid_scale_y_continuous_nopad matchLabels
+#'   plotCountsCorrelation plotCountsCorrelationHeatmap
 #' @importFrom BiocGenerics colSums rowSums updateObject
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
@@ -13,9 +16,6 @@
 #'   getListElement head lapply mcols mcols<- metadata metadata<- sapply width
 #' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
-#' @importFrom AcidPlots acid_coord_flip acid_geom_abline acid_geom_bar
-#'   acid_geom_label_repel acid_scale_y_continuous_nopad matchLabels
-#'   plotCountsCorrelation plotCountsCorrelationHeatmap
 #' @importFrom basejump Tx2Gene camelCase detectLanes detectOrganism droplevels
 #'   emptyRanges encode formalsList humanize import importSampleData
 #'   importTx2Gene interestingGroups interestingGroups<- makeGRangesFromEnsembl

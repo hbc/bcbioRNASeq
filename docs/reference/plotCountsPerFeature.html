@@ -127,18 +127,18 @@ unless the library sizes or total RNA expression are different." />
 unless the library sizes or total RNA expression are different.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotCountsPerGene</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotCountsPerGene</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>plotCountsPerFeature</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>plotCountsPerFeature</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotCountsPerFeature</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"rle"</span>),
-  <span class='no'>...</span>
-)
+<span class='fu'>plotCountsPerFeature</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  normalized <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tmm"</span>, <span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"rle"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>plotCountDensity</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plotCountDensity</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,8 +149,8 @@ unless the library sizes or total RNA expression are different.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passthrough to <code>SummarizedExperiment</code> method defined in acidplots.
-See <code><a href='https://rdrr.io/pkg/acidplots/man/plotCountsPerFeature.html'>acidplots::plotCountsPerFeature()</a></code> for details.</p></td>
+      <td><p>Passthrough to <code>SummarizedExperiment</code> method defined in AcidPlots.
+See <code><a href='https://acidplots.acidgenomics.com/reference/plotCountsPerFeature.html'>AcidPlots::plotCountsPerFeature()</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>normalized</th>
@@ -211,10 +211,14 @@ calculation to summarize at sample level prior to plotting.<br />
 Passes <code>...</code> to <code>SummarizedExperiment</code> method.</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Steinbaugh, Rory Kirchner, Victor Barrera</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>plotCountsPerFeature</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #000000;background-color: #BBBBBB;'>`tmm`</span><span> counts.</span></div><div class='output co'>#&gt; <span class='message'>→ Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Filtered zero count rows and columns:</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+<span class='fu'>plotCountsPerFeature</span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span><span> Using </span><span style='color: #000000;background-color: #BBBBBB;'>`tmm`</span><span> counts.</span></div><div class='output co'>#&gt; <span class='message'>→ Applying trimmed mean of M-values (TMM) normalization.</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>ℹ</span><span> Filtered zero count rows and columns:</span>
 #&gt; <span class='message'>- 90 / 100 rows (90%)</span>
 #&gt; <span class='message'>- 6 / 6 columns (100%)</span></div><div class='output co'>#&gt; <span class='message'>→ Applying </span><span style='color: #000000;background-color: #BBBBBB;'>`log2(x + 1L)`</span><span> transformation.</span></div><div class='img'><img src='plotCountsPerFeature-1.png' alt='' width='700' height='433' /></div></span></pre>
   </div>
@@ -232,7 +236,7 @@ Passes <code>...</code> to <code>SummarizedExperiment</code> method.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -125,15 +125,15 @@
     <p>Find correlation between principal components (PCs) and covariates</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotPCACovariates</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>plotPCACovariates</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>plotPCACovariates</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span>),
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>plotPCACovariates</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  metrics <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  normalized <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tpm"</span>, <span class='st'>"sf"</span>, <span class='st'>"fpkm"</span>, <span class='st'>"vst"</span>, <span class='st'>"rlog"</span>, <span class='st'>"tmm"</span>, <span class='st'>"rle"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,7 +191,7 @@ functions in the package require <code><a href='https://rdrr.io/r/base/character
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments, passed to <code><a href='https://rdrr.io/pkg/DEGreport/man/degCovariates.html'>DEGreport::degCovariates()</a></code>.</p></td>
+      <td><p>Additional arguments, passed to <code><a href='http://lpantano.github.io/DEGreport/reference/degCovariates.html'>DEGreport::degCovariates()</a></code>.</p></td>
     </tr>
     </table>
 
@@ -206,17 +206,21 @@ functions in the package require <code><a href='https://rdrr.io/r/base/character
 
     <div class='dont-index'>
 <ul>
-<li><p><code><a href='https://rdrr.io/pkg/DEGreport/man/degCovariates.html'>DEGreport::degCovariates()</a></code>.</p></li>
+<li><p><code><a href='http://lpantano.github.io/DEGreport/reference/degCovariates.html'>DEGreport::degCovariates()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code>.</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation()</a></code>.</p></li>
 </ul>
 </div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Lorena Pantano, Michael Steinbaugh, Rory Kirchner</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"DEGreport"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-    <span class='fu'>plotPCACovariates</span>(<span class='no'>bcb</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Disabled until bug is fixed in DEGreport.</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"DEGreport"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='fu'>plotPCACovariates</span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Disabled until bug is fixed in DEGreport.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -232,7 +236,7 @@ functions in the package require <code><a href='https://rdrr.io/r/base/character
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
