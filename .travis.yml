@@ -1,3 +1,6 @@
+env:
+  - CRAN=1
+
 os: linux
 language: shell
 
