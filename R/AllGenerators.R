@@ -119,7 +119,7 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2020-01-20.
+#' @note Updated 2020-12-02.
 #' @export
 #'
 #' @inheritParams basejump::makeSummarizedExperiment
@@ -242,7 +242,6 @@ bcbioRNASeq <- function(
     ))
     rm(call)
     ## nocov end
-
     ## Assert checks -----------------------------------------------------------
     assert(isADirectory(uploadDir))
     level <- match.arg(level)
@@ -284,10 +283,8 @@ bcbioRNASeq <- function(
         arg = countsFromAbundance,
         choices = eval(formals(tximport)[["countsFromAbundance"]])
     )
-
     cli_h1("bcbioRNASeq")
     cli_text("Importing bcbio-nextgen RNA-seq run")
-
     ## Run info ----------------------------------------------------------------
     cli_h2("Run info")
     uploadDir <- realpath(uploadDir)
@@ -329,7 +326,6 @@ bcbioRNASeq <- function(
     )
     lanes <- detectLanes(sampleDirs)
     assert(isInt(lanes) || identical(lanes, integer()))
-
     ## Column data (samples) ---------------------------------------------------
     cli_h2("Sample metadata")
     ## Get the sample data.
@@ -401,7 +397,6 @@ bcbioRNASeq <- function(
         is(colData, "DataFrame"),
         identical(samples, rownames(colData))
     )
-
     ## Assays (counts) ---------------------------------------------------------
     cli_h2("Counts")
     assays <- SimpleList()
@@ -465,7 +460,6 @@ bcbioRNASeq <- function(
         identical(names(assays)[[1L]], "counts"),
         identical(colnames(assays[[1L]]), rownames(colData))
     )
-
     ## Row data (genes/transcripts) --------------------------------------------
     cli_h2("Feature metadata")
     ## Annotation priority:
@@ -508,7 +502,6 @@ bcbioRNASeq <- function(
     if (is.null(ensemblRelease)) {
         ensemblRelease <- metadata(rowRanges)[["ensemblRelease"]]
     }
-
     ## Metadata ----------------------------------------------------------------
     cli_h2("Metadata")
     ## Interesting groups.
@@ -553,7 +546,6 @@ bcbioRNASeq <- function(
         version = .version,
         yaml = yaml
     )
-
     ## Make bcbioRNASeq object -------------------------------------------------
     rse <- makeSummarizedExperiment(
         assays = assays,
@@ -563,46 +555,51 @@ bcbioRNASeq <- function(
         transgeneNames = transgeneNames
     )
     bcb <- new(Class = "bcbioRNASeq", rse)
-
     ## DESeq2 ------------------------------------------------------------------
-    if (level == "genes" && !isTRUE(fast)) {
-        cli_h2("DESeq2 normalizations")
-        dds <- as(bcb, "DESeqDataSet")
-        ## Calculate size factors for normalized counts.
-        cli_alert("{.fun estimateSizeFactors}")
-        dds <- estimateSizeFactors(dds)
-        assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
-        ## Skip full DESeq2 calculations (for internal bcbio test data).
-        if (.dataHasVariation(dds)) {
-            cli_alert("{.fun DESeq}")
-            dds <- DESeq(dds)
+    if (level == "genes" && isFALSE(fast)) {
+        dds <- tryCatch(
+            expr = {
+                cli_h2("{.pkg DESeq2} normalizations")
+                dds <- as(bcb, "DESeqDataSet")
+                cli_alert("{.fun estimateSizeFactors}")
+                dds <- estimateSizeFactors(dds)
+                if (!.dataHasVariation(dds)) {
+                    cli_alert_warning(paste(
+                        "Skipping {.pkg DESeq2} calculations.",
+                        "Data set does not have enough variation.",
+                        sep = "\n"
+                    ))
+                    return(NULL)
+                }
+                cli_alert("{.fun DESeq}")
+                dds <- DESeq(dds)
+                dds
+            },
+            error = function(e) {
+                cli_alert_warning("Skipping {.pkg DESeq2} calculations.")
+                message(e)
+            }
+        )
+        if (is(dds, "DESeqDataSet")) {
+            assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
             cli_alert("{.fun varianceStabilizingTransformation}")
-            assays(bcb)[["vst"]] <-
-                assay(varianceStabilizingTransformation(dds))
-            ## Note that rlog is no longer allowed here.
-            ## Run it manually on a coerced DESeqDataSet instead.
-        } else {
-            ## nocov start
-            ## This step is covered by bcbio pipeline tests.
-            cli_alert_warning(paste(
-                "{.fun varianceStabilizingTransformation}:",
-                "Skipping transformation because data has no variation."
-            ))
-            ## nocov end
-        }
-        ## Calculate FPKM.
-        ## Skip this step if we've slotted empty ranges.
-        if (length(unique(width(rowRanges(dds)))) > 1L) {
-            cli_alert("{.fun fpkm}")
-            assays(bcb)[["fpkm"]] <- fpkm(dds)
-        } else {
-            cli_alert_warning(paste(
-                "{.fun fpkm}: Skipping FPKM calculation because",
-                "{.fun rowRanges} is empty."
-            ))
+            vst <- varianceStabilizingTransformation(dds)
+            assert(is(vst, "DESeqTransform"))
+            assays(bcb)[["vst"]] <- assay(vst)
+            ## Calculate FPKM. Skip this step if we've slotted empty ranges.
+            if (length(unique(width(rowRanges(dds)))) > 1L) {
+                cli_alert("{.fun fpkm}")
+                fpkm <- fpkm(dds)
+                assert(is.matrix(fpkm))
+                assays(bcb)[["fpkm"]] <- fpkm
+            } else {
+                cli_alert_warning(paste(
+                    "{.fun fpkm}: Skipping FPKM calculation because",
+                    "{.fun rowRanges} is empty."
+                ))
+            }
         }
     }
-
     ## Return ------------------------------------------------------------------
     assert(hasValidDimnames(bcb))
     validObject(bcb)
