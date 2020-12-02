@@ -197,8 +197,8 @@ directly with the \code{gffFile} argument.
 Internally, genome annotations are imported via the \href{https://steinbaugh.com/basejump/}{basejump} package,
 specifically with either of these functions:
 \itemize{
-\item \code{\link[basejump:makeGRangesFromEnsembl]{basejump::makeGRangesFromEnsembl()}}.
-\item \code{\link[basejump:makeGRangesFromGFF]{basejump::makeGRangesFromGFF()}}.
+\item \code{\link[basejump:reexports]{basejump::makeGRangesFromEnsembl()}}.
+\item \code{\link[basejump:reexports]{basejump::makeGRangesFromGFF()}}.
 }
 }
 

@@ -13,7 +13,7 @@ plotMappedReads(object, ...)
   limit = 10000000L,
   perMillion = TRUE,
   fill = getOption(x = "acid.fill.discrete", default = getOption(x =
-    "ggplot2.discrete.fill", default = acidplots::scale_fill_synesthesia_d())),
+    "ggplot2.discrete.fill", default = AcidPlots::scale_fill_synesthesia_d())),
   labels = list(title = "Mapped reads", subtitle = NULL, sampleAxis = NULL, metricAxis
     = "reads"),
   flip = getOption(x = "acid.flip", default = TRUE)

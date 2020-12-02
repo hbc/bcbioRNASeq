@@ -9,9 +9,9 @@ plotMeanSD(object, ...)
 
 \S4method{plotMeanSD}{bcbioRNASeq}(
   object,
-  fill = ggplot2::scale_fill_gradient(low = acidplots::lightPalette[["gray"]], high =
-    acidplots::lightPalette[["purple"]]),
-  lineColor = acidplots::lightPalette[["orange"]],
+  fill = ggplot2::scale_fill_gradient(low = AcidPlots::lightPalette[["gray"]], high =
+    AcidPlots::lightPalette[["purple"]]),
+  lineColor = AcidPlots::lightPalette[["orange"]],
   legend = getOption(x = "acid.legend", default = TRUE)
 )
 }

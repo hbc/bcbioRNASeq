@@ -125,13 +125,13 @@
     <p>Relative log expression</p>
     </div>
 
-    <pre class="usage"><span class='fu'>relativeLogExpression</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>relativeLogExpression</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for matrix</span>
-<span class='fu'>relativeLogExpression</span>(<span class='no'>object</span>)
+<span class='fu'>relativeLogExpression</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for SummarizedExperiment</span>
-<span class='fu'>relativeLogExpression</span>(<span class='no'>object</span>)</pre>
+<span class='fu'>relativeLogExpression</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,10 +158,14 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/edgeR/man/calcNormFactors.html'>edgeR::calcNormFactors()</a></code>.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Lorena Pantano, Michael Steinbaugh</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>relativeLogExpression</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; <span class='message'>→ Applying relative log expression (RLE) normalization.</span></div><div class='output co'>#&gt;                    control_rep1 control_rep2 control_rep3 fa_day7_rep1
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+<span class='fu'>relativeLogExpression</span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>→ Applying relative log expression (RLE) normalization.</span></div><div class='output co'>#&gt;                    control_rep1 control_rep2 control_rep3 fa_day7_rep1
 #&gt; ENSMUSG00000000001  29079.46987 3.993762e+04  28051.06900  33200.51560
 #&gt; ENSMUSG00000000003      0.00000 0.000000e+00      0.00000      0.00000
 #&gt; ENSMUSG00000000028    292.10568 6.676320e+01      0.00000    140.44116
@@ -378,7 +382,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -1,8 +1,5 @@
 # bcbioRNASeq
 
-[![Repo status: active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Travis CI build status](https://travis-ci.org/hbc/bcbioRNASeq.svg?branch=master)](https://travis-ci.org/hbc/bcbioRNASeq)
-[![AppVeyor CI build status](https://ci.appveyor.com/api/projects/status/s0rrc28fwr0ua2wr/branch/master?svg=true)](https://ci.appveyor.com/project/mjsteinbaugh/bcbiornaseq/branch/master)
 [![Install with Bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/r-bcbiornaseq/README.html)
 
 [R][] package for [bcbio][] RNA-seq analysis.
@@ -28,7 +25,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 install.packages(
     pkgs = "bcbioRNASeq",
     repos = c(
-        "r.acidgenomics.com",
+        "https://r.acidgenomics.com",
         BiocManager::repositories()
     )
 )

@@ -22,8 +22,8 @@ plotCountDensity(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough to \code{SummarizedExperiment} method defined in acidplots.
-See \code{\link[acidplots:plotCountsPerFeature]{acidplots::plotCountsPerFeature()}} for details.}
+\item{...}{Passthrough to \code{SummarizedExperiment} method defined in AcidPlots.
+See \code{\link[AcidPlots:plotCountsPerFeature]{AcidPlots::plotCountsPerFeature()}} for details.}
 
 \item{normalized}{\code{character(1)} or \code{logical(1)}.
 Normalization method to apply:

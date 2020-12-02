@@ -123,7 +123,7 @@
 #' @export
 #'
 #' @inheritParams basejump::makeSummarizedExperiment
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param level `character(1)`.
 #'   Import counts at gene level ("`genes`"; *default*) or transcript level
 #'   ("`transcripts`"; *advanced use*). Only tximport-compatible callers (e.g.

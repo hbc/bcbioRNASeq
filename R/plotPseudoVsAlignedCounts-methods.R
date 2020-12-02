@@ -6,9 +6,9 @@
 #'   `counts` assay.
 #' @note Updated 2020-01-20.
 #'
-#' @inheritParams acidroxygen::params
-#' @param ... Passthrough to [acidplots::plotCountsCorrelationHeatmap()] when
-#'   `genes = NULL` or [acidplots::plotCountsCorrelation()] when `genes` are
+#' @inheritParams AcidRoxygen::params
+#' @param ... Passthrough to [AcidPlots::plotCountsCorrelationHeatmap()] when
+#'   `genes = NULL` or [AcidPlots::plotCountsCorrelation()] when `genes` are
 #'   defined.
 #'
 #' @return Plot.

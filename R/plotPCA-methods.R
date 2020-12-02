@@ -1,13 +1,13 @@
 #' @name plotPCA
 #' @author Michael Steinbaugh
-#' @importMethodsFrom acidplots plotPCA
-#' @inherit acidplots::plotPCA
+#' @importMethodsFrom AcidPlots plotPCA
+#' @inherit AcidPlots::plotPCA
 #' @note Updated 2020-09-15.
 #'
 #' @inheritParams plotCounts
-#' @inheritParams acidroxygen::params
-#' @param ... Passthrough to `SummarizedExperiment` method defined in acidplots.
-#'   See [acidplots::plotPCA()] for details.
+#' @inheritParams AcidRoxygen::params
+#' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
+#'   See [AcidPlots::plotPCA()] for details.
 #'
 #' @examples
 #' data(bcb)

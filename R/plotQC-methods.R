@@ -1,9 +1,9 @@
 #' @name plotQC
 #' @author Michael Steinbaugh
-#' @inherit acidgenerics::plotQC
+#' @inherit AcidGenerics::plotQC
 #' @note Updated 2019-08-07.
 #'
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
@@ -15,7 +15,7 @@ NULL
 
 #' @rdname plotQC
 #' @name plotQC
-#' @importFrom acidgenerics plotQC
+#' @importFrom AcidGenerics plotQC
 #' @usage plotQC(object, ...)
 #' @export
 NULL

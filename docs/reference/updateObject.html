@@ -128,7 +128,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
-<span class='fu'>updateObject</span>(<span class='no'>object</span>, <span class='kw'>rowRanges</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>updateObject</span><span class='op'>(</span><span class='va'>object</span>, rowRanges <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,10 +204,14 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
           in the <span class="pkg">BiocGenerics</span> package.</p></li>
 </ul>
 </div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Steinbaugh</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bcb</span>)
-<span class='fu'>updateObject</span>(<span class='no'>bcb</span>)</div><div class='output co'>#&gt; bcbioRNASeq 0.3.37
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+<span class='fu'>updateObject</span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; bcbioRNASeq 0.3.37
 #&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
 #&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-09-16
 #&gt; level: genes
@@ -224,10 +228,10 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 #&gt; colnames(6): control_rep1 control_rep2 ... fa_day7_rep2 fa_day7_rep3
 #&gt; colData names(25): averageInsertSize averageReadLength ... treatment
 #&gt;   x5x3Bias</div><div class='input'>
-## Example that depends on remote file.
-## &gt; x &lt;- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))
-## &gt; x &lt;- updateObject(x)
-## &gt; x
+<span class='co'>## Example that depends on remote file.</span>
+<span class='co'>## &gt; x &lt;- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))</span>
+<span class='co'>## &gt; x &lt;- updateObject(x)</span>
+<span class='co'>## &gt; x</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -244,7 +248,7 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

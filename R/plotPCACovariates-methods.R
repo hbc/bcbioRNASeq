@@ -1,11 +1,11 @@
 #' @name plotPCACovariates
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
-#' @inherit acidgenerics::plotPCACovariates
+#' @inherit AcidGenerics::plotPCACovariates
 #' @note Requires the DEGreport package to be installed.
 #' @note Updated 2020-09-23.
 #'
 #' @inheritParams plotCounts
-#' @inheritParams acidroxygen::params
+#' @inheritParams AcidRoxygen::params
 #' @param metrics `boolean`. Include sample summary metrics as covariates.
 #'   Defaults to include all metrics columns (`TRUE`), but desired columns can
 #'   be specified here as a character vector.
@@ -27,7 +27,7 @@ NULL
 
 #' @rdname plotPCACovariates
 #' @name plotPCACovariates
-#' @importFrom acidgenerics plotPCACovariates
+#' @importFrom AcidGenerics plotPCACovariates
 #' @usage plotPCACovariates(object, ...)
 #' @export
 NULL
