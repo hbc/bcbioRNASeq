@@ -257,7 +257,6 @@ bcbioRNASeq <- function(
     cli_h2("Run info")
     uploadDir <- realpath(uploadDir)
     cli_dl(c(uploadDir = uploadDir))
-    ## FIXME NEED TO IMPROVE ERROR MESSAGE HERE.
     projectDir <- projectDir(uploadDir)
     cat_line()
     sampleDirs <- sampleDirs(uploadDir)

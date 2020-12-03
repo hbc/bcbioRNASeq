@@ -19,7 +19,7 @@
         if (isAFile(
             file.path(projectDir, "featureCounts", "combined.counts")
         )) {
-            file <-file.path(projectDir, "featureCounts", "combined.counts")
+            file <- file.path(projectDir, "featureCounts", "combined.counts")
         } else if (isAFile(
             file.path(projectDir, "combined.counts")
         )) {
