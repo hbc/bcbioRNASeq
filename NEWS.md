@@ -1,4 +1,4 @@
-## bcbioRNASeq 0.3.39 (2020-12-02)
+## bcbioRNASeq 0.3.39 (2020-12-03)
 
 ### Minor changes
 

@@ -119,7 +119,7 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2020-12-02.
+#' @note Updated 2020-12-03.
 #' @export
 #'
 #' @inheritParams basejump::makeSummarizedExperiment
@@ -209,40 +209,8 @@ bcbioRNASeq <- function(
     transgeneNames = NULL,
     countsFromAbundance = "lengthScaledTPM",
     interestingGroups = "sampleName",
-    fast = FALSE,
-    ...
+    fast = FALSE
 ) {
-    ## Legacy arguments --------------------------------------------------------
-    ## nocov start
-    call <- match.call()
-    ## annotable
-    if ("annotable" %in% names(call)) {
-        stop("'annotable' is defunct. Consider using 'gffFile' instead.")
-    }
-    ## ensemblVersion
-    if ("ensemblVersion" %in% names(call)) {
-        stop("Use 'ensemblRelease' instead of 'ensemblVersion'.")
-    }
-    ## transformationLimit
-    if ("transformationLimit" %in% names(call)) {
-        stop("'transformationLimit' is defunct.")
-    }
-    ## rlog
-    if ("rlog" %in% names(call)) {
-        stop("'rlog' is defunct in favor of 'fast' argument.")
-    }
-    ## vst
-    if ("vst" %in% names(call)) {
-        stop("'vst' is defunct in favor of 'fast' argument.")
-    }
-    ## Error on unsupported arguments.
-    assert(isSubset(
-        x = setdiff(names(call), ""),
-        y = names(formals())
-    ))
-    rm(call)
-    ## nocov end
-    ## Assert checks -----------------------------------------------------------
     assert(isADirectory(uploadDir))
     level <- match.arg(level)
     caller <- match.arg(caller)
@@ -289,6 +257,7 @@ bcbioRNASeq <- function(
     cli_h2("Run info")
     uploadDir <- realpath(uploadDir)
     cli_dl(c(uploadDir = uploadDir))
+    ## FIXME NEED TO IMPROVE ERROR MESSAGE HERE.
     projectDir <- projectDir(uploadDir)
     cat_line()
     sampleDirs <- sampleDirs(uploadDir)

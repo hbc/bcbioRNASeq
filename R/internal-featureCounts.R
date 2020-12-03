@@ -1,7 +1,11 @@
-## Load up the featureCounts aligned counts matrix.
-## Use the genes argument to dynamically resize the matrix. This is necessary
-## when slotting this data into assays along with pseudoaligned counts.
-## Updated 2020-01-17.
+#' Load up the featureCounts aligned counts matrix
+#'
+#' @details
+#' Use the genes argument to dynamically resize the matrix. This is necessary
+#' when slotting this data into assays along with pseudoaligned counts.
+#'
+#' @note Updated 2020-12-03.
+#' @noRd
 .featureCounts <-
     function(projectDir, samples, genes = NULL) {
         assert(
@@ -10,7 +14,20 @@
             isCharacter(genes, nullOK = TRUE)
         )
         cli_alert("Importing aligned counts from {.pkg featureCounts}.")
-        counts <- import(file = file.path(projectDir, "combined.counts"))
+        ## Locate the counts file. This file path was reorganized to include a
+        ## 'featureCounts' subdirectory in bcbio v1.2.4.
+        if (isAFile(
+            file.path(projectDir, "featureCounts", "combined.counts")
+        )) {
+            file <-file.path(projectDir, "featureCounts", "combined.counts")
+        } else if (isAFile(
+            file.path(projectDir, "combined.counts")
+        )) {
+            file <- file.path(projectDir, "combined.counts")
+        } else {
+            stop("Failed to locate featureCounts matrix.")
+        }
+        counts <- import(file = file)
         assert(is.matrix(counts))
         colnames(counts) <- makeNames(colnames(counts))
         assert(isSubset(samples, colnames(counts)))
