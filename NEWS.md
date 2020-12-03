@@ -1,3 +1,12 @@
+## bcbioRNASeq 0.3.39 (2020-12-03)
+
+### Minor changes
+
+- Bug fix for featureCounts directory structure change in bcbio v1.2.4 release.
+- Wrapped DESeq2 normalization calculations (to be defined in `assays` slot)
+  in a `tryCatch` call, to more gracefully avoid errors on minimal data sets,
+  such as the bcbio-nextgen unit test data.
+
 ## bcbioRNASeq 0.3.38 (2020-10-08)
 
 ### Minor changes

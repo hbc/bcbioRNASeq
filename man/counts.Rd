@@ -65,7 +65,7 @@ By default, return the raw counts. Normalized counts in a variety of formats
 can be accessed using the \code{normalized} argument.
 }
 \note{
-Updated 2019-09-15.
+Updated 2020-09-23.
 }
 \examples{
 data(bcb)
