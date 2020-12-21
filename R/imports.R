@@ -6,10 +6,10 @@
 #'
 #' @importMethodsFrom basejump coerce
 #'
+#' @importFrom AcidGenerics colSums rowSums updateObject
 #' @importFrom AcidPlots acid_coord_flip acid_geom_abline acid_geom_bar
 #'   acid_geom_label_repel acid_scale_y_continuous_nopad matchLabels
 #'   plotCountsCorrelation plotCountsCorrelationHeatmap
-#' @importFrom BiocGenerics colSums rowSums updateObject
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
 #' @importFrom S4Vectors DataFrame Rle SimpleList as.data.frame cbind do.call

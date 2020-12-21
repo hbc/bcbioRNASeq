@@ -7,7 +7,7 @@
 #'
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
-#' @note Updated 2020-09-23.
+#' @note Updated 2020-12-21.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param normalized `character(1)` or `logical(1)`.
@@ -73,21 +73,6 @@
 #' @examples
 #' data(bcb)
 #' summary(counts(bcb))
-NULL
-
-
-
-#' @rdname counts
-#' @name counts
-#' @importFrom BiocGenerics counts
-#' @export
-NULL
-
-#' @rdname counts
-#' @name counts<-
-#' @importFrom BiocGenerics counts<-
-#' @usage NULL
-#' @export
 NULL
 
 
