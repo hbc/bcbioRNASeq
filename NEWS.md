@@ -321,7 +321,7 @@ Moved forked development repository to [Acid Genomics][].
 ### Minor changes
 
 - `.tximport`: Use `makeNames` to check for valid names internally.
-- Removed FIXME comment and improved documentation.
+- Improved documentation.
 - Travis CI configuration fixes to get build checks to pass.
 
 ## bcbioRNASeq 0.3.7 (2019-01-13)
