@@ -103,11 +103,10 @@ LazyData: false
 Depends:
     R (>= 4.0),
     SummarizedExperiment (>= 1.18),
-    basejump (>= 0.13.3)
+    basejump (>= 0.13.4)
 Imports:
-    AcidGenerics (>= 0.4.1),
+    AcidGenerics (>= 0.5.0),
     AcidPlots (>= 0.3.0),
-    BiocGenerics,
     DESeq2 (>= 1.28),
     S4Vectors,
     bcbioBase (>= 0.6.16),
