@@ -13,15 +13,6 @@ NULL
 
 
 
-#' @rdname plotTotalReads
-#' @name plotTotalReads
-#' @importFrom AcidGenerics plotTotalReads
-#' @usage plotTotalReads(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-16.
 `plotTotalReads,bcbioRNASeq` <-  # nolint
     function(

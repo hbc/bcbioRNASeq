@@ -25,15 +25,6 @@ NULL
 
 
 
-#' @rdname plotPCACovariates
-#' @name plotPCACovariates
-#' @importFrom AcidGenerics plotPCACovariates
-#' @usage plotPCACovariates(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2020-09-23.
 `plotPCACovariates,bcbioRNASeq` <-  # nolint
     function(

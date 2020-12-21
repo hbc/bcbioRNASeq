@@ -13,15 +13,6 @@ NULL
 
 
 
-#' @rdname plotMappingRate
-#' @name plotMappingRate
-#' @importFrom AcidGenerics plotMappingRate
-#' @usage plotMappingRate(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-16.
 `plotMappingRate,bcbioRNASeq` <-  # nolint
     function(

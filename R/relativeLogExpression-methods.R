@@ -13,15 +13,6 @@ NULL
 
 
 
-#' @rdname relativeLogExpression
-#' @name relativeLogExpression
-#' @importFrom AcidGenerics relativeLogExpression
-#' @usage relativeLogExpression(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2020-01-20.
 `relativeLogExpression,matrix` <-  # nolint
     function(object) {

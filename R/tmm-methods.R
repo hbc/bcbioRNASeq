@@ -14,15 +14,6 @@ NULL
 
 
 
-#' @rdname tmm
-#' @name tmm
-#' @importFrom AcidGenerics tmm
-#' @usage tmm(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2020-01-20.
 `tmm,matrix` <-  # nolint
     function(object) {

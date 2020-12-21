@@ -13,15 +13,6 @@ NULL
 
 
 
-#' @rdname plot5Prime3PrimeBias
-#' @name plot5Prime3PrimeBias
-#' @importFrom AcidGenerics plot5Prime3PrimeBias
-#' @usage plot5Prime3PrimeBias(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-16.
 `plot5Prime3PrimeBias,bcbioRNASeq` <-  # nolint
     function(

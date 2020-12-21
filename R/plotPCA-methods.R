@@ -17,15 +17,6 @@ NULL
 
 
 
-#' @rdname plotPCA
-#' @name plotPCA
-#' @importFrom BiocGenerics plotPCA
-#' @usage plotPCA(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2020-09-15.
 `plotPCA,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {

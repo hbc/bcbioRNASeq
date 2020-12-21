@@ -13,15 +13,6 @@ NULL
 
 
 
-#' @rdname plotMappedReads
-#' @name plotMappedReads
-#' @importFrom AcidGenerics plotMappedReads
-#' @usage plotMappedReads(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-16.
 `plotMappedReads,bcbioRNASeq` <-  # nolint
     function(

@@ -14,15 +14,6 @@ NULL
 
 
 
-#' @rdname plotGeneSaturation
-#' @name plotGeneSaturation
-#' @importFrom AcidGenerics plotGeneSaturation
-#' @usage plotGeneSaturation(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-16.
 `plotGeneSaturation,bcbioRNASeq` <-  # nolint
     function(
