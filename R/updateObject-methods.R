@@ -1,7 +1,7 @@
 #' @name updateObject
 #' @author Michael Steinbaugh
-#' @inherit BiocGenerics::updateObject
-#' @note Updated 2020-05-11.
+#' @inherit AcidGenerics::updateObject
+#' @note Updated 2020-12-21.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
