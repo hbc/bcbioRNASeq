@@ -1,3 +1,9 @@
+## bcbioRNASeq 0.3.40 (2020-12-22)
+
+### Minor changes
+
+- Reworked S4 generic imports, migrating some functions to AcidGenerics.
+
 ## bcbioRNASeq 0.3.39 (2020-12-03)
 
 ### Minor changes
