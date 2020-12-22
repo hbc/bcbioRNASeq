@@ -103,7 +103,7 @@ LazyData: false
 Depends:
     R (>= 4.0),
     SummarizedExperiment (>= 1.18),
-    basejump (>= 0.13.4)
+    basejump (>= 0.13.5)
 Imports:
     AcidGenerics (>= 0.5.0),
     AcidPlots (>= 0.3.0),
