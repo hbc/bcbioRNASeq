@@ -1,13 +1,11 @@
-#' Counts
-#'
-#' Count matrix.
-#'
-#' By default, return the raw counts. Normalized counts in a variety of formats
-#' can be accessed using the `normalized` argument.
-#'
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
-#' @note Updated 2020-12-21.
+#' @inherit AcidGenerics::counts
+#' @note Updated 2020-12-22.
+#'
+#' @details
+#' By default, return the raw counts. Normalized counts in a variety of formats
+#' can be accessed using the `normalized` argument.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param normalized `character(1)` or `logical(1)`.
@@ -55,8 +53,6 @@
 #'
 #' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
 #' [tximport]: https://bioconductor.org/packages/tximport/
-#'
-#' @return `matrix`.
 #'
 #' @references
 #' - TMM: Robinson and Oshlack (2010).
