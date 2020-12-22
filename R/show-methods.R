@@ -1,8 +1,7 @@
-#' Show an object
 #' @name show
-#' @author Michael Steinbuagh
-#' @inherit methods::show params return title
-#' @note Updated 2020-09-15.
+#' @author Michael Steinbaugh
+#' @inherit AcidGenerics::show
+#' @note Updated 2020-12-22.
 #' @examples
 #' data(bcb)
 #' show(bcb)

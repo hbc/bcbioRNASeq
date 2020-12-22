@@ -1,15 +1,14 @@
-#' Slot aligned counts into object
+#' @name slotAlignedCounts
+#' @author Michael Steinbaugh
+#' @inherit AcidGenerics::slotAlignedCounts
+#' @note Updated 2020-12-22.
 #'
+#' @details
 #' This function loads aligned counts (e.g. STAR, HISAT2) from the bcbio final
 #' output directory into the bcbioRNASeq object, so we can visually inspect
 #' correlations with the primary pseudoaligned counts.
 #'
-#' @name slotAlignedCounts
-#' @note Updated 2019-08-07.
-#'
 #' @inheritParams AcidRoxygen::params
-#'
-#' @return Modified object, with aligned counts defined in `assays`.
 #'
 #' @examples
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
