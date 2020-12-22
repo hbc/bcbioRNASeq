@@ -49,6 +49,7 @@
 #' 5. Apply offset matrix using [edgeR::scaleOffset()].
 #'
 #' @inheritParams AcidRoxygen::params
+#' @param ... Additional arguments.
 #'
 #' @seealso
 #' - [tximport::tximport()].

@@ -28,10 +28,10 @@ as.DGEList(x, ...)
 \arguments{
 \item{x}{Object.}
 
-\item{...}{Additional arguments.}
-
 \item{quiet}{\code{logical(1)}.
 Perform command quietly, suppressing messages.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 Modified object, of desired coercion type.

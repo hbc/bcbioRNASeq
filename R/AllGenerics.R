@@ -1,18 +1,21 @@
 #' @rdname coerce
 #' @name as.DESeqDataSet
 #' @importFrom AcidGenerics as.DESeqDataSet
+#' @usage as.DESeqDataSet(x, ...)
 #' @export
 NULL
 
 #' @rdname coerce
 #' @name as.DESeqTransform
 #' @importFrom AcidGenerics as.DESeqTransform
+#' @usage as.DESeqTransform(x, ...)
 #' @export
 NULL
 
 #' @rdname coerce
 #' @name as.DGEList
 #' @importFrom AcidGenerics as.DGEList
+#' @usage as.DGEList(x, ...)
 #' @export
 NULL
 
@@ -21,13 +24,7 @@ NULL
 #' @rdname counts
 #' @name counts
 #' @importFrom AcidGenerics counts
-#' @export
-NULL
-
-#' @rdname counts
-#' @name counts<-
-#' @importFrom AcidGenerics counts<-
-#' @usage NULL
+#' @usage counts(object, ...)
 #' @export
 NULL
 

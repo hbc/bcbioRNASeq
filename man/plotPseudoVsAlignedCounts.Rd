@@ -4,7 +4,7 @@
 \name{plotPseudoVsAlignedCounts}
 \alias{plotPseudoVsAlignedCounts}
 \alias{plotPseudoVsAlignedCounts,bcbioRNASeq-method}
-\title{Compare pseudoaligned counts to aligned counts.}
+\title{Plot pseudo vs. aligned counts}
 \usage{
 plotPseudoVsAlignedCounts(object, ...)
 
@@ -18,28 +18,28 @@ plotPseudoVsAlignedCounts(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough to \code{\link[AcidPlots:plotCountsCorrelationHeatmap]{AcidPlots::plotCountsCorrelationHeatmap()}} when
-\code{genes = NULL} or \code{\link[AcidPlots:plotCountsCorrelation]{AcidPlots::plotCountsCorrelation()}} when \code{genes} are
-defined.}
-
 \item{genes}{\code{character}.
 Gene identifiers.}
 
 \item{title}{\code{character(1)}.
 Title.}
+
+\item{...}{Passthrough to \code{\link[AcidPlots:plotCountsCorrelationHeatmap]{AcidPlots::plotCountsCorrelationHeatmap()}} when
+\code{genes = NULL} or \code{\link[AcidPlots:plotCountsCorrelation]{AcidPlots::plotCountsCorrelation()}} when \code{genes} are
+defined.}
 }
 \value{
-Plot.
+\code{ggplot}.
 }
 \description{
-Compare pseudoaligned counts to aligned counts.
+Plot pseudo vs. aligned counts
 }
 \note{
+Updated 2020-12-22.
+
 Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
 \code{counts} assay.
-
-Updated 2020-01-20.
 }
 \examples{
 data(bcb)
@@ -52,4 +52,7 @@ plotPseudoVsAlignedCounts(bcb)
 aligned <- assay(bcb, i = "aligned")
 genes <- rowSums(aligned) \%>\% sort \%>\% tail(n = 2L) \%>\% names()
 plotPseudoVsAlignedCounts(bcb, genes = genes)
+}
+\author{
+Michael Steinbaugh
 }
