@@ -42,7 +42,7 @@
   
 
 <meta property="og:title" content="Counts — counts" />
-<meta property="og:description" content="Count matrix." />
+<meta property="og:description" content="Counts" />
 
 
 
@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.39</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.40</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hbc/bcbioRNASeq/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -117,15 +117,17 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Counts</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/counts-methods.R'><code>R/counts-methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/counts-methods.R'><code>R/counts-methods.R</code></a></small>
     <div class="hidden name"><code>counts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Count matrix.</p>
+    <p>Counts</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
+    <pre class="usage"><span class='fu'>counts</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S4 method for bcbioRNASeq</span>
 <span class='fu'>counts</span><span class='op'>(</span><span class='va'>object</span>, normalized <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -155,22 +157,25 @@ counts.<br />
 See <code><a href='https://rdrr.io/pkg/DESeq2/man/sizeFactors.html'>DESeq2::sizeFactors()</a></code> for details.</p></li>
 <li><p><code>"fpkm"</code>: <strong>F</strong>ragments <strong>p</strong>er <strong>k</strong>ilobase per <strong>m</strong>illion mapped
 fragments.<br />
-Requires <code>fpkm = TRUE</code> in <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call and gene annotations in
+Requires <code>fast = FALSE</code> in <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call and gene annotations in
 <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>rowRanges()</a></code> with defined
 <code><a href='https://rdrr.io/pkg/BiocGenerics/man/start.html'>width</a></code>.<br />
 See <code><a href='https://rdrr.io/pkg/DESeq2/man/fpkm.html'>DESeq2::fpkm()</a></code> for details.</p></li>
 <li><p><code>"vst"</code>: <strong>V</strong>ariance-<strong>s</strong>tabilizing <strong>t</strong>ransformation (log2).<br />
-Requires <code>vst = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
+Requires <code>fast = FALSE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
 See <code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation</a></code> for more information.</p></li>
-<li><p><code>"rlog"</code>: <strong>R</strong>egularized <strong>log</strong> transformation (log2).<br />
-Requires <code>rlog = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
-See <code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code> for details.</p></li>
 <li><p><code>"tmm"</code>: <strong>T</strong>rimmed <strong>m</strong>ean of <strong>M</strong>-values.<br />
 Calculated on the fly.<br />
 See <code><a href='https://rdrr.io/pkg/edgeR/man/calcNormFactors.html'>edgeR::calcNormFactors()</a></code> for details.</p></li>
 <li><p><code>"rle"</code>: <strong>R</strong>elative <strong>l</strong>og <strong>e</strong>xpression transformation.<br />
 Calculated on the fly.<br />
-See <code><a href='relativeLogExpression.html'>relativeLogExpression()</a></code> for details.</p>
+See <code><a href='relativeLogExpression.html'>relativeLogExpression()</a></code> for details.</p></li>
+<li><p><code>"rlog"</code>: <em>Deprecated</em>.
+<strong>R</strong>egularized <strong>log</strong> transformation (log2).<br />
+No longer calculated automatically during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call, but may
+be defined in legacy objects.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code> for details.<br />
+Note that VST is more performant and now recommended by default instead.</p>
 <p>Note that <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> support only applies to <code>counts()</code>. Other
 functions in the package require <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> and use
 <code><a href='https://rdrr.io/r/base/match.arg.html'>match.arg()</a></code> internally.</p></li>
@@ -187,7 +192,7 @@ functions in the package require <code><a href='https://rdrr.io/r/base/character
 can be accessed using the <code>normalized</code> argument.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Updated 2020-09-23.</p>
+    <p>Updated 2020-12-22.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     

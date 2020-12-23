@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compare pseudoaligned counts to aligned counts. — plotPseudoVsAlignedCounts • bcbioRNASeq</title>
+<title>Plot pseudo vs. aligned counts — plotPseudoVsAlignedCounts • bcbioRNASeq</title>
 
 
 <!-- jquery -->
@@ -41,8 +41,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Compare pseudoaligned counts to aligned counts. — plotPseudoVsAlignedCounts" />
-<meta property="og:description" content="Compare pseudoaligned counts to aligned counts." />
+<meta property="og:title" content="Plot pseudo vs. aligned counts — plotPseudoVsAlignedCounts" />
+<meta property="og:description" content="Plot pseudo vs. aligned counts" />
 
 
 
@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.39</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.40</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hbc/bcbioRNASeq/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -116,13 +116,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compare pseudoaligned counts to aligned counts.</h1>
+    <h1>Plot pseudo vs. aligned counts</h1>
     <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotPseudoVsAlignedCounts-methods.R'><code>R/plotPseudoVsAlignedCounts-methods.R</code></a></small>
     <div class="hidden name"><code>plotPseudoVsAlignedCounts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compare pseudoaligned counts to aligned counts.</p>
+    <p>Plot pseudo vs. aligned counts</p>
     </div>
 
     <pre class="usage"><span class='fu'>plotPseudoVsAlignedCounts</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -143,12 +143,6 @@
       <td><p>Object.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Passthrough to <code><a href='https://acidplots.acidgenomics.com/reference/plotCountsCorrelationHeatmap.html'>AcidPlots::plotCountsCorrelationHeatmap()</a></code> when
-<code>genes = NULL</code> or <code><a href='https://acidplots.acidgenomics.com/reference/plotCountsCorrelation.html'>AcidPlots::plotCountsCorrelation()</a></code> when <code>genes</code> are
-defined.</p></td>
-    </tr>
-    <tr>
       <th>genes</th>
       <td><p><code>character</code>.
 Gene identifiers.</p></td>
@@ -158,17 +152,26 @@ Gene identifiers.</p></td>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>.
 Title.</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Passthrough to <code><a href='https://acidplots.acidgenomics.com/reference/plotCountsCorrelationHeatmap.html'>AcidPlots::plotCountsCorrelationHeatmap()</a></code> when
+<code>genes = NULL</code> or <code><a href='https://acidplots.acidgenomics.com/reference/plotCountsCorrelation.html'>AcidPlots::plotCountsCorrelation()</a></code> when <code>genes</code> are
+defined.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Plot.</p>
+    <p><code>ggplot</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Currently supported for salmon or kallisto. The function will
+    <p>Updated 2020-12-22.</p>
+<p>Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
 <code>counts</code> assay.</p>
-<p>Updated 2020-01-20.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Michael Steinbaugh</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>

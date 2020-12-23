@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.39</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.40</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hbc/bcbioRNASeq/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -117,7 +117,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Principal component analysis plot</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotPCA-methods.R'><code>R/plotPCA-methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/plotPCA-methods.R'><code>R/plotPCA-methods.R</code></a></small>
     <div class="hidden name"><code>plotPCA.Rd</code></div>
     </div>
 
@@ -157,22 +157,25 @@ counts.<br />
 See <code><a href='https://rdrr.io/pkg/DESeq2/man/sizeFactors.html'>DESeq2::sizeFactors()</a></code> for details.</p></li>
 <li><p><code>"fpkm"</code>: <strong>F</strong>ragments <strong>p</strong>er <strong>k</strong>ilobase per <strong>m</strong>illion mapped
 fragments.<br />
-Requires <code>fpkm = TRUE</code> in <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call and gene annotations in
+Requires <code>fast = FALSE</code> in <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call and gene annotations in
 <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>rowRanges()</a></code> with defined
 <code><a href='https://rdrr.io/pkg/BiocGenerics/man/start.html'>width</a></code>.<br />
 See <code><a href='https://rdrr.io/pkg/DESeq2/man/fpkm.html'>DESeq2::fpkm()</a></code> for details.</p></li>
 <li><p><code>"vst"</code>: <strong>V</strong>ariance-<strong>s</strong>tabilizing <strong>t</strong>ransformation (log2).<br />
-Requires <code>vst = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
+Requires <code>fast = FALSE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
 See <code><a href='https://rdrr.io/pkg/DESeq2/man/varianceStabilizingTransformation.html'>DESeq2::varianceStabilizingTransformation</a></code> for more information.</p></li>
-<li><p><code>"rlog"</code>: <strong>R</strong>egularized <strong>log</strong> transformation (log2).<br />
-Requires <code>rlog = TRUE</code> to be set during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call.<br />
-See <code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code> for details.</p></li>
 <li><p><code>"tmm"</code>: <strong>T</strong>rimmed <strong>m</strong>ean of <strong>M</strong>-values.<br />
 Calculated on the fly.<br />
 See <code><a href='https://rdrr.io/pkg/edgeR/man/calcNormFactors.html'>edgeR::calcNormFactors()</a></code> for details.</p></li>
 <li><p><code>"rle"</code>: <strong>R</strong>elative <strong>l</strong>og <strong>e</strong>xpression transformation.<br />
 Calculated on the fly.<br />
-See <code><a href='relativeLogExpression.html'>relativeLogExpression()</a></code> for details.</p>
+See <code><a href='relativeLogExpression.html'>relativeLogExpression()</a></code> for details.</p></li>
+<li><p><code>"rlog"</code>: <em>Deprecated</em>.
+<strong>R</strong>egularized <strong>log</strong> transformation (log2).<br />
+No longer calculated automatically during <code><a href='bcbioRNASeq.html'>bcbioRNASeq()</a></code> call, but may
+be defined in legacy objects.<br />
+See <code><a href='https://rdrr.io/pkg/DESeq2/man/rlog.html'>DESeq2::rlog()</a></code> for details.<br />
+Note that VST is more performant and now recommended by default instead.</p>
 <p>Note that <code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code> support only applies to <code><a href='counts.html'>counts()</a></code>. Other
 functions in the package require <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> and use
 <code><a href='https://rdrr.io/r/base/match.arg.html'>match.arg()</a></code> internally.</p></li>

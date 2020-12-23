@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update an object to its current class definition — updateObject • bcbioRNASeq</title>
+<title>Update object — updateObject • bcbioRNASeq</title>
 
 
 <!-- jquery -->
@@ -41,9 +41,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Update an object to its current class definition — updateObject" />
-<meta property="og:description" content="updateObject is a generic function that returns an instance
-  of object updated to its current class definition." />
+<meta property="og:title" content="Update object — updateObject" />
+<meta property="og:description" content="Update object" />
 
 
 
@@ -75,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bcbioRNASeq</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.39</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.40</span>
       </span>
     </div>
 
@@ -83,7 +82,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -100,7 +99,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hbc/bcbioRNASeq/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -117,14 +116,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update an object to its current class definition</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/updateObject-methods.R'><code>R/updateObject-methods.R</code></a></small>
+    <h1>Update object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/AllGenerics.R'><code>R/AllGenerics.R</code></a>, <a href='https://github.com/hbc/bcbioRNASeq/blob/master/R/updateObject-methods.R'><code>R/updateObject-methods.R</code></a></small>
     <div class="hidden name"><code>updateObject.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>updateObject</code> is a generic function that returns an instance
-  of <code>object</code> updated to its current class definition.</p>
+    <p>Update object</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for bcbioRNASeq</span>
@@ -135,10 +133,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object to be updated for <code>updateObject</code> and
-    <code>updateObjectFromSlots</code>.</p>
-<p>Object for slot information to be extracted from for
-    <code>getObjectSlots</code>.</p></td>
+      <td><p>Object.</p></td>
     </tr>
     <tr>
       <th>rowRanges</th>
@@ -150,20 +145,18 @@ it can be left <code>NULL</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments, for use in specific <code>updateObject</code>
-    methods.</p></td>
+      <td><p>Additional arguments.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p><code>TRUE</code> or <code>FALSE</code>, indicating whether information about
-    the update should be reported. Use <code><a href='https://rdrr.io/r/base/message.html'>message</a></code> to
-    report this information.</p></td>
+      <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>.
+Verbose output.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>bcbioRNASeq</code>.</p>
+    <p>Modified object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Update old objects created by the bcbioRNASeq package. The session
@@ -171,7 +164,7 @@ information metadata is preserved from the time when the bcbio data was
 originally loaded into R.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Updated 2020-05-11.</p>
+    <p>Updated 2020-12-22.</p>
     <h2 class="hasAnchor" id="legacy-bcbiornadataset-class"><a class="anchor" href="#legacy-bcbiornadataset-class"></a>Legacy <code>bcbioRNADataSet</code> class</h2>
 
     
@@ -187,23 +180,6 @@ If you need to load one of these objects, please install an older release.</p>
 <p>The previous <code>bcbioRnaseq</code> package (note case) must be reinstalled to load
 objects from versions &lt;= 0.0.20. We changed the name of the package to
 <code>bcbioRNASeq</code> starting in v0.0.21.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'>
-<ul>
-<li><p><code><a href='https://rdrr.io/pkg/Biobase/man/updateObjectTo.html'>updateObjectTo</a></code> in the <span class="pkg">Biobase</span> package
-          for updating an object to the class definition of a template (might
-          be useful for updating a virtual superclass).</p></li>
-<li><p><code><a href='https://rdrr.io/r/methods/validObject.html'>validObject</a></code> for testing the validity of an
-          object.</p></li>
-<li><p><code><a href='https://rdrr.io/r/methods/showMethods.html'>showMethods</a></code> for displaying a summary of the
-          methods defined for a given generic function.</p></li>
-<li><p><code><a href='https://rdrr.io/r/methods/getMethod.html'>selectMethod</a></code> for getting the definition of
-          a specific method.</p></li>
-<li><p><a href='https://rdrr.io/pkg/BiocGenerics/man/BiocGenerics-package.html'>BiocGenerics</a> for a summary of all the generics defined
-          in the <span class="pkg">BiocGenerics</span> package.</p></li>
-</ul>
-</div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Michael Steinbaugh</p>
@@ -211,7 +187,7 @@ objects from versions &lt;= 0.0.20. We changed the name of the package to
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
 <span class='fu'>updateObject</span><span class='op'>(</span><span class='va'>bcb</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; bcbioRNASeq 0.3.39
+</div><div class='output co'>#&gt; bcbioRNASeq 0.3.40
 #&gt; uploadDir: /data00/draco/acidbase/packages/bcbioRNASeq/inst/extdata/bcbio
 #&gt; dates(2): [bcbio] 2018-03-18; [R] 2019-09-16
 #&gt; level: genes
