@@ -13,7 +13,7 @@ invisible(validObject(bcb_fast))
 
 object <- bcb
 g2s <- Gene2Symbol(object)
-geneIDs <- head(g2s[["geneID"]])
+geneIds <- head(g2s[["geneId"]])
 geneNames <- head(g2s[["geneName"]])
 
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")

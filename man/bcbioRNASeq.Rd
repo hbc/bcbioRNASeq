@@ -130,7 +130,7 @@ provided in \code{description} must be unique. These values will be sanitized in
 syntactically valid names (see \code{\link[base:make.names]{make.names}} for more
 information), and assigned as the column names of the \code{bcbioRNASeq} object.
 The original values are stored as the \code{sampleName} column in \code{colData}, and
-are used for all plotting functions. Do not attempt to set a \code{sampleID}
+are used for all plotting functions. Do not attempt to set a \code{sampleId}
 column, as this is used internally by the package.
 
 Here is a minimal example of a properly formatted sample metadata file:
@@ -175,7 +175,7 @@ defined. When both of these are set, \code{bcbioRNASeq} will attempt to
 download and use the pre-built \href{https://ensembl.org/}{Ensembl} genome annotations from
 \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub}. This method is preferred over direct loading of a GTF/GFF
 file because the \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub} annotations contain additional rich
-metadata not defined in a GFF file, specifically \code{description} and \code{entrezID}
+metadata not defined in a GFF file, specifically \code{description} and \code{entrezId}
 values.
 
 Alternatively, if you are working with a non-standard or poorly annotated

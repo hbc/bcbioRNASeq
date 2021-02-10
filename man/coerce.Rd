@@ -48,7 +48,7 @@ Updated 2020-01-20.
 \item Coerce to \code{RangedSummarizedExperiment}.
 \item Round raw counts to \verb{integer matrix}.
 \item Subset \code{\link[SummarizedExperiment:SummarizedExperiment-class]{colData()}} to include only clean
-factor columns. See \code{\link[basejump:sampleData]{sampleData()}} for details.
+factor columns. See \code{\link[basejump:reexports]{sampleData()}} for details.
 \item Simplify \code{\link[S4Vectors:Annotated-class]{metadata()}} to include only relevant
 information and updates \code{sessionInfo}.
 }
