@@ -110,7 +110,7 @@ Imports:
     BiocGenerics,
     DESeq2 (>= 1.28),
     S4Vectors,
-    bcbioBase (>= 0.6.16),
+    bcbioBase (>= 0.6.17),
     cli (>= 2.2),
     cowplot (>= 1.1),
     edgeR (>= 3.30),
