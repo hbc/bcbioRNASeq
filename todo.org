@@ -1,6 +1,7 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
+** TODO Package is now 17 MB built, need to fix that.
 ** TODO goalie cause attributes are causing weird extra data frames to render
    inside of R Markdown. Can't reproduce this in base R...
 ** TODO Consider rounding raw counts to integer, matching conventions used
