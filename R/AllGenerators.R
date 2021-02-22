@@ -251,16 +251,14 @@ bcbioRNASeq <- function(
         arg = countsFromAbundance,
         choices = eval(formals(tximport)[["countsFromAbundance"]])
     )
-    cli_h1("bcbioRNASeq")
-    cli_text("Importing bcbio-nextgen RNA-seq run")
+    h1("bcbioRNASeq")
+    alert("Importing bcbio-nextgen RNA-seq run.")
     ## Run info ----------------------------------------------------------------
-    cli_h2("Run info")
+    h2("Run info")
     uploadDir <- realpath(uploadDir)
-    cli_dl(c(uploadDir = uploadDir))
+    dl(c("uploadDir" = uploadDir))
     projectDir <- projectDir(uploadDir)
-    cat_line()
     sampleDirs <- sampleDirs(uploadDir)
-    cat_line()
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     yaml <- import(yamlFile)
     assert(is.list(yaml))
@@ -275,19 +273,19 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(log)),
         error = function(e) {
-            cli_alert_warning("{.file bcbio-nextgen.log} file is empty.")
+            alertWarning("{.file bcbio-nextgen.log} file is empty.")
         }
     )
     fastPipeline <- .isFastPipeline(log)
     if (isTRUE(fastPipeline)) {
-        cli_alert_info("Fast RNA-seq pipeline (fastrnaseq) detected.")
+        alertInfo("Fast RNA-seq pipeline (fastrnaseq) detected.")
     }
     commandsLog <- import(file.path(projectDir, "bcbio-nextgen-commands.log"))
     ## This step enables our minimal dataset inside the package to pass checks.
     tryCatch(
         expr = assert(isCharacter(commandsLog)),
         error = function(e) {
-            cli_alert_warning(
+            alertWarning(
                 "{.file bcbio-nextgen-commands.log} file is empty."
             )
         }
@@ -378,7 +376,7 @@ bcbioRNASeq <- function(
             file = file.path(projectDir, "tx2gene.csv"),
             organism = organism,
             genomeBuild = genomeBuild,
-            ensemblRelease = ensemblRelease
+            release = ensemblRelease
         )
         assert(is(tx2gene, "Tx2Gene"))
         if (level == "transcripts") {
@@ -457,7 +455,7 @@ bcbioRNASeq <- function(
             gffFile <- realpath(gffFile)
             rowRanges <- makeGRangesFromGFF(file = gffFile, level = level)
         } else {
-            cli_alert_warning("Slotting empty ranges into {.fun rowRanges}.")
+            alertWarning("Slotting empty ranges into {.fun rowRanges}.")
             rowRanges <- emptyRanges(rownames(assays[[1L]]))
         }
     }
@@ -532,7 +530,7 @@ bcbioRNASeq <- function(
                 cli_alert("{.fun estimateSizeFactors}")
                 dds <- estimateSizeFactors(dds)
                 if (!.dataHasVariation(dds)) {
-                    cli_alert_warning(paste(
+                    alertWarning(paste(
                         "Skipping {.pkg DESeq2} calculations.",
                         "Data set does not have enough variation.",
                         sep = "\n"
@@ -544,7 +542,7 @@ bcbioRNASeq <- function(
                 dds
             },
             error = function(e) {
-                cli_alert_warning("Skipping {.pkg DESeq2} calculations.")
+                alertWarning("Skipping {.pkg DESeq2} calculations.")
                 message(e)
             }
         )
@@ -561,7 +559,7 @@ bcbioRNASeq <- function(
                 assert(is.matrix(fpkm))
                 assays(bcb)[["fpkm"]] <- fpkm
             } else {
-                cli_alert_warning(paste(
+                alertWarning(paste(
                     "{.fun fpkm}: Skipping FPKM calculation because",
                     "{.fun rowRanges} is empty."
                 ))
@@ -571,7 +569,6 @@ bcbioRNASeq <- function(
     ## Return ------------------------------------------------------------------
     assert(hasValidDimnames(bcb))
     validObject(bcb)
-    cat_line()
-    cli_alert_success("bcbio RNA-seq run imported successfully.")
+    alertSuccess("bcbio RNA-seq run imported successfully.")
     bcb
 }

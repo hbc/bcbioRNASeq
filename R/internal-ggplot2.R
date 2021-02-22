@@ -8,7 +8,7 @@
     if (isSubset(normalized, .deseqAssays)) {
         .assertIsNotFastMode(object)
     }
-    cli_alert_info(sprintf("Using {.var %s} counts.", normalized))
+    alertInfo(sprintf("Using {.var %s} counts.", normalized))
     counts <- counts(object = object, normalized = normalized)
     assays <- SimpleList(counts)
     names(assays) <- normalized

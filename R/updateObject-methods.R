@@ -1,7 +1,7 @@
 #' @name updateObject
 #' @author Michael Steinbaugh
 #' @inherit BiocGenerics::updateObject
-#' @note Updated 2020-05-11.
+#' @note Updated 2021-02-22.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -73,14 +73,14 @@ NULL
         ## NAMES
         if (!is.null(slot(object, "NAMES"))) {
             if (isTRUE(verbose)) {
-                cli_alert_info("{.var NAMES} slot must be set to {.val NULL}.")
+                alertInfo("{.var NAMES} slot must be set to {.val NULL}.")
             }
             slot(object, "NAMES") <- NULL
         }
         ## elementMetadata
         if (ncol(slot(object, "elementMetadata")) != 0L) {
             if (isTRUE(verbose)) {
-                cli_alert_info(paste(
+                alertInfo(paste(
                     "{.var elementMetadata} slot must contain a",
                     "zero-column {.var DataFrame}."
                 ))
@@ -92,7 +92,7 @@ NULL
         if (!.hasSlot(object, "rowRanges")) {
             if (is.null(rowRanges)) {
                 if (isTRUE(verbose)) {
-                    cli_alert_warning("Slotting empty {.fun rowRanges}.")
+                    alertWarning("Slotting empty {.fun rowRanges}.")
                 }
                 assays <- slot(object, "assays")
                 ## Extract assay matrix from ShallowSimpleListAssays object.
@@ -123,7 +123,7 @@ NULL
         ## Check for legacy bcbio slot.
         if (.hasSlot(object, "bcbio")) {
             if (isTRUE(verbose)) {
-                cli_alert_warning("Dropping legacy {.var bcbio} slot.")
+                alertWarning("Dropping legacy {.var bcbio} slot.")
             }
         }
         ## Metadata ------------------------------------------------------------
@@ -133,14 +133,14 @@ NULL
         ## bcbioLog
         if (is.null(metadata[["bcbioLog"]])) {
             if (isTRUE(verbose)) {
-                cli_alert_warning("Setting {.var bcbioLog} as empty character.")
+                alertWarning("Setting {.var bcbioLog} as empty character.")
             }
             metadata[["bcbioLog"]] <- character()
         }
         ## bcbioCommandsLog
         if (is.null(metadata[["bcbioCommandsLog"]])) {
             if (isTRUE(verbose)) {
-                cli_alert_warning(
+                alertWarning(
                     "Setting {.var bcbioCommands} as empty character."
                 )
             }
@@ -149,14 +149,14 @@ NULL
         ## call
         if (!"call" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert_warning("Stashing empty {.var call}.")
+                alertWarning("Stashing empty {.var call}.")
             }
             metadata[["call"]] <- call(name = "bcbioRNASeq")
         }
         ## caller
         if (!"caller" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert_warning("Setting {.var caller} as salmon.")
+                alertWarning("Setting {.var caller} as salmon.")
             }
             metadata[["caller"]] <- "salmon"
         }
@@ -168,7 +168,7 @@ NULL
         ## design
         if ("design" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert_warning("Dropping legacy {.var design}.")
+                alertWarning("Dropping legacy {.var design}.")
             }
             metadata[["design"]] <- NULL
         }
@@ -193,7 +193,7 @@ NULL
         ## genomeBuild
         if (!is.character(metadata[["genomeBuild"]])) {
             if (isTRUE(verbose)) {
-                cli_alert_warning(
+                alertWarning(
                     "Setting {.var genomeBuild} as empty character."
                 )
             }
@@ -216,7 +216,7 @@ NULL
         ## gtf
         if ("gtf" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert_warning("Dropping stashed GTF in {.var gtf}.")
+                alertWarning("Dropping stashed GTF in {.var gtf}.")
             }
             metadata[["gtf"]] <- NULL
         }
@@ -282,13 +282,13 @@ NULL
         ## Dead genes: "missing" or "unannotated".
         if ("missingGenes" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert_warning("Dropping {.var missingGenes} from metadata.")
+                alertWarning("Dropping {.var missingGenes} from metadata.")
             }
             metadata[["missingGenes"]] <- NULL
         }
         if ("unannotatedGenes" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert_warning(
+                alertWarning(
                     "Dropping {.var unannotatedGenes} from metadata."
                 )
             }
@@ -313,7 +313,7 @@ NULL
             if (!"countsFromAbundance" %in% names(metadata)) {
                 countsFromAbundance <- "lengthScaledTPM"
                 if (isTRUE(verbose)) {
-                    cli_alert_warning(sprintf(
+                    alertWarning(sprintf(
                         "Setting {.var countsFromAbundance} as {.val %s}.",
                         countsFromAbundance
                     ))
@@ -547,10 +547,10 @@ NULL
         bcb <- new(Class = "bcbioRNASeq", se)
         validObject(bcb)
         if (isTRUE(verbose)) {
-            cat_line()
-            cli_alert_success(
-                "Update of {.var bcbioRNASeq} object was successful."
-            )
+            alertSuccess(sprintf(
+                "Update of {.var %s} object was successful.",
+                "bcbioRNASeq"
+            ))
         }
         bcb
     }

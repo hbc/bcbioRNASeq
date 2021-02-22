@@ -59,7 +59,7 @@ NULL
             )
             if (sum(i) < nrow(object)) {
                 n <- sum(!i, na.rm = TRUE)
-                cli_alert_warning(sprintf(
+                alertWarning(sprintf(
                     "Censoring %d %s containing an NA value.",
                     n,
                     ngettext(

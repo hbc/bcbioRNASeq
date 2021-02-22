@@ -20,22 +20,19 @@
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
 #' @importFrom basejump DataFrame Rle SimpleList SummarizedExperiment Tx2Gene
-#'   as.data.frame assay assay<- assayNames assayNames<- assays assays<-
-#'   camelCase capture.output cbind colData colData<- colSums detectLanes
-#'   detectOrganism do.call droplevels emptyRanges encode formalsList head
-#'   humanize import importSampleData importTx2Gene interestingGroups
-#'   interestingGroups<- lapply makeGRangesFromEnsembl makeGRangesFromGFF
-#'   makeNames makeSummarizedExperiment mapGenesToRownames
-#'   matchInterestingGroups mcols mcols<- metadata metadata<- methodFormals
-#'   metrics packageName packageVersion realpath rowData rowRanges rowSums
-#'   sampleData session_info showSlotInfo standardizeCall
-#'   stripTranscriptVersions width
+#'   alert alertInfo alertSuccess alertWarning as.data.frame assay assay<- assayNames
+#'   assayNames<- assays assays<- camelCase capture.output cbind colData
+#'   colData<- colSums detectLanes detectOrganism dl do.call droplevels
+#'   emptyRanges encode formalsList h1 h2 head humanize import importSampleData
+#'   importTx2Gene interestingGroups interestingGroups<- lapply
+#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
+#'   makeSummarizedExperiment mapGenesToRownames matchInterestingGroups mcols
+#'   mcols<- metadata metadata<- methodFormals metrics packageName
+#'   packageVersion realpath rowData rowRanges rowSums sampleData session_info
+#'   showSlotInfo standardizeCall stripTranscriptVersions width
 #' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML importDataVersions importProgramVersions projectDir
 #'   runDate sampleDirs
-#' @importFrom cli cat_line cli_alert cli_alert_info cli_alert_success
-#'   cli_alert_warning cli_div cli_dl cli_end cli_h1 cli_h2 cli_h3 cli_text
-#'   cli_ul
 #' @importFrom edgeR DGEList calcNormFactors cpm scaleOffset
 #' @importFrom ggplot2 aes expand_limits geom_point geom_smooth ggplot ggtitle
 #'   guides labs scale_y_continuous theme
@@ -51,6 +48,12 @@
 
 
 
-## FIXME Define this in AcidGenerics
+## FIXME Define this in AcidGenerics:
 #' @importFrom S4Vectors getListElement
+NULL
+
+## FIXME Rework using AcidCLI:
+#' @importFrom cli cli_alert alertSuccess
+#'   alertWarning cli_div cli_dl cli_end cli_h1 cli_h2 cli_h3 cli_text
+#'   cli_ul
 NULL

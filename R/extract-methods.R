@@ -114,7 +114,7 @@ NULL
                 }
             } else {
                 ## Otherwise, remove previous calculations.
-                cli_alert_warning("Skipping {.fun DESeq2} normalizations.")
+                alertWarning("Skipping {.fun DESeq2} normalizations.")
                 assays[["normalized"]] <- NULL
                 assays[["rlog"]] <- NULL
                 assays[["vst"]] <- NULL

@@ -129,7 +129,7 @@ NULL
         se <- as(x, "RangedSummarizedExperiment")
         to <- `new,DESeqDataSet`(se = se, quiet = quiet)
         if (!isTRUE(quiet)) {
-            cli_alert_info(paste(
+            alertInfo(paste(
                 "Set the design formula with {.fun design} ",
                 "and run {.fun DESeq}."
             ))
@@ -255,7 +255,7 @@ setAs(
             ## This will assign `y$offset` matrix. See above for details.
             y <- scaleOffset(y, offset = normMat)
             if (!isTRUE(quiet)) {
-                cli_alert_info(paste(
+                alertInfo(paste(
                     "This {.var DGEList} is suitable for use only with",
                     "{.pkg edgeR}. If handing off to {.pkg limma-voom},",
                     "{.arg countsFromAbundance} must be set to",
@@ -264,7 +264,7 @@ setAs(
             }
         } else {
             if (!isTRUE(quiet)) {
-                cli_alert_info(paste(
+                alertInfo(paste(
                     "This {.var DGEList} is suitable for use with {.pkg edgeR}",
                     "and/or {.pkg limma-voom}."
                 ))
@@ -273,7 +273,7 @@ setAs(
         assert(identical(dimnames(x), dimnames(y)))
         validObject(y)
         if (!isTRUE(quiet)) {
-            cli_alert_info(paste(
+            alertInfo(paste(
                 "Subset genes with {.fun filterByExpr} ",
                 "and run {.fun calcNormFactors}."
             ))
