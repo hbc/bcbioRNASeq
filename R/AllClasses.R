@@ -1,3 +1,7 @@
+## FIXME Ensure we're using strict lower camel case in colData and rowData.
+
+
+
 #' bcbio RNA-Seq data set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
@@ -38,7 +42,6 @@ setValidity(
             hasDimnames(object)
         )
         if (!isTRUE(ok)) return(ok)
-
         ## Metadata ------------------------------------------------------------
         ok <- validate(
             ## Check for legacy metrics stashed in metadata, rather than defined
@@ -137,7 +140,6 @@ setValidity(
             )
             if (!isTRUE(ok)) return(ok)
         }
-
         ## Assays --------------------------------------------------------------
         assayNames <- assayNames(object)
         ok <- validate(isSubset(.assays, assayNames))
@@ -166,7 +168,6 @@ setValidity(
             ok <- validate(isSubset("avgTxLength", assayNames))
             if (!isTRUE(ok)) return(ok)
         }
-
         ## Row data ------------------------------------------------------------
         rowRanges <- rowRanges(object)
         rowData <- rowData(object)
@@ -180,6 +181,7 @@ setValidity(
             ## nolint end
         )
         if (!isTRUE(ok)) return(ok)
+        ## FIXME RETHINK THIS STEP.
         if (hasLength(colnames(rowData))) {
             ## Note that GTF/GFF annotations won't contain description. The
             ## description column only gets returned via ensembldb. This check
@@ -188,27 +190,25 @@ setValidity(
             ok <- validateClasses(
                 object = rowData,
                 expected = list(
-                    broadClass = .Rle,
-                    geneBiotype = .Rle,
-                    geneID = .Rle,
-                    geneName = .Rle
+                    "broadClass" = .Rle,
+                    "geneBiotype" = .Rle,
+                    ## "geneId" = .Rle,
+                    "geneName" = .Rle
                 ),
                 subset = TRUE
             )
             if (!isTRUE(ok)) return(ok)
         }
-
         ## Column data ---------------------------------------------------------
         colData <- colData(object)
         ok <- validate(
             identical(rownames(colData), colnames(object)),
             isSubset("sampleName", colnames(colData)),
-            ## sampleID is never allowed in colData.
-            areDisjointSets(colnames(colData), "sampleID"),
+            ## `sampleId` is never allowed in colData.
+            areDisjointSets(colnames(colData), "sampleId"),
             areDisjointSets(colnames(colData), .legacyMetricsCols)
         )
         if (!isTRUE(ok)) return(ok)
-
         ## Return.
         TRUE
     }
