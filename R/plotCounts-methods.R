@@ -12,12 +12,12 @@
 #' data(bcb)
 #'
 #' g2s <- basejump::Gene2Symbol(bcb)
-#' geneIDs <- head(g2s[["geneID"]])
-#' print(geneIDs)
+#' geneIds <- head(g2s[["geneId"]])
+#' print(geneIds)
 #' geneNames <- head(g2s[["geneName"]])
 #' print(geneNames)
 #'
-#' plotCounts(bcb, genes = geneIDs, style = "facet")
+#' plotCounts(bcb, genes = geneIds, style = "facet")
 #' plotCounts(bcb, genes = geneNames, style = "wide")
 NULL
 

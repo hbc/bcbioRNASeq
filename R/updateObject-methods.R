@@ -43,7 +43,7 @@ NULL
 ## Row name extraction on invalid objects requires a fix for Bioc 3.10.
 ## https://github.com/Bioconductor/SummarizedExperiment/issues/31
 ##
-## Updated 2020-05-11.
+## Updated 2021-01-14.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -66,7 +66,6 @@ NULL
                 as.character(.version)
             ))
         }
-
         ## Legacy slots --------------------------------------------------------
         if (isTRUE(verbose)) {
             cli_h2("Legacy slots")
@@ -127,7 +126,6 @@ NULL
                 cli_alert_warning("Dropping legacy {.var bcbio} slot.")
             }
         }
-
         ## Metadata ------------------------------------------------------------
         if (isTRUE(verbose)) {
             cli_h2("Metadata")
@@ -332,14 +330,13 @@ NULL
                 }
                 assert(is.data.frame(tx2gene))
                 tx2gene <- as(tx2gene, "DataFrame")
-                colnames(tx2gene) <- c("transcriptID", "geneID")
+                colnames(tx2gene) <- c("txId", "geneId")
                 rownames(tx2gene) <- NULL
                 metadata[["tx2gene"]] <- Tx2Gene(tx2gene)
             }
         }
         ## Filter NULL metadata.
         metadata <- Filter(f = Negate(is.null), x = metadata)
-
         ## Assays --------------------------------------------------------------
         if (isTRUE(verbose)) {
             cli_h2("Assays")
@@ -427,8 +424,9 @@ NULL
         }
         ## Filter NULL assays.
         assays <- Filter(f = Negate(is.null), x = assays)
-
         ## Row ranges ----------------------------------------------------------
+        ## FIXME NEED TO RENAME GENEID (Id)
+        ## FIXME NEED TO RENAME TRANSCRIPTID (Use tx prefix)
         if (isTRUE(verbose)) {
             cli_h2("Row ranges")
         }
@@ -468,9 +466,9 @@ NULL
         ## ensgene
         if ("ensgene" %in% colnames(mcols(rowRanges))) {
             if (isTRUE(verbose)) {
-                cli_alert("Renaming {.var ensgene} to {.var geneID}.")
+                cli_alert("Renaming {.var ensgene} to {.var geneId}.")
             }
-            mcols(rowRanges)[["geneID"]] <-
+            mcols(rowRanges)[["geneId"]] <-
                 as.character(mcols(rowRanges)[["ensgene"]])
             mcols(rowRanges)[["ensgene"]] <- NULL
         }
@@ -486,8 +484,8 @@ NULL
         ## Use run-length encoding (Rle) for metadata columns.
         ## Recommended method as of v0.3.0 update.
         rowRanges <- encode(rowRanges)
-
         ## Column data ---------------------------------------------------------
+        ## FIXME NEED TO ENSURE colData is strict camel case.
         if (isTRUE(verbose)) {
             cli_h2("Column data")
         }
@@ -535,10 +533,10 @@ NULL
             colData <- cbind(colData, metrics)
             metadata[["metrics"]] <- NULL
         }
-        ## Remove legacy sampleID and description columns, if present.
-        colData[["sampleID"]] <- NULL
+        ## Remove legacy sample identifier and description columns, if present.
         colData[["description"]] <- NULL
-
+        colData[["sampleID"]] <- NULL
+        colData[["sampleId"]] <- NULL
         ## Return --------------------------------------------------------------
         se <- SummarizedExperiment(
             assays = assays,

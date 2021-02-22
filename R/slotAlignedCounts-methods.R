@@ -5,9 +5,10 @@
 #' correlations with the primary pseudoaligned counts.
 #'
 #' @name slotAlignedCounts
-#' @note Updated 2019-08-07.
+#' @note Updated 2021-02-22.
 #'
 #' @inheritParams AcidRoxygen::params
+#' @param ... Additional arguments.
 #'
 #' @return Modified object, with aligned counts defined in `assays`.
 #'

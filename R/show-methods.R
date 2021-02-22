@@ -10,6 +10,7 @@ NULL
 
 
 
+## FIXME This is now defined in AcidBase / basejump...
 ## Updated 2019-07-23.
 .showHeader <- function(object, version = NULL) {
     cat(paste(class(object), version), sep = "\n")
