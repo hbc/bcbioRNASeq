@@ -59,7 +59,7 @@ uploadDir <- system.file("extdata", "bcbio", package = "bcbioRNASeq")
 bcbio outputs RNA-seq data in a standardized directory structure, which is described in detail in our workflow paper.
 
 ```{r}
-list.files(path = uploadDir, full.names = FALSE, recursive = TRUE)
+sort(list.files(path = uploadDir, full.names = FALSE, recursive = TRUE))
 ```
 
 ## Counts level
@@ -160,11 +160,18 @@ To demonstrate the functionality and configuration of the package, we have taken
 For the vignette, we are loading a pre-computed version of the example `bcbioRNASeq` object used in our workflow paper.
 
 ```{r}
-object <- import(file = pasteURL(
-    "github.com", "hbc", "bcbioRNASeq",
-    "raw", "f1000v2", "data", "bcb.rda",
-    protocol = "https"
-))
+object <- import(
+    file = pasteURL(
+        "github.com",
+        "hbc",
+        "bcbioRNASeq",
+        "raw",
+        "f1000v2",
+        "data",
+        "bcb.rda",
+        protocol = "https"
+    )
+)
 object <- updateObject(object)
 print(object)
 ```

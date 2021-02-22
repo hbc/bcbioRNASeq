@@ -2,5 +2,6 @@
 .Rcheck
 .Rhistory
 .Rproj.user
-doc
-Meta
+Meta/
+doc/
+docs/
