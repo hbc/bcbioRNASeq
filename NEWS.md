@@ -1,8 +1,17 @@
 ## bcbioRNASeq 0.3.40 (2020-12-22)
 
+Maintenance release, incorporating useful changes from the basejump v0.14
+release series.
+
 ### Minor changes
 
 - Reworked S4 generic imports, migrating some functions to AcidGenerics.
+- Reduced the number of dependency packages, since we can offload some of the
+  imports to basejump.
+- Switched from cli to AcidCLI (via basejump) internally.
+- Note that internal GenomicRanges utilities (e.g. `makeGRangesFromEnsembl`)
+  need to have `ignoreVersion = TRUE` defined, since this argument changed
+  by default in AcidGenomes.
 
 ## bcbioRNASeq 0.3.39 (2020-12-03)
 
