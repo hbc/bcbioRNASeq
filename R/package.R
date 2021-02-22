@@ -20,9 +20,9 @@
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
 #' @importFrom basejump DataFrame Rle SimpleList SummarizedExperiment Tx2Gene
-#'   alert alertInfo alertSuccess alertWarning as.data.frame assay assay<- assayNames
-#'   assayNames<- assays assays<- camelCase capture.output cbind colData
-#'   colData<- colSums detectLanes detectOrganism dl do.call droplevels
+#'   alert alertInfo alertSuccess alertWarning as.data.frame assay assay<-
+#'   assayNames assayNames<- assays assays<- camelCase capture.output cbind
+#'   colData colData<- colSums detectLanes detectOrganism dl do.call droplevels
 #'   emptyRanges encode formalsList h1 h2 head humanize import importSampleData
 #'   importTx2Gene interestingGroups interestingGroups<- lapply
 #'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
