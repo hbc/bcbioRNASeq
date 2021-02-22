@@ -19,18 +19,18 @@
 #'   sym
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
-#' @importFrom S4Vectors DataFrame Rle SimpleList as.data.frame cbind do.call
-#'   getListElement head lapply mcols mcols<- metadata metadata<- sapply width
-#' @importFrom SummarizedExperiment SummarizedExperiment assay assay<-
+#' @importFrom S4Vectors getListElement sapply
+#' @importFrom SummarizedExperiment
 #'   assayNames assayNames<- assays assays<- colData colData<- rowData rowRanges
-#' @importFrom basejump Tx2Gene camelCase capture.output colSums detectLanes
-#'   detectOrganism droplevels emptyRanges encode formalsList humanize import
-#'   importSampleData importTx2Gene interestingGroups interestingGroups<-
-#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
-#'   makeSummarizedExperiment mapGenesToRownames matchInterestingGroups
-#'   methodFormals metrics packageName packageVersion realpath rowSums
-#'   sampleData session_info showSlotInfo standardizeCall
-#'   stripTranscriptVersions
+#' @importFrom basejump DataFrame Rle SimpleList SummarizedExperiment Tx2Gene
+#'   as.data.frame assay assay<- camelCase capture.output cbind colSums
+#'   detectLanes detectOrganism do.call droplevels emptyRanges encode
+#'   formalsList head humanize import importSampleData importTx2Gene
+#'   interestingGroups interestingGroups<- lapply makeGRangesFromEnsembl
+#'   makeGRangesFromGFF makeNames makeSummarizedExperiment mapGenesToRownames
+#'   matchInterestingGroups mcols mcols<- metadata metadata<- methodFormals
+#'   metrics packageName packageVersion realpath rowSums sampleData session_info
+#'   showSlotInfo standardizeCall stripTranscriptVersions width
 #' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML importDataVersions importProgramVersions projectDir
 #'   runDate sampleDirs
