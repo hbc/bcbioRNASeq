@@ -65,7 +65,7 @@ NULL
         keep <- which(colSums(numerics, na.rm = TRUE) > 0L)
         numerics <- numerics[, keep, drop = FALSE]
         metadata <- cbind(factors, numerics)
-        rownames(metadata) <- data[["sampleID"]]
+        rownames(metadata) <- data[["sampleId"]]
         ## Select the metrics to use for plot.
         if (isTRUE(metrics)) {
             ## Sort columns alphabetically.
