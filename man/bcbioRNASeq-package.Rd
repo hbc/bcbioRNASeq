@@ -10,7 +10,7 @@ data.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://bioinformatics.sph.harvard.edu/bcbioRNASeq/}
+  \item \url{https://r.acidgenomics.com/packages/bcbiornaseq/}
   \item \url{https://github.com/hbc/bcbioRNASeq/}
   \item Report bugs at \url{https://github.com/hbc/bcbioRNASeq/issues/}
 }

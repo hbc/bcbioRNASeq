@@ -18,15 +18,15 @@ plotPseudoVsAlignedCounts(object, ...)
 \arguments{
 \item{object}{Object.}
 
-\item{...}{Passthrough to \code{\link[AcidPlots:plotCountsCorrelationHeatmap]{AcidPlots::plotCountsCorrelationHeatmap()}} when
-\code{genes = NULL} or \code{\link[AcidPlots:plotCountsCorrelation]{AcidPlots::plotCountsCorrelation()}} when \code{genes} are
-defined.}
-
 \item{genes}{\code{character}.
 Gene identifiers.}
 
 \item{title}{\code{character(1)}.
 Title.}
+
+\item{...}{Passthrough to \code{\link[AcidPlots:plotCountsCorrelationHeatmap]{AcidPlots::plotCountsCorrelationHeatmap()}} when
+\code{genes = NULL} or \code{\link[AcidPlots:plotCountsCorrelation]{AcidPlots::plotCountsCorrelation()}} when \code{genes} are
+defined.}
 }
 \value{
 Plot.

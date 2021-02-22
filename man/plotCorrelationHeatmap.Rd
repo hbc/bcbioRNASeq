@@ -57,7 +57,7 @@ functions in the package require \code{character(1)} and use
 See \code{\link[AcidPlots:plotCorrelationHeatmap]{AcidPlots::plotCorrelationHeatmap()}} for details.}
 }
 \value{
-\code{pheatmap}.
+Plot.
 }
 \description{
 Correlation heatmap

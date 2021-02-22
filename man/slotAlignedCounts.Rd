@@ -23,7 +23,7 @@ output directory into the bcbioRNASeq object, so we can visually inspect
 correlations with the primary pseudoaligned counts.
 }
 \note{
-Updated 2019-08-07.
+Updated 2021-02-22.
 }
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")

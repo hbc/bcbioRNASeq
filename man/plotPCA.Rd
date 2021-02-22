@@ -59,10 +59,18 @@ functions in the package require \code{character(1)} and use
 See \code{\link[AcidPlots:plotPCA]{AcidPlots::plotPCA()}} for details.}
 }
 \value{
-\code{ggplot} or \code{DataFrame}.
+\code{ggplot}.
 }
 \description{
 Principal component analysis plot
+}
+\details{
+We're using a modified version of the \code{DESeqTransform} method here.\if{html}{\out{<div class="r">}}\preformatted{methodFunction(
+    f = "plotPCA",
+    signature = "DESeqTransform",
+    package = "DESeq2"
+)
+}\if{html}{\out{</div>}}
 }
 \note{
 Updated 2020-09-15.
@@ -80,6 +88,15 @@ a way to look at how samples are clustering.
 
 }
 
+\section{\code{SingleCellExperiment}}{
+
+
+
+The \code{SingleCellExperiment} method that visualizes dimension reduction data
+slotted in \code{reducedDims()} is defined in pointillism package.
+
+}
+
 \examples{
 data(bcb)
 plotPCA(bcb, label = FALSE)
@@ -89,13 +106,8 @@ plotPCA(bcb, label = TRUE)
 Jolliffe, et al., 2002.
 }
 \seealso{
-\code{DESeq2::plotPCA()}.
-
-We're using a modified version of the \code{DESeqTransform} method here.\preformatted{methodFunction(
-    f = "plotPCA",
-    signature = "DESeqTransform",
-    package = "DESeq2"
-)
+\itemize{
+\item \code{DESeq2::plotPCA()}.
 }
 }
 \author{
