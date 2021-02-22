@@ -3,8 +3,6 @@
 #' @inherit AcidGenerics::show
 #' @note Updated 2021-02-22.
 #'
-#' @param ... Additional arguments.
-#'
 #' @examples
 #' data(bcb)
 #' show(bcb)

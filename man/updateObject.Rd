@@ -5,7 +5,7 @@
 \alias{updateObject,bcbioRNASeq-method}
 \title{Update object}
 \usage{
-updateObject(object, ..., verbose = TRUE)
+updateObject(object, ..., verbose = FALSE)
 
 \S4method{updateObject}{bcbioRNASeq}(object, rowRanges = NULL, ..., verbose = FALSE)
 }

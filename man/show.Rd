@@ -5,14 +5,12 @@
 \alias{show,bcbioRNASeq-method}
 \title{Show an object}
 \usage{
-show(object, ...)
+show(object)
 
 \S4method{show}{bcbioRNASeq}(object)
 }
 \arguments{
 \item{object}{Object.}
-
-\item{...}{Additional arguments.}
 }
 \value{
 Console output.

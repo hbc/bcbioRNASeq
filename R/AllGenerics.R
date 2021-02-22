@@ -231,7 +231,7 @@ NULL
 #' @rdname show
 #' @name show
 #' @importFrom AcidGenerics show
-#' @usage show(object, ...)
+#' @usage show(object)
 #' @export
 NULL
 
@@ -258,7 +258,7 @@ NULL
 #' @rdname updateObject
 #' @name updateObject
 #' @importFrom AcidGenerics updateObject
-#' @usage updateObject(object, ..., verbose = TRUE)
+#' @usage updateObject(object, ..., verbose = FALSE)
 #' @export
 NULL
 
