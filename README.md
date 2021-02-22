@@ -14,7 +14,7 @@ citation("bcbioRNASeq")
 
 ## Installation
 
-Requirements: [R][] >= 4.0, [Bioconductor][] >= 3.11.
+Requirements: [R][] >= 4.0, [Bioconductor][] >= 3.12.
 
 ### [R][] method
 
