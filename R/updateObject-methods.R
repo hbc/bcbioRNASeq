@@ -1,7 +1,7 @@
 #' @name updateObject
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::updateObject
-#' @note Updated 2020-12-22.
+#' @note Updated 2021-02-22.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -41,7 +41,7 @@ NULL
 ## Row name extraction on invalid objects requires a fix for Bioc 3.10.
 ## https://github.com/Bioconductor/SummarizedExperiment/issues/31
 ##
-## Updated 2021-01-14.
+## Updated 2021-02-22.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -423,12 +423,24 @@ NULL
         ## Filter NULL assays.
         assays <- Filter(f = Negate(is.null), x = assays)
         ## Row ranges ----------------------------------------------------------
-        ## FIXME NEED TO RENAME GENEID (Id)
-        ## FIXME NEED TO RENAME TRANSCRIPTID (Use tx prefix)
         if (isTRUE(verbose)) {
             h2("Row ranges")
         }
         rowRanges <- rowRanges(object)
+        if (hasLength(colnames(mcols(rowRanges)))) {
+            colnames(mcols(rowRanges)) <-
+                camelCase(colnames(mcols(rowRanges)), strict = TRUE)
+            if (any(grepl(
+                pattern = "^transcript",
+                x = colnames(mcols(rowRanges))
+            ))) {
+                colnames(mcols(rowRanges)) <- gsub(
+                    pattern = "^transcript",
+                    replacement = "tx",
+                    x = colnames(mcols(rowRanges))
+                )
+            }
+        }
         ## rowRangesMetadata
         if ("rowRangesMetadata" %in% names(metadata)) {
             if (isTRUE(verbose)) {
@@ -483,11 +495,11 @@ NULL
         ## Recommended method as of v0.3.0 update.
         rowRanges <- encode(rowRanges)
         ## Column data ---------------------------------------------------------
-        ## FIXME NEED TO ENSURE colData is strict camel case.
         if (isTRUE(verbose)) {
             h2("Column data")
         }
         colData <- colData(object)
+        colnames(colData) <- camelCase(colnames(colData), strict = TRUE)
         ## Move metrics from metadata into colData, if necessary.
         metrics <- metadata[["metrics"]]
         if (!is.null(metrics)) {

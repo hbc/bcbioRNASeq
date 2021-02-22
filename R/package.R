@@ -29,7 +29,8 @@
 #'   makeSummarizedExperiment mapGenesToRownames matchInterestingGroups mcols
 #'   mcols<- metadata metadata<- methodFormals metrics packageName
 #'   packageVersion realpath rowData rowRanges rowSums sampleData session_info
-#'   showSlotInfo standardizeCall stripTranscriptVersions txt ul width
+#'   showHeader showSlotInfo standardizeCall stripTranscriptVersions txt ul
+#'   width
 #' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML importDataVersions importProgramVersions projectDir
 #'   runDate sampleDirs

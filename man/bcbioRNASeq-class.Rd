@@ -13,7 +13,7 @@ analysis.
 \code{bcbioRNASeq} extended \code{SummarizedExperiment} prior to v0.2.0, where we
 migrated to \code{RangedSummarizedExperiment}.
 
-Updated 2020-01-20.
+Updated 2021-02-22.
 }
 \section{Automatic metadata}{
 

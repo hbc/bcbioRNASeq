@@ -1,7 +1,7 @@
 #' @name show
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::show
-#' @note Updated 2020-12-22.
+#' @note Updated 2021-02-22.
 #' @examples
 #' data(bcb)
 #' show(bcb)
@@ -9,23 +9,15 @@ NULL
 
 
 
-## FIXME This is now defined in AcidBase / basejump...
-## Updated 2019-07-23.
-.showHeader <- function(object, version = NULL) {
-    cat(paste(class(object), version), sep = "\n")
-}
-
-
-
-## Updated 2020-09-15.
+## Updated 2021-02-22.
 `show,bcbioRNASeq` <-  # nolint
     function(object) {
         validObject(object)
+        showHeader(object)
         ## Metadata.
         m <- metadata(object)
         ## Row ranges metadata.
         rrm <- metadata(rowRanges(object))
-        .showHeader(object, version = m[["version"]])
         list <- list(
             uploadDir = m[["uploadDir"]],
             dates = as.character(c(

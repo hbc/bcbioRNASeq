@@ -19,7 +19,7 @@ Console output.
 Show an object
 }
 \note{
-Updated 2020-12-22.
+Updated 2021-02-22.
 }
 \examples{
 data(bcb)

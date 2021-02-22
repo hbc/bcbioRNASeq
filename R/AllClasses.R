@@ -1,7 +1,3 @@
-## FIXME Ensure we're using strict lower camel case in colData and rowData.
-
-
-
 #' bcbio RNA-Seq data set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
@@ -20,7 +16,7 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
-#' @note Updated 2020-01-20.
+#' @note Updated 2021-02-22.
 #' @export
 setClass(
     Class = "bcbioRNASeq",
@@ -30,11 +26,11 @@ setValidity(
     Class = "bcbioRNASeq",
     method = function(object) {
         metadata <- metadata(object)
-        ## Return invalid for all objects older than v0.2.
         version <- metadata[["version"]]
         ok <- validate(
             is(version, "package_version"),
-            version >= 0.2
+            version >= 0.2,
+            msg = "Object is older than v0.2, and cannot be easily updated."
         )
         if (!isTRUE(ok)) return(ok)
         ok <- validate(
@@ -44,14 +40,16 @@ setValidity(
         if (!isTRUE(ok)) return(ok)
         ## Metadata ------------------------------------------------------------
         ok <- validate(
-            ## Check for legacy metrics stashed in metadata, rather than defined
-            ## in colData.
             is.null(metadata[["metrics"]]),
+            msg = "Legacy metrics detected inside object metadata."
+        )
+        ok <- validate(
             ## Check that interesting groups defined in metadata are valid.
             isSubset(
                 x = metadata[["interestingGroups"]],
                 y = colnames(colData(object))
-            )
+            ),
+            msg = "interestingGroups column should not be defined in colData."
         )
         if (!isTRUE(ok)) return(ok)
         ## Error on legacy slot detection.
@@ -72,7 +70,7 @@ setValidity(
             )
         )
         ok <- validate(
-            ## Use `as.logical()` here for R 3.4/BioC 3.6 compatibility.
+            ## Using `as.logical()` here for R 3.4/BioC 3.6 compatibility.
             as.logical(!hasLength(intersect)),
             msg = sprintf("Legacy metadata: %s", toString(intersect))
         )
@@ -181,24 +179,6 @@ setValidity(
             ## nolint end
         )
         if (!isTRUE(ok)) return(ok)
-        ## FIXME RETHINK THIS STEP.
-        if (hasLength(colnames(rowData))) {
-            ## Note that GTF/GFF annotations won't contain description. The
-            ## description column only gets returned via ensembldb. This check
-            ## will fail for bcbioRNASeq objects created prior to v0.3 update
-            ## because we didn't use S4 Rle run-length encoding.
-            ok <- validateClasses(
-                object = rowData,
-                expected = list(
-                    "broadClass" = .Rle,
-                    "geneBiotype" = .Rle,
-                    ## "geneId" = .Rle,
-                    "geneName" = .Rle
-                ),
-                subset = TRUE
-            )
-            if (!isTRUE(ok)) return(ok)
-        }
         ## Column data ---------------------------------------------------------
         colData <- colData(object)
         ok <- validate(
