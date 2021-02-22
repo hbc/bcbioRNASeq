@@ -59,7 +59,7 @@ NULL
         interestingGroups <- interestingGroups(object)
         counts <- counts(object, normalized = FALSE)
         data <- metrics(object)
-        assert(identical(colnames(counts), data[["sampleID"]]))
+        assert(identical(colnames(counts), data[["sampleId"]]))
         data[["geneCount"]] <- colSums(counts >= minCounts)
         ## Convert to per million, if desired.
         if (isTRUE(perMillion)) {

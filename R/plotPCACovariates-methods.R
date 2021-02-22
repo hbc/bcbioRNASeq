@@ -2,7 +2,7 @@
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit AcidGenerics::plotPCACovariates
 #' @note Requires the DEGreport package to be installed.
-#' @note Updated 2020-09-23.
+#' @note Updated 2021-02-22.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
@@ -25,16 +25,7 @@ NULL
 
 
 
-#' @rdname plotPCACovariates
-#' @name plotPCACovariates
-#' @importFrom AcidGenerics plotPCACovariates
-#' @usage plotPCACovariates(object, ...)
-#' @export
-NULL
-
-
-
-## Updated 2020-09-23.
+## Updated 2021-02-22.
 `plotPCACovariates,bcbioRNASeq` <-  # nolint
     function(
         object,

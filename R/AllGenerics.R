@@ -43,6 +43,24 @@ NULL
 
 
 
+#' @rdname plotPCA
+#' @name plotPCA
+#' @importFrom AcidGenerics plotPCA
+#' @usage plotPCA(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotPCACovariates
+#' @name plotPCACovariates
+#' @importFrom AcidGenerics plotPCACovariates
+#' @usage plotPCACovariates(object, ...)
+#' @export
+NULL
+
+
+
 #' @rdname plotPseudoVsAlignedCounts
 #' @name plotPseudoVsAlignedCounts
 #' @importFrom AcidGenerics plotPseudoVsAlignedCounts
@@ -52,9 +70,53 @@ NULL
 
 
 
+#' @rdname plotRRNAMappingRate
+#' @name plotRRNAMappingRate
+#' @importFrom AcidGenerics plotRRNAMappingRate
+#' @usage plotRRNAMappingRate(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotTotalReads
+#' @name plotTotalReads
+#' @importFrom AcidGenerics plotTotalReads
+#' @usage plotTotalReads(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname relativeLogExpression
+#' @name relativeLogExpression
+#' @importFrom AcidGenerics relativeLogExpression
+#' @usage relativeLogExpression(object, ...)
+#' @export
+NULL
+
+
+
+## FIXME show
+
+
+
 #' @rdname slotAlignedCounts
 #' @name slotAlignedCounts
 #' @importFrom AcidGenerics slotAlignedCounts
 #' @usage slotAlignedCounts(object, ...)
 #' @export
 NULL
+
+
+
+#' @rdname tmm
+#' @name tmm
+#' @importFrom AcidGenerics tmm
+#' @usage tmm(object, ...)
+#' @export
+NULL
+
+
+
+## FIXME updateObject
