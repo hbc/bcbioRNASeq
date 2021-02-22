@@ -16,7 +16,7 @@ test_that("Verbose mode", {
     x[["interestingGroups"]] <- NULL
     expect_identical(
         object = as.data.frame(x),
-        expected = as.data.frame(camelCase(colData(object)))
+        expected = as.data.frame(camelCase(colData(object), strict = TRUE))
     )
 })
 
