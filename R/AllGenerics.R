@@ -31,22 +31,27 @@ setGeneric(
 
 
 
-#' @rdname plotPseudoVsAlignedCounts
+#' @rdname plot5Prime3PrimeBias
+#' @name plot5Prime3PrimeBias
+#' @importFrom AcidGenerics plot5Prime3PrimeBias
+#' @usage plot5Prime3PrimeBias(object, ...)
 #' @export
-setGeneric(
-    name = "plotPseudoVsAlignedCounts",
-    def = function(object, ...) {
-        standardGeneric("plotPseudoVsAlignedCounts")
-    }
-)
+NULL
+
+
+
+#' @rdname plotPseudoVsAlignedCounts
+#' @name plotPseudoVsAlignedCounts
+#' @importFrom AcidGenerics plotPseudoVsAlignedCounts
+#' @usage plotPseudoVsAlignedCounts(object, ...)
+#' @export
+NULL
 
 
 
 #' @rdname slotAlignedCounts
+#' @name slotAlignedCounts
+#' @importFrom AcidGenerics slotAlignedCounts
+#' @usage slotAlignedCounts(object, ...)
 #' @export
-setGeneric(
-    name = "slotAlignedCounts",
-    def = function(object, ...) {
-        standardGeneric("slotAlignedCounts")
-    }
-)
+NULL
