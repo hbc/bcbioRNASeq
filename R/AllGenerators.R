@@ -23,7 +23,7 @@
 #' syntactically valid names (see [`make.names`][base::make.names] for more
 #' information), and assigned as the column names of the `bcbioRNASeq` object.
 #' The original values are stored as the `sampleName` column in `colData`, and
-#' are used for all plotting functions. Do not attempt to set a `sampleID`
+#' are used for all plotting functions. Do not attempt to set a `sampleId`
 #' column, as this is used internally by the package.
 #'
 #' Here is a minimal example of a properly formatted sample metadata file:
@@ -64,7 +64,7 @@
 #' download and use the pre-built [Ensembl][] genome annotations from
 #' [AnnotationHub][]. This method is preferred over direct loading of a GTF/GFF
 #' file because the [AnnotationHub][] annotations contain additional rich
-#' metadata not defined in a GFF file, specifically `description` and `entrezID`
+#' metadata not defined in a GFF file, specifically `description` and `entrezId`
 #' values.
 #'
 #' Alternatively, if you are working with a non-standard or poorly annotated
@@ -119,10 +119,10 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2020-12-03.
+#' @note Updated 2021-02-22.
 #' @export
 #'
-#' @inheritParams basejump::makeSummarizedExperiment
+#' @inheritParams AcidExperiment::makeSummarizedExperiment
 #' @inheritParams AcidRoxygen::params
 #' @param level `character(1)`.
 #'   Import counts at gene level ("`genes`"; *default*) or transcript level
@@ -473,7 +473,7 @@ bcbioRNASeq <- function(
     ## Metadata ----------------------------------------------------------------
     cli_h2("Metadata")
     ## Interesting groups.
-    interestingGroups <- camelCase(interestingGroups)
+    interestingGroups <- camelCase(interestingGroups, strict = TRUE)
     assert(isSubset(interestingGroups, colnames(colData)))
     ## Organism.
     ## Attempt to detect automatically if not declared by user.
