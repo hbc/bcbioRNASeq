@@ -1,36 +1,39 @@
-## FIXME Need to define in AcidGenerics, so we can also use in DESeqAnalysis.
 #' @rdname coerce
+#' @name as.DESeqDataSet
+#' @importFrom AcidGenerics as.DESeqDataSet
+#' @usage as.DESeqDataSet(x, ...)
 #' @export
-setGeneric(
-    name = "as.DESeqDataSet",
-    def = function(x, ...) {
-        standardGeneric("as.DESeqDataSet")
-    }
-)
+NULL
 
-
-
-## FIXME Need to define in AcidGenerics, so we can also use in DESeqAnalysis.
 #' @rdname coerce
+#' @name as.DESeqTransform
+#' @importFrom AcidGenerics as.DESeqTransform
+#' @usage as.DESeqTransform(x, ...)
 #' @export
-setGeneric(
-    name = "as.DESeqTransform",
-    def = function(x, ...) {
-        standardGeneric("as.DESeqTransform")
-    }
-)
+NULL
 
-
-
-## FIXME Need to define in AcidGenerics, so we can also use in DESeqAnalysis.
 #' @rdname coerce
+#' @name as.DGEList
+#' @importFrom AcidGenerics as.DGEList
+#' @usage as.DGEList(x, ...)
 #' @export
-setGeneric(
-    name = "as.DGEList",
-    def = function(x, ...) {
-        standardGeneric("as.DGEList")
-    }
-)
+NULL
+
+
+
+#' @rdname counts
+#' @name counts
+#' @importFrom AcidGenerics counts
+#' @usage counts(object, ...)
+#' @export
+NULL
+
+#' @rdname counts
+#' @name counts<-
+#' @importFrom AcidGenerics counts<-
+#' @usage counts(object, ...) <- value
+#' @export
+NULL
 
 
 
@@ -256,5 +259,22 @@ NULL
 #' @name updateObject
 #' @importFrom AcidGenerics updateObject
 #' @usage updateObject(object, ..., verbose = TRUE)
+#' @export
+NULL
+
+
+
+#' @rdname tmm
+#' @name tmm
+#' @importFrom AcidGenerics tmm
+#' @usage tmm(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname updateObject
+#' @name updateObject
+#' @importFrom AcidGenerics updateObject
 #' @export
 NULL

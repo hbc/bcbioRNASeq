@@ -1,3 +1,9 @@
+## bcbioRNASeq 0.3.40 (2020-12-22)
+
+### Minor changes
+
+- Reworked S4 generic imports, migrating some functions to AcidGenerics.
+
 ## bcbioRNASeq 0.3.39 (2020-12-03)
 
 ### Minor changes
@@ -321,7 +327,7 @@ Moved forked development repository to [Acid Genomics][].
 ### Minor changes
 
 - `.tximport`: Use `makeNames` to check for valid names internally.
-- Removed FIXME comment and improved documentation.
+- Improved documentation.
 - Travis CI configuration fixes to get build checks to pass.
 
 ## bcbioRNASeq 0.3.7 (2019-01-13)

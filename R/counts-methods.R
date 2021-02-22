@@ -1,13 +1,11 @@
-#' Counts
-#'
-#' Count matrix.
-#'
-#' By default, return the raw counts. Normalized counts in a variety of formats
-#' can be accessed using the `normalized` argument.
-#'
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
-#' @note Updated 2020-09-23.
+#' @inherit AcidGenerics::counts
+#' @note Updated 2020-12-22.
+#'
+#' @details
+#' By default, return the raw counts. Normalized counts in a variety of formats
+#' can be accessed using the `normalized` argument.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param normalized `character(1)` or `logical(1)`.
@@ -29,22 +27,25 @@
 #'     See [DESeq2::sizeFactors()] for details.
 #'   - `"fpkm"`: **F**ragments **p**er **k**ilobase per **m**illion mapped
 #'     fragments.\cr
-#'     Requires `fpkm = TRUE` in [bcbioRNASeq()] call and gene annotations in
+#'     Requires `fast = FALSE` in [bcbioRNASeq()] call and gene annotations in
 #'     [`rowRanges()`][SummarizedExperiment::rowRanges] with defined
 #'     [`width`][BiocGenerics::width].\cr
 #'     See [DESeq2::fpkm()] for details.
 #'   - `"vst"`: **V**ariance-**s**tabilizing **t**ransformation (log2).\cr
-#'     Requires `vst = TRUE` to be set during [bcbioRNASeq()] call.\cr
+#'     Requires `fast = FALSE` to be set during [bcbioRNASeq()] call.\cr
 #'     See `DESeq2::varianceStabilizingTransformation` for more information.
-#'   - `"rlog"`: **R**egularized **log** transformation (log2).\cr
-#'     Requires `rlog = TRUE` to be set during [bcbioRNASeq()] call.\cr
-#'     See [DESeq2::rlog()] for details.
 #'   - `"tmm"`: **T**rimmed **m**ean of **M**-values.\cr
 #'     Calculated on the fly.\cr
 #'     See [edgeR::calcNormFactors()] for details.
 #'   - `"rle"`: **R**elative **l**og **e**xpression transformation.\cr
 #'     Calculated on the fly.\cr
 #'     See [relativeLogExpression()] for details.
+#'   - `"rlog"`: *Deprecated*.
+#'     **R**egularized **log** transformation (log2).\cr
+#'     No longer calculated automatically during [bcbioRNASeq()] call, but may
+#'     be defined in legacy objects.\cr
+#'     See [DESeq2::rlog()] for details.\cr
+#'     Note that VST is more performant and now recommended by default instead.
 #'
 #'     Note that `logical(1)` support only applies to `counts()`. Other
 #'     functions in the package require `character(1)` and use
@@ -52,8 +53,6 @@
 #'
 #' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
 #' [tximport]: https://bioconductor.org/packages/tximport/
-#'
-#' @return `matrix`.
 #'
 #' @references
 #' - TMM: Robinson and Oshlack (2010).
@@ -73,21 +72,6 @@
 #' @examples
 #' data(bcb)
 #' summary(counts(bcb))
-NULL
-
-
-
-#' @rdname counts
-#' @name counts
-#' @importFrom BiocGenerics counts
-#' @export
-NULL
-
-#' @rdname counts
-#' @name counts<-
-#' @importFrom BiocGenerics counts<-
-#' @usage NULL
-#' @export
 NULL
 
 

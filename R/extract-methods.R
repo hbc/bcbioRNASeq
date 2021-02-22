@@ -8,14 +8,15 @@
 #' @name extract
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @inherit base::Extract params references
-#' @note Updated 2020-01-20.
+#' @note Updated 2020-12-21.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param recalculate `logical(1)`.
 #'   Recalculate DESeq2 normalized counts and variance-stabilizing
-#'   transformations defined in `assays`. Recommended by default, but can take a
-#'   long time for large datasets. If `FALSE`, these assays will be removed
-#'   automatically: `normalized`, `rlog`, `vst`.
+#'   transformations defined in `assays`.\cr
+#'   Recommended by default, but can take a long time for large datasets.\cr\
+#'   If `FALSE`, these assays will be removed automatically: `normalized`,
+#'   `rlog`, `vst`.
 #'
 #' @return `bcbioRNASeq`.
 #'
@@ -49,7 +50,7 @@ NULL
 
 
 
-## Updated 2020-01-20.
+## Updated 2020-12-21.
 `extract,bcbioRNASeq` <-  # nolint
     function(
         x, i, j,
@@ -86,7 +87,6 @@ NULL
         if (identical(assay(rse), assay(x))) {
             return(x)
         }
-
         ## Assays --------------------------------------------------------------
         assays <- assays(rse)
         if (isTRUE(subset)) {
@@ -124,7 +124,6 @@ NULL
         ## Drop any `NULL` items in assays.
         assays <- Filter(f = Negate(is.null), x = assays)
         assays(rse) <- assays
-
         ## Metadata ------------------------------------------------------------
         metadata <- metadata(rse)
         if (isTRUE(subset)) {
@@ -133,7 +132,6 @@ NULL
         ## Drop any `NULL` items in metadata.
         metadata <- Filter(f = Negate(is.null), x = metadata)
         metadata(rse) <- metadata
-
         ## Return --------------------------------------------------------------
         rse <- droplevels(rse)
         bcb <- new(Class = "bcbioRNASeq", rse)

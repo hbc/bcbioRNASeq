@@ -1,7 +1,7 @@
 #' @name plotPCA
 #' @author Michael Steinbaugh
 #' @importMethodsFrom AcidPlots plotPCA
-#' @inherit AcidPlots::plotPCA
+#' @inherit AcidGenerics::plotPCA
 #' @note Updated 2020-09-15.
 #'
 #' @inheritParams plotCounts

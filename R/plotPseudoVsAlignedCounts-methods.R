@@ -1,17 +1,16 @@
-#' Compare pseudoaligned counts to aligned counts.
-#'
 #' @name plotPseudoVsAlignedCounts
+#' @author Michael Steinbaugh
+#' @inherit AcidGenerics::plotPseudoVsAlignedCounts
+#' @note Updated 2020-12-22.
+#'
 #' @note Currently supported for salmon or kallisto. The function will
 #'   intentionally error for datasets containing aligned counts in the primary
 #'   `counts` assay.
-#' @note Updated 2020-01-20.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to [AcidPlots::plotCountsCorrelationHeatmap()] when
 #'   `genes = NULL` or [AcidPlots::plotCountsCorrelation()] when `genes` are
 #'   defined.
-#'
-#' @return Plot.
 #'
 #' @examples
 #' data(bcb)

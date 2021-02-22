@@ -3,7 +3,7 @@
 \name{slotAlignedCounts}
 \alias{slotAlignedCounts}
 \alias{slotAlignedCounts,bcbioRNASeq-method}
-\title{Slot aligned counts into object}
+\title{Slot aligned counts}
 \usage{
 slotAlignedCounts(object, ...)
 
@@ -15,15 +15,18 @@ slotAlignedCounts(object, ...)
 \item{...}{Additional arguments.}
 }
 \value{
-Modified object, with aligned counts defined in \code{assays}.
+Modified object.
 }
 \description{
+Slot aligned counts
+}
+\details{
 This function loads aligned counts (e.g. STAR, HISAT2) from the bcbio final
 output directory into the bcbioRNASeq object, so we can visually inspect
 correlations with the primary pseudoaligned counts.
 }
 \note{
-Updated 2021-02-22.
+Updated 2020-12-22.
 }
 \examples{
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
@@ -32,4 +35,7 @@ bcb <- bcbioRNASeq(uploadDir, fast = TRUE)
 "aligned" \%in\% assayNames(bcb)
 bcb <- slotAlignedCounts(bcb)
 "aligned" \%in\% assayNames(bcb)
+}
+\author{
+Michael Steinbaugh
 }

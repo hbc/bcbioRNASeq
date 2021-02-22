@@ -66,9 +66,10 @@
 
 \item{recalculate}{\code{logical(1)}.
 Recalculate DESeq2 normalized counts and variance-stabilizing
-transformations defined in \code{assays}. Recommended by default, but can take a
-long time for large datasets. If \code{FALSE}, these assays will be removed
-automatically: \code{normalized}, \code{rlog}, \code{vst}.}
+transformations defined in \code{assays}.\cr
+Recommended by default, but can take a long time for large datasets.\cr\
+If \code{FALSE}, these assays will be removed automatically: \code{normalized},
+\code{rlog}, \code{vst}.}
 }
 \value{
 \code{bcbioRNASeq}.
@@ -81,7 +82,7 @@ Internal count transformations are rescaled automatically, if defined. DESeq2
 transformations will only be updated when \code{recalculate = TRUE}.
 }
 \note{
-Updated 2020-01-20.
+Updated 2020-12-21.
 }
 \examples{
 data(bcb)

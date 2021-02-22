@@ -10,21 +10,21 @@ show(object, ...)
 \S4method{show}{bcbioRNASeq}(object)
 }
 \arguments{
-\item{object}{Any R object}
+\item{object}{Object.}
 }
 \value{
-\code{show} returns an invisible \code{NULL}.
+Console output.
 }
 \description{
 Show an object
 }
 \note{
-Updated 2020-09-15.
+Updated 2020-12-22.
 }
 \examples{
 data(bcb)
 show(bcb)
 }
 \author{
-Michael Steinbuagh
+Michael Steinbaugh
 }

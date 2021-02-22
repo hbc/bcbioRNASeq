@@ -1,4 +1,7 @@
-#' Plot dispersion estimates
+#' @name plotDispEsts
+#' @author Michael Steinbaugh
+#' @inherit AcidGenerics::plotDispEsts
+#' @note Updated 2020-12-21.
 #'
 #' @details
 #' This plot shows the dispersion by mean of normalized counts. We expect the
@@ -7,18 +10,11 @@
 #' Here we're generating a `DESeqDataSet` object on the fly, which already has
 #' method support for plotting dispersion, provided by the DESeq2 package.
 #'
-#' @name plotDispEsts
-#' @author Michael Steinbaugh
-#' @inherit DESeq2::plotDispEsts description
-#' @note Updated 2019-09-15.
-#'
-#' @param object Object.
+#' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `DESeqDataSet` method defined in DESeq2.
 #'   See [DESeq2::plotDispEsts()] for details.
 #'
 #' @seealso [DESeq2::plotDispEsts()].
-#'
-#' @return `ggplot`.
 #'
 #' @examples
 #' data(bcb)

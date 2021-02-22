@@ -1,3 +1,13 @@
+## FIXME Consider round gene-level counts to integer, as this is confusing
+## people.
+
+## FIXME Consider allowing sample metadata input to be more flexible, as a lot
+## of people prefer using snake case.
+
+## FIXME Consider converting any warnings to errors here.
+
+
+
 #' @inherit bcbioRNASeq-class title description
 #'
 #' @details

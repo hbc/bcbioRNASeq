@@ -100,9 +100,7 @@ BugReports: https://github.com/hbc/bcbioRNASeq/issues/
 License: AGPL-3
 Encoding: UTF-8
 LazyData: false
-Depends:
-    R (>= 4.0),
-    SummarizedExperiment (>= 1.20)
+Depends: R (>= 4.0)
 Imports:
     AcidGenerics (>= 0.5.15),
     AcidPlots (>= 0.3.3),

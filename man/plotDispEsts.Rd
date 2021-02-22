@@ -19,8 +19,7 @@ See \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}} for details.}
 \code{ggplot}.
 }
 \description{
-A simple helper function that plots the per-gene dispersion
-estimates together with the fitted mean-dispersion relationship.
+Plot dispersion estimates
 }
 \details{
 This plot shows the dispersion by mean of normalized counts. We expect the
@@ -30,7 +29,7 @@ Here we're generating a \code{DESeqDataSet} object on the fly, which already has
 method support for plotting dispersion, provided by the DESeq2 package.
 }
 \note{
-Updated 2019-09-15.
+Updated 2020-12-21.
 }
 \examples{
 data(bcb)

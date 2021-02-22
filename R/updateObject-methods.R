@@ -1,7 +1,7 @@
 #' @name updateObject
 #' @author Michael Steinbaugh
-#' @inherit BiocGenerics::updateObject
-#' @note Updated 2021-02-22.
+#' @inherit AcidGenerics::updateObject
+#' @note Updated 2020-12-22.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -25,8 +25,6 @@
 #'   v0.2.0, this option had to be added to enable updating of newly required
 #'   `rowRanges` slot. Objects that are >= v0.2 don't require this argument and
 #'   it can be left `NULL`.
-#'
-#' @return `bcbioRNASeq`.
 #'
 #' @examples
 #' data(bcb)
