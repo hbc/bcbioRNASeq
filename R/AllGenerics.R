@@ -225,7 +225,12 @@ NULL
 
 
 
-## FIXME show
+#' @rdname show
+#' @name show
+#' @importFrom AcidGenerics show
+#' @usage show(object, ...)
+#' @export
+NULL
 
 
 
@@ -247,4 +252,9 @@ NULL
 
 
 
-## FIXME updateObject
+#' @rdname updateObject
+#' @name updateObject
+#' @importFrom AcidGenerics updateObject
+#' @usage updateObject(object, ..., verbose = TRUE)
+#' @export
+NULL

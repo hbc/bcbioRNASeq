@@ -21,7 +21,8 @@ organism <- "Mus musculus"
 ensemblRelease <- 90L
 
 ## nolint start
-assay <- SummarizedExperiment::assay
+Gene2Symbol <- basejump::Gene2Symbol
+assay <- basejump::assay
 hasInternet <- goalie::hasInternet
 initDir <- basejump::initDir
 skip_on_docker <- goalie::skip_on_docker
