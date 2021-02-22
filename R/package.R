@@ -23,13 +23,13 @@
 #'   alert alertInfo alertSuccess alertWarning as.data.frame assay assay<-
 #'   assayNames assayNames<- assays assays<- camelCase capture.output cbind
 #'   colData colData<- colSums detectLanes detectOrganism dl do.call droplevels
-#'   emptyRanges encode formalsList h1 h2 head humanize import importSampleData
-#'   importTx2Gene interestingGroups interestingGroups<- lapply
+#'   emptyRanges encode formalsList h1 h2 h3 head humanize import
+#'   importSampleData importTx2Gene interestingGroups interestingGroups<- lapply
 #'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames matchInterestingGroups mcols
 #'   mcols<- metadata metadata<- methodFormals metrics packageName
 #'   packageVersion realpath rowData rowRanges rowSums sampleData session_info
-#'   showSlotInfo standardizeCall stripTranscriptVersions width
+#'   showSlotInfo standardizeCall stripTranscriptVersions txt ul width
 #' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML importDataVersions importProgramVersions projectDir
 #'   runDate sampleDirs

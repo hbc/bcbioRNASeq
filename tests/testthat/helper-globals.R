@@ -1,8 +1,10 @@
+## nolint start
+
 ## Fix for pheatmap partial match warning.
 ## https://github.com/raivokolde/pheatmap/issues/46
 options(
-    warnPartialMatchAttr = FALSE,
-    warnPartialMatchDollar = FALSE
+    "warnPartialMatchAttr" = FALSE,
+    "warnPartialMatchDollar" = FALSE
 )
 
 data(bcb, envir = environment())
@@ -11,19 +13,19 @@ invisible(validObject(bcb))
 bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds"))  # nolint
 invisible(validObject(bcb_fast))
 
-object <- bcb
-g2s <- Gene2Symbol(object)
-geneIds <- head(g2s[["geneId"]])
-geneNames <- head(g2s[["geneName"]])
-
-uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
-organism <- "Mus musculus"
-ensemblRelease <- 90L
-
-## nolint start
 Gene2Symbol <- basejump::Gene2Symbol
 assay <- basejump::assay
 hasInternet <- goalie::hasInternet
 initDir <- basejump::initDir
 skip_on_docker <- goalie::skip_on_docker
+
+object <- bcb
+g2s <- Gene2Symbol(object)
+geneIds <- head(g2s[["geneId"]])
+geneNames <- head(g2s[["geneName"]])
+
+uploadDir <- system.file("extdata", "bcbio", package = "bcbioRNASeq")
+organism <- "Mus musculus"
+ensemblRelease <- 90L
+
 ## nolint end
