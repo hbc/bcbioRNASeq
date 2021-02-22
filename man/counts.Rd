@@ -60,6 +60,10 @@ Note that \code{logical(1)} support only applies to \code{counts()}. Other
 functions in the package require \code{character(1)} and use
 \code{\link[base:match.arg]{match.arg()}} internally.
 }}
+
+\item{value}{Value to assign.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 \code{matrix}.
@@ -72,7 +76,7 @@ By default, return the raw counts. Normalized counts in a variety of formats
 can be accessed using the \code{normalized} argument.
 }
 \note{
-Updated 2020-12-22.
+Updated 2021-02-22.
 }
 \examples{
 data(bcb)

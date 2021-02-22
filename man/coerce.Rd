@@ -40,17 +40,17 @@ Modified object, of desired coercion type.
 Force an object to belong to a class.
 }
 \note{
-Updated 2020-01-20.
+Updated 2021-02-22.
 }
 \section{bcbioRNASeq to DESeqDataSet}{
 
 \enumerate{
 \item Coerce to \code{RangedSummarizedExperiment}.
 \item Round raw counts to \verb{integer matrix}.
-\item Subset \code{\link[SummarizedExperiment:SummarizedExperiment-class]{colData()}} to include only clean
+\item Subset \code{colData()} to include only clean
 factor columns. See \code{\link[basejump:reexports]{sampleData()}} for details.
-\item Simplify \code{\link[S4Vectors:Annotated-class]{metadata()}} to include only relevant
-information and updates \code{sessionInfo}.
+\item Simplify \code{metadata()} to include only relevant information and
+updates \code{sessionInfo}.
 }
 
 Note that gene-level counts are required. Alternatively,
@@ -97,7 +97,7 @@ data(bcb)
 
 ## bcbioRNASeq to DESeqDataSet ====
 x <- as(bcb, "DESeqDataSet")
-names(S4Vectors::mcols(x))
+names(mcols(x))
 class(x)
 show(x)
 

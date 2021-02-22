@@ -1,7 +1,7 @@
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @inherit AcidGenerics::counts
-#' @note Updated 2020-12-22.
+#' @note Updated 2021-02-22.
 #'
 #' @details
 #' By default, return the raw counts. Normalized counts in a variety of formats
@@ -53,6 +53,9 @@
 #'
 #' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
 #' [tximport]: https://bioconductor.org/packages/tximport/
+#'
+#' @param value Value to assign.
+#' @param ... Additional arguments.
 #'
 #' @references
 #' - TMM: Robinson and Oshlack (2010).

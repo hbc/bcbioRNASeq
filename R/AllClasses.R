@@ -6,7 +6,7 @@
 #'
 #' @section Automatic metadata:
 #'
-#' The [`metadata()`][S4Vectors::metadata] slot always contains:
+#' The `metadata()` slot always contains:
 #'
 #' - Object version.
 #' - bcbio data provenance information.

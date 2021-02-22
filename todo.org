@@ -1,6 +1,8 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
+** TODO goalie cause attributes are causing weird extra data frames to render
+   inside of R Markdown. Can't reproduce this in base R...
 ** TODO Consider rounding raw counts to integer, matching conventions used
    in internal bcbio-nextgen R script. Non-integer counts tend to confuse
    people. Only want to implement this at gene level.

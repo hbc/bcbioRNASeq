@@ -6,16 +6,16 @@
 #' @author Michael Steinbaugh
 #' @importFrom methods coerce
 #' @exportMethod coerce
-#' @note Updated 2020-01-20.
+#' @note Updated 2021-02-22.
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'
 #' 1. Coerce to `RangedSummarizedExperiment`.
 #' 2. Round raw counts to `integer matrix`.
-#' 3. Subset [`colData()`][SummarizedExperiment::colData] to include only clean
+#' 3. Subset `colData()` to include only clean
 #'    factor columns. See [`sampleData()`][basejump::sampleData] for details.
-#' 4. Simplify [`metadata()`][S4Vectors::metadata] to include only relevant
-#'    information and updates `sessionInfo`.
+#' 4. Simplify `metadata()` to include only relevant information and
+#'    updates `sessionInfo`.
 #'
 #' Note that gene-level counts are required. Alternatively,
 #' [`summarizeToGene()`][tximport::summarizeToGene] can be called to convert
@@ -63,7 +63,7 @@
 #'
 #' ## bcbioRNASeq to DESeqDataSet ====
 #' x <- as(bcb, "DESeqDataSet")
-#' names(S4Vectors::mcols(x))
+#' names(mcols(x))
 #' class(x)
 #' show(x)
 #'
