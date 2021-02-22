@@ -12,7 +12,7 @@
         assert(isFlag(quiet))
         .assertHasValidCFA(se)
         if (!isTRUE(quiet)) {
-            cli_text(sprintf(
+            alert(sprintf(
                 "Generating {.var DESeqDataSet} with {.pkg DESeq2} %s.",
                 packageVersion("DESeq2")
             ))

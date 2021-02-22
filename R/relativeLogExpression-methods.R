@@ -16,7 +16,7 @@ NULL
 ## Updated 2020-01-20.
 `relativeLogExpression,matrix` <-  # nolint
     function(object) {
-        cli_alert("Applying relative log expression (RLE) normalization.")
+        alert("Applying relative log expression (RLE) normalization.")
         object <- DGEList(object)
         object <- calcNormFactors(object, method = "RLE")
         object <- cpm(object, normalized.lib.sizes = TRUE)

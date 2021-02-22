@@ -56,8 +56,8 @@ NULL
         version <- metadata[["version"]]
         assert(is(version, c("package_version", "numeric_version")))
         if (isTRUE(verbose)) {
-            cli_h1("Update object")
-            cli_text(sprintf(
+            h1("Update object")
+            alert(sprintf(
                 fmt = paste(
                     "Updating {.var bcbioRNASeq} object from version {.val %s}",
                     "to {.val %s}."
@@ -68,7 +68,7 @@ NULL
         }
         ## Legacy slots --------------------------------------------------------
         if (isTRUE(verbose)) {
-            cli_h2("Legacy slots")
+            h2("Legacy slots")
         }
         ## NAMES
         if (!is.null(slot(object, "NAMES"))) {
@@ -128,7 +128,7 @@ NULL
         }
         ## Metadata ------------------------------------------------------------
         if (isTRUE(verbose)) {
-            cli_h2("Metadata")
+            h2("Metadata")
         }
         ## bcbioLog
         if (is.null(metadata[["bcbioLog"]])) {
@@ -176,7 +176,7 @@ NULL
         if ("ensemblVersion" %in% names(metadata)) {
             ## Renamed in v0.2.0.
             if (isTRUE(verbose)) {
-                cli_alert(
+                alert(
                     "Renaming {.var ensemblVersion} to {.var ensemblRelease}."
                 )
             }
@@ -185,7 +185,7 @@ NULL
         }
         if (!is.integer(metadata[["ensemblRelease"]])) {
             if (isTRUE(verbose)) {
-                cli_alert("Setting {.var ensemblRelease} as integer.")
+                alert("Setting {.var ensemblRelease} as integer.")
             }
             metadata[["ensemblRelease"]] <-
                 as.integer(metadata[["ensemblRelease"]])
@@ -202,14 +202,14 @@ NULL
         ## gffFile
         if ("gtfFile" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert("Renaming {.var gtfFile} to {.var gffFile}.")
+                alert("Renaming {.var gtfFile} to {.var gffFile}.")
             }
             names(metadata)[
                 names(metadata) == "gtfFile"] <- "gffFile"
         }
         if (!"gffFile" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert("Setting {.var gffFile} as empty character.")
+                alert("Setting {.var gffFile} as empty character.")
             }
             metadata[["gffFile"]] <- character()
         }
@@ -223,14 +223,14 @@ NULL
         ## lanes
         if (!is.integer(metadata[["lanes"]])) {
             if (isTRUE(verbose)) {
-                cli_alert("Setting {.var lanes} as integer.")
+                alert("Setting {.var lanes} as integer.")
             }
             metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
         }
         ## level
         if (!"level" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert("Setting {.var level} as genes.")
+                alert("Setting {.var level} as genes.")
             }
             metadata[["level"]] <- "genes"
         }
@@ -238,7 +238,7 @@ NULL
         if (!"programVersions" %in% names(metadata) &&
             "programs" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert("Renaming {.var programs} to {.var programVersions}.")
+                alert("Renaming {.var programs} to {.var programVersions}.")
             }
             names(metadata)[
                 names(metadata) == "programs"] <- "programVersions"
@@ -246,7 +246,7 @@ NULL
         programVersions <- metadata[["programVersions"]]
         if (is(programVersions, "data.frame")) {
             if (isTRUE(verbose)) {
-                cli_alert(
+                alert(
                     "Coercing {.var programVersions} to {.var DataFrame}."
                 )
             }
@@ -255,7 +255,7 @@ NULL
         ## sampleMetadataFile
         if (!is.character(metadata[["sampleMetadataFile"]])) {
             if (isTRUE(verbose)) {
-                cli_alert(
+                alert(
                     "Setting {.var sampleMetadataFile} as empty character."
                 )
             }
@@ -266,7 +266,7 @@ NULL
         ## Previously, we stashed both devtools* and utils* variants.
         if ("devtoolsSessionInfo" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert("Simplifying stashed {.var sessionInfo}.")
+                alert("Simplifying stashed {.var sessionInfo}.")
             }
             names(metadata)[
                 names(metadata) == "devtoolsSessionInfo"] <- "sessionInfo"
@@ -275,7 +275,7 @@ NULL
         ## template
         if ("template" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert("Dropping legacy {.var template}.")
+                alert("Dropping legacy {.var template}.")
             }
             metadata[["template"]] <- NULL
         }
@@ -297,7 +297,7 @@ NULL
         ## yamlFile
         if ("yamlFile" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert("Dropping {.var yamlFile} file path.")
+                alert("Dropping {.var yamlFile} file path.")
             }
             metadata[["yamlFile"]] <- NULL
         }
@@ -307,7 +307,7 @@ NULL
         ## tximport-specific
         if (isSubset(metadata[["caller"]], .tximportCallers)) {
             if (isTRUE(verbose)) {
-                cli_h3("tximport")
+                h3("tximport")
             }
             ## countsFromAbundance
             if (!"countsFromAbundance" %in% names(metadata)) {
@@ -324,7 +324,7 @@ NULL
             tx2gene <- metadata[["tx2gene"]]
             if (!is(tx2gene, "Tx2Gene")) {
                 if (isTRUE(verbose)) {
-                    cli_alert(
+                    alert(
                         "Coercing {.var tx2gene} to {.var Tx2Gene} class."
                     )
                 }
@@ -339,7 +339,7 @@ NULL
         metadata <- Filter(f = Negate(is.null), x = metadata)
         ## Assays --------------------------------------------------------------
         if (isTRUE(verbose)) {
-            cli_h2("Assays")
+            h2("Assays")
         }
         assays <- assays(object)
         ## These variables are needed for assay handling.
@@ -356,21 +356,21 @@ NULL
         ## Ensure raw counts are always named "counts".
         if ("raw" %in% names(assays)) {
             if (isTRUE(verbose)) {
-                cli_alert("Renaming {.var raw} assay to {.var counts}.")
+                alert("Renaming {.var raw} assay to {.var counts}.")
             }
             names(assays)[names(assays) == "raw"] <- "counts"
         }
         ## Rename average transcript length matrix.
         if ("length" %in% names(assays)) {
             if (isTRUE(verbose)) {
-                cli_alert("Renaming {.var length} assay to {.var avgTxLength}.")
+                alert("Renaming {.var length} assay to {.var avgTxLength}.")
             }
             names(assays)[names(assays) == "length"] <- "avgTxLength"
         }
         ## Drop legacy TMM counts.
         if ("tmm" %in% names(assays)) {
             if (isTRUE(verbose)) {
-                cli_alert(paste(
+                alert(paste(
                     "Dropping {.var tmm} from {.fun assays}.",
                     "Calculating on the fly instead."
                 ))
@@ -384,7 +384,7 @@ NULL
             ## DESeq2 normalized counts.
             if (is(assays[["normalized"]], "DESeqDataSet")) {
                 if (isTRUE(verbose)) {
-                    cli_alert(paste(
+                    alert(paste(
                         "Coercing {.var normalized} assay from",
                         "{.var DESeqDataSet} to {.var matrix}."
                     ))
@@ -395,7 +395,7 @@ NULL
             ## Variance-stabilizing transformation.
             if (is(assays[["vst"]], "DESeqTransform")) {
                 if (isTRUE(verbose)) {
-                    cli_alert(paste(
+                    alert(paste(
                         "Coercing {.var vst} assay from {.var DESeqTransform}",
                         "to {.var matrix}."
                     ))
@@ -405,7 +405,7 @@ NULL
             ## Regularized log.
             if (is(assays[["rlog"]], "DESeqTransform")) {
                 if (isTRUE(verbose)) {
-                    cli_alert(paste(
+                    alert(paste(
                         "Coercing {.var rlog} assay from {.var DESeqTransform}",
                         "to {.var matrix}."
                     ))
@@ -428,13 +428,13 @@ NULL
         ## FIXME NEED TO RENAME GENEID (Id)
         ## FIXME NEED TO RENAME TRANSCRIPTID (Use tx prefix)
         if (isTRUE(verbose)) {
-            cli_h2("Row ranges")
+            h2("Row ranges")
         }
         rowRanges <- rowRanges(object)
         ## rowRangesMetadata
         if ("rowRangesMetadata" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                cli_alert(paste(
+                alert(paste(
                     "Moving {.var rowRangesMetadata} into {.var rowRanges}",
                     "metadata."
                 ))
@@ -446,7 +446,7 @@ NULL
         ## biotype
         if ("biotype" %in% colnames(mcols(rowRanges))) {
             if (isTRUE(verbose)) {
-                cli_alert("Renaming {.var biotype} to {.var geneBiotype}.")
+                alert("Renaming {.var biotype} to {.var geneBiotype}.")
             }
             mcols(rowRanges)[["geneBiotype"]] <-
                 as.factor(mcols(rowRanges)[["biotype"]])
@@ -458,7 +458,7 @@ NULL
             is.character(mcols(rowRanges)[["broadClass"]])
         ) {
             if (isTRUE(verbose)) {
-                cli_alert("Setting {.var broadClass} to factor.")
+                alert("Setting {.var broadClass} to factor.")
             }
             mcols(rowRanges)[["broadClass"]] <-
                 as.factor(mcols(rowRanges)[["broadClass"]])
@@ -466,7 +466,7 @@ NULL
         ## ensgene
         if ("ensgene" %in% colnames(mcols(rowRanges))) {
             if (isTRUE(verbose)) {
-                cli_alert("Renaming {.var ensgene} to {.var geneId}.")
+                alert("Renaming {.var ensgene} to {.var geneId}.")
             }
             mcols(rowRanges)[["geneId"]] <-
                 as.character(mcols(rowRanges)[["ensgene"]])
@@ -475,7 +475,7 @@ NULL
         ## symbol
         if ("symbol" %in% colnames(mcols(rowRanges))) {
             if (isTRUE(verbose)) {
-                cli_alert("Renaming {.var symbol} to {.var geneName}.")
+                alert("Renaming {.var symbol} to {.var geneName}.")
             }
             mcols(rowRanges)[["geneName"]] <-
                 as.factor(mcols(rowRanges)[["symbol"]])
@@ -487,14 +487,14 @@ NULL
         ## Column data ---------------------------------------------------------
         ## FIXME NEED TO ENSURE colData is strict camel case.
         if (isTRUE(verbose)) {
-            cli_h2("Column data")
+            h2("Column data")
         }
         colData <- colData(object)
         ## Move metrics from metadata into colData, if necessary.
         metrics <- metadata[["metrics"]]
         if (!is.null(metrics)) {
             if (isTRUE(verbose)) {
-                cli_alert(paste(
+                alert(paste(
                     "Moving {.var metrics} from {.fun metadata} into",
                     "{.fun colData}."
                 ))
@@ -505,7 +505,7 @@ NULL
             ## Rename 5'3' bias.
             if ("x53Bias" %in% colnames(metrics)) {
                 if (isTRUE(verbose)) {
-                    cli_alert("Renaming {.var x53Bias} to {.var x5x3Bias}.")
+                    alert("Renaming {.var x53Bias} to {.var x5x3Bias}.")
                 }
                 metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
                 metrics[["x53Bias"]] <- NULL
@@ -520,7 +520,7 @@ NULL
                 )
                 assert(isString(col))
                 if (isTRUE(verbose)) {
-                    cli_alert(sprintf(
+                    alert(sprintf(
                         "Renaming {.var %s} to {.var rrnaRate}.", col
                     ))
                 }

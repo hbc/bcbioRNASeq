@@ -175,7 +175,7 @@ setAs(
         dds <- as.DESeqDataSet(x, quiet = quiet)
         dds <- DESeq(dds, quiet = quiet)
         if (!isTRUE(quiet)) {
-            cli_alert("{.fun varianceStabilizingTransformation}")
+            alert("{.fun varianceStabilizingTransformation}")
         }
         dt <- varianceStabilizingTransformation(dds)
         validObject(dt)
@@ -220,11 +220,11 @@ setAs(
         .assertHasValidCFA(x)
         cfa <- metadata(x)[["countsFromAbundance"]]
         if (!isTRUE(quiet)) {
-            cli_text(sprintf(
+            alert(sprintf(
                 "Generating {.var DGEList} with {.pkg edgeR} %s.",
                 packageVersion("edgeR")
             ))
-            cli_dl(c(countsFromAbundance = cfa))
+            dl(c("countsFromAbundance" = cfa))
         }
         counts <- counts(x)
         y <- DGEList(counts = counts)
@@ -234,8 +234,8 @@ setAs(
             } else {
                 mode <- "bias corrected counts without an offset"
             }
-            cli_dl(c(
-                mode = paste(mode, "(see {.pkg tximport} vignette).")
+            dl(c(
+                "mode" = paste(mode, "(see {.pkg tximport} vignette).")
             ))
         }
         if (identical(cfa, "no")) {

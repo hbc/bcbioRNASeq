@@ -17,7 +17,7 @@ NULL
 ## Updated 2020-01-20.
 `tmm,matrix` <-  # nolint
     function(object) {
-        cli_alert("Applying trimmed mean of M-values (TMM) normalization.")
+        alert("Applying trimmed mean of M-values (TMM) normalization.")
         object <- DGEList(object)
         object <- calcNormFactors(object, method = "TMM")
         object <- cpm(object, normalized.lib.sizes = TRUE)

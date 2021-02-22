@@ -293,7 +293,7 @@ bcbioRNASeq <- function(
     lanes <- detectLanes(sampleDirs)
     assert(isInt(lanes) || identical(lanes, integer()))
     ## Column data (samples) ---------------------------------------------------
-    cli_h2("Sample metadata")
+    h2("Sample metadata")
     ## Get the sample data.
     if (isString(sampleMetadataFile)) {
         ## Normalize path of local file.
@@ -339,8 +339,8 @@ bcbioRNASeq <- function(
     )
     if (length(samples) < length(sampleDirs)) {
         sampleDirs <- sampleDirs[samples]
-        cli_text("Loading a subset of samples:")
-        cli_ul(basename(sampleDirs))
+        txt("Loading a subset of samples:")
+        ul(basename(sampleDirs))
         allSamples <- FALSE
     } else {
         allSamples <- TRUE
@@ -364,14 +364,14 @@ bcbioRNASeq <- function(
         identical(samples, rownames(colData))
     )
     ## Assays (counts) ---------------------------------------------------------
-    cli_h2("Counts")
+    h2("Counts")
     assays <- SimpleList()
     ## Use tximport by default for transcript-aware callers. Otherwise, resort
     ## to loading the featureCounts aligned counts data. As of v0.3.22, we're
     ## alternatively slotting the aligned counts as "aligned" matrix when
     ## pseudoaligned counts are defined in the primary "counts" assay.
     if (caller %in% .tximportCallers) {
-        cli_h3("tximport")
+        h3("tximport")
         tx2gene <- importTx2Gene(
             file = file.path(projectDir, "tx2gene.csv"),
             organism = organism,
@@ -403,7 +403,7 @@ bcbioRNASeq <- function(
             !isTRUE(fastPipeline) &&
             !isTRUE(fast)
         ) {
-            cli_h3("featureCounts")
+            h3("featureCounts")
             assays[["aligned"]] <- .featureCounts(
                 projectDir = projectDir,
                 samples = samples,
@@ -411,12 +411,12 @@ bcbioRNASeq <- function(
             )
         }
     } else if (caller %in% .featureCountsCallers) {
-        cli_h3("featureCounts")
+        h3("featureCounts")
         countsFromAbundance <- NULL
         tx2gene <- NULL
         txi <- NULL
         assert(identical(level, "genes"))
-        cli_alert("Slotting aligned counts into primary {.fun counts} assay.")
+        alert("Slotting aligned counts into primary {.fun counts} assay.")
         assays[["counts"]] <- .featureCounts(
             projectDir = projectDir,
             samples = samples
@@ -427,7 +427,7 @@ bcbioRNASeq <- function(
         identical(colnames(assays[[1L]]), rownames(colData))
     )
     ## Row data (genes/transcripts) --------------------------------------------
-    cli_h2("Feature metadata")
+    h2("Feature metadata")
     ## Annotation priority:
     ## 1. AnnotationHub.
     ##    - Requires `organism` to be declared.
@@ -437,7 +437,7 @@ bcbioRNASeq <- function(
     ##    complex datasets (e.g. multiple organisms).
     if (isString(organism) && is.numeric(ensemblRelease)) {
         ## AnnotationHub (ensembldb).
-        cli_alert("{.fun makeGRangesFromEnsembl}")
+        alert("{.fun makeGRangesFromEnsembl}")
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
@@ -451,7 +451,7 @@ bcbioRNASeq <- function(
             gffFile <- getGTFFileFromYAML(yaml)
         }
         if (!is.null(gffFile) && !isTRUE(fast)) {
-            cli_alert("{.fun makeGRangesFromGFF}")
+            alert("{.fun makeGRangesFromGFF}")
             gffFile <- realpath(gffFile)
             rowRanges <- makeGRangesFromGFF(file = gffFile, level = level)
         } else {
@@ -469,7 +469,7 @@ bcbioRNASeq <- function(
         ensemblRelease <- metadata(rowRanges)[["ensemblRelease"]]
     }
     ## Metadata ----------------------------------------------------------------
-    cli_h2("Metadata")
+    h2("Metadata")
     ## Interesting groups.
     interestingGroups <- camelCase(interestingGroups, strict = TRUE)
     assert(isSubset(interestingGroups, colnames(colData)))
@@ -525,9 +525,9 @@ bcbioRNASeq <- function(
     if (level == "genes" && isFALSE(fast)) {
         dds <- tryCatch(
             expr = {
-                cli_h2("{.pkg DESeq2} normalizations")
+                h2("{.pkg DESeq2} normalizations")
                 dds <- as(bcb, "DESeqDataSet")
-                cli_alert("{.fun estimateSizeFactors}")
+                alert("{.fun estimateSizeFactors}")
                 dds <- estimateSizeFactors(dds)
                 if (!.dataHasVariation(dds)) {
                     alertWarning(paste(
@@ -537,7 +537,7 @@ bcbioRNASeq <- function(
                     ))
                     return(NULL)
                 }
-                cli_alert("{.fun DESeq}")
+                alert("{.fun DESeq}")
                 dds <- DESeq(dds)
                 dds
             },
@@ -548,13 +548,13 @@ bcbioRNASeq <- function(
         )
         if (is(dds, "DESeqDataSet")) {
             assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
-            cli_alert("{.fun varianceStabilizingTransformation}")
+            alert("{.fun varianceStabilizingTransformation}")
             vst <- varianceStabilizingTransformation(dds)
             assert(is(vst, "DESeqTransform"))
             assays(bcb)[["vst"]] <- assay(vst)
             ## Calculate FPKM. Skip this step if we've slotted empty ranges.
             if (length(unique(width(rowRanges(dds)))) > 1L) {
-                cli_alert("{.fun fpkm}")
+                alert("{.fun fpkm}")
                 fpkm <- fpkm(dds)
                 assert(is.matrix(fpkm))
                 assays(bcb)[["fpkm"]] <- fpkm

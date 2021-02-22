@@ -71,19 +71,17 @@
     ## Note that this step can take a long time when processing a lot of
     ## samples, and is recommended to be run on an HPC cluster, rather than
     ## locally.
-    cli_alert(sprintf(
+    alert(sprintf(
         fmt = paste(
             "Importing {.pkg %s} transcript-level counts from {.file %s}",
             "files using {.pkg tximport} %s."
         ),
         type, basename(files[[1L]]), packageVersion("tximport")
     ))
-    cli_div(theme = list(body = list("margin-left" = 4L)))
-    cli_dl(c(
-        countsFromAbundance = countsFromAbundance,
-        txOut = txOut
+    dl(c(
+        "countsFromAbundance" = countsFromAbundance,
+        "txOut" = txOut
     ))
-    cli_end()
     ## We're using a `do.call()` approach here so we can apply version-specific
     ## tximport fixes, if necessary.
     args <- list(

@@ -51,9 +51,3 @@
 ## FIXME Define this in AcidGenerics:
 #' @importFrom S4Vectors getListElement
 NULL
-
-## FIXME Rework using AcidCLI:
-#' @importFrom cli cli_alert alertSuccess
-#'   alertWarning cli_div cli_dl cli_end cli_h1 cli_h2 cli_h3 cli_text
-#'   cli_ul
-NULL

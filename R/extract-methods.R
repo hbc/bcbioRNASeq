@@ -93,14 +93,14 @@ NULL
             ## Recalculate DESeq2 normalized counts and variance stabilizations
             ## if the number of samples and/or genes change.
             if (isTRUE(recalculate)) {
-                cli_alert("Recalculating {.pkg DESeq2} normalizations.")
+                alert("Recalculating {.pkg DESeq2} normalizations.")
                 dds <- `new,DESeqDataSet`(se = rse)
                 dds <- DESeq(dds)
                 ## Normalized counts.
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
                 ## vst: variance-stabilizing transformation.
                 if ("vst" %in% names(assays)) {
-                    cli_alert("{.fun varianceStabilizingTransformation}")
+                    alert("{.fun varianceStabilizingTransformation}")
                     assays[["vst"]] <-
                         assay(varianceStabilizingTransformation(dds))
                 }
@@ -109,7 +109,7 @@ NULL
                 ## during the `bcbioRNASeq()` call, because it's often too slow.
                 ## However, we're keeping support here for legacy objects.
                 if ("rlog" %in% names(assays)) {
-                    cli_alert("{.fun rlog}")
+                    alert("{.fun rlog}")
                     assays[["rlog"]] <- assay(rlog(dds))
                 }
             } else {
