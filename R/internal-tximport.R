@@ -13,7 +13,7 @@
 #' @note Ignoring transcript versions should work by default. There may be
 #' an issue with genomes containing non-Ensembl transcript IDs, such as
 #' C. elegans, although we need to double check.
-#' @note Updated 2020-01-17.
+#' @note Updated 2021-02-10.
 #'
 #' @inheritParams tximport::tximport
 #' @param sampleDirs `character`.
@@ -43,7 +43,6 @@
         arg = countsFromAbundance,
         choices = eval(formals(tximport)[["countsFromAbundance"]])
     )
-
     ## Locate the counts files -------------------------------------------------
     subdirs <- file.path(sampleDirs, type)
     assert(all(isDirectory(subdirs)))
@@ -55,16 +54,19 @@
     files <- file.path(subdirs, basename)
     assert(all(isFile(files)))
     names(files) <- names(sampleDirs)
-
     ## tx2gene -----------------------------------------------------------------
     tx2gene <- as.data.frame(tx2gene)
-    if (isTRUE(ignoreTxVersion)) {
-        ## Ensure transcript IDs are stripped from tx2gene.
-        tx2gene[["transcriptID"]] <-
-            stripTranscriptVersions(tx2gene[["transcriptID"]])
-        rownames(tx2gene) <- tx2gene[["transcriptID"]]
+    if (!identical(
+        x = c("txId", "txName"),
+        y = colnames(tx2gene)
+    )) {
+        colnames(tx2gene) <- c("txId", "txName")
     }
-
+    ## Ensure transcript IDs are stripped from tx2gene, if desired.
+    if (isTRUE(ignoreTxVersion)) {
+        tx2gene[["txId"]] <- stripTranscriptVersions(tx2gene[["txId"]])
+        rownames(tx2gene) <- tx2gene[["txId"]]
+    }
     ## Import counts using tximport --------------------------------------------
     ## Note that this step can take a long time when processing a lot of
     ## samples, and is recommended to be run on an HPC cluster, rather than
@@ -92,8 +94,8 @@
         countsFromAbundance = countsFromAbundance,
         tx2gene = tx2gene,
         ignoreTxVersion = ignoreTxVersion,
-        geneIdCol = "geneID",
-        txIdCol = "transcriptID"
+        geneIdCol = "geneId",
+        txIdCol = "txId"
     )
     txi <- do.call(what = tximport, args = args)
     ## Assert checks before return.
