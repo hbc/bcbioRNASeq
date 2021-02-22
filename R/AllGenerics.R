@@ -1,3 +1,4 @@
+## FIXME Need to define in AcidGenerics, so we can also use in DESeqAnalysis.
 #' @rdname coerce
 #' @export
 setGeneric(
@@ -9,6 +10,7 @@ setGeneric(
 
 
 
+## FIXME Need to define in AcidGenerics, so we can also use in DESeqAnalysis.
 #' @rdname coerce
 #' @export
 setGeneric(
@@ -20,6 +22,7 @@ setGeneric(
 
 
 
+## FIXME Need to define in AcidGenerics, so we can also use in DESeqAnalysis.
 #' @rdname coerce
 #' @export
 setGeneric(
