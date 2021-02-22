@@ -34,15 +34,6 @@ NULL
 
 
 
-#' @rdname plotMeanSD
-#' @name plotMeanSD
-#' @importFrom AcidGenerics plotMeanSD
-#' @usage plotMeanSD(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-15.
 `plotMeanSD,bcbioRNASeq` <-  # nolint
     function(

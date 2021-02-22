@@ -13,15 +13,6 @@ NULL
 
 
 
-#' @rdname plotQC
-#' @name plotQC
-#' @importFrom AcidGenerics plotQC
-#' @usage plotQC(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2020-09-15.
 `plotQC,bcbioRNASeq` <-  # nolint
     function(object) {

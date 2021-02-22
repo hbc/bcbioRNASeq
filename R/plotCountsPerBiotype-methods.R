@@ -14,24 +14,6 @@ NULL
 
 
 
-#' @rdname plotCountsPerBiotype
-#' @name plotCountsPerBiotype
-#' @importFrom AcidGenerics plotCountsPerBiotype
-#' @importMethodsFrom AcidPlots plotCountsPerBiotype
-#' @usage plotCountsPerBiotype(object, ...)
-#' @export
-NULL
-
-#' @rdname plotCountsPerBiotype
-#' @name plotCountsPerBroadClass
-#' @importFrom AcidGenerics plotCountsPerBroadClass
-#' @importMethodsFrom AcidPlots plotCountsPerBroadClass
-#' @usage plotCountsPerBroadClass(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-16.
 `plotCountsPerBiotype,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {

@@ -43,6 +43,125 @@ NULL
 
 
 
+#' @rdname plotCorrelationHeatmap
+#' @name plotCorrelationHeatmap
+#' @importFrom AcidGenerics plotCorrelationHeatmap
+#' @export
+NULL
+
+
+
+#' @rdname plotCounts
+#' @name plotCounts
+#' @importFrom AcidGenerics plotCounts
+#' @importMethodsFrom AcidPlots plotCounts
+#' @usage plotCounts(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotCountsPerBiotype
+#' @name plotCountsPerBiotype
+#' @importFrom AcidGenerics plotCountsPerBiotype
+#' @importMethodsFrom AcidPlots plotCountsPerBiotype
+#' @usage plotCountsPerBiotype(object, ...)
+#' @export
+NULL
+
+#' @rdname plotCountsPerBiotype
+#' @name plotCountsPerBroadClass
+#' @importFrom AcidGenerics plotCountsPerBroadClass
+#' @importMethodsFrom AcidPlots plotCountsPerBroadClass
+#' @usage plotCountsPerBroadClass(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotCountsPerFeature
+#' @name plotCountsPerFeature
+#' @importFrom AcidGenerics plotCountsPerFeature
+#' @importMethodsFrom AcidPlots plotCountsPerFeature
+#' @usage plotCountsPerFeature(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotDispEsts
+#' @name plotDispEsts
+#' @importFrom AcidGenerics plotDispEsts
+#' @usage plotDispEsts(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotExonicMappingRate
+#' @name plotExonicMappingRate
+#' @importFrom AcidGenerics plotExonicMappingRate
+#' @usage plotExonicMappingRate(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotGenderMarkers
+#' @name plotGenderMarkers
+#' @importFrom AcidGenerics plotGenderMarkers
+#' @importMethodsFrom AcidPlots plotGenderMarkers
+#' @usage plotGenderMarkers(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotGeneSaturation
+#' @name plotGeneSaturation
+#' @importFrom AcidGenerics plotGeneSaturation
+#' @usage plotGeneSaturation(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotIntronicMappingRate
+#' @name plotIntronicMappingRate
+#' @importFrom AcidGenerics plotIntronicMappingRate
+#' @usage plotIntronicMappingRate(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotMappedReads
+#' @name plotMappedReads
+#' @importFrom AcidGenerics plotMappedReads
+#' @usage plotMappedReads(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotMappingRate
+#' @name plotMappingRate
+#' @importFrom AcidGenerics plotMappingRate
+#' @usage plotMappingRate(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotMeanSD
+#' @name plotMeanSD
+#' @importFrom AcidGenerics plotMeanSD
+#' @usage plotMeanSD(object, ...)
+#' @export
+NULL
+
+
+
 #' @rdname plotPCA
 #' @name plotPCA
 #' @importFrom AcidGenerics plotPCA
@@ -65,6 +184,15 @@ NULL
 #' @name plotPseudoVsAlignedCounts
 #' @importFrom AcidGenerics plotPseudoVsAlignedCounts
 #' @usage plotPseudoVsAlignedCounts(object, ...)
+#' @export
+NULL
+
+
+
+#' @rdname plotQC
+#' @name plotQC
+#' @importFrom AcidGenerics plotQC
+#' @usage plotQC(object, ...)
 #' @export
 NULL
 

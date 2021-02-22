@@ -17,14 +17,6 @@ NULL
 
 
 
-#' @rdname plotCorrelationHeatmap
-#' @name plotCorrelationHeatmap
-#' @importFrom AcidGenerics plotCorrelationHeatmap
-#' @export
-NULL
-
-
-
 ## Updated 2020-09-15.
 `plotCorrelationHeatmap,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {

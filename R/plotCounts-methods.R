@@ -23,16 +23,6 @@ NULL
 
 
 
-#' @rdname plotCounts
-#' @name plotCounts
-#' @importFrom AcidGenerics plotCounts
-#' @importMethodsFrom AcidPlots plotCounts
-#' @usage plotCounts(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-18.
 `plotCounts,bcbioRNASeq` <-  # nolint
     function(object, genes, normalized, ...) {

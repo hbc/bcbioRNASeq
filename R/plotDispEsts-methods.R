@@ -35,15 +35,6 @@ NULL
 
 
 
-#' @rdname plotDispEsts
-#' @name plotDispEsts
-#' @importFrom BiocGenerics plotDispEsts
-#' @usage plotDispEsts(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-15.
 `plotDispEsts,bcbioRNASeq` <-  # nolint
     function(object, ...) {

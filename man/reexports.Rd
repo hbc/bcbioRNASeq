@@ -13,6 +13,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{AcidPlots}{\code{\link[AcidPlots]{plotFeaturesDetected}}, \code{\link[AcidPlots]{plotHeatmap}}, \code{\link[AcidPlots]{plotQuantileHeatmap}}}
+  \item{AcidGenerics}{\code{\link[AcidGenerics]{plotFeaturesDetected}}, \code{\link[AcidGenerics]{plotHeatmap}}, \code{\link[AcidGenerics]{plotQuantileHeatmap}}}
 }}
 

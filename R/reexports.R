@@ -1,11 +1,14 @@
-#' @importFrom AcidPlots plotFeaturesDetected
+#' @importFrom AcidGenerics plotFeaturesDetected
+#' @importMethodsFrom AcidPlots plotFeaturesDetected
 #' @export
-AcidPlots::plotFeaturesDetected
+AcidGenerics::plotFeaturesDetected
 
-#' @importFrom AcidPlots plotHeatmap
+#' @importFrom AcidGenerics plotHeatmap
+#' @importMethodsFrom AcidPlots plotHeatmap
 #' @export
-AcidPlots::plotHeatmap
+AcidGenerics::plotHeatmap
 
-#' @importFrom AcidPlots plotQuantileHeatmap
+#' @importFrom AcidGenerics plotQuantileHeatmap
+#' @importMethodsFrom AcidPlots plotQuantileHeatmap
 #' @export
-AcidPlots::plotQuantileHeatmap
+AcidGenerics::plotQuantileHeatmap

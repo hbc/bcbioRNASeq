@@ -15,16 +15,6 @@ NULL
 
 
 
-#' @rdname plotCountsPerFeature
-#' @name plotCountsPerFeature
-#' @importFrom AcidGenerics plotCountsPerFeature
-#' @importMethodsFrom AcidPlots plotCountsPerFeature
-#' @usage plotCountsPerFeature(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-16.
 `plotCountsPerFeature,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {

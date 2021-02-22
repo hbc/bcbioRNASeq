@@ -16,16 +16,6 @@ NULL
 
 
 
-#' @rdname plotGenderMarkers
-#' @name plotGenderMarkers
-#' @importFrom AcidGenerics plotGenderMarkers
-#' @importMethodsFrom AcidPlots plotGenderMarkers
-#' @usage plotGenderMarkers(object, ...)
-#' @export
-NULL
-
-
-
 ## Updated 2019-09-16.
 `plotGenderMarkers,bcbioRNASeq` <-  # nolint
     function(object, normalized, ...) {
