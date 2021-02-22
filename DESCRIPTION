@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.3.39
-Date: 2020-12-03
+Version: 0.3.40
+Date: 2021-02-22
 Authors@R: c(
     person(
         given = "Michael",
@@ -94,7 +94,7 @@ Authors@R: c(
         role = c("cph", "fnd")
     ))
 URL:
-    https://bioinformatics.sph.harvard.edu/bcbioRNASeq/,
+    https://r.acidgenomics.com/packages/bcbiornaseq/,
     https://github.com/hbc/bcbioRNASeq/
 BugReports: https://github.com/hbc/bcbioRNASeq/issues/
 License: AGPL-3
@@ -102,27 +102,20 @@ Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 4.0),
-    SummarizedExperiment (>= 1.18),
-    basejump (>= 0.13.3)
+    SummarizedExperiment (>= 1.20)
 Imports:
-    AcidGenerics (>= 0.4.1),
-    AcidPlots (>= 0.3.0),
-    BiocGenerics,
-    DESeq2 (>= 1.28),
-    S4Vectors,
-    bcbioBase (>= 0.6.17),
-    cli (>= 2.2),
-    cowplot (>= 1.1),
-    edgeR (>= 3.30),
+    AcidGenerics (>= 0.5.15),
+    AcidPlots (>= 0.3.3),
+    DESeq2 (>= 1.30),
+    basejump (>= 0.14.11),
+    bcbioBase (>= 0.6.19),
+    edgeR (>= 3.32),
     ggplot2 (>= 3.3),
     goalie (>= 0.4.11),
     methods,
-    rlang (>= 0.4),
-    scales (>= 1.1),
-    sessioninfo (>= 1.1),
-    tximport (>= 1.16),
-    utils
+    tximport (>= 1.18)
 Suggests:
+    AcidGSEA,
     BiocStyle,
     DEGreport,
     DESeqAnalysis,
