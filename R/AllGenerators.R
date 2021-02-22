@@ -1,13 +1,3 @@
-## FIXME Consider round gene-level counts to integer, as this is confusing
-## people.
-
-## FIXME Consider allowing sample metadata input to be more flexible, as a lot
-## of people prefer using snake case.
-
-## FIXME Consider converting any warnings to errors here.
-
-
-
 #' @inherit bcbioRNASeq-class title description
 #'
 #' @details
@@ -447,12 +437,12 @@ bcbioRNASeq <- function(
     ##    complex datasets (e.g. multiple organisms).
     if (isString(organism) && is.numeric(ensemblRelease)) {
         ## AnnotationHub (ensembldb).
-        alert("{.fun makeGRangesFromEnsembl}")
         rowRanges <- makeGRangesFromEnsembl(
             organism = organism,
             level = level,
             genomeBuild = genomeBuild,
-            release = ensemblRelease
+            release = ensemblRelease,
+            ignoreVersion = TRUE
         )
     } else {
         ## GTF/GFF file.
@@ -461,9 +451,12 @@ bcbioRNASeq <- function(
             gffFile <- getGTFFileFromYAML(yaml)
         }
         if (!is.null(gffFile) && !isTRUE(fast)) {
-            alert("{.fun makeGRangesFromGFF}")
             gffFile <- realpath(gffFile)
-            rowRanges <- makeGRangesFromGFF(file = gffFile, level = level)
+            rowRanges <- makeGRangesFromGFF(
+                file = gffFile,
+                level = level,
+                ignoreVersion = TRUE
+            )
         } else {
             alertWarning("Slotting empty ranges into {.fun rowRanges}.")
             rowRanges <- emptyRanges(rownames(assays[[1L]]))

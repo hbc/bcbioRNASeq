@@ -100,12 +100,13 @@ BugReports: https://github.com/hbc/bcbioRNASeq/issues/
 License: AGPL-3
 Encoding: UTF-8
 LazyData: false
-Depends: R (>= 4.0)
+Depends:
+    R (>= 4.0),
+    basejump (>= 0.14.13)
 Imports:
-    AcidGenerics (>= 0.5.15),
+    AcidGenerics (>= 0.5.16),
     AcidPlots (>= 0.3.3),
     DESeq2 (>= 1.30),
-    basejump (>= 0.14.11),
     bcbioBase (>= 0.6.19),
     edgeR (>= 3.32),
     ggplot2 (>= 3.3),

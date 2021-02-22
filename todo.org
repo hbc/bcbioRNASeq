@@ -1,12 +1,17 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
+** TODO Consider rounding raw counts to integer, matching conventions used
+   in internal bcbio-nextgen R script. Non-integer counts tend to confuse
+   people. Only want to implement this at gene level.
 ** TODO Add coercion method support for limma/voom.
 ** TODO How to get modules out of dendrogram in R?
 ** TODO pfgsea heatmap code.
 ** TODO Need to work on the vignettes for Bioconductor submission.
-** TODO File an issue with Visual Studio Code repo regarding confusing line break behavior with markdown plugin.
-** TODO Git inside editor: learn how to master magit (Emacs) and vim-fugitive or git-vim (Vim).
+** TODO File an issue with Visual Studio Code repo regarding confusing line
+   break behavior with markdown plugin.
+** TODO Git inside editor: learn how to master magit (Emacs) and vim-fugitive
+   or git-vim (Vim).
 ** TODO Follow up regarding open issues on GitHub. I have a couple currently.
 ** TODO Add coercion method support for limma/voom.
 ** TODO Paper: Switch paper to use `deg()` instead of `significants()`.
@@ -14,25 +19,37 @@
 ** TODO Look into tximeta integration.
 ** TODO Need to run BFG on the repo and remove old binary commits.
 ** TODO Relax validity checks to work with v0.2 objects.
-** TODO Hide sequencing lanes by default. Remove this message from `bcbioRNASeq()` load call: Failed to detect sequencing lanes.
+** TODO Hide sequencing lanes by default. Remove this message from
+   `bcbioRNASeq()` load call: Failed to detect sequencing lanes.
 ** TODO Consider renaming "normalized" assay to "sizeFactor" or simply "sf".
 ** TODO plotMeanSD edgeR RLE is messed up for new LnCap data.
-** TODO Consider slotting aligned counts into object automatically in updateObject call.
+** TODO Consider slotting aligned counts into object automatically in
+   updateObject call.
 ** TODO `plotGeneSaturation()`: Consider adding y-intercept 0.
-** TODO Remove this message from `bcbioRNASeq()` load call: Failed to detect sequencing lanes.
-** TODO bcbioRNASeq: Improve error message when user doesn't point to `final/` directory. OR make this more flexible and detect `final/` automatically.
-** TODO `plotMappingRate()`: Plot exonic, intronic, intergenic rates. Show these similarly to qualimap output in MultiQC report.
-** TODO `plotCountsPerGene()`: Don't hide the sample legend for `sampleName` interesting groups
+** TODO Remove this message from `bcbioRNASeq()` load call: Failed to detect
+   sequencing lanes.
+** TODO bcbioRNASeq: Improve error message when user doesn't point to `final/`
+   directory. OR make this more flexible and detect `final/` automatically.
+** TODO `plotMappingRate()`: Plot exonic, intronic, intergenic rates. Show these
+   similarly to qualimap output in MultiQC report.
+** TODO `plotCountsPerGene()`: Don't hide the sample legend for `sampleName`
+   interesting groups
 ** TODO Add rsem support for tximport? Is this supported in bcbio?
-** TODO Work on additional multiQC-like plots: `plotInsertSize()`, `plotDuplicatedReads()`, `plotProperlyPairedReads()`, `plotReadsAligned()`, `plotGCContent()`, `plotXYCounts()`.
+** TODO Work on additional multiQC-like plots: `plotInsertSize()`,
+   `plotDuplicatedReads()`, `plotProperlyPairedReads()`, `plotReadsAligned()`,
+   `plotGCContent()`, `plotXYCounts()`.
 ** TODO Consider saving more elements from shell environment in the object.
-    Don't want to save everything because this could stash PAT and other tokens, but consider what we'd want to include. PATH may be helpful.
+    Don't want to save everything because this could stash PAT and other tokens,
+    but consider what we'd want to include. PATH may be helpful.
 ** TODO `updateObject()`: Add update method for run-length encoding in rowRanges.
 ** TODO `updateObject()`: Improve update handling of `sessionInfo` in metadata?
 ** TODO Consider adding `as()` coercion support from bcbioRNASeq to limma/voom.
-** TODO Inform the user in the QC template which aligner was used for QC (STAR, HISAT2).
-** TODO `updateObject()`: Calculate FPKM automatically for gene-level counts if missing.
-** TODO For PCA labeling, allow the user to specify individual samples in the `label` argument, rather than simply using a logical.
+** TODO Inform the user in the QC template which aligner was used for QC
+   (e.g. STAR, HISAT2).
+** TODO `updateObject()`: Calculate FPKM automatically for gene-level counts
+   if missing.
+** TODO For PCA labeling, allow the user to specify individual samples in the
+   `label` argument, rather than simply using a logical.
 ** TODO Consider making functions that require DESeqDataSet generation defunct.
     e.g. plotDispEsts, plotMeanSD.
 ** TODO Double check log2 in plotMeanSD.

@@ -23,7 +23,7 @@
 #'   alert alertInfo alertSuccess alertWarning as.data.frame assay assay<-
 #'   assayNames assayNames<- assays assays<- camelCase capture.output cbind
 #'   colData colData<- colSums detectLanes detectOrganism dl do.call droplevels
-#'   emptyRanges encode formalsList h1 h2 h3 head humanize import
+#'   emptyRanges encode formalsList getListElement h1 h2 h3 head humanize import
 #'   importSampleData importTx2Gene interestingGroups interestingGroups<- lapply
 #'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
 #'   makeSummarizedExperiment mapGenesToRownames matchInterestingGroups mcols
@@ -45,9 +45,3 @@
 #'   slot slot<- validObject .hasSlot
 #' @importFrom tximport tximport
 "_PACKAGE"
-
-
-
-## FIXME Define this in AcidGenerics:
-#' @importFrom S4Vectors getListElement
-NULL
