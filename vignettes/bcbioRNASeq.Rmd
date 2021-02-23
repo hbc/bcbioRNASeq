@@ -35,7 +35,9 @@ citation("bcbioRNASeq")
 ```
 
 ```{r message=FALSE}
-library(bcbioRNASeq)
+suppressPackageStartupMessages({
+    library(bcbioRNASeq)
+})
 ```
 
 # Loading bcbio data
