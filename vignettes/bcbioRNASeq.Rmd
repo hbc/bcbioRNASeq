@@ -2,7 +2,7 @@
 title: "bcbioRNASeq"
 date: "`r BiocStyle::doc_date()`"
 output: BiocStyle::html_document
-bibliography: '`r system.file("rmarkdown", "shared", "bibliography.bib", package = "basejump")`'
+bibliography: '`r system.file("rmarkdown", "shared", "bibliography.bib", package = "AcidMarkdown")`'
 vignette: >
   %\VignetteIndexEntry{bcbioRNASeq}
   %\VignetteEngine{knitr::rmarkdown}
