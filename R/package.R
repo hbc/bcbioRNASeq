@@ -38,10 +38,10 @@
 #' @importFrom ggplot2 aes expand_limits geom_point geom_smooth ggplot ggtitle
 #'   guides labs scale_y_continuous theme
 #' @importFrom goalie areDisjointSets areIntersectingSets areSetEqual assert
-#'   bapply containsAURL hasDimnames hasLength hasUniqueCols hasValidDimnames
-#'   isADirectory isAFile isAny isCharacter isDirectory isFile isFlag isGGScale
-#'   isInt isInRange isNonNegative isNumber isPositive isProportion isString
-#'   isSubset validNames validate validateClasses
+#'   bapply hasDimnames hasLength hasUniqueCols hasValidDimnames isADirectory
+#'   isAFile isAURL isAny isCharacter isDirectory isFile isFlag isGGScale isInt
+#'   isInRange isNonNegative isNumber isPositive isProportion isString isSubset
+#'   validNames validate validateClasses
 #' @importFrom methods as as<- is new setAs setClass setMethod setValidity show
 #'   slot slot<- validObject .hasSlot
 #' @importFrom tximport tximport
