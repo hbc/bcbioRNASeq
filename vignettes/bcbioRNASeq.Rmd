@@ -274,6 +274,7 @@ We are providing `bcbioRNASeq` method support for the `export` function, which a
 ```{r}
 files <- export(object)
 print(files)
+unlink(object, recursive = TRUE)
 ```
 
 # Differential expression
