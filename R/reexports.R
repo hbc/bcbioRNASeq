@@ -12,7 +12,3 @@ AcidGenerics::plotHeatmap
 #' @importFrom AcidGenerics plotQuantileHeatmap
 #' @importMethodsFrom AcidPlots plotQuantileHeatmap
 AcidGenerics::plotQuantileHeatmap
-
-#' @export
-#' @importFrom basejump prepareTemplate
-basejump::prepareTemplate
