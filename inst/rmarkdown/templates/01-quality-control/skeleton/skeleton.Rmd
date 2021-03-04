@@ -1,8 +1,9 @@
 ---
-## Updated 2021-03-04.
 ## Refer to `rmarkdown::render()` for details on how to generate an HTML report
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
+##
+## Updated 2021-03-04.
 params:
   title: "Quality control"
   ## bcbioRNASeq object file.
