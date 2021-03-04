@@ -1,9 +1,13 @@
 ---
 ## Updated 2021-03-04.
+## Refer to `rmarkdown::render()` for details on how to generate an HTML report
+## from this template inside of an R script. In particular, the `params`
+## argument is useful for passing in variables.
 params:
   title: "Quality control"
-  ## bcbioRNASeq object.
+  ## bcbioRNASeq object file.
   bcb_file: !r file.path("rds", "YYYY-MM-DD", "bcb.rds")
+  ## Output directory.
   output_dir: !r file.path("results", Sys.Date(), "quality-control")
 title: "`r params$title`"
 author: "`r getOption('author')`"
