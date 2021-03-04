@@ -3,36 +3,9 @@
 \name{deprecated}
 \alias{deprecated}
 \alias{plotGenesDetected}
-\alias{alphaSummary}
-\alias{contrastName}
-\alias{plotDEGHeatmap}
-\alias{plotDEGPCA}
-\alias{plotMA}
-\alias{plotMeanAverage}
-\alias{plotVolcano}
-\alias{resultsTables}
-\alias{topTables}
 \title{Deprecated functions}
 \usage{
 plotGenesDetected(object, ...)
-
-alphaSummary(...)
-
-contrastName(...)
-
-plotDEGHeatmap(...)
-
-plotDEGPCA(...)
-
-plotMA(...)
-
-plotMeanAverage(...)
-
-plotVolcano(...)
-
-resultsTables(...)
-
-topTables(...)
 }
 \arguments{
 \item{object}{Object.}

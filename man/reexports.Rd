@@ -6,7 +6,6 @@
 \alias{plotFeaturesDetected}
 \alias{plotHeatmap}
 \alias{plotQuantileHeatmap}
-\alias{prepareTemplate}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -15,7 +14,5 @@ below to see their documentation.
 
 \describe{
   \item{AcidGenerics}{\code{\link[AcidGenerics]{plotFeaturesDetected}}, \code{\link[AcidGenerics]{plotHeatmap}}, \code{\link[AcidGenerics]{plotQuantileHeatmap}}}
-
-  \item{basejump}{\code{\link[basejump:reexports]{prepareTemplate}}}
 }}
 

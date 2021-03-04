@@ -11,8 +11,8 @@ data.
 Useful links:
 \itemize{
   \item \url{https://r.acidgenomics.com/packages/bcbiornaseq/}
-  \item \url{https://github.com/hbc/bcbioRNASeq/}
-  \item Report bugs at \url{https://github.com/hbc/bcbioRNASeq/issues/}
+  \item \url{https://github.com/acidgenomics/r-bcbiornaseq/}
+  \item Report bugs at \url{https://github.com/acidgenomics/r-bcbiornaseq/issues/}
 }
 
 }
