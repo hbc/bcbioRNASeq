@@ -3,7 +3,7 @@
 params:
   title: "Quality control"
   ## bcbioRNASeq object.
-  bcb_file: "rds/YYYY-MM-DD/bcb.rds"
+  bcb_file: !r file.path("rds", "YYYY-MM-DD", "bcb.rds")
   output_dir: !r file.path("results", Sys.Date(), "quality-control")
 title: "`r params$title`"
 author: "`r getOption('author')`"
