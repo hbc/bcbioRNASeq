@@ -1,22 +1,26 @@
 ---
-## Alternatively, consider using the pfgsea package for fast preranked GSEA.
+## Alternatively, consider using the AcidGSEA package for fast preranked GSEA.
 ##
-## - KEGG supported organisms
+## - KEGG supported organisms:
 ##   http://www.genome.jp/kegg/catalog/org_list.html
-## - OrgDb supported organisms
+## - OrgDb supported organisms:
 ##   http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
 ##
-## Updated 2020-07-08.
+## Updated 2021-03-04.
 params:
   title: "Functional analysis with clusterProfiler"
-  ## DESeqDataSet object.
-  dds_file: "rds/YYYY-MM-DD/dds.rds"
-  ## DESeqResults object.
-  res_file: "rds/YYYY-MM-DD/res.rds"
+  ## DESeqAnalysis object file.
+  dds_file: !r file.path("rds", "YYYY-MM-DD", "deseq.rds"
   organism: "Homo sapiens"
+  ## Supported GO classes:
+  ## - "BP": Biological Process
+  ## - "MF": Molecular Function
+  ## - "CC": Cellular Component
   go_class: "BP"
-  data_dir: !r file.path("data", Sys.Date())
-  output_dir: !r file.path("results", Sys.Date(), "functional-analysis")
+  ## Directory where R data files will be saved.
+  data_dir: !r file.path("rds", Sys.Date())
+  ## Directory where results, including CSV files, will be saved.
+  results_dir: !r file.path("results", Sys.Date(), "functional-analysis")
   ## Pathview KEGG plots tend to be slow to render.
   pathview: FALSE
 title: "`r params$title`"
@@ -88,10 +92,10 @@ stopifnot(params$go_class %in% c("BP", "CC", "MF"))
 ```
 
 ```{r dir-create}
-kegg_plots_dir <- file.path(params$output_dir, "kegg-plots")
+kegg_plots_dir <- file.path(params$results_dir, "kegg-plots")
 invisible(mapply(
     FUN = dir.create,
-    path = c(params$data_dir, params$output_dir, kegg_plots_dir),
+    path = c(params$data_dir, params$results_dir, kegg_plots_dir),
     MoreArgs = list(showWarnings = FALSE, recursive = TRUE)
 ))
 ```
@@ -171,7 +175,7 @@ saveData(enrich_go, enrich_go_tbl, dir = params$data_dir)
 export(
     object = enrich_go_tbl,
     file = file.path(
-        params$output_dir,
+        params$results_dir,
         paste0(
             paste(
                 "go",
@@ -247,7 +251,7 @@ saveData(gsea_go, gsea_go_tbl, dir = params$data_dir)
 export(
     object = gsea_go_tbl,
     file = file.path(
-        params$output_dir,
+        params$results_dir,
         paste0(
             paste(
                 "gsea",
@@ -360,7 +364,7 @@ saveData(kegg, kegg_tbl, dir = params$data_dir)
 export(
     object = kegg_tbl,
     file = file.path(
-        params$output_dir,
+        params$results_dir,
         paste0(
             paste(
                 "kegg",
@@ -403,7 +407,7 @@ saveData(gsea_kegg, dir = params$data_dir)
 export(
     object = gsea_kegg_tbl,
     file = file.path(
-        params$output_dir, 
+        params$results_dir, 
         paste0(
             paste(
                 "gsea",
