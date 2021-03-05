@@ -21,6 +21,9 @@ bibliography: bibliography.bib
 suppressPackageStartupMessages({
     library(bcbioRNASeq)
 })
+## If you encounter an error with this step, please file an issue in the
+## AcidMarkdown repo here:
+## https://github.com/acidgenomics/r-acidmarkdown/issues
 prepareTemplate()
 source("_setup.R")
 ```
@@ -28,7 +31,7 @@ source("_setup.R")
 ```{r header, child="_header.Rmd"}
 ```
 
-# Load bcbioRNASeq object
+# Load `bcbioRNASeq` object
 
 ```{r load-object}
 file <- params$bcb_file
