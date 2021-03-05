@@ -19,6 +19,7 @@ bibliography: bibliography.bib
 
 ```{r setup, cache=FALSE, message=FALSE}
 suppressPackageStartupMessages({
+    library(goalie)
     library(bcbioRNASeq)
 })
 ## If you encounter an error with this step, please file an issue in the
@@ -38,11 +39,11 @@ file <- params$bcb_file
 object <- import(file)
 name <- basenameSansExt(file)
 rm(file)
-stopifnot(
+assert(
     is(object, "bcbioRNASeq"),
+    validObject(object),
     is.character(name)
 )
-invisible(validObject(object))
 print(object)
 ```
 

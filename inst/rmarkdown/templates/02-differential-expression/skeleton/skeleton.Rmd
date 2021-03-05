@@ -45,6 +45,7 @@ bibliography: bibliography.bib
 
 ```{r setup, cache=FALSE, message=FALSE}
 suppressPackageStartupMessages({
+    library(goalie)
     library(bcbioRNASeq)
     library(DESeq2)
     library(DESeqAnalysis)
@@ -73,11 +74,11 @@ file <- params$bcb_file
 object <- import(file)
 name <- basenameSansExt(file)
 rm(file)
-stopifnot(
+assert(
     is(object, "bcbioRNASeq"),
+    validObject(object),
     is.character(name)
 )
-invisible(validObject(object))
 print(object)
 ```
 
@@ -96,8 +97,10 @@ Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a
 ## >     )
 ## > )
 dds <- as(object, "DESeqDataSet")
-stopifnot(is(dds, "DESeqDataSet"))
-invisible(validObject(dds))
+assert(
+    is(dds, "DESeqDataSet"),
+    validObject(dds)
+)
 print(dds)
 ```
 
@@ -164,7 +167,7 @@ After we perform the differential expression, we need to calculate variance-stab
 ```{r variance-stabilization}
 ## Alternatively, can use `rlog()` here instead, but it is slower.
 dt <- varianceStabilizingTransformation(dds)
-stopifnot(is(dt, "DESeqTransform"))
+assert(is(dt, "DESeqTransform"))
 interestingGroups(dt) <- interestingGroups(object)
 saveRDS(
     object = dt,
@@ -187,7 +190,7 @@ For contrast argument as character vector:
 ## factor; numerator; denominator
 ## > levels(dds$genotype)
 ## > help("results", "DESeq2")
-stopifnot(is.list(params$contrasts))
+assert(is.list(params$contrasts))
 contrasts <- params$contrasts
 names <- vapply(
     X = contrasts,
@@ -284,7 +287,7 @@ An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average)
 ```{r plot-ma}
 mapply(
     FUN = plotMA,
-    i = contrastNames(deseq),
+    i = resultsNames(deseq),
     MoreArgs = list(object = deseq),
     SIMPLIFY = FALSE
 )
@@ -297,7 +300,7 @@ A volcano plot compares significance (BH-adjusted *P* value) against fold change
 ```{r plot-volcano}
 mapply(
     FUN = plotVolcano,
-    i = contrastNames(deseq),
+    i = resultsNames(deseq),
     MoreArgs = list(object = deseq),
     SIMPLIFY = FALSE
 )
@@ -308,7 +311,7 @@ mapply(
 ```{r plot-deg-pca}
 mapply(
     FUN = plotDEGPCA,
-    i = contrastNames(deseq),
+    i = resultsNames(deseq),
     MoreArgs = list(object = deseq),
     SIMPLIFY = FALSE
 )
@@ -321,7 +324,7 @@ This plot shows only differentially expressed genes on a per-sample basis. We ha
 ```{r plot-deg-heatmap}
 mapply(
     FUN = plotDEGHeatmap,
-    i = contrastNames(deseq),
+    i = resultsNames(deseq),
     MoreArgs = list(
         object = deseq,
         clusteringMethod = "ward.D2",
@@ -338,7 +341,7 @@ Only the top up- and down-regulated genes (arranged by log2 fold change) are sho
 ```{r top-tables, results="asis"}
 mapply(
     FUN = topTables,
-    i = contrastNames(deseq),
+    i = resultsNames(deseq),
     MoreArgs = list(
         object = deseq,
         n = 20L
