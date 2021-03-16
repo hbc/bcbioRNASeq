@@ -198,6 +198,7 @@
 bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
+    ## FIXME Rename star, hisat2 to featureCounts?
     caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
     samples = NULL,
     censorSamples = NULL,
@@ -258,6 +259,7 @@ bcbioRNASeq <- function(
     uploadDir <- realpath(uploadDir)
     dl(c("uploadDir" = uploadDir))
     projectDir <- projectDir(uploadDir)
+    ## FIXME This really is only needed when parsing salmon data...
     sampleDirs <- sampleDirs(uploadDir)
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     yaml <- import(yamlFile)
@@ -290,6 +292,7 @@ bcbioRNASeq <- function(
             )
         }
     )
+    ## FIXME Rework this?
     lanes <- detectLanes(sampleDirs)
     assert(isInt(lanes) || identical(lanes, integer()))
     ## Column data (samples) ---------------------------------------------------
@@ -333,10 +336,12 @@ bcbioRNASeq <- function(
     assert(
         ## Requiring at least 2 samples.
         length(samples) >= 2L,
+        ## FIXME Rethink this?
         isSubset(samples, names(sampleDirs)),
         ## Check that name sanitization worked.
         validNames(samples)
     )
+    ## FIXME Rethink this?
     if (length(samples) < length(sampleDirs)) {
         sampleDirs <- sampleDirs[samples]
         txt("Loading a subset of samples:")
@@ -370,7 +375,7 @@ bcbioRNASeq <- function(
     ## to loading the featureCounts aligned counts data. As of v0.3.22, we're
     ## alternatively slotting the aligned counts as "aligned" matrix when
     ## pseudoaligned counts are defined in the primary "counts" assay.
-    if (caller %in% .tximportCallers) {
+    if (isSubset(caller, .tximportCallers)) {
         h3("tximport")
         tx2gene <- importTx2Gene(
             file = file.path(projectDir, "tx2gene.csv"),
@@ -410,7 +415,7 @@ bcbioRNASeq <- function(
                 genes = rownames(txi[["counts"]])
             )
         }
-    } else if (caller %in% .featureCountsCallers) {
+    } else if (isSubset(caller, .featureCountsCallers)) {
         h3("featureCounts")
         countsFromAbundance <- NULL
         tx2gene <- NULL
@@ -472,6 +477,8 @@ bcbioRNASeq <- function(
         ensemblRelease <- metadata(rowRanges)[["ensemblRelease"]]
     }
     ## Metadata ----------------------------------------------------------------
+    ## FIXME This step is now erroring in some bcbioRNASeq runs...
+    ## https://github.com/hbc/bcbioRNASeq/issues/170
     h2("Metadata")
     ## Interesting groups.
     interestingGroups <- camelCase(interestingGroups, strict = TRUE)
@@ -490,32 +497,33 @@ bcbioRNASeq <- function(
         )
     }
     metadata <- list(
-        allSamples = allSamples,
-        bcbioCommandsLog = commandsLog,
-        bcbioLog = log,
-        call = standardizeCall(),
-        caller = caller,
-        countsFromAbundance = countsFromAbundance,
-        dataVersions = dataVersions,
-        ensemblRelease = as.integer(ensemblRelease),
-        fast = fast,
-        genomeBuild = as.character(genomeBuild),
-        gffFile = as.character(gffFile),
-        interestingGroups = interestingGroups,
-        lanes = lanes,
-        level = level,
-        organism = as.character(organism),
-        programVersions = programVersions,
-        projectDir = projectDir,
-        runDate = runDate(projectDir),
-        sampleDirs = sampleDirs,
-        sampleMetadataFile = as.character(sampleMetadataFile),
-        tx2gene = tx2gene,
-        uploadDir = uploadDir,
-        version = .version,
-        yaml = yaml
+        "allSamples" = allSamples,
+        "bcbioCommandsLog" = commandsLog,
+        "bcbioLog" = log,
+        "call" = standardizeCall(),
+        "caller" = caller,
+        "countsFromAbundance" = countsFromAbundance,
+        "dataVersions" = dataVersions,
+        "ensemblRelease" = as.integer(ensemblRelease),
+        "fast" = fast,
+        "genomeBuild" = as.character(genomeBuild),
+        "gffFile" = as.character(gffFile),
+        "interestingGroups" = interestingGroups,
+        "lanes" = lanes,
+        "level" = level,
+        "organism" = as.character(organism),
+        "packageVersion" = .pkgVersion,
+        "programVersions" = programVersions,
+        "projectDir" = projectDir,
+        "runDate" = runDate(projectDir),
+        "sampleDirs" = sampleDirs,
+        "sampleMetadataFile" = as.character(sampleMetadataFile),
+        "tx2gene" = tx2gene,
+        "uploadDir" = uploadDir,
+        "yaml" = yaml
     )
     ## Make bcbioRNASeq object -------------------------------------------------
+    ## FIXME Something downstream isn't passing to alertWarning correctly.
     rse <- makeSummarizedExperiment(
         assays = assays,
         rowRanges = rowRanges,

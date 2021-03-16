@@ -1,22 +1,5 @@
-#' Package version
-#'
-#' @note Updated 2020-10-08.
-#' @noRd
-.version <- packageVersion(packageName())
-
-
-
-#' Cache URL
-#'
-#' @keywords internal
-#' @export
-#'
-#' @examples
-#' bcbioRNASeqTestsURL
-bcbioRNASeqTestsURL <- paste0(
-    "http://r.acidgenomics.com/testdata/bcbiornaseq/",
-    "v", .version$major, ".", .version$minor  # nolint
-)
+.pkgName <- packageName()
+.pkgVersion <- packageVersion(.pkgName)
 
 
 
@@ -41,3 +24,17 @@ bcbioRNASeqTestsURL <- paste0(
 .legacyMetricsCols <- c("name", "x53Bias")
 
 .Rle <- structure("Rle", package = "S4Vectors")  # nolint
+
+
+
+#' Cache URL
+#'
+#' @keywords internal
+#' @export
+#'
+#' @examples
+#' bcbioRNASeqTestsURL
+bcbioRNASeqTestsURL <- paste0(
+    "http://r.acidgenomics.com/testdata/bcbiornaseq/",
+    "v", .pkgVersion$major, ".", .pkgVersion$minor  # nolint
+)

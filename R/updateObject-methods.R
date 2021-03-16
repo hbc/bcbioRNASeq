@@ -1,7 +1,7 @@
 #' @name updateObject
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::updateObject
-#' @note Updated 2021-02-22.
+#' @note Updated 2021-03-16.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -41,7 +41,7 @@ NULL
 ## Row name extraction on invalid objects requires a fix for Bioc 3.10.
 ## https://github.com/Bioconductor/SummarizedExperiment/issues/31
 ##
-## Updated 2021-02-22.
+## Updated 2021-03-16.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -51,8 +51,11 @@ NULL
     ) {
         assert(isFlag(verbose))
         metadata <- metadata(object)
+
+        ## FIXME RENAMED THIS TO packageVersion on 2021-03-16.
         version <- metadata[["version"]]
         assert(is(version, c("package_version", "numeric_version")))
+
         if (isTRUE(verbose)) {
             h1("Update object")
             alert(sprintf(
@@ -61,7 +64,7 @@ NULL
                     "to {.val %s}."
                 ),
                 as.character(version),
-                as.character(.version)
+                as.character(.pkgVersion)
             ))
         }
         ## Legacy slots --------------------------------------------------------
