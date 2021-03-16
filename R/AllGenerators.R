@@ -2,6 +2,9 @@
 ##       This is now included in bcbio 2021 output.
 ## FIXME Consider loading directly from SummarizedExperiment object?
 ##       There is now one generated from bcbio directly in 2021 output.
+## FIXME Rework the sampleDirs approach, which isn't necessary when allSamples
+##       are TRUE and we can load pre-processed tximport and/or featureCounts
+##       data from the dated final output directory...
 
 
 
