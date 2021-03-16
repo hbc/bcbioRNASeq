@@ -531,6 +531,8 @@ bcbioRNASeq <- function(
     )
     ## Make bcbioRNASeq object -------------------------------------------------
     ## FIXME Something downstream isn't passing to alertWarning correctly.
+    ## Having trouble debugging this issue posted in:
+    ## https://github.com/hbc/bcbioRNASeq/issues/170
     rse <- makeSummarizedExperiment(
         assays = assays,
         rowRanges = rowRanges,
