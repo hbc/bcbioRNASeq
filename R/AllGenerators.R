@@ -585,7 +585,6 @@ bcbioRNASeq <- function(
         }
     }
     ## Return ------------------------------------------------------------------
-    assert(hasValidDimnames(bcb))
     validObject(bcb)
     alertSuccess("bcbio RNA-seq run imported successfully.")
     bcb

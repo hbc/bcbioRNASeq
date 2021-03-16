@@ -43,7 +43,8 @@ setValidity(
         if (!isTRUE(ok)) return(ok)
         ok <- validate(
             is(object, "RangedSummarizedExperiment"),
-            hasDimnames(object)
+            hasDimnames(object),
+            hasValidDimnames(object)
         )
         if (!isTRUE(ok)) return(ok)
         ## Metadata ------------------------------------------------------------
