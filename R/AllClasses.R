@@ -16,7 +16,7 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
-#' @note Updated 2021-02-22.
+#' @note Updated 2021-03-16.
 #' @export
 setClass(
     Class = "bcbioRNASeq",
@@ -26,10 +26,18 @@ setValidity(
     Class = "bcbioRNASeq",
     method = function(object) {
         metadata <- metadata(object)
-        version <- metadata[["version"]]
+        ## Changed from "version" to "packageVersion" on 2021-03-16.
+        version <- metadata[["packageVersion"]]
+        if (is.null(version)) {
+            version <- metadata[["version"]]
+        }
         ok <- validate(
             is(version, "package_version"),
-            version >= 0.2,
+            msg = "Package version is not defined in object."
+        )
+        if (!isTRUE(ok)) return(ok)
+        ok <- validate(
+            isTRUE(version >= 0.2),
             msg = "Object is older than v0.2, and cannot be easily updated."
         )
         if (!isTRUE(ok)) return(ok)
@@ -43,9 +51,9 @@ setValidity(
             is.null(metadata[["metrics"]]),
             msg = "Legacy metrics detected inside object metadata."
         )
+        ## Check that interesting groups defined in metadata are valid.
         ok <- validate(
-            ## Check that interesting groups defined in metadata are valid.
-            isSubset(
+            !isSubset(
                 x = metadata[["interestingGroups"]],
                 y = colnames(colData(object))
             ),
@@ -77,7 +85,7 @@ setValidity(
         if (!isTRUE(ok)) return(ok)
         ## Class checks (order independent).
         df <- "DataFrame"
-        if (packageVersion("S4Vectors") >= "0.23") {
+        if (isTRUE(packageVersion("S4Vectors") >= "0.23")) {
             df <- c("DFrame", df)
         }
         ## Relaxed validity checks against `dataVersions`, `programsVersions`
