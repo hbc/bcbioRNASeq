@@ -1,3 +1,10 @@
+## FIXME Consider loading directly from tximport output when defined.
+##       This is now included in bcbio 2021 output.
+## FIXME Consider loading directly from SummarizedExperiment object?
+##       There is now one generated from bcbio directly in 2021 output.
+
+
+
 #' @inherit bcbioRNASeq-class title description
 #'
 #' @details
@@ -119,7 +126,7 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2021-02-22.
+#' @note Updated 2021-03-16.
 #' @export
 #'
 #' @inheritParams AcidExperiment::makeSummarizedExperiment

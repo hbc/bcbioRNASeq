@@ -57,7 +57,7 @@ setValidity(
                 x = metadata[["interestingGroups"]],
                 y = colnames(colData(object))
             ),
-            msg = "interestingGroups column should not be defined in colData."
+            msg = "'interestingGroups' column is not allowed in 'colData'."
         )
         if (!isTRUE(ok)) return(ok)
         ## Error on legacy slot detection.
@@ -95,30 +95,31 @@ setValidity(
         ok <- validateClasses(
             object = metadata,
             expected = list(
-                allSamples = "logical",
-                bcbioCommandsLog = "character",
-                bcbioLog = "character",
-                call = "call",
-                caller = "character",
-                ## > dataVersions = df,
-                date = "Date",
-                ensemblRelease = "integer",
-                genomeBuild = "character",
-                gffFile = "character",
-                interestingGroups = "character",
-                lanes = "integer",
-                level = "character",
-                organism = "character",
-                ## > programVersions = df,
-                projectDir = "character",
-                runDate = "Date",
-                sampleDirs = "character",
-                sampleMetadataFile = "character",
-                sessionInfo = "session_info",
-                uploadDir = "character",
-                version = "package_version",
-                wd = "character",
-                yaml = "list"
+                ## > "dataVersions" = df,
+                ## Renamed "version" to "packageVersion" on 2021-03-16.
+                ## > "packageVersion" = "package_version",
+                ## > "programVersions" = df,
+                "allSamples" = "logical",
+                "bcbioCommandsLog" = "character",
+                "bcbioLog" = "character",
+                "call" = "call",
+                "caller" = "character",
+                "date" = "Date",
+                "ensemblRelease" = "integer",
+                "genomeBuild" = "character",
+                "gffFile" = "character",
+                "interestingGroups" = "character",
+                "lanes" = "integer",
+                "level" = "character",
+                "organism" = "character",
+                "projectDir" = "character",
+                "runDate" = "Date",
+                "sampleDirs" = "character",
+                "sampleMetadataFile" = "character",
+                "sessionInfo" = "session_info",
+                "uploadDir" = "character",
+                "wd" = "character",
+                "yaml" = "list"
             ),
             subset = TRUE
         )
@@ -191,10 +192,10 @@ setValidity(
         colData <- colData(object)
         ok <- validate(
             identical(rownames(colData), colnames(object)),
-            isSubset("sampleName", colnames(colData)),
-            ## `sampleId` is never allowed in colData.
-            areDisjointSets(colnames(colData), "sampleId"),
-            areDisjointSets(colnames(colData), .legacyMetricsCols)
+            areDisjointSets(
+                x = colnames(colData),
+                y = c("sampleId", .legacyMetricsCols)
+            )
         )
         if (!isTRUE(ok)) return(ok)
         ## Return.
