@@ -53,6 +53,7 @@ setValidity(
             msg = "Legacy metrics detected inside object metadata."
         )
         ## Check that interesting groups defined in metadata are valid.
+        ## FIXME NOW THIS CLASS CHECK IS FAILING?
         ok <- validate(
             !isSubset(
                 x = metadata[["interestingGroups"]],

@@ -46,11 +46,12 @@
     ## Locate the counts files -------------------------------------------------
     subdirs <- file.path(sampleDirs, type)
     assert(all(isDirectory(subdirs)))
-    if (type %in% c("salmon", "sailfish")) {
-        basename <- "quant.sf"
-    } else if (type == "kallisto") {
-        basename <- "abundance.h5"
-    }
+    basename <- ifelse(
+        test = identical(type, "kallisto"),
+        yes = "abundance.h5",
+        ## salmon, sailfish.
+        no = "quant.sf"
+    )
     files <- file.path(subdirs, basename)
     assert(all(isFile(files)))
     names(files) <- names(sampleDirs)
@@ -85,15 +86,15 @@
     ## We're using a `do.call()` approach here so we can apply version-specific
     ## tximport fixes, if necessary.
     args <- list(
-        files = files,
-        type = type,
-        txIn = TRUE,
-        txOut = txOut,
-        countsFromAbundance = countsFromAbundance,
-        tx2gene = tx2gene,
-        ignoreTxVersion = ignoreTxVersion,
-        geneIdCol = "geneId",
-        txIdCol = "txId"
+        "files" = files,
+        "type" = type,
+        "txIn" = TRUE,
+        "txOut" = txOut,
+        "countsFromAbundance" = countsFromAbundance,
+        "tx2gene" = tx2gene,
+        "ignoreTxVersion" = ignoreTxVersion,
+        "geneIdCol" = "geneId",
+        "txIdCol" = "txId"
     )
     txi <- do.call(what = tximport, args = args)
     ## Assert checks before return.

@@ -129,7 +129,7 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2021-03-16.
+#' @note Updated 2021-03-20.
 #' @export
 #'
 #' @inheritParams AcidExperiment::makeSummarizedExperiment
@@ -263,7 +263,7 @@ bcbioRNASeq <- function(
         choices = eval(formals(tximport)[["countsFromAbundance"]])
     )
     h1("bcbioRNASeq")
-    alert("Importing bcbio-nextgen RNA-seq run.")
+    alertInfo("Importing bcbio-nextgen RNA-seq run.")
     ## Run info ----------------------------------------------------------------
     h2("Run info")
     uploadDir <- realpath(uploadDir)
@@ -345,7 +345,8 @@ bcbioRNASeq <- function(
     samples <- rownames(sampleData)
     assert(
         ## Requiring at least 2 samples.
-        length(samples) >= 2L,
+        ## FIXME Work on disabling this requirement.
+        ## > length(samples) >= 2L,
         ## FIXME Rethink this?
         isSubset(samples, names(sampleDirs)),
         ## Check that name sanitization worked.
@@ -394,11 +395,7 @@ bcbioRNASeq <- function(
             release = ensemblRelease
         )
         assert(is(tx2gene, "Tx2Gene"))
-        if (level == "transcripts") {
-            txOut <- TRUE
-        } else {
-            txOut <- FALSE
-        }
+        txOut <- identical(level, "transcripts")
         txi <- .tximport(
             sampleDirs = sampleDirs,
             type = caller,
