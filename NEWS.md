@@ -1,4 +1,10 @@
-## bcbioRNASeq 0.3.40 (2020-12-22)
+## bcbioRNASeq 0.4.0 (UNRELEASED)
+
+### Minor changes
+
+- `bcbioRNASeq` now allows loading of 1 sample, which is uncommon.
+
+## bcbioRNASeq 0.3.40 (2021-02-23)
 
 Maintenance release, incorporating useful changes from the basejump v0.14
 release series.
