@@ -208,7 +208,6 @@
 bcbioRNASeq <- function(
     uploadDir,
     level = c("genes", "transcripts"),
-    ## FIXME Rename star, hisat2 to featureCounts?
     caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
     samples = NULL,
     censorSamples = NULL,
@@ -344,15 +343,9 @@ bcbioRNASeq <- function(
     }
     samples <- rownames(sampleData)
     assert(
-        ## Requiring at least 2 samples.
-        ## FIXME Work on disabling this requirement.
-        ## > length(samples) >= 2L,
-        ## FIXME Rethink this?
         isSubset(samples, names(sampleDirs)),
-        ## Check that name sanitization worked.
         validNames(samples)
     )
-    ## FIXME Rethink this?
     if (length(samples) < length(sampleDirs)) {
         sampleDirs <- sampleDirs[samples]
         txt("Loading a subset of samples:")
@@ -360,6 +353,12 @@ bcbioRNASeq <- function(
         allSamples <- FALSE
     } else {
         allSamples <- TRUE
+    }
+    ## Ensure fast mode is enabled for minimal datasets where DESeq2
+    ## calculations are not appropriate.
+    if (length(samples) < 2L && isFALSE(fast)) {
+        alertInfo("Minimal dataset detected. Enabling fast mode.")
+        fast <- TRUE
     }
     ## Sample metrics. Note that sample metrics used for QC plots are not
     ## currently generated when using fast RNA-seq workflow. This depends upon
