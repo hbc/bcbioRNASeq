@@ -1,3 +1,4 @@
+## FIXME Round the counts, matching bcbio-nextgen output.
 ## FIXME Consider loading directly from tximport output when defined.
 ##       This is now included in bcbio 2021 output.
 ## FIXME Consider loading directly from SummarizedExperiment object?
@@ -129,7 +130,7 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2021-03-20.
+#' @note Updated 2021-04-02.
 #' @export
 #'
 #' @inheritParams AcidExperiment::makeSummarizedExperiment
@@ -268,7 +269,8 @@ bcbioRNASeq <- function(
     uploadDir <- realpath(uploadDir)
     dl(c("uploadDir" = uploadDir))
     projectDir <- projectDir(uploadDir)
-    ## FIXME This really is only needed when parsing salmon data...
+    ## FIXME This really is only needed when parsing sample directories...
+    ## can reconsider this approach if loading pre-processed data directly.
     sampleDirs <- sampleDirs(uploadDir)
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     yaml <- import(yamlFile)
@@ -301,7 +303,7 @@ bcbioRNASeq <- function(
             )
         }
     )
-    ## FIXME Rework this?
+    ## FIXME Rework this if we're importing pre-processed data.
     lanes <- detectLanes(sampleDirs)
     assert(isInt(lanes) || identical(lanes, integer()))
     ## Column data (samples) ---------------------------------------------------
@@ -356,8 +358,18 @@ bcbioRNASeq <- function(
     }
     ## Ensure fast mode is enabled for minimal datasets where DESeq2
     ## calculations are not appropriate.
-    if (length(samples) < 2L && isFALSE(fast)) {
-        alertInfo("Minimal dataset detected. Enabling fast mode.")
+    if (length(samples) < 4L && isFALSE(fast)) {
+        n <- length(samples)
+        alertInfo(sprintf(
+            "Minimal dataset containing %d %s detected.",
+            n,
+            ngettext(
+                n = n,
+                msg1 = "sample",
+                msg2 = "samples"
+            )
+        ))
+        alert("Enabling fast mode, which skips DESeq2 calculations.")
         fast <- TRUE
     }
     ## Sample metrics. Note that sample metrics used for QC plots are not
@@ -461,7 +473,9 @@ bcbioRNASeq <- function(
             ## Attempt to use bcbio GTF automatically.
             gffFile <- getGTFFileFromYAML(yaml)
         }
-        if (!is.null(gffFile) && !isTRUE(fast)) {
+        if (!is.null(gffFile) && isFALSE(fast)) {
+            ## FIXME CONSIDER ADDING TRYCATCH HERE, TO AVOID ERRORING ON WEIRD
+            ## GTF FILE INPUT?
             gffFile <- realpath(gffFile)
             rowRanges <- makeGRangesFromGFF(
                 file = gffFile,
