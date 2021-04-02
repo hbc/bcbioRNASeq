@@ -1,14 +1,3 @@
-## FIXME Round the counts, matching bcbio-nextgen output.
-## FIXME Consider loading directly from tximport output when defined.
-##       This is now included in bcbio 2021 output.
-## FIXME Consider loading directly from SummarizedExperiment object?
-##       There is now one generated from bcbio directly in 2021 output.
-## FIXME Rework the sampleDirs approach, which isn't necessary when allSamples
-##       are TRUE and we can load pre-processed tximport and/or featureCounts
-##       data from the dated final output directory...
-
-
-
 #' @inherit bcbioRNASeq-class title description
 #'
 #' @details
@@ -269,8 +258,6 @@ bcbioRNASeq <- function(
     uploadDir <- realpath(uploadDir)
     dl(c("uploadDir" = uploadDir))
     projectDir <- projectDir(uploadDir)
-    ## FIXME This really is only needed when parsing sample directories...
-    ## can reconsider this approach if loading pre-processed data directly.
     sampleDirs <- sampleDirs(uploadDir)
     yamlFile <- file.path(projectDir, "project-summary.yaml")
     yaml <- import(yamlFile)
@@ -303,7 +290,6 @@ bcbioRNASeq <- function(
             )
         }
     )
-    ## FIXME Rework this if we're importing pre-processed data.
     lanes <- detectLanes(sampleDirs)
     assert(isInt(lanes) || identical(lanes, integer()))
     ## Column data (samples) ---------------------------------------------------
@@ -474,9 +460,6 @@ bcbioRNASeq <- function(
             gffFile <- getGTFFileFromYAML(yaml)
         }
         if (!is.null(gffFile) && isFALSE(fast)) {
-            ## FIXME CONSIDER ADDING TRYCATCH HERE, TO AVOID ERRORING ON WEIRD
-            ## GTF FILE INPUT?
-            gffFile <- realpath(gffFile)
             rowRanges <- makeGRangesFromGFF(
                 file = gffFile,
                 level = level,
@@ -497,8 +480,6 @@ bcbioRNASeq <- function(
         ensemblRelease <- metadata(rowRanges)[["ensemblRelease"]]
     }
     ## Metadata ----------------------------------------------------------------
-    ## FIXME This step is now erroring in some bcbioRNASeq runs...
-    ## https://github.com/hbc/bcbioRNASeq/issues/170
     h2("Metadata")
     ## Interesting groups.
     interestingGroups <- camelCase(interestingGroups, strict = TRUE)
@@ -543,9 +524,6 @@ bcbioRNASeq <- function(
         "yaml" = yaml
     )
     ## Make bcbioRNASeq object -------------------------------------------------
-    ## FIXME Something downstream isn't passing to alertWarning correctly.
-    ## Having trouble debugging this issue posted in:
-    ## https://github.com/hbc/bcbioRNASeq/issues/170
     rse <- makeSummarizedExperiment(
         assays = assays,
         rowRanges = rowRanges,
