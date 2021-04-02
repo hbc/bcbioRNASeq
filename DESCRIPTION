@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.4.0
-Date: 2021-03-20
+Version: 0.3.41
+Date: 2021-04-02
 Authors@R: c(
     person(
         given = "Michael",
@@ -102,38 +102,36 @@ Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 4.0),
-    basejump (>= 0.14.16)
+    basejump (>= 0.14.17)
 Imports:
-    AcidGSEA (>= 0.6.1),
     AcidGenerics (>= 0.5.17),
     AcidPlots (>= 0.3.5),
     DESeq2 (>= 1.30),
-    bcbioBase (>= 0.6.20),
+    bcbioBase (>= 0.6.21),
     edgeR (>= 3.32),
     ggplot2 (>= 3.3),
-    goalie (>= 0.5.0),
+    goalie (>= 0.5.1),
     methods,
     tximport (>= 1.18)
 Suggests:
-    AcidGSEA,
-    BiocStyle,
-    DEGreport,
-    DESeqAnalysis,
-    DOSE,
-    EnsDb.Hsapiens.v75,
-    clusterProfiler,
-    hexbin,
+    AcidGSEA (>= 0.6.2),
+    BiocStyle (>= 2.18),
+    DEGreport (>= 1.26),
+    DESeqAnalysis (>= 0.4.0),
+    DOSE (>= 3.16),
+    EnsDb.Hsapiens.v75 (>= 2.99),
+    clusterProfiler (>= 3.18),
+    hexbin (>= 1.28),
     knitr,
-    org.Hs.eg.db,
-    org.Mm.eg.db,
-    pathview,
-    rhdf5,
+    org.Hs.eg.db (>= 3.12),
+    org.Mm.eg.db (>= 3.12),
+    pathview (>= 1.30),
+    rhdf5 (>= 2.34),
     rmarkdown,
     roxygen2,
     testthat,
-    tidyverse,
-    viridis,
-    vsn
+    viridis (>= 0.5),
+    vsn (>= 3.58)
 biocViews:
     DataImport,
     DataRepresentation,
