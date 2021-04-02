@@ -1,7 +1,7 @@
 #' @name updateObject
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::updateObject
-#' @note Updated 2021-03-16.
+#' @note Updated 2021-04-02.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -38,10 +38,7 @@ NULL
 
 
 
-## Row name extraction on invalid objects requires a fix for Bioc 3.10.
-## https://github.com/Bioconductor/SummarizedExperiment/issues/31
-##
-## Updated 2021-03-16.
+## Updated 2021-04-02.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -51,11 +48,12 @@ NULL
     ) {
         assert(isFlag(verbose))
         metadata <- metadata(object)
-
-        ## FIXME RENAMED THIS TO packageVersion on 2021-03-16.
-        version <- metadata[["version"]]
+        ## Renamed 'version' to 'packageVersion' on 2021-03-16.
+        version <- metadata[["packageVersion"]]
+        if (is.null(version)) {
+            version <- metadata[["version"]]
+        }
         assert(is(version, c("package_version", "numeric_version")))
-
         if (isTRUE(verbose)) {
             h1("Update object")
             alert(sprintf(
@@ -235,6 +233,10 @@ NULL
             }
             metadata[["level"]] <- "genes"
         }
+        ## packageVersion
+        metadata[["previousVersion"]] <- metadata[["version"]]
+        metadata[["packageVersion"]] <- .pkgVersion
+        metadata[["version"]] <- NULL
         ## programVersions
         if (!"programVersions" %in% names(metadata) &&
             "programs" %in% names(metadata)) {
@@ -302,9 +304,6 @@ NULL
             }
             metadata[["yamlFile"]] <- NULL
         }
-        ## version
-        metadata[["previousVersion"]] <- metadata[["version"]]
-        metadata[["version"]] <- .version
         ## tximport-specific
         if (isSubset(metadata[["caller"]], .tximportCallers)) {
             if (isTRUE(verbose)) {
