@@ -16,7 +16,7 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
-#' @note Updated 2021-03-16.
+#' @note Updated 2021-04-02.
 #' @export
 setClass(
     Class = "bcbioRNASeq",
@@ -53,13 +53,20 @@ setValidity(
             msg = "Legacy metrics detected inside object metadata."
         )
         ## Check that interesting groups defined in metadata are valid.
-        ## FIXME NOW THIS CLASS CHECK IS FAILING?
         ok <- validate(
             !isSubset(
-                x = metadata[["interestingGroups"]],
+                x = "interestingGroups",
                 y = colnames(colData(object))
             ),
             msg = "'interestingGroups' column is not allowed in 'colData'."
+        )
+        if (!isTRUE(ok)) return(ok)
+        ok <- validate(
+            isSubset(
+                x = metadata[["interestingGroups"]],
+                y = colnames(colData(object))
+            ),
+            msg = "Interesting groups metadata not defined in 'colData'."
         )
         if (!isTRUE(ok)) return(ok)
         ## Error on legacy slot detection.
