@@ -3,6 +3,17 @@
 * Development
 ** TODO Supporting loading of multiple bcbio runs into a single object?
    https://github.com/hbc/bcbioRNASeq/issues/141
+** TODO Transcript level analysis with sleuth
+   This is supported but we need to improve documentation on how to hand off
+   to sleuth from the bcbioRNASeq object.
+** TODO DTU with DRIMSeq and DEXSeq.
+   Need to document how to do handoff from the bcbioRNASeq object for this.
+** TODO Would be nice to be able to run the analysis with DESeq2 EdgeR Limma
+   Sleuth and have a way to summarize the results of all these for DGE.
+   This is likely outside of the scope of the package but let's think about it.
+** TODO Likelihood ratio test support
+   Need to improve documentation and/or add an R Markdown for this.
+   https://github.com/hbc/bcbioRNASeq/issues/145
 ** TODO Consider rounding raw counts to integer, matching conventions used
    in internal bcbio-nextgen R script. Non-integer counts tend to confuse
    people. Only want to implement this at gene level.
