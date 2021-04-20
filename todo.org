@@ -1,6 +1,8 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
+** TODO Supporting loading of multiple bcbio runs into a single object?
+   https://github.com/hbc/bcbioRNASeq/issues/141
 ** TODO Consider rounding raw counts to integer, matching conventions used
    in internal bcbio-nextgen R script. Non-integer counts tend to confuse
    people. Only want to implement this at gene level.
