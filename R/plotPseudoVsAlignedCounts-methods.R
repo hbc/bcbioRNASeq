@@ -1,7 +1,7 @@
 #' @name plotPseudoVsAlignedCounts
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plotPseudoVsAlignedCounts
-#' @note Updated 2020-12-22.
+#' @note Updated 2021-05-19.
 #'
 #' @note Currently supported for salmon or kallisto. The function will
 #'   intentionally error for datasets containing aligned counts in the primary
@@ -21,7 +21,7 @@
 #' ## Individual genes.
 #' ## Checking the most expressed aligned genes here.
 #' aligned <- assay(bcb, i = "aligned")
-#' genes <- rowSums(aligned) %>% sort %>% tail(n = 2L) %>% names()
+#' genes <- names(tail(sort(rowSums(aligned)), n = 2L))
 #' plotPseudoVsAlignedCounts(bcb, genes = genes)
 NULL
 
