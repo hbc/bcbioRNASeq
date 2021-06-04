@@ -22,7 +22,7 @@ test_that("Expected success", {
     expect_true(validObject(x))
     expect_identical(
         object = metadata(x)[["version"]],
-        expected = .version
+        expected = .pkgVersion
     )
     expect_identical(
         object = metadata(x)[["previousVersion"]],
