@@ -21,7 +21,7 @@ test_that("Expected success", {
     expect_s4_class(x, "bcbioRNASeq")
     expect_true(validObject(x))
     expect_identical(
-        object = metadata(x)[["version"]],
+        object = metadata(x)[["packageVersion"]],
         expected = .pkgVersion
     )
     expect_identical(
