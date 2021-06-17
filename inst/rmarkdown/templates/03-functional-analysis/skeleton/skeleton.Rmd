@@ -98,8 +98,8 @@ Sys.setenv(
 ```{r check-db-codes}
 ## KEGG organism code (e.g. "mmu" for Mus musculus).
 kegg_code <-
-    params$organism %>%
-    search_kegg_organism("scientific_name") %>%
+    params$organism %>%                                                  # FIXME
+    search_kegg_organism("scientific_name") %>%                          # FIXME
     .[["kegg_code"]]
 assert(
     hasLength(kegg_code, n = 1L),
