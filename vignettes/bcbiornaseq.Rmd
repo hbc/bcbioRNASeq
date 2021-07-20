@@ -163,15 +163,18 @@ For the vignette, we are loading a pre-computed version of the example `bcbioRNA
 
 ```{r}
 object <- import(
-    file = pasteURL(
-        "github.com",
-        "hbc",
-        "bcbioRNASeq",
-        "raw",
-        "f1000v2",
-        "data",
-        "bcb.rda",
-        protocol = "https"
+    file = cacheURL(
+        pasteURL(
+            "github.com",
+            "hbc",
+            "bcbioRNASeq",
+            "raw",
+            "f1000v2",
+            "data",
+            "bcb.rda",
+            protocol = "https"
+        ),
+        pkg = "bcbioRNASeq"
     )
 )
 object <- updateObject(object)
