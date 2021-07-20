@@ -1,4 +1,6 @@
 ## FIXME Need to update this to support DESeqAnalysis input.
+## FIXME Rework this example to use multiple contrasts...
+## FIXME Ensure this file passes lintr checks.
 
 suppressPackageStartupMessages({
     library(rmarkdown)
@@ -125,7 +127,12 @@ context("Render R Markdown templates")
 ## Modified, updated version of bcbio_rnaseq_output_example repo.
 ## https://github.com/bcbio/bcbio_rnaseq_output_example/
 
-templates_dir <- system.file("rmarkdown", "templates", package = "bcbioRNASeq")
+templates_dir <- system.file(
+    "rmarkdown",
+    "templates",
+    package = .pkgName,
+    mustWork = TRUE
+)
 
 render_dir <- paste("render", Sys.Date(), sep = "-")
 unlink(render_dir, recursive = TRUE)
@@ -137,13 +144,12 @@ render_files <- saveData(
 )
 wd <- getwd()
 setwd(render_dir)
-prepareTemplate()
 
 test_that("Quality Control", {
     file.copy(
         from = file.path(
             templates_dir,
-            "quality-control",
+            "01-quality-control",
             "skeleton",
             "skeleton.Rmd"
         ),
@@ -152,7 +158,7 @@ test_that("Quality Control", {
     )
     x <- render(
         input = "quality-control.Rmd",
-        params = list(bcb_file = render_files[["bcb"]]),
+        params = list("bcb_file" = render_files[["bcb"]]),
         clean = TRUE
     )
     expect_identical(
@@ -165,7 +171,7 @@ test_that("Differential Expression", {
     file.copy(
         from = file.path(
             templates_dir,
-            "differential-expression",
+            "02-differential-expression",
             "skeleton",
             "skeleton.Rmd"
         ),
@@ -175,9 +181,25 @@ test_that("Differential Expression", {
     x <- render(
         input = "differential-expression.Rmd",
         params = list(
-            bcb_file = render_files[["bcb"]],
-            design = design_formula,
-            contrasts = list(contrast)
+            "bcb_file" = render_files[["bcb"]],
+            "design" = design_formula,
+            "contrasts" = list(
+                "day_1_vs_0" = c(
+                    "factor" = "day",
+                    "numerator" = 1L,
+                    "denominator" = 0L
+                ),
+                "day_3_vs_0" = c(
+                    "factor" = "day",
+                    "numerator" = 3L,
+                    "denominator" = 0L
+                ),
+                "day_7_vs_0" = c(
+                    "factor" = "day",
+                    "numerator" = 7L,
+                    "denominator" = 0L
+                )
+            )
         ),
         clean = TRUE
     )
@@ -191,7 +213,7 @@ test_that("Functional Analysis", {
     file.copy(
         from = file.path(
             templates_dir,
-            "functional-analysis",
+            "03-functional-analysis",
             "skeleton",
             "skeleton.Rmd"
         ),
