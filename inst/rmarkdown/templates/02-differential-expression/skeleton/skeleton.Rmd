@@ -273,58 +273,74 @@ saveRDS(
 
 # Plots
 
-## Mean average (MA)
+## MA plot {.tabset}
 
 An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang2002-sx].
 
 ```{r plot-ma}
-mapply(
-    FUN = plotMA,
+invisible(mapply(
+    FUN = function(object, i) {
+        markdownHeader(text = i, level = 3L, asis = TRUE)
+        print(plotMA(object = object, i = i))
+    },
     i = resultsNames(deseq),
     MoreArgs = list("object" = deseq),
-    SIMPLIFY = FALSE
-)
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+))
 ```
 
-## Volcano
+## Volcano plot {.tabset}
 
 A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui2003-rn; @Li2014-ll]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
 ```{r plot-volcano}
-mapply(
-    FUN = plotVolcano,
+invisible(mapply(
+    FUN = function(object, i) {
+        markdownHeader(text = i, level = 3L, asis = TRUE)
+        print(plotVolcano(object = object, i = i))
+    },
     i = resultsNames(deseq),
     MoreArgs = list("object" = deseq),
-    SIMPLIFY = FALSE
-)
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+))
 ```
 
-## PCA
+## DEG PCA {.tabset}
 
 ```{r plot-deg-pca}
-mapply(
-    FUN = plotDEGPCA,
+invisible(mapply(
+    FUN = function(object, i) {
+        markdownHeader(text = i, level = 3L, asis = TRUE)
+        print(plotDEGPCA(object = object, i = i))
+    },
     i = resultsNames(deseq),
     MoreArgs = list("object" = deseq),
-    SIMPLIFY = FALSE
-)
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+))
 ```
 
-## Heatmap
+## DEG Heatmap {.tabset}
 
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@Ward1963-xf].
 
 ```{r plot-deg-heatmap}
-mapply(
-    FUN = plotDEGHeatmap,
+invisible(mapply(
+    FUN = function(object, i, ...) {
+        markdownHeader(text = i, level = 3L)
+        plotDEGHeatmap(object = object, i = i, ...)
+    },
     i = resultsNames(deseq),
     MoreArgs = list(
         "object" = deseq,
         "clusteringMethod" = "ward.D2",
         "scale" = "row"
     ),
-    SIMPLIFY = FALSE
-)
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+))
 ```
 
 ## Top tables
@@ -332,15 +348,16 @@ mapply(
 Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
 
 ```{r top-tables, results="asis"}
-mapply(
+invisible(mapply(
     FUN = topTables,
     i = resultsNames(deseq),
     MoreArgs = list(
         "object" = deseq,
         "n" = 20L
     ),
-    SIMPLIFY = FALSE
-)
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+))
 ```
 
 # Export results
@@ -348,10 +365,7 @@ mapply(
 Subset the results into separate tables, containing all genes, differentially expressed genes in both directions, and directional tables.
 
 ```{r export-results}
-export(
-    object = deseq,
-    dir = params$results_dir
-)
+export(object = deseq, dir = params$results_dir)
 ```
 
 Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:
