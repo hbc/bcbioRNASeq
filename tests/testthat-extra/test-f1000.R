@@ -1,14 +1,14 @@
-## nolint start
+## FIXME Need to update this to support DESeqAnalysis input.
+
+suppressPackageStartupMessages({
+    library(rmarkdown)
+    library(DESeq2)
+    library(DESeqAnalysis)
+})
 
 
 
-## Functions.
-DESeq <- DESeq2::DESeq
-design <- DESeq2::design
-`design<-` <- `DESeq2::design<-`
-render <- rmarkdown::render
-results <- DESeq2::results
-varianceStabilizingTransformation <- DESeq2::varianceStabilizingTransformation
+context("F1000 workflow paper")
 
 ## bcbioRNASeq object.
 object <- import("https://github.com/hbc/bcbioRNASeq/raw/f1000v2/data/bcb.rda")
@@ -19,32 +19,19 @@ expect_s4_class(object, "bcbioRNASeq")
 bcb <- object
 dds <- as(object, "DESeqDataSet")
 group <- "day"
-contrast <- c(group = group, numerator = "7", denominator = "0")
+contrast <- c("group" = group, "numerator" = "7", "denominator" = "0")
 design_formula <- as.formula(paste0("~", group))
 design(dds) <- design_formula
 dds <- DESeq(dds)
 vst <- varianceStabilizingTransformation(dds)
 res <- results(object = dds, contrast = contrast, alpha = 0.05)
 
-
-
-context("F1000 workflow paper")
-
 test_that("counts", {
-    raw <- counts(object, normalized = FALSE)
-    expect_is(raw, "matrix")
-
-    normalized <- counts(object, normalized = TRUE)
-    expect_is(normalized, "matrix")
-
-    tpm <- counts(object, normalized = "tpm")
-    expect_is(tpm, "matrix")
-
-    rlog <- counts(object, normalized = "rlog")
-    expect_is(rlog, "matrix")
-
-    vst <- counts(object, normalized = "vst")
-    expect_is(vst, "matrix")
+    for (normalized in list(FALSE, TRUE, "tpm", "rlog", "vst"
+    )) {
+        x <- counts(object, normalized = normalized)
+        expect_is(x, "matrix")
+    }
 })
 
 test_that("Quality control", {
@@ -60,31 +47,27 @@ test_that("Quality control", {
     p <- plotIntronicMappingRate(object)
     expect_s3_class(p, "ggplot")
 
-    expect_warning(
-        object = plotGenesDetected(object),
-        regexp = "deprecated"
-    )
+    p <- plotGenesDetected(object)
+    expect_s3_class(p, "ggplot")
 
     p <- plotGeneSaturation(object)
     expect_s3_class(p, "ggplot")
 
-    expect_warning(
-        object = plotCountsPerGene(object),
-        regexp = "deprecated"
-    )
+    p <- plotCountsPerGene(object)
+    expect_s3_class(p, "ggplot")
 
     p <- plotCountsPerFeature(object, geom = "density")
-    expect_identical(nrow(p$data), 457704L)
-    expect_match(p$labels$subtitle, "38142")
+    expect_identical(nrow(p[["data"]]), 457704L)
+    expect_match(p[["labels"]][["subtitle"]], "38142")
 
     p <- plotCountDensity(object)
     expect_s3_class(p, "ggplot")
 
-    ## Skipping these, they're slow.
+    p <- plotMeanSD(object)
+    expect_s3_class(p, "ggplot")
 
-    ## > p <- plotMeanSD(object)
-    ## > expect_s3_class(p, "ggplot")
-
+    ## NOTE Figure margins can error here inside of testthat call.
+    ## This may be removed in a future update, supporting only DESeqDataSet.s
     ## > p <- plotDispEsts(object)
     ## > expect_is(p, "list")
 
@@ -94,8 +77,9 @@ test_that("Quality control", {
     p <- plotPCA(object)
     expect_s3_class(p, "ggplot")
 
-    p <- plotPCACovariates(object, fdr = 0.1)
-    expect_is(p, "list")
+    ## Disabled until bug is fixed in DEGreport.
+    ## > p <- plotPCACovariates(object, fdr = 0.1)
+    ## > expect_is(p, "list")
 })
 
 test_that("Differential expression", {
@@ -126,7 +110,7 @@ test_that("Differential expression", {
     )
     expect_s3_class(p, "pheatmap")
 
-    ## lfc argument renamed to lfcThreshold.
+    ## "lfc" argument renamed to "lfcThreshold".
     res_tbl <- resultsTables(res, lfcThreshold = 1)
     expect_is(res_tbl, "list")
     expect_is(res_tbl[[1L]], "tbl_df")
@@ -231,7 +215,3 @@ test_that("Functional Analysis", {
 })
 
 setwd(wd)
-
-
-
-## nolint end
