@@ -1,7 +1,7 @@
 #' @name plotTotalReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotTotalReads
-#' @note Updated 2019-09-16.
+#' @note Updated 2021-07-21.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -13,7 +13,7 @@ NULL
 
 
 
-## Updated 2019-09-16.
+## Updated 2021-07-21.
 `plotTotalReads,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -72,6 +72,7 @@ NULL
         ## Limit.
         if (isPositive(limit)) {
             if (isTRUE(perMillion)) {
+                # FIXME Copy assert code here.
                 if (limit < 1e6L) {
                     warning("'limit': Use absolute value, not per million.")
                 } else {
@@ -90,7 +91,7 @@ NULL
         }
         ## Hide sample name legend.
         if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(fill = FALSE)
+            p <- p + guides(fill = "none")
         }
         ## Return.
         p

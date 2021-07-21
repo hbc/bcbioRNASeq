@@ -1,7 +1,7 @@
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotRRNAMappingRate
-#' @note Updated 2019-09-16.
+#' @note Updated 2021-07-21.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -13,7 +13,7 @@ NULL
 
 
 
-## Updated 2019-09-16.
+## Updated 2021-07-21.
 `plotRRNAMappingRate,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -30,7 +30,6 @@ NULL
     ) {
         validObject(object)
         assert(
-            isNumber(limit),
             isProportion(limit),
             isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
             isFlag(flip)
@@ -68,14 +67,7 @@ NULL
         }
         ## Limit.
         if (isPositive(limit)) {
-            ## Convert to percentage
-            if (limit > 1L) {
-                ## nocov start
-                warning("'limit': Use ratio (0-1) instead of percentage.")
-                ## nocov end
-            } else {
-                limit <- limit * 100L
-            }
+            limit <- limit * 100L
             if (limit < 100L) {
                 p <- p + acid_geom_abline(yintercept = limit)
             }
@@ -90,7 +82,7 @@ NULL
         }
         ## Hide sample name legend.
         if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(fill = FALSE)
+            p <- p + guides(fill = "none")
         }
         ## Return.
         p

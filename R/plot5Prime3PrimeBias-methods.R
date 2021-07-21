@@ -1,7 +1,7 @@
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plot5Prime3PrimeBias
-#' @note Updated 2019-09-16.
+#' @note Updated 2021-07-21.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -67,7 +67,7 @@ NULL
         }
         ## Hide sample name legend.
         if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(color = FALSE)
+            p <- p + guides(color = "none")
         }
         ## Return.
         p

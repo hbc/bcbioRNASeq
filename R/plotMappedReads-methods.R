@@ -1,7 +1,7 @@
 #' @name plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotMappedReads
-#' @note Updated 2019-09-16.
+#' @note Updated 2021-07-21.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -13,7 +13,7 @@ NULL
 
 
 
-## Updated 2019-09-16.
+## Updated 2021-07-21.
 `plotMappedReads,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -73,11 +73,15 @@ NULL
         ## Limit.
         if (isPositive(limit)) {
             if (isTRUE(perMillion)) {
-                if (limit < 1e6L) {
-                    warning("'limit': Use absolute value, not per million.")
-                } else {
-                    limit <- limit / 1e6L
-                }
+                assert(
+                    isTRUE(limit < 1e6L),
+                    msg = sprintf(
+                        "'%s': %s",
+                        limit,
+                        "Use absolute value, not per million."
+                    )
+                )
+                limit <- limit / 1e6L
             }
             p <- p + acid_geom_abline(yintercept = limit)
         }
@@ -91,7 +95,7 @@ NULL
         }
         ## Hide sample name legend.
         if (identical(interestingGroups, "sampleName")) {
-            p <- p + guides(fill = FALSE)
+            p <- p + guides(fill = "none")
         }
         ## Return.
         p
