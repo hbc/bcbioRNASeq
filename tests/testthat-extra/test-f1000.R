@@ -203,6 +203,7 @@ renderFiles <- saveData(
 )
 wd <- getwd()
 setwd(renderDir)
+prepareTemplate()
 
 test_that("Quality Control", {
     file.copy(

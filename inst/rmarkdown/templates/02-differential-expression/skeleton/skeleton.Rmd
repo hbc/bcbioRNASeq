@@ -274,7 +274,7 @@ saveRDS(
 
 An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang2002-sx].
 
-```{r plot-ma}
+```{r plot-ma, results="asis"}
 invisible(mapply(
     FUN = function(object, i) {
         markdownHeader(text = i, level = 3L, asis = TRUE)
@@ -291,7 +291,7 @@ invisible(mapply(
 
 A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui2003-rn; @Li2014-ll]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
 
-```{r plot-volcano}
+```{r plot-volcano, results="asis"}
 invisible(mapply(
     FUN = function(object, i) {
         markdownHeader(text = i, level = 3L, asis = TRUE)
@@ -306,7 +306,7 @@ invisible(mapply(
 
 ## DEG PCA {.tabset}
 
-```{r plot-deg-pca}
+```{r plot-deg-pca, results="asis"}
 invisible(mapply(
     FUN = function(object, i) {
         markdownHeader(text = i, level = 3L, asis = TRUE)
@@ -323,7 +323,7 @@ invisible(mapply(
 
 This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@Ward1963-xf].
 
-```{r plot-deg-heatmap}
+```{r plot-deg-heatmap, results="asis"}
 invisible(mapply(
     FUN = function(object, i, ...) {
         markdownHeader(text = i, level = 3L)
