@@ -1,7 +1,3 @@
-## FIXME Need to update this to support DESeqAnalysis input.
-## FIXME Rework this example to use multiple contrasts...
-## FIXME Ensure this file passes lintr checks.
-
 suppressPackageStartupMessages({
     library(rmarkdown)
     library(DESeq2)
@@ -12,21 +8,98 @@ suppressPackageStartupMessages({
 
 context("F1000 workflow paper")
 
-## bcbioRNASeq object.
-object <- import("https://github.com/hbc/bcbioRNASeq/raw/f1000v2/data/bcb.rda")
-object <- updateObject(object)
-expect_s4_class(object, "bcbioRNASeq")
+## Note that DESeqAnalysis approach is new and not mentioned in the current
+## F1000v2 manuscript.
 
-## DESeq2 example objects.
-bcb <- object
-dds <- as(object, "DESeqDataSet")
-group <- "day"
-contrast <- c("group" = group, "numerator" = "7", "denominator" = "0")
-design_formula <- as.formula(paste0("~", group))
-design(dds) <- design_formula
+## bcbioRNASeq object.
+bcb <- import(
+    file = cacheURL(
+        url = pasteURL(
+            "github.com",
+            "hbc",
+            "bcbioRNASeq",
+            "raw",
+            "f1000v2/data/bcb.rda",
+            protocol = "https"
+        ),
+        pkg = .pkgName
+    )
+)
+bcb <- updateObject(bcb)
+expect_s4_class(bcb, "bcbioRNASeq")
+## Note that "object" is used instead of "bcb" in some tests below.
+object <- bcb
+
+alphaThreshold <- 0.05
+lfcThreshold <- 0L
+
+## Run DESeq2.
+dds <- as(bcb, "DESeqDataSet")
+design(dds) <- ~day
 dds <- DESeq(dds)
 vst <- varianceStabilizingTransformation(dds)
-res <- results(object = dds, contrast = contrast, alpha = 0.05)
+
+## > resultsNames(dds)
+## [1] "Intercept"  "day_1_vs_0" "day_3_vs_0" "day_7_vs_0"
+
+contrasts <- list(
+    "day_1_vs_0" = c(
+        "factor" = "day",
+        "numerator" = 1L,
+        "denominator" = 0L
+    ),
+    "day_3_vs_0" = c(
+        "factor" = "day",
+        "numerator" = 3L,
+        "denominator" = 0L
+    ),
+    "day_7_vs_0" = c(
+        "factor" = "day",
+        "numerator" = 7L,
+        "denominator" = 0L
+    )
+)
+
+resListUnshrunken <- mapply(
+    FUN = DESeq2::results,
+    contrast = contrasts,
+    MoreArgs = list(
+        "object" = dds,
+        "alpha" = alphaThreshold,
+        "lfcThreshold" = lfcThreshold
+    ),
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+)
+names(resListUnshrunken) <- names(contrasts)
+
+res <- resListUnshrunken[[1L]]
+
+resListShrunken <- mapply(
+    FUN = DESeq2::lfcShrink,
+    res = resListUnshrunken,
+    contrast = contrasts,
+    MoreArgs = list(
+        "dds" = dds,
+        "type" = "normal",
+        "alpha" = alphaThreshold,
+        "lfcThreshold" = lfcThreshold
+    ),
+    SIMPLIFY = FALSE,
+    USE.NAMES = TRUE
+)
+
+## See `help(topic = DESeqAnalysis, DESeqAnalysis)` for details.
+deseq <- DESeqAnalysis(
+    data = dds,                   # DESeqDataSet
+    transform = vst,              # DESeqTransform
+    results = resListUnshrunken,  # DESeqResults list (unshrunken)
+    lfcShrink = resListShrunken   # DESeqResults list (shrunken)
+)
+
+
+## FIXME Need to save this in renderFiles....see below.
+
 
 test_that("counts", {
     for (normalized in list(FALSE, TRUE, "tpm", "rlog", "vst"
@@ -37,58 +110,45 @@ test_that("counts", {
 })
 
 test_that("Quality control", {
-    p <- plotTotalReads(object)
-    expect_s3_class(p, "ggplot")
+    for (fun in list(
+        plotCountDensity,
+        plotCountsPerFeature,
+        plotCountsPerGene,
+        plotExonicMappingRate,
+        plotGeneSaturation,
+        plotGenesDetected,
+        plotIntronicMappingRate,
+        plotMappingRate,
+        plotMeanSD,
+        plotPCA,
+        plotTotalReads
+    )) {
+        p <- fun(object)
+        expect_s3_class(p, "ggplot")
+    }
 
-    p <- plotMappingRate(object)
-    expect_s3_class(p, "ggplot")
-
-    p <- plotExonicMappingRate(object)
-    expect_s3_class(p, "ggplot")
-
-    p <- plotIntronicMappingRate(object)
-    expect_s3_class(p, "ggplot")
-
-    p <- plotGenesDetected(object)
-    expect_s3_class(p, "ggplot")
-
-    p <- plotGeneSaturation(object)
-    expect_s3_class(p, "ggplot")
-
-    p <- plotCountsPerGene(object)
-    expect_s3_class(p, "ggplot")
+    p <- plotCorrelationHeatmap(object)
+    expect_s3_class(p, "pheatmap")
 
     p <- plotCountsPerFeature(object, geom = "density")
     expect_identical(nrow(p[["data"]]), 457704L)
     expect_match(p[["labels"]][["subtitle"]], "38142")
 
-    p <- plotCountDensity(object)
-    expect_s3_class(p, "ggplot")
-
-    p <- plotMeanSD(object)
-    expect_s3_class(p, "ggplot")
-
     ## NOTE Figure margins can error here inside of testthat call.
-    ## This may be removed in a future update, supporting only DESeqDataSet.s
+    ## This may be removed in a future update, supporting only DESeqDataSet.
     ## > p <- plotDispEsts(object)
     ## > expect_is(p, "list")
 
-    p <- plotCorrelationHeatmap(object)
-    expect_s3_class(p, "pheatmap")
-
-    p <- plotPCA(object)
-    expect_s3_class(p, "ggplot")
-
-    ## Disabled until bug is fixed in DEGreport.
+    ## NOTE Disabled until bug is fixed in DEGreport.
     ## > p <- plotPCACovariates(object, fdr = 0.1)
     ## > expect_is(p, "list")
 })
 
 test_that("Differential expression", {
     x <- capture.output({
-        alphaSummary(
+        DESeqAnalysis::alphaSummary(
             object = dds,
-            contrast = contrast,
+            contrast = contrasts[["day_7_vs_0"]],
             alpha = c(0.1, 0.05)
         )
     })
@@ -113,11 +173,11 @@ test_that("Differential expression", {
     expect_s3_class(p, "pheatmap")
 
     ## "lfc" argument renamed to "lfcThreshold".
-    res_tbl <- resultsTables(res, lfcThreshold = 1)
-    expect_is(res_tbl, "list")
-    expect_is(res_tbl[[1L]], "tbl_df")
+    resTbl <- resultsTables(res, lfcThreshold = 1L)
+    expect_is(resTbl, "list")
+    expect_is(resTbl[[1L]], "tbl_df")
 
-    expect_output(topTables(res_tbl, n = 5))
+    expect_output(topTables(resTbl, n = 5L))
 })
 
 
@@ -127,28 +187,28 @@ context("Render R Markdown templates")
 ## Modified, updated version of bcbio_rnaseq_output_example repo.
 ## https://github.com/bcbio/bcbio_rnaseq_output_example/
 
-templates_dir <- system.file(
+templatesDir <- system.file(
     "rmarkdown",
     "templates",
     package = .pkgName,
     mustWork = TRUE
 )
 
-render_dir <- paste("render", Sys.Date(), sep = "-")
-unlink(render_dir, recursive = TRUE)
-render_files <- saveData(
-    bcb, dds, res,
-    dir = render_dir,
+renderDir <- paste("render", Sys.Date(), sep = "-")
+unlink(renderDir, recursive = TRUE)
+renderFiles <- saveData(
+    bcb, dds, deseq, res,
+    dir = renderDir,
     ext = "rds",
     overwrite = TRUE
 )
 wd <- getwd()
-setwd(render_dir)
+setwd(renderDir)
 
 test_that("Quality Control", {
     file.copy(
         from = file.path(
-            templates_dir,
+            templatesDir,
             "01-quality-control",
             "skeleton",
             "skeleton.Rmd"
@@ -158,7 +218,9 @@ test_that("Quality Control", {
     )
     x <- render(
         input = "quality-control.Rmd",
-        params = list("bcb_file" = render_files[["bcb"]]),
+        params = list(
+            "bcb_file" = renderFiles[["bcb"]]
+        ),
         clean = TRUE
     )
     expect_identical(
@@ -170,7 +232,7 @@ test_that("Quality Control", {
 test_that("Differential Expression", {
     file.copy(
         from = file.path(
-            templates_dir,
+            templatesDir,
             "02-differential-expression",
             "skeleton",
             "skeleton.Rmd"
@@ -181,25 +243,9 @@ test_that("Differential Expression", {
     x <- render(
         input = "differential-expression.Rmd",
         params = list(
-            "bcb_file" = render_files[["bcb"]],
-            "design" = design_formula,
-            "contrasts" = list(
-                "day_1_vs_0" = c(
-                    "factor" = "day",
-                    "numerator" = 1L,
-                    "denominator" = 0L
-                ),
-                "day_3_vs_0" = c(
-                    "factor" = "day",
-                    "numerator" = 3L,
-                    "denominator" = 0L
-                ),
-                "day_7_vs_0" = c(
-                    "factor" = "day",
-                    "numerator" = 7L,
-                    "denominator" = 0L
-                )
-            )
+            "bcb_file" = renderFiles[["bcb"]],
+            "design" = design(dds),
+            "contrasts" = contrasts
         ),
         clean = TRUE
     )
@@ -212,7 +258,7 @@ test_that("Differential Expression", {
 test_that("Functional Analysis", {
     file.copy(
         from = file.path(
-            templates_dir,
+            templatesDir,
             "03-functional-analysis",
             "skeleton",
             "skeleton.Rmd"
@@ -223,11 +269,10 @@ test_that("Functional Analysis", {
     x <- render(
         input = "functional-analysis.Rmd",
         params = list(
-            dds_file = render_files[["dds"]],
-            res_file = render_files[["res"]],
-            organism = organism(dds),
-            ## Pathview KEGG plots are slow to run for our example dataset.
-            pathview = FALSE
+            "deseq_file" = renderFiles[["deseq"]],
+            "results_name" = resultsNames(deseq)[[1L]],
+            "organism" = organism(as(deseq, "DESeqDataSet")),
+            "pathview" = FALSE
         )
     )
     expect_identical(
