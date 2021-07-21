@@ -271,7 +271,8 @@ test_that("Functional Analysis", {
             "deseq_file" = renderFiles[["deseq"]],
             "results_name" = resultsNames(deseq)[[1L]],
             "organism" = organism(as(deseq, "DESeqDataSet")),
-            "pathview" = FALSE
+            ## This can be slow and is prone to errors.
+            "pathview" = TRUE
         )
     )
     expect_identical(
