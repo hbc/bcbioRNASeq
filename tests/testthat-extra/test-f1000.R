@@ -73,6 +73,7 @@ resListUnshrunken <- mapply(
 )
 names(resListUnshrunken) <- names(contrasts)
 
+## This is used in some unit tests below.
 res <- resListUnshrunken[[1L]]
 
 resListShrunken <- mapply(
@@ -97,8 +98,6 @@ deseq <- DESeqAnalysis(
     lfcShrink = resListShrunken   # DESeqResults list (shrunken)
 )
 
-
-## FIXME Need to save this in renderFiles....see below.
 
 
 test_that("counts", {
@@ -146,7 +145,7 @@ test_that("Quality control", {
 
 test_that("Differential expression", {
     x <- capture.output({
-        DESeqAnalysis::alphaSummary(
+        alphaSummary(
             object = dds,
             contrast = contrasts[["day_7_vs_0"]],
             alpha = c(0.1, 0.05)
@@ -213,11 +212,11 @@ test_that("Quality Control", {
             "skeleton",
             "skeleton.Rmd"
         ),
-        to = "quality-control.Rmd",
+        to = "01-quality-control.Rmd",
         overwrite = TRUE
     )
     x <- render(
-        input = "quality-control.Rmd",
+        input = "01-quality-control.Rmd",
         params = list(
             "bcb_file" = renderFiles[["bcb"]]
         ),
@@ -225,7 +224,7 @@ test_that("Quality Control", {
     )
     expect_identical(
         object = basename(x),
-        expected = "quality-control.html"
+        expected = "01-quality-control.html"
     )
 })
 
@@ -237,11 +236,11 @@ test_that("Differential Expression", {
             "skeleton",
             "skeleton.Rmd"
         ),
-        to = "differential-expression.Rmd",
+        to = "02-differential-expression.Rmd",
         overwrite = TRUE
     )
     x <- render(
-        input = "differential-expression.Rmd",
+        input = "02-differential-expression.Rmd",
         params = list(
             "bcb_file" = renderFiles[["bcb"]],
             "design" = design(dds),
@@ -251,7 +250,7 @@ test_that("Differential Expression", {
     )
     expect_identical(
         object = basename(x),
-        expected = "differential-expression.html"
+        expected = "02-differential-expression.html"
     )
 })
 
@@ -263,11 +262,11 @@ test_that("Functional Analysis", {
             "skeleton",
             "skeleton.Rmd"
         ),
-        to = "functional-analysis.Rmd",
+        to = "03-functional-analysis.Rmd",
         overwrite = TRUE
     )
     x <- render(
-        input = "functional-analysis.Rmd",
+        input = "03-functional-analysis.Rmd",
         params = list(
             "deseq_file" = renderFiles[["deseq"]],
             "results_name" = resultsNames(deseq)[[1L]],
@@ -277,7 +276,7 @@ test_that("Functional Analysis", {
     )
     expect_identical(
         object = basename(x),
-        expected = "functional-analysis.html"
+        expected = "03-functional-analysis.html"
     )
 })
 

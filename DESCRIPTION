@@ -114,7 +114,7 @@ Imports:
     methods,
     tximport (>= 1.18)
 Suggests:
-    AcidGSEA (>= 0.6.3),
+    AcidGSEA (>= 0.6.4),
     BiocStyle (>= 2.18),
     DEGreport (>= 1.26),
     DESeqAnalysis (>= 0.4.2),
