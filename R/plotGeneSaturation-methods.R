@@ -1,7 +1,7 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotGeneSaturation
-#' @note Updated 2019-09-16.
+#' @note Updated 2021-07-21.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -14,7 +14,7 @@ NULL
 
 
 
-## Updated 2019-09-16.
+## Updated 2021-07-21.
 `plotGeneSaturation,bcbioRNASeq` <-  # nolint
     function(
         object,

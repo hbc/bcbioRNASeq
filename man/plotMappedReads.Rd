@@ -56,7 +56,7 @@ Flip x and y axes. Recommended for plots containing many samples.}
 The number of mapped reads should correspond to the number of total reads.
 }
 \note{
-Updated 2019-09-16.
+Updated 2021-07-21.
 }
 \examples{
 data(bcb)

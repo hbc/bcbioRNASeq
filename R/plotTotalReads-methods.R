@@ -72,12 +72,15 @@ NULL
         ## Limit.
         if (isPositive(limit)) {
             if (isTRUE(perMillion)) {
-                # FIXME Copy assert code here.
-                if (limit < 1e6L) {
-                    warning("'limit': Use absolute value, not per million.")
-                } else {
-                    limit <- limit / 1e6L
-                }
+                assert(
+                    isTRUE(limit >= 1e6L),
+                    msg = sprintf(
+                        "'%s': %s",
+                        limit,
+                        "Use absolute value (1e7), not per million (1)."
+                    )
+                )
+                limit <- limit / 1e6L
             }
             p <- p + acid_geom_abline(yintercept = limit)
         }

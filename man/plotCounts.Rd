@@ -39,7 +39,7 @@ Additional gene-level-specific normalizations:
 \itemize{
 \item \code{TRUE} / \code{"sf"}: \strong{S}ize \strong{f}actor (i.e. library size) normalized
 counts.\cr
-See \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}} for details.
+See \code{DESeq2::sizeFactors} for details.
 \item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
 fragments.\cr
 Requires \code{fast = FALSE} in \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call and gene annotations in
@@ -73,7 +73,7 @@ See \code{\link[AcidPlots:plotCounts]{AcidPlots::plotCounts()}} for details.}
 \value{
 \itemize{
 \item \code{style = "facet"}: \code{ggplot} grouped by \code{sampleName}, with
-\code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}} applied to panel the samples.
+\code{ggplot2::facet_wrap()} applied to panel the samples.
 \item \code{style = "wide"}: \code{ggplot} in wide format, with genes on the x-axis.
 }
 }

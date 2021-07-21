@@ -74,11 +74,11 @@ NULL
         if (isPositive(limit)) {
             if (isTRUE(perMillion)) {
                 assert(
-                    isTRUE(limit < 1e6L),
+                    isTRUE(limit >= 1e6L),
                     msg = sprintf(
                         "'%s': %s",
                         limit,
-                        "Use absolute value, not per million."
+                        "Use absolute value (1e7), not per million (1)."
                     )
                 )
                 limit <- limit / 1e6L

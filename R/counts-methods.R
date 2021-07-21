@@ -24,7 +24,7 @@
 #'
 #'   - `TRUE` / `"sf"`: **S**ize **f**actor (i.e. library size) normalized
 #'     counts.\cr
-#'     See [DESeq2::sizeFactors()] for details.
+#'     See `DESeq2::sizeFactors` for details.
 #'   - `"fpkm"`: **F**ragments **p**er **k**ilobase per **m**illion mapped
 #'     fragments.\cr
 #'     Requires `fast = FALSE` in [bcbioRNASeq()] call and gene annotations in

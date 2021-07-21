@@ -44,7 +44,7 @@ Additional gene-level-specific normalizations:
 \itemize{
 \item \code{TRUE} / \code{"sf"}: \strong{S}ize \strong{f}actor (i.e. library size) normalized
 counts.\cr
-See \code{\link[DESeq2:sizeFactors]{DESeq2::sizeFactors()}} for details.
+See \code{DESeq2::sizeFactors} for details.
 \item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
 fragments.\cr
 Requires \code{fast = FALSE} in \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call and gene annotations in

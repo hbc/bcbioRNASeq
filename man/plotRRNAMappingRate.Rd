@@ -56,7 +56,7 @@ reduce the number of biologically meaningful reads in the experiment and is
 best avoided.
 }
 \note{
-Updated 2019-09-16.
+Updated 2021-07-21.
 }
 \examples{
 data(bcb)
