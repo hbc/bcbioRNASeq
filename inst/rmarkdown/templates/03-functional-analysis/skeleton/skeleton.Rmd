@@ -459,8 +459,10 @@ export(
 print(gsea_kegg_tbl)
 ```
 
+## Pathview {.tabset}
+
 ```{r pathview-kegg-plots, message=FALSE, results="asis", eval=params$pathview}
-## > help("pathview", "pathview")
+## > help(topic = "pathview", package = "pathview")
 ##
 ## There is currently no way to set the output path of the pathview PNG files,
 ## so we're changing the working directory. Generally this is not recommended!
@@ -474,13 +476,23 @@ if (hasLength(pathways)) {
     wd <- getwd()
     setwd(kegg_plots_dir)
     invisible(lapply(pathways, function(pathway) {
-        ## `gene.data` vector should be numeric with Entrez IDs as names.
+        ## `gene.data` vector must be numeric with Entrez IDs as names.
+        ## Using `withTimeout` here to harden against very large pathway sets
+        ## (e.g."mmu01100" for F1000 paper example) failing to plot.
         tryCatch(
-            pathview(
-                gene.data = entrez_lfc_vec,
-                pathway.id = pathway,
-                species = kegg_code, 
-                limit = list(gene = 2, cpd = 1)
+            expr = R.utils::withTimeout(
+                expr = {
+                    pathview(
+                        gene.data = entrez_lfc_vec,
+                        pathway.id = pathway,
+                        gene.idtype = "entrez",
+                        gene.annotpkg = NULL,
+                        species = kegg_code,
+                        ## Use bi-directional coloring (positive/negative).
+                        limit = list(gene = 2L)
+                    )
+                },
+                timeout = 60L
             ),
             error = function(e) {
                 ## Return a warning instead of an error.
@@ -494,9 +506,13 @@ if (hasLength(pathways)) {
         pattern = "pathview",
         full.names = TRUE
     )
-    invisible(lapply(figures, function(figure) {
-        cat(paste0("<img src=\"", figure, "\">\n"))
-    }))
+    invisible(lapply(
+        X = figures,
+        FUN = function(figure) {
+            markdownHeader(basename(figure), level = 3L, asis = TRUE)
+            cat(paste0("<img src=\"", figure, "\">\n"))
+        }
+    ))
 }
 ```
 
