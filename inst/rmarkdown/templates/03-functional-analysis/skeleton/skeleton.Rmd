@@ -10,7 +10,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2021-07-20.
+## Updated 2021-07-21.
 params:
   title: "Functional analysis with clusterProfiler"
 
