@@ -1,8 +1,15 @@
-## bcbioRNASeq 0.4.0 (UNRELEASED)
+## bcbioRNASeq 0.3.41 (2021-07-21)
 
-### Minor changes
-
-- `bcbioRNASeq` now allows loading of 1 sample, which is uncommon.
+- Improved R Markdown template support, particularly handling of Entrez
+  identifier mapping in the functional analysis template. Also updated
+  pathview code to timeout on very large pathways, such as general metabolism,
+  which can contain hundreds of genes.
+- Updated unit tests against F1000 example dataset.
+- Removed usage of magrittr pipe in examples, in favor of base R pipe (4.1+).
+- Improved internal package name and version handling.
+- Harden internal tximport handling code a bit.
+- Main `bcbioRNASeq` importer now supports a very minimal dataset with a
+  single sample, which isn't common.
 
 ## bcbioRNASeq 0.3.40 (2021-02-23)
 
