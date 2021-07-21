@@ -23,8 +23,9 @@ params:
   ## Refer to `resultsNames()` for details.
   results_name: "group_treatment_vs_control"
 
-  ## Full Latin organism name.
-  organism: "Homo sapiens"
+  ## Full Latin organism name (e.g. "Homo sapiens"). If left `NULL`, will
+  ## attempt to detect from DESeqAnalysis object.
+  organism: NULL
 
   ## Supported GO classes:
   ## - "BP": Biological Process
@@ -51,27 +52,57 @@ bibliography: "bibliography.bib"
 
 ```{r setup, cache=FALSE, message=FALSE}
 suppressPackageStartupMessages({
-    library(stringr)
     library(goalie)
+    library(stringr)
     library(bcbioRNASeq)
     library(DESeqAnalysis)
     library(AcidGSEA)
 })
-## If you encounter an error with this step, please file an issue in the
-## AcidMarkdown repo here:
-## https://github.com/acidgenomics/r-acidmarkdown/issues
 prepareTemplate()
 source("_setup.R")
 ```
 
+```{r dir-create}
+kegg_plots_dir <- file.path(params$results_dir, "kegg-plots")
+invisible(mapply(
+    FUN = initDir,
+    dir = c(params$data_dir, params$results_dir, kegg_plots_dir)
+))
+```
+
+```{r header, child="_header.Rmd"}
+```
+
+# Prepare variables for enrichment analysis
+
+First, we need to load the `DESeqAnalysis` object, which has been generated
+from our `bcbioRNASeq` object during the differential expression step.
+
+```{r load-deseqanalysis}
+deseq <- import(params$deseq_file)
+assert(
+    is(deseq, "DESeqAnalysis"),
+    validObject(deseq)
+)
+print(deseq)
+```
+
+We need to attach organism-specific packages from Bioconductor.
+
 ```{r bioc-packages, message=FALSE}
+## Detect the organism from the DESeqDataSet object, if necessary.
+organism <- params$organism
+if (is.null(organism)) {
+    organism <- organism(as(deseq, "DESeqDataSet"))
+}
+
 ## Load Bioconductor packages. Only the current Bioconductor release for this
 ## template is supported, because it's too difficult to unit test and properly
 ## handle code changes.
 assert(BiocManager::version() >= "3.12")
 ## Get OrgDb package from organism name (e.g. "org.Mm.eg.db").
 match <- str_match(
-    string = params$organism,
+    string = organism,
     pattern = "^([A-Z])[a-z]+\\s([a-z])[a-z]+$"
 )
 org_db <- paste(
@@ -86,6 +117,7 @@ rm(match)
 packages <- c(
     "clusterProfiler",
     "DOSE",
+    "ggnewscale",  # For `cnetplot()` call below.
     "pathview",
     org_db
 )
@@ -104,12 +136,13 @@ Sys.setenv(
 )
 ```
 
+Match the KEGG organism code (e.g. "hsa" for Homo sapiens).
+
 ```{r check-db-codes}
-## KEGG organism code (e.g. "mmu" for Mus musculus).
 kegg_code <-
-    params$organism %>%                                                  # FIXME
-    search_kegg_organism("scientific_name") %>%                          # FIXME
-    .[["kegg_code"]]
+    organism |>
+    search_kegg_organism("scientific_name") |>
+    getElement("kegg_code")
 assert(
     hasLength(kegg_code, n = 1L),
     isMatchingRegex(pattern = "^[a-z]{3}$", x = kegg_code),
@@ -117,29 +150,7 @@ assert(
 )
 ```
 
-```{r dir-create}
-kegg_plots_dir <- file.path(params$results_dir, "kegg-plots")
-invisible(mapply(
-    FUN = initDir,
-    dir = c(params$data_dir, params$results_dir, kegg_plots_dir)
-))
-```
-
-```{r header, child="_header.Rmd"}
-```
-
-# Load `DESeqAnalysis`
-
-```{r load-deseqanalysis}
-deseq <- import(params$deseq_file)
-assert(
-    is(deseq, "DESeqAnalysis"),
-    validObject(deseq)
-)
-print(deseq)
-```
-
-# Extract `DESeqDataSet` and `DESeqResults`
+We need to extract the corresponding `DESeqDataSet` and `DESeqResults` objects.
 
 ```{r get-deseqdataset}
 dds <- as(deseq, "DESeqDataSet")
@@ -160,6 +171,8 @@ assert(
 print(res)
 ```
 
+Now we can prepare the gene list vectors required for enrichment analysis.
+
 ```{r results}
 ## Not allowing the user to apply post-hoc LFC filtering in params.
 alpha_threshold <- alphaThreshold(res)
@@ -174,12 +187,8 @@ dds <- dds[rownames(res), , drop = FALSE]
 all_genes <- rownames(res)
 ## > help(topic = "deg", package = "DESeqAnalysis")
 sig_genes <- deg(res)
-length(all_genes)
-length(sig_genes)
-sig_res_df <-
-    res_df %>%
-    .[sig_genes, , drop = FALSE] %>%
-    .[order(.$padj), , drop = FALSE]
+sig_res_df <- res_df[sig_genes, , drop = FALSE]
+sig_res_df <- sig_res_df[order(sig_res_df$padj), , drop = FALSE]
 ## LFC ranked list vector. 
 lfc_vec <- sig_res_df$log2FoldChange
 names(lfc_vec) <- rownames(sig_res_df)
@@ -203,9 +212,9 @@ enrich_go <- enrichGO(
 )
 print(enrich_go)
 enrich_go_tbl <-
-    enrich_go %>%
-    slot("result") %>%
-    as_tibble() %>%
+    enrich_go |>
+    slot("result") |>
+    as_tibble() |>
     camelCase()
 saveData(
     enrich_go,
@@ -237,13 +246,20 @@ print(enrich_go_tbl)
 ## Dot plot
 
 ```{r dotplot}
-try(dotplot(enrich_go, showCategory = 25L))
+## Wrapping in `try()` call here so the R Markdown template doesn't fail due
+## to unexpected clusterProfiler issues.
+try({
+    dotplot(enrich_go, showCategory = 25L)
+})
 ```
 
 ## GO terms map
 
 ```{r emapplot}
-try(emapplot(enrich_go, showCategory = 25L))
+## May encounter "Term similarity matrix not available" error here.
+try({
+    emapplot(enrich_go, showCategory = 25L)
+})
 ```
 
 ## Gene map
@@ -253,7 +269,11 @@ In order to consider the potentially biological complexities in which a gene may
 Here we are plotting genes colored by LFC for top 5 most significant [GO][] terms.
 
 ```{r cnetplot}
-try(cnetplot(enrich_go, foldChange = lfc_vec))
+try({
+    ## May encounter warning from ggrepel package otherwise.
+    options("ggrepel.max.overlaps" = Inf)
+    cnetplot(enrich_go, foldChange = lfc_vec)
+})
 ```
 
 ## GO GSEA analysis
@@ -261,12 +281,12 @@ try(cnetplot(enrich_go, foldChange = lfc_vec))
 A common approach in analyzing gene expression profiles was identifying differential expressed genes that are deemed interesting. The enrichment analysis we demonstrated previously were based on these differentially expressed genes. This approach will find genes where the difference is large, but it will not detect a situation where the difference is small, but evidenced in coordinated way in a set of related genes. [Gene Set Enrichment Analysis (GSEA)][GSEA] directly addresses this limitation. All genes can be used in [GSEA][]; [GSEA][] aggregates the per gene statistics across genes within a gene set, therefore making it possible to detect situations where all genes in a predefined set change in a small but coordinated way. Since it is likely that many relevant phenotypic differences are manifested by small but consistent changes in a set of genes.
 
 ```{r ranked-list}
-ranked_list_ensembl <-
-    RankedList(
-        object = deseq,
-        value = "stat",
-        keyType = "geneId"
-    )[[params$results_name]]
+ranked_list_ensembl <- RankedList(
+    object = deseq,
+    value = "stat",
+    keyType = "geneId"
+)
+ranked_list_ensembl <- ranked_list_ensembl[[params$results_name]]
 assert(
     is.numeric(ranked_list_ensembl),
     hasNames(ranked_list_ensembl)
@@ -276,11 +296,15 @@ assert(
 ranked_list_entrez <-
     tryCatch(
         expr = {
-            RankedList(
+            ## FIXME This is currently erroring on our F1000 example.
+            ## Need to rework approach in AcidGSEA?
+            x <- RankedList(
                 object = deseq,
                 value = "stat",
                 keyType = "entrezId"
-            )[[params$results_name]]
+            )
+            x <- x[[params$results_name]]
+            x
         },
         error = function(e) NULL
     )
@@ -299,10 +323,11 @@ gsea_go <- gseGO(
     pvalueCutoff = 0.05
 )
 print(gsea_go)
+## FIXME Does the base R pipe work here?
 gsea_go_tbl <-
-    gsea_go %>%
-    slot("result") %>%
-    as_tibble() %>%
+    gsea_go |>
+    slot("result") |>
+    as_tibble() |>
     camelCase()
 saveData(gsea_go, gsea_go_tbl, dir = params$data_dir)
 export(

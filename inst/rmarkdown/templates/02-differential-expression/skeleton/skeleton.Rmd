@@ -59,9 +59,6 @@ suppressPackageStartupMessages({
     library(DESeq2)
     library(DESeqAnalysis)
 })
-## If you encounter an error with this step, please file an issue in the
-## AcidMarkdown repo here:
-## https://github.com/acidgenomics/r-acidmarkdown/issues
 prepareTemplate()
 source("_setup.R")
 ```
