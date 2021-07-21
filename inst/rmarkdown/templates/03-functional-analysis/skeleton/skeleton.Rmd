@@ -60,6 +60,8 @@ suppressPackageStartupMessages({
 })
 prepareTemplate()
 source("_setup.R")
+## May encounter warning from ggrepel package otherwise.
+options("ggrepel.max.overlaps" = Inf)
 ```
 
 ```{r dir-create}
@@ -117,6 +119,7 @@ rm(match)
 packages <- c(
     "clusterProfiler",
     "DOSE",
+    "enrichplot",
     "ggnewscale",  # For `cnetplot()` call below.
     "pathview",
     org_db
@@ -180,17 +183,16 @@ lfc_threshold <- lfcThreshold(res)
 ## Subset NA adjusted P values.
 alert("Dropping genes without an adjusted P value.")
 res <- res[!is.na(res$padj), , drop = FALSE]
-res_df <- as.data.frame(res)
+res <- res[order(res$padj), , drop = FALSE]
 ## Match the DESeqDataSet.
 dds <- dds[rownames(res), , drop = FALSE]
 ## Use the all_genes vector for background (aka universe).
 all_genes <- rownames(res)
 ## > help(topic = "deg", package = "DESeqAnalysis")
-sig_genes <- deg(res)
-sig_res_df <- res_df[sig_genes, , drop = FALSE]
-sig_res_df <- sig_res_df[order(sig_res_df$padj), , drop = FALSE]
+sig_genes <- deg(res, direction = "both")
+sig_res <- res[sig_genes, , drop = FALSE]
 ## LFC ranked list vector. 
-lfc_vec <- sig_res_df$log2FoldChange
+lfc_vec <- sig_res$log2FoldChange
 names(lfc_vec) <- rownames(sig_res_df)
 lfc_vec <- sort(lfc_vec, decreasing = TRUE)
 summary(lfc_vec)
@@ -210,7 +212,6 @@ enrich_go <- enrichGO(
     qvalueCutoff = 0.05,
     readable = TRUE
 )
-print(enrich_go)
 enrich_go_tbl <-
     enrich_go |>
     slot("result") |>
@@ -256,9 +257,11 @@ try({
 ## GO terms map
 
 ```{r emapplot}
-## May encounter "Term similarity matrix not available" error here.
 try({
-    emapplot(enrich_go, showCategory = 25L)
+    emapplot(
+        x = pairwise_termsim(enrich_go),
+        showCategory = 25L
+    )
 })
 ```
 
@@ -270,8 +273,6 @@ Here we are plotting genes colored by LFC for top 5 most significant [GO][] term
 
 ```{r cnetplot}
 try({
-    ## May encounter warning from ggrepel package otherwise.
-    options("ggrepel.max.overlaps" = Inf)
     cnetplot(enrich_go, foldChange = lfc_vec)
 })
 ```
@@ -296,8 +297,6 @@ assert(
 ranked_list_entrez <-
     tryCatch(
         expr = {
-            ## FIXME This is currently erroring on our F1000 example.
-            ## Need to rework approach in AcidGSEA?
             x <- RankedList(
                 object = deseq,
                 value = "stat",
@@ -322,8 +321,6 @@ gsea_go <- gseGO(
     keyType = "ENSEMBL",
     pvalueCutoff = 0.05
 )
-print(gsea_go)
-## FIXME Does the base R pipe work here?
 gsea_go_tbl <-
     gsea_go |>
     slot("result") |>
@@ -358,50 +355,26 @@ print(gsea_go_tbl)
 Now let's get the background of unique Entrez IDs.
 
 ```{r all-entrez, eval=eval_entrez}
-## Unique Entrez IDs to use for background.
-all_entrez <-
-    gene2entrez %>%
-    unique() %>%
-    as.integer() %>%
-    sort() %>%
-    as.character()
+ensembl2entrez <- Ensembl2Entrez(object = dds, format = "1:1")
+all_entrez <- ensembl2entrez[["entrezId"]]
+names(all_entrez) <- ensembl2entrez[["ensemblId"]]
 str(all_entrez)
 ```
 
-Now we need to map the DESeqResults values to our Entrez IDs. Let's obtain a vector of significant genes that map to Entrez.
+Let's obtain a vector of significant genes that map to Entrez.
 
-```{r sig-gene2entrez, eval=eval_entrez}
-## Significant genes that map to Entrez ID.
-sig_gene2entrez <- gene2entrez[intersect(sig_genes, names(gene2entrez))]
-## Note that these can be duplicated.
-if (any(duplicated(sig_gene2entrez))) {
-    alertWarning("Duplicate Entrez IDs detected.")
-}
-str(sig_gene2entrez)
+```{r sig-entrez, eval=eval_entrez}
+idx <- na.omit(match(x = sig_genes, table = ensembl2entrez[["ensemblId"]]))
+sig_entrez <- ensembl2entrez[["entrezId"]][idx]
+names(sig_entrez) <- ensembl2entrez[["ensemblId"]][idx]
+str(sig_entrez)
 ```
 
 Note that this vector can contain duplicate Entrez IDs, which we will resolve by significance (adjusted P value).
 
-```{r entrez-res, eval=eval_entrez}
-## FIXME REWORK THIS USING ACIDGSEA APPROACH...
-stopifnot(all(names(sig_gene2entrez) %in% rownames(res_df)))
-## Filter to contain only significant genes that map to Entrez.
-sig_entrez_res_df <-
-    res_df %>%
-    .[names(sig_gene2entrez), , drop = FALSE] %>%
-    rownames_to_column("geneID") %>%
-    as_tibble() %>%
-    mutate(entrezID = sig_gene2entrez) %>%
-    group_by(entrezID) %>%
-    ## Get the most significant result, per Entrez ID.
-    top_n(n = 1, wt = padj) %>%
-    as.data.frame() %>%
-    set_rownames(.$entrezID)
-saveData(sig_entrez_res_df, dir = params$data_dir)
-sig_entrez <- pull(sig_entrez_res_df, entrezID)
-## Extract the fold changes.
-entrez_lfc_vec <- sig_entrez_res_df$log2FoldChange
-names(entrez_lfc_vec) <- sig_entrez_res_df$entrezID
+```{r entrez-lfc-vec, eval=eval_entrez}
+entrez_lfc_vec <- sig_res[names(sig_entrez), "log2FoldChange", drop = TRUE]
+names(entrez_lfc_vec) <- unname(sig_entrez)
 ## Sort from upregulated to downregulated.
 entrez_lfc_vec <- sort(entrez_lfc_vec, decreasing = TRUE)
 str(entrez_lfc_vec)
@@ -415,11 +388,10 @@ kegg <- enrichKEGG(
     universe = as.character(all_entrez),
     qvalueCutoff = 0.05
 )
-print(kegg)
 kegg_tbl <-
-    kegg %>%
-    slot("result") %>%
-    as_tibble() %>%
+    kegg |>
+    slot("result") |>
+    as_tibble() |>
     camelCase()
 saveData(kegg, kegg_tbl, dir = params$data_dir)
 export(
@@ -459,11 +431,10 @@ gsea_kegg <- gseKEGG(
     organism = kegg_code,
     keyType = "ncbi-geneid"
 )
-print(gsea_kegg)
 gsea_kegg_tbl <-
-    gsea_kegg %>%
-    slot("result") %>%
-    as_tibble() %>%
+    gsea_kegg |>
+    slot("result") |>
+    as_tibble() |>
     camelCase()
 saveData(gsea_kegg, dir = params$data_dir)
 export(
@@ -491,13 +462,13 @@ print(gsea_kegg_tbl)
 ```{r pathview-kegg-plots, message=FALSE, results="asis", eval=params$pathview}
 ## > help("pathview", "pathview")
 ##
-## There is currently no way to set the output path of the pathview PNG files, so
-## we're changing the working directory. Generally this is not recommended!
+## There is currently no way to set the output path of the pathview PNG files,
+## so we're changing the working directory. Generally this is not recommended!
 ##
 ## Also, We're using `tryCatch()` here to return to the user any pathways that
 ## didn't output graphics correctly.
 pathways <- gsea_kegg_tbl$id
-if (length(pathways) > 0L) {
+if (hasLength(pathways)) {
     ## dplyr may need to be unloaded for pathview to work.
     ## > suppressWarnings(detach("package:dplyr", unload = TRUE, force = TRUE))
     wd <- getwd()
@@ -513,7 +484,7 @@ if (length(pathways) > 0L) {
             ),
             error = function(e) {
                 ## Return a warning instead of an error.
-                warning(paste(pathway, "failed to plot."), call. = FALSE)
+                warning(sprintf("%s failed to plot.", pathway), call. = FALSE)
             }
         )
     }))
