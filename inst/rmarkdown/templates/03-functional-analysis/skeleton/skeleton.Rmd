@@ -10,7 +10,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2021-07-21.
+## Updated 2021-07-27.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -21,7 +21,7 @@ params:
 
   ## Results (i.e. contrast) name or position.
   ## Refer to `resultsNames()` for details.
-  results_name: "group_treatment_vs_control"
+  results_name: "treatment_vs_control"
 
   ## Full Latin organism name (e.g. "Homo sapiens"). If left `NULL`, will
   ## attempt to detect from DESeqAnalysis object.
@@ -53,7 +53,6 @@ bibliography: "bibliography.bib"
 ```{r setup, cache=FALSE, message=FALSE}
 suppressPackageStartupMessages({
     library(goalie)
-    library(stringr)
     library(bcbioRNASeq)
     library(DESeqAnalysis)
     library(AcidGSEA)
@@ -128,7 +127,7 @@ assert(allAreInstalled(packages))
 invisible(lapply(
     X = basename(packages),
     FUN = function(package) {
-        stopifnot(require(package, character.only = TRUE))
+        assert(require(package, character.only = TRUE))
     }
 ))
 ## Avoid logical coercion error in DOSE.
@@ -293,7 +292,8 @@ assert(
     hasNames(ranked_list_ensembl)
 )
 ## Entrez identifiers must be defined in the "entrezId" column of DESeqDataSet
-## rowData, otherwise this step will fail.
+## rowData, otherwise this step will return NULL. In this case, we'll skip the
+## enrichment steps that require Entrez identifiers (e.g. KEGG, see below).
 ranked_list_entrez <-
     tryCatch(
         expr = {
