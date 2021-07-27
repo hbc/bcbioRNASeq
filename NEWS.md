@@ -1,4 +1,16 @@
+## bcbioRNASeq 0.3.42 (2021-07-27)
+
+### Minor changes
+
+- Updated dependencies, in particular now requiring fixed version of
+  DESeqAnalysis that labels genes in `plotVolcano` call as expected.
+- Updated comments in functional analysis template.
+- Added additional suggested packages that are required for R Markdown
+  templates to render when called from a conda environment.
+
 ## bcbioRNASeq 0.3.41 (2021-07-21)
+
+### Minor changes
 
 - Improved R Markdown template support, particularly handling of Entrez
   identifier mapping in the functional analysis template. Also updated
