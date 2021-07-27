@@ -1,6 +1,7 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
+** TODO Need to improve code coverage of kallisto and sailfish import.
 ** TODO Supporting loading of multiple bcbio runs into a single object?
    https://github.com/hbc/bcbioRNASeq/issues/141
 ** TODO Transcript level analysis with sleuth
