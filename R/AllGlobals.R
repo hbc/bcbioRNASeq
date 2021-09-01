@@ -23,8 +23,6 @@
 
 .legacyMetricsCols <- c("name", "x53Bias")
 
-.Rle <- structure("Rle", package = "S4Vectors")  # nolint
-
 
 
 #' Cache URL
