@@ -119,7 +119,7 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2021-04-02.
+#' @note Updated 2021-09-01.
 #' @export
 #'
 #' @inheritParams AcidExperiment::makeSummarizedExperiment
@@ -273,21 +273,25 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(log)),
         error = function(e) {
-            alertWarning("{.file bcbio-nextgen.log} file is empty.")
+            alertWarning(sprintf(
+                "{.file %s} file is empty.",
+                "bcbio-nextgen.log"
+            ))
         }
     )
     fastPipeline <- .isFastPipeline(log)
     if (isTRUE(fastPipeline)) {
-        alertInfo("Fast RNA-seq pipeline (fastrnaseq) detected.")
+        alertInfo("Fast RNA-seq pipeline detected.")
     }
     commandsLog <- import(file.path(projectDir, "bcbio-nextgen-commands.log"))
     ## This step enables our minimal dataset inside the package to pass checks.
     tryCatch(
         expr = assert(isCharacter(commandsLog)),
         error = function(e) {
-            alertWarning(
-                "{.file bcbio-nextgen-commands.log} file is empty."
-            )
+            alertWarning(sprintf(
+                "{.file %s} file is empty.",
+                "bcbio-nextgen-commands.log"
+            ))
         }
     )
     lanes <- detectLanes(sampleDirs)
@@ -425,7 +429,10 @@ bcbioRNASeq <- function(
         tx2gene <- NULL
         txi <- NULL
         assert(identical(level, "genes"))
-        alert("Slotting aligned counts into primary {.fun counts} assay.")
+        alert(sprintf(
+            "Slotting aligned counts into primary {.fun %s} assay.",
+            "counts"
+        ))
         assays[["counts"]] <- .featureCounts(
             projectDir = projectDir,
             samples = samples
@@ -466,7 +473,10 @@ bcbioRNASeq <- function(
                 ignoreVersion = TRUE
             )
         } else {
-            alertWarning("Slotting empty ranges into {.fun rowRanges}.")
+            alertWarning(sprintf(
+                "Slotting empty ranges into {.fun %s}.",
+                "rowRanges"
+            ))
             rowRanges <- emptyRanges(rownames(assays[[1L]]))
         }
     }
@@ -490,10 +500,14 @@ bcbioRNASeq <- function(
         organism <- tryCatch(
             expr = detectOrganism(rownames(assays[[1L]])),
             error = function(e) {
-                warning(
-                    "Failed to detect organism automatically.\n",
-                    "Specify with 'organism' argument."
-                )
+                alertWarning(sprintf(
+                    fmt = paste(
+                        "Failed to detect organism automatically.",
+                        "Specify with {.arg %s} argument.",
+                        sep = "\n"
+                    ),
+                    "organism"
+                ))
             }
         )
     }
@@ -536,15 +550,18 @@ bcbioRNASeq <- function(
     if (level == "genes" && isFALSE(fast)) {
         dds <- tryCatch(
             expr = {
-                h2("{.pkg DESeq2} normalizations")
+                h2(sprintf("{.pkg %s} normalizations", "DESeq2"))
                 dds <- as(bcb, "DESeqDataSet")
-                alert("{.fun estimateSizeFactors}")
+                alert(sprintf("{.fun %s}", "estimateSizeFactors"))
                 dds <- estimateSizeFactors(dds)
                 if (!.dataHasVariation(dds)) {
-                    alertWarning(paste(
-                        "Skipping {.pkg DESeq2} calculations.",
-                        "Data set does not have enough variation.",
-                        sep = "\n"
+                    alertWarning(sprintf(
+                        fmt = paste(
+                            "Skipping {.pkg %s} calculations.",
+                            "Data set does not have enough variation.",
+                            sep = "\n"
+                        ),
+                        "DESeq2"
                     ))
                     return(NULL)
                 }
@@ -553,26 +570,32 @@ bcbioRNASeq <- function(
                 dds
             },
             error = function(e) {
-                alertWarning("Skipping {.pkg DESeq2} calculations.")
+                alertWarning(sprintf(
+                    "Skipping {.pkg %s} calculations.",
+                    "DESeq2"
+                ))
                 message(e)
             }
         )
         if (is(dds, "DESeqDataSet")) {
             assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
-            alert("{.fun varianceStabilizingTransformation}")
+            alert(sprintf("{.fun %s}", "varianceStabilizingTransformation"))
             vst <- varianceStabilizingTransformation(dds)
             assert(is(vst, "DESeqTransform"))
             assays(bcb)[["vst"]] <- assay(vst)
             ## Calculate FPKM. Skip this step if we've slotted empty ranges.
             if (length(unique(width(rowRanges(dds)))) > 1L) {
-                alert("{.fun fpkm}")
+                alert(sprintf("{.fun %s}", "fpkm"))
                 fpkm <- fpkm(dds)
                 assert(is.matrix(fpkm))
                 assays(bcb)[["fpkm"]] <- fpkm
             } else {
-                alertWarning(paste(
-                    "{.fun fpkm}: Skipping FPKM calculation because",
-                    "{.fun rowRanges} is empty."
+                alertWarning(sprintf(
+                    fmt = paste(
+                        "{.fun %s}: Skipping FPKM calculation because",
+                        "{.fun %s} is empty."
+                    ),
+                    "fpkm", "rowRanges"
                 ))
             }
         }
