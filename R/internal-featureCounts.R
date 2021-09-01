@@ -4,7 +4,7 @@
 #' Use the genes argument to dynamically resize the matrix. This is necessary
 #' when slotting this data into assays along with pseudoaligned counts.
 #'
-#' @note Updated 2020-12-03.
+#' @note Updated 2021-09-01.
 #' @noRd
 .featureCounts <-
     function(projectDir, samples, genes = NULL) {
@@ -25,7 +25,9 @@
         )) {
             file <- file.path(projectDir, "combined.counts")
         } else {
-            stop("Failed to locate featureCounts matrix.")
+            abort(sprintf(
+                "Failed to locate {.var %s} matrix.", "featureCounts"
+            ))
         }
         counts <- import(file = file)
         assert(is.matrix(counts))

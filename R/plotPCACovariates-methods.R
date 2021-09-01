@@ -69,7 +69,9 @@ NULL
         }
         ## Check for minimum number of metrics.
         if (length(col) < 2L) {
-            stop("'plotPCACovariates()' requires >= 2 metrics.")
+            abort(sprintf(
+                "{.fun %s} requires >= 2 metrics.", "plotPCACovariates"
+            ))
         }
         assert(isSubset(col, colnames(metadata)))
         metadata <- metadata[, col]

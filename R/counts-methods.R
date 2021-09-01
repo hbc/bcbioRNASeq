@@ -111,7 +111,9 @@ NULL
             counts <- relativeLogExpression(counts)
         } else {
             if (!isSubset(assayName, assayNames(object))) {
-                stop(sprintf("%s counts are not defined in object.", assayName))
+                abort(sprintf(
+                    "{.var %s} counts are not defined in object.", assayName
+                ))
             }
             counts <- assays(object)[[assayName]]
         }

@@ -20,10 +20,10 @@
         assert(is(se, "SummarizedExperiment"))
         ## Assert that counts are gene level.
         level <- metadata(se)[["level"]]
-        assert(isString(level))
-        if (level != "genes") {
-            stop("Gene-level counts are required.")  # nocov
-        }
+        assert(
+            identical(level, "genes"),
+            msg = "Gene-level counts are required."
+        )
         ## Subset the assays. Average transcript length matrix should only be
         ## included when raw counts are from tximport and not length scaled.
         if (
