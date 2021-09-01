@@ -37,7 +37,7 @@ NULL
         validObject(object)
         ## Warn and early return if any samples are duplicated.
         if (!hasUniqueCols(object)) {
-            warning("Duplicate samples detected. Skipping plot.")
+            alertWarning("Duplicate samples detected. Skipping plot.")
             return(invisible(NULL))
         }
         dds <- as(object, "DESeqDataSet")
