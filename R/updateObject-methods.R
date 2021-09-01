@@ -519,9 +519,9 @@ NULL
         ## rowRangesMetadata
         if ("rowRangesMetadata" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alert(paste(
-                    "Moving {.var rowRangesMetadata} into {.var rowRanges}",
-                    "metadata."
+                alert(sprintf(
+                    "Moving {.val %s} into {.var %s} metadata.",
+                    "rowRangesMetadata", "rowRanges"
                 ))
             }
             metadata(rowRanges)[["ensembldb"]] <-
@@ -531,7 +531,10 @@ NULL
         ## biotype
         if ("biotype" %in% colnames(mcols(rowRanges))) {
             if (isTRUE(verbose)) {
-                alert("Renaming {.var biotype} to {.var geneBiotype}.")
+                alert(sprintf(
+                    "Renaming {.var %s} to {.var %s}.",
+                    "biotype", "geneBiotype"
+                ))
             }
             mcols(rowRanges)[["geneBiotype"]] <-
                 as.factor(mcols(rowRanges)[["biotype"]])
@@ -543,7 +546,10 @@ NULL
             is.character(mcols(rowRanges)[["broadClass"]])
         ) {
             if (isTRUE(verbose)) {
-                alert("Setting {.var broadClass} to factor.")
+                alert(sprintf(
+                    "Setting {.var %s} to {.val %s}.",
+                    "broadClass", "factor"
+                ))
             }
             mcols(rowRanges)[["broadClass"]] <-
                 as.factor(mcols(rowRanges)[["broadClass"]])
@@ -551,7 +557,10 @@ NULL
         ## ensgene
         if ("ensgene" %in% colnames(mcols(rowRanges))) {
             if (isTRUE(verbose)) {
-                alert("Renaming {.var ensgene} to {.var geneId}.")
+                alert(sprintf(
+                    "Renaming {.var %s} to {.var %s}.",
+                    "ensgene", "geneId"
+                ))
             }
             mcols(rowRanges)[["geneId"]] <-
                 as.character(mcols(rowRanges)[["ensgene"]])
@@ -560,7 +569,10 @@ NULL
         ## symbol
         if ("symbol" %in% colnames(mcols(rowRanges))) {
             if (isTRUE(verbose)) {
-                alert("Renaming {.var symbol} to {.var geneName}.")
+                alert(sprintf(
+                    "Renaming {.var %s} to {.var %s}.",
+                    "symbol", "geneName"
+                ))
             }
             mcols(rowRanges)[["geneName"]] <-
                 as.factor(mcols(rowRanges)[["symbol"]])
