@@ -1,7 +1,7 @@
 #' @name plotQC
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plotQC
-#' @note Updated 2019-08-07.
+#' @note Updated 2021-09-03.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -18,23 +18,19 @@ NULL
     function(object) {
         validObject(object)
         plotlist <- list(
-            totalReads = plotTotalReads(object),
-            mappingRate = plotMappingRate(object),
-            exonicMappingRate = plotExonicMappingRate(object),
-            intronicMappingRate = plotIntronicMappingRate(object),
-            rrnaMappingRate = plotRRNAMappingRate(object),
-            x5Prime3PrimeBias = plot5Prime3PrimeBias(object),
-            featuresDetected = plotFeaturesDetected(object),
-            countsPerFeature = plotCountsPerFeature(object)
+            "totalReads" = plotTotalReads(object),
+            "mappingRate" = plotMappingRate(object),
+            "exonicMappingRate" = plotExonicMappingRate(object),
+            "intronicMappingRate" = plotIntronicMappingRate(object),
+            "rrnaMappingRate" = plotRRNAMappingRate(object),
+            "x5Prime3PrimeBias" = plot5Prime3PrimeBias(object),
+            "featuresDetected" = plotFeaturesDetected(object),
+            "countsPerFeature" = plotCountsPerFeature(object)
         )
         if (!.isFastMode(object)) {
             plotlist[["pca"]] <- plotPCA(object)
         }
-        plot_grid(
-            plotlist = plotlist,
-            nrow = 3L,
-            ncol = 3L
-        )
+        wrap_plots(plotlist)
     }
 
 

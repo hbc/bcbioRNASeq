@@ -21,7 +21,7 @@ plotQC(object, ...)
 Quality control
 }
 \note{
-Updated 2019-08-07.
+Updated 2021-09-03.
 }
 \examples{
 data(bcb)

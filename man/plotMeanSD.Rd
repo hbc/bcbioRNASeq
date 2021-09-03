@@ -41,7 +41,7 @@ Include plot legend.}
 Plot row standard deviations vs. row means
 }
 \details{
-\code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}} wrapper that plots count transformations on a log2 scale.
+\code{vsn::meanSdPlot()} wrapper that plots count transformations on a log2 scale.
 \itemize{
 \item DESeq2 log2: log2 library size factor-adjusted normalized counts.
 \item DESeq2 rlog: \strong{r}egularized \strong{log} transformation.
@@ -52,7 +52,7 @@ Plot row standard deviations vs. row means
 \note{
 Requires the vsn package to be installed.
 
-Updated 2019-10-30.
+Updated 2021-09-03.
 }
 \examples{
 data(bcb)
@@ -62,11 +62,11 @@ if (requireNamespace("vsn", quietly = TRUE)) {
 }
 \seealso{
 \itemize{
-\item \code{\link[vsn:meanSdPlot]{vsn::meanSdPlot()}}.
-\item \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
-\item \code{\link[DESeq2:rlog]{DESeq2::rlog()}}.
-\item \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
-\item \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}}.
+\item \code{vsn::meanSdPlot()}.
+\item \code{DESeq2::DESeq()}.
+\item \code{DESeq2::rlog()}.
+\item \code{DESeq2::varianceStabilizingTransformation()}.
+\item \code{edgeR::calcNormFactors()}.
 }
 }
 \author{

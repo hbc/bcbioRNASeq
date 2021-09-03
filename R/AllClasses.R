@@ -89,7 +89,10 @@ setValidity(
         ok <- validate(
             ## Using `as.logical()` here for R 3.4/BioC 3.6 compatibility.
             as.logical(!hasLength(intersect)),
-            msg = sprintf("Legacy metadata: %s", toString(intersect))
+            msg = sprintf(
+                "Legacy metadata: %s",
+                toInlineString(intersect)
+            )
         )
         if (!isTRUE(ok)) return(ok)
         ## Class checks (order independent).
