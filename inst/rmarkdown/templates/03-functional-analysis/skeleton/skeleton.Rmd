@@ -192,7 +192,7 @@ sig_genes <- deg(res, direction = "both")
 sig_res <- res[sig_genes, , drop = FALSE]
 ## LFC ranked list vector. 
 lfc_vec <- sig_res$log2FoldChange
-names(lfc_vec) <- rownames(sig_res_df)
+names(lfc_vec) <- rownames(sig_res)
 lfc_vec <- sort(lfc_vec, decreasing = TRUE)
 summary(lfc_vec)
 ```
