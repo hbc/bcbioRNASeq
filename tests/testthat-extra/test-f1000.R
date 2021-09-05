@@ -125,19 +125,15 @@ test_that("Quality control", {
         p <- fun(object)
         expect_s3_class(p, "ggplot")
     }
-
     p <- plotCorrelationHeatmap(object)
     expect_s3_class(p, "pheatmap")
-
     p <- plotCountsPerFeature(object, geom = "density")
     expect_identical(nrow(p[["data"]]), 457704L)
     expect_match(p[["labels"]][["subtitle"]], "38142")
-
     ## NOTE Figure margins can error here inside of testthat call.
     ## This may be removed in a future update, supporting only DESeqDataSet.
     ## > p <- plotDispEsts(object)
     ## > expect_is(p, "list")
-
     ## NOTE Disabled until bug is fixed in DEGreport.
     ## > p <- plotPCACovariates(object, fdr = 0.1)
     ## > expect_is(p, "list")
@@ -155,14 +151,11 @@ test_that("Differential expression", {
         object = x[[2L]],
         expected = "LFC > 0 (up)    1521  1102"
     )
-
     p <- plotMeanAverage(res)
     expect_s3_class(p, "ggplot")
-
     p <- plotVolcano(res)
     expect_s3_class(p, "ggplot")
-
-    ## Note that the generic formals have been renamed here.
+    ## NOTE The generic formals have been renamed here.
     ## object : results
     ## DESeqTransform : counts
     p <- plotDEGHeatmap(
@@ -170,12 +163,10 @@ test_that("Differential expression", {
         DESeqTransform = vst
     )
     expect_s3_class(p, "pheatmap")
-
     ## "lfc" argument renamed to "lfcThreshold".
     resTbl <- resultsTables(res, lfcThreshold = 1L)
     expect_is(resTbl, "list")
     expect_is(resTbl[[1L]], "tbl_df")
-
     expect_output(topTables(resTbl, n = 5L))
 })
 
@@ -193,55 +184,59 @@ templatesDir <- system.file(
     mustWork = TRUE
 )
 
-renderDir <- paste("render", Sys.Date(), sep = "-")
+renderDir <- file.path(
+    tempdir(),
+    paste("render", Sys.Date(), sep = "-")
+)
 unlink(renderDir, recursive = TRUE)
+renderDir <- initDir(renderDir)
 renderFiles <- saveData(
     bcb, dds, deseq, res,
     dir = renderDir,
     ext = "rds",
     overwrite = TRUE
 )
-wd <- getwd()
-setwd(renderDir)
-prepareTemplate()
 
 test_that("Quality Control", {
+    stem <- "01-quality-control"
+    input <- file.path(renderDir, paste0(stem, ".Rmd"))
     file.copy(
         from = file.path(
             templatesDir,
-            "01-quality-control",
+            stem,
             "skeleton",
             "skeleton.Rmd"
         ),
-        to = "01-quality-control.Rmd",
+        to = input,
         overwrite = TRUE
     )
     x <- render(
-        input = "01-quality-control.Rmd",
+        input = input,
         params = list(
             "bcb_file" = renderFiles[["bcb"]]
         ),
         clean = TRUE
     )
-    expect_identical(
-        object = basename(x),
-        expected = "01-quality-control.html"
-    )
+    outfile <- file.path(renderDir, paste0(stem, ".html"))
+    expect_identical(x, outfile)
+    expect_true(file.exists(outfile))
 })
 
 test_that("Differential Expression", {
+    stem <- "02-differential-expression"
+    input <- file.path(renderDir, paste0(stem, ".Rmd"))
     file.copy(
         from = file.path(
             templatesDir,
-            "02-differential-expression",
+            stem,
             "skeleton",
             "skeleton.Rmd"
         ),
-        to = "02-differential-expression.Rmd",
+        to = input,
         overwrite = TRUE
     )
     x <- render(
-        input = "02-differential-expression.Rmd",
+        input = input,
         params = list(
             "bcb_file" = renderFiles[["bcb"]],
             "design" = design(dds),
@@ -249,37 +244,37 @@ test_that("Differential Expression", {
         ),
         clean = TRUE
     )
-    expect_identical(
-        object = basename(x),
-        expected = "02-differential-expression.html"
-    )
+    outfile <- file.path(renderDir, paste0(stem, ".html"))
+    expect_identical(x, outfile)
+    expect_true(file.exists(outfile))
 })
 
 test_that("Functional Analysis", {
+    stem <- "03-functional-analysis"
+    input <- file.path(renderDir, paste0(stem, ".Rmd"))
     file.copy(
         from = file.path(
             templatesDir,
-            "03-functional-analysis",
+            stem,
             "skeleton",
             "skeleton.Rmd"
         ),
-        to = "03-functional-analysis.Rmd",
+        to = input,
         overwrite = TRUE
     )
     x <- render(
-        input = "03-functional-analysis.Rmd",
+        input = input,
         params = list(
             "deseq_file" = renderFiles[["deseq"]],
             "results_name" = resultsNames(deseq)[[1L]],
             "organism" = organism(as(deseq, "DESeqDataSet")),
-            ## This can be slow and is prone to errors.
-            "pathview" = TRUE
+            ## NOTE Enabling this is slow and can be error prone.
+            "pathview" = FALSE
         )
     )
-    expect_identical(
-        object = basename(x),
-        expected = "03-functional-analysis.html"
-    )
+    outfile <- file.path(renderDir, paste0(stem, ".html"))
+    expect_identical(x, outfile)
+    expect_true(file.exists(outfile))
 })
 
-setwd(wd)
+unlink(renderDir, recursive = TRUE)
