@@ -124,8 +124,6 @@ NULL
             .hasSlot(object, "rowRanges") &&
             !is.null(rowRanges)
         ) {
-            ## FIXME This needs to be imported into the NAMESPACE, following
-            ## basejump update that includes in reexports.
             abort(sprintf(
                 fmt = paste(
                     "Object already contains {.fun %s}.",
