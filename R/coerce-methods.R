@@ -121,7 +121,7 @@ NULL
 
 
 
-## Updated 2020-01-17.
+## Updated 2021-09-10.
 `as.DESeqDataSet,bcbioRNASeq` <-  # nolint
     function(x, quiet = FALSE) {
         assert(isFlag(quiet))
@@ -130,9 +130,12 @@ NULL
         se <- as(x, "RangedSummarizedExperiment")
         to <- `new,DESeqDataSet`(se = se, quiet = quiet)
         if (!isTRUE(quiet)) {
-            alertInfo(paste(
-                "Set the design formula with {.fun design} ",
-                "and run {.fun DESeq}."
+            alertInfo(sprintf(
+                fmt = paste(
+                    "Set the design formula with {.fun %s}",
+                    "and run {.fun %s}.",
+                ),
+                "design", "DESeq"
             ))
         }
         to

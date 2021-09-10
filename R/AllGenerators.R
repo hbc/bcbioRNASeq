@@ -562,7 +562,7 @@ bcbioRNASeq <- function(
                     ))
                     return(NULL)
                 }
-                alert("{.fun DESeq}")
+                alert(sprintf("{.fun %s}", "DESeq"))
                 dds <- DESeq(dds)
                 dds
             },

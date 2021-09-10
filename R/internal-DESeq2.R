@@ -13,8 +13,9 @@
         .assertHasValidCFA(se)
         if (!isTRUE(quiet)) {
             alert(sprintf(
-                "Generating {.var DESeqDataSet} with {.pkg DESeq2} %s.",
-                packageVersion("DESeq2")
+                "Generating {.cls %s} with {.pkg %s} %s.",
+                "DESeqDataSet", "DESeq2"
+                as.character(packageVersion("DESeq2"))
             ))
         }
         assert(is(se, "SummarizedExperiment"))

@@ -13,7 +13,9 @@
             isCharacter(samples),
             isCharacter(genes, nullOK = TRUE)
         )
-        alert("Importing aligned counts from {.pkg featureCounts}.")
+        alert(sprintf(
+            "Importing aligned counts from {.pkg %s}.", "featureCounts"
+        ))
         ## Locate the counts file. This file path was reorganized to include a
         ## 'featureCounts' subdirectory in bcbio v1.2.4.
         if (isAFile(
