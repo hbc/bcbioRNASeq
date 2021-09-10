@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.3.42.9000
-Date: 2021-09-09
+Version: 0.3.43
+Date: 2021-09-10
 Authors@R: c(
     person(
         given = "Michael",
@@ -117,7 +117,7 @@ Suggests:
     AcidGSEA (>= 0.6.4.9000),
     BiocStyle (>= 2.20.2),
     DEGreport (>= 1.28.0),
-    DESeqAnalysis (>= 0.4.4.9000),
+    DESeqAnalysis (>= 0.4.5),
     DOSE (>= 3.18.2),
     EnsDb.Hsapiens.v75 (>= 2.99.0),
     clusterProfiler (>= 4.0.5),
