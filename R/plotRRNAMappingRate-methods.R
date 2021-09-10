@@ -1,7 +1,7 @@
 #' @name plotRRNAMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotRRNAMappingRate
-#' @note Updated 2021-07-21.
+#' @note Updated 2021-09-10.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -14,25 +14,23 @@ NULL
 
 
 
-## Updated 2021-07-21.
+## Updated 2021-09-10.
 `plotRRNAMappingRate,bcbioRNASeq` <-  # nolint
     function(
         object,
         interestingGroups = NULL,
         limit = 0.1,
-        fill,
         labels = list(
-            title = "rRNA mapping rate",
-            subtitle = NULL,
-            sampleAxis = NULL,
-            metricAxis = "rRNA mapping rate (%)"
+            "title" = "rRNA mapping rate",
+            "subtitle" = NULL,
+            "sampleAxis" = NULL,
+            "metricAxis" = "rRNA mapping rate (%)"
         ),
         flip
     ) {
         validObject(object)
         assert(
             isProportion(limit),
-            isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
             isFlag(flip)
         )
         labels <- matchLabels(labels)
@@ -57,12 +55,10 @@ NULL
             acid_geom_bar() +
             acid_scale_y_continuous_nopad(limits = c(0L, 100L))
         ## Labels.
-        if (is.list(labels)) {
-            labels[["fill"]] <- paste(interestingGroups, collapse = ":\n")
-            names(labels)[names(labels) == "sampleAxis"] <- "x"
-            names(labels)[names(labels) == "metricAxis"] <- "y"
-            p <- p + do.call(what = labs, args = labels)
-        }
+        labels[["fill"]] <- paste(interestingGroups, collapse = ":\n")
+        names(labels)[names(labels) == "sampleAxis"] <- "x"
+        names(labels)[names(labels) == "metricAxis"] <- "y"
+        p <- p + do.call(what = labs, args = labels)
         ## Limit.
         if (isPositive(limit)) {
             limit <- limit * 100L
@@ -70,10 +66,8 @@ NULL
                 p <- p + acid_geom_abline(yintercept = limit)
             }
         }
-        ## Fill.
-        if (is(fill, "ScaleDiscrete")) {
-            p <- p + fill
-        }
+        ## Color palette.
+        p <- p + autoDiscreteFillScale()
         ## Flip.
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
@@ -86,8 +80,8 @@ NULL
         p
     }
 
-formals(`plotRRNAMappingRate,bcbioRNASeq`)[c("fill", "flip")] <-
-    formalsList[c("fill.discrete", "flip")]
+formals(`plotRRNAMappingRate,bcbioRNASeq`)[["flip"]] <-
+    formalsList[["flip"]]
 
 
 
