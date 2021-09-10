@@ -14,7 +14,7 @@
         if (!isTRUE(quiet)) {
             alert(sprintf(
                 "Generating {.cls %s} with {.pkg %s} %s.",
-                "DESeqDataSet", "DESeq2"
+                "DESeqDataSet", "DESeq2",
                 as.character(packageVersion("DESeq2"))
             ))
         }
