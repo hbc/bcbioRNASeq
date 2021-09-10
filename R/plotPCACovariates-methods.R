@@ -2,21 +2,22 @@
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit AcidGenerics::plotPCACovariates
 #' @note Requires the DEGreport package to be installed.
-#' @note Updated 2021-02-22.
+#' @note Updated 2021-09-10.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param metrics `boolean`. Include sample summary metrics as covariates.
 #'   Defaults to include all metrics columns (`TRUE`), but desired columns can
 #'   be specified here as a character vector.
-#' @param ... Additional arguments, passed to [DEGreport::degCovariates()].
+#' @param ... Additional arguments, passed to `DEGreport::degCovariates()`.
 #'
 #' @seealso
-#' - [DEGreport::degCovariates()].
-#' - [DESeq2::rlog()].
-#' - [DESeq2::varianceStabilizingTransformation()].
+#' - `DEGreport::degCovariates()`.
+#' - `DESeq2::rlog()`.
+#' - `DESeq2::varianceStabilizingTransformation()`.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' if (requireNamespace("DEGreport", quietly = TRUE)) {
 #'     plotPCACovariates(bcb)
@@ -25,7 +26,7 @@ NULL
 
 
 
-## Updated 2021-02-22.
+## Updated 2021-09-10.
 `plotPCACovariates,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -33,7 +34,10 @@ NULL
         normalized,
         ...
     ) {
-        return(message("Disabled until bug is fixed in DEGreport."))
+        alertWarning(sprintf(
+            "Disabled until bug is fixed in {.pkg %s}.", "DEGreport"
+        ))
+        return(invisible())
         validObject(object)
         assert(
             requireNamespace("DEGreport", quietly = TRUE),
