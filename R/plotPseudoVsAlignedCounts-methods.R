@@ -8,11 +8,12 @@
 #'   `counts` assay.
 #'
 #' @inheritParams AcidRoxygen::params
-#' @param ... Passthrough to [AcidPlots::plotCountsCorrelationHeatmap()] when
-#'   `genes = NULL` or [AcidPlots::plotCountsCorrelation()] when `genes` are
+#' @param ... Passthrough to `AcidPlots::plotCountsCorrelationHeatmap()` when
+#'   `genes = NULL` or `AcidPlots::plotCountsCorrelation()` when `genes` are
 #'   defined.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #'
 #' ## Correlation heatmap.

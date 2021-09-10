@@ -1,14 +1,15 @@
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
 #' @inherit AcidPlots::plotGenderMarkers
-#' @note Updated 2019-09-16.
+#' @note Updated 2021-09-10.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See [AcidPlots::plotGenderMarkers()] for details.
+#'   See `AcidPlots::plotGenderMarkers()` for details.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' rownames(bcb)[seq_len(2L)] <- c("ENSMUSG00000086503", "ENSMUSG00000069045")
 #' plotGenderMarkers(bcb)

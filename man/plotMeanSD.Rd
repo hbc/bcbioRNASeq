@@ -55,6 +55,7 @@ Requires the vsn package to be installed.
 Updated 2021-09-03.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 if (requireNamespace("vsn", quietly = TRUE)) {
     plotMeanSD(bcb)

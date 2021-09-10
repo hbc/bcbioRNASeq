@@ -56,6 +56,7 @@ Ideally, at least 60 percent of total reads should map to exons for RNA-seq.
 Updated 2021-07-21.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 plotExonicMappingRate(bcb)
 }

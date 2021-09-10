@@ -6,9 +6,10 @@
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See [AcidPlots::plotCountsPerFeature()] for details.
+#'   See `AcidPlots::plotCountsPerFeature()` for details.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' plotCountsPerFeature(bcb)
 NULL

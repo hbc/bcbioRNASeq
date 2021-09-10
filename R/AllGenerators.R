@@ -15,16 +15,16 @@
 #' these can be corrected by editing the YAML file.
 #'
 #' Alternatively, you can pass in a sample metadata file into the
-#' [bcbioRNASeq()] function call using the `sampleMetadataFile` argument. This
+#' `bcbioRNASeq()` function call using the `sampleMetadataFile` argument. This
 #' requires either a CSV or Excel spreadsheet.
 #'
 #' The samples in the bcbio run must map to the `description` column. The values
 #' provided in `description` must be unique. These values will be sanitized into
-#' syntactically valid names (see [`make.names`][base::make.names] for more
-#' information), and assigned as the column names of the `bcbioRNASeq` object.
-#' The original values are stored as the `sampleName` column in `colData`, and
-#' are used for all plotting functions. Do not attempt to set a `sampleId`
-#' column, as this is used internally by the package.
+#' syntactically valid names (see `make.names()` for more information), and
+#' assigned as the column names of the `bcbioRNASeq` object. The original values
+#' are stored as the `sampleName` column in `colData`, and are used for all
+#' plotting functions. Do not attempt to set a `sampleId` column, as this is
+#' used internally by the package.
 #'
 #' Here is a minimal example of a properly formatted sample metadata file:
 #'
@@ -38,26 +38,24 @@
 #'
 #' @section Valid names:
 #'
-#' R is strict about values that are considered valid for use in
-#' [`names()`][base::names] and [`dimnames()`][base::dimnames] (i.e.
-#' [`rownames()`][base::rownames] and [`colnames()`][base::colnames]).
-#' Non-alphanumeric characters, spaces, and **dashes** are not valid. Use either
-#' underscores or periods in place of dashes when working in R. Also note that
-#' names should **not begin with a number**, and will be prefixed with an `X`
-#' when sanitized. Consult the documentation in the
-#' [`make.names()`][base::make.names] function for more information. We strongly
-#' recommend adhering to these conventions when labeling samples, to help avoid
-#' unexpected downstream behavior in R due to [`dimnames()`][base::dimnames]
-#' mismatches.
+#' R is strict about values that are considered valid for use in `names()` and
+#' `dimnames()` (i.e. `rownames()` and `colnames()`. Non-alphanumeric
+#' characters, spaces, and **dashes** are not valid. Use either underscores or
+#' periods in place of dashes when working in R. Also note that names should
+#' **not begin with a number**, and will be prefixed with an `X` when sanitized.
+#' Consult the documentation in the `make.names()` function for more
+#' information. We strongly recommend adhering to these conventions when
+#' labeling samples, to help avoid unexpected downstream behavior in R due to
+#' `dimnames()` mismatches.
 #'
 #' @section Genome annotations:
 #'
-#' [bcbioRNASeq()] provides support for automatic import of genome annotations,
+#' `bcbioRNASeq()` provides support for automatic import of genome annotations,
 #' which internally get processed into genomic ranges (`GRanges`) and are
-#' slotted into the [`rowRanges()`][SummarizedExperiment::rowRanges] of the
-#' object. Currently, we offer support for (1) [Ensembl][] genome annotations
-#' from [AnnotationHub][] via [ensembldb][] (*recommended*); or (2) direct
-#' import from a GTF/GFF file using [rtracklayer][].
+#' slotted into the `rowRanges()` of the object. Currently, we offer support for
+#' (1) [Ensembl][] genome annotations from [AnnotationHub][] via [ensembldb][]
+#' (*recommended*); or (2) direct import from a GTF/GFF file using
+#' [rtracklayer][].
 #'
 #' [ensembldb][] requires the `organism` and `ensemblRelease` arguments to be
 #' defined. When both of these are set, `bcbioRNASeq` will attempt to
@@ -83,8 +81,8 @@
 #' Internally, genome annotations are imported via the [basejump][] package,
 #' specifically with either of these functions:
 #'
-#' - [basejump::makeGRangesFromEnsembl()].
-#' - [basejump::makeGRangesFromGFF()].
+#' - `basejump::makeGRangesFromEnsembl()`.
+#' - `basejump::makeGRangesFromGFF()`.
 #'
 #' [AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
 #' [basejump]: https://steinbaugh.com/basejump/
@@ -98,28 +96,27 @@
 #' Ensure that the organism and genome build used with bcio match correctly here
 #' in the function call. In particular, for the legacy *Homo sapiens*
 #' GRCh37/hg19 genome build, ensure that `genomeBuild = "GRCh37"`. Otherwise,
-#' the genomic ranges set in [`rowRanges()`][SummarizedExperiment::rowRanges]
-#' will mismatch. It is recommended for current projects that GRCh38/hg38 is
-#' used in place of GRCh37/hg19 if possible.
+#' the genomic ranges set in `rowRanges()` will mismatch. It is recommended for
+#' current projects that GRCh38/hg38 is used in place of GRCh37/hg19 if
+#' possible.
 #'
 #' @section DESeq2:
 #'
-#' DESeq2 is run automatically when [bcbioRNASeq()] is called, unless `fast =
-#' TRUE` is set. Internally, this automatically slots normalized counts into
-#' [`assays()`][SummarizedExperiment::assays], and generates variance-stabilized
-#' counts.
+#' DESeq2 is run automatically when `bcbioRNASeq()` is called, unless
+#' `fast = TRUE` is set. Internally, this automatically slots normalized counts
+#' into `assays()`, and generates variance-stabilized counts.
 #'
 #' @section Remote connections:
 #'
 #' When working on a local machine, it is possible to load bcbio run data over a
 #' remote connection using [sshfs][]. When loading a large number of samples, it
-#' is preferable to call [bcbioRNASeq()] directly in R on the remote server, if
+#' is preferable to call `bcbioRNASeq()` directly in R on the remote server, if
 #' possible.
 #'
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2021-09-01.
+#' @note Updated 2021-09-10.
 #' @export
 #'
 #' @inheritParams AcidExperiment::makeSummarizedExperiment
@@ -150,7 +147,7 @@
 #'   Whether to generate estimated counts using abundance estimates
 #'   (*recommended by default*). `lengthScaledTPM` is a suitable default, and
 #'   counts are scaled using the average transcript length over samples and then
-#'   the library size. Refer to [tximport::tximport()] for more information on
+#'   the library size. Refer to `tximport::tximport()` for more information on
 #'   this parameter, but it should only ever be changed when loading some
 #'   datasets at transcript level (e.g. for DTU analsyis).
 #' @param fast `logical(1)`.
@@ -158,7 +155,7 @@
 #'   Skip internal DESeq2 calculations and transformations.
 #'   Don't enable this setting when using the quality control R Markdown
 #'   template.
-#'   Note that some plotting functions, such as [plotPCA()] will not work when
+#'   Note that some plotting functions, such as `plotPCA()` will not work when
 #'   this mode is enabled.
 #'
 #' @return `bcbioRNASeq`.

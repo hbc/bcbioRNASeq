@@ -2,14 +2,15 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom AcidPlots plotCorrelationHeatmap
 #' @inherit AcidPlots::plotCorrelationHeatmap
-#' @note Updated 2019-09-15.
+#' @note Updated 2021-09-10.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See [AcidPlots::plotCorrelationHeatmap()] for details.
+#'   See `AcidPlots::plotCorrelationHeatmap()` for details.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' plotCorrelationHeatmap(bcb, method = "pearson")
 #' plotCorrelationHeatmap(bcb, method = "spearman")

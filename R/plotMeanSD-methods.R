@@ -26,6 +26,7 @@
 #' - `edgeR::calcNormFactors()`.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' if (requireNamespace("vsn", quietly = TRUE)) {
 #'     plotMeanSD(bcb)

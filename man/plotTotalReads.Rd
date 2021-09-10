@@ -60,6 +60,7 @@ per sample.
 Updated 2021-07-21.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 plotTotalReads(bcb)
 }

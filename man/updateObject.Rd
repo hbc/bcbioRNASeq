@@ -53,6 +53,7 @@ objects from versions <= 0.0.20. We changed the name of the package to
 }
 
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 updateObject(bcb)
 

@@ -24,7 +24,7 @@ plotCountDensity(object, ...)
 \item{object}{Object.}
 
 \item{...}{Passthrough to \code{SummarizedExperiment} method defined in AcidPlots.
-See \code{\link[AcidPlots:plotCountsPerFeature]{AcidPlots::plotCountsPerFeature()}} for details.}
+See \code{AcidPlots::plotCountsPerFeature()} for details.}
 
 \item{normalized}{\code{character(1)} or \code{logical(1)}.
 Normalization method to apply:
@@ -47,29 +47,28 @@ counts.\cr
 See \code{DESeq2::sizeFactors} for details.
 \item \code{"fpkm"}: \strong{F}ragments \strong{p}er \strong{k}ilobase per \strong{m}illion mapped
 fragments.\cr
-Requires \code{fast = FALSE} in \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call and gene annotations in
-\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{rowRanges()}} with defined
-\code{\link[BiocGenerics:start]{width}}.\cr
-See \code{\link[DESeq2:fpkm]{DESeq2::fpkm()}} for details.
+Requires \code{fast = FALSE} in \code{bcbioRNASeq()} call and gene annotations in
+\code{rowRanges()} with defined \code{width()}.\cr
+See \code{DESeq2::fpkm()} for details.
 \item \code{"vst"}: \strong{V}ariance-\strong{s}tabilizing \strong{t}ransformation (log2).\cr
-Requires \code{fast = FALSE} to be set during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call.\cr
-See \code{DESeq2::varianceStabilizingTransformation} for more information.
+Requires \code{fast = FALSE} to be set during \code{bcbioRNASeq()} call.\cr
+See \code{DESeq2::varianceStabilizingTransformation()} for more information.
 \item \code{"tmm"}: \strong{T}rimmed \strong{m}ean of \strong{M}-values.\cr
 Calculated on the fly.\cr
-See \code{\link[edgeR:calcNormFactors]{edgeR::calcNormFactors()}} for details.
+See \code{edgeR::calcNormFactors()} for details.
 \item \code{"rle"}: \strong{R}elative \strong{l}og \strong{e}xpression transformation.\cr
 Calculated on the fly.\cr
-See \code{\link[=relativeLogExpression]{relativeLogExpression()}} for details.
+See \code{relativeLogExpression()} for details.
 \item \code{"rlog"}: \emph{Deprecated}.
 \strong{R}egularized \strong{log} transformation (log2).\cr
-No longer calculated automatically during \code{\link[=bcbioRNASeq]{bcbioRNASeq()}} call, but may
+No longer calculated automatically during \code{bcbioRNASeq()} call, but may
 be defined in legacy objects.\cr
-See \code{\link[DESeq2:rlog]{DESeq2::rlog()}} for details.\cr
+See \code{DESeq2::rlog()} for details.\cr
 Note that VST is more performant and now recommended by default instead.
 
 Note that \code{logical(1)} support only applies to \code{counts()}. Other
-functions in the package require \code{character(1)} and use
-\code{\link[base:match.arg]{match.arg()}} internally.
+functions in the package require \code{character(1)} and use \code{match.arg()}
+internally.
 }}
 }
 \value{
@@ -92,6 +91,7 @@ Passes \code{...} to \code{SummarizedExperiment} method.
 }
 
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 plotCountsPerFeature(bcb)
 }

@@ -85,6 +85,7 @@ transformations will only be updated when \code{recalculate = TRUE}.
 Updated 2020-12-21.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 object <- bcb
 

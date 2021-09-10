@@ -6,9 +6,10 @@
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams counts
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See [AcidPlots::plotCounts()] for details.
+#'   See `AcidPlots::plotCounts()` for details.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #'
 #' g2s <- basejump::Gene2Symbol(bcb)

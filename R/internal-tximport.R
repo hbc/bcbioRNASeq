@@ -13,15 +13,15 @@
 #' @note Ignoring transcript versions should work by default. There may be
 #' an issue with genomes containing non-Ensembl transcript IDs, such as
 #' C. elegans, although we need to double check.
-#' @note Updated 2021-02-10.
+#' @note Updated 2021-09-10.
 #'
-#' @inheritParams tximport::tximport
 #' @param sampleDirs `character`.
 #'   Sample directories to import.
 #' @param type `character(1)`.
 #'   Expression caller to use.
 #'
-#' @seealso [tximport::tximport()].
+#' @seealso
+#' - `tximport::tximport()`.
 #'
 #' @return `list`.
 .tximport <- function(
@@ -113,8 +113,10 @@
 
 
 
-## Detect if object is tximport list return.
-## Updated 2019-08-20.
+#' Detect if object is tximport list return
+#'
+#' @note Updated 2019-08-20.
+#' @noRd
 .isTximportReturn <- function(list) {
     assert(
         is.list(list),

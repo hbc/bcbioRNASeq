@@ -56,6 +56,7 @@ The majority of reads should map to exons and not introns.
 Updated 2021-07-21.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 plotIntronicMappingRate(bcb)
 }

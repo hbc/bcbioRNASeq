@@ -12,6 +12,7 @@
 #' @param ... Additional arguments.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #' ## Fast mode skips import of aligned counts.
 #' bcb <- bcbioRNASeq(uploadDir, fast = TRUE)

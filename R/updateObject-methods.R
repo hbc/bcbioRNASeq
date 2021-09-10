@@ -27,6 +27,7 @@
 #'   it can be left `NULL`.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' updateObject(bcb)
 #'

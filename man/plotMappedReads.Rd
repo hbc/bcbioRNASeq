@@ -59,6 +59,7 @@ The number of mapped reads should correspond to the number of total reads.
 Updated 2021-07-21.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 plotMappedReads(bcb)
 }

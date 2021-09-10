@@ -7,6 +7,7 @@
 #' @param ... Additional arguments.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' plotGeneSaturation(bcb, label = FALSE)
 #' plotGeneSaturation(bcb, label = TRUE)

@@ -13,7 +13,7 @@ plotDispEsts(object, ...)
 \item{object}{Object.}
 
 \item{...}{Passthrough to \code{DESeqDataSet} method defined in DESeq2.
-See \code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}} for details.}
+See \code{DESeq2::plotDispEsts()} for details.}
 }
 \value{
 \code{ggplot}.
@@ -29,9 +29,10 @@ Here we're generating a \code{DESeqDataSet} object on the fly, which already has
 method support for plotting dispersion, provided by the DESeq2 package.
 }
 \note{
-Updated 2020-12-21.
+Updated 2021-09-10.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 plotDispEsts(bcb)
 
@@ -44,7 +45,9 @@ plotDispEsts(
 )
 }
 \seealso{
-\code{\link[DESeq2:plotDispEsts]{DESeq2::plotDispEsts()}}.
+\itemize{
+\item \code{DESeq2::plotDispEsts()}.
+}
 }
 \author{
 Michael Steinbaugh

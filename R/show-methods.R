@@ -4,6 +4,7 @@
 #' @note Updated 2021-02-22.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' show(bcb)
 NULL

@@ -24,8 +24,8 @@ Gene identifiers.}
 \item{title}{\code{character(1)}.
 Title.}
 
-\item{...}{Passthrough to \code{\link[AcidPlots:plotCountsCorrelationHeatmap]{AcidPlots::plotCountsCorrelationHeatmap()}} when
-\code{genes = NULL} or \code{\link[AcidPlots:plotCountsCorrelation]{AcidPlots::plotCountsCorrelation()}} when \code{genes} are
+\item{...}{Passthrough to \code{AcidPlots::plotCountsCorrelationHeatmap()} when
+\code{genes = NULL} or \code{AcidPlots::plotCountsCorrelation()} when \code{genes} are
 defined.}
 }
 \value{
@@ -42,6 +42,7 @@ intentionally error for datasets containing aligned counts in the primary
 \code{counts} assay.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 
 ## Correlation heatmap.

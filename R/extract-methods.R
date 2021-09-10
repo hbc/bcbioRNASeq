@@ -21,6 +21,7 @@
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' object <- bcb
 #'

@@ -8,6 +8,7 @@
 #' @param ... Additional arguments.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' plotCountsPerBiotype(bcb)
 NULL

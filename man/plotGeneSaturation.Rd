@@ -65,6 +65,7 @@ overloaded.
 Updated 2021-07-21.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 plotGeneSaturation(bcb, label = FALSE)
 plotGeneSaturation(bcb, label = TRUE)

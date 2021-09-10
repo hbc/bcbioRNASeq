@@ -24,6 +24,7 @@ Quality control
 Updated 2021-09-03.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 plotQC(bcb)
 }

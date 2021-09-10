@@ -7,6 +7,7 @@
 #' @param ... Additional arguments.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' x <- tmm(bcb)
 #' summary(x)

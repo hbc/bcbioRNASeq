@@ -2,14 +2,15 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom AcidPlots plotPCA
 #' @inherit AcidGenerics::plotPCA
-#' @note Updated 2020-09-15.
+#' @note Updated 2021-09-10.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See [AcidPlots::plotPCA()] for details.
+#'   See `AcidPlots::plotPCA()` for details.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' plotPCA(bcb, label = FALSE)
 #' plotPCA(bcb, label = TRUE)

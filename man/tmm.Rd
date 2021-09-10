@@ -30,6 +30,7 @@ of genes are not differentially expressed.
 Updated 2020-01-20.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 x <- tmm(bcb)
 summary(x)
