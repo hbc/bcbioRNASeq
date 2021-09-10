@@ -65,7 +65,7 @@ NULL
         }
         ## Color palette.
         p <- p + autoDiscreteFillScale()
-        ## Flip, if desired.
+        ## Flip.
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
         }
