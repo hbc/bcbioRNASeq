@@ -85,7 +85,7 @@ Updated 2019-09-16.
 \section{Functions}{
 
 \itemize{
-\item \code{plotCountsPerFeature,SingleCellExperiment-method}: Applies \code{\link[=aggregateCellsToSamples]{aggregateCellsToSamples()}}
+\item \code{plotCountsPerFeature,SingleCellExperiment-method}: Applies \code{aggregateCellsToSamples()}
 calculation to summarize at sample level prior to plotting.\cr
 Passes \code{...} to \code{SummarizedExperiment} method.
 }

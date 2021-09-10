@@ -1,7 +1,7 @@
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plot5Prime3PrimeBias
-#' @note Updated 2021-07-21.
+#' @note Updated 2021-09-10.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -13,17 +13,16 @@ NULL
 
 
 
-## Updated 2019-09-16.
+## Updated 2021-09-10.
 `plot5Prime3PrimeBias,bcbioRNASeq` <-  # nolint
     function(
         object,
         interestingGroups = NULL,
-        color,
         labels = list(
-            title = "5'->3' bias",
-            subtitle = NULL,
-            sampleAxis = NULL,
-            metricAxis = "5'->3' bias"
+            "title" = "5'->3' bias",
+            "subtitle" = NULL,
+            "sampleAxis" = NULL,
+            "metricAxis" = "5'->3' bias"
         ),
         flip
     ) {
