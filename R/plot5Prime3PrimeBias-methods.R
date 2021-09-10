@@ -7,6 +7,7 @@
 #' @param ... Additional arguments.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' plot5Prime3PrimeBias(bcb)
 NULL
@@ -27,10 +28,7 @@ NULL
         flip
     ) {
         validObject(object)
-        assert(
-            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE),
-            isFlag(flip)
-        )
+        assert(isFlag(flip))
         labels <- matchLabels(labels)
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
@@ -47,16 +45,12 @@ NULL
             geom_point(size = 3L) +
             acid_geom_abline(yintercept = 1L)
         ## Labels.
-        if (is.list(labels)) {
-            labels[["color"]] <- paste(interestingGroups, collapse = ":\n")
-            names(labels)[names(labels) == "sampleAxis"] <- "x"
-            names(labels)[names(labels) == "metricAxis"] <- "y"
-            p <- p + do.call(what = labs, args = labels)
-        }
-        ## Color.
-        if (is(color, "ScaleDiscrete")) {
-            p <- p + color
-        }
+        labels[["color"]] <- paste(interestingGroups, collapse = ":\n")
+        names(labels)[names(labels) == "sampleAxis"] <- "x"
+        names(labels)[names(labels) == "metricAxis"] <- "y"
+        p <- p + do.call(what = labs, args = labels)
+        ## Color palette.
+        p <- p + autoDiscreteColorScale()
         ## Flip.
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
@@ -69,8 +63,7 @@ NULL
         p
     }
 
-formals(`plot5Prime3PrimeBias,bcbioRNASeq`)[c("color", "flip")] <-
-    formalsList[c("color.discrete", "flip")]
+formals(`plot5Prime3PrimeBias,bcbioRNASeq`)[["flip"]] <- formalsList[["flip"]]
 
 
 
