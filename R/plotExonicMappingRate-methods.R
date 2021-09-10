@@ -17,25 +17,23 @@ NULL
 
 
 
-## Updated 2021-07-21.
+## Updated 2021-09-10.
 `plotExonicMappingRate,bcbioRNASeq` <-  # nolint
     function(
         object,
         interestingGroups = NULL,
         limit = 0.6,
-        fill,
         labels = list(
-            title = "Exonic mapping rate",
-            subtitle = NULL,
-            sampleAxis = NULL,
-            metricAxis = "exonic mapping rate (%)"
+            "title" = "Exonic mapping rate",
+            "subtitle" = NULL,
+            "sampleAxis" = NULL,
+            "metricAxis" = "exonic mapping rate (%)"
         ),
         flip
     ) {
         validObject(object)
         assert(
             isProportion(limit),
-            isGGScale(fill, scale = "discrete", aes = "fill", nullOK = TRUE),
             isFlag(flip)
         )
         labels <- matchLabels(labels)
@@ -54,12 +52,10 @@ NULL
             acid_geom_bar() +
             acid_scale_y_continuous_nopad(limits = c(0L, 100L))
         ## Labels.
-        if (is.list(labels)) {
-            labels[["fill"]] <- paste(interestingGroups, collapse = ":\n")
-            names(labels)[names(labels) == "sampleAxis"] <- "x"
-            names(labels)[names(labels) == "metricAxis"] <- "y"
-            p <- p + do.call(what = labs, args = labels)
-        }
+        labels[["fill"]] <- paste(interestingGroups, collapse = ":\n")
+        names(labels)[names(labels) == "sampleAxis"] <- "x"
+        names(labels)[names(labels) == "metricAxis"] <- "y"
+        p <- p + do.call(what = labs, args = labels)
         ## Limit.
         if (isPositive(limit)) {
             limit <- limit * 100L
@@ -67,11 +63,9 @@ NULL
                 p <- p + acid_geom_abline(yintercept = limit)
             }
         }
-        ## Fill.
-        if (is(fill, "ScaleDiscrete")) {
-            p <- p + fill
-        }
-        ## Flip.
+        ## Color palette.
+        p <- p + autoDiscreteFillScale()
+        ## Flip, if desired.
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
         }
@@ -83,8 +77,8 @@ NULL
         p
     }
 
-formals(`plotExonicMappingRate,bcbioRNASeq`)[c("fill", "flip")] <-
-    formalsList[c("fill.discrete", "flip")]
+formals(`plotExonicMappingRate,bcbioRNASeq`)[["flip"]] <-
+    formalsList[["flip"]]
 
 
 

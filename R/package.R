@@ -15,7 +15,7 @@
 #'
 #' @importFrom AcidPlots !! acid_coord_flip acid_geom_abline acid_geom_bar
 #'   acid_geom_label_repel acid_scale_y_continuous_nopad autoDiscreteColorScale
-#'   matchLabels pretty_breaks plotCountsCorrelation
+#'   autoDiscreteFillScale matchLabels pretty_breaks plotCountsCorrelation
 #'   plotCountsCorrelationHeatmap sym wrap_plots
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
