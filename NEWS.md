@@ -1,5 +1,10 @@
 ## bcbioRNASeq 0.3.43 (UNRELEASED)
 
+### Minor changes
+
+- Removed internal dependencies on `formalsList` parameters defined in basejump,
+  which will be removed in a pending release update.
+
 ## bcbioRNASeq 0.3.42 (2021-07-27)
 
 ### Minor changes
