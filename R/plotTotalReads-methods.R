@@ -27,7 +27,7 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "reads"
         ),
-        flip
+        flip = getOption(x = "acid.flip", default = TRUE)
     ) {
         validObject(object)
         assert(
@@ -91,9 +91,6 @@ NULL
         ## Return.
         p
     }
-
-formals(`plotTotalReads,bcbioRNASeq`)[["flip"]] <-
-    formalsList[["flip"]]
 
 
 

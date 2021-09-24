@@ -25,7 +25,7 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "5'->3' bias"
         ),
-        flip
+        flip = getOption(x = "acid.flip", default = TRUE)
     ) {
         validObject(object)
         assert(isFlag(flip))
@@ -62,8 +62,6 @@ NULL
         ## Return.
         p
     }
-
-formals(`plot5Prime3PrimeBias,bcbioRNASeq`)[["flip"]] <- formalsList[["flip"]]
 
 
 

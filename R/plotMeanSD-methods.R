@@ -44,7 +44,7 @@ NULL
             high = AcidPlots::lightPalette[["purple"]]
         ),
         lineColor = AcidPlots::lightPalette[["orange"]],
-        legend
+        legend = getOption(x = "acid.legend", default = TRUE)
     ) {
         validObject(object)
         assert(
@@ -138,8 +138,6 @@ NULL
         }
         wrap_plots(plotlist)
     }
-
-formals(`plotMeanSD,bcbioRNASeq`)[["legend"]] <- formalsList[["legend"]]
 
 
 

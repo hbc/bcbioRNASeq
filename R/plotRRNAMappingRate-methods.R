@@ -26,7 +26,7 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "rRNA mapping rate (%)"
         ),
-        flip
+        flip = getOption(x = "acid.flip", default = TRUE)
     ) {
         validObject(object)
         assert(
@@ -79,9 +79,6 @@ NULL
         ## Return.
         p
     }
-
-formals(`plotRRNAMappingRate,bcbioRNASeq`)[["flip"]] <-
-    formalsList[["flip"]]
 
 
 

@@ -23,7 +23,7 @@ NULL
         minCounts = 1L,
         perMillion = TRUE,
         trendline = FALSE,
-        label,
+        label = getOption(x = "acid.label", default = FALSE),
         labels = list(
             "title" = "Gene saturation",
             "subtitle" = NULL,
@@ -84,9 +84,6 @@ NULL
         ## Return.
         p
     }
-
-formals(`plotGeneSaturation,bcbioRNASeq`)[["label"]] <-
-    formalsList[["label"]]
 
 
 

@@ -26,7 +26,7 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "intronic mapping rate (%)"
         ),
-        flip
+        flip = getOption(x = "acid.flip", default = TRUE)
     ) {
         validObject(object)
         assert(
@@ -72,9 +72,6 @@ NULL
         ## Return.
         p
     }
-
-formals(`plotIntronicMappingRate,bcbioRNASeq`)[["flip"]] <-
-    formalsList[["flip"]]
 
 
 
