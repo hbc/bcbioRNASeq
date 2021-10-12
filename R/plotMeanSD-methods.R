@@ -84,7 +84,9 @@ NULL
                         error = function(e) NULL
                     )
                 })
-                if (!is.matrix(mat)) return(NULL)
+                if (!is.matrix(mat)) {
+                    return(NULL)
+                }
                 assert(identical(length(nonzero), nrow(mat)))
                 mat <- mat[nonzero, , drop = FALSE]
                 if (!isTRUE(log2)) {

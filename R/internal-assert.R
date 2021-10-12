@@ -10,7 +10,9 @@
     assert(is(object, "SummarizedExperiment"))
     cfa <- metadata(object)[["countsFromAbundance"]]
     ## Note that featureCounts callers will return NULL here.
-    if (is.null(cfa)) return(TRUE)
+    if (is.null(cfa)) {
+        return(TRUE)
+    }
     assert(
         isCharacter(cfa),
         isSubset(cfa, c("lengthScaledTPM", "no")),
@@ -73,7 +75,9 @@
 #' @details
 #' Check the `bcbio-nextgen.log` file to see if fastrnaseq pipeline was run.
 .isFastPipeline <- function(log) {
-    if (!hasLength(log)) return(FALSE)
+    if (!hasLength(log)) {
+        return(FALSE)
+    }
     any(grepl(pattern = "fastrnaseq", x = log, fixed = TRUE))
 }
 

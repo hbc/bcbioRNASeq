@@ -77,7 +77,7 @@ See \code{AcidPlots::plotCounts()} for details.}
 }
 }
 \description{
-Plot counts
+Visualize genes on a dot or violin plot.
 }
 \note{
 Updated 2019-09-18.
@@ -96,7 +96,12 @@ plotCounts(bcb, genes = geneIds, style = "facet")
 plotCounts(bcb, genes = geneNames, style = "wide")
 }
 \seealso{
-\code{DESeq2::plotCounts()}.
+\itemize{
+\item \code{Seurat::DotPlot()}.
+\item \code{Seurat::VlnPlot()}.
+\item \code{Seurat::RidgePlot()}.
+\item \code{monocle3::plot_genes_violin()}.
+}
 }
 \author{
 Michael Steinbaugh

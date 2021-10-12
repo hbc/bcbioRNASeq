@@ -35,18 +35,24 @@ setValidity(
             is(version, "package_version"),
             msg = "Package version is not defined in object."
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- validate(
             isTRUE(version >= 0.2),
             msg = "Object is older than v0.2, and cannot be easily updated."
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- validate(
             is(object, "RangedSummarizedExperiment"),
             hasDimnames(object),
             hasValidDimnames(object)
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ## Metadata ------------------------------------------------------------
         ok <- validate(
             is.null(metadata[["metrics"]]),
@@ -60,7 +66,9 @@ setValidity(
             ),
             msg = "'interestingGroups' column is not allowed in 'colData'."
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ok <- validate(
             isSubset(
                 x = metadata[["interestingGroups"]],
@@ -68,7 +76,9 @@ setValidity(
             ),
             msg = "Interesting groups metadata not defined in 'colData'."
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ## Error on legacy slot detection.
         intersect <- intersect(
             x = names(metadata),
@@ -94,7 +104,9 @@ setValidity(
                 toInlineString(intersect)
             )
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ## Class checks (order independent).
         df <- "DataFrame"
         if (isTRUE(packageVersion("S4Vectors") >= "0.23")) {
@@ -135,13 +147,17 @@ setValidity(
             ),
             subset = TRUE
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ## Caller (and tximport) checks.
         ok <- validate(
             isSubset(metadata[["caller"]], .callers),
             isSubset(metadata[["level"]], .levels)
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         if (isSubset(metadata[["caller"]], .tximportCallers)) {
             ok <- validate(
                 isSubset(
@@ -149,7 +165,9 @@ setValidity(
                     y = eval(formals(tximport)[["countsFromAbundance"]])
                 )
             )
-            if (!isTRUE(ok)) return(ok)
+            if (!isTRUE(ok)) {
+                return(ok)
+            }
             ok <- validateClasses(
                 object = metadata,
                 expected = list(
@@ -157,35 +175,47 @@ setValidity(
                 ),
                 subset = TRUE
             )
-            if (!isTRUE(ok)) return(ok)
+            if (!isTRUE(ok)) {
+                return(ok)
+            }
         }
         ## Assays --------------------------------------------------------------
         assayNames <- assayNames(object)
         ok <- validate(isSubset(.assays, assayNames))
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ## Check that all assays are matrices.
         ## Note that in previous versions, we slotted `DESeqDataSet` and
         ## `DESeqTransform`, which can result in metadata mismatches because
         ## those objects contain their own `colData` and `rowData`.
         ok <- validate(all(bapply(assays(object), is.matrix)))
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ## Caller-specific checks.
         caller <- metadata[["caller"]]
         ok <- validate(isString(caller))
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         if (caller %in% .tximportCallers) {
             ok <- validate(isSubset(.tximportAssays, assayNames))
         } else if (caller %in% .featureCountsCallers) {
             ok <- validate(isSubset(.featureCountsAssays, assayNames))
         }
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ## Check for average transcript length matrix, if necessary.
         if (
             metadata[["caller"]] %in% .tximportCallers &&
             metadata[["countsFromAbundance"]] == "no"
         ) {
             ok <- validate(isSubset("avgTxLength", assayNames))
-            if (!isTRUE(ok)) return(ok)
+            if (!isTRUE(ok)) {
+                return(ok)
+            }
         }
         ## Row data ------------------------------------------------------------
         rowRanges <- rowRanges(object)
@@ -199,7 +229,9 @@ setValidity(
             ## > identical(rownames(rowData), rownames(object))
             ## nolint end
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ## Column data ---------------------------------------------------------
         colData <- colData(object)
         ok <- validate(
@@ -209,7 +241,9 @@ setValidity(
                 y = c("sampleId", .legacyMetricsCols)
             )
         )
-        if (!isTRUE(ok)) return(ok)
+        if (!isTRUE(ok)) {
+            return(ok)
+        }
         ## Return.
         TRUE
     }
