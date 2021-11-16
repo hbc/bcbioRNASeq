@@ -30,7 +30,7 @@ NULL
 #' @export
 setMethod(
     f = "relativeLogExpression",
-    signature = signature("matrix"),
+    signature = signature(object = "matrix"),
     definition = `relativeLogExpression,matrix`
 )
 
@@ -48,6 +48,6 @@ setMethod(
 #' @export
 setMethod(
     f = "relativeLogExpression",
-    signature = signature("SummarizedExperiment"),
+    signature = signature(object = "SummarizedExperiment"),
     definition = `relativeLogExpression,SummarizedExperiment`
 )

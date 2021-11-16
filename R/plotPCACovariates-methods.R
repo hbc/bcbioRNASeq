@@ -112,6 +112,6 @@ formals(`plotPCACovariates,bcbioRNASeq`)[["normalized"]] <- .normalized
 #' @export
 setMethod(
     f = "plotPCACovariates",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotPCACovariates,bcbioRNASeq`
 )

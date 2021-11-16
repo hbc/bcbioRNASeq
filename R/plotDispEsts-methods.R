@@ -54,6 +54,6 @@ NULL
 #' @export
 setMethod(
     f = "plotDispEsts",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotDispEsts,bcbioRNASeq`
 )

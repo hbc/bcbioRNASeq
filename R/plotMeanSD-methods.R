@@ -44,7 +44,10 @@ NULL
             high = AcidPlots::lightPalette[["purple"]]
         ),
         lineColor = AcidPlots::lightPalette[["orange"]],
-        legend = getOption(x = "acid.legend", default = TRUE)
+        legend = getOption(
+            x = "acid.legend",
+            default = TRUE
+        )
     ) {
         validObject(object)
         assert(
@@ -147,6 +150,6 @@ NULL
 #' @export
 setMethod(
     f = "plotMeanSD",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotMeanSD,bcbioRNASeq`
 )

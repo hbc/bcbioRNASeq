@@ -38,6 +38,6 @@ formals(`plotGenderMarkers,bcbioRNASeq`)[["normalized"]] <- .normalized
 #' @export
 setMethod(
     f = "plotGenderMarkers",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotGenderMarkers,bcbioRNASeq`
 )

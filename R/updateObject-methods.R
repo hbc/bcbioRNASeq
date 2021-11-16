@@ -118,7 +118,7 @@ NULL
                 rowData <- slot(object, "elementMetadata")
                 mcols(rowRanges) <- rowData
             }
-            assert(isAny(rowRanges, c("GRanges", "GRangesList")))
+            assert(isAny(rowRanges, c("GenomicRanges", "GenomicRangesList")))
             slot(object, "rowRanges") <- rowRanges
         } else if (
             .hasSlot(object, "rowRanges") &&
@@ -661,6 +661,6 @@ NULL
 #' @export
 setMethod(
     f = "updateObject",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `updateObject,bcbioRNASeq`
 )

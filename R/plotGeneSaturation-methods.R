@@ -23,7 +23,10 @@ NULL
         minCounts = 1L,
         perMillion = TRUE,
         trendline = FALSE,
-        label = getOption(x = "acid.label", default = FALSE),
+        label = getOption(
+            x = "acid.label",
+            default = FALSE
+        ),
         labels = list(
             "title" = "Gene saturation",
             "subtitle" = NULL,
@@ -91,6 +94,6 @@ NULL
 #' @export
 setMethod(
     f = "plotGeneSaturation",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotGeneSaturation,bcbioRNASeq`
 )

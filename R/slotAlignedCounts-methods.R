@@ -43,6 +43,6 @@ NULL
 #' @export
 setMethod(
     f = "slotAlignedCounts",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `slotAlignedCounts,bcbioRNASeq`
 )

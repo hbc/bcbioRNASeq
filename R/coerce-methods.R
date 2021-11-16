@@ -143,34 +143,6 @@ NULL
 
 
 
-#' @rdname coerce
-#' @export
-setMethod(
-    f = "as.DESeqDataSet",
-    signature = signature("bcbioRNASeq"),
-    definition = `as.DESeqDataSet,bcbioRNASeq`
-)
-
-
-
-## Updated 2020-01-17.
-`coerce,bcbioRNASeq,DESeqDataSet` <-  # nolint
-    function(from) {
-        as.DESeqDataSet(from, quiet = TRUE)
-    }
-
-
-
-#' @rdname coerce
-#' @name coerce,bcbioRNASeq,DESeqDataSet-method
-setAs(
-    from = "bcbioRNASeq",
-    to = "DESeqDataSet",
-    def = `coerce,bcbioRNASeq,DESeqDataSet`
-)
-
-
-
 ## Updated 2020-01-17.
 `as.DESeqTransform,bcbioRNASeq` <-  # nolint
     function(x, quiet = FALSE) {
@@ -185,34 +157,6 @@ setAs(
         validObject(dt)
         dt
     }
-
-
-
-#' @rdname coerce
-#' @export
-setMethod(
-    f = "as.DESeqTransform",
-    signature = signature("bcbioRNASeq"),
-    definition = `as.DESeqTransform,bcbioRNASeq`
-)
-
-
-
-## Updated 2020-01-17.
-`coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
-    function(from) {
-        as.DESeqTransform(from, quiet = TRUE)
-    }
-
-
-
-#' @rdname coerce
-#' @name coerce,bcbioRNASeq,DESeqTransform-method
-setAs(
-    from = "bcbioRNASeq",
-    to = "DESeqTransform",
-    def = `coerce,bcbioRNASeq,DESeqTransform`
-)
 
 
 
@@ -294,13 +238,19 @@ setAs(
 
 
 
-#' @rdname coerce
-#' @export
-setMethod(
-    f = "as.DGEList",
-    signature = signature("bcbioRNASeq"),
-    definition = `as.DGEList,bcbioRNASeq`
-)
+## Updated 2020-01-17.
+`coerce,bcbioRNASeq,DESeqDataSet` <-  # nolint
+    function(from) {
+        as.DESeqDataSet(from, quiet = TRUE)
+    }
+
+
+
+## Updated 2020-01-17.
+`coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
+    function(from) {
+        as.DESeqTransform(from, quiet = TRUE)
+    }
 
 
 
@@ -311,6 +261,48 @@ setMethod(
     }
 
 
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DESeqDataSet",
+    signature = signature(x = "bcbioRNASeq"),
+    definition = `as.DESeqDataSet,bcbioRNASeq`
+)
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DESeqTransform",
+    signature = signature(x = "bcbioRNASeq"),
+    definition = `as.DESeqTransform,bcbioRNASeq`
+)
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DGEList",
+    signature = signature(x = "bcbioRNASeq"),
+    definition = `as.DGEList,bcbioRNASeq`
+)
+
+
+
+#' @rdname coerce
+#' @name coerce,bcbioRNASeq,DESeqDataSet-method
+setAs(
+    from = "bcbioRNASeq",
+    to = "DESeqDataSet",
+    def = `coerce,bcbioRNASeq,DESeqDataSet`
+)
+
+#' @rdname coerce
+#' @name coerce,bcbioRNASeq,DESeqTransform-method
+setAs(
+    from = "bcbioRNASeq",
+    to = "DESeqTransform",
+    def = `coerce,bcbioRNASeq,DESeqTransform`
+)
 
 #' @rdname coerce
 #' @name coerce,bcbioRNASeq,DGEList-method

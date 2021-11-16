@@ -25,7 +25,10 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "5'->3' bias"
         ),
-        flip = getOption(x = "acid.flip", default = TRUE)
+        flip = getOption(
+            x = "acid.flip",
+            default = TRUE
+        )
     ) {
         validObject(object)
         assert(isFlag(flip))
@@ -69,6 +72,6 @@ NULL
 #' @export
 setMethod(
     f = "plot5Prime3PrimeBias",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plot5Prime3PrimeBias,bcbioRNASeq`
 )

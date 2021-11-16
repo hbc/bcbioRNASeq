@@ -127,6 +127,6 @@ NULL
 #' @export
 setMethod(
     f = "counts",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `counts,bcbioRNASeq`
 )

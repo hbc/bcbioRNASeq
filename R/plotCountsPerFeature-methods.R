@@ -38,7 +38,7 @@ formals(`plotCountsPerFeature,bcbioRNASeq`)[["normalized"]] <-
 #' @export
 setMethod(
     f = "plotCountsPerFeature",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotCountsPerFeature,bcbioRNASeq`
 )
 

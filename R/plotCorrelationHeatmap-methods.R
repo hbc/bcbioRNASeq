@@ -41,6 +41,6 @@ formals(`plotCorrelationHeatmap,bcbioRNASeq`)[["normalized"]] <- .dt
 #' @export
 setMethod(
     f = "plotCorrelationHeatmap",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotCorrelationHeatmap,bcbioRNASeq`
 )

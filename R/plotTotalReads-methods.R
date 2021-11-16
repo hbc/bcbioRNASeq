@@ -27,7 +27,10 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "reads"
         ),
-        flip = getOption(x = "acid.flip", default = TRUE)
+        flip = getOption(
+            x = "acid.flip",
+            default = TRUE
+        )
     ) {
         validObject(object)
         assert(
@@ -98,6 +101,6 @@ NULL
 #' @export
 setMethod(
     f = "plotTotalReads",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotTotalReads,bcbioRNASeq`
 )

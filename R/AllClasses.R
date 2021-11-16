@@ -110,7 +110,7 @@ setValidity(
         ## Class checks (order independent).
         df <- "DataFrame"
         if (isTRUE(packageVersion("S4Vectors") >= "0.23")) {
-            df <- c("DFrame", df)
+            df <- c("DataFrame", df)
         }
         ## Relaxed validity checks against `dataVersions`, `programsVersions`
         ## in v0.3.31, since this was reported to cause errors in upgrade from
@@ -221,7 +221,7 @@ setValidity(
         rowRanges <- rowRanges(object)
         rowData <- rowData(object)
         ok <- validate(
-            is(rowRanges, "GRanges"),
+            is(rowRanges, "GenomicRanges"),
             is(rowData, "DataFrame"),
             identical(names(rowRanges), rownames(object))
             ## This check fails on BioC 3.6; SummarizedExperiment 1.8.

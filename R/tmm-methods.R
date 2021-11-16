@@ -31,7 +31,7 @@ NULL
 #' @export
 setMethod(
     f = "tmm",
-    signature = signature("matrix"),
+    signature = signature(object = "matrix"),
     definition = `tmm,matrix`
 )
 
@@ -50,6 +50,6 @@ setMethod(
 #' @export
 setMethod(
     f = "tmm",
-    signature = signature("SummarizedExperiment"),
+    signature = signature(object = "SummarizedExperiment"),
     definition = `tmm,SummarizedExperiment`
 )

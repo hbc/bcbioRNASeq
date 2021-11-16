@@ -108,6 +108,6 @@ NULL
 #' @export
 setMethod(
     f = "plotPseudoVsAlignedCounts",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotPseudoVsAlignedCounts,bcbioRNASeq`
 )
