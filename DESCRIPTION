@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.3.43.9000
-Date: 2021-12-02
+Date: 2021-12-06
 Authors@R: c(
     person(
         given = "Michael",
@@ -101,39 +101,39 @@ License: AGPL-3
 Encoding: UTF-8
 LazyData: false
 Depends:
-    R (>= 4.0),
+    R (>= 4.1),
     basejump (>= 0.15.0.9000)
 Imports:
     AcidGenerics (>= 0.6.0.9000),
     AcidPlots (>= 0.4.0.9000),
     DESeq2 (>= 1.34.0),
-    bcbioBase (>= 0.6.23),
-    edgeR (>= 3.34.0),
+    bcbioBase (>= 0.6.23.9000),
+    edgeR (>= 3.36.0),
     ggplot2 (>= 3.3.5),
     goalie (>= 0.5.5),
     methods,
-    tximport (>= 1.20.0)
+    tximport (>= 1.22.0)
 Suggests:
-    AcidGSEA (>= 0.6.4.9000),
-    BiocStyle (>= 2.20.2),
-    DEGreport (>= 1.28.0),
-    DESeqAnalysis (>= 0.4.5),
-    DOSE (>= 3.18.2),
+    AcidGSEA (>= 0.7.0.9000),
+    BiocStyle (>= 2.22.0),
+    DEGreport (>= 1.30.0),
+    DESeqAnalysis (>= 0.4.5.9000),
+    DOSE (>= 3.20.0),
     EnsDb.Hsapiens.v75 (>= 2.99.0),
-    clusterProfiler (>= 4.0.5),
-    enrichplot (>= 1.12.2),
+    clusterProfiler (>= 4.2.0),
+    enrichplot (>= 1.14.0),
     ggnewscale (>= 0.4.5),
     hexbin (>= 1.28.2),
-    knitr (>= 1.33),
-    org.Hs.eg.db (>= 3.13.0),
-    org.Mm.eg.db (>= 3.13.0),
-    pathview (>= 1.32.0),
-    rhdf5 (>= 2.36.0),
-    rmarkdown (>= 2.10),
-    roxygen2,
-    testthat (>= 3.1.0),
-    viridis (>= 0.6.1),
-    vsn (>= 3.60.0)
+    knitr (>= 1.36),
+    org.Hs.eg.db (>= 3.14.0),
+    org.Mm.eg.db (>= 3.14.0),
+    pathview (>= 1.34.0),
+    rhdf5 (>= 2.38.0),
+    rmarkdown (>= 2.11),
+    roxygen2 (>= 7.1.2),
+    testthat (>= 3.1.1),
+    viridis (>= 0.6.2),
+    vsn (>= 3.62.0)
 biocViews:
     DataImport,
     DataRepresentation,
