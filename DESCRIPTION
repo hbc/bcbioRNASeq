@@ -92,6 +92,10 @@ Authors@R: c(
         given = "Harvard Chan Bioinformatics Core",
         email = "bioinformatics@hsph.harvard.edu",
         role = c("cph", "fnd")
+    ),
+    person(
+        given = "Acid Genomics",
+        role = c("cph", "fnd")
     ))
 URL:
     https://r.acidgenomics.com/packages/bcbiornaseq/,
@@ -110,7 +114,7 @@ Imports:
     bcbioBase (>= 0.6.23.9000),
     edgeR (>= 3.36.0),
     ggplot2 (>= 3.3.5),
-    goalie (>= 0.5.5),
+    goalie (>= 0.6.0.9000),
     methods,
     tximport (>= 1.22.0)
 Suggests:
