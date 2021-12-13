@@ -1,3 +1,10 @@
+## bcbioRNASeq 0.3.43 (2021-12-13)
+
+- Updated dependencies to require Bioconductor 3.14.
+- Bug fix for assert check failure of tximport list return. The `infReps`
+  slot in list does not return named rows when `txOut` is `TRUE` for
+  Bioconductor 3.14 release.
+
 ## bcbioRNASeq 0.3.42 (2021-07-27)
 
 ### Minor changes

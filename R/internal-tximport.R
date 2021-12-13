@@ -114,37 +114,29 @@
 
 
 ## Detect if object is tximport list return.
-## Updated 2019-08-20.
-.isTximportReturn <- function(list) {
+## Updated 2021-12-13.
+.isTximportReturn <- function(txi) {
     assert(
-        is.list(list),
+        is.list(txi),
         areIntersectingSets(
             x = c(
                 "abundance",
                 "counts",
+                "countsFromAbundance",
                 "infReps",  # v1.9+
-                "length",
-                "countsFromAbundance"
+                "length"
             ),
-            y = names(list)
-        )
+            y = names(txi)
+        ),
+        identical(
+            x = dimnames(txi[["abundance"]]),
+            y = dimnames(txi[["counts"]])
+        ),
+        identical(
+            x = dimnames(txi[["abundance"]]),
+            y = dimnames(txi[["length"]])
+        ),
+        isString(txi[["countsFromAbundance"]])
     )
-    abundance <- list[["abundance"]]
-    counts <- list[["counts"]]
-    infReps <- list[["infReps"]]
-    length <- list[["length"]]
-    countsFromAbundance <- list[["countsFromAbundance"]]
-    assert(
-        identical(dimnames(abundance), dimnames(counts)),
-        identical(dimnames(abundance), dimnames(length))
-    )
-    ## Inferential replicates added in v1.9.
-    if (is.list(infReps) && hasLength(infReps)) {
-        assert(
-            identical(names(infReps), colnames(abundance)),
-            identical(rownames(infReps[[1L]]), rownames(abundance))
-        )
-    }
-    assert(isString(countsFromAbundance))
     TRUE
 }
