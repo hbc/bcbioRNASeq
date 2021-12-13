@@ -1,3 +1,8 @@
+## FIXME Allow null tx2gene input here, when level = "transcripts"
+## FIXME Need to dynamically set ignoreTxVersion here?
+
+
+
 #' Import transcript-level abundances and counts
 #'
 #' Import RNA-seq counts using
@@ -13,7 +18,7 @@
 #' @note Ignoring transcript versions should work by default. There may be
 #' an issue with genomes containing non-Ensembl transcript IDs, such as
 #' C. elegans, although we need to double check.
-#' @note Updated 2021-09-10.
+#' @note Updated 2021-12-13.
 #'
 #' @param sampleDirs `character`.
 #'   Sample directories to import.
@@ -35,9 +40,13 @@
     assert(
         all(isDirectory(sampleDirs)),
         identical(names(sampleDirs), makeNames(basename(sampleDirs))),
-        isFlag(txOut),
-        is(tx2gene, "Tx2Gene")
+        isFlag(txOut)
     )
+    if (isTRUE(txOut)) {
+        assert(is.null(tx2gene))
+    } else {
+        assert(is(tx2gene, "Tx2Gene"))
+    }
     type <- match.arg(type)
     countsFromAbundance <- match.arg(
         arg = countsFromAbundance,
@@ -56,17 +65,19 @@
     assert(all(isFile(files)))
     names(files) <- names(sampleDirs)
     ## tx2gene -----------------------------------------------------------------
-    tx2gene <- as.data.frame(tx2gene)
-    if (!identical(
-        x = c("txId", "txName"),
-        y = colnames(tx2gene)
-    )) {
-        colnames(tx2gene) <- c("txId", "txName")
-    }
-    ## Ensure transcript IDs are stripped from tx2gene, if desired.
-    if (isTRUE(ignoreTxVersion)) {
-        tx2gene[["txId"]] <- stripTranscriptVersions(tx2gene[["txId"]])
-        rownames(tx2gene) <- tx2gene[["txId"]]
+    if (isFALSE(txOut)) {
+        tx2gene <- as.data.frame(tx2gene)
+        if (!identical(
+            x = c("txId", "txName"),
+            y = colnames(tx2gene)
+        )) {
+            colnames(tx2gene) <- c("txId", "txName")
+        }
+        ## Ensure transcript IDs are stripped from tx2gene, if desired.
+        if (isTRUE(ignoreTxVersion)) {
+            tx2gene[["txId"]] <- stripTranscriptVersions(tx2gene[["txId"]])
+            rownames(tx2gene) <- tx2gene[["txId"]]
+        }
     }
     ## Import counts using tximport --------------------------------------------
     ## Note that this step can take a long time when processing a lot of
@@ -107,6 +118,7 @@
             )
         }
     ))
+    ## FIXME This is failing for transcript-level check.
     assert(.isTximportReturn(txi))
     txi
 }
@@ -115,38 +127,30 @@
 
 #' Detect if object is tximport list return
 #'
-#' @note Updated 2019-08-20.
+#' @note Updated 2021-12-13.
 #' @noRd
-.isTximportReturn <- function(list) {
+.isTximportReturn <- function(txi) {
     assert(
-        is.list(list),
+        is.list(txi),
         areIntersectingSets(
             x = c(
                 "abundance",
                 "counts",
+                "countsFromAbundance",
                 "infReps",  # v1.9+
-                "length",
-                "countsFromAbundance"
+                "length"
             ),
-            y = names(list)
+            y = names(txi)
+        ),
+        identical(
+            x = dimnames(txi[["abundance"]]),
+            y = dimnames(txi[["counts"]])
+        ),
+        identical(
+            x = dimnames(txi[["abundance"]]),
+            y = dimnames(txi[["length"]])
         )
+        isString(txi[["countsFromAbundance"]])
     )
-    abundance <- list[["abundance"]]
-    counts <- list[["counts"]]
-    infReps <- list[["infReps"]]
-    length <- list[["length"]]
-    countsFromAbundance <- list[["countsFromAbundance"]]
-    assert(
-        identical(dimnames(abundance), dimnames(counts)),
-        identical(dimnames(abundance), dimnames(length))
-    )
-    ## Inferential replicates added in v1.9.
-    if (is.list(infReps) && hasLength(infReps)) {
-        assert(
-            identical(names(infReps), colnames(abundance)),
-            identical(rownames(infReps[[1L]]), rownames(abundance))
-        )
-    }
-    assert(isString(countsFromAbundance))
     TRUE
 }

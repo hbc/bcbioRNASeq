@@ -116,7 +116,7 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2021-09-10.
+#' @note Updated 2021-12-13.
 #' @export
 #'
 #' @inheritParams AcidExperiment::makeSummarizedExperiment
@@ -386,14 +386,19 @@ bcbioRNASeq <- function(
     ## pseudoaligned counts are defined in the primary "counts" assay.
     if (isSubset(caller, .tximportCallers)) {
         h3("tximport")
-        tx2gene <- importTx2Gene(
-            file = file.path(projectDir, "tx2gene.csv"),
-            organism = organism,
-            genomeBuild = genomeBuild,
-            release = ensemblRelease
-        )
-        assert(is(tx2gene, "Tx2Gene"))
         txOut <- identical(level, "transcripts")
+        if (isTRUE(txOut)) {
+            tx2gene <- NULL
+        } else {
+            tx2gene <- importTx2Gene(
+                file = file.path(projectDir, "tx2gene.csv"),
+                organism = organism,
+                genomeBuild = genomeBuild,
+                release = ensemblRelease
+            )
+            assert(is(tx2gene, "Tx2Gene"))
+        }
+        ## FIXME Only pass this in when level == "genes"
         txi <- .tximport(
             sampleDirs = sampleDirs,
             type = caller,
