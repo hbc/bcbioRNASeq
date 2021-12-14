@@ -5,6 +5,7 @@ Description: Toolkit for bcbio RNA-seq analysis.
 <<<<<<< HEAD
 <<<<<<< HEAD
 Version: 0.3.43.9000
+<<<<<<< HEAD
 Date: 2021-12-13
 =======
 Version: 0.3.42.9000
@@ -34,6 +35,9 @@ Date: 2021-10-12
 =======
 Date: 2021-12-02
 >>>>>>> 3129dbaebb04 (Work on updating release)
+=======
+Date: 2021-12-06
+>>>>>>> 3c277d784924 (Update dependency versions to Bioconductor 3.14)
 Authors@R: c(
     person(
         given = "Michael",
@@ -137,6 +141,7 @@ Encoding: UTF-8
 LazyData: false
 Depends:
 <<<<<<< HEAD
+<<<<<<< HEAD
     R (>= 4.1),
     basejump (>= 0.15.0.9000)
 Imports:
@@ -147,14 +152,22 @@ Imports:
     edgeR (>= 3.36.0),
 =======
     R (>= 4.0),
+=======
+    R (>= 4.1),
+>>>>>>> 3c277d784924 (Update dependency versions to Bioconductor 3.14)
     basejump (>= 0.15.0.9000)
 Imports:
     AcidGenerics (>= 0.6.0.9000),
     AcidPlots (>= 0.4.0.9000),
     DESeq2 (>= 1.34.0),
+<<<<<<< HEAD
     bcbioBase (>= 0.6.23),
     edgeR (>= 3.34.0),
 >>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
+=======
+    bcbioBase (>= 0.6.23.9000),
+    edgeR (>= 3.36.0),
+>>>>>>> 3c277d784924 (Update dependency versions to Bioconductor 3.14)
     ggplot2 (>= 3.3.5),
 <<<<<<< HEAD
     goalie (>= 0.6.0.9000),
@@ -165,11 +178,15 @@ Imports:
     tximport (>= 1.22.0)
 Suggests:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3c277d784924 (Update dependency versions to Bioconductor 3.14)
     AcidGSEA (>= 0.7.0.9000),
     BiocStyle (>= 2.22.0),
     DEGreport (>= 1.30.0),
     DESeqAnalysis (>= 0.4.5.9000),
     DOSE (>= 3.20.0),
+<<<<<<< HEAD
 =======
     AcidGSEA (>= 0.6.4.9000),
     BiocStyle (>= 2.20.2),
@@ -177,12 +194,17 @@ Suggests:
     DESeqAnalysis (>= 0.4.5),
     DOSE (>= 3.18.2),
 >>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
+=======
+>>>>>>> 3c277d784924 (Update dependency versions to Bioconductor 3.14)
     EnsDb.Hsapiens.v75 (>= 2.99.0),
     clusterProfiler (>= 4.2.0),
     enrichplot (>= 1.14.0),
     ggnewscale (>= 0.4.5),
     hexbin (>= 1.28.2),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3c277d784924 (Update dependency versions to Bioconductor 3.14)
     knitr (>= 1.36),
     org.Hs.eg.db (>= 3.14.0),
     org.Mm.eg.db (>= 3.14.0),
@@ -193,6 +215,7 @@ Suggests:
     testthat (>= 3.1.1),
     viridis (>= 0.6.2),
     vsn (>= 3.62.0)
+<<<<<<< HEAD
 =======
     knitr (>= 1.33),
     org.Hs.eg.db (>= 3.13.0),
@@ -205,6 +228,8 @@ Suggests:
     viridis (>= 0.6.1),
     vsn (>= 3.60.0)
 >>>>>>> bd25c0d3f5e1 (Draft update to dependencies)
+=======
+>>>>>>> 3c277d784924 (Update dependency versions to Bioconductor 3.14)
 biocViews:
     DataImport,
     DataRepresentation,
