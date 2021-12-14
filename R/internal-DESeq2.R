@@ -15,10 +15,14 @@
             alert(sprintf(
                 "Generating {.cls %s} with {.pkg %s} %s.",
 <<<<<<< HEAD
+<<<<<<< HEAD
                 "DESeqDataSet", "DESeq2",
 =======
                 "DESeqDataSet", "DESeq2"
 >>>>>>> 2f0723b37e98 (Improve cli consistency)
+=======
+                "DESeqDataSet", "DESeq2",
+>>>>>>> 1d82fdf8d4d3 (Fix typo)
                 as.character(packageVersion("DESeq2"))
             ))
         }
