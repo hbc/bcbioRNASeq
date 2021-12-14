@@ -3,12 +3,12 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2021-07-20.
+## Updated 2021-12-14.
 params:
   title: "Quality control"
 
   ## bcbioRNASeq object file.
-  bcb_file: !r file.path("rds", "YYYY-MM-DD", "bcb.rds")
+  bcb_file: !r file.path("data", "bcb.rds")
 
   ## Output directory.
   output_dir: !r file.path("results", Sys.Date(), "quality-control")

@@ -133,6 +133,7 @@
 
 
 
+<<<<<<< HEAD
 #' Detect if object is tximport list return
 #'
 <<<<<<< HEAD
@@ -150,6 +151,11 @@
 #' @noRd
 .isTximportReturn <- function(txi) {
 >>>>>>> 0e105478bc60 (Draft updates, improving tximport handling)
+=======
+## Detect if object is tximport list return.
+## Updated 2021-12-13.
+.isTximportReturn <- function(txi) {
+>>>>>>> origin/master
     assert(
         is.list(txi),
         areIntersectingSets(
@@ -169,7 +175,11 @@
         identical(
             x = dimnames(txi[["abundance"]]),
             y = dimnames(txi[["length"]])
+<<<<<<< HEAD
         )
+=======
+        ),
+>>>>>>> origin/master
         isString(txi[["countsFromAbundance"]])
     )
     TRUE
