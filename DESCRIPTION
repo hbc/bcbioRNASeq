@@ -6,8 +6,12 @@ Version: 0.3.43.9000
 Date: 2021-12-13
 =======
 Version: 0.3.42.9000
+<<<<<<< HEAD
 Date: 2021-09-03
 >>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
+=======
+Date: 2021-09-08
+>>>>>>> 166da163adb4 (Update dependencies)
 Authors@R: c(
     person(
         given = "Michael",
@@ -121,12 +125,12 @@ Imports:
     edgeR (>= 3.36.0),
 =======
     R (>= 4.0),
-    basejump (>= 0.14.21.9000)
+    basejump (>= 0.14.22)
 Imports:
-    AcidGenerics (>= 0.5.19.9000),
+    AcidGenerics (>= 0.5.20),
     AcidPlots (>= 0.4.0.9000),
     DESeq2 (>= 1.32.0),
-    bcbioBase (>= 0.6.21.9000),
+    bcbioBase (>= 0.6.22),
     edgeR (>= 3.34.0),
 >>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
     ggplot2 (>= 3.3.5),
