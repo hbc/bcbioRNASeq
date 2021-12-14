@@ -6,6 +6,7 @@ Description: Toolkit for bcbio RNA-seq analysis.
 <<<<<<< HEAD
 Version: 0.3.43.9000
 <<<<<<< HEAD
+<<<<<<< HEAD
 Date: 2021-12-13
 =======
 Version: 0.3.42.9000
@@ -38,6 +39,9 @@ Date: 2021-12-02
 =======
 Date: 2021-12-06
 >>>>>>> 3c277d784924 (Update dependency versions to Bioconductor 3.14)
+=======
+Date: 2021-12-13
+>>>>>>> 0e105478bc60 (Draft updates, improving tximport handling)
 Authors@R: c(
     person(
         given = "Michael",
