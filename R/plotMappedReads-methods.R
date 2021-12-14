@@ -96,6 +96,12 @@ NULL
         p
     }
 
+<<<<<<< HEAD
+=======
+formals(`plotMappedReads,bcbioRNASeq`)[["flip"]] <-
+    formalsList[["flip"]]
+
+>>>>>>> 88e8e9be9797 (Improve default color handling)
 
 
 #' @rdname plotMappedReads

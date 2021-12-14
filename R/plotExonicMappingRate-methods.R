@@ -69,10 +69,14 @@ NULL
         ## Color palette.
         p <- p + autoDiscreteFillScale()
 <<<<<<< HEAD
+<<<<<<< HEAD
         ## Flip.
 =======
         ## Flip, if desired.
 >>>>>>> 58c64d607b3b (Improve color handling)
+=======
+        ## Flip.
+>>>>>>> 88e8e9be9797 (Improve default color handling)
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
         }
