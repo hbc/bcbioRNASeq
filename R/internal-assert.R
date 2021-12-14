@@ -11,12 +11,18 @@
     cfa <- metadata(object)[["countsFromAbundance"]]
     ## Note that featureCounts callers will return NULL here.
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (is.null(cfa)) {
         return(TRUE)
     }
 =======
     if (is.null(cfa)) return(TRUE)
 >>>>>>> dc75f61043d7 (Improve error message handling)
+=======
+    if (is.null(cfa)) {
+        return(TRUE)
+    }
+>>>>>>> 59274d54048a (Draft update)
     assert(
         isCharacter(cfa),
         isSubset(cfa, c("lengthScaledTPM", "no")),
