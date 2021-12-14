@@ -27,10 +27,14 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "reads"
         ),
+<<<<<<< HEAD
         flip = getOption(
             x = "acid.flip",
             default = TRUE
         )
+=======
+        flip = getOption(x = "acid.flip", default = TRUE)
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
     ) {
         validObject(object)
         assert(
@@ -97,11 +101,14 @@ NULL
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 formals(`plotMappedReads,bcbioRNASeq`)[["flip"]] <-
     formalsList[["flip"]]
 
 >>>>>>> 88e8e9be9797 (Improve default color handling)
+=======
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotMappedReads

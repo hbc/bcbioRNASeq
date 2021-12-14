@@ -26,10 +26,14 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "mapping rate (%)"
         ),
+<<<<<<< HEAD
         flip = getOption(
             x = "acid.flip",
             default = TRUE
         )
+=======
+        flip = getOption(x = "acid.flip", default = TRUE)
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
     ) {
         validObject(object)
         assert(
@@ -77,11 +81,14 @@ NULL
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 formals(`plotMappingRate,bcbioRNASeq`)[["flip"]] <-
     formalsList[["flip"]]
 
 >>>>>>> d8f572c77c65 (Finish simplifying color handling in QC plots)
+=======
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotMappingRate

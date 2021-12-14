@@ -29,10 +29,14 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "exonic mapping rate (%)"
         ),
+<<<<<<< HEAD
         flip = getOption(
             x = "acid.flip",
             default = TRUE
         )
+=======
+        flip = getOption(x = "acid.flip", default = TRUE)
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
     ) {
         validObject(object)
         assert(
@@ -89,11 +93,14 @@ NULL
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 formals(`plotExonicMappingRate,bcbioRNASeq`)[["flip"]] <-
     formalsList[["flip"]]
 
 >>>>>>> 58c64d607b3b (Improve color handling)
+=======
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotExonicMappingRate

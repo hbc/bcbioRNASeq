@@ -26,10 +26,14 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "intronic mapping rate (%)"
         ),
+<<<<<<< HEAD
         flip = getOption(
             x = "acid.flip",
             default = TRUE
         )
+=======
+        flip = getOption(x = "acid.flip", default = TRUE)
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
     ) {
         validObject(object)
         assert(
@@ -77,11 +81,14 @@ NULL
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 formals(`plotIntronicMappingRate,bcbioRNASeq`)[["flip"]] <-
     formalsList[["flip"]]
 
 >>>>>>> 8a1afa5be495 (Simplify default color handling)
+=======
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotIntronicMappingRate

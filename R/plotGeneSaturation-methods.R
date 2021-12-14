@@ -24,6 +24,7 @@ NULL
         perMillion = TRUE,
         trendline = FALSE,
 <<<<<<< HEAD
+<<<<<<< HEAD
         label = getOption(
             x = "acid.label",
             default = FALSE
@@ -31,6 +32,9 @@ NULL
 =======
         label,
 >>>>>>> 58c64d607b3b (Improve color handling)
+=======
+        label = getOption(x = "acid.label", default = FALSE),
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
         labels = list(
             "title" = "Gene saturation",
             "subtitle" = NULL,
@@ -102,11 +106,14 @@ NULL
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 formals(`plotGeneSaturation,bcbioRNASeq`)[["label"]] <-
     formalsList[["label"]]
 
 >>>>>>> 58c64d607b3b (Improve color handling)
+=======
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotGeneSaturation

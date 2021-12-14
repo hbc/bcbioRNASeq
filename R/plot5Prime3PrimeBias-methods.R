@@ -25,10 +25,14 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "5'->3' bias"
         ),
+<<<<<<< HEAD
         flip = getOption(
             x = "acid.flip",
             default = TRUE
         )
+=======
+        flip = getOption(x = "acid.flip", default = TRUE)
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
     ) {
         validObject(object)
 <<<<<<< HEAD
@@ -78,10 +82,13 @@ NULL
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 formals(`plot5Prime3PrimeBias,bcbioRNASeq`)[["flip"]] <- formalsList[["flip"]]
 
 >>>>>>> 2e9e53ae87b3 (Simplify color handling)
+=======
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plot5Prime3PrimeBias
