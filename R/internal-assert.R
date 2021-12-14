@@ -10,9 +10,13 @@
     assert(is(object, "SummarizedExperiment"))
     cfa <- metadata(object)[["countsFromAbundance"]]
     ## Note that featureCounts callers will return NULL here.
+<<<<<<< HEAD
     if (is.null(cfa)) {
         return(TRUE)
     }
+=======
+    if (is.null(cfa)) return(TRUE)
+>>>>>>> dc75f61043d7 (Improve error message handling)
     assert(
         isCharacter(cfa),
         isSubset(cfa, c("lengthScaledTPM", "no")),
