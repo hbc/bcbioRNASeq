@@ -7,11 +7,15 @@ Date: 2021-12-13
 =======
 Version: 0.3.42.9000
 <<<<<<< HEAD
+<<<<<<< HEAD
 Date: 2021-09-03
 >>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
 =======
 Date: 2021-09-08
 >>>>>>> 166da163adb4 (Update dependencies)
+=======
+Date: 2021-09-09
+>>>>>>> 23d4c4234bea (Draft update to label matching)
 Authors@R: c(
     person(
         given = "Michael",
@@ -128,7 +132,7 @@ Imports:
     basejump (>= 0.14.22)
 Imports:
     AcidGenerics (>= 0.5.20),
-    AcidPlots (>= 0.4.0.9000),
+    AcidPlots (>= 0.4.0),
     DESeq2 (>= 1.32.0),
     bcbioBase (>= 0.6.22),
     edgeR (>= 3.34.0),

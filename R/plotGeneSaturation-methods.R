@@ -41,7 +41,12 @@ NULL
             isInRange(minCounts, lower = 1L, upper = Inf),
             isFlag(perMillion),
             isFlag(trendline),
+<<<<<<< HEAD
             isFlag(label)
+=======
+            isFlag(label),
+            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE)
+>>>>>>> 23d4c4234bea (Draft update to label matching)
         )
         labels <- matchLabels(labels)
         interestingGroups(object) <-

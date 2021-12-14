@@ -31,7 +31,14 @@ NULL
         )
     ) {
         validObject(object)
+<<<<<<< HEAD
         assert(isFlag(flip))
+=======
+        assert(
+            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE),
+            isFlag(flip)
+        )
+>>>>>>> 23d4c4234bea (Draft update to label matching)
         labels <- matchLabels(labels)
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
