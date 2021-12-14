@@ -68,7 +68,11 @@ NULL
         }
         ## Color palette.
         p <- p + autoDiscreteFillScale()
+<<<<<<< HEAD
         ## Flip.
+=======
+        ## Flip, if desired.
+>>>>>>> 58c64d607b3b (Improve color handling)
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
         }
@@ -80,6 +84,12 @@ NULL
         p
     }
 
+<<<<<<< HEAD
+=======
+formals(`plotExonicMappingRate,bcbioRNASeq`)[["flip"]] <-
+    formalsList[["flip"]]
+
+>>>>>>> 58c64d607b3b (Improve color handling)
 
 
 #' @rdname plotExonicMappingRate

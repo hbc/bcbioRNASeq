@@ -26,7 +26,7 @@
 >>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
 =======
 #'   acid_geom_label_repel acid_scale_y_continuous_nopad autoDiscreteColorScale
-#'   matchLabels pretty_breaks plotCountsCorrelation
+#'   autoDiscreteFillScale matchLabels pretty_breaks plotCountsCorrelation
 #'   plotCountsCorrelationHeatmap sym wrap_plots
 >>>>>>> 5c455f56c2f7 (Draft update reworking color support)
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
