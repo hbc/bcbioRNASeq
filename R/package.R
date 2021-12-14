@@ -1,3 +1,7 @@
+## FIXME Need to import `abort` from basejump, which requires an update.
+
+
+
 #' bcbioRNASeq
 #'
 #' Import and analyze [bcbio](https://bcbio-nextgen.readthedocs.io/) RNA-seq
