@@ -116,7 +116,11 @@
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
+<<<<<<< HEAD
 #' @note Updated 2021-12-13.
+=======
+#' @note Updated 2021-09-10.
+>>>>>>> f11c3dc2b41d (Update documentation)
 #' @export
 #'
 #' @inheritParams AcidExperiment::makeSummarizedExperiment

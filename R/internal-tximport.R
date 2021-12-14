@@ -18,7 +18,11 @@
 #' @note Ignoring transcript versions should work by default. There may be
 #' an issue with genomes containing non-Ensembl transcript IDs, such as
 #' C. elegans, although we need to double check.
+<<<<<<< HEAD
 #' @note Updated 2021-12-13.
+=======
+#' @note Updated 2021-09-10.
+>>>>>>> f11c3dc2b41d (Update documentation)
 #'
 #' @param sampleDirs `character`.
 #'   Sample directories to import.
@@ -127,9 +131,15 @@
 
 #' Detect if object is tximport list return
 #'
+<<<<<<< HEAD
 #' @note Updated 2021-12-13.
 #' @noRd
 .isTximportReturn <- function(txi) {
+=======
+#' @note Updated 2019-08-20.
+#' @noRd
+.isTximportReturn <- function(list) {
+>>>>>>> f11c3dc2b41d (Update documentation)
     assert(
         is.list(txi),
         areIntersectingSets(
