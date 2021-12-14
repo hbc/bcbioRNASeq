@@ -15,6 +15,7 @@
 #'
 #' @importFrom AcidPlots !! acid_coord_flip acid_geom_abline acid_geom_bar
 <<<<<<< HEAD
+<<<<<<< HEAD
 #'   acid_geom_label_repel acid_scale_y_continuous_nopad autoDiscreteColorScale
 #'   autoDiscreteFillScale matchLabels pretty_breaks plotCountsCorrelation
 #'   plotCountsCorrelationHeatmap sym wrap_plots
@@ -23,6 +24,11 @@
 #'   pretty_breaks plotCountsCorrelation plotCountsCorrelationHeatmap sym
 #'   wrap_plots
 >>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
+=======
+#'   acid_geom_label_repel acid_scale_y_continuous_nopad autoDiscreteColorScale
+#'   matchLabels pretty_breaks plotCountsCorrelation
+#'   plotCountsCorrelationHeatmap sym wrap_plots
+>>>>>>> 5c455f56c2f7 (Draft update reworking color support)
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
 #' @importFrom basejump DataFrame Rle SimpleList SummarizedExperiment Tx2Gene
@@ -45,9 +51,9 @@
 #'   guides labs scale_y_continuous theme
 #' @importFrom goalie areDisjointSets areIntersectingSets areSetEqual assert
 #'   bapply hasDimnames hasLength hasUniqueCols hasValidDimnames isADirectory
-#'   isAFile isAURL isAny isCharacter isDirectory isFile isFlag isGGScale isInt
-#'   isInRange isNonNegative isNumber isPositive isProportion isString isSubset
-#'   validNames validate validateClasses
+#'   isAFile isAURL isAny isCharacter isDirectory isFile isFlag isInt isInRange
+#'   isNonNegative isNumber isPositive isProportion isString isSubset validNames
+#'   validate validateClasses
 #' @importFrom methods as as<- is new setAs setClass setMethod setValidity show
 #'   slot slot<- validObject .hasSlot
 #' @importFrom tximport tximport
