@@ -1,13 +1,19 @@
 ## bcbioRNASeq 0.3.43 (UNRELEASED)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 904213c61327 (Update NEWS)
 ### Minor changes
 
 - Removed internal dependencies on `formalsList` parameters defined in basejump,
   which will be removed in a pending release update.
 
+<<<<<<< HEAD
 =======
 >>>>>>> 783d55d60dcc (Update versions)
+=======
+>>>>>>> 904213c61327 (Update NEWS)
 ## bcbioRNASeq 0.3.42 (2021-07-27)
 
 ### Minor changes
