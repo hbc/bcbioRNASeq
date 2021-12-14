@@ -95,8 +95,8 @@ Authors@R: c(
     ))
 URL:
     https://r.acidgenomics.com/packages/bcbiornaseq/,
-    https://github.com/acidgenomics/r-bcbiornaseq/
-BugReports: https://github.com/acidgenomics/r-bcbiornaseq/issues/
+    https://github.com/hbc/bcbioRNASeq/
+BugReports: https://github.com/hbc/bcbioRNASeq/issues/
 License: AGPL-3
 Encoding: UTF-8
 LazyData: false

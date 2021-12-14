@@ -3,7 +3,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2021-07-20.
+## Updated 2021-12-14.
 params:
   title: "Quality control"
 
