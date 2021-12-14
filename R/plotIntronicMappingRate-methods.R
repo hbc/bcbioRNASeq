@@ -76,6 +76,12 @@ NULL
         p
     }
 
+<<<<<<< HEAD
+=======
+formals(`plotIntronicMappingRate,bcbioRNASeq`)[["flip"]] <-
+    formalsList[["flip"]]
+
+>>>>>>> 8a1afa5be495 (Simplify default color handling)
 
 
 #' @rdname plotIntronicMappingRate
