@@ -1,7 +1,3 @@
-## FIXME Need to import `abort` from basejump, which requires an update.
-
-
-
 #' bcbioRNASeq
 #'
 #' Import and analyze [bcbio](https://bcbio-nextgen.readthedocs.io/) RNA-seq
@@ -18,9 +14,15 @@
 #' @importMethodsFrom basejump coerce
 #'
 #' @importFrom AcidPlots !! acid_coord_flip acid_geom_abline acid_geom_bar
+<<<<<<< HEAD
 #'   acid_geom_label_repel acid_scale_y_continuous_nopad autoDiscreteColorScale
 #'   autoDiscreteFillScale matchLabels pretty_breaks plotCountsCorrelation
 #'   plotCountsCorrelationHeatmap sym wrap_plots
+=======
+#'   acid_geom_label_repel acid_scale_y_continuous_nopad matchLabels
+#'   pretty_breaks plotCountsCorrelation plotCountsCorrelationHeatmap sym
+#'   wrap_plots
+>>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
 #' @importFrom basejump DataFrame Rle SimpleList SummarizedExperiment Tx2Gene

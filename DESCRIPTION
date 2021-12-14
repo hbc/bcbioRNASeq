@@ -1,8 +1,13 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
+<<<<<<< HEAD
 Version: 0.3.43.9000
 Date: 2021-12-13
+=======
+Version: 0.3.42.9000
+Date: 2021-09-03
+>>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
 Authors@R: c(
     person(
         given = "Michael",
@@ -105,6 +110,7 @@ License: AGPL-3
 Encoding: UTF-8
 LazyData: false
 Depends:
+<<<<<<< HEAD
     R (>= 4.1),
     basejump (>= 0.15.0.9000)
 Imports:
@@ -113,16 +119,34 @@ Imports:
     DESeq2 (>= 1.34.0),
     bcbioBase (>= 0.6.23.9000),
     edgeR (>= 3.36.0),
+=======
+    R (>= 4.0),
+    basejump (>= 0.14.21.9000)
+Imports:
+    AcidGenerics (>= 0.5.19.9000),
+    AcidPlots (>= 0.4.0.9000),
+    DESeq2 (>= 1.32.0),
+    bcbioBase (>= 0.6.21.9000),
+    edgeR (>= 3.34.0),
+>>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
     ggplot2 (>= 3.3.5),
     goalie (>= 0.6.0.9000),
     methods,
     tximport (>= 1.22.0)
 Suggests:
+<<<<<<< HEAD
     AcidGSEA (>= 0.7.0.9000),
     BiocStyle (>= 2.22.0),
     DEGreport (>= 1.30.0),
     DESeqAnalysis (>= 0.4.5.9000),
     DOSE (>= 3.20.0),
+=======
+    AcidGSEA (>= 0.6.4.9000),
+    BiocStyle (>= 2.20.2),
+    DEGreport (>= 1.28.0),
+    DESeqAnalysis (>= 0.4.4.9000),
+    DOSE (>= 3.18.2),
+>>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
     EnsDb.Hsapiens.v75 (>= 2.99.0),
     clusterProfiler (>= 4.2.0),
     enrichplot (>= 1.14.0),
