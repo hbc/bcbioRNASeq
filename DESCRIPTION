@@ -19,8 +19,12 @@ Date: 2021-09-09
 >>>>>>> 23d4c4234bea (Draft update to label matching)
 =======
 Version: 0.3.43
+<<<<<<< HEAD
 Date: 2021-09-10
 >>>>>>> 783d55d60dcc (Update versions)
+=======
+Date: 2021-09-24
+>>>>>>> 30e24095b9d2 (Update dependencies)
 Authors@R: c(
     person(
         given = "Michael",
@@ -134,16 +138,20 @@ Imports:
     edgeR (>= 3.36.0),
 =======
     R (>= 4.0),
-    basejump (>= 0.14.22)
+    basejump (>= 0.14.24)
 Imports:
-    AcidGenerics (>= 0.5.20),
+    AcidGenerics (>= 0.5.21),
     AcidPlots (>= 0.4.0),
     DESeq2 (>= 1.32.0),
-    bcbioBase (>= 0.6.22),
+    bcbioBase (>= 0.6.23),
     edgeR (>= 3.34.0),
 >>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
     ggplot2 (>= 3.3.5),
+<<<<<<< HEAD
     goalie (>= 0.6.0.9000),
+=======
+    goalie (>= 0.5.5),
+>>>>>>> 30e24095b9d2 (Update dependencies)
     methods,
     tximport (>= 1.22.0)
 Suggests:
