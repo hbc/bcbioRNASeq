@@ -1,7 +1,10 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
+<<<<<<< HEAD
 ** TODO Still need to figure out a way to suppress call dbDisconnect warning from Bioconductor AnnotationHub.
+=======
+>>>>>>> 3129dbaebb04 (Work on updating release)
 ** TODO Consider reexporting defunct flatFiles here so we don't break
     bcbio 1.2.8.
 ** TODO Need to improve code coverage of kallisto and sailfish import.

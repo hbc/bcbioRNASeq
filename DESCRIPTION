@@ -28,8 +28,12 @@ Date: 2021-09-24
 >>>>>>> 30e24095b9d2 (Update dependencies)
 =======
 Version: 0.3.43.9000
+<<<<<<< HEAD
 Date: 2021-10-12
 >>>>>>> c9483c5babb4 (Bump version)
+=======
+Date: 2021-12-02
+>>>>>>> 3129dbaebb04 (Work on updating release)
 Authors@R: c(
     person(
         given = "Michael",
