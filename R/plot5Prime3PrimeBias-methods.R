@@ -32,6 +32,7 @@ NULL
     ) {
         validObject(object)
 <<<<<<< HEAD
+<<<<<<< HEAD
         assert(isFlag(flip))
 =======
         assert(
@@ -39,6 +40,9 @@ NULL
             isFlag(flip)
         )
 >>>>>>> 23d4c4234bea (Draft update to label matching)
+=======
+        assert(isFlag(flip))
+>>>>>>> 2e9e53ae87b3 (Simplify color handling)
         labels <- matchLabels(labels)
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
@@ -73,6 +77,11 @@ NULL
         p
     }
 
+<<<<<<< HEAD
+=======
+formals(`plot5Prime3PrimeBias,bcbioRNASeq`)[["flip"]] <- formalsList[["flip"]]
+
+>>>>>>> 2e9e53ae87b3 (Simplify color handling)
 
 
 #' @rdname plot5Prime3PrimeBias
