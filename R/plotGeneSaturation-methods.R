@@ -25,16 +25,22 @@ NULL
         trendline = FALSE,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17bec6711268 (Draft update)
         label = getOption(
             x = "acid.label",
             default = FALSE
         ),
+<<<<<<< HEAD
 =======
         label,
 >>>>>>> 58c64d607b3b (Improve color handling)
 =======
         label = getOption(x = "acid.label", default = FALSE),
 >>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
+=======
+>>>>>>> 17bec6711268 (Draft update)
         labels = list(
             "title" = "Gene saturation",
             "subtitle" = NULL,

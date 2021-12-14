@@ -28,13 +28,19 @@ NULL
             "metricAxis" = "reads"
         ),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17bec6711268 (Draft update)
         flip = getOption(
             x = "acid.flip",
             default = TRUE
         )
+<<<<<<< HEAD
 =======
         flip = getOption(x = "acid.flip", default = TRUE)
 >>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
+=======
+>>>>>>> 17bec6711268 (Draft update)
     ) {
         validObject(object)
         assert(

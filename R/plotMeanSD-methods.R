@@ -45,13 +45,19 @@ NULL
         ),
         lineColor = AcidPlots::lightPalette[["orange"]],
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17bec6711268 (Draft update)
         legend = getOption(
             x = "acid.legend",
             default = TRUE
         )
+<<<<<<< HEAD
 =======
         legend = getOption(x = "acid.legend", default = TRUE)
 >>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
+=======
+>>>>>>> 17bec6711268 (Draft update)
     ) {
         validObject(object)
         assert(
