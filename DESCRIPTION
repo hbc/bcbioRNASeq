@@ -170,10 +170,14 @@ Imports:
 >>>>>>> 3c277d784924 (Update dependency versions to Bioconductor 3.14)
     ggplot2 (>= 3.3.5),
 <<<<<<< HEAD
+<<<<<<< HEAD
     goalie (>= 0.6.0.9000),
 =======
     goalie (>= 0.5.5),
 >>>>>>> 30e24095b9d2 (Update dependencies)
+=======
+    goalie (>= 0.6.0.9000),
+>>>>>>> 542a2cb2be29 (Update author list)
     methods,
     tximport (>= 1.22.0)
 Suggests:
