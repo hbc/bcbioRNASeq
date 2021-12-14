@@ -116,7 +116,14 @@ importFrom(AcidPlots,acid_geom_bar)
 importFrom(AcidPlots,acid_geom_label_repel)
 importFrom(AcidPlots,acid_scale_y_continuous_nopad)
 importFrom(AcidPlots,autoDiscreteColorScale)
+<<<<<<< HEAD
+<<<<<<< HEAD
 importFrom(AcidPlots,autoDiscreteFillScale)
+=======
+>>>>>>> 5c455f56c2f7 (Draft update reworking color support)
+=======
+importFrom(AcidPlots,autoDiscreteFillScale)
+>>>>>>> 58c64d607b3b (Improve color handling)
 importFrom(AcidPlots,matchLabels)
 importFrom(AcidPlots,plotCountsCorrelation)
 importFrom(AcidPlots,plotCountsCorrelationHeatmap)

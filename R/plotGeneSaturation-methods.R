@@ -23,10 +23,24 @@ NULL
         minCounts = 1L,
         perMillion = TRUE,
         trendline = FALSE,
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17bec6711268 (Draft update)
         label = getOption(
             x = "acid.label",
             default = FALSE
         ),
+<<<<<<< HEAD
+=======
+        label,
+>>>>>>> 58c64d607b3b (Improve color handling)
+=======
+        label = getOption(x = "acid.label", default = FALSE),
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
+=======
+>>>>>>> 17bec6711268 (Draft update)
         labels = list(
             "title" = "Gene saturation",
             "subtitle" = NULL,
@@ -41,7 +55,16 @@ NULL
             isInRange(minCounts, lower = 1L, upper = Inf),
             isFlag(perMillion),
             isFlag(trendline),
+<<<<<<< HEAD
+<<<<<<< HEAD
             isFlag(label)
+=======
+            isFlag(label),
+            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE)
+>>>>>>> 23d4c4234bea (Draft update to label matching)
+=======
+            isFlag(label)
+>>>>>>> 58c64d607b3b (Improve color handling)
         )
         labels <- matchLabels(labels)
         interestingGroups(object) <-
@@ -88,6 +111,15 @@ NULL
         p
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+formals(`plotGeneSaturation,bcbioRNASeq`)[["label"]] <-
+    formalsList[["label"]]
+
+>>>>>>> 58c64d607b3b (Improve color handling)
+=======
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotGeneSaturation

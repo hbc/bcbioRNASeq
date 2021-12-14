@@ -14,9 +14,21 @@
 #' @importMethodsFrom basejump coerce
 #'
 #' @importFrom AcidPlots !! acid_coord_flip acid_geom_abline acid_geom_bar
+<<<<<<< HEAD
+<<<<<<< HEAD
 #'   acid_geom_label_repel acid_scale_y_continuous_nopad autoDiscreteColorScale
 #'   autoDiscreteFillScale matchLabels pretty_breaks plotCountsCorrelation
 #'   plotCountsCorrelationHeatmap sym wrap_plots
+=======
+#'   acid_geom_label_repel acid_scale_y_continuous_nopad matchLabels
+#'   pretty_breaks plotCountsCorrelation plotCountsCorrelationHeatmap sym
+#'   wrap_plots
+>>>>>>> 96eb7bd8eec0 (Draft updates, improving CLI and migrating to patchwork)
+=======
+#'   acid_geom_label_repel acid_scale_y_continuous_nopad autoDiscreteColorScale
+#'   autoDiscreteFillScale matchLabels pretty_breaks plotCountsCorrelation
+#'   plotCountsCorrelationHeatmap sym wrap_plots
+>>>>>>> 5c455f56c2f7 (Draft update reworking color support)
 #' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
 #'   varianceStabilizingTransformation
 #' @importFrom basejump DataFrame Rle SimpleList SummarizedExperiment Tx2Gene

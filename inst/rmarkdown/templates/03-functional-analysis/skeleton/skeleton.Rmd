@@ -10,14 +10,14 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2021-07-27.
+## Updated 2021-12-14.
 params:
   title: "Functional analysis with clusterProfiler"
 
   ## DESeqAnalysis object file.
   ## Refer to DESeqAnalysis package for details.
   ## This is not the DESeqDataSet object.
-  deseq_file: !r file.path("rds", "YYYY-MM-DD", "deseq.rds")
+  deseq_file: !r file.path("data", "deseq.rds")
 
   ## Results (i.e. contrast) name or position.
   ## Refer to `resultsNames()` for details.
@@ -34,7 +34,7 @@ params:
   go_class: "BP"
 
   ## Directory where R data files will be saved.
-  data_dir: !r file.path("rds", Sys.Date())
+  data_dir: !r file.path("data")
 
   ## Directory where results, including CSV files, will be saved.
   results_dir: !r file.path("results", Sys.Date(), "functional-analysis")

@@ -18,7 +18,15 @@
 #' @note Ignoring transcript versions should work by default. There may be
 #' an issue with genomes containing non-Ensembl transcript IDs, such as
 #' C. elegans, although we need to double check.
+<<<<<<< HEAD
+<<<<<<< HEAD
 #' @note Updated 2021-12-13.
+=======
+#' @note Updated 2021-09-10.
+>>>>>>> f11c3dc2b41d (Update documentation)
+=======
+#' @note Updated 2021-12-13.
+>>>>>>> 0e105478bc60 (Draft updates, improving tximport handling)
 #'
 #' @param sampleDirs `character`.
 #'   Sample directories to import.
@@ -125,11 +133,29 @@
 
 
 
+<<<<<<< HEAD
 #' Detect if object is tximport list return
 #'
+<<<<<<< HEAD
+<<<<<<< HEAD
 #' @note Updated 2021-12-13.
 #' @noRd
 .isTximportReturn <- function(txi) {
+=======
+#' @note Updated 2019-08-20.
+#' @noRd
+.isTximportReturn <- function(list) {
+>>>>>>> f11c3dc2b41d (Update documentation)
+=======
+#' @note Updated 2021-12-13.
+#' @noRd
+.isTximportReturn <- function(txi) {
+>>>>>>> 0e105478bc60 (Draft updates, improving tximport handling)
+=======
+## Detect if object is tximport list return.
+## Updated 2021-12-13.
+.isTximportReturn <- function(txi) {
+>>>>>>> origin/master
     assert(
         is.list(txi),
         areIntersectingSets(
@@ -149,7 +175,11 @@
         identical(
             x = dimnames(txi[["abundance"]]),
             y = dimnames(txi[["length"]])
+<<<<<<< HEAD
         )
+=======
+        ),
+>>>>>>> origin/master
         isString(txi[["countsFromAbundance"]])
     )
     TRUE

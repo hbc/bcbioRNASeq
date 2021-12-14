@@ -26,10 +26,20 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "intronic mapping rate (%)"
         ),
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17bec6711268 (Draft update)
         flip = getOption(
             x = "acid.flip",
             default = TRUE
         )
+<<<<<<< HEAD
+=======
+        flip = getOption(x = "acid.flip", default = TRUE)
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
+=======
+>>>>>>> 17bec6711268 (Draft update)
     ) {
         validObject(object)
         assert(
@@ -76,6 +86,15 @@ NULL
         p
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+formals(`plotIntronicMappingRate,bcbioRNASeq`)[["flip"]] <-
+    formalsList[["flip"]]
+
+>>>>>>> 8a1afa5be495 (Simplify default color handling)
+=======
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotIntronicMappingRate

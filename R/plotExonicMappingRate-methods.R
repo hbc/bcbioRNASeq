@@ -29,10 +29,20 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "exonic mapping rate (%)"
         ),
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17bec6711268 (Draft update)
         flip = getOption(
             x = "acid.flip",
             default = TRUE
         )
+<<<<<<< HEAD
+=======
+        flip = getOption(x = "acid.flip", default = TRUE)
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
+=======
+>>>>>>> 17bec6711268 (Draft update)
     ) {
         validObject(object)
         assert(
@@ -68,7 +78,15 @@ NULL
         }
         ## Color palette.
         p <- p + autoDiscreteFillScale()
+<<<<<<< HEAD
+<<<<<<< HEAD
         ## Flip.
+=======
+        ## Flip, if desired.
+>>>>>>> 58c64d607b3b (Improve color handling)
+=======
+        ## Flip.
+>>>>>>> 88e8e9be9797 (Improve default color handling)
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
         }
@@ -80,6 +98,15 @@ NULL
         p
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+formals(`plotExonicMappingRate,bcbioRNASeq`)[["flip"]] <-
+    formalsList[["flip"]]
+
+>>>>>>> 58c64d607b3b (Improve color handling)
+=======
+>>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotExonicMappingRate
