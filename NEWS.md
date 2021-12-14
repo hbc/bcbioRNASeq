@@ -1,8 +1,19 @@
 ## bcbioRNASeq 0.3.44 (2021-12-14)
 
-- Bug fix in the quality_control.Rmd
+### Minor changes
+
+- Reworked the default expected file path of `bcbioRNASeq` object
+  (e.g. `"bcb.rds"`), which has been moved back to `data` instead of nested
+  inside of `rds` by date (e.g. YYYY-MM-DD).
+- Other R Markdown templates, specifically the differential expression and
+  functional analysis templates have also been updated to reflect this change.
+- Minimum dependencies have been bumped back to R 4.0 / Bioconductor 3.13
+  due to current bioconda build issues, which will be resolved in a future
+  update of the package.
 
 ## bcbioRNASeq 0.3.43 (2021-12-13)
+
+### Minor changes
 
 - Updated dependencies to require Bioconductor 3.14.
 - Bug fix for assert check failure of tximport list return. The `infReps`
