@@ -1,3 +1,7 @@
+## bcbioRNASeq 0.3.44 (2021-12-14)
+
+- Bug fix in the quality_control.Rmd
+
 ## bcbioRNASeq 0.3.43 (2021-12-13)
 
 - Updated dependencies to require Bioconductor 3.14.
