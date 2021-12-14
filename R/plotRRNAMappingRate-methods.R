@@ -83,6 +83,12 @@ NULL
         p
     }
 
+<<<<<<< HEAD
+=======
+formals(`plotRRNAMappingRate,bcbioRNASeq`)[["flip"]] <-
+    formalsList[["flip"]]
+
+>>>>>>> d8f572c77c65 (Finish simplifying color handling in QC plots)
 
 
 #' @rdname plotRRNAMappingRate

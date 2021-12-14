@@ -95,6 +95,12 @@ NULL
         p
     }
 
+<<<<<<< HEAD
+=======
+formals(`plotTotalReads,bcbioRNASeq`)[["flip"]] <-
+    formalsList[["flip"]]
+
+>>>>>>> d8f572c77c65 (Finish simplifying color handling in QC plots)
 
 
 #' @rdname plotTotalReads
