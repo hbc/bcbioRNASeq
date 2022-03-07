@@ -1,7 +1,9 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
-** TODO Still need to figure out a way to suppress call dbDisconnect warning from Bioconductor AnnotationHub.
+** TODO In bcbioRNASeq class checks, consider allowing NULL tx2gene when level = "transcripts".
+** TODO In internal `.tximport` function, need to dynamically set `ignoreTxVersion` here?
+** TODO In internal `.tximport` function, allow NULL tx2gene input when level = "transcripts".
 ** TODO Still need to figure out a way to suppress call dbDisconnect warning from Bioconductor AnnotationHub.
 ** TODO Consider reexporting defunct flatFiles here so we don't break
     bcbio 1.2.8.

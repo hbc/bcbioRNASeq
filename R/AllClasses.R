@@ -1,7 +1,3 @@
-## FIXME Allow NULL tx2gene when level = "transcripts"
-
-
-
 #' bcbio RNA-Seq data set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and

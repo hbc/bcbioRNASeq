@@ -1,8 +1,3 @@
-## FIXME Allow null tx2gene input here, when level = "transcripts"
-## FIXME Need to dynamically set ignoreTxVersion here?
-
-
-
 #' Import transcript-level abundances and counts
 #'
 #' Import RNA-seq counts using
@@ -118,7 +113,6 @@
             )
         }
     ))
-    ## FIXME This is failing for transcript-level check.
     assert(.isTximportReturn(txi))
     txi
 }

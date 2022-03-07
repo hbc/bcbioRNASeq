@@ -1,8 +1,3 @@
-## FIXME Need to update import methods here to include AcidPlots methods
-## for all plotting functions, when possible -- refer to AllGenerics.R.
-
-
-
 ## S4 classes ==================================================================
 
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform

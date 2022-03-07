@@ -398,7 +398,6 @@ bcbioRNASeq <- function(
             )
             assert(is(tx2gene, "Tx2Gene"))
         }
-        ## FIXME Only pass this in when level == "genes"
         txi <- .tximport(
             sampleDirs = sampleDirs,
             type = caller,
