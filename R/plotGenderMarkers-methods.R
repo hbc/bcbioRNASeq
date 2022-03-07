@@ -1,7 +1,7 @@
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
 #' @inherit AcidPlots::plotGenderMarkers
-#' @note Updated 2021-09-10.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
@@ -9,8 +9,10 @@
 #'   See `AcidPlots::plotGenderMarkers()` for details.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
+#' ## Simulate expression of sexually dimorphic gender marker genes.
 #' rownames(bcb)[seq_len(2L)] <- c("ENSMUSG00000086503", "ENSMUSG00000069045")
 #' plotGenderMarkers(bcb)
 NULL

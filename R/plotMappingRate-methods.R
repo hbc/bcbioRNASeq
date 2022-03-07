@@ -1,20 +1,21 @@
 #' @name plotMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotMappingRate
-#' @note Updated 2021-09-10.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotMappingRate(bcb)
 NULL
 
 
 
-## Updated 2021-07-21.
+## Updated 2022-03-07.
 `plotMappingRate,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -26,20 +27,7 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "mapping rate (%)"
         ),
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 17bec6711268 (Draft update)
-        flip = getOption(
-            x = "acid.flip",
-            default = TRUE
-        )
-<<<<<<< HEAD
-=======
         flip = getOption(x = "acid.flip", default = TRUE)
->>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
-=======
->>>>>>> 17bec6711268 (Draft update)
     ) {
         validObject(object)
         assert(
@@ -86,15 +74,9 @@ NULL
         p
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 formals(`plotMappingRate,bcbioRNASeq`)[["flip"]] <-
     formalsList[["flip"]]
 
->>>>>>> d8f572c77c65 (Finish simplifying color handling in QC plots)
-=======
->>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotMappingRate

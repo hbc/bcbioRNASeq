@@ -1,7 +1,7 @@
 #' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidPlots::plotCountsPerFeature
-#' @note Updated 2019-09-16.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
@@ -9,8 +9,9 @@
 #'   See `AcidPlots::plotCountsPerFeature()` for details.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotCountsPerFeature(bcb)
 NULL
 

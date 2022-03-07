@@ -7,8 +7,9 @@
 #' @param ... Additional arguments.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plot5Prime3PrimeBias(bcb)
 NULL
 

@@ -1,14 +1,15 @@
 #' @name plotQC
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plotQC
-#' @note Updated 2021-09-03.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotQC(bcb)
 NULL
 

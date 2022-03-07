@@ -1,7 +1,7 @@
 #' @name plotDispEsts
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plotDispEsts
-#' @note Updated 2021-09-10.
+#' @note Updated 2022-03-07.
 #'
 #' @details
 #' This plot shows the dispersion by mean of normalized counts. We expect the
@@ -18,8 +18,9 @@
 #' - `DESeq2::plotDispEsts()`.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotDispEsts(bcb)
 #'
 #' ## Custom colors, using DESeq2 parameters.

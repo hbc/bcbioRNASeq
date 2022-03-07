@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom AcidPlots plotCorrelationHeatmap
 #' @inherit AcidPlots::plotCorrelationHeatmap
-#' @note Updated 2021-09-10.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
@@ -10,8 +10,9 @@
 #'   See `AcidPlots::plotCorrelationHeatmap()` for details.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotCorrelationHeatmap(bcb, method = "pearson")
 #' plotCorrelationHeatmap(bcb, method = "spearman")
 NULL

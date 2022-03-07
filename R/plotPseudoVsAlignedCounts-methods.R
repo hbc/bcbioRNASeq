@@ -1,7 +1,7 @@
 #' @name plotPseudoVsAlignedCounts
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plotPseudoVsAlignedCounts
-#' @note Updated 2021-05-19.
+#' @note Updated 2022-03-07.
 #'
 #' @note Currently supported for salmon or kallisto. The function will
 #'   intentionally error for datasets containing aligned counts in the primary
@@ -13,9 +13,9 @@
 #'   defined.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
 #'
+#' ## bcbioRNASeq ====
 #' ## Correlation heatmap.
 #' plotPseudoVsAlignedCounts(bcb)
 #'

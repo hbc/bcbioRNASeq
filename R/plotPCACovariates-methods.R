@@ -2,7 +2,7 @@
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit AcidGenerics::plotPCACovariates
 #' @note Requires the DEGreport package to be installed.
-#' @note Updated 2021-09-10.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
@@ -17,8 +17,9 @@
 #' - `DESeq2::varianceStabilizingTransformation()`.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' if (requireNamespace("DEGreport", quietly = TRUE)) {
 #'     plotPCACovariates(bcb)
 #' }

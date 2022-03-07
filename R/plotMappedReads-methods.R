@@ -1,20 +1,21 @@
 #' @name plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotMappedReads
-#' @note Updated 2021-09-10.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotMappedReads(bcb)
 NULL
 
 
 
-## Updated 2021-07-21.
+## Updated 2022-03-07.
 `plotMappedReads,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -27,20 +28,7 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "reads"
         ),
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 17bec6711268 (Draft update)
-        flip = getOption(
-            x = "acid.flip",
-            default = TRUE
-        )
-<<<<<<< HEAD
-=======
         flip = getOption(x = "acid.flip", default = TRUE)
->>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
-=======
->>>>>>> 17bec6711268 (Draft update)
     ) {
         validObject(object)
         assert(
@@ -106,15 +94,9 @@ NULL
         p
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 formals(`plotMappedReads,bcbioRNASeq`)[["flip"]] <-
     formalsList[["flip"]]
 
->>>>>>> 88e8e9be9797 (Improve default color handling)
-=======
->>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotMappedReads

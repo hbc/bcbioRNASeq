@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh, Lorena Patano
 #' @inherit AcidGenerics::plotMeanSD
 #' @note Requires the vsn package to be installed.
-#' @note Updated 2021-09-03.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams bcbioRNASeq
 #' @inheritParams AcidRoxygen::params
@@ -26,8 +26,9 @@
 #' - `edgeR::calcNormFactors()`.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' if (requireNamespace("vsn", quietly = TRUE)) {
 #'     plotMeanSD(bcb)
 #' }
@@ -35,7 +36,7 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2022-03-07.
 `plotMeanSD,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -44,20 +45,7 @@ NULL
             high = AcidPlots::lightPalette[["purple"]]
         ),
         lineColor = AcidPlots::lightPalette[["orange"]],
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 17bec6711268 (Draft update)
-        legend = getOption(
-            x = "acid.legend",
-            default = TRUE
-        )
-<<<<<<< HEAD
-=======
         legend = getOption(x = "acid.legend", default = TRUE)
->>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
-=======
->>>>>>> 17bec6711268 (Draft update)
     ) {
         validObject(object)
         assert(

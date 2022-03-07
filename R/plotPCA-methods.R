@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh
 #' @importMethodsFrom AcidPlots plotPCA
 #' @inherit AcidGenerics::plotPCA
-#' @note Updated 2021-09-10.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
@@ -10,8 +10,9 @@
 #'   See `AcidPlots::plotPCA()` for details.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotPCA(bcb, label = FALSE)
 #' plotPCA(bcb, label = TRUE)
 NULL

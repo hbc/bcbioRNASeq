@@ -10,8 +10,9 @@
 #' Ideally, at least 60 percent of total reads should map to exons for RNA-seq.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotExonicMappingRate(bcb)
 NULL
 

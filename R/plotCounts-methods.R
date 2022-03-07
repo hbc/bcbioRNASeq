@@ -1,7 +1,7 @@
 #' @name plotCounts
 #' @author Michael Steinbaugh
 #' @inherit AcidPlots::plotCounts
-#' @note Updated 2019-09-18.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams counts
@@ -9,15 +9,14 @@
 #'   See `AcidPlots::plotCounts()` for details.
 #'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
 #'
+#' ## bcbioRNASeq ====
 #' g2s <- basejump::Gene2Symbol(bcb)
 #' geneIds <- head(g2s[["geneId"]])
 #' print(geneIds)
 #' geneNames <- head(g2s[["geneName"]])
 #' print(geneNames)
-#'
 #' plotCounts(bcb, genes = geneIds, style = "facet")
 #' plotCounts(bcb, genes = geneNames, style = "wide")
 NULL
