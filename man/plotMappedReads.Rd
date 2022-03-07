@@ -46,11 +46,12 @@ Flip x and y axes. Recommended for plots containing many samples.}
 The number of mapped reads should correspond to the number of total reads.
 }
 \note{
-Updated 2021-09-10.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
 plotMappedReads(bcb)
 }
 \author{

@@ -35,16 +35,16 @@ defined.}
 Plot pseudo vs. aligned counts
 }
 \note{
-Updated 2021-05-19.
+Updated 2022-03-07.
 
 Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
 \code{counts} assay.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
 
+## bcbioRNASeq ====
 ## Correlation heatmap.
 plotPseudoVsAlignedCounts(bcb)
 

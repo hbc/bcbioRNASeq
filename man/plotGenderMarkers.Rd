@@ -72,11 +72,13 @@ This is a convenience function that quickly plots known sexually dimorphic
 genes, and overall gene experssion for the X and Y chromosomes.
 }
 \note{
-Updated 2021-09-10.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
+## Simulate expression of sexually dimorphic gender marker genes.
 rownames(bcb)[seq_len(2L)] <- c("ENSMUSG00000086503", "ENSMUSG00000069045")
 plotGenderMarkers(bcb)
 }

@@ -6,6 +6,8 @@
 \alias{plotCorrelationHeatmap,bcbioRNASeq-method}
 \title{Correlation heatmap}
 \usage{
+plotCorrelationHeatmap(object, ...)
+
 \S4method{plotCorrelationHeatmap}{bcbioRNASeq}(object, normalized = c("vst", "rlog"), ...)
 }
 \arguments{
@@ -66,11 +68,12 @@ Plot.
 Correlation heatmap
 }
 \note{
-Updated 2021-09-10.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
 plotCorrelationHeatmap(bcb, method = "pearson")
 plotCorrelationHeatmap(bcb, method = "spearman")
 }

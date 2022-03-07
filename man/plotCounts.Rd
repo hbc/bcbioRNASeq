@@ -77,21 +77,20 @@ See \code{AcidPlots::plotCounts()} for details.}
 }
 }
 \description{
-Visualize genes on a dot or violin plot.
+Plot counts
 }
 \note{
-Updated 2019-09-18.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
 
+## bcbioRNASeq ====
 g2s <- basejump::Gene2Symbol(bcb)
 geneIds <- head(g2s[["geneId"]])
 print(geneIds)
 geneNames <- head(g2s[["geneName"]])
 print(geneNames)
-
 plotCounts(bcb, genes = geneIds, style = "facet")
 plotCounts(bcb, genes = geneNames, style = "wide")
 }

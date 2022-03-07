@@ -52,11 +52,12 @@ Plot row standard deviations vs. row means
 \note{
 Requires the vsn package to be installed.
 
-Updated 2021-09-03.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
 if (requireNamespace("vsn", quietly = TRUE)) {
     plotMeanSD(bcb)
 }

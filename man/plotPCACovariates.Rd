@@ -77,11 +77,12 @@ Find correlation between principal components (PCs) and covariates
 \note{
 Requires the DEGreport package to be installed.
 
-Updated 2021-09-10.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
 if (requireNamespace("DEGreport", quietly = TRUE)) {
     plotPCACovariates(bcb)
 }

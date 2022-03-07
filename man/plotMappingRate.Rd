@@ -44,11 +44,12 @@ reference genome. Low mapping rates are indicative of sample contamination,
 poor sequencing quality or other artifacts.
 }
 \note{
-Updated 2021-09-10.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
 plotMappingRate(bcb)
 }
 \author{

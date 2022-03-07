@@ -8,8 +8,6 @@
 \usage{
 tmm(object, ...)
 
-tmm(object, ...)
-
 \S4method{tmm}{matrix}(object)
 
 \S4method{tmm}{SummarizedExperiment}(object)

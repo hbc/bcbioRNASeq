@@ -21,11 +21,12 @@ plotQC(object, ...)
 Quality control
 }
 \note{
-Updated 2021-09-03.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
 plotQC(bcb)
 }
 \author{

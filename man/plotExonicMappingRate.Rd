@@ -43,11 +43,12 @@ Flip x and y axes. Recommended for plots containing many samples.}
 Ideally, at least 60 percent of total reads should map to exons for RNA-seq.
 }
 \note{
-Updated 2021-07-21.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
 plotExonicMappingRate(bcb)
 }
 \author{

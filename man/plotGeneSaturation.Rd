@@ -52,11 +52,12 @@ number of mapped reads, which indicates that the sample input was not
 overloaded.
 }
 \note{
-Updated 2021-07-21.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
 plotGeneSaturation(bcb, label = FALSE)
 plotGeneSaturation(bcb, label = TRUE)
 }

@@ -6,10 +6,10 @@
 \alias{as.DGEList}
 \alias{coerce}
 \alias{as.DESeqDataSet,bcbioRNASeq-method}
-\alias{coerce,bcbioRNASeq,DESeqDataSet-method}
 \alias{as.DESeqTransform,bcbioRNASeq-method}
-\alias{coerce,bcbioRNASeq,DESeqTransform-method}
 \alias{as.DGEList,bcbioRNASeq-method}
+\alias{coerce,bcbioRNASeq,DESeqDataSet-method}
+\alias{coerce,bcbioRNASeq,DESeqTransform-method}
 \alias{coerce,bcbioRNASeq,DGEList-method}
 \title{Methods for coercing an object to a class}
 \usage{
