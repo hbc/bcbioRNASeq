@@ -13,10 +13,10 @@ invisible(validObject(bcb))
 bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds"))  # nolint
 invisible(validObject(bcb_fast))
 
-Gene2Symbol <- basejump::Gene2Symbol
-assay <- basejump::assay
+Gene2Symbol <- AcidGenomes::Gene2Symbol
+assay <- SummarizedExperiment::assay
 hasInternet <- goalie::hasInternet
-initDir <- basejump::initDir
+initDir <- AcidBase::initDir
 skip_on_docker <- goalie::skip_on_docker
 
 object <- bcb

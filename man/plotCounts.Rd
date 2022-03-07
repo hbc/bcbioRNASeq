@@ -86,7 +86,7 @@ Updated 2022-03-07.
 data(bcb)
 
 ## bcbioRNASeq ====
-g2s <- basejump::Gene2Symbol(bcb)
+g2s <- AcidGenerics::Gene2Symbol(bcb)
 geneIds <- head(g2s[["geneId"]])
 print(geneIds)
 geneNames <- head(g2s[["geneName"]])

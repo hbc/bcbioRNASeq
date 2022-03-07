@@ -192,8 +192,8 @@ directly with the \code{gffFile} argument.
 Internally, genome annotations are imported via the \href{https://steinbaugh.com/basejump/}{basejump} package,
 specifically with either of these functions:
 \itemize{
-\item \code{basejump::makeGRangesFromEnsembl()}.
-\item \code{basejump::makeGRangesFromGFF()}.
+\item \code{AcidGenomes::makeGRangesFromEnsembl()}.
+\item \code{AcidGenomes::makeGRangesFromGFF()}.
 }
 }
 

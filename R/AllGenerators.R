@@ -81,8 +81,8 @@
 #' Internally, genome annotations are imported via the [basejump][] package,
 #' specifically with either of these functions:
 #'
-#' - `basejump::makeGRangesFromEnsembl()`.
-#' - `basejump::makeGRangesFromGFF()`.
+#' - `AcidGenomes::makeGRangesFromEnsembl()`.
+#' - `AcidGenomes::makeGRangesFromGFF()`.
 #'
 #' [AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
 #' [basejump]: https://steinbaugh.com/basejump/
