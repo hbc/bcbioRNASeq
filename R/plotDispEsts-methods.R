@@ -1,6 +1,7 @@
+#' Plot dispersion estimates
+#'
 #' @name plotDispEsts
 #' @author Michael Steinbaugh
-#' @inherit AcidGenerics::plotDispEsts
 #' @note Updated 2022-03-07.
 #'
 #' @details
@@ -13,6 +14,8 @@
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `DESeqDataSet` method defined in DESeq2.
 #'   See `DESeq2::plotDispEsts()` for details.
+#'
+#' @return `ggplot`.
 #'
 #' @seealso
 #' - `DESeq2::plotDispEsts()`.

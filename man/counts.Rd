@@ -7,7 +7,6 @@
 \title{Counts}
 \usage{
 counts(object, ...)
-
 counts(object, ...) <- value
 
 \S4method{counts}{bcbioRNASeq}(object, normalized = FALSE)
@@ -75,7 +74,7 @@ By default, return the raw counts. Normalized counts in a variety of formats
 can be accessed using the \code{normalized} argument.
 }
 \note{
-Updated 2021-09-10.
+Updated 2022-03-07.
 }
 \examples{
 ## bcbioRNASeq ====

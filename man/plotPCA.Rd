@@ -67,11 +67,12 @@ See \code{AcidPlots::plotPCA()} for details.}
 Principal component analysis plot
 }
 \note{
-Updated 2021-09-10.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
 plotPCA(bcb, label = FALSE)
 plotPCA(bcb, label = TRUE)
 }

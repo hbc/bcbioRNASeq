@@ -1,7 +1,8 @@
+#' Update object
+#'
 #' @name updateObject
 #' @author Michael Steinbaugh
-#' @inherit AcidGenerics::updateObject
-#' @note Updated 2021-09-01.
+#' @note Updated 2022-03-07.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -26,9 +27,12 @@
 #'   `rowRanges` slot. Objects that are >= v0.2 don't require this argument and
 #'   it can be left `NULL`.
 #'
+#' @return Modified object.
+#'
 #' @examples
-#' ## bcbioRNASeq ====
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' updateObject(bcb)
 #'
 #' ## Example that depends on remote file.

@@ -29,11 +29,12 @@ Here we're generating a \code{DESeqDataSet} object on the fly, which already has
 method support for plotting dispersion, provided by the DESeq2 package.
 }
 \note{
-Updated 2021-09-10.
+Updated 2022-03-07.
 }
 \examples{
-## bcbioRNASeq ====
 data(bcb)
+
+## bcbioRNASeq ====
 plotDispEsts(bcb)
 
 ## Custom colors, using DESeq2 parameters.

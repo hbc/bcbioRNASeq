@@ -1,7 +1,8 @@
+#' Counts
+#'
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
-#' @inherit AcidGenerics::counts
-#' @note Updated 2021-09-10.
+#' @note Updated 2022-03-07.
 #'
 #' @details
 #' By default, return the raw counts. Normalized counts in a variety of formats
@@ -55,6 +56,8 @@
 #'
 #' @param value Value to assign.
 #' @param ... Additional arguments.
+#'
+#' @return `matrix`.
 #'
 #' @references
 #' - TMM: Robinson and Oshlack (2010).

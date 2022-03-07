@@ -1,13 +1,15 @@
+#' Principal component analysis plot
+#'
 #' @name plotPCA
 #' @author Michael Steinbaugh
-#' @importMethodsFrom AcidPlots plotPCA
-#' @inherit AcidGenerics::plotPCA
 #' @note Updated 2022-03-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
 #'   See `AcidPlots::plotPCA()` for details.
+#'
+#' @return `ggplot`.
 #'
 #' @examples
 #' data(bcb)
