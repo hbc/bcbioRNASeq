@@ -15,7 +15,7 @@ NULL
 
 #' @importFrom AcidGenerics as.DESeqDataSet as.DESeqTransform as.DGEList
 #'   camelCase encode humanize interestingGroups interestingGroups<- makeNames
-#'   mapGenesToRownames metrics plot5Prime3PrimeBiasplotCorrelationHeatmap
+#'   mapGenesToRownames metrics plot5Prime3PrimeBias plotCorrelationHeatmap
 #'   plotCounts plotCountsCorrelation plotCountsCorrelationHeatmap
 #'   plotCountsPerBiotype plotCountsPerBroadClass plotCountsPerFeature
 #'   plotExonicMappingRate plotGenderMarkers plotGeneSaturation
