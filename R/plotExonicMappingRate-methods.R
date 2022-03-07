@@ -1,7 +1,7 @@
 #' @name plotExonicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotExonicMappingRate
-#' @note Updated 2021-07-21.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -17,7 +17,7 @@ NULL
 
 
 
-## Updated 2021-09-10.
+## Updated 2022-03-07.
 `plotExonicMappingRate,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -29,20 +29,7 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "exonic mapping rate (%)"
         ),
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 17bec6711268 (Draft update)
-        flip = getOption(
-            x = "acid.flip",
-            default = TRUE
-        )
-<<<<<<< HEAD
-=======
         flip = getOption(x = "acid.flip", default = TRUE)
->>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
-=======
->>>>>>> 17bec6711268 (Draft update)
     ) {
         validObject(object)
         assert(
@@ -78,15 +65,7 @@ NULL
         }
         ## Color palette.
         p <- p + autoDiscreteFillScale()
-<<<<<<< HEAD
-<<<<<<< HEAD
         ## Flip.
-=======
-        ## Flip, if desired.
->>>>>>> 58c64d607b3b (Improve color handling)
-=======
-        ## Flip.
->>>>>>> 88e8e9be9797 (Improve default color handling)
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
         }
@@ -98,15 +77,9 @@ NULL
         p
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 formals(`plotExonicMappingRate,bcbioRNASeq`)[["flip"]] <-
     formalsList[["flip"]]
 
->>>>>>> 58c64d607b3b (Improve color handling)
-=======
->>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plotExonicMappingRate

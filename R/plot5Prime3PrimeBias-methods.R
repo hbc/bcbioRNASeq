@@ -63,7 +63,8 @@ NULL
         p
     }
 
-formals(`plot5Prime3PrimeBias,bcbioRNASeq`)[["flip"]] <- formalsList[["flip"]]
+formals(`plot5Prime3PrimeBias,bcbioRNASeq`)[["flip"]] <-
+    formalsList[["flip"]]
 
 
 
