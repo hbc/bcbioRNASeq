@@ -1,21 +1,10 @@
-<<<<<<< HEAD
-## bcbioRNASeq 0.3.43 (UNRELEASED)
+## bcbioRNASeq 0.4.0 (UNRELEASED)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 904213c61327 (Update NEWS)
 ### Minor changes
 
 - Removed internal dependencies on `formalsList` parameters defined in basejump,
   which will be removed in a pending release update.
 
-<<<<<<< HEAD
-=======
->>>>>>> 783d55d60dcc (Update versions)
-=======
->>>>>>> 904213c61327 (Update NEWS)
-=======
 ## bcbioRNASeq 0.3.44 (2021-12-14)
 
 ### Minor changes
@@ -38,7 +27,6 @@
   slot in list does not return named rows when `txOut` is `TRUE` for
   Bioconductor 3.14 release.
 
->>>>>>> origin/master
 ## bcbioRNASeq 0.3.42 (2021-07-27)
 
 ### Minor changes
