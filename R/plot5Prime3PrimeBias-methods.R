@@ -1,7 +1,7 @@
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plot5Prime3PrimeBias
-#' @note Updated 2021-09-10.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -14,7 +14,7 @@ NULL
 
 
 
-## Updated 2021-09-10.
+## Updated 2022-03-07.
 `plot5Prime3PrimeBias,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -25,34 +25,10 @@ NULL
             "sampleAxis" = NULL,
             "metricAxis" = "5'->3' bias"
         ),
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 17bec6711268 (Draft update)
-        flip = getOption(
-            x = "acid.flip",
-            default = TRUE
-        )
-<<<<<<< HEAD
-=======
         flip = getOption(x = "acid.flip", default = TRUE)
->>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
-=======
->>>>>>> 17bec6711268 (Draft update)
     ) {
         validObject(object)
-<<<<<<< HEAD
-<<<<<<< HEAD
         assert(isFlag(flip))
-=======
-        assert(
-            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE),
-            isFlag(flip)
-        )
->>>>>>> 23d4c4234bea (Draft update to label matching)
-=======
-        assert(isFlag(flip))
->>>>>>> 2e9e53ae87b3 (Simplify color handling)
         labels <- matchLabels(labels)
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
@@ -87,14 +63,8 @@ NULL
         p
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 formals(`plot5Prime3PrimeBias,bcbioRNASeq`)[["flip"]] <- formalsList[["flip"]]
 
->>>>>>> 2e9e53ae87b3 (Simplify color handling)
-=======
->>>>>>> 19ac90113549 (Simplify code depending on "formalsList")
 
 
 #' @rdname plot5Prime3PrimeBias
