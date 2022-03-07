@@ -74,9 +74,6 @@ NULL
         p
     }
 
-formals(`plotIntronicMappingRate,bcbioRNASeq`)[["flip"]] <-
-    formalsList[["flip"]]
-
 
 
 #' @rdname plotIntronicMappingRate

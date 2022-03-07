@@ -1,32 +1,80 @@
+## S4 classes ==================================================================
+
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom basejump RangedSummarizedExperiment SummarizedExperiment
 #'   Tx2Gene
 #' @importClassesFrom edgeR DGEList
+NULL
+
+
+
+## S4 generics and methods =====================================================
+
+## FIXME Need to update import methods here to include AcidPlots methods
+## for all plotting functions, when possible -- refer to AllGenerics.R.
+
+#' @importFrom AcidGenerics as.DESeqDataSet as.DESeqTransform as.DGEList
+#'   camelCase encode humanize interestingGroups interestingGroups<- makeNames
+#'   mapGenesToRownames metrics plot5Prime3PrimeBiasplotCorrelationHeatmap
+#'   plotCounts plotCountsCorrelation plotCountsCorrelationHeatmap
+#'   plotCountsPerBiotype plotCountsPerBroadClass plotCountsPerFeature
+#'   plotExonicMappingRate plotGenderMarkers plotGeneSaturation
+#'   plotIntronicMappingRate plotMappedReads plotMappingRate plotPCACovariates
+#'   plotMeanSD plotPseudoVsAlignedCounts plotQC plotRRNAMappingRate
+#'   plotTotalReads relativeLogExpression sampleData showHeader
+#'   slotAlignedCounts stripTranscriptVersions tmm
+#' @importFrom AcidGenomes Tx2Gene
+#' @importFrom BiocGenerics as.data.frame colSums counts counts<- do.call
+#'   estimateSizeFactors plotDispEsts plotPCA rowSums updateObject width
+#' @importFrom S4Vectors Rle cbind droplevels getListElement head lapply mcols
+#'   mcols<- metadata metadata<-
+#' @importFrom SummarizedExperiment assay assay<- assayNames assayNames<- assays
+#'   assays<- colData colData<- rowData rowRanges
+#' @importFrom methods coerce show
+#' @importFrom pipette import
 #'
-#' @importMethodsFrom basejump coerce
-#'
+#' @importMethodsFrom AcidBase showHeader
+#' @importMethodsFrom AcidExperiment humanize interestingGroups
+#'   interestingGroups<- mapGenesToRownames metrics sampleData
+#'   stripTranscriptVersions
+#' @importMethodsFrom AcidGenomes stripTranscriptVersions
+#' @importMethodsFrom AcidPlots plotCountsCorrelation
+#'   plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
+#'   plotCountsPerFeature plotGenderMarkers plotPCA
+#' @importMethodsFrom DESeq2 estimateSizeFactors
+#' @importMethodsFrom pipette coerce encode import
+#' @importMethodsFrom syntactic camelCase makeNames
+NULL
+
+
+
+## S3 generics =================================================================
+
+#' @importFrom edgeR calcNormFactors cpm scaleOffset
+NULL
+
+
+
+## Standard functions ==========================================================
+
+#' @importFrom AcidBase methodFormals realpath showSlotInfo standardizeCall
+#' @importFrom AcidCLI abort alert alertInfo alertSuccess alertWarning dl h1 h2
+#'   h3 toInlineString txt ul
+#' @importFrom AcidExperiment detectLanes importSampleData
+#'   makeSummarizedExperiment matchInterestingGroups
+#' @importFrom AcidGenomes detectOrganism emptyRanges importTx2Gene
+#'   makeGRangesFromEnsembl makeGRangesFromGFF
 #' @importFrom AcidPlots !! acid_coord_flip acid_geom_abline acid_geom_bar
 #'   acid_geom_label_repel acid_scale_y_continuous_nopad autoDiscreteColorScale
-#'   autoDiscreteFillScale matchLabels pretty_breaks plotCountsCorrelation
-#'   plotCountsCorrelationHeatmap sym wrap_plots
-#' @importFrom DESeq2 DESeq DESeqDataSet estimateSizeFactors fpkm rlog
+#'   autoDiscreteFillScale matchLabels pretty_breaks  sym wrap_plots
+#' @importFrom DESeq2 DESeq DESeqDataSet fpkm rlog
 #'   varianceStabilizingTransformation
-#' @importFrom basejump DataFrame Rle SimpleList SummarizedExperiment Tx2Gene
-#'   abort alert alertInfo alertSuccess alertWarning as.data.frame assay assay<-
-#'   assayNames assayNames<- assays assays<- camelCase capture.output cbind
-#'   colData colData<- colSums detectLanes detectOrganism dl do.call droplevels
-#'   emptyRanges encode getListElement h1 h2 h3 head humanize import
-#'   importSampleData importTx2Gene interestingGroups interestingGroups<- lapply
-#'   makeGRangesFromEnsembl makeGRangesFromGFF makeNames
-#'   makeSummarizedExperiment mapGenesToRownames matchInterestingGroups mcols
-#'   mcols<- metadata metadata<- methodFormals metrics packageName
-#'   packageVersion realpath rowData rowRanges rowSums sampleData session_info
-#'   showHeader showSlotInfo standardizeCall stripTranscriptVersions
-#'   toInlineString txt ul width
+#' @importFrom S4Vectors DataFrame SimpleList
+#' @importFrom SummarizedExperiment SummarizedExperiment
 #' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
 #'   getSampleDataFromYAML importDataVersions importProgramVersions projectDir
 #'   runDate sampleDirs
-#' @importFrom edgeR DGEList calcNormFactors cpm scaleOffset
+#' @importFrom edgeR DGEList
 #' @importFrom ggplot2 aes expand_limits geom_point geom_smooth ggplot ggtitle
 #'   guides labs scale_y_continuous theme
 #' @importFrom goalie areDisjointSets areIntersectingSets areSetEqual assert
@@ -34,7 +82,9 @@
 #'   isAFile isAURL isAny isCharacter isDirectory isFile isFlag isGGScale isInt
 #'   isInRange isNonNegative isNumber isPositive isProportion isString isSubset
 #'   validNames validate validateClasses
-#' @importFrom methods as as<- is new setAs setClass setMethod setValidity show
-#'   slot slot<- validObject .hasSlot
+#' @importFrom methods as as<- is new setAs setClass setMethod setValidity slot
+#'   slot<- validObject .hasSlot
+#' @importFrom sessioninfo session_info
 #' @importFrom tximport tximport
+#' @importFrom utils capture.output packageName packageVersion
 NULL

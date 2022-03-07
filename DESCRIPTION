@@ -113,15 +113,23 @@ LazyData: false
 Depends:
     R (>= 4.1)
 Imports:
+    AcidExperiment (>= 0.3.0),
     AcidGenerics (>= 0.6.0),
+    AcidGenomes,
     AcidPlots (>= 0.4.0),
+    BiocGenerics,
     DESeq2 (>= 1.34.0),
+    S4Vectors,
+    SummarizedExperiment,
     bcbioBase (>= 0.7.0),
     edgeR (>= 3.36.0),
     ggplot2 (>= 3.3.5),
     goalie (>= 0.6.0),
     methods,
-    tximport (>= 1.22.0)
+    pipette (>= 0.8.0),
+    sessioninfo,
+    tximport (>= 1.22.0),
+    utils
 Suggests:
     AcidGSEA (>= 0.7.0),
     BiocStyle (>= 2.22.0),

@@ -94,9 +94,6 @@ NULL
         p
     }
 
-formals(`plotMappedReads,bcbioRNASeq`)[["flip"]] <-
-    formalsList[["flip"]]
-
 
 
 #' @rdname plotMappedReads

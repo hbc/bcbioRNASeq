@@ -86,9 +86,6 @@ NULL
         p
     }
 
-formals(`plotGeneSaturation,bcbioRNASeq`)[["label"]] <-
-    formalsList[["label"]]
-
 
 
 #' @rdname plotGeneSaturation
