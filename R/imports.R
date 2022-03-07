@@ -1,3 +1,8 @@
+## FIXME Need to update import methods here to include AcidPlots methods
+## for all plotting functions, when possible -- refer to AllGenerics.R.
+
+
+
 ## S4 classes ==================================================================
 
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
@@ -9,9 +14,6 @@ NULL
 
 
 ## S4 generics and methods =====================================================
-
-## FIXME Need to update import methods here to include AcidPlots methods
-## for all plotting functions, when possible -- refer to AllGenerics.R.
 
 #' @importFrom AcidGenerics as.DESeqDataSet as.DESeqTransform as.DGEList
 #'   camelCase encode humanize interestingGroups interestingGroups<- makeNames
@@ -38,7 +40,7 @@ NULL
 #'   interestingGroups<- mapGenesToRownames metrics sampleData
 #'   stripTranscriptVersions
 #' @importMethodsFrom AcidGenomes stripTranscriptVersions
-#' @importMethodsFrom AcidPlots plotCountsCorrelation
+#' @importMethodsFrom AcidPlots plotCorrelationHeatmap plotCountsCorrelation
 #'   plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
 #'   plotCountsPerFeature plotGenderMarkers plotPCA
 #' @importMethodsFrom DESeq2 estimateSizeFactors

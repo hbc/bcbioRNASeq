@@ -1,6 +1,5 @@
 #' @name plotCorrelationHeatmap
 #' @author Michael Steinbaugh
-#' @importMethodsFrom AcidPlots plotCorrelationHeatmap
 #' @inherit AcidPlots::plotCorrelationHeatmap
 #' @note Updated 2022-03-07.
 #'

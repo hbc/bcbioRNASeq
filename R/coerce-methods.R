@@ -4,9 +4,8 @@
 #'
 #' @name coerce
 #' @author Michael Steinbaugh
-#' @importFrom methods coerce
 #' @exportMethod coerce
-#' @note Updated 2021-09-10.
+#' @note Updated 2022-03-07.
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'

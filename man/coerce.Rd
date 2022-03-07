@@ -40,7 +40,7 @@ Modified object, of desired coercion type.
 Force an object to belong to a class.
 }
 \note{
-Updated 2021-09-10.
+Updated 2022-03-07.
 }
 \section{bcbioRNASeq to DESeqDataSet}{
 
