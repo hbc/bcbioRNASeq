@@ -8,10 +8,10 @@ options(
 )
 
 data(bcb, envir = environment())
-invisible(validObject(bcb))
+## > invisible(validObject(bcb))
 
 bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds"))  # nolint
-invisible(validObject(bcb_fast))
+## > invisible(validObject(bcb_fast))
 
 Gene2Symbol <- AcidGenomes::Gene2Symbol
 assay <- SummarizedExperiment::assay

@@ -56,12 +56,17 @@ objects from versions <= 0.0.20. We changed the name of the package to
 data(bcb)
 
 ## bcbioRNASeq ====
-updateObject(bcb)
+object <- bcb
+object <- updateObject(object)
+validObject(object)
 
 ## Example that depends on remote file.
-## > x <- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))
-## > x <- updateObject(x)
-## > x
+## > object <- import(file.path(
+## >     bcbioRNASeqTestsURL,
+## >     "bcbioRNASeq_0.1.4.rds"
+## > ))
+## > object <- updateObject(object)
+## > validObject(object)
 }
 \author{
 Michael Steinbaugh
