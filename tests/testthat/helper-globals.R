@@ -17,6 +17,7 @@ Gene2Symbol <- AcidGenomes::Gene2Symbol
 assay <- SummarizedExperiment::assay
 hasInternet <- goalie::hasInternet
 initDir <- AcidBase::initDir
+nonzeroRowsAndCols <- AcidGenerics::nonzeroRowsAndCols
 seqnames <- GenomeInfoDb::seqnames
 
 object <- bcb
