@@ -12,3 +12,4 @@
 ^tests$
 ^todo\.org$
 ^vignettes/\.$
+^doc$
