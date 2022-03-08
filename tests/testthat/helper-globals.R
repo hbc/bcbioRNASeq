@@ -17,7 +17,6 @@ Gene2Symbol <- AcidGenomes::Gene2Symbol
 assay <- SummarizedExperiment::assay
 hasInternet <- goalie::hasInternet
 initDir <- AcidBase::initDir
-skip_on_docker <- goalie::skip_on_docker
 
 object <- bcb
 g2s <- Gene2Symbol(object)

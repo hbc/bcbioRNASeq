@@ -74,6 +74,7 @@ test_that("Fast mode in R", {
 test_that("bcbio fastrnaseq pipeline", {
     uploadDir <- file.path("cache", "fastrnaseq")
     object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
+    expect_s4_class(object, "bcbioRNASeq")
 })
 
 test_that("countsFromAbundance", {
@@ -189,7 +190,11 @@ test_that("AnnotationHub", {
 
 ## Aligned counts can only be loaded at gene level.
 test_that("STAR aligned counts", {
-    object <- bcbioRNASeq(uploadDir, caller = "star")
+    object <- bcbioRNASeq(
+        uploadDir = uploadDir,
+        caller = "star",
+        level = "genes"
+    )
     expect_s4_class(object, "bcbioRNASeq")
     expect_identical(
         object = assayNames(object),
@@ -227,14 +232,12 @@ test_that("User-defined sample metadata", {
 test_that("Sample selection", {
     keep <- paste0("control_rep", seq_len(3L))
     censor <- paste0("fa_day7_rep", seq_len(3L))
-
     ## Keep only control samples.
     object <- bcbioRNASeq(uploadDir = uploadDir, samples = keep)
     expect_identical(
         object = colnames(object),
         expected = keep
     )
-
     ## Censor the folic acid samples.
     object <- bcbioRNASeq(uploadDir, censorSamples = censor)
     expect_identical(
@@ -247,8 +250,6 @@ test_that("Sample selection", {
 ## we're only testing GTF here for speed. This functionality is covered in
 ## basejump tests also.
 test_that("GTF/GFF file", {
-    skip_on_appveyor()
-    skip_on_docker()
     for (level in eval(formals(bcbioRNASeq)[["level"]])) {
         gffURL <- paste(
             "ftp://ftp.ensembl.org",
