@@ -1,8 +1,9 @@
 ## S4 classes ==================================================================
 
+#' @importClassesFrom AcidGenomes Tx2Gene
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
-#' @importClassesFrom basejump RangedSummarizedExperiment SummarizedExperiment
-#'   Tx2Gene
+#' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
+#'   SummarizedExperiment
 #' @importClassesFrom edgeR DGEList
 NULL
 

@@ -113,6 +113,8 @@ LazyData: false
 Depends:
     R (>= 4.1)
 Imports:
+    AcidBase (>= 0.5.0),
+    AcidCLI (>= 0.1.8),
     AcidExperiment (>= 0.3.0),
     AcidGenerics (>= 0.6.0),
     AcidGenomes,
@@ -128,6 +130,7 @@ Imports:
     methods,
     pipette (>= 0.8.0),
     sessioninfo,
+    syntactic (>= 0.5.1),
     tximport (>= 1.22.0),
     utils
 Suggests:
