@@ -16,7 +16,7 @@
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
 #'   migrated to `RangedSummarizedExperiment`.
-#' @note Updated 2021-04-02.
+#' @note Updated 2022-03-07.
 #' @export
 setClass(
     Class = "bcbioRNASeq",
@@ -64,7 +64,10 @@ setValidity(
                 x = "interestingGroups",
                 y = colnames(colData(object))
             ),
-            msg = "'interestingGroups' column is not allowed in 'colData'."
+            msg = sprintf(
+                "{.var %s} column is not allowed in {.fun %s}.",
+                "interestingGroups", "colData"
+            )
         )
         if (!isTRUE(ok)) {
             return(ok)
@@ -74,7 +77,10 @@ setValidity(
                 x = metadata[["interestingGroups"]],
                 y = colnames(colData(object))
             ),
-            msg = "Interesting groups metadata not defined in 'colData'."
+            msg = sprintf(
+                "Interesting groups metadata not defined in {.fun %s}.",
+                "colData"
+            )
         )
         if (!isTRUE(ok)) {
             return(ok)
@@ -107,27 +113,17 @@ setValidity(
         if (!isTRUE(ok)) {
             return(ok)
         }
-        ## Class checks (order independent).
-        df <- "DataFrame"
-        if (isTRUE(packageVersion("S4Vectors") >= "0.23")) {
-            df <- c("DataFrame", df)
-        }
-        ## Relaxed validity checks against `dataVersions`, `programsVersions`
-        ## in v0.3.31, since this was reported to cause errors in upgrade from
-        ## v0.2.9, which is still used by bcbio-nextgen conda recipe.
-        ## See issue: https://github.com/hbc/bcbioRNASeq/issues/146
+        ## Class checks.
+        df <- c("DFrame", "DataFrame")
         ok <- validateClasses(
             object = metadata,
             expected = list(
-                ## > "dataVersions" = df,
-                ## Renamed "version" to "packageVersion" on 2021-03-16.
-                ## > "packageVersion" = "package_version",
-                ## > "programVersions" = df,
                 "allSamples" = "logical",
                 "bcbioCommandsLog" = "character",
                 "bcbioLog" = "character",
                 "call" = "call",
                 "caller" = "character",
+                "dataVersions" = df,
                 "date" = "Date",
                 "ensemblRelease" = "integer",
                 "genomeBuild" = "character",
@@ -136,6 +132,8 @@ setValidity(
                 "lanes" = "integer",
                 "level" = "character",
                 "organism" = "character",
+                "packageVersion" = "package_version",
+                "programVersions" = df,
                 "projectDir" = "character",
                 "runDate" = "Date",
                 "sampleDirs" = "character",
@@ -168,15 +166,17 @@ setValidity(
             if (!isTRUE(ok)) {
                 return(ok)
             }
-            ok <- validateClasses(
-                object = metadata,
-                expected = list(
-                    tx2gene = "Tx2Gene"
-                ),
-                subset = TRUE
-            )
-            if (!isTRUE(ok)) {
-                return(ok)
+            if (identical(metadata[["level"]], "genes")) {
+                ok <- validateClasses(
+                    object = metadata,
+                    expected = list(
+                        "tx2gene" = "Tx2Gene"
+                    ),
+                    subset = TRUE
+                )
+                if (!isTRUE(ok)) {
+                    return(ok)
+                }
             }
         }
         ## Assays --------------------------------------------------------------
@@ -201,7 +201,7 @@ setValidity(
         }
         if (caller %in% .tximportCallers) {
             ok <- validate(isSubset(.tximportAssays, assayNames))
-        } else if (caller %in% .featureCountsCallers) {
+        } else if (isSubset(caller, .featureCountsCallers)) {
             ok <- validate(isSubset(.featureCountsAssays, assayNames))
         }
         if (!isTRUE(ok)) {
@@ -209,8 +209,8 @@ setValidity(
         }
         ## Check for average transcript length matrix, if necessary.
         if (
-            metadata[["caller"]] %in% .tximportCallers &&
-            metadata[["countsFromAbundance"]] == "no"
+            isSubset(metadata[["caller"]], .tximportCallers) &&
+            identical(metadata[["countsFromAbundance"]], "no")
         ) {
             ok <- validate(isSubset("avgTxLength", assayNames))
             if (!isTRUE(ok)) {
@@ -245,6 +245,6 @@ setValidity(
             return(ok)
         }
         ## Return.
-        TRUE
+        return(TRUE)
     }
 )
