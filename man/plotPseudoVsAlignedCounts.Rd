@@ -35,7 +35,7 @@ defined.}
 Plot pseudo vs. aligned counts
 }
 \note{
-Updated 2022-03-07.
+Updated 2022-03-08.
 
 Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
@@ -50,7 +50,7 @@ plotPseudoVsAlignedCounts(bcb)
 
 ## Individual genes.
 ## Checking the most expressed aligned genes here.
-aligned <- assay(bcb, i = "aligned")
+aligned <- SummarizedExperiment::assay(bcb, i = "aligned")
 genes <- names(tail(sort(rowSums(aligned)), n = 2L))
 plotPseudoVsAlignedCounts(bcb, genes = genes)
 }
