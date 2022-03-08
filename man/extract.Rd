@@ -104,7 +104,6 @@ object[genes, ]
 ## Extract by both genes and samples.
 x <- object[genes, samples]
 print(x)
-assayNames(x)
 
 ## Fast subsetting, by skipping DESeq2 recalculations.
 ## Note that `normalized`, `rlog`, and `vst` assays will be removed.
