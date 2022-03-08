@@ -111,7 +111,8 @@ License: AGPL-3
 Encoding: UTF-8
 LazyData: false
 Depends:
-    R (>= 4.1)
+    R (>= 4.1),
+    SummarizedExperiment (>= 1.24.0)
 Imports:
     AcidBase (>= 0.5.0),
     AcidCLI (>= 0.1.8),
@@ -122,7 +123,6 @@ Imports:
     BiocGenerics,
     DESeq2 (>= 1.34.0),
     S4Vectors,
-    SummarizedExperiment,
     bcbioBase (>= 0.7.0),
     edgeR (>= 3.36.0),
     ggplot2 (>= 3.3.5),

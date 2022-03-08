@@ -13,7 +13,8 @@ data(bcb, envir = environment())
 bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds"))  # nolint
 ## > invisible(validObject(bcb_fast))
 
-Gene2Symbol <- AcidGenomes::Gene2Symbol
+Gene2Symbol <- AcidGenerics::Gene2Symbol
+`sampleData<-` <- AcidGenerics::`sampleData<-`
 assay <- SummarizedExperiment::assay
 hasInternet <- goalie::hasInternet
 initDir <- AcidBase::initDir
