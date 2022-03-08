@@ -96,23 +96,12 @@ offsets for a log-link GLM.
 data(bcb)
 
 ## bcbioRNASeq to DESeqDataSet ====
-x <- as(bcb, "DESeqDataSet")
-names(mcols(x))
+x <- as.DESeqDataSet(bcb)
 class(x)
-show(x)
 
-## bcbioRNASeq to RangedSummarizedExperiment ====
-x <- as(bcb, "RangedSummarizedExperiment")
-slotNames(x)
-show(x)
-
-## bcbioRNASeq to SummarizedExperiment ====
-## Coerce to RangedSummarizedExperiment first.
-x <- as(bcb, "RangedSummarizedExperiment")
-x <- as(x, "SummarizedExperiment")
+## bcbioRNASeq to DESeqTransform ====
+x <- as.DESeqTransform(bcb)
 class(x)
-slotNames(x)
-show(x)
 }
 \seealso{
 \itemize{

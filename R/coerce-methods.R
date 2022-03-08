@@ -61,23 +61,12 @@
 #' data(bcb)
 #'
 #' ## bcbioRNASeq to DESeqDataSet ====
-#' x <- as(bcb, "DESeqDataSet")
-#' names(mcols(x))
-#' class(x)
-#' show(x)
+#' dds <- as.DESeqDataSet(bcb)
+#' class(dds)
 #'
-#' ## bcbioRNASeq to RangedSummarizedExperiment ====
-#' x <- as(bcb, "RangedSummarizedExperiment")
-#' slotNames(x)
-#' show(x)
-#'
-#' ## bcbioRNASeq to SummarizedExperiment ====
-#' ## Coerce to RangedSummarizedExperiment first.
-#' x <- as(bcb, "RangedSummarizedExperiment")
-#' x <- as(x, "SummarizedExperiment")
-#' class(x)
-#' slotNames(x)
-#' show(x)
+#' ## bcbioRNASeq to DESeqTransform ====
+#' dt <- as.DESeqTransform(bcb)
+#' class(dt)
 NULL
 
 
@@ -130,9 +119,9 @@ NULL
         to <- `new,DESeqDataSet`(se = se, quiet = quiet)
         if (!isTRUE(quiet)) {
             alertInfo(sprintf(
-                fmt = paste(
+                paste(
                     "Set the design formula with {.fun %s}",
-                    "and run {.fun %s}.",
+                    "and run {.fun %s}."
                 ),
                 "design", "DESeq"
             ))
