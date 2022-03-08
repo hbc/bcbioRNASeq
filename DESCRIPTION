@@ -137,6 +137,7 @@ Suggests:
     DESeqAnalysis (>= 0.4.5),
     DOSE (>= 3.20.0),
     EnsDb.Hsapiens.v75 (>= 2.99.0),
+    GenomeInfoDb,
     basejump (>= 0.15.0),
     clusterProfiler (>= 4.2.0),
     enrichplot (>= 1.14.0),
