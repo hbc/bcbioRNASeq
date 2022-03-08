@@ -109,7 +109,6 @@ print(x)
 ## Note that `normalized`, `rlog`, and `vst` assays will be removed.
 x <- object[, samples, recalculate = FALSE]
 print(x)
-names(assays(x))
 }
 \references{
 Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988)

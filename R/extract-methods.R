@@ -45,7 +45,6 @@
 #' ## Note that `normalized`, `rlog`, and `vst` assays will be removed.
 #' x <- object[, samples, recalculate = FALSE]
 #' print(x)
-#' names(assays(x))
 NULL
 
 
