@@ -19,7 +19,7 @@ bcb <- bcbioRNASeq(
     ensemblRelease = 90L
 )
 ## DESeq2 doesn't like spaces in design formula factors.
-bcb[["treatment"]] <- snake(bcb[["treatment"]])
+bcb[["treatment"]] <- snakeCase(bcb[["treatment"]])
 ## Report the size of each slot in bytes.
 lapply(coerceToList(bcb), obj_size)
 stopifnot(
@@ -27,4 +27,4 @@ stopifnot(
     is(bcb, "bcbioRNASeq"),
     validObject(bcb)
 )
-usethis::use_data(bcb, overwrite = TRUE, compress = "xz")
+use_data(bcb, overwrite = TRUE, compress = "xz")
