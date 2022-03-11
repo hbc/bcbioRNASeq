@@ -5,7 +5,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-03-07.
+## Updated 2022-03-11.
 params:
   title: "Differential expression with DESeq2"
 
@@ -44,7 +44,7 @@ params:
   ## Directory where results, including CSV files, will be saved.
   results_dir: !r file.path("results", Sys.Date(), "differential-expression")
 
-title: "`r params$title`"
+title: "`r params[['title']]`"
 author: "`r getOption('author')`"
 date: "`r Sys.Date()`"
 
@@ -62,11 +62,11 @@ suppressPackageStartupMessages({
 })
 prepareTemplate()
 source("_setup.R")
-```
-
-```{r dir-create}
 invisible(lapply(
-    X = c(params$data_dir, params$results_dir),
+    X = c(
+        params[["data_dir"]],
+        params[["results_dir"]]
+    ),
     FUN = initDir
 ))
 ```
@@ -91,19 +91,14 @@ print(object)
 
 # Create `DESeqDataSet`
 
-Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to a `DESeqDataSet`. This prepares a gene-level `RangedSummarizedExperiment` with raw integer counts defined in the `assay()` slot. Internally this uses the `DESeqDataSet()` constructor function and sets an empty design formula. The desired design formula can be set with the `design()` function.
+Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to
+a `DESeqDataSet`. This prepares a gene-level `RangedSummarizedExperiment` with
+raw integer counts defined in the `assay()` slot. Internally this uses the
+`DESeqDataSet()` constructor function and sets an empty design formula. The
+desired design formula can be set with the `design()` function.
 
 ```{r coerce-bcb-to-dds}
-## Coerce bcbioRNASeq to DESeqDataSet.
-## > help(topic = "coerce", package = "bcbioRNASeq")
-## > getMethod(
-## >     f = "coerce",
-## >     signature = signature(
-## >         from = "bcbioRNASeq",
-## >         to = "DESeqDataSet"
-## >     )
-## > )
-dds <- as(object, "DESeqDataSet")
+dds <- as.DESeqDataSet(object)
 assert(
     is(dds, "DESeqDataSet"),
     validObject(dds)
@@ -113,55 +108,89 @@ print(dds)
 
 # Design
 
-The design formula, specified with the `design()` function, must contain factor columns in `colData()` / `sampleData()`.
+The design formula, specified with the `design()` function, must contain factor
+columns in `colData()` / `sampleData()`.
 
-Ensure that all relevant factor columns in `sampleData()` contain valid names (see `make.names()` for details) prior to setting the design. We recommend using the `snakeCase()` function to automatically sanitize all factors into snake case.
+Ensure that all relevant factor columns in `sampleData()` contain valid names
+(see `make.names()` for details) prior to setting the design. We recommend
+using the `snakeCase()` function to automatically sanitize all factors into
+snake case.
 
 ```{r design}
 ## > colnames(colData(dds))
-design(dds) <- params$design
+design(dds) <- params[["design"]]
 ```
 
 # Pre-filtering
 
-While it is not necessary to pre-filter low count genes before running the DESeq2 functions, there are two reasons which make pre-filtering useful: by removing rows in which there are very few reads, we reduce the memory size of the dds data object, and we increase the speed of the transformation and testing functions within DESeq2. Here we perform a minimal pre-filtering to keep only rows that have at least 10 reads total. Note that more strict filtering to increase power is automatically applied via independent filtering on the mean of normalized counts within the `results()` function.
+While it is not necessary to pre-filter low count genes before running the
+DESeq2 functions, there are two reasons which make pre-filtering useful: by
+removing rows in which there are very few reads, we reduce the memory size of
+the dds data object, and we increase the speed of the transformation and
+testing functions within DESeq2. Here we perform a minimal pre-filtering to
+keep only rows that have at least 10 reads total. Note that more strict
+filtering to increase power is automatically applied via independent filtering
+on the mean of normalized counts within the `results()` function.
 
 ```{r prefilter, eval=FALSE}
 ## Note that this criteria can be made more stringent.
 ## Refer to DESeq2 vignette for examples.
-keep <- rowSums(counts(dds)) >= 10
+keep <- rowSums(counts(dds)) >= 10L
 dds <- dds[keep, ]
 print(dds)
 ```
 
 # Factor reference level
 
-By default, [R][] will choose a reference level for factors based on alphabetical order. Then, if you never tell the [DESeq2][] functions which level you want to compare against (e.g. which level represents the control group), the comparisons will be based on the alphabetical order of the levels. There are two solutions: you can either explicitly tell results which comparison to make using the contrast argument (this will be shown later), or you can explicitly set the factors levels. You should only change the factor levels of variables in the design before running the [DESeq2][] analysis, not during or afterward. Setting the factor levels can be done in two ways, using either the `factor()` or `relevel()` functions. Generally we recommend using `relevel()` here.
+By default, [R][] will choose a reference level for factors based on
+alphabetical order. Then, if you never tell the [DESeq2][] functions which
+level you want to compare against (e.g. which level represents the control
+group), the comparisons will be based on the alphabetical order of the levels.
+There are two solutions: you can either explicitly tell results which
+comparison to make using the contrast argument (this will be shown later), or
+you can explicitly set the factors levels. You should only change the factor
+levels of variables in the design before running the [DESeq2][] analysis, not
+during or afterward. Setting the factor levels can be done in two ways, using
+either the `factor()` or `relevel()` functions. Generally we recommend using
+`relevel()` here.
 
 ```{r relevel, eval=FALSE}
 ## Including this code here for reference only.
 
 ## Specify the reference level (preferred).
-## > dds$treatment <- relevel(dds$group, ref = "control")
+## > colData(dds)[["group"]] <-
+## >     relevel(colData(dds)[["group"]], ref = "control")
 
 ## Alternatively, can explicitly define, using `factor()`.
 ## When using this approach, put the reference level (control) first.
-## > dds$treatment <- factor(dds$group, levels = c("treatment", "control"))
+## > colData(dds)[["group"]] <-
+## >     factor(colData(dds)[["group"]], levels = c("treatment", "control"))
 
 ## If samples have been subset, ensure that the levels match.
-## > dds$treatment <- droplevels(dds$group)
+## > colData(dds)[["treatment"]] <- droplevels(colData(dds)[["group"]])
 ```
 
 # Differential expression analysis
 
-Now that our `DESeqDataSet` is properly set up, we can move on to performing the differential expression. The standard differential expression analysis steps for [DESeq2][] are wrapped into a single function, `DESeq()`. Results tables are generated using the function `results()`, which extracts a results table with log2 fold changes, *P* values and adjusted *P* values. With no additional arguments to `results()`, the log2 fold change and Wald test *P* value will be for the last variable in the design formula (`design()`), and if this is a factor, the comparison will be the last level of this variable over the reference level (see previous note on factor levels). However, the order of the variables of the design do not matter so long as the user specifies the comparison to build a results table for, using the name or contrast arguments of results.
+Now that our `DESeqDataSet` is properly set up, we can move on to performing
+the differential expression. The standard differential expression analysis
+steps for [DESeq2][] are wrapped into a single function, `DESeq()`. Results
+tables are generated using the function `results()`, which extracts a results
+table with log2 fold changes, *P* values and adjusted *P* values. With no
+additional arguments to `results()`, the log2 fold change and Wald test *P*
+value will be for the last variable in the design formula (`design()`), and if
+this is a factor, the comparison will be the last level of this variable over
+the reference level (see previous note on factor levels). However, the order of
+the variables of the design do not matter so long as the user specifies the
+comparison to build a results table for, using the name or contrast arguments
+of results.
 
 ```{r deseq}
 dds <- DESeq(dds)
 saveRDS(
     object = dds,
     file = file.path(
-        params$data_dir,
+        params[["data_dir"]],
         paste0(name, "_dds.rds")
     )
 )
@@ -169,7 +198,10 @@ saveRDS(
 
 # Variance stabilization
 
-After we perform the differential expression, we need to calculate variance-stabilized counts, which are stored in a `DESeqTransform` object. These transformed counts are useful for visualization. We currently recommend using `varianceStabilizingTransformation()` but `rlog()` is a good alternate.
+After we perform the differential expression, we need to calculate
+variance-stabilized counts, which are stored in a `DESeqTransform` object.
+These transformed counts are useful for visualization. We currently recommend
+using `varianceStabilizingTransformation()` but `rlog()` is a good alternate.
 
 ```{r variance-stabilization}
 ## Alternatively, can use `rlog()` here instead, but it is slower.
@@ -179,7 +211,7 @@ interestingGroups(dt) <- interestingGroups(object)
 saveRDS(
     object = dt,
     file = file.path(
-        params$data_dir,
+        params[["data_dir"]],
         paste0(name, "_dt.rds")
     )
 )
@@ -195,61 +227,68 @@ For contrast argument as character vector:
 
 ```{r contrasts}
 ## factor; numerator; denominator
-## > levels(dds$genotype)
+## > levels(colData(dds[["group"]]))
 ## > help(topic = "results", package = "DESeq2")
-print(params$contrasts)
+print(params[["contrasts"]])
 ```
 
 ```{r res-unshrunken}
-res_list_unshrunken <- mapply(
-    FUN = DESeq2::results,
-    contrast = params$contrasts,
-    MoreArgs = list(
-        "object" = dds,
-        "alpha" = params$alpha_threshold,
-        "lfcThreshold" = params$lfc_threshold
-    ),
-    SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
-)
-names(res_list_unshrunken) <- names(params$contrasts)
+res_list_unshrunken <-  # nolint
+    mapply(
+        FUN = DESeq2::results,
+        contrast = params[["contrasts"]],
+        MoreArgs = list(
+            "object" = dds,
+            "alpha" = params[["alpha_threshold"]],
+            "lfcThreshold" = params[["lfc_threshold"]]
+        ),
+        SIMPLIFY = FALSE,
+        USE.NAMES = FALSE
+    )
+names(res_list_unshrunken) <- names(params[["contrasts"]])
 saveRDS(
     object = res_list_unshrunken,
     file = file.path(
-        params$data_dir,
+        params[["data_dir"]],
         paste0(name, "_res_list_unshrunken.rds")
     )
 )
 ```
 
-Now let's calculate shrunken log2 fold change values with `DESeq2::lfcShrink()`. We're using the "normal" shrinkage estimator (default in DESeq2); the "apeglm" shrinkage estimator is also promising but doens't work well with complex contrast designs.
+Now let's calculate shrunken log2 fold change values with
+`DESeq2::lfcShrink()`. We're using the "normal" shrinkage estimator (default in
+DESeq2); the "apeglm" shrinkage estimator is also promising but doens't work
+well with complex contrast designs.
 
 ```{r res-shrunken}
 ## Refer to DESeqAnalysis package if you want to use newer apeglm instead.
 ## See `help(topic = "apeglmResults", package = "DESeqAnalysis")` for details.
-res_list_shrunken <- mapply(
-    FUN = DESeq2::lfcShrink,
-    res = res_list_unshrunken,
-    contrast = params$contrasts,
-    MoreArgs = list(
-        "dds" = dds,
-        "type" = "normal",
-        "alpha" = params$alpha_threshold,
-        "lfcThreshold" = params$lfc_threshold
-    ),
-    SIMPLIFY = FALSE,
-    USE.NAMES = TRUE
-)
+res_list_shrunken <-  # nolint
+    mapply(
+        FUN = DESeq2::lfcShrink,
+        res = res_list_unshrunken,
+        contrast = params[["contrasts"]],
+        MoreArgs = list(
+            "dds" = dds,
+            "type" = "normal",
+            "alpha" = params[["alpha_threshold"]],
+            "lfcThreshold" = params[["lfc_threshold"]]
+        ),
+        SIMPLIFY = FALSE,
+        USE.NAMES = TRUE
+    )
 saveRDS(
     object = res_list_shrunken,
     file = file.path(
-        params$data_dir,
+        params[["data_dir"]],
         paste0(name, "_res_list_shrunken.rds")
     )
 )
 ```
 
-We performed the analysis using a BH adjusted *P* value cutoff of `r params$lfc_threshold` and a log fold-change (LFC) ratio cutoff of `r params$lfc_threshold`.
+We performed the analysis using a BH adjusted *P* value cutoff of
+`r params[["alpha_threshold"]]` and a log fold-change (LFC) ratio cutoff of
+`r params[["lfc_threshold"]]`.
 
 # Package into `DESeqAnalysis` object
 
@@ -263,7 +302,7 @@ deseq <- DESeqAnalysis(
 saveRDS(
     object = deseq,
     file = file.path(
-        params$data_dir,
+        params[["data_dir"]],
         paste0(name, "_deseqanalysis.rds")
     )
 )
@@ -273,7 +312,8 @@ saveRDS(
 
 ## MA plot {.tabset}
 
-An MA plot compares transformed counts on `M` (log ratio) and `A` (mean average) scales [@Yang2002-sx].
+An MA plot compares transformed counts on `M` (log ratio) and `A` (mean
+average) scales [@Yang2002-sx].
 
 ```{r plot-ma, results="asis"}
 invisible(mapply(
@@ -290,7 +330,10 @@ invisible(mapply(
 
 ## Volcano plot {.tabset}
 
-A volcano plot compares significance (BH-adjusted *P* value) against fold change (log2) [@Cui2003-rn; @Li2014-ll]. Genes in the green box with text labels have an adjusted *P* value are likely to be the top candidate genes of interest.
+A volcano plot compares significance (BH-adjusted *P* value) against fold
+change (log2) [@Cui2003-rn; @Li2014-ll]. Genes in the green box with text
+labels have an adjusted *P* value are likely to be the top candidate genes of
+interest.
 
 ```{r plot-volcano, results="asis"}
 invisible(mapply(
@@ -322,7 +365,9 @@ invisible(mapply(
 
 ## DEG Heatmap {.tabset}
 
-This plot shows only differentially expressed genes on a per-sample basis. We have scaled the data by row and used the `ward.D2` method for clustering [@Ward1963-xf].
+This plot shows only differentially expressed genes on a per-sample basis. We
+have scaled the data by row and used the `ward.D2` method for clustering
+[@Ward1963-xf].
 
 ```{r plot-deg-heatmap, results="asis"}
 invisible(mapply(
@@ -343,7 +388,7 @@ invisible(mapply(
 
 ## Top tables
 
-Only the top up- and down-regulated genes (arranged by log2 fold change) are shown.
+Only the top up- and down-regulated genes are shown.
 
 ```{r top-tables, results="asis"}
 invisible(mapply(
@@ -360,20 +405,25 @@ invisible(mapply(
 
 # Export results
 
-Subset the results into separate tables, containing all genes, differentially expressed genes in both directions, and directional tables.
+Subset the results into separate tables, containing all genes, differentially
+expressed genes in both directions, and directional tables.
 
 ```{r export-results}
-export(object = deseq, dir = params$results_dir)
+export(
+    object = deseq,
+    con = params[["results_dir"]]
+)
 ```
 
-Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value, and contain the following columns:
+Differentially expressed gene (DEG) tables are sorted by BH-adjusted P value,
+and contain the following columns:
 
 - `baseMean`: Mean of the normalized counts per gene for all samples.
 - `log2FoldChange`: log2 fold change.
 - `lfcSE`: log2 standard error.
 - `stat`: Wald statistic.
 - `pvalue`: Walt test *P* value.
-- `padj`: BH adjusted Wald test *P* value (corrected for multiple comparisons; aka FDR).
+- `padj`: BH adjusted Wald test *P* value, corrected for multiple comparisons.
 
 ```{r footer, child="_footer.Rmd"}
 ```
