@@ -6,7 +6,7 @@
 
 ## Workflow paper
 
-Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][workflow paper] *F1000Research* 6:1976.
+Steinbaugh MJ, Pantano L, Kirchner RD, Barrera V, Chapman BA, Piper ME, Mistry M, Khetani RS, Rutherford KD, Hoffman O, Hutchinson JN, Ho Sui SJ. (2018). [bcbioRNASeq: R package for bcbio RNA-seq analysis.][workflow paper] _F1000Research_ 6:1976.
 
 ```r
 citation("bcbioRNASeq")
@@ -14,9 +14,7 @@ citation("bcbioRNASeq")
 
 ## Installation
 
-Requirements: [R][] >= 4.0, [Bioconductor][] >= 3.12.
-
-### [R][] method
+This is an [R][] package.
 
 ```r
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
@@ -27,7 +25,8 @@ install.packages(
     repos = c(
         "https://r.acidgenomics.com",
         BiocManager::repositories()
-    )
+    ),
+    dependencies = TRUE
 )
 ```
 
@@ -83,7 +82,7 @@ When loading a [bcbio][] RNA-seq run, the sample metadata will be imported autom
 The samples in the [bcbio][] run must map to the `description` column. The values provided in `description` must be unique. These values will be sanitized into syntactically valid names (see `help("make.names")`), and assigned as the column names of the `bcbioRNASeq` object. The original values are stored as the `sampleName` column in `colData()`, and are used for all plotting functions.
 
 | description | genotype |
-|-------------|----------|
+| ----------- | -------- |
 | sample1     | wildtype |
 | sample2     | knockout |
 | sample3     | wildtype |
