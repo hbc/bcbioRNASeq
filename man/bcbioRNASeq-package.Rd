@@ -11,8 +11,8 @@ data.
 Useful links:
 \itemize{
   \item \url{https://r.acidgenomics.com/packages/bcbiornaseq/}
-  \item \url{https://github.com/acidgenomics/r-bcbiornaseq/}
-  \item Report bugs at \url{https://github.com/acidgenomics/r-bcbiornaseq/issues/}
+  \item \url{https://github.com/hbc/bcbioRNASeq/}
+  \item Report bugs at \url{https://github.com/hbc/bcbioRNASeq/issues/}
 }
 
 }
@@ -29,6 +29,7 @@ Authors:
   \item Meeta Mistry \email{meeta.mistry@gmail.com} (\href{https://orcid.org/0000-0002-5830-9479}{ORCID})
   \item Radhika Khetani \email{rkhetani@hsph.harvard.edu} (\href{https://orcid.org/0000-0003-2430-2970}{ORCID})
   \item Kayleigh Rutherford \email{kayrut1@gmail.com} (\href{https://orcid.org/0000-0001-9699-2363}{ORCID})
+  \item Sergey Naumenko (\href{https://orcid.org/0000-0002-6218-7734}{ORCID})
   \item Oliver Hofmann \email{ohofmann72@gmail.com} (\href{https://orcid.org/0000-0002-7738-1513}{ORCID})
   \item John Hutchinson \email{jnhutchinson@gmail.com} (\href{https://orcid.org/0000-0002-7804-7576}{ORCID})
   \item Shannan Ho Sui \email{shosui@hsph.harvard.edu} (\href{https://orcid.org/0000-0002-6191-4709}{ORCID})
@@ -37,6 +38,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Harvard Chan Bioinformatics Core \email{bioinformatics@hsph.harvard.edu} [copyright holder, funder]
+  \item Acid Genomics [copyright holder, funder]
 }
 
 }

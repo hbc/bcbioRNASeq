@@ -12,8 +12,6 @@ plotTotalReads(object, ...)
   interestingGroups = NULL,
   limit = 20000000L,
   perMillion = TRUE,
-  fill = getOption(x = "acid.fill.discrete", default = getOption(x =
-    "ggplot2.discrete.fill", default = AcidPlots::scale_fill_synesthesia_d())),
   labels = list(title = "Total reads", subtitle = NULL, sampleAxis = NULL, metricAxis =
     "reads"),
   flip = getOption(x = "acid.flip", default = TRUE)
@@ -32,14 +30,6 @@ Threshold limit.}
 \item{perMillion}{\code{logical(1)}.
 Display as counts per million.}
 
-\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
-Desired ggplot2 fill scale. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{ggplot2::scale_fill_manual()}.
-
-To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
-}}
-
 \item{labels}{\code{list}.
 ggplot2 labels.
 See \code{\link[ggplot2:labs]{ggplot2::labs()}} for details.}
@@ -57,10 +47,12 @@ High quality RNA-seq samples ideally should have at least 10 million reads
 per sample.
 }
 \note{
-Updated 2021-07-21.
+Updated 2022-03-07.
 }
 \examples{
 data(bcb)
+
+## bcbioRNASeq ====
 plotTotalReads(bcb)
 }
 \author{

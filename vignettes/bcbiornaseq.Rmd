@@ -36,6 +36,7 @@ citation("bcbioRNASeq")
 
 ```{r message=FALSE}
 suppressPackageStartupMessages({
+    library(basejump)
     library(bcbioRNASeq)
 })
 ```

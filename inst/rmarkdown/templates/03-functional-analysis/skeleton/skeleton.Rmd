@@ -10,7 +10,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2021-12-14.
+## Updated 2022-03-07.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -53,6 +53,7 @@ bibliography: "bibliography.bib"
 ```{r setup, cache=FALSE, message=FALSE}
 suppressPackageStartupMessages({
     library(goalie)
+    library(basejump)
     library(bcbioRNASeq)
     library(DESeqAnalysis)
     library(AcidGSEA)
@@ -192,7 +193,7 @@ sig_genes <- deg(res, direction = "both")
 sig_res <- res[sig_genes, , drop = FALSE]
 ## LFC ranked list vector. 
 lfc_vec <- sig_res$log2FoldChange
-names(lfc_vec) <- rownames(sig_res_df)
+names(lfc_vec) <- rownames(sig_res)
 lfc_vec <- sort(lfc_vec, decreasing = TRUE)
 summary(lfc_vec)
 ```

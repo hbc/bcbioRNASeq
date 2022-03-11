@@ -21,7 +21,7 @@ it can be left \code{NULL}.}
 \item{...}{Additional arguments.}
 
 \item{verbose}{\code{logical(1)}.
-Verbose output.}
+Run the function with verbose output.}
 }
 \value{
 Modified object.
@@ -35,7 +35,7 @@ information metadata is preserved from the time when the bcbio data was
 originally loaded into R.
 }
 \note{
-Updated 2021-04-02.
+Updated 2022-03-07.
 }
 \section{Legacy \code{bcbioRNADataSet} class}{
 
@@ -54,12 +54,19 @@ objects from versions <= 0.0.20. We changed the name of the package to
 
 \examples{
 data(bcb)
-updateObject(bcb)
+
+## bcbioRNASeq ====
+object <- bcb
+object <- updateObject(object)
+validObject(object)
 
 ## Example that depends on remote file.
-## > x <- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))
-## > x <- updateObject(x)
-## > x
+## > object <- import(file.path(
+## >     bcbioRNASeqTestsURL,
+## >     "bcbioRNASeq_0.1.4.rds"
+## > ))
+## > object <- updateObject(object)
+## > validObject(object)
 }
 \author{
 Michael Steinbaugh

@@ -1,13 +1,15 @@
 #' @name plotQC
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plotQC
-#' @note Updated 2019-08-07.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotQC(bcb)
 NULL
 
@@ -18,23 +20,19 @@ NULL
     function(object) {
         validObject(object)
         plotlist <- list(
-            totalReads = plotTotalReads(object),
-            mappingRate = plotMappingRate(object),
-            exonicMappingRate = plotExonicMappingRate(object),
-            intronicMappingRate = plotIntronicMappingRate(object),
-            rrnaMappingRate = plotRRNAMappingRate(object),
-            x5Prime3PrimeBias = plot5Prime3PrimeBias(object),
-            featuresDetected = plotFeaturesDetected(object),
-            countsPerFeature = plotCountsPerFeature(object)
+            "totalReads" = plotTotalReads(object),
+            "mappingRate" = plotMappingRate(object),
+            "exonicMappingRate" = plotExonicMappingRate(object),
+            "intronicMappingRate" = plotIntronicMappingRate(object),
+            "rrnaMappingRate" = plotRRNAMappingRate(object),
+            "x5Prime3PrimeBias" = plot5Prime3PrimeBias(object),
+            "featuresDetected" = plotFeaturesDetected(object),
+            "countsPerFeature" = plotCountsPerFeature(object)
         )
         if (!.isFastMode(object)) {
             plotlist[["pca"]] <- plotPCA(object)
         }
-        plot_grid(
-            plotlist = plotlist,
-            nrow = 3L,
-            ncol = 3L
-        )
+        wrap_plots(plotlist)
     }
 
 
@@ -43,6 +41,6 @@ NULL
 #' @export
 setMethod(
     f = "plotQC",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotQC,bcbioRNASeq`
 )

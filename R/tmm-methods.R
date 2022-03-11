@@ -7,6 +7,7 @@
 #' @param ... Additional arguments.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' x <- tmm(bcb)
 #' summary(x)
@@ -30,7 +31,7 @@ NULL
 #' @export
 setMethod(
     f = "tmm",
-    signature = signature("matrix"),
+    signature = signature(object = "matrix"),
     definition = `tmm,matrix`
 )
 
@@ -49,6 +50,6 @@ setMethod(
 #' @export
 setMethod(
     f = "tmm",
-    signature = signature("SummarizedExperiment"),
+    signature = signature(object = "SummarizedExperiment"),
     definition = `tmm,SummarizedExperiment`
 )

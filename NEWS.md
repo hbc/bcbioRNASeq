@@ -1,3 +1,17 @@
+## bcbioRNASeq 0.4.0 (2022-03-11)
+
+Starting a new release series for 2022.
+
+### Major changes
+
+- Package now requires R 4.1+ / Bioconductor 3.14+.
+- Package no longer attaches basejump automatically.
+
+### Minor changes
+
+- Removed internal dependencies on `formalsList` parameters defined in basejump,
+  which will be removed in a pending release update.
+
 ## bcbioRNASeq 0.3.44 (2021-12-14)
 
 ### Minor changes
@@ -269,7 +283,6 @@ release series.
 - `plotMeanSD`: Improved default colors. Improved internal non-zero count
   handling. Reworked plot headers.
 
-
 ## bcbioRNASeq 0.3.19 (2019-05-05)
 
 ### Major changes
@@ -451,7 +464,7 @@ checks instead of [assertive][].
 - Improved subset sample handling inside extraction method. Extraction method
   now imports useful `relevelRowRanges` and `relevelColData` utilities from
   basejump.
-  
+
 ### Minor changes
 
 - Removed `sampleData<-` reexport.
@@ -852,15 +865,14 @@ Last set of code fixes before F1000v2 resubmission.
   `plotCountDensity`. Note that we are subsetting the nonzero genes as
   defined by the raw counts here.
 - Simplified internal `tximport` code to no longer attempt to strip
-  transcript versions. This is required for working with *C. elegans*
+  transcript versions. This is required for working with _C. elegans_
   transcripts.
 - Minimal working example dataset is now derived from GSE65267, which is also
   used in the F1000 paper.
 - Added `as(object, "DESeqDataSet")` coercion method support for
   `bcbioRNASeq` class. This helps us set up the differential expression
   analysis easily.
-- `counts` function now returns [DESeq2][] normalized counts (`normalized =
-  TRUE`) and [edgeR][] TMM counts (`normalized = "tmm"`) on the fly, as
+- `counts` function now returns [DESeq2][] normalized counts (`normalized = TRUE`) and [edgeR][] TMM counts (`normalized = "tmm"`) on the fly, as
   suggested by the F1000 reviewers.
 - Design formula can no longer be slotted into `bcbioRNASeq` object, since
   we're not stashing a `DESeqDataSet` any more.
@@ -907,7 +919,7 @@ Last set of code fixes before F1000v2 resubmission.
 - Deprecated `plot5x3Bias` in favor of `plot5Prime3PrimeBias`. This is
   less confusing as to what this function plots.
 - `flatFiles` has been deprecated in favor of `as(object, "list")` coercion
-  method. See [bcbioBase][] package for `SummarizedExperiment`   method
+  method. See [bcbioBase][] package for `SummarizedExperiment` method
   support.
 - Defunct: `design`, `download`, `meltLog10`, `txi`.
 - Legacy `bcbioRNADataSet` method support has been removed.
@@ -974,8 +986,7 @@ Last set of code fixes before F1000v2 resubmission.
   the factor levels get updated here.
 - Now using `glimpse` instead of `str` in examples, where applicable.
 - Added `colData<-` assignment method support. This requires a `DataFrame`
-  class object. Upon assignment, the internal colData at `bcbio(object,
-  "DESeqDataSet")`, `assays(object)[["rlog"]]` and `assays(object)[["vst"]]`
+  class object. Upon assignment, the internal colData at `bcbio(object, "DESeqDataSet")`, `assays(object)[["rlog"]]` and `assays(object)[["vst"]]`
   are also updated to match.
 - Initial assignment support for `design`, which will update the internal
   DESeqDataSet.
@@ -1012,7 +1023,7 @@ Last set of code fixes before F1000v2 resubmission.
 - Updated package imports to match Bioconductor 3.6.
 - Added support for interesting groups assignment with `interestingGroups<-`.
 - Renamed `plotGeneHeatmap` to simply `plotHeatmap`.
-- Added gender marker support for *Homo sapiens*.
+- Added gender marker support for _Homo sapiens_.
 - Improved support for multiple interesting groups in quality control plots.
   Now interestingGroups is defined as a column in the metrics data.frame that
   is used to specify the plot color/fill. This matches the convention in the

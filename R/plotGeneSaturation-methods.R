@@ -1,20 +1,22 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotGeneSaturation
-#' @note Updated 2021-07-21.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotGeneSaturation(bcb, label = FALSE)
 #' plotGeneSaturation(bcb, label = TRUE)
 NULL
 
 
 
-## Updated 2021-07-21.
+## Updated 2022-03-07.
 `plotGeneSaturation,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -22,13 +24,12 @@ NULL
         minCounts = 1L,
         perMillion = TRUE,
         trendline = FALSE,
-        label,
-        color,
+        label = getOption(x = "acid.label", default = FALSE),
         labels = list(
-            title = "Gene saturation",
-            subtitle = NULL,
-            x = "mapped reads",
-            y = "gene count"
+            "title" = "Gene saturation",
+            "subtitle" = NULL,
+            "x" = "mapped reads",
+            "y" = "gene count"
         )
     ) {
         validObject(object)
@@ -38,13 +39,9 @@ NULL
             isInRange(minCounts, lower = 1L, upper = Inf),
             isFlag(perMillion),
             isFlag(trendline),
-            isFlag(label),
-            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE)
+            isFlag(label)
         )
-        labels <- matchLabels(
-            labels = labels,
-            choices = eval(formals()[["labels"]])
-        )
+        labels <- matchLabels(labels)
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
@@ -71,18 +68,14 @@ NULL
             scale_y_continuous(breaks = pretty_breaks()) +
             expand_limits(x = 0L, y = 0L)
         ## Labels.
-        if (is.list(labels)) {
-            labels[["color"]] <- paste(interestingGroups, collapse = ":\n")
-            p <- p + do.call(what = labs, args = labels)
-        }
+        labels[["color"]] <- paste(interestingGroups, collapse = ":\n")
+        p <- p + do.call(what = labs, args = labels)
         ## Trendline.
         if (isTRUE(trendline)) {
             p <- p + geom_smooth(method = "lm", se = FALSE)
         }
-        ## Color.
-        if (is(color, "ScaleDiscrete")) {
-            p <- p + color
-        }
+        ## Color palette.
+        p <- p + autoDiscreteColorScale()
         ## Hide sample name legend.
         if (isTRUE(label)) {
             p <- p + acid_geom_label_repel(
@@ -93,15 +86,12 @@ NULL
         p
     }
 
-formals(`plotGeneSaturation,bcbioRNASeq`)[c("color", "label")] <-
-    formalsList[c("color.discrete", "label")]
-
 
 
 #' @rdname plotGeneSaturation
 #' @export
 setMethod(
     f = "plotGeneSaturation",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotGeneSaturation,bcbioRNASeq`
 )

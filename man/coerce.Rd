@@ -6,10 +6,10 @@
 \alias{as.DGEList}
 \alias{coerce}
 \alias{as.DESeqDataSet,bcbioRNASeq-method}
-\alias{coerce,bcbioRNASeq,DESeqDataSet-method}
 \alias{as.DESeqTransform,bcbioRNASeq-method}
-\alias{coerce,bcbioRNASeq,DESeqTransform-method}
 \alias{as.DGEList,bcbioRNASeq-method}
+\alias{coerce,bcbioRNASeq,DESeqDataSet-method}
+\alias{coerce,bcbioRNASeq,DESeqTransform-method}
 \alias{coerce,bcbioRNASeq,DGEList-method}
 \title{Methods for coercing an object to a class}
 \usage{
@@ -40,7 +40,7 @@ Modified object, of desired coercion type.
 Force an object to belong to a class.
 }
 \note{
-Updated 2021-02-22.
+Updated 2022-03-07.
 }
 \section{bcbioRNASeq to DESeqDataSet}{
 
@@ -48,26 +48,26 @@ Updated 2021-02-22.
 \item Coerce to \code{RangedSummarizedExperiment}.
 \item Round raw counts to \verb{integer matrix}.
 \item Subset \code{colData()} to include only clean
-factor columns. See \code{\link[basejump:reexports]{sampleData()}} for details.
+factor columns. See \code{sampleData()} for details.
 \item Simplify \code{metadata()} to include only relevant information and
 updates \code{sessionInfo}.
 }
 
 Note that gene-level counts are required. Alternatively,
-\code{\link[tximport:summarizeToGene]{summarizeToGene()}} can be called to convert
-transcript-level counts to gene-level. By default, we're using length-scaled
-TPM, so a corresponding average transcript length matrix isn't necessary. The
-average transcript length matrix is only necessary when raw counts matrix
-isn't scaled during tximport call (see \code{countsFromAbundance} in
-\code{\link[tximport:tximport]{tximport()}} documentation).
+\code{tximport::summarizeToGene()} can be called to convert transcript-level
+counts to gene-level. By default, we're using length-scaled TPM, so a
+corresponding average transcript length matrix isn't necessary. The average
+transcript length matrix is only necessary when raw counts matrix isn't
+scaled during tximport call (see \code{countsFromAbundance} in
+\code{tximport::tximport()} documentation).
 }
 
 \section{bcbioRNASeq to DESeqTransform}{
 
 \enumerate{
 \item Coerce to \code{DESeqDataSet}.
-\item Call \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}.
-\item Call \code{\link[DESeq2:varianceStabilizingTransformation]{DESeq2::varianceStabilizingTransformation()}}.
+\item Call \code{DESeq2::DESeq()}.
+\item Call \code{DESeq2::varianceStabilizingTransformation()}.
 }
 }
 
@@ -76,19 +76,19 @@ isn't scaled during tximport call (see \code{countsFromAbundance} in
 
 When \code{countsFromAbundance = "lengthScaledTPM"} (default):
 \enumerate{
-\item Call \code{\link[edgeR:DGEList]{edgeR::DGEList()}}.
+\item Call \code{edgeR::DGEList()}.
 }
 
 When \code{countsFromAbundance = "no"}:
 \enumerate{
-\item Call \code{\link[edgeR:DGEList]{edgeR::DGEList()}}.
+\item Call \code{edgeR::DGEList()}.
 \item Obtain per-observation scaling factors for length, adjusted to avoid
 changing the magnitude of the counts.
 \item Computing effective library sizes from scaled counts, to account for
 composition biases between samples.
 \item Combine effective library sizes with the length factors, and calculate
 offsets for a log-link GLM.
-\item Apply offset matrix using \code{\link[edgeR:scaleOffset]{edgeR::scaleOffset()}}.
+\item Apply offset matrix using \code{edgeR::scaleOffset()}.
 }
 }
 
@@ -96,29 +96,18 @@ offsets for a log-link GLM.
 data(bcb)
 
 ## bcbioRNASeq to DESeqDataSet ====
-x <- as(bcb, "DESeqDataSet")
-names(mcols(x))
-class(x)
-show(x)
+dds <- as.DESeqDataSet(bcb)
+class(dds)
 
-## bcbioRNASeq to RangedSummarizedExperiment ====
-x <- as(bcb, "RangedSummarizedExperiment")
-slotNames(x)
-show(x)
-
-## bcbioRNASeq to SummarizedExperiment ====
-## Coerce to RangedSummarizedExperiment first.
-x <- as(bcb, "RangedSummarizedExperiment")
-x <- as(x, "SummarizedExperiment")
-class(x)
-slotNames(x)
-show(x)
+## bcbioRNASeq to DESeqTransform ====
+dt <- as.DESeqTransform(bcb)
+class(dt)
 }
 \seealso{
 \itemize{
-\item \code{\link[tximport:tximport]{tximport::tximport()}}.
-\item \code{\link[DESeq2:DESeqDataSet]{DESeq2::DESeqDataSetFromTximport()}}.
-\item \code{\link[edgeR:DGEList]{edgeR::DGEList()}}.
+\item \code{tximport::tximport()}.
+\item \code{DESeq2::DESeqDataSetFromTximport()}.
+\item \code{edgeR::DGEList()}.
 }
 }
 \author{

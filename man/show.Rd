@@ -19,10 +19,12 @@ Console output.
 Show an object
 }
 \note{
-Updated 2021-02-22.
+Updated 2022-03-07.
 }
 \examples{
 data(bcb)
+
+## bcbioRNASeq ====
 show(bcb)
 }
 \author{

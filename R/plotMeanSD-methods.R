@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh, Lorena Patano
 #' @inherit AcidGenerics::plotMeanSD
 #' @note Requires the vsn package to be installed.
-#' @note Updated 2019-10-30.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams bcbioRNASeq
 #' @inheritParams AcidRoxygen::params
@@ -11,7 +11,7 @@
 #' @param ... Additional arguments.
 #'
 #' @details
-#' [vsn::meanSdPlot()] wrapper that plots count transformations on a log2 scale.
+#' `vsn::meanSdPlot()` wrapper that plots count transformations on a log2 scale.
 #'
 #' - DESeq2 log2: log2 library size factor-adjusted normalized counts.
 #' - DESeq2 rlog: **r**egularized **log** transformation.
@@ -19,14 +19,16 @@
 #' - edgeR log2 TMM: log2 **t**rimmed **m**ean of **M**-values transformation.
 #'
 #' @seealso
-#' - [vsn::meanSdPlot()].
-#' - [DESeq2::DESeq()].
-#' - [DESeq2::rlog()].
-#' - [DESeq2::varianceStabilizingTransformation()].
-#' - [edgeR::calcNormFactors()].
+#' - `vsn::meanSdPlot()`.
+#' - `DESeq2::DESeq()`.
+#' - `DESeq2::rlog()`.
+#' - `DESeq2::varianceStabilizingTransformation()`.
+#' - `edgeR::calcNormFactors()`.
 #'
 #' @examples
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' if (requireNamespace("vsn", quietly = TRUE)) {
 #'     plotMeanSD(bcb)
 #' }
@@ -34,7 +36,7 @@ NULL
 
 
 
-## Updated 2019-09-15.
+## Updated 2022-03-07.
 `plotMeanSD,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -43,7 +45,7 @@ NULL
             high = AcidPlots::lightPalette[["purple"]]
         ),
         lineColor = AcidPlots::lightPalette[["orange"]],
-        legend
+        legend = getOption(x = "acid.legend", default = TRUE)
     ) {
         validObject(object)
         assert(
@@ -56,11 +58,11 @@ NULL
         raw <- counts(object, normalized = FALSE)
         nonzero <- rowSums(raw) > 0L
         args <- list(
-            sf =   list(log2 = FALSE, title = "sf"),
-            rlog = list(log2 = TRUE,  title = "rlog"),
-            vst =  list(log2 = TRUE,  title = "vst"),
-            tmm =  list(log2 = FALSE, title = "tmm"),
-            rle =  list(log2 = FALSE, title = "rle")
+            "sf" = list(log2 = FALSE, title = "sf"),
+            "rlog" = list(log2 = TRUE, title = "rlog"),
+            "vst" = list(log2 = TRUE, title = "vst"),
+            "tmm" = list(log2 = FALSE, title = "tmm"),
+            "rle" = list(log2 = FALSE, title = "rle")
         )
         normalized <- names(args)
         log2 <- vapply(
@@ -73,8 +75,8 @@ NULL
             normalized = normalized,
             log2 = log2,
             MoreArgs = list(
-                object = object,
-                nonzero = nonzero
+                "object" = object,
+                "nonzero" = nonzero
             ),
             FUN = function(normalized, log2, object, nonzero) {
                 suppressMessages({
@@ -83,7 +85,9 @@ NULL
                         error = function(e) NULL
                     )
                 })
-                if (!is.matrix(mat)) return(NULL)
+                if (!is.matrix(mat)) {
+                    return(NULL)
+                }
                 assert(identical(length(nonzero), nrow(mat)))
                 mat <- mat[nonzero, , drop = FALSE]
                 if (!isTRUE(log2)) {
@@ -105,9 +109,9 @@ NULL
             assay = assays,
             title = titles,
             MoreArgs = list(
-                fill = fill,
-                legend = legend,
-                lineColor = lineColor
+                "fill" = fill,
+                "legend" = legend,
+                "lineColor" = lineColor
             ),
             FUN = function(assay, title, fill, legend, lineColor) {
                 p <- vsn::meanSdPlot(
@@ -135,10 +139,8 @@ NULL
                 p <- p + theme(legend.position = "none")
             })
         }
-        plot_grid(plotlist = plotlist)
+        wrap_plots(plotlist)
     }
-
-formals(`plotMeanSD,bcbioRNASeq`)[["legend"]] <- formalsList[["legend"]]
 
 
 
@@ -146,6 +148,6 @@ formals(`plotMeanSD,bcbioRNASeq`)[["legend"]] <- formalsList[["legend"]]
 #' @export
 setMethod(
     f = "plotMeanSD",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotMeanSD,bcbioRNASeq`
 )

@@ -1,10 +1,17 @@
+#' Show an object
+#'
 #' @name show
 #' @author Michael Steinbaugh
-#' @inherit AcidGenerics::show
-#' @note Updated 2021-02-22.
+#' @note Updated 2022-03-07.
+#'
+#' @inheritParams AcidRoxygen::params
+#'
+#' @return Console output.
 #'
 #' @examples
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' show(bcb)
 NULL
 
@@ -50,6 +57,6 @@ NULL
 #' @export
 setMethod(
     f = "show",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `show,bcbioRNASeq`
 )

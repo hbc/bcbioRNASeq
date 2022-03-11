@@ -1,7 +1,8 @@
+#' Plot dispersion estimates
+#'
 #' @name plotDispEsts
 #' @author Michael Steinbaugh
-#' @inherit AcidGenerics::plotDispEsts
-#' @note Updated 2020-12-21.
+#' @note Updated 2022-03-07.
 #'
 #' @details
 #' This plot shows the dispersion by mean of normalized counts. We expect the
@@ -12,12 +13,17 @@
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `DESeqDataSet` method defined in DESeq2.
-#'   See [DESeq2::plotDispEsts()] for details.
+#'   See `DESeq2::plotDispEsts()` for details.
 #'
-#' @seealso [DESeq2::plotDispEsts()].
+#' @return `ggplot`.
+#'
+#' @seealso
+#' - `DESeq2::plotDispEsts()`.
 #'
 #' @examples
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotDispEsts(bcb)
 #'
 #' ## Custom colors, using DESeq2 parameters.
@@ -37,7 +43,7 @@ NULL
         validObject(object)
         ## Warn and early return if any samples are duplicated.
         if (!hasUniqueCols(object)) {
-            warning("Duplicate samples detected. Skipping plot.")
+            alertWarning("Duplicate samples detected. Skipping plot.")
             return(invisible(NULL))
         }
         dds <- as(object, "DESeqDataSet")
@@ -52,6 +58,6 @@ NULL
 #' @export
 setMethod(
     f = "plotDispEsts",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotDispEsts,bcbioRNASeq`
 )

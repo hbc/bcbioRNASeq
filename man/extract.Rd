@@ -85,6 +85,7 @@ transformations will only be updated when \code{recalculate = TRUE}.
 Updated 2020-12-21.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 object <- bcb
 
@@ -103,13 +104,11 @@ object[genes, ]
 ## Extract by both genes and samples.
 x <- object[genes, samples]
 print(x)
-assayNames(x)
 
 ## Fast subsetting, by skipping DESeq2 recalculations.
 ## Note that `normalized`, `rlog`, and `vst` assays will be removed.
 x <- object[, samples, recalculate = FALSE]
 print(x)
-names(assays(x))
 }
 \references{
 Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988)

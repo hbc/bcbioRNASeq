@@ -14,8 +14,6 @@ plotGeneSaturation(object, ...)
   perMillion = TRUE,
   trendline = FALSE,
   label = getOption(x = "acid.label", default = FALSE),
-  color = getOption(x = "acid.color.discrete", default = getOption(x =
-    "ggplot2.discrete.colour", default = AcidPlots::scale_color_synesthesia_d())),
   labels = list(title = "Gene saturation", subtitle = NULL, x = "mapped reads", y =
     "gene count")
 )
@@ -39,14 +37,6 @@ Include trendline on plot.}
 \item{label}{\code{logical(1)}.
 Superimpose sample text labels on the plot.}
 
-\item{color}{\code{ScaleDiscrete}.
-Desired ggplot2 color scale. Must supply discrete values. When set \code{NULL},
-the default ggplot2 color palette will be used. If manual color definitions
-are desired, we recommend using \code{ggplot2::scale_color_manual()}.
-
-To set the discrete color palette globally, use:\preformatted{options(acid.color.discrete = ggplot2::scale_color_viridis_d())
-}}
-
 \item{labels}{\code{list}.
 ggplot2 labels.
 See \code{\link[ggplot2:labs]{ggplot2::labs()}} for details.}
@@ -62,10 +52,12 @@ number of mapped reads, which indicates that the sample input was not
 overloaded.
 }
 \note{
-Updated 2021-07-21.
+Updated 2022-03-07.
 }
 \examples{
 data(bcb)
+
+## bcbioRNASeq ====
 plotGeneSaturation(bcb, label = FALSE)
 plotGeneSaturation(bcb, label = TRUE)
 }

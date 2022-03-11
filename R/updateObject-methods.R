@@ -1,7 +1,8 @@
+#' Update object
+#'
 #' @name updateObject
 #' @author Michael Steinbaugh
-#' @inherit AcidGenerics::updateObject
-#' @note Updated 2021-04-02.
+#' @note Updated 2022-03-07.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -26,19 +27,28 @@
 #'   `rowRanges` slot. Objects that are >= v0.2 don't require this argument and
 #'   it can be left `NULL`.
 #'
+#' @return Modified object.
+#'
 #' @examples
 #' data(bcb)
-#' updateObject(bcb)
+#'
+#' ## bcbioRNASeq ====
+#' object <- bcb
+#' object <- updateObject(object)
+#' validObject(object)
 #'
 #' ## Example that depends on remote file.
-#' ## > x <- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))
-#' ## > x <- updateObject(x)
-#' ## > x
+#' ## > object <- import(file.path(
+#' ## >     bcbioRNASeqTestsURL,
+#' ## >     "bcbioRNASeq_0.1.4.rds"
+#' ## > ))
+#' ## > object <- updateObject(object)
+#' ## > validObject(object)
 NULL
 
 
 
-## Updated 2021-04-02.
+## Updated 2021-09-01.
 `updateObject,bcbioRNASeq` <-  # nolint
     function(
         object,
@@ -58,9 +68,10 @@ NULL
             h1("Update object")
             alert(sprintf(
                 fmt = paste(
-                    "Updating {.var bcbioRNASeq} object from version {.val %s}",
+                    "Updating {.var %s} object from version {.val %s}",
                     "to {.val %s}."
                 ),
+                "bcbioRNASeq",
                 as.character(version),
                 as.character(.pkgVersion)
             ))
@@ -72,16 +83,22 @@ NULL
         ## NAMES
         if (!is.null(slot(object, "NAMES"))) {
             if (isTRUE(verbose)) {
-                alertInfo("{.var NAMES} slot must be set to {.val NULL}.")
+                alertInfo(sprintf(
+                    "{.var %s} slot must be set to {.val %s}.",
+                    "NAMES", "NULL"
+                ))
             }
             slot(object, "NAMES") <- NULL
         }
         ## elementMetadata
         if (ncol(slot(object, "elementMetadata")) != 0L) {
             if (isTRUE(verbose)) {
-                alertInfo(paste(
-                    "{.var elementMetadata} slot must contain a",
-                    "zero-column {.var DataFrame}."
+                alertInfo(sprintf(
+                    fmt = paste(
+                        "{.var %s} slot must contain a",
+                        "zero-column {.var %s}."
+                    ),
+                    "elementMetadata", "DataFrame"
                 ))
             }
             slot(object, "elementMetadata") <-
@@ -91,7 +108,9 @@ NULL
         if (!.hasSlot(object, "rowRanges")) {
             if (is.null(rowRanges)) {
                 if (isTRUE(verbose)) {
-                    alertWarning("Slotting empty {.fun rowRanges}.")
+                    alertWarning(sprintf(
+                        "Slotting empty {.fun %s}.", "rowRanges"
+                    ))
                 }
                 assays <- slot(object, "assays")
                 ## Extract assay matrix from ShallowSimpleListAssays object.
@@ -108,21 +127,27 @@ NULL
                 rowData <- slot(object, "elementMetadata")
                 mcols(rowRanges) <- rowData
             }
-            assert(isAny(rowRanges, c("GRanges", "GRangesList")))
+            assert(isAny(rowRanges, c("GenomicRanges", "GenomicRangesList")))
             slot(object, "rowRanges") <- rowRanges
         } else if (
             .hasSlot(object, "rowRanges") &&
             !is.null(rowRanges)
         ) {
-            stop(
-                "Object already contains 'rowRanges()'.\n",
-                "Don't attempt to slot new ones with 'rowRanges' argument."
-            )
+            abort(sprintf(
+                fmt = paste(
+                    "Object already contains {.fun %s}.",
+                    "Don't attempt to slot new ones with {.arg %s} argument.",
+                    sep = "\n"
+                ),
+                "rowRanges", "rowRanges"
+            ))
         }
         ## Check for legacy bcbio slot.
         if (.hasSlot(object, "bcbio")) {
             if (isTRUE(verbose)) {
-                alertWarning("Dropping legacy {.var bcbio} slot.")
+                alertWarning(sprintf(
+                    "Dropping legacy {.var %s} slot.", "bcbio"
+                ))
             }
         }
         ## Metadata ------------------------------------------------------------
@@ -132,30 +157,39 @@ NULL
         ## bcbioLog
         if (is.null(metadata[["bcbioLog"]])) {
             if (isTRUE(verbose)) {
-                alertWarning("Setting {.var bcbioLog} as empty character.")
+                alertWarning(sprintf(
+                    "Setting {.var %s} as {.val %s}.",
+                    "bcbioLog", "empty character"
+                ))
             }
             metadata[["bcbioLog"]] <- character()
         }
         ## bcbioCommandsLog
         if (is.null(metadata[["bcbioCommandsLog"]])) {
             if (isTRUE(verbose)) {
-                alertWarning(
-                    "Setting {.var bcbioCommands} as empty character."
-                )
+                alertWarning(sprintf(
+                    "Setting {.var %s} as {.val %s}.",
+                    "bcbioCommands", "empty character"
+                ))
             }
             metadata[["bcbioCommandsLog"]] <- character()
         }
         ## call
         if (!"call" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alertWarning("Stashing empty {.var call}.")
+                alertWarning(sprintf(
+                    "Stashing empty {.var %s}.", "call"
+                ))
             }
             metadata[["call"]] <- call(name = "bcbioRNASeq")
         }
         ## caller
         if (!"caller" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alertWarning("Setting {.var caller} as salmon.")
+                alertWarning(sprintf(
+                    "Setting {.var %s} as {.val %s}.",
+                    "caller", "salmon"
+                ))
             }
             metadata[["caller"]] <- "salmon"
         }
@@ -167,7 +201,9 @@ NULL
         ## design
         if ("design" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alertWarning("Dropping legacy {.var design}.")
+                alertWarning(sprintf(
+                    "Dropping legacy {.var %s}.", "design"
+                ))
             }
             metadata[["design"]] <- NULL
         }
@@ -175,16 +211,20 @@ NULL
         if ("ensemblVersion" %in% names(metadata)) {
             ## Renamed in v0.2.0.
             if (isTRUE(verbose)) {
-                alert(
-                    "Renaming {.var ensemblVersion} to {.var ensemblRelease}."
-                )
+                alert(sprintf(
+                    "Renaming {.var %s} to {.var %s}.",
+                    "ensemblVersion", "ensemblRelease"
+                ))
             }
             names(metadata)[
                 names(metadata) == "ensemblVersion"] <- "ensemblRelease"
         }
         if (!is.integer(metadata[["ensemblRelease"]])) {
             if (isTRUE(verbose)) {
-                alert("Setting {.var ensemblRelease} as integer.")
+                alert(sprintf(
+                    "Setting {.var %s} as {.val %s}.",
+                    "ensemblRelease", "integer"
+                ))
             }
             metadata[["ensemblRelease"]] <-
                 as.integer(metadata[["ensemblRelease"]])
@@ -192,44 +232,59 @@ NULL
         ## genomeBuild
         if (!is.character(metadata[["genomeBuild"]])) {
             if (isTRUE(verbose)) {
-                alertWarning(
-                    "Setting {.var genomeBuild} as empty character."
-                )
+                alertWarning(sprintf(
+                    "Setting {.var %s} as {.val %s}.",
+                    "genomeBuild", "empty character"
+                ))
             }
             metadata[["genomeBuild"]] <- character()
         }
         ## gffFile
         if ("gtfFile" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alert("Renaming {.var gtfFile} to {.var gffFile}.")
+                alert(sprintf(
+                    "Renaming {.var %s} to {.var %s}.",
+                    "gtfFile", "gffFile"
+                ))
             }
             names(metadata)[
                 names(metadata) == "gtfFile"] <- "gffFile"
         }
         if (!"gffFile" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alert("Setting {.var gffFile} as empty character.")
+                alert(sprintf(
+                    "Setting {.var %s} as {.val %s}.",
+                    "gffFile", "empty character"
+                ))
             }
             metadata[["gffFile"]] <- character()
         }
         ## gtf
         if ("gtf" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alertWarning("Dropping stashed GTF in {.var gtf}.")
+                alertWarning(sprintf(
+                    "Dropping {.val %s} in {.var %s}.",
+                    "stashed GTF", "gtf"
+                ))
             }
             metadata[["gtf"]] <- NULL
         }
         ## lanes
         if (!is.integer(metadata[["lanes"]])) {
             if (isTRUE(verbose)) {
-                alert("Setting {.var lanes} as integer.")
+                alert(sprintf(
+                    "Setting {.var %s} as integer.", "lanes"
+                ))
             }
             metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
         }
         ## level
         if (!"level" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alert("Setting {.var level} as genes.")
+                alert(sprintf(
+                    "Setting {.var %s} as {.val %s}.",
+                    "level", "genes"
+                ))
             }
             metadata[["level"]] <- "genes"
         }
@@ -241,7 +296,10 @@ NULL
         if (!"programVersions" %in% names(metadata) &&
             "programs" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alert("Renaming {.var programs} to {.var programVersions}.")
+                alert(sprintf(
+                    "Renaming {.var %s} to {.var %s}.",
+                    "programs", "programVersions"
+                ))
             }
             names(metadata)[
                 names(metadata) == "programs"] <- "programVersions"
@@ -249,18 +307,20 @@ NULL
         programVersions <- metadata[["programVersions"]]
         if (is(programVersions, "data.frame")) {
             if (isTRUE(verbose)) {
-                alert(
-                    "Coercing {.var programVersions} to {.var DataFrame}."
-                )
+                alert(sprintf(
+                    "Coercing {.var %s} to {.var %s}.",
+                    "programVersions", "DataFrame"
+                ))
             }
             metadata[["programVersions"]] <- as(programVersions, "DataFrame")
         }
         ## sampleMetadataFile
         if (!is.character(metadata[["sampleMetadataFile"]])) {
             if (isTRUE(verbose)) {
-                alert(
-                    "Setting {.var sampleMetadataFile} as empty character."
-                )
+                alert(sprintf(
+                    "Setting {.var %s} as {.val %s}.",
+                    "sampleMetadataFile", "empty character"
+                ))
             }
             metadata[["sampleMetadataFile"]] <- character()
         }
@@ -269,7 +329,9 @@ NULL
         ## Previously, we stashed both devtools* and utils* variants.
         if ("devtoolsSessionInfo" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alert("Simplifying stashed {.var sessionInfo}.")
+                alert(sprintf(
+                    "Simplifying stashed {.var %s}.", "sessionInfo"
+                ))
             }
             names(metadata)[
                 names(metadata) == "devtoolsSessionInfo"] <- "sessionInfo"
@@ -278,29 +340,35 @@ NULL
         ## template
         if ("template" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alert("Dropping legacy {.var template}.")
+                alert(sprintf("Dropping legacy {.var %s}.", "template"))
             }
             metadata[["template"]] <- NULL
         }
         ## Dead genes: "missing" or "unannotated".
         if ("missingGenes" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alertWarning("Dropping {.var missingGenes} from metadata.")
+                alertWarning(sprintf(
+                    "Dropping {.var %s} from {.fun %s}.",
+                    "missingGenes", "metadata"
+                ))
             }
             metadata[["missingGenes"]] <- NULL
         }
         if ("unannotatedGenes" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alertWarning(
-                    "Dropping {.var unannotatedGenes} from metadata."
-                )
+                alertWarning(sprintf(
+                    "Dropping {.var %s} from {.fun %s}.",
+                    "unannotatedGenes", "metadata"
+                ))
             }
             metadata[["unannotatedGenes"]] <- NULL
         }
         ## yamlFile
         if ("yamlFile" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alert("Dropping {.var yamlFile} file path.")
+                alert(sprintf(
+                    "Dropping {.var %s} file path.", "yamlFile"
+                ))
             }
             metadata[["yamlFile"]] <- NULL
         }
@@ -314,8 +382,8 @@ NULL
                 countsFromAbundance <- "lengthScaledTPM"
                 if (isTRUE(verbose)) {
                     alertWarning(sprintf(
-                        "Setting {.var countsFromAbundance} as {.val %s}.",
-                        countsFromAbundance
+                        "Setting {.var %s} as {.val %s}.",
+                        "countsFromAbundance", countsFromAbundance
                     ))
                 }
                 metadata[["countsFromAbundance"]] <- countsFromAbundance
@@ -324,9 +392,10 @@ NULL
             tx2gene <- metadata[["tx2gene"]]
             if (!is(tx2gene, "Tx2Gene")) {
                 if (isTRUE(verbose)) {
-                    alert(
-                        "Coercing {.var tx2gene} to {.var Tx2Gene} class."
-                    )
+                    alert(sprintf(
+                        "Coercing {.var %s} to {.var %s} class object.",
+                        "tx2gene", "Tx2Gene"
+                    ))
                 }
                 assert(is.data.frame(tx2gene))
                 tx2gene <- as(tx2gene, "DataFrame")
@@ -356,23 +425,32 @@ NULL
         ## Ensure raw counts are always named "counts".
         if ("raw" %in% names(assays)) {
             if (isTRUE(verbose)) {
-                alert("Renaming {.var raw} assay to {.var counts}.")
+                alert(sprintf(
+                    "Renaming {.var %s} assay to {.var %s}.",
+                    "raw", "counts"
+                ))
             }
             names(assays)[names(assays) == "raw"] <- "counts"
         }
         ## Rename average transcript length matrix.
         if ("length" %in% names(assays)) {
             if (isTRUE(verbose)) {
-                alert("Renaming {.var length} assay to {.var avgTxLength}.")
+                alert(sprintf(
+                    "Renaming {.var %s} assay to {.var %s}.",
+                    "length", "avgTxLength"
+                ))
             }
             names(assays)[names(assays) == "length"] <- "avgTxLength"
         }
         ## Drop legacy TMM counts.
         if ("tmm" %in% names(assays)) {
             if (isTRUE(verbose)) {
-                alert(paste(
-                    "Dropping {.var tmm} from {.fun assays}.",
-                    "Calculating on the fly instead."
+                alert(sprintf(
+                    fmt = paste(
+                        "Dropping {.var %s} from {.fun %s}.",
+                        "Calculating on the fly instead."
+                    ),
+                    "tmm", "assays"
                 ))
             }
             assays[["tmm"]] <- NULL
@@ -384,9 +462,12 @@ NULL
             ## DESeq2 normalized counts.
             if (is(assays[["normalized"]], "DESeqDataSet")) {
                 if (isTRUE(verbose)) {
-                    alert(paste(
-                        "Coercing {.var normalized} assay from",
-                        "{.var DESeqDataSet} to {.var matrix}."
+                    alert(sprintf(
+                        fmt = paste(
+                            "Coercing {.var %s} assay from",
+                            "{.val %s} to {.val %s}."
+                        ),
+                        "normalized", "DESeqDataSet", "matrix"
                     ))
                 }
                 dds <- assays[["normalized"]]
@@ -395,9 +476,9 @@ NULL
             ## Variance-stabilizing transformation.
             if (is(assays[["vst"]], "DESeqTransform")) {
                 if (isTRUE(verbose)) {
-                    alert(paste(
-                        "Coercing {.var vst} assay from {.var DESeqTransform}",
-                        "to {.var matrix}."
+                    alert(sprintf(
+                        "Coercing {.var %s} assay from {.val %s} to {.val %s}.",
+                        "vst", "DESeqTransform", "matrix"
                     ))
                 }
                 assays[["vst"]] <- assay(assays[["vst"]])
@@ -405,9 +486,9 @@ NULL
             ## Regularized log.
             if (is(assays[["rlog"]], "DESeqTransform")) {
                 if (isTRUE(verbose)) {
-                    alert(paste(
-                        "Coercing {.var rlog} assay from {.var DESeqTransform}",
-                        "to {.var matrix}."
+                    alert(sprintf(
+                        "Coercing {.var %s} assay from {.val %s} to {.val %s}.",
+                        "rlog", "DESeqTransform", "matrix"
                     ))
                 }
                 assays[["rlog"]] <- assay(assays[["rlog"]])
@@ -446,9 +527,9 @@ NULL
         ## rowRangesMetadata
         if ("rowRangesMetadata" %in% names(metadata)) {
             if (isTRUE(verbose)) {
-                alert(paste(
-                    "Moving {.var rowRangesMetadata} into {.var rowRanges}",
-                    "metadata."
+                alert(sprintf(
+                    "Moving {.val %s} into {.var %s} metadata.",
+                    "rowRangesMetadata", "rowRanges"
                 ))
             }
             metadata(rowRanges)[["ensembldb"]] <-
@@ -458,7 +539,10 @@ NULL
         ## biotype
         if ("biotype" %in% colnames(mcols(rowRanges))) {
             if (isTRUE(verbose)) {
-                alert("Renaming {.var biotype} to {.var geneBiotype}.")
+                alert(sprintf(
+                    "Renaming {.var %s} to {.var %s}.",
+                    "biotype", "geneBiotype"
+                ))
             }
             mcols(rowRanges)[["geneBiotype"]] <-
                 as.factor(mcols(rowRanges)[["biotype"]])
@@ -470,7 +554,10 @@ NULL
             is.character(mcols(rowRanges)[["broadClass"]])
         ) {
             if (isTRUE(verbose)) {
-                alert("Setting {.var broadClass} to factor.")
+                alert(sprintf(
+                    "Setting {.var %s} to {.val %s}.",
+                    "broadClass", "factor"
+                ))
             }
             mcols(rowRanges)[["broadClass"]] <-
                 as.factor(mcols(rowRanges)[["broadClass"]])
@@ -478,7 +565,10 @@ NULL
         ## ensgene
         if ("ensgene" %in% colnames(mcols(rowRanges))) {
             if (isTRUE(verbose)) {
-                alert("Renaming {.var ensgene} to {.var geneId}.")
+                alert(sprintf(
+                    "Renaming {.var %s} to {.var %s}.",
+                    "ensgene", "geneId"
+                ))
             }
             mcols(rowRanges)[["geneId"]] <-
                 as.character(mcols(rowRanges)[["ensgene"]])
@@ -487,7 +577,10 @@ NULL
         ## symbol
         if ("symbol" %in% colnames(mcols(rowRanges))) {
             if (isTRUE(verbose)) {
-                alert("Renaming {.var symbol} to {.var geneName}.")
+                alert(sprintf(
+                    "Renaming {.var %s} to {.var %s}.",
+                    "symbol", "geneName"
+                ))
             }
             mcols(rowRanges)[["geneName"]] <-
                 as.factor(mcols(rowRanges)[["symbol"]])
@@ -506,9 +599,9 @@ NULL
         metrics <- metadata[["metrics"]]
         if (!is.null(metrics)) {
             if (isTRUE(verbose)) {
-                alert(paste(
-                    "Moving {.var metrics} from {.fun metadata} into",
-                    "{.fun colData}."
+                alert(sprintf(
+                    "Moving {.var %s} from {.fun %s} into {.fun %s}.",
+                    "metrics", "metadata", "colData"
                 ))
             }
             assert(is.data.frame(metrics))
@@ -517,7 +610,10 @@ NULL
             ## Rename 5'3' bias.
             if ("x53Bias" %in% colnames(metrics)) {
                 if (isTRUE(verbose)) {
-                    alert("Renaming {.var x53Bias} to {.var x5x3Bias}.")
+                    alert(sprintf(
+                        "Renaming {.var %s} to {.var %s}.",
+                        "x53Bias", "x5x3Bias"
+                    ))
                 }
                 metrics[["x5x3Bias"]] <- metrics[["x53Bias"]]
                 metrics[["x53Bias"]] <- NULL
@@ -533,7 +629,8 @@ NULL
                 assert(isString(col))
                 if (isTRUE(verbose)) {
                     alert(sprintf(
-                        "Renaming {.var %s} to {.var rrnaRate}.", col
+                        "Renaming {.var %s} to {.var %s}.",
+                        col, "rrnaRate"
                     ))
                 }
                 metrics[["rrnaRate"]] <- metrics[[col]]
@@ -573,6 +670,6 @@ NULL
 #' @export
 setMethod(
     f = "updateObject",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `updateObject,bcbioRNASeq`
 )

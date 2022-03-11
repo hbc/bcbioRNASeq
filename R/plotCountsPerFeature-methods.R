@@ -1,15 +1,17 @@
 #' @name plotCountsPerFeature
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidPlots::plotCountsPerFeature
-#' @note Updated 2019-09-16.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See [AcidPlots::plotCountsPerFeature()] for details.
+#'   See `AcidPlots::plotCountsPerFeature()` for details.
 #'
 #' @examples
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotCountsPerFeature(bcb)
 NULL
 
@@ -37,7 +39,7 @@ formals(`plotCountsPerFeature,bcbioRNASeq`)[["normalized"]] <-
 #' @export
 setMethod(
     f = "plotCountsPerFeature",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotCountsPerFeature,bcbioRNASeq`
 )
 

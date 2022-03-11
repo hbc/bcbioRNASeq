@@ -8,8 +8,6 @@
 \usage{
 tmm(object, ...)
 
-tmm(object, ...)
-
 \S4method{tmm}{matrix}(object)
 
 \S4method{tmm}{SummarizedExperiment}(object)
@@ -30,6 +28,7 @@ of genes are not differentially expressed.
 Updated 2020-01-20.
 }
 \examples{
+## bcbioRNASeq ====
 data(bcb)
 x <- tmm(bcb)
 summary(x)

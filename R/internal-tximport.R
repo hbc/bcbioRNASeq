@@ -13,15 +13,15 @@
 #' @note Ignoring transcript versions should work by default. There may be
 #' an issue with genomes containing non-Ensembl transcript IDs, such as
 #' C. elegans, although we need to double check.
-#' @note Updated 2021-02-10.
+#' @note Updated 2022-03-07.
 #'
-#' @inheritParams tximport::tximport
 #' @param sampleDirs `character`.
 #'   Sample directories to import.
 #' @param type `character(1)`.
 #'   Expression caller to use.
 #'
-#' @seealso [tximport::tximport()].
+#' @seealso
+#' - `tximport::tximport()`.
 #'
 #' @return `list`.
 .tximport <- function(
@@ -35,9 +35,13 @@
     assert(
         all(isDirectory(sampleDirs)),
         identical(names(sampleDirs), makeNames(basename(sampleDirs))),
-        isFlag(txOut),
-        is(tx2gene, "Tx2Gene")
+        isFlag(txOut)
     )
+    if (isTRUE(txOut)) {
+        assert(is.null(tx2gene))
+    } else {
+        assert(is(tx2gene, "Tx2Gene"))
+    }
     type <- match.arg(type)
     countsFromAbundance <- match.arg(
         arg = countsFromAbundance,
@@ -56,17 +60,19 @@
     assert(all(isFile(files)))
     names(files) <- names(sampleDirs)
     ## tx2gene -----------------------------------------------------------------
-    tx2gene <- as.data.frame(tx2gene)
-    if (!identical(
-        x = c("txId", "txName"),
-        y = colnames(tx2gene)
-    )) {
-        colnames(tx2gene) <- c("txId", "txName")
-    }
-    ## Ensure transcript IDs are stripped from tx2gene, if desired.
-    if (isTRUE(ignoreTxVersion)) {
-        tx2gene[["txId"]] <- stripTranscriptVersions(tx2gene[["txId"]])
-        rownames(tx2gene) <- tx2gene[["txId"]]
+    if (isFALSE(txOut)) {
+        tx2gene <- as.data.frame(tx2gene)
+        if (!identical(
+            x = c("txId", "txName"),
+            y = colnames(tx2gene)
+        )) {
+            colnames(tx2gene) <- c("txId", "txName")
+        }
+        ## Ensure transcript IDs are stripped from tx2gene, if desired.
+        if (isTRUE(ignoreTxVersion)) {
+            tx2gene[["txId"]] <- stripTranscriptVersions(tx2gene[["txId"]])
+            rownames(tx2gene) <- tx2gene[["txId"]]
+        }
     }
     ## Import counts using tximport --------------------------------------------
     ## Note that this step can take a long time when processing a lot of
@@ -113,8 +119,10 @@
 
 
 
-## Detect if object is tximport list return.
-## Updated 2021-12-13.
+#' Detect if object is tximport list return
+#'
+#' @note Updated 2022-03-07.
+#' @noRd
 .isTximportReturn <- function(txi) {
     assert(
         is.list(txi),

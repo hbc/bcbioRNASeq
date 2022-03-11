@@ -4,57 +4,56 @@
 #'
 #' @name coerce
 #' @author Michael Steinbaugh
-#' @importFrom methods coerce
 #' @exportMethod coerce
-#' @note Updated 2021-02-22.
+#' @note Updated 2022-03-07.
 #'
 #' @section bcbioRNASeq to DESeqDataSet:
 #'
 #' 1. Coerce to `RangedSummarizedExperiment`.
 #' 2. Round raw counts to `integer matrix`.
 #' 3. Subset `colData()` to include only clean
-#'    factor columns. See [`sampleData()`][basejump::sampleData] for details.
+#'    factor columns. See `sampleData()` for details.
 #' 4. Simplify `metadata()` to include only relevant information and
 #'    updates `sessionInfo`.
 #'
 #' Note that gene-level counts are required. Alternatively,
-#' [`summarizeToGene()`][tximport::summarizeToGene] can be called to convert
-#' transcript-level counts to gene-level. By default, we're using length-scaled
-#' TPM, so a corresponding average transcript length matrix isn't necessary. The
-#' average transcript length matrix is only necessary when raw counts matrix
-#' isn't scaled during tximport call (see `countsFromAbundance` in
-#' [`tximport()`][tximport::tximport] documentation).
+#' `tximport::summarizeToGene()` can be called to convert transcript-level
+#' counts to gene-level. By default, we're using length-scaled TPM, so a
+#' corresponding average transcript length matrix isn't necessary. The average
+#' transcript length matrix is only necessary when raw counts matrix isn't
+#' scaled during tximport call (see `countsFromAbundance` in
+#' `tximport::tximport()` documentation).
 #'
 #' @section bcbioRNASeq to DESeqTransform:
 #'
 #' 1. Coerce to `DESeqDataSet`.
-#' 2. Call [DESeq2::DESeq()].
-#' 3. Call [DESeq2::varianceStabilizingTransformation()].
+#' 2. Call `DESeq2::DESeq()`.
+#' 3. Call `DESeq2::varianceStabilizingTransformation()`.
 #'
 #' @section bcbioRNASeq to DGEList:
 #'
 #' When `countsFromAbundance = "lengthScaledTPM"` (default):
 #'
-#' 1. Call [edgeR::DGEList()].
+#' 1. Call `edgeR::DGEList()`.
 #'
 #' When `countsFromAbundance = "no"`:
 #'
-#' 1. Call [edgeR::DGEList()].
+#' 1. Call `edgeR::DGEList()`.
 #' 2. Obtain per-observation scaling factors for length, adjusted to avoid
 #'    changing the magnitude of the counts.
 #' 3. Computing effective library sizes from scaled counts, to account for
 #'    composition biases between samples.
 #' 4. Combine effective library sizes with the length factors, and calculate
 #'    offsets for a log-link GLM.
-#' 5. Apply offset matrix using [edgeR::scaleOffset()].
+#' 5. Apply offset matrix using `edgeR::scaleOffset()`.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @seealso
-#' - [tximport::tximport()].
-#' - [DESeq2::DESeqDataSetFromTximport()].
-#' - [edgeR::DGEList()].
+#' - `tximport::tximport()`.
+#' - `DESeq2::DESeqDataSetFromTximport()`.
+#' - `edgeR::DGEList()`.
 #'
 #' @return Modified object, of desired coercion type.
 #'
@@ -62,23 +61,12 @@
 #' data(bcb)
 #'
 #' ## bcbioRNASeq to DESeqDataSet ====
-#' x <- as(bcb, "DESeqDataSet")
-#' names(mcols(x))
-#' class(x)
-#' show(x)
+#' dds <- as.DESeqDataSet(bcb)
+#' class(dds)
 #'
-#' ## bcbioRNASeq to RangedSummarizedExperiment ====
-#' x <- as(bcb, "RangedSummarizedExperiment")
-#' slotNames(x)
-#' show(x)
-#'
-#' ## bcbioRNASeq to SummarizedExperiment ====
-#' ## Coerce to RangedSummarizedExperiment first.
-#' x <- as(bcb, "RangedSummarizedExperiment")
-#' x <- as(x, "SummarizedExperiment")
-#' class(x)
-#' slotNames(x)
-#' show(x)
+#' ## bcbioRNASeq to DESeqTransform ====
+#' dt <- as.DESeqTransform(bcb)
+#' class(dt)
 NULL
 
 
@@ -121,7 +109,7 @@ NULL
 
 
 
-## Updated 2020-01-17.
+## Updated 2021-09-10.
 `as.DESeqDataSet,bcbioRNASeq` <-  # nolint
     function(x, quiet = FALSE) {
         assert(isFlag(quiet))
@@ -130,41 +118,16 @@ NULL
         se <- as(x, "RangedSummarizedExperiment")
         to <- `new,DESeqDataSet`(se = se, quiet = quiet)
         if (!isTRUE(quiet)) {
-            alertInfo(paste(
-                "Set the design formula with {.fun design} ",
-                "and run {.fun DESeq}."
+            alertInfo(sprintf(
+                paste(
+                    "Set the design formula with {.fun %s}",
+                    "and run {.fun %s}."
+                ),
+                "design", "DESeq"
             ))
         }
         to
     }
-
-
-
-#' @rdname coerce
-#' @export
-setMethod(
-    f = "as.DESeqDataSet",
-    signature = signature("bcbioRNASeq"),
-    definition = `as.DESeqDataSet,bcbioRNASeq`
-)
-
-
-
-## Updated 2020-01-17.
-`coerce,bcbioRNASeq,DESeqDataSet` <-  # nolint
-    function(from) {
-        as.DESeqDataSet(from, quiet = TRUE)
-    }
-
-
-
-#' @rdname coerce
-#' @name coerce,bcbioRNASeq,DESeqDataSet-method
-setAs(
-    from = "bcbioRNASeq",
-    to = "DESeqDataSet",
-    def = `coerce,bcbioRNASeq,DESeqDataSet`
-)
 
 
 
@@ -185,34 +148,6 @@ setAs(
 
 
 
-#' @rdname coerce
-#' @export
-setMethod(
-    f = "as.DESeqTransform",
-    signature = signature("bcbioRNASeq"),
-    definition = `as.DESeqTransform,bcbioRNASeq`
-)
-
-
-
-## Updated 2020-01-17.
-`coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
-    function(from) {
-        as.DESeqTransform(from, quiet = TRUE)
-    }
-
-
-
-#' @rdname coerce
-#' @name coerce,bcbioRNASeq,DESeqTransform-method
-setAs(
-    from = "bcbioRNASeq",
-    to = "DESeqTransform",
-    def = `coerce,bcbioRNASeq,DESeqTransform`
-)
-
-
-
 ## Updated 2020-01-12.
 `as.DGEList,bcbioRNASeq` <-  # nolint
     function(x, quiet = FALSE) {
@@ -222,8 +157,9 @@ setAs(
         cfa <- metadata(x)[["countsFromAbundance"]]
         if (!isTRUE(quiet)) {
             alert(sprintf(
-                "Generating {.var DGEList} with {.pkg edgeR} %s.",
-                packageVersion("edgeR")
+                "Generating {.cls %s} with {.pkg %s} %s.",
+                "DGEList", "edgeR",
+                as.character(packageVersion("edgeR"))
             ))
             dl(c("countsFromAbundance" = cfa))
         }
@@ -256,27 +192,33 @@ setAs(
             ## This will assign `y$offset` matrix. See above for details.
             y <- scaleOffset(y, offset = normMat)
             if (!isTRUE(quiet)) {
-                alertInfo(paste(
-                    "This {.var DGEList} is suitable for use only with",
-                    "{.pkg edgeR}. If handing off to {.pkg limma-voom},",
-                    "{.arg countsFromAbundance} must be set to",
-                    "{.val lengthScaledTPM} instead."
+                alertInfo(sprintf(
+                    fmt = paste(
+                        "This {.cls %s} is suitable for use only with",
+                        "{.pkg %s}. If handing off to {.pkg %s},",
+                        "{.arg %s} must be set to {.val %s} instead."
+                    ),
+                    "DGEList", "edgeR", "limma-voom",
+                    "countsFromAbundance", "lengthScaledTPM"
                 ))
             }
         } else {
             if (!isTRUE(quiet)) {
-                alertInfo(paste(
-                    "This {.var DGEList} is suitable for use with {.pkg edgeR}",
-                    "and/or {.pkg limma-voom}."
+                alertInfo(sprintf(
+                    fmt = paste(
+                        "This {.cls %s} is suitable for use with {.pkg %s}",
+                        "and/or {.pkg %s}."
+                    ),
+                    "DGEList", "edgeR", "limma-voom"
                 ))
             }
         }
         assert(identical(dimnames(x), dimnames(y)))
         validObject(y)
         if (!isTRUE(quiet)) {
-            alertInfo(paste(
-                "Subset genes with {.fun filterByExpr} ",
-                "and run {.fun calcNormFactors}."
+            alertInfo(sprintf(
+                "Subset genes with {.fun %s} and run {.fun %s}.",
+                "filterByExpr", "calcNormFactors"
             ))
         }
         y
@@ -284,13 +226,19 @@ setAs(
 
 
 
-#' @rdname coerce
-#' @export
-setMethod(
-    f = "as.DGEList",
-    signature = signature("bcbioRNASeq"),
-    definition = `as.DGEList,bcbioRNASeq`
-)
+## Updated 2020-01-17.
+`coerce,bcbioRNASeq,DESeqDataSet` <-  # nolint
+    function(from) {
+        as.DESeqDataSet(from, quiet = TRUE)
+    }
+
+
+
+## Updated 2020-01-17.
+`coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
+    function(from) {
+        as.DESeqTransform(from, quiet = TRUE)
+    }
 
 
 
@@ -301,6 +249,48 @@ setMethod(
     }
 
 
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DESeqDataSet",
+    signature = signature(x = "bcbioRNASeq"),
+    definition = `as.DESeqDataSet,bcbioRNASeq`
+)
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DESeqTransform",
+    signature = signature(x = "bcbioRNASeq"),
+    definition = `as.DESeqTransform,bcbioRNASeq`
+)
+
+#' @rdname coerce
+#' @export
+setMethod(
+    f = "as.DGEList",
+    signature = signature(x = "bcbioRNASeq"),
+    definition = `as.DGEList,bcbioRNASeq`
+)
+
+
+
+#' @rdname coerce
+#' @name coerce,bcbioRNASeq,DESeqDataSet-method
+setAs(
+    from = "bcbioRNASeq",
+    to = "DESeqDataSet",
+    def = `coerce,bcbioRNASeq,DESeqDataSet`
+)
+
+#' @rdname coerce
+#' @name coerce,bcbioRNASeq,DESeqTransform-method
+setAs(
+    from = "bcbioRNASeq",
+    to = "DESeqTransform",
+    def = `coerce,bcbioRNASeq,DESeqTransform`
+)
 
 #' @rdname coerce
 #' @name coerce,bcbioRNASeq,DGEList-method

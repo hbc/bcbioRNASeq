@@ -1,7 +1,7 @@
 #' @name plotCountsPerBiotype
 #' @author Michael Steinbaugh, Rory Kirchner
 #' @inherit AcidPlots::plotCountsPerBiotype
-#' @note Updated 2019-09-16.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
@@ -9,6 +9,8 @@
 #'
 #' @examples
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plotCountsPerBiotype(bcb)
 NULL
 
@@ -35,7 +37,7 @@ formals(`plotCountsPerBiotype,bcbioRNASeq`)[["normalized"]] <- .normalized
 #' @export
 setMethod(
     f = "plotCountsPerBiotype",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotCountsPerBiotype,bcbioRNASeq`
 )
 
@@ -63,6 +65,6 @@ formals(`plotCountsPerBroadClass,bcbioRNASeq`) <-
 #' @export
 setMethod(
     f = "plotCountsPerBroadClass",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotCountsPerBroadClass,bcbioRNASeq`
 )

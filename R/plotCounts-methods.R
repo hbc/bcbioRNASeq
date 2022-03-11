@@ -1,22 +1,22 @@
 #' @name plotCounts
 #' @author Michael Steinbaugh
 #' @inherit AcidPlots::plotCounts
-#' @note Updated 2019-09-18.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams counts
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See [AcidPlots::plotCounts()] for details.
+#'   See `AcidPlots::plotCounts()` for details.
 #'
 #' @examples
 #' data(bcb)
 #'
-#' g2s <- basejump::Gene2Symbol(bcb)
+#' ## bcbioRNASeq ====
+#' g2s <- AcidGenerics::Gene2Symbol(bcb)
 #' geneIds <- head(g2s[["geneId"]])
 #' print(geneIds)
 #' geneNames <- head(g2s[["geneName"]])
 #' print(geneNames)
-#'
 #' plotCounts(bcb, genes = geneIds, style = "facet")
 #' plotCounts(bcb, genes = geneNames, style = "wide")
 NULL
@@ -43,6 +43,6 @@ formals(`plotCounts,bcbioRNASeq`)[["normalized"]] <- .normalized
 #' @export
 setMethod(
     f = "plotCounts",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotCounts,bcbioRNASeq`
 )

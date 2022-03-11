@@ -15,16 +15,16 @@
 #' these can be corrected by editing the YAML file.
 #'
 #' Alternatively, you can pass in a sample metadata file into the
-#' [bcbioRNASeq()] function call using the `sampleMetadataFile` argument. This
+#' `bcbioRNASeq()` function call using the `sampleMetadataFile` argument. This
 #' requires either a CSV or Excel spreadsheet.
 #'
 #' The samples in the bcbio run must map to the `description` column. The values
 #' provided in `description` must be unique. These values will be sanitized into
-#' syntactically valid names (see [`make.names`][base::make.names] for more
-#' information), and assigned as the column names of the `bcbioRNASeq` object.
-#' The original values are stored as the `sampleName` column in `colData`, and
-#' are used for all plotting functions. Do not attempt to set a `sampleId`
-#' column, as this is used internally by the package.
+#' syntactically valid names (see `make.names()` for more information), and
+#' assigned as the column names of the `bcbioRNASeq` object. The original values
+#' are stored as the `sampleName` column in `colData`, and are used for all
+#' plotting functions. Do not attempt to set a `sampleId` column, as this is
+#' used internally by the package.
 #'
 #' Here is a minimal example of a properly formatted sample metadata file:
 #'
@@ -38,26 +38,24 @@
 #'
 #' @section Valid names:
 #'
-#' R is strict about values that are considered valid for use in
-#' [`names()`][base::names] and [`dimnames()`][base::dimnames] (i.e.
-#' [`rownames()`][base::rownames] and [`colnames()`][base::colnames]).
-#' Non-alphanumeric characters, spaces, and **dashes** are not valid. Use either
-#' underscores or periods in place of dashes when working in R. Also note that
-#' names should **not begin with a number**, and will be prefixed with an `X`
-#' when sanitized. Consult the documentation in the
-#' [`make.names()`][base::make.names] function for more information. We strongly
-#' recommend adhering to these conventions when labeling samples, to help avoid
-#' unexpected downstream behavior in R due to [`dimnames()`][base::dimnames]
-#' mismatches.
+#' R is strict about values that are considered valid for use in `names()` and
+#' `dimnames()` (i.e. `rownames()` and `colnames()`. Non-alphanumeric
+#' characters, spaces, and **dashes** are not valid. Use either underscores or
+#' periods in place of dashes when working in R. Also note that names should
+#' **not begin with a number**, and will be prefixed with an `X` when sanitized.
+#' Consult the documentation in the `make.names()` function for more
+#' information. We strongly recommend adhering to these conventions when
+#' labeling samples, to help avoid unexpected downstream behavior in R due to
+#' `dimnames()` mismatches.
 #'
 #' @section Genome annotations:
 #'
-#' [bcbioRNASeq()] provides support for automatic import of genome annotations,
+#' `bcbioRNASeq()` provides support for automatic import of genome annotations,
 #' which internally get processed into genomic ranges (`GRanges`) and are
-#' slotted into the [`rowRanges()`][SummarizedExperiment::rowRanges] of the
-#' object. Currently, we offer support for (1) [Ensembl][] genome annotations
-#' from [AnnotationHub][] via [ensembldb][] (*recommended*); or (2) direct
-#' import from a GTF/GFF file using [rtracklayer][].
+#' slotted into the `rowRanges()` of the object. Currently, we offer support for
+#' (1) [Ensembl][] genome annotations from [AnnotationHub][] via [ensembldb][]
+#' (*recommended*); or (2) direct import from a GTF/GFF file using
+#' [rtracklayer][].
 #'
 #' [ensembldb][] requires the `organism` and `ensemblRelease` arguments to be
 #' defined. When both of these are set, `bcbioRNASeq` will attempt to
@@ -83,8 +81,8 @@
 #' Internally, genome annotations are imported via the [basejump][] package,
 #' specifically with either of these functions:
 #'
-#' - [basejump::makeGRangesFromEnsembl()].
-#' - [basejump::makeGRangesFromGFF()].
+#' - `AcidGenomes::makeGRangesFromEnsembl()`.
+#' - `AcidGenomes::makeGRangesFromGFF()`.
 #'
 #' [AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
 #' [basejump]: https://steinbaugh.com/basejump/
@@ -98,28 +96,27 @@
 #' Ensure that the organism and genome build used with bcio match correctly here
 #' in the function call. In particular, for the legacy *Homo sapiens*
 #' GRCh37/hg19 genome build, ensure that `genomeBuild = "GRCh37"`. Otherwise,
-#' the genomic ranges set in [`rowRanges()`][SummarizedExperiment::rowRanges]
-#' will mismatch. It is recommended for current projects that GRCh38/hg38 is
-#' used in place of GRCh37/hg19 if possible.
+#' the genomic ranges set in `rowRanges()` will mismatch. It is recommended for
+#' current projects that GRCh38/hg38 is used in place of GRCh37/hg19 if
+#' possible.
 #'
 #' @section DESeq2:
 #'
-#' DESeq2 is run automatically when [bcbioRNASeq()] is called, unless `fast =
-#' TRUE` is set. Internally, this automatically slots normalized counts into
-#' [`assays()`][SummarizedExperiment::assays], and generates variance-stabilized
-#' counts.
+#' DESeq2 is run automatically when `bcbioRNASeq()` is called, unless
+#' `fast = TRUE` is set. Internally, this automatically slots normalized counts
+#' into `assays()`, and generates variance-stabilized counts.
 #'
 #' @section Remote connections:
 #'
 #' When working on a local machine, it is possible to load bcbio run data over a
 #' remote connection using [sshfs][]. When loading a large number of samples, it
-#' is preferable to call [bcbioRNASeq()] directly in R on the remote server, if
+#' is preferable to call `bcbioRNASeq()` directly in R on the remote server, if
 #' possible.
 #'
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
 #'
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2021-04-02.
+#' @note Updated 2022-03-07.
 #' @export
 #'
 #' @inheritParams AcidExperiment::makeSummarizedExperiment
@@ -150,7 +147,7 @@
 #'   Whether to generate estimated counts using abundance estimates
 #'   (*recommended by default*). `lengthScaledTPM` is a suitable default, and
 #'   counts are scaled using the average transcript length over samples and then
-#'   the library size. Refer to [tximport::tximport()] for more information on
+#'   the library size. Refer to `tximport::tximport()` for more information on
 #'   this parameter, but it should only ever be changed when loading some
 #'   datasets at transcript level (e.g. for DTU analsyis).
 #' @param fast `logical(1)`.
@@ -158,7 +155,7 @@
 #'   Skip internal DESeq2 calculations and transformations.
 #'   Don't enable this setting when using the quality control R Markdown
 #'   template.
-#'   Note that some plotting functions, such as [plotPCA()] will not work when
+#'   Note that some plotting functions, such as `plotPCA()` will not work when
 #'   this mode is enabled.
 #'
 #' @return `bcbioRNASeq`.
@@ -273,21 +270,25 @@ bcbioRNASeq <- function(
     tryCatch(
         expr = assert(isCharacter(log)),
         error = function(e) {
-            alertWarning("{.file bcbio-nextgen.log} file is empty.")
+            alertWarning(sprintf(
+                "{.file %s} file is empty.",
+                "bcbio-nextgen.log"
+            ))
         }
     )
     fastPipeline <- .isFastPipeline(log)
     if (isTRUE(fastPipeline)) {
-        alertInfo("Fast RNA-seq pipeline (fastrnaseq) detected.")
+        alertInfo("Fast RNA-seq pipeline detected.")
     }
     commandsLog <- import(file.path(projectDir, "bcbio-nextgen-commands.log"))
     ## This step enables our minimal dataset inside the package to pass checks.
     tryCatch(
         expr = assert(isCharacter(commandsLog)),
         error = function(e) {
-            alertWarning(
-                "{.file bcbio-nextgen-commands.log} file is empty."
-            )
+            alertWarning(sprintf(
+                "{.file %s} file is empty.",
+                "bcbio-nextgen-commands.log"
+            ))
         }
     )
     lanes <- detectLanes(sampleDirs)
@@ -385,14 +386,18 @@ bcbioRNASeq <- function(
     ## pseudoaligned counts are defined in the primary "counts" assay.
     if (isSubset(caller, .tximportCallers)) {
         h3("tximport")
-        tx2gene <- importTx2Gene(
-            file = file.path(projectDir, "tx2gene.csv"),
-            organism = organism,
-            genomeBuild = genomeBuild,
-            release = ensemblRelease
-        )
-        assert(is(tx2gene, "Tx2Gene"))
         txOut <- identical(level, "transcripts")
+        if (isTRUE(txOut)) {
+            tx2gene <- NULL
+        } else {
+            tx2gene <- importTx2Gene(
+                file = file.path(projectDir, "tx2gene.csv"),
+                organism = organism,
+                genomeBuild = genomeBuild,
+                release = ensemblRelease
+            )
+            assert(is(tx2gene, "Tx2Gene"))
+        }
         txi <- .tximport(
             sampleDirs = sampleDirs,
             type = caller,
@@ -425,7 +430,10 @@ bcbioRNASeq <- function(
         tx2gene <- NULL
         txi <- NULL
         assert(identical(level, "genes"))
-        alert("Slotting aligned counts into primary {.fun counts} assay.")
+        alert(sprintf(
+            "Slotting aligned counts into primary {.fun %s} assay.",
+            "counts"
+        ))
         assays[["counts"]] <- .featureCounts(
             projectDir = projectDir,
             samples = samples
@@ -466,11 +474,14 @@ bcbioRNASeq <- function(
                 ignoreVersion = TRUE
             )
         } else {
-            alertWarning("Slotting empty ranges into {.fun rowRanges}.")
+            alertWarning(sprintf(
+                "Slotting empty ranges into {.fun %s}.",
+                "rowRanges"
+            ))
             rowRanges <- emptyRanges(rownames(assays[[1L]]))
         }
     }
-    assert(is(rowRanges, "GRanges"))
+    assert(is(rowRanges, "GenomicRanges"))
     ## Attempt to get genome build and Ensembl release if not declared. Note
     ## that these will remain NULL when using GTF file (see above).
     if (is.null(genomeBuild)) {
@@ -490,10 +501,14 @@ bcbioRNASeq <- function(
         organism <- tryCatch(
             expr = detectOrganism(rownames(assays[[1L]])),
             error = function(e) {
-                warning(
-                    "Failed to detect organism automatically.\n",
-                    "Specify with 'organism' argument."
-                )
+                alertWarning(sprintf(
+                    fmt = paste(
+                        "Failed to detect organism automatically.",
+                        "Specify with {.arg %s} argument.",
+                        sep = "\n"
+                    ),
+                    "organism"
+                ))
             }
         )
     }
@@ -536,43 +551,52 @@ bcbioRNASeq <- function(
     if (level == "genes" && isFALSE(fast)) {
         dds <- tryCatch(
             expr = {
-                h2("{.pkg DESeq2} normalizations")
+                h2(sprintf("{.pkg %s} normalizations", "DESeq2"))
                 dds <- as(bcb, "DESeqDataSet")
-                alert("{.fun estimateSizeFactors}")
+                alert(sprintf("{.fun %s}", "estimateSizeFactors"))
                 dds <- estimateSizeFactors(dds)
                 if (!.dataHasVariation(dds)) {
-                    alertWarning(paste(
-                        "Skipping {.pkg DESeq2} calculations.",
-                        "Data set does not have enough variation.",
-                        sep = "\n"
+                    alertWarning(sprintf(
+                        fmt = paste(
+                            "Skipping {.pkg %s} calculations.",
+                            "Data set does not have enough variation.",
+                            sep = "\n"
+                        ),
+                        "DESeq2"
                     ))
                     return(NULL)
                 }
-                alert("{.fun DESeq}")
+                alert(sprintf("{.fun %s}", "DESeq"))
                 dds <- DESeq(dds)
                 dds
             },
             error = function(e) {
-                alertWarning("Skipping {.pkg DESeq2} calculations.")
+                alertWarning(sprintf(
+                    "Skipping {.pkg %s} calculations.",
+                    "DESeq2"
+                ))
                 message(e)
             }
         )
         if (is(dds, "DESeqDataSet")) {
             assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
-            alert("{.fun varianceStabilizingTransformation}")
+            alert(sprintf("{.fun %s}", "varianceStabilizingTransformation"))
             vst <- varianceStabilizingTransformation(dds)
             assert(is(vst, "DESeqTransform"))
             assays(bcb)[["vst"]] <- assay(vst)
             ## Calculate FPKM. Skip this step if we've slotted empty ranges.
             if (length(unique(width(rowRanges(dds)))) > 1L) {
-                alert("{.fun fpkm}")
+                alert(sprintf("{.fun %s}", "fpkm"))
                 fpkm <- fpkm(dds)
                 assert(is.matrix(fpkm))
                 assays(bcb)[["fpkm"]] <- fpkm
             } else {
-                alertWarning(paste(
-                    "{.fun fpkm}: Skipping FPKM calculation because",
-                    "{.fun rowRanges} is empty."
+                alertWarning(sprintf(
+                    fmt = paste(
+                        "{.fun %s}: Skipping FPKM calculation because",
+                        "{.fun %s} is empty."
+                    ),
+                    "fpkm", "rowRanges"
                 ))
             }
         }

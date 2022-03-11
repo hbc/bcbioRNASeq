@@ -1,280 +1,176 @@
-#' @rdname coerce
+#' @export
 #' @name as.DESeqDataSet
-#' @importFrom AcidGenerics as.DESeqDataSet
+#' @rdname coerce
 #' @usage as.DESeqDataSet(x, ...)
-#' @export
 NULL
 
-#' @rdname coerce
+#' @export
 #' @name as.DESeqTransform
-#' @importFrom AcidGenerics as.DESeqTransform
-#' @usage as.DESeqTransform(x, ...)
-#' @export
-NULL
-
 #' @rdname coerce
+#' @usage as.DESeqTransform(x, ...)
+NULL
+
+#' @export
 #' @name as.DGEList
-#' @importFrom AcidGenerics as.DGEList
+#' @rdname coerce
 #' @usage as.DGEList(x, ...)
-#' @export
 NULL
 
-
-
-#' @rdname counts
+#' @aliases counts<-
+#' @export counts counts<-
 #' @name counts
-#' @importFrom AcidGenerics counts
-#' @usage counts(object, ...)
-#' @export
-NULL
-
 #' @rdname counts
-#' @name counts<-
-#' @importFrom AcidGenerics counts<-
-#' @usage counts(object, ...) <- value
-#' @export
+#' @usage
+#' counts(object, ...)
+#' counts(object, ...) <- value
 NULL
 
-
-
-#' @rdname plot5Prime3PrimeBias
+#' @export
 #' @name plot5Prime3PrimeBias
-#' @importFrom AcidGenerics plot5Prime3PrimeBias
+#' @rdname plot5Prime3PrimeBias
 #' @usage plot5Prime3PrimeBias(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotCorrelationHeatmap
+#' @export
 #' @name plotCorrelationHeatmap
-#' @importFrom AcidGenerics plotCorrelationHeatmap
-#' @export
+#' @rdname plotCorrelationHeatmap
+#' @usage plotCorrelationHeatmap(object, ...)
 NULL
 
-
-
-#' @rdname plotCounts
+#' @export
 #' @name plotCounts
-#' @importFrom AcidGenerics plotCounts
-#' @importMethodsFrom AcidPlots plotCounts
+#' @rdname plotCounts
 #' @usage plotCounts(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotCountsPerBiotype
+#' @export
 #' @name plotCountsPerBiotype
-#' @importFrom AcidGenerics plotCountsPerBiotype
-#' @importMethodsFrom AcidPlots plotCountsPerBiotype
-#' @usage plotCountsPerBiotype(object, ...)
-#' @export
-NULL
-
 #' @rdname plotCountsPerBiotype
+#' @usage plotCountsPerBiotype(object, ...)
+NULL
+
+#' @export
 #' @name plotCountsPerBroadClass
-#' @importFrom AcidGenerics plotCountsPerBroadClass
-#' @importMethodsFrom AcidPlots plotCountsPerBroadClass
+#' @rdname plotCountsPerBiotype
 #' @usage plotCountsPerBroadClass(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotCountsPerFeature
+#' @export
 #' @name plotCountsPerFeature
-#' @importFrom AcidGenerics plotCountsPerFeature
-#' @importMethodsFrom AcidPlots plotCountsPerFeature
+#' @rdname plotCountsPerFeature
 #' @usage plotCountsPerFeature(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotDispEsts
+#' @export
 #' @name plotDispEsts
-#' @importFrom AcidGenerics plotDispEsts
+#' @rdname plotDispEsts
 #' @usage plotDispEsts(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotExonicMappingRate
+#' @export
 #' @name plotExonicMappingRate
-#' @importFrom AcidGenerics plotExonicMappingRate
+#' @rdname plotExonicMappingRate
 #' @usage plotExonicMappingRate(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotGenderMarkers
+#' @export
 #' @name plotGenderMarkers
-#' @importFrom AcidGenerics plotGenderMarkers
-#' @importMethodsFrom AcidPlots plotGenderMarkers
+#' @rdname plotGenderMarkers
 #' @usage plotGenderMarkers(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotGeneSaturation
+#' @export
 #' @name plotGeneSaturation
-#' @importFrom AcidGenerics plotGeneSaturation
+#' @rdname plotGeneSaturation
 #' @usage plotGeneSaturation(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotIntronicMappingRate
+#' @export
 #' @name plotIntronicMappingRate
-#' @importFrom AcidGenerics plotIntronicMappingRate
+#' @rdname plotIntronicMappingRate
 #' @usage plotIntronicMappingRate(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotMappedReads
+#' @export
 #' @name plotMappedReads
-#' @importFrom AcidGenerics plotMappedReads
+#' @rdname plotMappedReads
 #' @usage plotMappedReads(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotMappingRate
+#' @export
 #' @name plotMappingRate
-#' @importFrom AcidGenerics plotMappingRate
+#' @rdname plotMappingRate
 #' @usage plotMappingRate(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotMeanSD
+#' @export
 #' @name plotMeanSD
-#' @importFrom AcidGenerics plotMeanSD
+#' @rdname plotMeanSD
 #' @usage plotMeanSD(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotPCA
+#' @export
 #' @name plotPCA
-#' @importFrom AcidGenerics plotPCA
+#' @rdname plotPCA
 #' @usage plotPCA(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotPCACovariates
+#' @export
 #' @name plotPCACovariates
-#' @importFrom AcidGenerics plotPCACovariates
+#' @rdname plotPCACovariates
 #' @usage plotPCACovariates(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotPseudoVsAlignedCounts
+#' @export
 #' @name plotPseudoVsAlignedCounts
-#' @importFrom AcidGenerics plotPseudoVsAlignedCounts
+#' @rdname plotPseudoVsAlignedCounts
 #' @usage plotPseudoVsAlignedCounts(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotQC
+#' @export
 #' @name plotQC
-#' @importFrom AcidGenerics plotQC
+#' @rdname plotQC
 #' @usage plotQC(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotRRNAMappingRate
+#' @export
 #' @name plotRRNAMappingRate
-#' @importFrom AcidGenerics plotRRNAMappingRate
+#' @rdname plotRRNAMappingRate
 #' @usage plotRRNAMappingRate(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname plotTotalReads
+#' @export
 #' @name plotTotalReads
-#' @importFrom AcidGenerics plotTotalReads
+#' @rdname plotTotalReads
 #' @usage plotTotalReads(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname relativeLogExpression
+#' @export
 #' @name relativeLogExpression
-#' @importFrom AcidGenerics relativeLogExpression
+#' @rdname relativeLogExpression
 #' @usage relativeLogExpression(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname show
+#' @export
 #' @name show
-#' @importFrom AcidGenerics show
+#' @rdname show
 #' @usage show(object)
-#' @export
 NULL
 
-
-
-#' @rdname slotAlignedCounts
+#' @export
 #' @name slotAlignedCounts
-#' @importFrom AcidGenerics slotAlignedCounts
+#' @rdname slotAlignedCounts
 #' @usage slotAlignedCounts(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname tmm
+#' @export
 #' @name tmm
-#' @importFrom AcidGenerics tmm
+#' @rdname tmm
 #' @usage tmm(object, ...)
-#' @export
 NULL
 
-
-
-#' @rdname updateObject
+#' @export
 #' @name updateObject
-#' @importFrom AcidGenerics updateObject
+#' @rdname updateObject
 #' @usage updateObject(object, ..., verbose = FALSE)
-#' @export
-NULL
-
-
-
-#' @rdname tmm
-#' @name tmm
-#' @importFrom AcidGenerics tmm
-#' @usage tmm(object, ...)
-#' @export
-NULL
-
-
-
-#' @rdname updateObject
-#' @name updateObject
-#' @importFrom AcidGenerics updateObject
-#' @export
 NULL

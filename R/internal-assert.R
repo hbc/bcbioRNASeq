@@ -1,6 +1,6 @@
 #' Assert that counts from abundance is valid
 #'
-#' @note Updated 2020-09-15.
+#' @note Updated 2021-09-01.
 #' @noRd
 #'
 #' @details
@@ -10,15 +10,23 @@
     assert(is(object, "SummarizedExperiment"))
     cfa <- metadata(object)[["countsFromAbundance"]]
     ## Note that featureCounts callers will return NULL here.
-    if (is.null(cfa)) return(TRUE)
-    assert(isCharacter(cfa))
-    if (!isSubset(cfa, c("lengthScaledTPM", "no"))) {
-        stop(
-            "Unsupported 'countsFromAbundance' type: ", cfa, ".\n",
-            "Use either 'lengthScaledTPM' or 'no'. ",
-            "See `bcbioRNASeq()` and `tximport()` documentation for details."
-        )
+    if (is.null(cfa)) {
+        return(TRUE)
     }
+    assert(
+        isCharacter(cfa),
+        isSubset(cfa, c("lengthScaledTPM", "no")),
+        msg = sprintf(
+            fmt = paste0(
+                "Unsupported '%s' type: '%s'.\n",
+                "Use either '%s' or '%s'. ",
+                "See '%s' and '%s' documentation for details."
+            ),
+            "countsFromAbundance", cfa,
+            "lengthScaledTPM", "no",
+            "bcbioRNASeq()", "tximport()"
+        )
+    )
     TRUE
 }
 
@@ -26,16 +34,20 @@
 
 #' Assert that the bcbioRNASeq object was not generated using fast mode
 #'
-#' @note Updated 2020-09-15.
+#' @note Updated 2021-09-01.
 #' @noRd
 .assertIsNotFastMode <- function(object) {
-    assert(is(object, "bcbioRNASeq"))
-    if (.isFastMode(object)) {
-        stop(paste0(
-            "This function does not support a bcbioRNASeq object generated ",
-            "with fast mode. Rerun 'bcbioRNASeq()' with 'fast = FALSE'."
-        ))
-    }
+    assert(
+        is(object, "bcbioRNASeq"),
+        !.isFastMode(object),
+        msg = sprintf(
+            fmt = paste0(
+                "This function does not support a %s object generated ",
+                "with fast mode.\nRerun '%s' with '%s'."
+            ),
+            "bcbioRNASeq", "bcbioRNASeq()", "fast = FALSE"
+        )
+    )
     TRUE
 }
 
@@ -63,7 +75,9 @@
 #' @details
 #' Check the `bcbio-nextgen.log` file to see if fastrnaseq pipeline was run.
 .isFastPipeline <- function(log) {
-    if (!hasLength(log)) return(FALSE)
+    if (!hasLength(log)) {
+        return(FALSE)
+    }
     any(grepl(pattern = "fastrnaseq", x = log, fixed = TRUE))
 }
 

@@ -12,12 +12,13 @@
 #' @param ... Additional arguments.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 #' ## Fast mode skips import of aligned counts.
 #' bcb <- bcbioRNASeq(uploadDir, fast = TRUE)
-#' "aligned" %in% assayNames(bcb)
+#' "aligned" %in% SummarizedExperiment::assayNames(bcb)
 #' bcb <- slotAlignedCounts(bcb)
-#' "aligned" %in% assayNames(bcb)
+#' "aligned" %in% SummarizedExperiment::assayNames(bcb)
 NULL
 
 
@@ -42,6 +43,6 @@ NULL
 #' @export
 setMethod(
     f = "slotAlignedCounts",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `slotAlignedCounts,bcbioRNASeq`
 )

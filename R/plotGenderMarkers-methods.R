@@ -1,15 +1,18 @@
 #' @name plotGenderMarkers
 #' @author Michael Steinbaugh
 #' @inherit AcidPlots::plotGenderMarkers
-#' @note Updated 2019-09-16.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See [AcidPlots::plotGenderMarkers()] for details.
+#'   See `AcidPlots::plotGenderMarkers()` for details.
 #'
 #' @examples
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
+#' ## Simulate expression of sexually dimorphic gender marker genes.
 #' rownames(bcb)[seq_len(2L)] <- c("ENSMUSG00000086503", "ENSMUSG00000069045")
 #' plotGenderMarkers(bcb)
 NULL
@@ -37,6 +40,6 @@ formals(`plotGenderMarkers,bcbioRNASeq`)[["normalized"]] <- .normalized
 #' @export
 setMethod(
     f = "plotGenderMarkers",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotGenderMarkers,bcbioRNASeq`
 )

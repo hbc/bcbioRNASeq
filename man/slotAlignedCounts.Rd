@@ -29,12 +29,13 @@ correlations with the primary pseudoaligned counts.
 Updated 2020-12-22.
 }
 \examples{
+## bcbioRNASeq ====
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 ## Fast mode skips import of aligned counts.
 bcb <- bcbioRNASeq(uploadDir, fast = TRUE)
-"aligned" \%in\% assayNames(bcb)
+"aligned" \%in\% SummarizedExperiment::assayNames(bcb)
 bcb <- slotAlignedCounts(bcb)
-"aligned" \%in\% assayNames(bcb)
+"aligned" \%in\% SummarizedExperiment::assayNames(bcb)
 }
 \author{
 Michael Steinbaugh

@@ -1,41 +1,36 @@
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plot5Prime3PrimeBias
-#' @note Updated 2021-07-21.
+#' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
 #'
 #' @examples
 #' data(bcb)
+#'
+#' ## bcbioRNASeq ====
 #' plot5Prime3PrimeBias(bcb)
 NULL
 
 
 
-## Updated 2019-09-16.
+## Updated 2022-03-07.
 `plot5Prime3PrimeBias,bcbioRNASeq` <-  # nolint
     function(
         object,
         interestingGroups = NULL,
-        color,
         labels = list(
-            title = "5'->3' bias",
-            subtitle = NULL,
-            sampleAxis = NULL,
-            metricAxis = "5'->3' bias"
+            "title" = "5'->3' bias",
+            "subtitle" = NULL,
+            "sampleAxis" = NULL,
+            "metricAxis" = "5'->3' bias"
         ),
-        flip
+        flip = getOption(x = "acid.flip", default = TRUE)
     ) {
         validObject(object)
-        assert(
-            isGGScale(color, scale = "discrete", aes = "color", nullOK = TRUE),
-            isFlag(flip)
-        )
-        labels <- matchLabels(
-            labels = labels,
-            choices = eval(formals()[["labels"]])
-        )
+        assert(isFlag(flip))
+        labels <- matchLabels(labels)
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
@@ -51,16 +46,12 @@ NULL
             geom_point(size = 3L) +
             acid_geom_abline(yintercept = 1L)
         ## Labels.
-        if (is.list(labels)) {
-            labels[["color"]] <- paste(interestingGroups, collapse = ":\n")
-            names(labels)[names(labels) == "sampleAxis"] <- "x"
-            names(labels)[names(labels) == "metricAxis"] <- "y"
-            p <- p + do.call(what = labs, args = labels)
-        }
-        ## Color.
-        if (is(color, "ScaleDiscrete")) {
-            p <- p + color
-        }
+        labels[["color"]] <- paste(interestingGroups, collapse = ":\n")
+        names(labels)[names(labels) == "sampleAxis"] <- "x"
+        names(labels)[names(labels) == "metricAxis"] <- "y"
+        p <- p + do.call(what = labs, args = labels)
+        ## Color palette.
+        p <- p + autoDiscreteColorScale()
         ## Flip.
         if (isTRUE(flip)) {
             p <- acid_coord_flip(p)
@@ -73,15 +64,12 @@ NULL
         p
     }
 
-formals(`plot5Prime3PrimeBias,bcbioRNASeq`)[c("color", "flip")] <-
-    formalsList[c("color.discrete", "flip")]
-
 
 
 #' @rdname plot5Prime3PrimeBias
 #' @export
 setMethod(
     f = "plot5Prime3PrimeBias",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plot5Prime3PrimeBias,bcbioRNASeq`
 )

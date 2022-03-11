@@ -12,8 +12,6 @@ plotExonicMappingRate(object, ...)
   object,
   interestingGroups = NULL,
   limit = 0.6,
-  fill = getOption(x = "acid.fill.discrete", default = getOption(x =
-    "ggplot2.discrete.fill", default = AcidPlots::scale_fill_synesthesia_d())),
   labels = list(title = "Exonic mapping rate", subtitle = NULL, sampleAxis = NULL,
     metricAxis = "exonic mapping rate (\%)"),
   flip = getOption(x = "acid.flip", default = TRUE)
@@ -28,14 +26,6 @@ Corresponds to factors describing the columns of the object.}
 
 \item{limit}{\code{numeric(1)}.
 Threshold limit.}
-
-\item{fill}{\code{ggproto}/\code{ScaleDiscrete}.
-Desired ggplot2 fill scale. Must supply discrete values. When set to
-\code{NULL}, the default ggplot2 color palette will be used. If manual color
-definitions are desired, we recommend using \code{ggplot2::scale_fill_manual()}.
-
-To set the discrete fill palette globally, use:\preformatted{options(acid.fill.discrete = ggplot2::scale_fill_viridis_d())
-}}
 
 \item{labels}{\code{list}.
 ggplot2 labels.
@@ -53,10 +43,12 @@ Flip x and y axes. Recommended for plots containing many samples.}
 Ideally, at least 60 percent of total reads should map to exons for RNA-seq.
 }
 \note{
-Updated 2021-07-21.
+Updated 2022-03-07.
 }
 \examples{
 data(bcb)
+
+## bcbioRNASeq ====
 plotExonicMappingRate(bcb)
 }
 \author{

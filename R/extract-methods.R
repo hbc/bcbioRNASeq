@@ -21,6 +21,7 @@
 #' @return `bcbioRNASeq`.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' object <- bcb
 #'
@@ -39,13 +40,11 @@
 #' ## Extract by both genes and samples.
 #' x <- object[genes, samples]
 #' print(x)
-#' assayNames(x)
 #'
 #' ## Fast subsetting, by skipping DESeq2 recalculations.
 #' ## Note that `normalized`, `rlog`, and `vst` assays will be removed.
 #' x <- object[, samples, recalculate = FALSE]
 #' print(x)
-#' names(assays(x))
 NULL
 
 
@@ -93,7 +92,9 @@ NULL
             ## Recalculate DESeq2 normalized counts and variance stabilizations
             ## if the number of samples and/or genes change.
             if (isTRUE(recalculate)) {
-                alert("Recalculating {.pkg DESeq2} normalizations.")
+                alert(sprintf(
+                    "Recalculating {.pkg %s} normalizations.", "DESeq2"
+                ))
                 dds <- `new,DESeqDataSet`(se = rse)
                 dds <- DESeq(dds)
                 ## Normalized counts.
@@ -109,12 +110,14 @@ NULL
                 ## during the `bcbioRNASeq()` call, because it's often too slow.
                 ## However, we're keeping support here for legacy objects.
                 if ("rlog" %in% names(assays)) {
-                    alert("{.fun rlog}")
+                    alert(sprintf("{.fun %s}", "rlog"))
                     assays[["rlog"]] <- assay(rlog(dds))
                 }
             } else {
                 ## Otherwise, remove previous calculations.
-                alertWarning("Skipping {.fun DESeq2} normalizations.")
+                alertWarning(sprintf(
+                    "Skipping {.fun %s} normalizations.", "DESeq2"
+                ))
                 assays[["normalized"]] <- NULL
                 assays[["rlog"]] <- NULL
                 assays[["vst"]] <- NULL

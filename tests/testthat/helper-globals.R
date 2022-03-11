@@ -8,16 +8,18 @@ options(
 )
 
 data(bcb, envir = environment())
-invisible(validObject(bcb))
+## > invisible(validObject(bcb))
 
 bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds"))  # nolint
-invisible(validObject(bcb_fast))
+## > invisible(validObject(bcb_fast))
 
-Gene2Symbol <- basejump::Gene2Symbol
-assay <- basejump::assay
+Gene2Symbol <- AcidGenerics::Gene2Symbol
+`sampleData<-` <- AcidGenerics::`sampleData<-`
+assay <- SummarizedExperiment::assay
 hasInternet <- goalie::hasInternet
-initDir <- basejump::initDir
-skip_on_docker <- goalie::skip_on_docker
+initDir <- AcidBase::initDir
+nonzeroRowsAndCols <- AcidGenerics::nonzeroRowsAndCols
+seqnames <- GenomeInfoDb::seqnames
 
 object <- bcb
 g2s <- Gene2Symbol(object)

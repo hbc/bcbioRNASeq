@@ -24,8 +24,8 @@ Gene identifiers.}
 \item{title}{\code{character(1)}.
 Title.}
 
-\item{...}{Passthrough to \code{\link[AcidPlots:plotCountsCorrelationHeatmap]{AcidPlots::plotCountsCorrelationHeatmap()}} when
-\code{genes = NULL} or \code{\link[AcidPlots:plotCountsCorrelation]{AcidPlots::plotCountsCorrelation()}} when \code{genes} are
+\item{...}{Passthrough to \code{AcidPlots::plotCountsCorrelationHeatmap()} when
+\code{genes = NULL} or \code{AcidPlots::plotCountsCorrelation()} when \code{genes} are
 defined.}
 }
 \value{
@@ -35,7 +35,7 @@ defined.}
 Plot pseudo vs. aligned counts
 }
 \note{
-Updated 2021-05-19.
+Updated 2022-03-08.
 
 Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
@@ -44,12 +44,13 @@ intentionally error for datasets containing aligned counts in the primary
 \examples{
 data(bcb)
 
+## bcbioRNASeq ====
 ## Correlation heatmap.
 plotPseudoVsAlignedCounts(bcb)
 
 ## Individual genes.
 ## Checking the most expressed aligned genes here.
-aligned <- assay(bcb, i = "aligned")
+aligned <- SummarizedExperiment::assay(bcb, i = "aligned")
 genes <- names(tail(sort(rowSums(aligned)), n = 2L))
 plotPseudoVsAlignedCounts(bcb, genes = genes)
 }

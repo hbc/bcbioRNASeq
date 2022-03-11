@@ -1,26 +1,27 @@
 #' @name plotPseudoVsAlignedCounts
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plotPseudoVsAlignedCounts
-#' @note Updated 2021-05-19.
+#' @note Updated 2022-03-08.
 #'
 #' @note Currently supported for salmon or kallisto. The function will
 #'   intentionally error for datasets containing aligned counts in the primary
 #'   `counts` assay.
 #'
 #' @inheritParams AcidRoxygen::params
-#' @param ... Passthrough to [AcidPlots::plotCountsCorrelationHeatmap()] when
-#'   `genes = NULL` or [AcidPlots::plotCountsCorrelation()] when `genes` are
+#' @param ... Passthrough to `AcidPlots::plotCountsCorrelationHeatmap()` when
+#'   `genes = NULL` or `AcidPlots::plotCountsCorrelation()` when `genes` are
 #'   defined.
 #'
 #' @examples
 #' data(bcb)
 #'
+#' ## bcbioRNASeq ====
 #' ## Correlation heatmap.
 #' plotPseudoVsAlignedCounts(bcb)
 #'
 #' ## Individual genes.
 #' ## Checking the most expressed aligned genes here.
-#' aligned <- assay(bcb, i = "aligned")
+#' aligned <- SummarizedExperiment::assay(bcb, i = "aligned")
 #' genes <- names(tail(sort(rowSums(aligned)), n = 2L))
 #' plotPseudoVsAlignedCounts(bcb, genes = genes)
 NULL
@@ -107,6 +108,6 @@ NULL
 #' @export
 setMethod(
     f = "plotPseudoVsAlignedCounts",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `plotPseudoVsAlignedCounts,bcbioRNASeq`
 )

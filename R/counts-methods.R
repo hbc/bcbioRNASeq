@@ -1,7 +1,8 @@
+#' Counts
+#'
 #' @name counts
 #' @author Michael Steinbaugh, Lorena Pantano
-#' @inherit AcidGenerics::counts
-#' @note Updated 2021-02-22.
+#' @note Updated 2022-03-07.
 #'
 #' @details
 #' By default, return the raw counts. Normalized counts in a variety of formats
@@ -27,35 +28,36 @@
 #'     See `DESeq2::sizeFactors` for details.
 #'   - `"fpkm"`: **F**ragments **p**er **k**ilobase per **m**illion mapped
 #'     fragments.\cr
-#'     Requires `fast = FALSE` in [bcbioRNASeq()] call and gene annotations in
-#'     [`rowRanges()`][SummarizedExperiment::rowRanges] with defined
-#'     [`width`][BiocGenerics::width].\cr
-#'     See [DESeq2::fpkm()] for details.
+#'     Requires `fast = FALSE` in `bcbioRNASeq()` call and gene annotations in
+#'     `rowRanges()` with defined `width()`.\cr
+#'     See `DESeq2::fpkm()` for details.
 #'   - `"vst"`: **V**ariance-**s**tabilizing **t**ransformation (log2).\cr
-#'     Requires `fast = FALSE` to be set during [bcbioRNASeq()] call.\cr
-#'     See `DESeq2::varianceStabilizingTransformation` for more information.
+#'     Requires `fast = FALSE` to be set during `bcbioRNASeq()` call.\cr
+#'     See `DESeq2::varianceStabilizingTransformation()` for more information.
 #'   - `"tmm"`: **T**rimmed **m**ean of **M**-values.\cr
 #'     Calculated on the fly.\cr
-#'     See [edgeR::calcNormFactors()] for details.
+#'     See `edgeR::calcNormFactors()` for details.
 #'   - `"rle"`: **R**elative **l**og **e**xpression transformation.\cr
 #'     Calculated on the fly.\cr
-#'     See [relativeLogExpression()] for details.
+#'     See `relativeLogExpression()` for details.
 #'   - `"rlog"`: *Deprecated*.
 #'     **R**egularized **log** transformation (log2).\cr
-#'     No longer calculated automatically during [bcbioRNASeq()] call, but may
+#'     No longer calculated automatically during `bcbioRNASeq()` call, but may
 #'     be defined in legacy objects.\cr
-#'     See [DESeq2::rlog()] for details.\cr
+#'     See `DESeq2::rlog()` for details.\cr
 #'     Note that VST is more performant and now recommended by default instead.
 #'
 #'     Note that `logical(1)` support only applies to `counts()`. Other
-#'     functions in the package require `character(1)` and use
-#'     [`match.arg()`][base::match.arg] internally.
+#'     functions in the package require `character(1)` and use `match.arg()`
+#'     internally.
 #'
 #' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
 #' [tximport]: https://bioconductor.org/packages/tximport/
 #'
 #' @param value Value to assign.
 #' @param ... Additional arguments.
+#'
+#' @return `matrix`.
 #'
 #' @references
 #' - TMM: Robinson and Oshlack (2010).
@@ -73,6 +75,7 @@
 #' - `relativeLogExpression()`.
 #'
 #' @examples
+#' ## bcbioRNASeq ====
 #' data(bcb)
 #' summary(counts(bcb))
 NULL
@@ -111,7 +114,9 @@ NULL
             counts <- relativeLogExpression(counts)
         } else {
             if (!isSubset(assayName, assayNames(object))) {
-                stop(sprintf("%s counts are not defined in object.", assayName))
+                abort(sprintf(
+                    "{.var %s} counts are not defined in object.", assayName
+                ))
             }
             counts <- assays(object)[[assayName]]
         }
@@ -125,6 +130,6 @@ NULL
 #' @export
 setMethod(
     f = "counts",
-    signature = signature("bcbioRNASeq"),
+    signature = signature(object = "bcbioRNASeq"),
     definition = `counts,bcbioRNASeq`
 )
