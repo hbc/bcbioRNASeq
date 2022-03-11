@@ -77,14 +77,10 @@ invisible(lapply(
 # Load `bcbioRNASeq` object
 
 ```{r load-object}
-file <- params$bcb_file
-object <- import(file)
-name <- basenameSansExt(file)
-rm(file)
+object <- import(file = params[["bcb_file"]])
 assert(
     is(object, "bcbioRNASeq"),
-    validObject(object),
-    is.character(name)
+    validObject(object)
 )
 print(object)
 ```
@@ -187,13 +183,6 @@ of results.
 
 ```{r deseq}
 dds <- DESeq(dds)
-saveRDS(
-    object = dds,
-    file = file.path(
-        params[["data_dir"]],
-        paste0(name, "_dds.rds")
-    )
-)
 ```
 
 # Variance stabilization
@@ -208,13 +197,6 @@ using `varianceStabilizingTransformation()` but `rlog()` is a good alternate.
 dt <- varianceStabilizingTransformation(dds)
 assert(is(dt, "DESeqTransform"))
 interestingGroups(dt) <- interestingGroups(object)
-saveRDS(
-    object = dt,
-    file = file.path(
-        params[["data_dir"]],
-        paste0(name, "_dt.rds")
-    )
-)
 ```
 
 # Results
@@ -233,26 +215,18 @@ print(params[["contrasts"]])
 ```
 
 ```{r res-unshrunken}
-res_list_unshrunken <-  # nolint
-    mapply(
-        FUN = DESeq2::results,
-        contrast = params[["contrasts"]],
-        MoreArgs = list(
-            "object" = dds,
-            "alpha" = params[["alpha_threshold"]],
-            "lfcThreshold" = params[["lfc_threshold"]]
-        ),
-        SIMPLIFY = FALSE,
-        USE.NAMES = FALSE
-    )
-names(res_list_unshrunken) <- names(params[["contrasts"]])
-saveRDS(
-    object = res_list_unshrunken,
-    file = file.path(
-        params[["data_dir"]],
-        paste0(name, "_res_list_unshrunken.rds")
-    )
+resListUnshrunken <- mapply(
+    FUN = DESeq2::results,
+    contrast = params[["contrasts"]],
+    MoreArgs = list(
+        "object" = dds,
+        "alpha" = params[["alpha_threshold"]],
+        "lfcThreshold" = params[["lfc_threshold"]]
+    ),
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
 )
+names(resListUnshrunken) <- names(params[["contrasts"]])
 ```
 
 Now let's calculate shrunken log2 fold change values with
@@ -263,10 +237,10 @@ well with complex contrast designs.
 ```{r res-shrunken}
 ## Refer to DESeqAnalysis package if you want to use newer apeglm instead.
 ## See `help(topic = "apeglmResults", package = "DESeqAnalysis")` for details.
-res_list_shrunken <-  # nolint
+resListShrunken <-
     mapply(
         FUN = DESeq2::lfcShrink,
-        res = res_list_unshrunken,
+        res = resListUnshrunken,
         contrast = params[["contrasts"]],
         MoreArgs = list(
             "dds" = dds,
@@ -277,13 +251,6 @@ res_list_shrunken <-  # nolint
         SIMPLIFY = FALSE,
         USE.NAMES = TRUE
     )
-saveRDS(
-    object = res_list_shrunken,
-    file = file.path(
-        params[["data_dir"]],
-        paste0(name, "_res_list_shrunken.rds")
-    )
-)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of
@@ -296,16 +263,10 @@ We performed the analysis using a BH adjusted *P* value cutoff of
 deseq <- DESeqAnalysis(
     data = dds,
     transform = dt,
-    results = res_list_unshrunken,
-    lfcShrink = res_list_shrunken
+    results = resListUnshrunken,
+    lfcShrink = resListShrunken
 )
-saveRDS(
-    object = deseq,
-    file = file.path(
-        params[["data_dir"]],
-        paste0(name, "_deseqanalysis.rds")
-    )
-)
+saveData(deseq, dir = params[["data_dir"]])
 ```
 
 # Plots
