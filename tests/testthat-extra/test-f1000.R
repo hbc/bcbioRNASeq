@@ -1,5 +1,6 @@
 suppressPackageStartupMessages({
     library(rmarkdown)
+    library(basejump)
     library(DESeq2)
     library(DESeqAnalysis)
 })
