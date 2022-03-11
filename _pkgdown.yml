@@ -29,9 +29,9 @@ authors:
     href: https://acidgenomics.com/
 navbar:
   components:
-     acid:
-       icon: "fas fa-vial fa-lg"
-       href: https://acidgenomics.com/
+    acid:
+      icon: 'fas fa-vial fa-lg'
+      href: https://acidgenomics.com/
   structure:
     right: [acid, github]
 news:
@@ -59,4 +59,6 @@ reference:
   - title: Reexports
     contents:
       - reexports
+template:
+  bootstrap: 5
 url: https://r.acidgenomics.com/packages/bcbiornaseq
