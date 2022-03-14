@@ -7,7 +7,7 @@
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See `AcidPlots::plotPCA()` for details.
+#' See `AcidPlots::plotPCA()` for details.
 #'
 #' @return `ggplot`.
 #'
@@ -22,7 +22,7 @@ NULL
 
 
 ## Updated 2020-09-15.
-`plotPCA,bcbioRNASeq` <-  # nolint
+`plotPCA,bcbioRNASeq` <- # nolint
     function(object, normalized, ...) {
         do.call(
             what = plotPCA,

@@ -16,19 +16,17 @@ NULL
 
 
 ## Updated 2022-03-07.
-`plotMappingRate,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        interestingGroups = NULL,
-        limit = 0.7,
-        labels = list(
-            "title" = "Mapping rate",
-            "subtitle" = NULL,
-            "sampleAxis" = NULL,
-            "metricAxis" = "mapping rate (%)"
-        ),
-        flip = getOption(x = "acid.flip", default = TRUE)
-    ) {
+`plotMappingRate,bcbioRNASeq` <- # nolint
+    function(object,
+             interestingGroups = NULL,
+             limit = 0.7,
+             labels = list(
+                 "title" = "Mapping rate",
+                 "subtitle" = NULL,
+                 "sampleAxis" = NULL,
+                 "metricAxis" = "mapping rate (%)"
+             ),
+             flip = getOption(x = "acid.flip", default = TRUE)) {
         validObject(object)
         assert(
             isProportion(limit),

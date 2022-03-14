@@ -4,13 +4,13 @@
 #' @note Updated 2022-03-08.
 #'
 #' @note Currently supported for salmon or kallisto. The function will
-#'   intentionally error for datasets containing aligned counts in the primary
-#'   `counts` assay.
+#' intentionally error for datasets containing aligned counts in the primary
+#' `counts` assay.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `AcidPlots::plotCountsCorrelationHeatmap()` when
-#'   `genes = NULL` or `AcidPlots::plotCountsCorrelation()` when `genes` are
-#'   defined.
+#' `genes = NULL` or `AcidPlots::plotCountsCorrelation()` when `genes` are
+#' defined.
 #'
 #' @examples
 #' data(bcb)
@@ -29,13 +29,11 @@ NULL
 
 
 ## Updated 2020-01-20.
-`plotPseudoVsAlignedCounts,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        genes = NULL,
-        title = "Pseudoaligned vs. aligned counts",
-        ...
-    ) {
+`plotPseudoVsAlignedCounts,bcbioRNASeq` <- # nolint
+    function(object,
+             genes = NULL,
+             title = "Pseudoaligned vs. aligned counts",
+             ...) {
         validObject(object)
         assert(
             .isGeneLevel(object),

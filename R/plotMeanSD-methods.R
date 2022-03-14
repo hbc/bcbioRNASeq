@@ -6,9 +6,10 @@
 #'
 #' @inheritParams bcbioRNASeq
 #' @inheritParams AcidRoxygen::params
-#' @param lineColor `character(1)`.
-#'   Line color.
 #' @param ... Additional arguments.
+#'
+#' @param lineColor `character(1)`.
+#' Line color.
 #'
 #' @details
 #' `vsn::meanSdPlot()` wrapper that plots count transformations on a log2 scale.
@@ -37,16 +38,14 @@ NULL
 
 
 ## Updated 2022-03-07.
-`plotMeanSD,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        fill = ggplot2::scale_fill_gradient(
-            low = AcidPlots::lightPalette[["gray"]],
-            high = AcidPlots::lightPalette[["purple"]]
-        ),
-        lineColor = AcidPlots::lightPalette[["orange"]],
-        legend = getOption(x = "acid.legend", default = TRUE)
-    ) {
+`plotMeanSD,bcbioRNASeq` <- # nolint
+    function(object,
+             fill = ggplot2::scale_fill_gradient(
+                 low = AcidPlots::lightPalette[["gray"]],
+                 high = AcidPlots::lightPalette[["purple"]]
+             ),
+             lineColor = AcidPlots::lightPalette[["orange"]],
+             legend = getOption(x = "acid.legend", default = TRUE)) {
         validObject(object)
         assert(
             requireNamespace("vsn", quietly = TRUE),

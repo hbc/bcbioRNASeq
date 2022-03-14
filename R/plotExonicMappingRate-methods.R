@@ -19,19 +19,17 @@ NULL
 
 
 ## Updated 2022-03-07.
-`plotExonicMappingRate,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        interestingGroups = NULL,
-        limit = 0.6,
-        labels = list(
-            "title" = "Exonic mapping rate",
-            "subtitle" = NULL,
-            "sampleAxis" = NULL,
-            "metricAxis" = "exonic mapping rate (%)"
-        ),
-        flip = getOption(x = "acid.flip", default = TRUE)
-    ) {
+`plotExonicMappingRate,bcbioRNASeq` <- # nolint
+    function(object,
+             interestingGroups = NULL,
+             limit = 0.6,
+             labels = list(
+                 "title" = "Exonic mapping rate",
+                 "subtitle" = NULL,
+                 "sampleAxis" = NULL,
+                 "metricAxis" = "exonic mapping rate (%)"
+             ),
+             flip = getOption(x = "acid.flip", default = TRUE)) {
         validObject(object)
         assert(
             isProportion(limit),

@@ -6,7 +6,7 @@
 #' @inheritParams AcidRoxygen::params
 #' @inheritParams counts
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See `AcidPlots::plotCounts()` for details.
+#' See `AcidPlots::plotCounts()` for details.
 #'
 #' @examples
 #' data(bcb)
@@ -24,7 +24,7 @@ NULL
 
 
 ## Updated 2019-09-18.
-`plotCounts,bcbioRNASeq` <-  # nolint
+`plotCounts,bcbioRNASeq` <- # nolint
     function(object, genes, normalized, ...) {
         args <- .normalizedPlotArgs(
             object = object,

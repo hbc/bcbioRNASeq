@@ -16,20 +16,18 @@ NULL
 
 
 ## Updated 2022-03-07.
-`plotTotalReads,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        interestingGroups = NULL,
-        limit = 20e6L,
-        perMillion = TRUE,
-        labels = list(
-            "title" = "Total reads",
-            "subtitle" = NULL,
-            "sampleAxis" = NULL,
-            "metricAxis" = "reads"
-        ),
-        flip = getOption(x = "acid.flip", default = TRUE)
-    ) {
+`plotTotalReads,bcbioRNASeq` <- # nolint
+    function(object,
+             interestingGroups = NULL,
+             limit = 20e6L,
+             perMillion = TRUE,
+             labels = list(
+                 "title" = "Total reads",
+                 "subtitle" = NULL,
+                 "sampleAxis" = NULL,
+                 "metricAxis" = "reads"
+             ),
+             flip = getOption(x = "acid.flip", default = TRUE)) {
         validObject(object)
         assert(
             isInt(limit),
@@ -50,13 +48,13 @@ NULL
             }
         }
         p <- ggplot(
-                data = data,
-                mapping = aes(
-                    x = !!sym("sampleName"),
-                    y = !!sym("totalReads"),
-                    fill = !!sym("interestingGroups")
-                )
-            ) +
+            data = data,
+            mapping = aes(
+                x = !!sym("sampleName"),
+                y = !!sym("totalReads"),
+                fill = !!sym("interestingGroups")
+            )
+        ) +
             acid_geom_bar() +
             acid_scale_y_continuous_nopad()
         ## Labels.

@@ -15,7 +15,7 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
-#'   migrated to `RangedSummarizedExperiment`.
+#' migrated to `RangedSummarizedExperiment`.
 #' @note Updated 2022-03-07.
 #' @export
 setClass(
@@ -210,7 +210,7 @@ setValidity(
         ## Check for average transcript length matrix, if necessary.
         if (
             isSubset(metadata[["caller"]], .tximportCallers) &&
-            identical(metadata[["countsFromAbundance"]], "no")
+                identical(metadata[["countsFromAbundance"]], "no")
         ) {
             ok <- validate(isSubset("avgTxLength", assayNames))
             if (!isTRUE(ok)) {
@@ -245,6 +245,6 @@ setValidity(
             return(ok)
         }
         ## Return.
-        return(TRUE)
+        TRUE
     }
 )

@@ -16,18 +16,16 @@ NULL
 
 
 ## Updated 2022-03-07.
-`plot5Prime3PrimeBias,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        interestingGroups = NULL,
-        labels = list(
-            "title" = "5'->3' bias",
-            "subtitle" = NULL,
-            "sampleAxis" = NULL,
-            "metricAxis" = "5'->3' bias"
-        ),
-        flip = getOption(x = "acid.flip", default = TRUE)
-    ) {
+`plot5Prime3PrimeBias,bcbioRNASeq` <- # nolint
+    function(object,
+             interestingGroups = NULL,
+             labels = list(
+                 "title" = "5'->3' bias",
+                 "subtitle" = NULL,
+                 "sampleAxis" = NULL,
+                 "metricAxis" = "5'->3' bias"
+             ),
+             flip = getOption(x = "acid.flip", default = TRUE)) {
         validObject(object)
         assert(isFlag(flip))
         labels <- matchLabels(labels)

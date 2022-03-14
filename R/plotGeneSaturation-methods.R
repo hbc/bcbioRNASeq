@@ -17,21 +17,19 @@ NULL
 
 
 ## Updated 2022-03-07.
-`plotGeneSaturation,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        interestingGroups = NULL,
-        minCounts = 1L,
-        perMillion = TRUE,
-        trendline = FALSE,
-        label = getOption(x = "acid.label", default = FALSE),
-        labels = list(
-            "title" = "Gene saturation",
-            "subtitle" = NULL,
-            "x" = "mapped reads",
-            "y" = "gene count"
-        )
-    ) {
+`plotGeneSaturation,bcbioRNASeq` <- # nolint
+    function(object,
+             interestingGroups = NULL,
+             minCounts = 1L,
+             perMillion = TRUE,
+             trendline = FALSE,
+             label = getOption(x = "acid.label", default = FALSE),
+             labels = list(
+                 "title" = "Gene saturation",
+                 "subtitle" = NULL,
+                 "x" = "mapped reads",
+                 "y" = "gene count"
+             )) {
         validObject(object)
         assert(
             .isGeneLevel(object),

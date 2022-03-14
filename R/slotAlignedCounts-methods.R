@@ -24,7 +24,7 @@ NULL
 
 
 ## Updated 2019-07-23.
-`slotAlignedCounts,bcbioRNASeq` <-  # nolint
+`slotAlignedCounts,bcbioRNASeq` <- # nolint
     function(object) {
         validObject(object)
         assert(areDisjointSets(assayNames(object), "aligned"))

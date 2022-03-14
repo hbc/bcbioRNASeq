@@ -9,53 +9,54 @@
 #' can be accessed using the `normalized` argument.
 #'
 #' @inheritParams AcidRoxygen::params
-#' @param normalized `character(1)` or `logical(1)`.
-#'   Normalization method to apply:
+#' @param ... Additional arguments.
 #'
-#'   - `FALSE`: Raw counts.
-#'     When using a [tximport][]-compatible caller, these are length scaled
-#'     by default (see `countsFromAbundance` argument).
-#'     When using a [featureCounts][]-compatible caller, these are `integer`.
+#' @param normalized `character(1)` or `logical(1)`.
+#' Normalization method to apply:
+#'
+#' - `FALSE`: Raw counts.
+#' When using a [tximport][]-compatible caller, these are length scaled
+#' by default (see `countsFromAbundance` argument).
+#' When using a [featureCounts][]-compatible caller, these are `integer`.
 #'
 #' [tximport][] caller-specific normalizations:
 #'
-#'   - `"tpm"`: **T**ranscripts **p**er **m**illion.
+#' - `"tpm"`: **T**ranscripts **p**er **m**illion.
 #'
 #' Additional gene-level-specific normalizations:
 #'
-#'   - `TRUE` / `"sf"`: **S**ize **f**actor (i.e. library size) normalized
-#'     counts.\cr
-#'     See `DESeq2::sizeFactors` for details.
-#'   - `"fpkm"`: **F**ragments **p**er **k**ilobase per **m**illion mapped
-#'     fragments.\cr
-#'     Requires `fast = FALSE` in `bcbioRNASeq()` call and gene annotations in
-#'     `rowRanges()` with defined `width()`.\cr
-#'     See `DESeq2::fpkm()` for details.
-#'   - `"vst"`: **V**ariance-**s**tabilizing **t**ransformation (log2).\cr
-#'     Requires `fast = FALSE` to be set during `bcbioRNASeq()` call.\cr
-#'     See `DESeq2::varianceStabilizingTransformation()` for more information.
-#'   - `"tmm"`: **T**rimmed **m**ean of **M**-values.\cr
-#'     Calculated on the fly.\cr
-#'     See `edgeR::calcNormFactors()` for details.
-#'   - `"rle"`: **R**elative **l**og **e**xpression transformation.\cr
-#'     Calculated on the fly.\cr
-#'     See `relativeLogExpression()` for details.
-#'   - `"rlog"`: *Deprecated*.
-#'     **R**egularized **log** transformation (log2).\cr
-#'     No longer calculated automatically during `bcbioRNASeq()` call, but may
-#'     be defined in legacy objects.\cr
-#'     See `DESeq2::rlog()` for details.\cr
-#'     Note that VST is more performant and now recommended by default instead.
+#' - `TRUE` / `"sf"`: **S**ize **f**actor (i.e. library size) normalized
+#' counts.\cr
+#' See `DESeq2::sizeFactors` for details.
+#' - `"fpkm"`: **F**ragments **p**er **k**ilobase per **m**illion mapped
+#' fragments.\cr
+#' Requires `fast = FALSE` in `bcbioRNASeq()` call and gene annotations in
+#' `rowRanges()` with defined `width()`.\cr
+#' See `DESeq2::fpkm()` for details.
+#' - `"vst"`: **V**ariance-**s**tabilizing **t**ransformation (log2).\cr
+#' Requires `fast = FALSE` to be set during `bcbioRNASeq()` call.\cr
+#' See `DESeq2::varianceStabilizingTransformation()` for more information.
+#' - `"tmm"`: **T**rimmed **m**ean of **M**-values.\cr
+#' Calculated on the fly.\cr
+#' See `edgeR::calcNormFactors()` for details.
+#' - `"rle"`: **R**elative **l**og **e**xpression transformation.\cr
+#' Calculated on the fly.\cr
+#' See `relativeLogExpression()` for details.
+#' - `"rlog"`: *Deprecated*.
+#' **R**egularized **log** transformation (log2).\cr
+#' No longer calculated automatically during `bcbioRNASeq()` call, but may
+#' be defined in legacy objects.\cr
+#' See `DESeq2::rlog()` for details.\cr
+#' Note that VST is more performant and now recommended by default instead.
 #'
-#'     Note that `logical(1)` support only applies to `counts()`. Other
-#'     functions in the package require `character(1)` and use `match.arg()`
-#'     internally.
+#' Note that `logical(1)` support only applies to `counts()`. Other
+#' functions in the package require `character(1)` and use `match.arg()`
+#' internally.
 #'
 #' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
 #' [tximport]: https://bioconductor.org/packages/tximport/
 #'
 #' @param value Value to assign.
-#' @param ... Additional arguments.
 #'
 #' @return `matrix`.
 #'
@@ -83,7 +84,7 @@ NULL
 
 
 ## Updated 2020-09-23.
-`counts,bcbioRNASeq` <-  # nolint
+`counts,bcbioRNASeq` <- # nolint
     function(object, normalized = FALSE) {
         validObject(object)
         assert(
@@ -99,8 +100,8 @@ NULL
             assayName <- "counts"
         } else if (
             isTRUE(normalized) ||
-            ## `sf` is short for library size factor normalized.
-            identical(normalized, "sf")
+                ## `sf` is short for library size factor normalized.
+                identical(normalized, "sf")
         ) {
             assayName <- "normalized"
         } else {

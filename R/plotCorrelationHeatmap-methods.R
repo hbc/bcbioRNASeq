@@ -6,7 +6,7 @@
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See `AcidPlots::plotCorrelationHeatmap()` for details.
+#' See `AcidPlots::plotCorrelationHeatmap()` for details.
 #'
 #' @examples
 #' data(bcb)
@@ -19,7 +19,7 @@ NULL
 
 
 ## Updated 2020-09-15.
-`plotCorrelationHeatmap,bcbioRNASeq` <-  # nolint
+`plotCorrelationHeatmap,bcbioRNASeq` <- # nolint
     function(object, normalized, ...) {
         do.call(
             what = plotCorrelationHeatmap,

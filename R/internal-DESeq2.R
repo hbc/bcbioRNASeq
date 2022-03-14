@@ -7,7 +7,7 @@
 
 
 ## Updated 2020-01-17.
-`new,DESeqDataSet` <-  # nolint
+`new,DESeqDataSet` <- # nolint
     function(se, quiet = FALSE) {
         assert(isFlag(quiet))
         .assertHasValidCFA(se)
@@ -29,7 +29,7 @@
         ## included when raw counts are from tximport and not length scaled.
         if (
             metadata(se)[["caller"]] %in% .tximportCallers &&
-            metadata(se)[["countsFromAbundance"]] == "no"
+                metadata(se)[["countsFromAbundance"]] == "no"
         ) {
             assayNames <- c("counts", "avgTxLength")
         } else {
@@ -60,7 +60,7 @@
         metadata(se) <- m
         ## Generate the DESeqDataSet.
         ## Using an empty design formula.
-        dds <- DESeqDataSet(se = se, design = ~ 1L)
+        dds <- DESeqDataSet(se = se, design = ~1L)
         validObject(dds)
         dds
     }

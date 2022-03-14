@@ -16,7 +16,7 @@ NULL
 
 
 ## Updated 2020-01-20.
-`tmm,matrix` <-  # nolint
+`tmm,matrix` <- # nolint
     function(object) {
         alert("Applying trimmed mean of M-values (TMM) normalization.")
         object <- DGEList(object)
@@ -38,7 +38,7 @@ setMethod(
 
 
 ## Updated 2019-07-23.
-`tmm,SummarizedExperiment` <-  # nolint
+`tmm,SummarizedExperiment` <- # nolint
     function(object) {
         validObject(object)
         tmm(counts(object))

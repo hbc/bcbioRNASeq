@@ -10,7 +10,7 @@ options(
 data(bcb, envir = environment())
 ## > invisible(validObject(bcb))
 
-bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds"))  # nolint
+bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds")) # nolint
 ## > invisible(validObject(bcb_fast))
 
 Gene2Symbol <- AcidGenerics::Gene2Symbol

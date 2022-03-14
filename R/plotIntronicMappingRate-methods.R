@@ -16,19 +16,17 @@ NULL
 
 
 ## Updated 2022-03-07.
-`plotIntronicMappingRate,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        interestingGroups = NULL,
-        limit = 0.2,
-        labels = list(
-            "title" = "Intronic mapping rate",
-            "subtitle" = NULL,
-            "sampleAxis" = NULL,
-            "metricAxis" = "intronic mapping rate (%)"
-        ),
-        flip = getOption(x = "acid.flip", default = TRUE)
-    ) {
+`plotIntronicMappingRate,bcbioRNASeq` <- # nolint
+    function(object,
+             interestingGroups = NULL,
+             limit = 0.2,
+             labels = list(
+                 "title" = "Intronic mapping rate",
+                 "subtitle" = NULL,
+                 "sampleAxis" = NULL,
+                 "metricAxis" = "intronic mapping rate (%)"
+             ),
+             flip = getOption(x = "acid.flip", default = TRUE)) {
         validObject(object)
         assert(
             isProportion(limit),

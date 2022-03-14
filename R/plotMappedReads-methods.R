@@ -16,20 +16,18 @@ NULL
 
 
 ## Updated 2022-03-07.
-`plotMappedReads,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        interestingGroups = NULL,
-        limit = 10e6L,
-        perMillion = TRUE,
-        labels = list(
-            "title" = "Mapped reads",
-            "subtitle" = NULL,
-            "sampleAxis" = NULL,
-            "metricAxis" = "reads"
-        ),
-        flip = getOption(x = "acid.flip", default = TRUE)
-    ) {
+`plotMappedReads,bcbioRNASeq` <- # nolint
+    function(object,
+             interestingGroups = NULL,
+             limit = 10e6L,
+             perMillion = TRUE,
+             labels = list(
+                 "title" = "Mapped reads",
+                 "subtitle" = NULL,
+                 "sampleAxis" = NULL,
+                 "metricAxis" = "reads"
+             ),
+             flip = getOption(x = "acid.flip", default = TRUE)) {
         validObject(object)
         assert(
             isInt(limit),

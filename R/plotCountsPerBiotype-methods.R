@@ -17,7 +17,7 @@ NULL
 
 
 ## Updated 2019-09-16.
-`plotCountsPerBiotype,bcbioRNASeq` <-  # nolint
+`plotCountsPerBiotype,bcbioRNASeq` <- # nolint
     function(object, normalized, ...) {
         do.call(
             what = plotCountsPerBiotype,
@@ -44,7 +44,7 @@ setMethod(
 
 
 ## Updated 2019-09-16.
-`plotCountsPerBroadClass,bcbioRNASeq` <-  # nolint
+`plotCountsPerBroadClass,bcbioRNASeq` <- # nolint
     function(object, normalized, ...) {
         do.call(
             what = plotCountsPerBroadClass,

@@ -6,10 +6,11 @@
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
-#' @param metrics `boolean`. Include sample summary metrics as covariates.
-#'   Defaults to include all metrics columns (`TRUE`), but desired columns can
-#'   be specified here as a character vector.
 #' @param ... Additional arguments, passed to `DEGreport::degCovariates()`.
+#'
+#' @param metrics `boolean`. Include sample summary metrics as covariates.
+#' Defaults to include all metrics columns (`TRUE`), but desired columns can
+#' be specified here as a character vector.
 #'
 #' @seealso
 #' - `DEGreport::degCovariates()`.
@@ -28,13 +29,11 @@ NULL
 
 
 ## Updated 2021-09-10.
-`plotPCACovariates,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        metrics = TRUE,
-        normalized,
-        ...
-    ) {
+`plotPCACovariates,bcbioRNASeq` <- # nolint
+    function(object,
+             metrics = TRUE,
+             normalized,
+             ...) {
         alertWarning(sprintf(
             "Disabled until bug is fixed in {.pkg %s}.", "DEGreport"
         ))

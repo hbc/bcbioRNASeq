@@ -6,7 +6,7 @@
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#'   See `AcidPlots::plotGenderMarkers()` for details.
+#' See `AcidPlots::plotGenderMarkers()` for details.
 #'
 #' @examples
 #' data(bcb)
@@ -20,7 +20,7 @@ NULL
 
 
 ## Updated 2019-09-16.
-`plotGenderMarkers,bcbioRNASeq` <-  # nolint
+`plotGenderMarkers,bcbioRNASeq` <- # nolint
     function(object, normalized, ...) {
         do.call(
             what = plotGenderMarkers,

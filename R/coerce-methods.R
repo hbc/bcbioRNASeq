@@ -12,9 +12,9 @@
 #' 1. Coerce to `RangedSummarizedExperiment`.
 #' 2. Round raw counts to `integer matrix`.
 #' 3. Subset `colData()` to include only clean
-#'    factor columns. See `sampleData()` for details.
+#' factor columns. See `sampleData()` for details.
 #' 4. Simplify `metadata()` to include only relevant information and
-#'    updates `sessionInfo`.
+#' updates `sessionInfo`.
 #'
 #' Note that gene-level counts are required. Alternatively,
 #' `tximport::summarizeToGene()` can be called to convert transcript-level
@@ -40,11 +40,11 @@
 #'
 #' 1. Call `edgeR::DGEList()`.
 #' 2. Obtain per-observation scaling factors for length, adjusted to avoid
-#'    changing the magnitude of the counts.
+#' changing the magnitude of the counts.
 #' 3. Computing effective library sizes from scaled counts, to account for
-#'    composition biases between samples.
+#' composition biases between samples.
 #' 4. Combine effective library sizes with the length factors, and calculate
-#'    offsets for a log-link GLM.
+#' offsets for a log-link GLM.
 #' 5. Apply offset matrix using `edgeR::scaleOffset()`.
 #'
 #' @inheritParams AcidRoxygen::params
@@ -73,7 +73,7 @@ NULL
 
 ## Refer to Downstream DGE in Bioconductor in tximport vignette for details.
 ## https://bioconductor.org/packages/release/bioc/vignettes/tximport/inst/doc/
-##     tximport.html#downstream_dge_in_bioconductor
+## tximport.html#downstream_dge_in_bioconductor
 ##
 ## Note: there are two suggested ways of importing estimates for use with
 ## differential gene expression (DGE) methods. The first method, which we show
@@ -110,7 +110,7 @@ NULL
 
 
 ## Updated 2021-09-10.
-`as.DESeqDataSet,bcbioRNASeq` <-  # nolint
+`as.DESeqDataSet,bcbioRNASeq` <- # nolint
     function(x, quiet = FALSE) {
         assert(isFlag(quiet))
         validObject(x)
@@ -132,7 +132,7 @@ NULL
 
 
 ## Updated 2020-01-17.
-`as.DESeqTransform,bcbioRNASeq` <-  # nolint
+`as.DESeqTransform,bcbioRNASeq` <- # nolint
     function(x, quiet = FALSE) {
         assert(isFlag(quiet))
         validObject(x)
@@ -149,7 +149,7 @@ NULL
 
 
 ## Updated 2020-01-12.
-`as.DGEList,bcbioRNASeq` <-  # nolint
+`as.DGEList,bcbioRNASeq` <- # nolint
     function(x, quiet = FALSE) {
         assert(isFlag(quiet))
         validObject(x)
@@ -227,7 +227,7 @@ NULL
 
 
 ## Updated 2020-01-17.
-`coerce,bcbioRNASeq,DESeqDataSet` <-  # nolint
+`coerce,bcbioRNASeq,DESeqDataSet` <- # nolint
     function(from) {
         as.DESeqDataSet(from, quiet = TRUE)
     }
@@ -235,7 +235,7 @@ NULL
 
 
 ## Updated 2020-01-17.
-`coerce,bcbioRNASeq,DESeqTransform` <-  # nolint
+`coerce,bcbioRNASeq,DESeqTransform` <- # nolint
     function(from) {
         as.DESeqTransform(from, quiet = TRUE)
     }
@@ -243,7 +243,7 @@ NULL
 
 
 ## Updated 2020-01-17.
-`coerce,bcbioRNASeq,DGEList` <-  # nolint
+`coerce,bcbioRNASeq,DGEList` <- # nolint
     function(from) {
         as.DGEList(from)
     }

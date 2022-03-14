@@ -22,10 +22,10 @@
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param rowRanges `GRanges` or `NULL`.
-#'   Row annotations. Since we converted to `RangedSummarizedExperiment` in
-#'   v0.2.0, this option had to be added to enable updating of newly required
-#'   `rowRanges` slot. Objects that are >= v0.2 don't require this argument and
-#'   it can be left `NULL`.
+#' Row annotations. Since we converted to `RangedSummarizedExperiment` in
+#' v0.2.0, this option had to be added to enable updating of newly required
+#' `rowRanges` slot. Objects that are >= v0.2 don't require this argument and
+#' it can be left `NULL`.
 #'
 #' @return Modified object.
 #'
@@ -49,13 +49,11 @@ NULL
 
 
 ## Updated 2021-09-01.
-`updateObject,bcbioRNASeq` <-  # nolint
-    function(
-        object,
-        rowRanges = NULL,
-        ...,
-        verbose = FALSE
-    ) {
+`updateObject,bcbioRNASeq` <- # nolint
+    function(object,
+             rowRanges = NULL,
+             ...,
+             verbose = FALSE) {
         assert(isFlag(verbose))
         metadata <- metadata(object)
         ## Renamed 'version' to 'packageVersion' on 2021-03-16.
@@ -131,7 +129,7 @@ NULL
             slot(object, "rowRanges") <- rowRanges
         } else if (
             .hasSlot(object, "rowRanges") &&
-            !is.null(rowRanges)
+                !is.null(rowRanges)
         ) {
             abort(sprintf(
                 fmt = paste(
@@ -217,7 +215,8 @@ NULL
                 ))
             }
             names(metadata)[
-                names(metadata) == "ensemblVersion"] <- "ensemblRelease"
+                names(metadata) == "ensemblVersion"
+            ] <- "ensemblRelease"
         }
         if (!is.integer(metadata[["ensemblRelease"]])) {
             if (isTRUE(verbose)) {
@@ -248,7 +247,8 @@ NULL
                 ))
             }
             names(metadata)[
-                names(metadata) == "gtfFile"] <- "gffFile"
+                names(metadata) == "gtfFile"
+            ] <- "gffFile"
         }
         if (!"gffFile" %in% names(metadata)) {
             if (isTRUE(verbose)) {
@@ -302,7 +302,8 @@ NULL
                 ))
             }
             names(metadata)[
-                names(metadata) == "programs"] <- "programVersions"
+                names(metadata) == "programs"
+            ] <- "programVersions"
         }
         programVersions <- metadata[["programVersions"]]
         if (is(programVersions, "data.frame")) {
@@ -334,7 +335,8 @@ NULL
                 ))
             }
             names(metadata)[
-                names(metadata) == "devtoolsSessionInfo"] <- "sessionInfo"
+                names(metadata) == "devtoolsSessionInfo"
+            ] <- "sessionInfo"
             metadata[["utilsSessionInfo"]] <- NULL
         }
         ## template
@@ -551,7 +553,7 @@ NULL
         ## broadClass
         if (
             "broadClass" %in% colnames(mcols(rowRanges)) &&
-            is.character(mcols(rowRanges)[["broadClass"]])
+                is.character(mcols(rowRanges)[["broadClass"]])
         ) {
             if (isTRUE(verbose)) {
                 alert(sprintf(

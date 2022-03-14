@@ -13,7 +13,7 @@
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `DESeqDataSet` method defined in DESeq2.
-#'   See `DESeq2::plotDispEsts()` for details.
+#' See `DESeq2::plotDispEsts()` for details.
 #'
 #' @return `ggplot`.
 #'
@@ -38,7 +38,7 @@ NULL
 
 
 ## Updated 2019-09-15.
-`plotDispEsts,bcbioRNASeq` <-  # nolint
+`plotDispEsts,bcbioRNASeq` <- # nolint
     function(object, ...) {
         validObject(object)
         ## Warn and early return if any samples are duplicated.

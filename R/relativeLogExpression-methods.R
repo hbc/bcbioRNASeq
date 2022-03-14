@@ -15,7 +15,7 @@ NULL
 
 
 ## Updated 2020-01-20.
-`relativeLogExpression,matrix` <-  # nolint
+`relativeLogExpression,matrix` <- # nolint
     function(object) {
         alert("Applying relative log expression (RLE) normalization.")
         object <- DGEList(object)
@@ -37,7 +37,7 @@ setMethod(
 
 
 ## Updated 2019-07-23.
-`relativeLogExpression,SummarizedExperiment` <-  # nolint
+`relativeLogExpression,SummarizedExperiment` <- # nolint
     function(object) {
         relativeLogExpression(counts(object))
     }

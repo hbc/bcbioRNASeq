@@ -18,7 +18,7 @@ NULL
 
 
 ## Updated 2021-02-22.
-`show,bcbioRNASeq` <-  # nolint
+`show,bcbioRNASeq` <- # nolint
     function(object) {
         validObject(object)
         showHeader(object)

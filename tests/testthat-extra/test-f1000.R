@@ -93,17 +93,16 @@ resListShrunken <- mapply(
 
 ## See `help(topic = DESeqAnalysis, DESeqAnalysis)` for details.
 deseq <- DESeqAnalysis(
-    data = dds,                   # DESeqDataSet
-    transform = vst,              # DESeqTransform
-    results = resListUnshrunken,  # DESeqResults list (unshrunken)
-    lfcShrink = resListShrunken   # DESeqResults list (shrunken)
+    data = dds, # DESeqDataSet
+    transform = vst, # DESeqTransform
+    results = resListUnshrunken, # DESeqResults list (unshrunken)
+    lfcShrink = resListShrunken # DESeqResults list (shrunken)
 )
 
 
 
 test_that("counts", {
-    for (normalized in list(FALSE, TRUE, "tpm", "rlog", "vst"
-    )) {
+    for (normalized in list(FALSE, TRUE, "tpm", "rlog", "vst")) {
         x <- counts(object, normalized = normalized)
         expect_is(x, "matrix")
     }

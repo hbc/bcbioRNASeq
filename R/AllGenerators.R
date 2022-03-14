@@ -29,11 +29,11 @@
 #' Here is a minimal example of a properly formatted sample metadata file:
 #'
 #' \tabular{ll}{
-#'     description \tab genotype\cr
-#'     sample1 \tab wildtype\cr
-#'     sample2 \tab knockout\cr
-#'     sample3 \tab wildtype\cr
-#'     sample4 \tab knockout
+#' description \tab genotype\cr
+#' sample1 \tab wildtype\cr
+#' sample2 \tab knockout\cr
+#' sample3 \tab wildtype\cr
+#' sample4 \tab knockout
 #' }
 #'
 #' @section Valid names:
@@ -121,42 +121,46 @@
 #'
 #' @inheritParams AcidExperiment::makeSummarizedExperiment
 #' @inheritParams AcidRoxygen::params
+#'
 #' @param level `character(1)`.
-#'   Import counts at gene level ("`genes`"; *default*) or transcript level
-#'   ("`transcripts`"; *advanced use*). Only tximport-compatible callers (e.g.
-#'   salmon, kallisto, sailfish) can be loaded at transcript level. Aligned
-#'   counts from featureCounts-compatible callers (e.g. STAR, HISAT2) can only
-#'   be loaded at gene level.
+#' Import counts at gene level ("`genes`"; *default*) or transcript level
+#' ("`transcripts`"; *advanced use*). Only tximport-compatible callers (e.g.
+#' salmon, kallisto, sailfish) can be loaded at transcript level. Aligned
+#' counts from featureCounts-compatible callers (e.g. STAR, HISAT2) can only
+#' be loaded at gene level.
+#'
 #' @param caller `character(1)`.
-#'   Expression caller:
+#' Expression caller:
 #'
-#'   - `"salmon"` (*default*): [Salmon][] alignment-free, quasi-mapped counts.
-#'   - `"kallisto"`: [Kallisto][] alignment-free, pseudo-aligned counts.
-#'   - `"sailfish"`: [Sailfish][] alignment-free, lightweight counts.
-#'   - `"star"`: [STAR][] (Spliced Transcripts Alignment to a Reference)
-#'      aligned counts.
-#'   - `"hisat2"`: [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
-#'     Transcripts) graph-based aligned counts.
+#' - `"salmon"` (*default*): [Salmon][] alignment-free, quasi-mapped counts.
+#' - `"kallisto"`: [Kallisto][] alignment-free, pseudo-aligned counts.
+#' - `"sailfish"`: [Sailfish][] alignment-free, lightweight counts.
+#' - `"star"`: [STAR][] (Spliced Transcripts Alignment to a Reference)
+#' aligned counts.
+#' - `"hisat2"`: [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
+#' Transcripts) graph-based aligned counts.
 #'
-#'   [HISAT2]: https://ccb.jhu.edu/software/hisat2/
-#'   [Kallisto]: https://pachterlab.github.io/kallisto/
-#'   [Sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
-#'   [Salmon]: https://combine-lab.github.io/salmon/
-#'   [STAR]: https://github.com/alexdobin/STAR/
+#' [HISAT2]: https://ccb.jhu.edu/software/hisat2/
+#' [Kallisto]: https://pachterlab.github.io/kallisto/
+#' [Sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
+#' [Salmon]: https://combine-lab.github.io/salmon/
+#' [STAR]: https://github.com/alexdobin/STAR/
+#'
 #' @param countsFromAbundance `character(1)`.
-#'   Whether to generate estimated counts using abundance estimates
-#'   (*recommended by default*). `lengthScaledTPM` is a suitable default, and
-#'   counts are scaled using the average transcript length over samples and then
-#'   the library size. Refer to `tximport::tximport()` for more information on
-#'   this parameter, but it should only ever be changed when loading some
-#'   datasets at transcript level (e.g. for DTU analsyis).
+#' Whether to generate estimated counts using abundance estimates
+#' (*recommended by default*). `lengthScaledTPM` is a suitable default, and
+#' counts are scaled using the average transcript length over samples and then
+#' the library size. Refer to `tximport::tximport()` for more information on
+#' this parameter, but it should only ever be changed when loading some
+#' datasets at transcript level (e.g. for DTU analsyis).
+#'
 #' @param fast `logical(1)`.
-#'   Fast mode.
-#'   Skip internal DESeq2 calculations and transformations.
-#'   Don't enable this setting when using the quality control R Markdown
-#'   template.
-#'   Note that some plotting functions, such as `plotPCA()` will not work when
-#'   this mode is enabled.
+#' Fast mode.
+#' Skip internal DESeq2 calculations and transformations.
+#' Don't enable this setting when using the quality control R Markdown
+#' template.
+#' Note that some plotting functions, such as `plotPCA()` will not work when
+#' this mode is enabled.
 #'
 #' @return `bcbioRNASeq`.
 #'
@@ -192,417 +196,418 @@
 #'
 #' ## Fast mode.
 #' object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
-bcbioRNASeq <- function(
-    uploadDir,
-    level = c("genes", "transcripts"),
-    caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
-    samples = NULL,
-    censorSamples = NULL,
-    sampleMetadataFile = NULL,
-    organism = NULL,
-    genomeBuild = NULL,
-    ensemblRelease = NULL,
-    gffFile = NULL,
-    transgeneNames = NULL,
-    countsFromAbundance = "lengthScaledTPM",
-    interestingGroups = "sampleName",
-    fast = FALSE
-) {
-    assert(isADirectory(uploadDir))
-    level <- match.arg(level)
-    caller <- match.arg(caller)
-    if (identical(level, "transcripts")) {
-        assert(isSubset(caller, .tximportCallers))
-    }
-    assert(
-        isAny(samples, classes = c("character", "NULL")),
-        isAny(censorSamples, classes = c("character", "NULL")),
-        isString(sampleMetadataFile, nullOK = TRUE),
-        isString(organism, nullOK = TRUE),
-        isString(genomeBuild, nullOK = TRUE),
-        isInt(ensemblRelease, nullOK = TRUE),
-        isAny(transgeneNames, classes = c("character", "NULL")),
-        isString(gffFile, nullOK = TRUE),
-        isCharacter(interestingGroups),
-        isFlag(fast)
-    )
-    if (isString(gffFile)) {
-        assert(isAFile(gffFile) || isAURL(gffFile))
-    }
-    ## Don't allow AnnotationHub formals when specifying GFF file.
-    if (!is.null(gffFile)) {
+bcbioRNASeq <-
+    function(uploadDir,
+             level = c("genes", "transcripts"),
+             caller = c("salmon", "kallisto", "sailfish", "star", "hisat2"),
+             samples = NULL,
+             censorSamples = NULL,
+             sampleMetadataFile = NULL,
+             organism = NULL,
+             genomeBuild = NULL,
+             ensemblRelease = NULL,
+             gffFile = NULL,
+             transgeneNames = NULL,
+             countsFromAbundance = "lengthScaledTPM",
+             interestingGroups = "sampleName",
+             fast = FALSE) {
+        assert(isADirectory(uploadDir))
+        level <- match.arg(level)
+        caller <- match.arg(caller)
+        if (identical(level, "transcripts")) {
+            assert(isSubset(caller, .tximportCallers))
+        }
         assert(
-            is.null(genomeBuild),
-            is.null(ensemblRelease)
+            isAny(samples, classes = c("character", "NULL")),
+            isAny(censorSamples, classes = c("character", "NULL")),
+            isString(sampleMetadataFile, nullOK = TRUE),
+            isString(organism, nullOK = TRUE),
+            isString(genomeBuild, nullOK = TRUE),
+            isInt(ensemblRelease, nullOK = TRUE),
+            isAny(transgeneNames, classes = c("character", "NULL")),
+            isString(gffFile, nullOK = TRUE),
+            isCharacter(interestingGroups),
+            isFlag(fast)
         )
-    }
-    ## Organism is required when we're defining the genome.
-    if (
-        !is.null(genomeBuild) ||
-        !is.null(ensemblRelease) ||
-        !is.null(gffFile)
-    ) {
-        assert(isString(organism))
-    }
-    match.arg(
-        arg = countsFromAbundance,
-        choices = eval(formals(tximport)[["countsFromAbundance"]])
-    )
-    h1("bcbioRNASeq")
-    alertInfo("Importing bcbio-nextgen RNA-seq run.")
-    ## Run info ----------------------------------------------------------------
-    h2("Run info")
-    uploadDir <- realpath(uploadDir)
-    dl(c("uploadDir" = uploadDir))
-    projectDir <- projectDir(uploadDir)
-    sampleDirs <- sampleDirs(uploadDir)
-    yamlFile <- file.path(projectDir, "project-summary.yaml")
-    yaml <- import(yamlFile)
-    assert(is.list(yaml))
-    dataVersions <-
-        importDataVersions(file.path(projectDir, "data_versions.csv"))
-    assert(is(dataVersions, "DataFrame"))
-    programVersions <-
-        importProgramVersions(file.path(projectDir, "programs.txt"))
-    assert(is(programVersions, "DataFrame"))
-    log <- import(file.path(projectDir, "bcbio-nextgen.log"))
-    ## This step enables our minimal dataset inside the package to pass checks.
-    tryCatch(
-        expr = assert(isCharacter(log)),
-        error = function(e) {
-            alertWarning(sprintf(
-                "{.file %s} file is empty.",
-                "bcbio-nextgen.log"
-            ))
+        if (isString(gffFile)) {
+            assert(isAFile(gffFile) || isAURL(gffFile))
         }
-    )
-    fastPipeline <- .isFastPipeline(log)
-    if (isTRUE(fastPipeline)) {
-        alertInfo("Fast RNA-seq pipeline detected.")
-    }
-    commandsLog <- import(file.path(projectDir, "bcbio-nextgen-commands.log"))
-    ## This step enables our minimal dataset inside the package to pass checks.
-    tryCatch(
-        expr = assert(isCharacter(commandsLog)),
-        error = function(e) {
-            alertWarning(sprintf(
-                "{.file %s} file is empty.",
-                "bcbio-nextgen-commands.log"
-            ))
-        }
-    )
-    lanes <- detectLanes(sampleDirs)
-    assert(isInt(lanes) || identical(lanes, integer()))
-    ## Column data (samples) ---------------------------------------------------
-    h2("Sample metadata")
-    ## Get the sample data.
-    if (isString(sampleMetadataFile)) {
-        ## Normalize path of local file.
-        if (file.exists(sampleMetadataFile)) {
-            sampleMetadataFile <- realpath(sampleMetadataFile)
-        }
-        ## User-defined metadata file.
-        sampleData <- importSampleData(
-            file = sampleMetadataFile,
-            lanes = lanes,
-            pipeline = "bcbio"
-        )
-    } else {
-        ## Automatic metadata from YAML file.
-        sampleData <- getSampleDataFromYAML(yaml)
-    }
-    assert(isSubset(rownames(sampleData), names(sampleDirs)))
-    ## Subset the sample directories, if necessary.
-    if (is.character(samples) || is.character(censorSamples)) {
-        ## Matching against the YAML "description" input here.
-        description <- as.character(sampleData[["description"]])
-        assert(hasLength(description))
-        if (is.character(samples)) {
-            assert(isSubset(samples, description))
-        } else {
-            samples <- description
-        }
-        if (is.character(censorSamples)) {
-            assert(isSubset(censorSamples, samples))
-            samples <- setdiff(samples, censorSamples)
-        }
-        assert(isCharacter(samples))
-        keep <- sampleData[["description"]] %in% samples
-        sampleData <- sampleData[keep, , drop = FALSE]
-    }
-    samples <- rownames(sampleData)
-    assert(
-        isSubset(samples, names(sampleDirs)),
-        validNames(samples)
-    )
-    if (length(samples) < length(sampleDirs)) {
-        sampleDirs <- sampleDirs[samples]
-        txt("Loading a subset of samples:")
-        ul(basename(sampleDirs))
-        allSamples <- FALSE
-    } else {
-        allSamples <- TRUE
-    }
-    ## Ensure fast mode is enabled for minimal datasets where DESeq2
-    ## calculations are not appropriate.
-    if (length(samples) < 4L && isFALSE(fast)) {
-        n <- length(samples)
-        alertInfo(sprintf(
-            "Minimal dataset containing %d %s detected.",
-            n,
-            ngettext(
-                n = n,
-                msg1 = "sample",
-                msg2 = "samples"
+        ## Don't allow AnnotationHub formals when specifying GFF file.
+        if (!is.null(gffFile)) {
+            assert(
+                is.null(genomeBuild),
+                is.null(ensemblRelease)
             )
-        ))
-        alert("Enabling fast mode, which skips DESeq2 calculations.")
-        fast <- TRUE
-    }
-    ## Sample metrics. Note that sample metrics used for QC plots are not
-    ## currently generated when using fast RNA-seq workflow. This depends upon
-    ## MultiQC and aligned counts generated with STAR.
-    colData <- getMetricsFromYAML(yaml)
-    if (hasLength(colData)) {
-        assert(
-            areDisjointSets(colnames(colData), colnames(sampleData)),
-            isSubset(rownames(sampleData), rownames(colData))
-        )
-        colData <- colData[rownames(sampleData), , drop = FALSE]
-        colData <- cbind(colData, sampleData)
-    } else {
-        colData <- sampleData
-    }
-    assert(
-        is(colData, "DataFrame"),
-        identical(samples, rownames(colData))
-    )
-    ## Assays (counts) ---------------------------------------------------------
-    h2("Counts")
-    assays <- SimpleList()
-    ## Use tximport by default for transcript-aware callers. Otherwise, resort
-    ## to loading the featureCounts aligned counts data. As of v0.3.22, we're
-    ## alternatively slotting the aligned counts as "aligned" matrix when
-    ## pseudoaligned counts are defined in the primary "counts" assay.
-    if (isSubset(caller, .tximportCallers)) {
-        h3("tximport")
-        txOut <- identical(level, "transcripts")
-        if (isTRUE(txOut)) {
-            tx2gene <- NULL
-        } else {
-            tx2gene <- importTx2Gene(
-                file = file.path(projectDir, "tx2gene.csv"),
-                organism = organism,
-                genomeBuild = genomeBuild,
-                release = ensemblRelease
-            )
-            assert(is(tx2gene, "Tx2Gene"))
         }
-        txi <- .tximport(
-            sampleDirs = sampleDirs,
-            type = caller,
-            txOut = txOut,
-            countsFromAbundance = countsFromAbundance,
-            tx2gene = tx2gene
-        )
-        ## Raw counts. Length scaled by default (see `countsFromAbundance`).
-        ## These counts are expected to be non-integer.
-        assays[["counts"]] <- txi[["counts"]]
-        ## Transcripts per million.
-        assays[["tpm"]] <- txi[["abundance"]]
-        ## Average transcript lengths.
-        assays[["avgTxLength"]] <- txi[["length"]]
+        ## Organism is required when we're defining the genome.
         if (
-            identical(level, "genes") &&
-            !isTRUE(fastPipeline) &&
-            !isTRUE(fast)
+            !is.null(genomeBuild) ||
+                !is.null(ensemblRelease) ||
+                !is.null(gffFile)
         ) {
+            assert(isString(organism))
+        }
+        match.arg(
+            arg = countsFromAbundance,
+            choices = eval(formals(tximport)[["countsFromAbundance"]])
+        )
+        h1("bcbioRNASeq")
+        alertInfo("Importing bcbio-nextgen RNA-seq run.")
+        ## Run info ------------------------------------------------------------
+        h2("Run info")
+        uploadDir <- realpath(uploadDir)
+        dl(c("uploadDir" = uploadDir))
+        projectDir <- projectDir(uploadDir)
+        sampleDirs <- sampleDirs(uploadDir)
+        yamlFile <- file.path(projectDir, "project-summary.yaml")
+        yaml <- import(yamlFile)
+        assert(is.list(yaml))
+        dataVersions <-
+            importDataVersions(file.path(projectDir, "data_versions.csv"))
+        assert(is(dataVersions, "DataFrame"))
+        programVersions <-
+            importProgramVersions(file.path(projectDir, "programs.txt"))
+        assert(is(programVersions, "DataFrame"))
+        log <- import(file.path(projectDir, "bcbio-nextgen.log"))
+        ## This step enables our minimal dataset to pass checks.
+        tryCatch(
+            expr = assert(isCharacter(log)),
+            error = function(e) {
+                alertWarning(sprintf(
+                    "{.file %s} file is empty.",
+                    "bcbio-nextgen.log"
+                ))
+            }
+        )
+        fastPipeline <- .isFastPipeline(log)
+        if (isTRUE(fastPipeline)) {
+            alertInfo("Fast RNA-seq pipeline detected.")
+        }
+        commandsLog <-
+            import(file.path(projectDir, "bcbio-nextgen-commands.log"))
+        ## This step enables our minimal dataset to pass checks.
+        tryCatch(
+            expr = assert(isCharacter(commandsLog)),
+            error = function(e) {
+                alertWarning(sprintf(
+                    "{.file %s} file is empty.",
+                    "bcbio-nextgen-commands.log"
+                ))
+            }
+        )
+        lanes <- detectLanes(sampleDirs)
+        assert(isInt(lanes) || identical(lanes, integer()))
+        ## Column data (samples) -----------------------------------------------
+        h2("Sample metadata")
+        ## Get the sample data.
+        if (isString(sampleMetadataFile)) {
+            ## Normalize path of local file.
+            if (file.exists(sampleMetadataFile)) {
+                sampleMetadataFile <- realpath(sampleMetadataFile)
+            }
+            ## User-defined metadata file.
+            sampleData <- importSampleData(
+                file = sampleMetadataFile,
+                lanes = lanes,
+                pipeline = "bcbio"
+            )
+        } else {
+            ## Automatic metadata from YAML file.
+            sampleData <- getSampleDataFromYAML(yaml)
+        }
+        assert(isSubset(rownames(sampleData), names(sampleDirs)))
+        ## Subset the sample directories, if necessary.
+        if (is.character(samples) || is.character(censorSamples)) {
+            ## Matching against the YAML "description" input here.
+            description <- as.character(sampleData[["description"]])
+            assert(hasLength(description))
+            if (is.character(samples)) {
+                assert(isSubset(samples, description))
+            } else {
+                samples <- description
+            }
+            if (is.character(censorSamples)) {
+                assert(isSubset(censorSamples, samples))
+                samples <- setdiff(samples, censorSamples)
+            }
+            assert(isCharacter(samples))
+            keep <- sampleData[["description"]] %in% samples
+            sampleData <- sampleData[keep, , drop = FALSE]
+        }
+        samples <- rownames(sampleData)
+        assert(
+            isSubset(samples, names(sampleDirs)),
+            validNames(samples)
+        )
+        if (length(samples) < length(sampleDirs)) {
+            sampleDirs <- sampleDirs[samples]
+            txt("Loading a subset of samples:")
+            ul(basename(sampleDirs))
+            allSamples <- FALSE
+        } else {
+            allSamples <- TRUE
+        }
+        ## Ensure fast mode is enabled for minimal datasets where DESeq2
+        ## calculations are not appropriate.
+        if (length(samples) < 4L && isFALSE(fast)) {
+            n <- length(samples)
+            alertInfo(sprintf(
+                "Minimal dataset containing %d %s detected.",
+                n,
+                ngettext(
+                    n = n,
+                    msg1 = "sample",
+                    msg2 = "samples"
+                )
+            ))
+            alert("Enabling fast mode, which skips DESeq2 calculations.")
+            fast <- TRUE
+        }
+        ## Sample metrics. Note that sample metrics used for QC plots are not
+        ## currently generated when using fast RNA-seq workflow. This depends
+        ## upon MultiQC and aligned counts generated with STAR.
+        colData <- getMetricsFromYAML(yaml)
+        if (hasLength(colData)) {
+            assert(
+                areDisjointSets(colnames(colData), colnames(sampleData)),
+                isSubset(rownames(sampleData), rownames(colData))
+            )
+            colData <- colData[rownames(sampleData), , drop = FALSE]
+            colData <- cbind(colData, sampleData)
+        } else {
+            colData <- sampleData
+        }
+        assert(
+            is(colData, "DataFrame"),
+            identical(samples, rownames(colData))
+        )
+        ## Assays (counts) -----------------------------------------------------
+        h2("Counts")
+        assays <- SimpleList()
+        ## Use tximport by default for transcript-aware callers. Otherwise,
+        ## resort to loading the featureCounts aligned counts data. As of
+        ## v0.3.22, we're alternatively slotting the aligned counts as "aligned"
+        ## matrix when pseudoaligned counts are defined in the primary "counts"
+        ## assay.
+        if (isSubset(caller, .tximportCallers)) {
+            h3("tximport")
+            txOut <- identical(level, "transcripts")
+            if (isTRUE(txOut)) {
+                tx2gene <- NULL
+            } else {
+                tx2gene <- importTx2Gene(
+                    file = file.path(projectDir, "tx2gene.csv"),
+                    organism = organism,
+                    genomeBuild = genomeBuild,
+                    release = ensemblRelease
+                )
+                assert(is(tx2gene, "Tx2Gene"))
+            }
+            txi <- .tximport(
+                sampleDirs = sampleDirs,
+                type = caller,
+                txOut = txOut,
+                countsFromAbundance = countsFromAbundance,
+                tx2gene = tx2gene
+            )
+            ## Raw counts. Length scaled by default (see `countsFromAbundance`).
+            ## These counts are expected to be non-integer.
+            assays[["counts"]] <- txi[["counts"]]
+            ## Transcripts per million.
+            assays[["tpm"]] <- txi[["abundance"]]
+            ## Average transcript lengths.
+            assays[["avgTxLength"]] <- txi[["length"]]
+            if (
+                identical(level, "genes") &&
+                    !isTRUE(fastPipeline) &&
+                    !isTRUE(fast)
+            ) {
+                h3("featureCounts")
+                assays[["aligned"]] <- .featureCounts(
+                    projectDir = projectDir,
+                    samples = samples,
+                    genes = rownames(txi[["counts"]])
+                )
+            }
+        } else if (isSubset(caller, .featureCountsCallers)) {
             h3("featureCounts")
-            assays[["aligned"]] <- .featureCounts(
+            countsFromAbundance <- NULL
+            tx2gene <- NULL
+            txi <- NULL
+            assert(identical(level, "genes"))
+            alert(sprintf(
+                "Slotting aligned counts into primary {.fun %s} assay.",
+                "counts"
+            ))
+            assays[["counts"]] <- .featureCounts(
                 projectDir = projectDir,
-                samples = samples,
-                genes = rownames(txi[["counts"]])
+                samples = samples
             )
         }
-    } else if (isSubset(caller, .featureCountsCallers)) {
-        h3("featureCounts")
-        countsFromAbundance <- NULL
-        tx2gene <- NULL
-        txi <- NULL
-        assert(identical(level, "genes"))
-        alert(sprintf(
-            "Slotting aligned counts into primary {.fun %s} assay.",
-            "counts"
-        ))
-        assays[["counts"]] <- .featureCounts(
-            projectDir = projectDir,
-            samples = samples
+        assert(
+            identical(names(assays)[[1L]], "counts"),
+            identical(colnames(assays[[1L]]), rownames(colData))
         )
-    }
-    assert(
-        identical(names(assays)[[1L]], "counts"),
-        identical(colnames(assays[[1L]]), rownames(colData))
-    )
-    ## Row data (genes/transcripts) --------------------------------------------
-    h2("Feature metadata")
-    ## Annotation priority:
-    ## 1. AnnotationHub.
-    ##    - Requires `organism` to be declared.
-    ##    - Ensure that Ensembl release and genome build match.
-    ## 2. GTF/GFF file. Use the bcbio GTF if possible.
-    ## 3. Fall back to slotting empty ranges. This is offered as support for
-    ##    complex datasets (e.g. multiple organisms).
-    if (isString(organism) && is.numeric(ensemblRelease)) {
-        ## AnnotationHub (ensembldb).
-        rowRanges <- makeGRangesFromEnsembl(
-            organism = organism,
-            level = level,
-            genomeBuild = genomeBuild,
-            release = ensemblRelease,
-            ignoreVersion = TRUE
-        )
-    } else {
-        ## GTF/GFF file.
-        if (is.null(gffFile)) {
-            ## Attempt to use bcbio GTF automatically.
-            gffFile <- getGTFFileFromYAML(yaml)
-        }
-        if (!is.null(gffFile) && isFALSE(fast)) {
-            rowRanges <- makeGRangesFromGFF(
-                file = gffFile,
+        ## Row data (genes/transcripts) ----------------------------------------
+        h2("Feature metadata")
+        ## Annotation priority:
+        ## 1. AnnotationHub.
+        ## - Requires `organism` to be declared.
+        ## - Ensure that Ensembl release and genome build match.
+        ## 2. GTF/GFF file. Use the bcbio GTF if possible.
+        ## 3. Fall back to slotting empty ranges. This is offered as support for
+        ## complex datasets (e.g. multiple organisms).
+        if (isString(organism) && is.numeric(ensemblRelease)) {
+            ## AnnotationHub (ensembldb).
+            rowRanges <- makeGRangesFromEnsembl(
+                organism = organism,
                 level = level,
+                genomeBuild = genomeBuild,
+                release = ensemblRelease,
                 ignoreVersion = TRUE
             )
         } else {
-            alertWarning(sprintf(
-                "Slotting empty ranges into {.fun %s}.",
-                "rowRanges"
-            ))
-            rowRanges <- emptyRanges(rownames(assays[[1L]]))
-        }
-    }
-    assert(is(rowRanges, "GenomicRanges"))
-    ## Attempt to get genome build and Ensembl release if not declared. Note
-    ## that these will remain NULL when using GTF file (see above).
-    if (is.null(genomeBuild)) {
-        genomeBuild <- metadata(rowRanges)[["genomeBuild"]]
-    }
-    if (is.null(ensemblRelease)) {
-        ensemblRelease <- metadata(rowRanges)[["ensemblRelease"]]
-    }
-    ## Metadata ----------------------------------------------------------------
-    h2("Metadata")
-    ## Interesting groups.
-    interestingGroups <- camelCase(interestingGroups, strict = TRUE)
-    assert(isSubset(interestingGroups, colnames(colData)))
-    ## Organism.
-    ## Attempt to detect automatically if not declared by user.
-    if (is.null(organism)) {
-        organism <- tryCatch(
-            expr = detectOrganism(rownames(assays[[1L]])),
-            error = function(e) {
-                alertWarning(sprintf(
-                    fmt = paste(
-                        "Failed to detect organism automatically.",
-                        "Specify with {.arg %s} argument.",
-                        sep = "\n"
-                    ),
-                    "organism"
-                ))
+            ## GTF/GFF file.
+            if (is.null(gffFile)) {
+                ## Attempt to use bcbio GTF automatically.
+                gffFile <- getGTFFileFromYAML(yaml)
             }
-        )
-    }
-    metadata <- list(
-        "allSamples" = allSamples,
-        "bcbioCommandsLog" = commandsLog,
-        "bcbioLog" = log,
-        "call" = standardizeCall(),
-        "caller" = caller,
-        "countsFromAbundance" = countsFromAbundance,
-        "dataVersions" = dataVersions,
-        "ensemblRelease" = as.integer(ensemblRelease),
-        "fast" = fast,
-        "genomeBuild" = as.character(genomeBuild),
-        "gffFile" = as.character(gffFile),
-        "interestingGroups" = interestingGroups,
-        "lanes" = lanes,
-        "level" = level,
-        "organism" = as.character(organism),
-        "packageVersion" = .pkgVersion,
-        "programVersions" = programVersions,
-        "projectDir" = projectDir,
-        "runDate" = runDate(projectDir),
-        "sampleDirs" = sampleDirs,
-        "sampleMetadataFile" = as.character(sampleMetadataFile),
-        "tx2gene" = tx2gene,
-        "uploadDir" = uploadDir,
-        "yaml" = yaml
-    )
-    ## Make bcbioRNASeq object -------------------------------------------------
-    rse <- makeSummarizedExperiment(
-        assays = assays,
-        rowRanges = rowRanges,
-        colData = colData,
-        metadata = metadata,
-        transgeneNames = transgeneNames
-    )
-    bcb <- new(Class = "bcbioRNASeq", rse)
-    ## DESeq2 ------------------------------------------------------------------
-    if (level == "genes" && isFALSE(fast)) {
-        dds <- tryCatch(
-            expr = {
-                h2(sprintf("{.pkg %s} normalizations", "DESeq2"))
-                dds <- as(bcb, "DESeqDataSet")
-                alert(sprintf("{.fun %s}", "estimateSizeFactors"))
-                dds <- estimateSizeFactors(dds)
-                if (!.dataHasVariation(dds)) {
-                    alertWarning(sprintf(
-                        fmt = paste(
-                            "Skipping {.pkg %s} calculations.",
-                            "Data set does not have enough variation.",
-                            sep = "\n"
-                        ),
-                        "DESeq2"
-                    ))
-                    return(NULL)
-                }
-                alert(sprintf("{.fun %s}", "DESeq"))
-                dds <- DESeq(dds)
-                dds
-            },
-            error = function(e) {
-                alertWarning(sprintf(
-                    "Skipping {.pkg %s} calculations.",
-                    "DESeq2"
-                ))
-                message(e)
-            }
-        )
-        if (is(dds, "DESeqDataSet")) {
-            assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
-            alert(sprintf("{.fun %s}", "varianceStabilizingTransformation"))
-            vst <- varianceStabilizingTransformation(dds)
-            assert(is(vst, "DESeqTransform"))
-            assays(bcb)[["vst"]] <- assay(vst)
-            ## Calculate FPKM. Skip this step if we've slotted empty ranges.
-            if (length(unique(width(rowRanges(dds)))) > 1L) {
-                alert(sprintf("{.fun %s}", "fpkm"))
-                fpkm <- fpkm(dds)
-                assert(is.matrix(fpkm))
-                assays(bcb)[["fpkm"]] <- fpkm
+            if (!is.null(gffFile) && isFALSE(fast)) {
+                rowRanges <- makeGRangesFromGFF(
+                    file = gffFile,
+                    level = level,
+                    ignoreVersion = TRUE
+                )
             } else {
                 alertWarning(sprintf(
-                    fmt = paste(
-                        "{.fun %s}: Skipping FPKM calculation because",
-                        "{.fun %s} is empty."
-                    ),
-                    "fpkm", "rowRanges"
+                    "Slotting empty ranges into {.fun %s}.",
+                    "rowRanges"
                 ))
+                rowRanges <- emptyRanges(rownames(assays[[1L]]))
             }
         }
+        assert(is(rowRanges, "GenomicRanges"))
+        ## Attempt to get genome build and Ensembl release if not declared. Note
+        ## that these will remain NULL when using GTF file (see above).
+        if (is.null(genomeBuild)) {
+            genomeBuild <- metadata(rowRanges)[["genomeBuild"]]
+        }
+        if (is.null(ensemblRelease)) {
+            ensemblRelease <- metadata(rowRanges)[["ensemblRelease"]]
+        }
+        ## Metadata ------------------------------------------------------------
+        h2("Metadata")
+        ## Interesting groups.
+        interestingGroups <- camelCase(interestingGroups, strict = TRUE)
+        assert(isSubset(interestingGroups, colnames(colData)))
+        ## Organism.
+        ## Attempt to detect automatically if not declared by user.
+        if (is.null(organism)) {
+            organism <- tryCatch(
+                expr = detectOrganism(rownames(assays[[1L]])),
+                error = function(e) {
+                    alertWarning(sprintf(
+                        fmt = paste(
+                            "Failed to detect organism automatically.",
+                            "Specify with {.arg %s} argument.",
+                            sep = "\n"
+                        ),
+                        "organism"
+                    ))
+                }
+            )
+        }
+        metadata <- list(
+            "allSamples" = allSamples,
+            "bcbioCommandsLog" = commandsLog,
+            "bcbioLog" = log,
+            "call" = standardizeCall(),
+            "caller" = caller,
+            "countsFromAbundance" = countsFromAbundance,
+            "dataVersions" = dataVersions,
+            "ensemblRelease" = as.integer(ensemblRelease),
+            "fast" = fast,
+            "genomeBuild" = as.character(genomeBuild),
+            "gffFile" = as.character(gffFile),
+            "interestingGroups" = interestingGroups,
+            "lanes" = lanes,
+            "level" = level,
+            "organism" = as.character(organism),
+            "packageVersion" = .pkgVersion,
+            "programVersions" = programVersions,
+            "projectDir" = projectDir,
+            "runDate" = runDate(projectDir),
+            "sampleDirs" = sampleDirs,
+            "sampleMetadataFile" = as.character(sampleMetadataFile),
+            "tx2gene" = tx2gene,
+            "uploadDir" = uploadDir,
+            "yaml" = yaml
+        )
+        ## Make bcbioRNASeq object ---------------------------------------------
+        rse <- makeSummarizedExperiment(
+            assays = assays,
+            rowRanges = rowRanges,
+            colData = colData,
+            metadata = metadata,
+            transgeneNames = transgeneNames
+        )
+        bcb <- new(Class = "bcbioRNASeq", rse)
+        ## DESeq2 --------------------------------------------------------------
+        if (level == "genes" && isFALSE(fast)) {
+            dds <- tryCatch(
+                expr = {
+                    h2(sprintf("{.pkg %s} normalizations", "DESeq2"))
+                    dds <- as(bcb, "DESeqDataSet")
+                    alert(sprintf("{.fun %s}", "estimateSizeFactors"))
+                    dds <- estimateSizeFactors(dds)
+                    if (!.dataHasVariation(dds)) {
+                        alertWarning(sprintf(
+                            fmt = paste(
+                                "Skipping {.pkg %s} calculations.",
+                                "Data set does not have enough variation.",
+                                sep = "\n"
+                            ),
+                            "DESeq2"
+                        ))
+                        return(NULL)
+                    }
+                    alert(sprintf("{.fun %s}", "DESeq"))
+                    dds <- DESeq(dds)
+                    dds
+                },
+                error = function(e) {
+                    alertWarning(sprintf(
+                        "Skipping {.pkg %s} calculations.",
+                        "DESeq2"
+                    ))
+                    message(e)
+                }
+            )
+            if (is(dds, "DESeqDataSet")) {
+                assays(bcb)[["normalized"]] <- counts(dds, normalized = TRUE)
+                alert(sprintf("{.fun %s}", "varianceStabilizingTransformation"))
+                vst <- varianceStabilizingTransformation(dds)
+                assert(is(vst, "DESeqTransform"))
+                assays(bcb)[["vst"]] <- assay(vst)
+                ## Calculate FPKM. Skip this step if we've slotted empty ranges.
+                if (length(unique(width(rowRanges(dds)))) > 1L) {
+                    alert(sprintf("{.fun %s}", "fpkm"))
+                    fpkm <- fpkm(dds)
+                    assert(is.matrix(fpkm))
+                    assays(bcb)[["fpkm"]] <- fpkm
+                } else {
+                    alertWarning(sprintf(
+                        fmt = paste(
+                            "{.fun %s}: Skipping FPKM calculation because",
+                            "{.fun %s} is empty."
+                        ),
+                        "fpkm", "rowRanges"
+                    ))
+                }
+            }
+        }
+        ## Return --------------------------------------------------------------
+        validObject(bcb)
+        alertSuccess("bcbio RNA-seq run imported successfully.")
+        bcb
     }
-    ## Return ------------------------------------------------------------------
-    validObject(bcb)
-    alertSuccess("bcbio RNA-seq run imported successfully.")
-    bcb
-}

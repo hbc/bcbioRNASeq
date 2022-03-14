@@ -16,7 +16,7 @@ NULL
 
 
 ## Updated 2020-09-15.
-`plotQC,bcbioRNASeq` <-  # nolint
+`plotQC,bcbioRNASeq` <- # nolint
     function(object) {
         validObject(object)
         plotlist <- list(
