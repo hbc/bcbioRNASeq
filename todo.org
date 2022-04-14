@@ -1,6 +1,7 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
+** TODO Need to improve error message when user passes in incorrect genome (e.g. Ensembl 105 when using bcbio default hg38 genome). See logs from 2022-04-05 for debugging.
 ** TODO In bcbioRNASeq class checks, consider allowing NULL tx2gene when level = "transcripts".
 ** TODO In internal `.tximport` function, need to dynamically set `ignoreTxVersion` here?
 ** TODO In internal `.tximport` function, allow NULL tx2gene input when level = "transcripts".
