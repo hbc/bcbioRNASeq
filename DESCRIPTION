@@ -128,6 +128,7 @@ Imports:
     ggplot2 (>= 3.3.5),
     goalie (>= 0.6.0),
     methods,
+    pheatmap,
     pipette (>= 0.8.0),
     sessioninfo,
     syntactic (>= 0.5.1),
