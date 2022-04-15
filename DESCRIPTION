@@ -168,5 +168,5 @@ biocViews:
     Visualization
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-VignetteBuilder: knitr
+VignetteBuilder: knitr, rmarkdown
 Additional_repositories: https://r.acidgenomics.com
