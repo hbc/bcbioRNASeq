@@ -2,7 +2,7 @@
 #'
 #' @name updateObject
 #' @author Michael Steinbaugh
-#' @note Updated 2022-03-07.
+#' @note Updated 2022-04-25.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -48,7 +48,7 @@ NULL
 
 
 
-## Updated 2021-09-01.
+## Updated 2022-04-25.
 `updateObject,bcbioRNASeq` <- # nolint
     function(object,
              rowRanges = NULL,
@@ -61,7 +61,7 @@ NULL
         if (is.null(version)) {
             version <- metadata[["version"]]
         }
-        assert(is(version, c("package_version", "numeric_version")))
+        assert(is(version, "package_version"))
         if (isTRUE(verbose)) {
             h1("Update object")
             alert(sprintf(
