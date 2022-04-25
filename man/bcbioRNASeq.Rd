@@ -61,7 +61,7 @@ Full Latin organism name (e.g. \code{"Homo sapiens"}).}
 \item{genomeBuild}{\code{character(1)}.
 Ensembl genome build assembly name (e.g. \code{"GRCh38"}). If set \code{NULL},
 defaults to the most recent build available.
-Note: don't pass in UCSC build IDs (e.g. \code{"hg38"}).}
+\emph{Note:} don't pass in UCSC build IDs (e.g. \code{"hg38"}).}
 
 \item{ensemblRelease}{\code{integer(1)}.
 Ensembl release version (e.g. \code{90}). We recommend setting this value if

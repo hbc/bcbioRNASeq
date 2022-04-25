@@ -24,7 +24,7 @@ Corresponds to factors describing the columns of the object.}
 
 \item{labels}{\code{list}.
 ggplot2 labels.
-See \code{\link[ggplot2:labs]{ggplot2::labs()}} for details.}
+See \code{ggplot2::labs()} for details.}
 
 \item{flip}{\code{logical(1)}.
 Flip x and y axes. Recommended for plots containing many samples.}
@@ -45,7 +45,7 @@ bias is observed here, be sure to analyze the samples with a Bioanalyzer and
 check the RIN scores.
 
 5' (3') bias is generally calculated as the median of the following ratio:\preformatted{[mean expression of 5' (3')] /
-    [mean expression of whole transcript]
+[mean expression of whole transcript]
 }
 
 For example:

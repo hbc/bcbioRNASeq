@@ -53,15 +53,15 @@ No longer calculated automatically during \code{bcbioRNASeq()} call, but may
 be defined in legacy objects.\cr
 See \code{DESeq2::rlog()} for details.\cr
 Note that VST is more performant and now recommended by default instead.
+}
 
 Note that \code{logical(1)} support only applies to \code{counts()}. Other
 functions in the package require \code{character(1)} and use \code{match.arg()}
-internally.
-}}
-
-\item{value}{Value to assign.}
+internally.}
 
 \item{...}{Additional arguments.}
+
+\item{value}{Value to assign.}
 }
 \value{
 \code{matrix}.

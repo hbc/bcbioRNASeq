@@ -12,15 +12,15 @@ NULL
 ## S4 generics and methods =====================================================
 
 #' @importFrom AcidGenerics as.DESeqDataSet as.DESeqTransform as.DGEList
-#' camelCase encode humanize interestingGroups interestingGroups<- makeNames
-#' mapGenesToRownames metrics plot5Prime3PrimeBias plotCorrelationHeatmap
-#' plotCounts plotCountsCorrelation plotCountsCorrelationHeatmap
-#' plotCountsPerBiotype plotCountsPerBroadClass plotCountsPerFeature
-#' plotExonicMappingRate plotGenderMarkers plotGeneSaturation
-#' plotIntronicMappingRate plotMappedReads plotMappingRate plotPCACovariates
-#' plotMeanSD plotPseudoVsAlignedCounts plotQC plotRRNAMappingRate
-#' plotTotalReads relativeLogExpression sampleData showHeader
-#' slotAlignedCounts stripTranscriptVersions tmm
+#'   camelCase droplevels2 encode humanize interestingGroups interestingGroups<-
+#'   makeNames mapGenesToRownames metrics plot5Prime3PrimeBias
+#'   plotCorrelationHeatmap plotCounts plotCountsCorrelation
+#'   plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
+#'   plotCountsPerFeature plotExonicMappingRate plotGenderMarkers
+#'   plotGeneSaturation plotIntronicMappingRate plotMappedReads plotMappingRate
+#'   plotPCACovariates plotMeanSD plotPseudoVsAlignedCounts plotQC
+#'   plotRRNAMappingRate plotTotalReads relativeLogExpression sampleData
+#'   showHeader slotAlignedCounts stripTranscriptVersions tmm
 #' @importFrom AcidGenomes Tx2Gene
 #' @importFrom BiocGenerics as.data.frame colSums counts counts<- do.call
 #' estimateSizeFactors plotDispEsts plotPCA rowSums updateObject width
@@ -32,7 +32,7 @@ NULL
 #' @importFrom pipette import
 #'
 #' @importMethodsFrom AcidBase showHeader
-#' @importMethodsFrom AcidExperiment humanize interestingGroups
+#' @importMethodsFrom AcidExperiment droplevels2 humanize interestingGroups
 #' interestingGroups<- mapGenesToRownames metrics sampleData
 #' stripTranscriptVersions
 #' @importMethodsFrom AcidGenomes stripTranscriptVersions
@@ -40,7 +40,7 @@ NULL
 #' plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
 #' plotCountsPerFeature plotGenderMarkers plotPCA
 #' @importMethodsFrom DESeq2 estimateSizeFactors
-#' @importMethodsFrom pipette coerce encode import
+#' @importMethodsFrom pipette coerce droplevels2 encode import
 #' @importMethodsFrom syntactic camelCase makeNames
 NULL
 

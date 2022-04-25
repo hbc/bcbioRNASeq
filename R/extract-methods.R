@@ -135,7 +135,7 @@ NULL
         metadata <- Filter(f = Negate(is.null), x = metadata)
         metadata(rse) <- metadata
         ## Return --------------------------------------------------------------
-        rse <- droplevels(rse)
+        rse <- droplevels2(rse)
         bcb <- new(Class = "bcbioRNASeq", rse)
         validObject(bcb)
         bcb
