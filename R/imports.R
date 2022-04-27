@@ -12,15 +12,15 @@ NULL
 ## S4 generics and methods =====================================================
 
 #' @importFrom AcidGenerics as.DESeqDataSet as.DESeqTransform as.DGEList
-#'   camelCase droplevels2 encode humanize interestingGroups interestingGroups<-
-#'   makeNames mapGenesToRownames metrics plot5Prime3PrimeBias
-#'   plotCorrelationHeatmap plotCounts plotCountsCorrelation
-#'   plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
-#'   plotCountsPerFeature plotExonicMappingRate plotGenderMarkers
-#'   plotGeneSaturation plotIntronicMappingRate plotMappedReads plotMappingRate
-#'   plotPCACovariates plotMeanSD plotPseudoVsAlignedCounts plotQC
-#'   plotRRNAMappingRate plotTotalReads relativeLogExpression sampleData
-#'   showHeader slotAlignedCounts stripTranscriptVersions tmm
+#' camelCase droplevels2 encode humanize interestingGroups interestingGroups<-
+#' makeNames mapGenesToRownames metrics plot5Prime3PrimeBias
+#' plotCorrelationHeatmap plotCounts plotCountsCorrelation
+#' plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
+#' plotCountsPerFeature plotExonicMappingRate plotGenderMarkers
+#' plotGeneSaturation plotIntronicMappingRate plotMappedReads plotMappingRate
+#' plotPCACovariates plotMeanSD plotPseudoVsAlignedCounts plotQC
+#' plotRRNAMappingRate plotTotalReads relativeLogExpression sampleData
+#' showHeader slotAlignedCounts stripTranscriptVersions tmm
 #' @importFrom AcidGenomes Tx2Gene
 #' @importFrom BiocGenerics as.data.frame colSums counts counts<- do.call
 #' estimateSizeFactors plotDispEsts plotPCA rowSums updateObject width
