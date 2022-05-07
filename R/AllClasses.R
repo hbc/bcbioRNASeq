@@ -4,6 +4,14 @@
 #' is designed to store a [bcbio](https://bcbio-nextgen.readthedocs.org) RNA-seq
 #' analysis.
 #'
+#' @author Michael Steinbaugh, Lorena Pantano
+#' @export
+#' @note Updated 2022-05-07.
+#'
+#' @details
+#' `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
+#' migrated to `RangedSummarizedExperiment`.
+#'
 #' @section Automatic metadata:
 #'
 #' The `metadata()` slot always contains:
@@ -12,12 +20,6 @@
 #' - bcbio data provenance information.
 #' - File paths and timestamps.
 #' - R session information.
-#'
-#' @author Michael Steinbaugh, Lorena Pantano
-#' @note `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
-#' migrated to `RangedSummarizedExperiment`.
-#' @note Updated 2022-03-07.
-#' @export
 setClass(
     Class = "bcbioRNASeq",
     contains = "RangedSummarizedExperiment"
@@ -138,7 +140,7 @@ setValidity(
                 "runDate" = "Date",
                 "sampleDirs" = "character",
                 "sampleMetadataFile" = "character",
-                "sessionInfo" = "session_info",
+                "sessionInfo" = "list",
                 "uploadDir" = "character",
                 "wd" = "character",
                 "yaml" = "list"
