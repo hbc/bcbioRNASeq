@@ -1,8 +1,18 @@
+# bcbioRNASeq 0.5.0 (2022-05-07)
+
+## Major changes
+
+- Starting a new release series requiring R 4.2 / Bioconductor 3.15.
+- Minor bug fixes to provide compatibilty with Acid Genomics dependencies.
+
 # bcbioRNASeq 0.4.1 (2022-04-29)
+
+## Major changes
+
+- Now requiring R 4.2 / Bioconductor 3.15.
 
 ## Minor changes
 
-- Now requiring R 4.2 / Bioconductor 3.15.
 - Minor S4 class fixes to provide compatiblity with Bioconductor 3.15.
 - Relaxed version pins in `DESCRIPTION` file.
 

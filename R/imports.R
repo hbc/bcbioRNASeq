@@ -40,7 +40,7 @@ NULL
 #' plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
 #' plotCountsPerFeature plotGenderMarkers plotPCA
 #' @importMethodsFrom DESeq2 estimateSizeFactors
-#' @importMethodsFrom pipette coerce droplevels2 encode import
+#' @importMethodsFrom pipette droplevels2 encode import
 #' @importMethodsFrom syntactic camelCase makeNames
 NULL
 
