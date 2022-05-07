@@ -53,6 +53,7 @@ bibliography: "bibliography.bib"
 ```{r setup, cache=FALSE, message=FALSE}
 suppressPackageStartupMessages({
     library(goalie)
+    library(stringi)
     library(basejump)
     library(bcbioRNASeq)
     library(DESeqAnalysis)
@@ -99,8 +100,8 @@ if (is.null(organism)) {
     organism <- organism(as(deseq, "DESeqDataSet"))
 }
 ## Get OrgDb package from organism name (e.g. "org.Mm.eg.db").
-match <- str_match(
-    string = organism,
+match <- stri_match_first_regex(
+    str = organism,
     pattern = "^([A-Z])[a-z]+\\s([a-z])[a-z]+$"
 )
 orgDb <- paste(

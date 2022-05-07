@@ -154,6 +154,7 @@ Suggests:
     rhdf5,
     rmarkdown,
     roxygen2,
+    stringi,
     testthat,
     viridis,
     vsn
