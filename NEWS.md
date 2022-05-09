@@ -1,4 +1,4 @@
-# bcbioRNASeq 0.5.0 (2022-05-07)
+# bcbioRNASeq 0.5.0 (2022-05-09)
 
 ## Major changes
 
