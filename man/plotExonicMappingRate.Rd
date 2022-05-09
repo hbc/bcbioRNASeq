@@ -43,7 +43,7 @@ Flip x and y axes. Recommended for plots containing many samples.}
 Ideally, at least 60 percent of total reads should map to exons for RNA-seq.
 }
 \note{
-Updated 2022-03-07.
+Updated 2022-05-09.
 }
 \examples{
 data(bcb)

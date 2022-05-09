@@ -43,7 +43,7 @@ Flip x and y axes. Recommended for plots containing many samples.}
 The majority of reads should map to exons and not introns.
 }
 \note{
-Updated 2022-03-07.
+Updated 2022-05-09.
 }
 \examples{
 data(bcb)
