@@ -1,7 +1,7 @@
 #' @name plotGeneSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotGeneSaturation
-#' @note Updated 2022-03-07.
+#' @note Updated 2022-05-09.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -16,7 +16,7 @@ NULL
 
 
 
-## Updated 2022-03-07.
+## Updated 2022-05-09.
 `plotGeneSaturation,bcbioRNASeq` <- # nolint
     function(object,
              interestingGroups = NULL,
@@ -45,7 +45,7 @@ NULL
         interestingGroups <- interestingGroups(object)
         counts <- counts(object, normalized = FALSE)
         data <- metrics(object)
-        assert(identical(colnames(counts), data[["sampleId"]]))
+        assert(identical(colnames(counts), rownames(data)))
         data[["geneCount"]] <- colSums(counts >= minCounts)
         ## Convert to per million, if desired.
         if (isTRUE(perMillion)) {
@@ -55,7 +55,7 @@ NULL
             }
         }
         p <- ggplot(
-            data = data,
+            data = as.data.frame(data),
             mapping = aes(
                 x = !!sym("mappedReads"),
                 y = !!sym("geneCount"),
