@@ -5,6 +5,11 @@
 - Starting a new release series requiring R 4.2 / Bioconductor 3.15.
 - Minor bug fixes to provide compatibilty with Acid Genomics dependencies.
 
+## Minor changes
+
+- Now using `DataFrame` return from `metrics` by default. Hardened calls to
+  `ggplot` using `as.data.frame` coercion.
+
 # bcbioRNASeq 0.4.1 (2022-04-29)
 
 ## Major changes
