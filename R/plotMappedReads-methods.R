@@ -1,7 +1,7 @@
 #' @name plotMappedReads
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotMappedReads
-#' @note Updated 2022-03-07.
+#' @note Updated 2022-05-09.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -15,7 +15,7 @@ NULL
 
 
 
-## Updated 2022-03-07.
+## Updated 2022-05-09.
 `plotMappedReads,bcbioRNASeq` <- # nolint
     function(object,
              interestingGroups = NULL,
@@ -49,7 +49,7 @@ NULL
             }
         }
         p <- ggplot(
-            data = data,
+            data = as.data.frame(data),
             mapping = aes(
                 x = !!sym("sampleName"),
                 y = !!sym("mappedReads"),

@@ -1,7 +1,7 @@
 #' @name plot5Prime3PrimeBias
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plot5Prime3PrimeBias
-#' @note Updated 2022-03-07.
+#' @note Updated 2022-05-09.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -15,7 +15,7 @@ NULL
 
 
 
-## Updated 2022-03-07.
+## Updated 2022-05-09.
 `plot5Prime3PrimeBias,bcbioRNASeq` <- # nolint
     function(object,
              interestingGroups = NULL,
@@ -34,7 +34,7 @@ NULL
         interestingGroups <- interestingGroups(object)
         data <- metrics(object)
         p <- ggplot(
-            data = data,
+            data = as.data.frame(data),
             mapping = aes(
                 x = !!sym("sampleName"),
                 y = !!sym("x5x3Bias"),

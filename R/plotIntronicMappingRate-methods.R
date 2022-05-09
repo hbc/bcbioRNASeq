@@ -1,7 +1,7 @@
 #' @name plotIntronicMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
 #' @inherit AcidGenerics::plotIntronicMappingRate
-#' @note Updated 2022-03-07.
+#' @note Updated 2022-05-09.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -15,7 +15,7 @@ NULL
 
 
 
-## Updated 2022-03-07.
+## Updated 2022-05-09.
 `plotIntronicMappingRate,bcbioRNASeq` <- # nolint
     function(object,
              interestingGroups = NULL,
@@ -36,8 +36,9 @@ NULL
         interestingGroups(object) <-
             matchInterestingGroups(object, interestingGroups)
         interestingGroups <- interestingGroups(object)
+        data <- metrics(object)
         p <- ggplot(
-            data = metrics(object),
+            data = as.data.frame(data),
             mapping = aes(
                 x = !!sym("sampleName"),
                 y = !!sym("intronicRate") * 100L,
