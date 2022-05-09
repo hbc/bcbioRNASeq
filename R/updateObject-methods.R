@@ -2,7 +2,7 @@
 #'
 #' @name updateObject
 #' @author Michael Steinbaugh
-#' @note Updated 2022-04-25.
+#' @note Updated 2022-05-07.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -38,12 +38,12 @@
 #' validObject(object)
 #'
 #' ## Example that depends on remote file.
-#' ## > object <- import(file.path(
-#' ## >     bcbioRNASeqTestsURL,
-#' ## >     "bcbioRNASeq_0.1.4.rds"
-#' ## > ))
-#' ## > object <- updateObject(object)
-#' ## > validObject(object)
+#' object <- import(file = file.path(
+#'     bcbioRNASeqTestsURL,
+#'     "bcbioRNASeq_0.1.4.rds"
+#' ))
+#' object <- updateObject(object, verbose = TRUE)
+#' validObject(object)
 NULL
 
 
@@ -173,7 +173,7 @@ NULL
             metadata[["bcbioCommandsLog"]] <- character()
         }
         ## call
-        if (!"call" %in% names(metadata)) {
+        if (!isSubset("call", names(metadata))) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
                     "Stashing empty {.var %s}.", "call"
@@ -182,7 +182,7 @@ NULL
             metadata[["call"]] <- call(name = "bcbioRNASeq")
         }
         ## caller
-        if (!"caller" %in% names(metadata)) {
+        if (!isSubset("caller", names(metadata))) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
                     "Setting {.var %s} as {.val %s}.",
@@ -197,7 +197,7 @@ NULL
             metadata[["dataVersions"]] <- as(dataVersions, "DataFrame")
         }
         ## design
-        if ("design" %in% names(metadata)) {
+        if (isSubset("design", names(metadata))) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
                     "Dropping legacy {.var %s}.", "design"
@@ -206,7 +206,7 @@ NULL
             metadata[["design"]] <- NULL
         }
         ## ensemblRelease
-        if ("ensemblVersion" %in% names(metadata)) {
+        if (isSubset("ensemblVersion", names(metadata))) {
             ## Renamed in v0.2.0.
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -239,7 +239,7 @@ NULL
             metadata[["genomeBuild"]] <- character()
         }
         ## gffFile
-        if ("gtfFile" %in% names(metadata)) {
+        if (isSubset("gtfFile", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Renaming {.var %s} to {.var %s}.",
@@ -250,7 +250,7 @@ NULL
                 names(metadata) == "gtfFile"
             ] <- "gffFile"
         }
-        if (!"gffFile" %in% names(metadata)) {
+        if (!isSubset("gffFile", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Setting {.var %s} as {.val %s}.",
@@ -260,7 +260,7 @@ NULL
             metadata[["gffFile"]] <- character()
         }
         ## gtf
-        if ("gtf" %in% names(metadata)) {
+        if (isSubset("gtf", names(metadata))) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
                     "Dropping {.val %s} in {.var %s}.",
@@ -279,7 +279,7 @@ NULL
             metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
         }
         ## level
-        if (!"level" %in% names(metadata)) {
+        if (!isSubset("level", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Setting {.var %s} as {.val %s}.",
@@ -293,8 +293,8 @@ NULL
         metadata[["packageVersion"]] <- .pkgVersion
         metadata[["version"]] <- NULL
         ## programVersions
-        if (!"programVersions" %in% names(metadata) &&
-            "programs" %in% names(metadata)) {
+        if (!isSubset("programVersions", names(metadata)) &&
+            isSubset("programs", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Renaming {.var %s} to {.var %s}.",
@@ -328,26 +328,26 @@ NULL
         ## sessionInfo
         ## Support for legacy devtoolsSessionInfo stash.
         ## Previously, we stashed both devtools* and utils* variants.
-        if ("devtoolsSessionInfo" %in% names(metadata)) {
+        if (isSubset("utilsSessionInfo", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Simplifying stashed {.var %s}.", "sessionInfo"
                 ))
             }
             names(metadata)[
-                names(metadata) == "devtoolsSessionInfo"
+                names(metadata) == "utilsSessionInfo"
             ] <- "sessionInfo"
-            metadata[["utilsSessionInfo"]] <- NULL
+            metadata[["devtoolsSessionInfo"]] <- NULL
         }
         ## template
-        if ("template" %in% names(metadata)) {
+        if (isSubset("template", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf("Dropping legacy {.var %s}.", "template"))
             }
             metadata[["template"]] <- NULL
         }
         ## Dead genes: "missing" or "unannotated".
-        if ("missingGenes" %in% names(metadata)) {
+        if (isSubset("missingGenes", names(metadata))) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
                     "Dropping {.var %s} from {.fun %s}.",
@@ -356,7 +356,7 @@ NULL
             }
             metadata[["missingGenes"]] <- NULL
         }
-        if ("unannotatedGenes" %in% names(metadata)) {
+        if (isSubset("unannotatedGenes", names(metadata))) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
                     "Dropping {.var %s} from {.fun %s}.",
@@ -366,7 +366,7 @@ NULL
             metadata[["unannotatedGenes"]] <- NULL
         }
         ## yamlFile
-        if ("yamlFile" %in% names(metadata)) {
+        if (isSubset("yamlFile", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Dropping {.var %s} file path.", "yamlFile"
@@ -380,7 +380,7 @@ NULL
                 h3("tximport")
             }
             ## countsFromAbundance
-            if (!"countsFromAbundance" %in% names(metadata)) {
+            if (!isSubset("countsFromAbundance", names(metadata))) {
                 countsFromAbundance <- "lengthScaledTPM"
                 if (isTRUE(verbose)) {
                     alertWarning(sprintf(
@@ -424,43 +424,10 @@ NULL
             isString(level),
             isSubset(level, .levels)
         )
-        ## Ensure raw counts are always named "counts".
-        if ("raw" %in% names(assays)) {
-            if (isTRUE(verbose)) {
-                alert(sprintf(
-                    "Renaming {.var %s} assay to {.var %s}.",
-                    "raw", "counts"
-                ))
-            }
-            names(assays)[names(assays) == "raw"] <- "counts"
-        }
-        ## Rename average transcript length matrix.
-        if ("length" %in% names(assays)) {
-            if (isTRUE(verbose)) {
-                alert(sprintf(
-                    "Renaming {.var %s} assay to {.var %s}.",
-                    "length", "avgTxLength"
-                ))
-            }
-            names(assays)[names(assays) == "length"] <- "avgTxLength"
-        }
-        ## Drop legacy TMM counts.
-        if ("tmm" %in% names(assays)) {
-            if (isTRUE(verbose)) {
-                alert(sprintf(
-                    fmt = paste(
-                        "Dropping {.var %s} from {.fun %s}.",
-                        "Calculating on the fly instead."
-                    ),
-                    "tmm", "assays"
-                ))
-            }
-            assays[["tmm"]] <- NULL
-        }
         ## Gene-level-specific assays (DESeq2). Handle legacy objects where size
         ## factor normalized counts aren't stashed as a matrix. Note that these
         ## will always be length scaled.
-        if (level == "genes") {
+        if (identical(level, "genes")) {
             ## DESeq2 normalized counts.
             if (is(assays[["normalized"]], "DESeqDataSet")) {
                 if (isTRUE(verbose)) {
@@ -473,6 +440,7 @@ NULL
                     ))
                 }
                 dds <- assays[["normalized"]]
+                dds <- updateObject(dds)
                 assays[["normalized"]] <- counts(dds, normalized = TRUE)
             }
             ## Variance-stabilizing transformation.
@@ -496,13 +464,47 @@ NULL
                 assays[["rlog"]] <- assay(assays[["rlog"]])
             }
         }
+        ## Ensure raw counts are always named "counts".
+        if (isSubset("raw", names(assays))) {
+            if (isTRUE(verbose)) {
+                alert(sprintf(
+                    "Renaming {.var %s} assay to {.var %s}.",
+                    "raw", "counts"
+                ))
+            }
+            names(assays)[names(assays) == "raw"] <- "counts"
+        }
+        ## Rename average transcript length matrix.
+        if (isSubset("length", names(assays))) {
+            if (isTRUE(verbose)) {
+                alert(sprintf(
+                    "Renaming {.var %s} assay to {.var %s}.",
+                    "length", "avgTxLength"
+                ))
+            }
+            names(assays)[names(assays) == "length"] <- "avgTxLength"
+        }
+        ## Drop legacy TMM counts.
+        if (isSubset("tmm", names(assays))) {
+            if (isTRUE(verbose)) {
+                alert(sprintf(
+                    fmt = paste(
+                        "Dropping {.var %s} from {.fun %s}.",
+                        "Calculating on the fly instead."
+                    ),
+                    "tmm", "assays"
+                ))
+            }
+            assays[["tmm"]] <- NULL
+        }
+
         ## Always put the required assays first.
         assert(isSubset(.assays, names(assays)))
         assays <- assays[unique(c(.assays, names(assays)))]
         ## Check for required caller-specific assays.
-        if (caller %in% .tximportCallers) {
+        if (isSubset(caller, .tximportCallers)) {
             assert(isSubset(.tximportAssays, names(assays)))
-        } else if (caller %in% .featureCountsCallers) {
+        } else if (isSubset(caller, .featureCountsCallers)) {
             assert(isSubset(.featureCountsAssays, names(assays)))
         }
         ## Filter NULL assays.
@@ -527,7 +529,7 @@ NULL
             }
         }
         ## rowRangesMetadata
-        if ("rowRangesMetadata" %in% names(metadata)) {
+        if (isSubset("rowRangesMetadata", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Moving {.val %s} into {.var %s} metadata.",
@@ -539,7 +541,7 @@ NULL
             metadata[["rowRangesMetadata"]] <- NULL
         }
         ## biotype
-        if ("biotype" %in% colnames(mcols(rowRanges))) {
+        if (isSubset("biotype", colnames(mcols(rowRanges)))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Renaming {.var %s} to {.var %s}.",
@@ -552,7 +554,7 @@ NULL
         }
         ## broadClass
         if (
-            "broadClass" %in% colnames(mcols(rowRanges)) &&
+            isSubset("broadClass", colnames(mcols(rowRanges))) &&
                 is.character(mcols(rowRanges)[["broadClass"]])
         ) {
             if (isTRUE(verbose)) {
@@ -565,7 +567,7 @@ NULL
                 as.factor(mcols(rowRanges)[["broadClass"]])
         }
         ## ensgene
-        if ("ensgene" %in% colnames(mcols(rowRanges))) {
+        if (isSubset("ensgene", colnames(mcols(rowRanges)))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Renaming {.var %s} to {.var %s}.",
@@ -577,7 +579,7 @@ NULL
             mcols(rowRanges)[["ensgene"]] <- NULL
         }
         ## symbol
-        if ("symbol" %in% colnames(mcols(rowRanges))) {
+        if (isSubset("symbol", colnames(mcols(rowRanges)))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Renaming {.var %s} to {.var %s}.",
@@ -610,7 +612,7 @@ NULL
             ## Always remove legacy name column.
             metrics[["name"]] <- NULL
             ## Rename 5'3' bias.
-            if ("x53Bias" %in% colnames(metrics)) {
+            if (isSubset("x53Bias", colnames(metrics))) {
                 if (isTRUE(verbose)) {
                     alert(sprintf(
                         "Renaming {.var %s} to {.var %s}.",
@@ -621,7 +623,7 @@ NULL
                 metrics[["x53Bias"]] <- NULL
             }
             ## Rename rRNA rate.
-            if (!"rrnaRate" %in% colnames(metrics)) {
+            if (!isSubset("rrnaRate", colnames(metrics))) {
                 col <- grep(
                     pattern = "rrnarate",
                     x = colnames(metrics),

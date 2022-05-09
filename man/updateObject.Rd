@@ -35,7 +35,7 @@ information metadata is preserved from the time when the bcbio data was
 originally loaded into R.
 }
 \note{
-Updated 2022-04-25.
+Updated 2022-05-07.
 }
 \section{Legacy \code{bcbioRNADataSet} class}{
 
@@ -61,12 +61,12 @@ object <- updateObject(object)
 validObject(object)
 
 ## Example that depends on remote file.
-## > object <- import(file.path(
-## >     bcbioRNASeqTestsURL,
-## >     "bcbioRNASeq_0.1.4.rds"
-## > ))
-## > object <- updateObject(object)
-## > validObject(object)
+object <- import(file = file.path(
+    bcbioRNASeqTestsURL,
+    "bcbioRNASeq_0.1.4.rds"
+))
+object <- updateObject(object, verbose = TRUE)
+validObject(object)
 }
 \author{
 Michael Steinbaugh

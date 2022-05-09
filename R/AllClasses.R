@@ -140,7 +140,7 @@ setValidity(
                 "runDate" = "Date",
                 "sampleDirs" = "character",
                 "sampleMetadataFile" = "character",
-                "sessionInfo" = "list",
+                "sessionInfo" = c("sessionInfo", "session_info"),
                 "uploadDir" = "character",
                 "wd" = "character",
                 "yaml" = "list"

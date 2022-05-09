@@ -9,11 +9,12 @@
 is designed to store a \href{https://bcbio-nextgen.readthedocs.org}{bcbio} RNA-seq
 analysis.
 }
-\note{
+\details{
 \code{bcbioRNASeq} extended \code{SummarizedExperiment} prior to v0.2.0, where we
 migrated to \code{RangedSummarizedExperiment}.
-
-Updated 2022-03-07.
+}
+\note{
+Updated 2022-05-07.
 }
 \section{Automatic metadata}{
 
