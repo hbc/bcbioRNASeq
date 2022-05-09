@@ -61,7 +61,7 @@ object <- updateObject(object)
 validObject(object)
 
 ## Example that depends on remote file.
-object <- import(file = file.path(
+object <- pipette::import(file = file.path(
     bcbioRNASeqTestsURL,
     "bcbioRNASeq_0.1.4.rds"
 ))
