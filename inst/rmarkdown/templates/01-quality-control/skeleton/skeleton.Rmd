@@ -3,7 +3,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-03-11.
+## Updated 2022-05-24.
 params:
   title: "Quality control"
 
@@ -22,6 +22,7 @@ bibliography: "bibliography.bib"
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
+## nolint start
 suppressPackageStartupMessages({
     library(goalie)
     library(basejump)
@@ -29,6 +30,7 @@ suppressPackageStartupMessages({
 })
 prepareTemplate()
 source("_setup.R")
+## nolint end
 ```
 
 ```{r header, child="_header.Rmd"}

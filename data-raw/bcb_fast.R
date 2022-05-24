@@ -1,21 +1,21 @@
 ## bcbioRNASeq fast mode example object.
-## Updated 2022-03-07.
+## Updated 2022-05-24.
+## nolint start
 suppressPackageStartupMessages({
     library(devtools)
     library(usethis)
-    library(lobstr)
     library(basejump)
 })
+## nolint end
 load_all()
 ## Restrict to 1 MB.
 ## Use `pryr::object_size()` instead of `utils::object.size()`.
-limit <- structure(1e6, class = "object_size")
+limit <- structure(1e6L, class = "object_size")
 uploadDir <- system.file("extdata/bcbio", package = "bcbioRNASeq")
 object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
 ## Report the size of each slot in bytes.
-lapply(coerceToList(object), obj_size)
 stopifnot(
-    isTRUE(obj_size(object) < limit),
+    isTRUE(object.size(object) < limit),
     is(object, "bcbioRNASeq"),
     validObject(object)
 )

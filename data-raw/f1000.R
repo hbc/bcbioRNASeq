@@ -1,9 +1,11 @@
 ## F1000 workflow paper example.
-## Updated 2022-03-07.
+## Updated 2022-05-24.
+## nolint start
 suppressPackageStartupMessages({
     library(devtools)
     library(basejump)
 })
+## nolint end
 load_all()
 ## GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
 ## HMS O2: /n/data1/cores/bcbio/bcbioRNASeq/F1000v2

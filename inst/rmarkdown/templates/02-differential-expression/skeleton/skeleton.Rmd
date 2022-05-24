@@ -5,7 +5,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-03-11.
+## Updated 2022-05-24.
 params:
   title: "Differential expression with DESeq2"
 
@@ -53,6 +53,7 @@ bibliography: "bibliography.bib"
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
+## nolint start
 suppressPackageStartupMessages({
     library(goalie)
     library(basejump)
@@ -62,6 +63,7 @@ suppressPackageStartupMessages({
 })
 prepareTemplate()
 source("_setup.R")
+## nolint end
 invisible(lapply(
     X = c(
         params[["data_dir"]],
@@ -215,18 +217,15 @@ print(params[["contrasts"]])
 ```
 
 ```{r res-unshrunken}
-resListUnshrunken <- mapply(
-    FUN = DESeq2::results,
+resListUnshrunken <- Map(
+    f = DESeq2::results,
     contrast = params[["contrasts"]],
     MoreArgs = list(
         "object" = dds,
         "alpha" = params[["alpha_threshold"]],
         "lfcThreshold" = params[["lfc_threshold"]]
-    ),
-    SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
+    )
 )
-names(resListUnshrunken) <- names(params[["contrasts"]])
 ```
 
 Now let's calculate shrunken log2 fold change values with
@@ -237,20 +236,17 @@ well with complex contrast designs.
 ```{r res-shrunken}
 ## Refer to DESeqAnalysis package if you want to use newer apeglm instead.
 ## See `help(topic = "apeglmResults", package = "DESeqAnalysis")` for details.
-resListShrunken <-
-    mapply(
-        FUN = DESeq2::lfcShrink,
-        res = resListUnshrunken,
-        contrast = params[["contrasts"]],
-        MoreArgs = list(
-            "dds" = dds,
-            "type" = "normal",
-            "alpha" = params[["alpha_threshold"]],
-            "lfcThreshold" = params[["lfc_threshold"]]
-        ),
-        SIMPLIFY = FALSE,
-        USE.NAMES = TRUE
+resListShrunken <- Map(
+    f = DESeq2::lfcShrink,
+    res = resListUnshrunken,
+    contrast = params[["contrasts"]],
+    MoreArgs = list(
+        "dds" = dds,
+        "type" = "normal",
+        "alpha" = params[["alpha_threshold"]],
+        "lfcThreshold" = params[["lfc_threshold"]]
     )
+)
 ```
 
 We performed the analysis using a BH adjusted *P* value cutoff of
@@ -277,15 +273,13 @@ An MA plot compares transformed counts on `M` (log ratio) and `A` (mean
 average) scales [@Yang2002-sx].
 
 ```{r plot-ma, results="asis"}
-invisible(mapply(
-    FUN = function(object, i) {
+invisible(Map(
+    f = function(object, i) {
         markdownHeader(text = i, level = 3L, asis = TRUE)
         print(plotMA(object = object, i = i))
     },
     i = resultsNames(deseq),
-    MoreArgs = list("object" = deseq),
-    SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
+    MoreArgs = list("object" = deseq)
 ))
 ```
 
@@ -297,30 +291,26 @@ labels have an adjusted *P* value are likely to be the top candidate genes of
 interest.
 
 ```{r plot-volcano, results="asis"}
-invisible(mapply(
-    FUN = function(object, i) {
+invisible(Map(
+    f = function(object, i) {
         markdownHeader(text = i, level = 3L, asis = TRUE)
         print(plotVolcano(object = object, i = i))
     },
     i = resultsNames(deseq),
-    MoreArgs = list("object" = deseq),
-    SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
+    MoreArgs = list("object" = deseq)
 ))
 ```
 
 ## DEG PCA {.tabset}
 
 ```{r plot-deg-pca, results="asis"}
-invisible(mapply(
-    FUN = function(object, i) {
+invisible(Map(
+    f = function(object, i) {
         markdownHeader(text = i, level = 3L, asis = TRUE)
         print(plotDEGPCA(object = object, i = i))
     },
     i = resultsNames(deseq),
-    MoreArgs = list("object" = deseq),
-    SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
+    MoreArgs = list("object" = deseq)
 ))
 ```
 
@@ -331,8 +321,8 @@ have scaled the data by row and used the `ward.D2` method for clustering
 [@Ward1963-xf].
 
 ```{r plot-deg-heatmap, results="asis"}
-invisible(mapply(
-    FUN = function(object, i, ...) {
+invisible(Map(
+    f = function(object, i, ...) {
         markdownHeader(text = i, level = 3L)
         plotDEGHeatmap(object = object, i = i, ...)
     },
@@ -341,9 +331,7 @@ invisible(mapply(
         "object" = deseq,
         "clusteringMethod" = "ward.D2",
         "scale" = "row"
-    ),
-    SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
+    )
 ))
 ```
 

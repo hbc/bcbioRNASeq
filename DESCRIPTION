@@ -157,7 +157,8 @@ Suggests:
     stringi,
     testthat (>= 3.0.0),
     viridis,
-    vsn
+    vsn,
+    withr
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
