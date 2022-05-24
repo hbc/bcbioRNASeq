@@ -1,5 +1,3 @@
-context("plotGeneSaturation")
-
 test_that("plotGeneSaturation", {
     x <- plotGeneSaturation(
         object = object,

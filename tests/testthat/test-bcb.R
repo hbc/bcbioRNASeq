@@ -1,5 +1,3 @@
-context("bcb example dataset")
-
 ## Check to make sure tximport loaded correctly.
 test_that("Assays", {
     assaySum <- function(x) {

@@ -1,5 +1,3 @@
-context("sampleData")
-
 test_that("Clean mode", {
     x <- sampleData(object, clean = TRUE)
     ## Require that all clean columns are factor.

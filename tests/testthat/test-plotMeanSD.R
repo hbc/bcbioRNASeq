@@ -1,5 +1,3 @@
-context("plotMeanSD")
-
 skip_if_not_installed("vsn")
 
 test_that("plotMeanSD", {

@@ -7,8 +7,6 @@ suppressPackageStartupMessages({
 
 
 
-context("F1000 workflow paper")
-
 ## Note that DESeqAnalysis approach is new and not mentioned in the current
 ## F1000v2 manuscript.
 
@@ -171,8 +169,6 @@ test_that("Differential expression", {
 })
 
 
-
-context("Render R Markdown templates")
 
 ## Modified, updated version of bcbio_rnaseq_output_example repo.
 ## https://github.com/bcbio/bcbio_rnaseq_output_example/

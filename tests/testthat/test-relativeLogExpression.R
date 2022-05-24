@@ -1,5 +1,3 @@
-context("relativeLogExpression")
-
 test_that("SummarizedExperiment", {
     x <- relativeLogExpression(object)
     expect_is(x, "matrix")

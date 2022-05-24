@@ -1,5 +1,3 @@
-context("plotDispEsts")
-
 ## NOTE This can return "figure margins too large" error.
 
 test_that("plotDispEsts", {

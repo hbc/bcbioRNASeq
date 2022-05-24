@@ -1,5 +1,3 @@
-context("plotPCACovariates")
-
 skip("Disabled until bug is fixed in DEGreport.")
 skip_if_not_installed("DEGreport")
 

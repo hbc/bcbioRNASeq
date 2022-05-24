@@ -1,5 +1,3 @@
-context("plotPCA")
-
 test_that("label", {
     x <- plotPCA(object, label = FALSE)
     expect_s3_class(x, "ggplot")

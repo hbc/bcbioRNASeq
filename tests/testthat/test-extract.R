@@ -1,5 +1,3 @@
-context("extract")
-
 nrow <- 50L
 ncol <- 2L
 

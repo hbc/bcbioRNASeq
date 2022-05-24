@@ -1,5 +1,3 @@
-context("plotQC")
-
 test_that("plotQC", {
     x <- plotQC(object)
     expect_s3_class(x, "ggplot")

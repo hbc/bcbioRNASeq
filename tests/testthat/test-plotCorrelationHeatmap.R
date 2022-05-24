@@ -1,5 +1,3 @@
-context("plotCorrelationHeatmap")
-
 object <- bcb
 
 test_that("method", {

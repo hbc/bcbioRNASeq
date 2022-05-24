@@ -1,5 +1,3 @@
-context("tmm")
-
 test_that("tmm", {
     for (object in list(
         bcbioRNASeq = object,

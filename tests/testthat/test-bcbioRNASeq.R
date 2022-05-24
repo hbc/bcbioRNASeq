@@ -1,5 +1,3 @@
-context("bcbioRNASeq")
-
 test_that("Import salmon counts (default)", {
     object <- bcbioRNASeq(uploadDir)
     expect_s4_class(object, "bcbioRNASeq")

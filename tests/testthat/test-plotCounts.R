@@ -1,5 +1,3 @@
-context("plotCounts")
-
 test_that("Facet wrapped", {
     p <- plotCounts(
         object = object,

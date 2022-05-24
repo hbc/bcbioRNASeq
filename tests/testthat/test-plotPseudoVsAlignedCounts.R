@@ -1,5 +1,3 @@
-context("plotPseudoVsAlignedCounts")
-
 test_that("bcbioRNASeq", {
     ## Correlation heatmap.
     p <- plotPseudoVsAlignedCounts(bcb)

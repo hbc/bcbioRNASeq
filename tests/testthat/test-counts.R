@@ -1,5 +1,3 @@
-context("counts")
-
 test_that("Slotted assays", {
     mapply(
         normalized = list(

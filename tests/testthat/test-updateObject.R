@@ -1,5 +1,3 @@
-context("updateObject")
-
 skip_if_not(hasInternet())
 
 ## Load a legacy object that doesn't contain rowRanges.

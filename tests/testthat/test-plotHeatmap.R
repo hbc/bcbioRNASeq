@@ -1,5 +1,3 @@
-context("plotHeatmap")
-
 test_that("plotHeatmap", {
     object <- nonzeroRowsAndCols(object)
     p <- plotHeatmap(object, scale = "row")
