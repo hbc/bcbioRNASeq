@@ -35,10 +35,12 @@ citation("bcbioRNASeq")
 ```
 
 ```{r message=FALSE}
+## nolint start
 suppressPackageStartupMessages({
     library(basejump)
     library(bcbioRNASeq)
 })
+## nolint end
 ```
 
 # Loading bcbio data
