@@ -255,7 +255,7 @@ try({
 
 ```{r emapplot}
 try({
-    emapplot::emapplot(
+    enrichplot::emapplot(
         x = enrichplot::pairwise_termsim(enrichGo),
         showCategory = 25L
     )
