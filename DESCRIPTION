@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.5.1.9000
-Date: 2022-05-11
+Version: 0.5.1
+Date: 2022-05-24
 Authors@R: c(
     person(
         given = "Michael",
@@ -155,20 +155,11 @@ Suggests:
     rmarkdown,
     roxygen2,
     stringi,
-    testthat,
+    testthat (>= 3.0.0),
     viridis,
     vsn
-biocViews:
-    DataImport,
-    DataRepresentation,
-    DifferentialExpression,
-    GeneExpression,
-    QualityControl,
-    ReportWriting,
-    RNASeq,
-    Transcription,
-    Visualization
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
-VignetteBuilder: knitr, rmarkdown
 Additional_repositories: https://r.acidgenomics.com
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
+VignetteBuilder: knitr, rmarkdown

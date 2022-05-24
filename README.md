@@ -67,7 +67,6 @@ object <- bcbioRNASeq(
     interestingGroups = c("genotype", "treatment"),
     organism = "Homo sapiens"
 )
-saveData(object, dir = ".")
 ```
 
 This will return a `bcbioRNASeq` object, which is an extension of the
