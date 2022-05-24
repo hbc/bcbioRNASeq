@@ -121,7 +121,7 @@ object <- bcbioRNASeq(
     level = "genes",
     organism = "Mus musculus",
     genomeBuild = "GRCm38",
-    ensemblRelease = 87
+    ensemblRelease = 87L
 )
 ```
 
@@ -267,10 +267,10 @@ plotCorrelationHeatmap(object)
 The `counts` accessor function returns raw counts by default. Multiple normalization methods are accessible with the `normalized` argument.
 
 ```{r}
-raw_counts <- counts(object, normalized = FALSE)
-normalized_counts <- counts(object, normalized = TRUE)
+rawCounts <- counts(object, normalized = FALSE)
+normalizedCounts <- counts(object, normalized = TRUE)
 tpm <- counts(object, normalized = "tpm")
-log2_vst_counts <- counts(object, normalized = "vst")
+log2VstCounts <- counts(object, normalized = "vst")
 ```
 
 We are providing `bcbioRNASeq` method support for the `export` function, which automatically exports matrices defined in `assays` and corresponding metadata (e.g. `rowData`, `colData`) to disk in a single call.
