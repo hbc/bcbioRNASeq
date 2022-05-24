@@ -352,15 +352,13 @@ invisible(mapply(
 Only the top up- and down-regulated genes are shown.
 
 ```{r top-tables, results="asis"}
-invisible(mapply(
-    FUN = topTables,
+invisible(Map(
+    f = markdownTables,
     i = resultsNames(deseq),
     MoreArgs = list(
         "object" = deseq,
         "n" = 20L
-    ),
-    SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
+    )
 ))
 ```
 
