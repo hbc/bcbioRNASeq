@@ -10,7 +10,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-03-11.
+## Updated 2022-05-24.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -51,6 +51,7 @@ bibliography: "bibliography.bib"
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
+## nolint start
 suppressPackageStartupMessages({
     library(goalie)
     library(stringi)
@@ -63,6 +64,7 @@ prepareTemplate()
 source("_setup.R")
 ## May encounter warning from ggrepel package otherwise.
 options("ggrepel.max.overlaps" = Inf)
+## nolint end
 keggPlotsDir <- file.path(params[["results_dir"]], "kegg-plots")
 invisible(lapply(
     X = c(
@@ -114,26 +116,23 @@ orgDb <- paste(
 rm(match)
 ## Use `BiocManager::install()` to install missing packages, if necessary.
 packages <- c(
-    "clusterProfiler",
     "DOSE",
+    "R.utils",
+    "clusterProfiler",
     "enrichplot",
     "ggnewscale",  # For `cnetplot()`.
     "pathview",
+    "withr",
     orgDb
 )
 assert(allAreInstalled(packages))
-invisible(lapply(
-    X = basename(packages),
-    FUN = function(package) {
-        assert(require(package, character.only = TRUE))
-    }
-))
 ## Avoid logical coercion error in DOSE.
-## Report this issue to package author.
+## nolint start
 Sys.setenv(
     "_R_CHECK_LENGTH_1_CONDITION_" = "false",
     "_R_CHECK_LENGTH_1_LOGIC2_" = "false"
 )
+## nolint end
 ```
 
 Match the KEGG organism code (e.g. "hsa" for Homo sapiens).
@@ -141,7 +140,7 @@ Match the KEGG organism code (e.g. "hsa" for Homo sapiens).
 ```{r check-db-codes}
 keggCode <-
     organism |>
-    search_kegg_organism("scientific_name") |>
+    clusterProfiler::search_kegg_organism("scientific_name") |>
     getElement("kegg_code")
 assert(
     hasLength(keggCode, n = 1L),
@@ -203,7 +202,7 @@ which genes are assigned to a set of predefined bins depending on their
 functional characteristics.
 
 ```{r enrich-go}
-enrichGo <- enrichGO(
+enrichGo <- clusterProfiler::enrichGO(
     gene = sigGenes,
     OrgDb = orgDb,
     keyType = "ENSEMBL",
@@ -215,7 +214,7 @@ enrichGo <- enrichGO(
 enrichGoTbl <-
     enrichGo |>
     slot("result") |>
-    as_tibble() |>
+    as.data.frame() |>
     camelCase()
 saveData(
     enrichGo,
@@ -248,7 +247,7 @@ print(enrichGoTbl)
 
 ```{r dotplot}
 try({
-    dotplot(enrichGo, showCategory = 25L)
+    enrichplot::dotplot(enrichGo, showCategory = 25L)
 })
 ```
 
@@ -256,8 +255,8 @@ try({
 
 ```{r emapplot}
 try({
-    emapplot(
-        x = pairwise_termsim(enrichGo),
+    emapplot::emapplot(
+        x = enrichplot::pairwise_termsim(enrichGo),
         showCategory = 25L
     )
 })
@@ -273,7 +272,7 @@ Here we are plotting genes colored by LFC for top significant [GO][] terms.
 
 ```{r cnetplot}
 try({
-    cnetplot(enrichGo, foldChange = lfcVec)
+    enrichplot::cnetplot(enrichGo, foldChange = lfcVec)
 })
 ```
 
@@ -325,7 +324,7 @@ evalEntrez <- is.numeric(rankedListEntrez)
 ```{r gse-go}
 ## Now we're ready to run GSEA.
 ## > help("gseGO", "clusterProfiler")
-gseaGo <- gseGO(
+gseaGo <- clusterProfiler::gseGO(
     geneList = rankedListEnsembl,
     ont = params[["go_class"]],
     OrgDb = get(orgDb),
@@ -335,7 +334,7 @@ gseaGo <- gseGO(
 gseaGoTbl <-
     gseaGo |>
     slot("result") |>
-    as_tibble() |>
+    as.data.frame() |>
     camelCase()
 saveData(gseaGo, gseaGoTbl, dir = params[["data_dir"]])
 export(
@@ -396,7 +395,7 @@ str(entrezLfcVec)
 ```
 
 ```{r enrich-kegg}
-kegg <- enrichKEGG(
+kegg <- clusterProfiler::enrichKEGG(
     gene = as.character(sigEntrez),
     organism = keggCode,
     keyType = "ncbi-geneid",
@@ -406,7 +405,7 @@ kegg <- enrichKEGG(
 keggTbl <-
     kegg |>
     slot("result") |>
-    as_tibble() |>
+    as.data.frame() |>
     camelCase()
 saveData(kegg, keggTbl, dir = params[["data_dir"]])
 export(
@@ -464,7 +463,7 @@ correct for multiple test correction, so by adjusting the `minGSSize` and
 pathways of interest.
 
 ```{r kegg-gsea}
-gseaKegg <- gseKEGG(
+gseaKegg <- clusterProfiler::gseKEGG(
     geneList = entrezLfcVec,
     organism = keggCode,
     keyType = "ncbi-geneid"
@@ -472,7 +471,7 @@ gseaKegg <- gseKEGG(
 gseaKeggTbl <-
     gseaKegg |>
     slot("result") |>
-    as_tibble() |>
+    as.data.frame() |>
     camelCase()
 saveData(gseaKegg, dir = params[["data_dir"]])
 export(
@@ -503,42 +502,46 @@ print(gseaKeggTbl)
 ## > help(topic = "pathview", package = "pathview")
 ##
 ## There is currently no way to set the output path of the pathview PNG files,
-## so we're changing the working directory. Generally this is not recommended!
+## so we're changing the working directory temporarily using the withr package.
 ##
 ## Also, We're using `tryCatch()` here to return to the user any pathways that
 ## didn't output graphics correctly.
 pathways <- gseaKeggTbl[["id"]]
 if (hasLength(pathways)) {
+    ## `gene.data` vector must be numeric with Entrez identifiers as names.
+    ## Using `withTimeout` here to harden against very large pathway sets
+    ## (e.g.`"mmu01100"` for F1000 paper example) that can fail to plot.
     ## dplyr may need to be unloaded for pathview to work.
     ## > suppressWarnings(detach("package:dplyr", unload = TRUE, force = TRUE))
-    wd <- getwd()
-    setwd(keggPlotsDir)
-    invisible(lapply(pathways, function(pathway) {
-        ## `gene.data` vector must be numeric with Entrez IDs as names.
-        ## Using `withTimeout` here to harden against very large pathway sets
-        ## (e.g."mmu01100" for F1000 paper example) failing to plot.
-        tryCatch(
-            expr = R.utils::withTimeout(
-                expr = {
-                    pathview(
-                        gene.data = entrezLfcVec,
-                        pathway.id = pathway,
-                        gene.idtype = "entrez",
-                        gene.annotpkg = NULL,
-                        species = keggCode,
-                        ## Use bi-directional coloring (positive/negative).
-                        limit = list(gene = 2L)
+    withr::with_dir(
+        new = keggPlotsDir,
+        code = {
+            invisible(lapply(
+                X = pathways,
+                FUN = function(pathway) {
+                    tryCatch(
+                        expr = R.utils::withTimeout(
+                            expr = {
+                                pathview::pathview(
+                                    gene.data = entrezLfcVec,
+                                    pathway.id = pathway,
+                                    gene.idtype = "entrez",
+                                    gene.annotpkg = NULL,
+                                    species = keggCode,
+                                    ## Use bidirectional coloring.
+                                    limit = list(gene = 2L)
+                                )
+                            },
+                            timeout = 60L
+                        ),
+                        error = function(e) {
+                            warning(sprintf("%s failed to plot.", pathway))
+                        }
                     )
-                },
-                timeout = 60L
-            ),
-            error = function(e) {
-                ## Return a warning instead of an error.
-                warning(sprintf("%s failed to plot.", pathway), call. = FALSE)
-            }
-        )
-    }))
-    setwd(wd)
+                }
+            ))
+        }
+    )
     figures <- list.files(
         path = keggPlotsDir,
         pattern = "pathview",
