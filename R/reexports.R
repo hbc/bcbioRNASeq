@@ -1,5 +1,10 @@
 ## Used in F1000v2 manuscript.
 #' @export
+#' @importFrom AcidGenerics alphaSummary
+AcidGenerics::alphaSummary
+
+## Used in F1000v2 manuscript.
+#' @export
 #' @importFrom pipette loadRemoteData
 pipette::loadRemoteData
 

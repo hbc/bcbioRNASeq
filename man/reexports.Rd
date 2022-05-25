@@ -3,6 +3,7 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
+\alias{alphaSummary}
 \alias{loadRemoteData}
 \alias{plotFeaturesDetected}
 \alias{plotHeatmap}
@@ -15,7 +16,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{AcidGenerics}{\code{\link[AcidGenerics]{plotFeaturesDetected}}, \code{\link[AcidGenerics]{plotHeatmap}}, \code{\link[AcidGenerics]{plotQuantileHeatmap}}}
+  \item{AcidGenerics}{\code{\link[AcidGenerics]{alphaSummary}}, \code{\link[AcidGenerics]{plotFeaturesDetected}}, \code{\link[AcidGenerics]{plotHeatmap}}, \code{\link[AcidGenerics]{plotQuantileHeatmap}}}
 
   \item{pipette}{\code{\link[pipette]{loadRemoteData}}, \code{\link[pipette]{saveData}}}
 }}

@@ -3,10 +3,16 @@
 \name{deprecated}
 \alias{deprecated}
 \alias{plotGenesDetected}
+\alias{plotDEGHeatmap,missing-method}
+\alias{prepareRNASeqTemplate}
 \alias{writeCounts}
 \title{Deprecated functions}
 \usage{
 plotGenesDetected(object, ...)
+
+\S4method{plotDEGHeatmap}{missing}(object, results, counts, ...)
+
+prepareRNASeqTemplate(...)
 
 writeCounts(..., dir = getOption(x = "acid.export.dir", default = getwd()))
 }
@@ -15,8 +21,15 @@ writeCounts(..., dir = getOption(x = "acid.export.dir", default = getwd()))
 
 \item{...}{Additional arguments.}
 
+\item{counts}{\code{matrix}.
+Count matrix. Normalized counts are recommended.}
+
 \item{dir}{\code{character(1)}.
 Directory path.}
+
+\item{`results`}{\code{DESeqResults.}}
+
+\item{`counts`}{\code{DESeqTransform}.}
 }
 \value{
 \code{.Deprecated}.

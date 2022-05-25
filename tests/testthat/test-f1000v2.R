@@ -1,8 +1,11 @@
 ## nolint start
 DESeqAnalysis <- DESeqAnalysis::DESeqAnalysis
 cacheURL <- pipette::cacheURL
+degPatterns <- DEGreport::degPatterns
+degPlot <- DEGreport::degPlot
 import <- pipette::import
 pasteURL <- AcidBase::pasteURL
+significants <- DEGreport::significants
 ## nolint end
 
 ## Manuscript uses `loadRemoteData()` instead.
@@ -103,7 +106,6 @@ test_that("saveData and writeCounts", {
             "vst.rds"
         )
     )
-    # This is soft deprecated in favor of `export`.
     writeCounts(
         raw, normalized, tpm, rlog, vst,
         dir = file.path(tempdir, "writeCounts")
@@ -143,11 +145,13 @@ test_that("Quality control", {
     }
     p <- plotCorrelationHeatmap(object)
     expect_s3_class(p, "pheatmap")
-    p <- plotDispEsts(object)
-    expect_is(p, "list")
-    ## FIXME Need to rework this.
-    p <- plotPCACovariates(object, fdr = 0.1)
-    expect_is(p, "list")
+    for fun in list(
+        plotDispEsts,
+        plotPCACovariates
+    )) {
+        p <- fun(object)
+        expect_type(p, "list")
+    }
 })
 
 test_that("plotCountsPerFeature", {
@@ -180,12 +184,37 @@ test_that("Differential expression", {
         DESeqTransform = vst
     )
     expect_s3_class(p, "pheatmap")
+    p <- degPlot(
+        object,
+        res = res,
+        n = 3L,
+        slot = "vst",
+        log2 = FALSE,
+        ann = c("geneId", "geneName"),
+        xs = "day"
+    )
+    expect_s3_class(p, "ggplot")
+})
+
+test_that("Detecting patterns", {
+    ddsLrt <- DESeq(dds, test = "LRT", reduced = ~1L)
+    resLrt <- results(ddsLrt)
+    ma <- counts(object, "vst")[significants(res, fc = 2L), ]
+    resPatterns <- degPatterns(
+        ma = ma,
+        metadata = colData(object),
+        time = "day",
+        minc = 60L
+    )
+    p <- resPatterns[["plot"]]
+    expect_s3_class(p, "ggplot")
+})
+
+test_that("resultsTables and topTables", {
     ## "lfc" argument renamed to "lfcThreshold".
     resTbl <- resultsTables(res, lfcThreshold = 1L)
-    expect_is(resTbl, "list")
-    ## FIXME Need to rework this.
-    expect_is(resTbl[[1L]], "tbl_df")
-    ## FIXME Need to rework this in favor of markdownTables.
+    expect_s4_class(resTbl, "DataFrameList")
+    expect_s4_class(resTbl[[1L]], "DESeqResults")
     expect_output(topTables(resTbl, n = 5L))
 })
 
@@ -198,9 +227,9 @@ templatesDir <- system.file(
     package = .pkgName,
     mustWork = TRUE
 )
-
 renderDir <- file.path(
     tempdir(),
+    .pkgName,
     paste("render", Sys.Date(), sep = "-")
 )
 unlink(renderDir, recursive = TRUE)

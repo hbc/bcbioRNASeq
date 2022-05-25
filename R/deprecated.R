@@ -30,6 +30,37 @@ plotGenesDetected <- function(object, ...) {
 
 ## F1000v2 manuscript ==========================================================
 
+`plotDEGHeatmap,deprecated` <- # nolint
+    function(object, results, counts, ...) {
+        assert(
+            is(results, "DESeqResults"),
+            is(counts, "DESeqTransform")
+        )
+        plotDEGHeatmap(
+            object = results,
+            DESeqTransform = counts,
+            ...
+        )
+    }
+
+#' @rdname deprecated
+#' @param `results` `DESeqResults.`
+#' @param `counts` `DESeqTransform`.
+#' @export
+setMethod(
+    f = "plotDEGHeatmap",
+    signature = signature(object = "missing"),
+    definition = `plotDEGHeatmap,deprecated`
+)
+
+#' @export
+#' @rdname deprecated
+prepareRNASeqTemplate <- function(...) {
+    .Defunct("prepareTemplate")
+}
+
+## FIXME Need to soft deprecate topTables here.
+
 #' @export
 #' @rdname deprecated
 writeCounts <-
