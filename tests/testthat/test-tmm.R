@@ -1,11 +1,11 @@
 test_that("tmm", {
     for (object in list(
-        bcbioRNASeq = object,
-        matrix = assay(object)
+        "bcbioRNASeq" = object,
+        "matrix" = assay(object)
     )) {
-        expect_is(
+        expect_type(
             object = tmm(object),
-            class = "matrix"
+            type = "double"
         )
     }
 })

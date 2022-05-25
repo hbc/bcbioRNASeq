@@ -24,7 +24,7 @@ test_that("Interesting groups support", {
         plotRRNAMappingRate,
         plotTotalReads
     )) {
-        expect_is(fun, "function")
+        expect_type(fun, "closure")
         x <- fun(object)
         expect_s3_class(x, "ggplot")
         x <- fun(object, interestingGroups = "sampleName")
