@@ -6,6 +6,7 @@
 \alias{deprecated}
 \alias{plotGenesDetected}
 \alias{plotDEGHeatmap,missing-method}
+\alias{plotMeanAverage}
 \alias{prepareRNASeqTemplate}
 \alias{topTables,DESeqResults-method}
 \alias{writeCounts}
@@ -18,6 +19,8 @@ topTables(object, ...)
 plotGenesDetected(object, ...)
 
 \S4method{plotDEGHeatmap}{missing}(object, results, counts, ...)
+
+plotMeanAverage(...)
 
 prepareRNASeqTemplate(...)
 

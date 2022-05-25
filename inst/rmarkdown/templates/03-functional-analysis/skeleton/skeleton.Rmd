@@ -10,7 +10,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-05-24.
+## Updated 2022-05-25.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -177,7 +177,6 @@ Now we can prepare the gene list vectors required for enrichment analysis.
 alphaThreshold <- alphaThreshold(res)
 lfcThreshold <- lfcThreshold(res)
 ## Subset NA adjusted P values.
-alert("Dropping genes without an adjusted P value.")
 res <- res[!is.na(res[["padj"]]), , drop = FALSE]
 res <- res[order(res[["padj"]]), , drop = FALSE]
 ## Match the DESeqDataSet.
@@ -292,6 +291,7 @@ many relevant phenotypic differences are manifested by small but consistent
 changes in a set of genes.
 
 ```{r ranked-list}
+# FIXME `geneId` is no longer supported.
 rankedListEnsembl <- RankedList(
     object = deseq,
     value = "stat",

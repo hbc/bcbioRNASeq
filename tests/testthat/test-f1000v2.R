@@ -5,6 +5,8 @@ degPatterns <- DEGreport::degPatterns
 degPlot <- DEGreport::degPlot
 import <- pipette::import
 pasteURL <- AcidBase::pasteURL
+results <- DESeq2::results
+resultsTables <- AcidGenerics::resultsTables
 significants <- DEGreport::significants
 ## nolint end
 
@@ -266,6 +268,10 @@ test_that("Quality Control", {
     expect_true(file.exists(outfile))
 })
 
+## FIXME This step is failing due to contrast naming issue:
+## as 0 is the reference level, was expecting day_1_vs_0 to be present
+## in 'resultsNames(object)'
+
 test_that("Differential Expression", {
     stem <- "02-differential-expression"
     input <- file.path(renderDir, paste0(stem, ".Rmd"))
@@ -292,6 +298,12 @@ test_that("Differential Expression", {
     expect_identical(x, outfile)
     expect_true(file.exists(outfile))
 })
+
+## FIXME Need to address this warning:
+## ggrepel: 6 unlabeled data points (too many overlaps). Consider increasing max.overlaps
+
+## FIXME Need to rework our keyType matching...
+## Error in `match.arg(keyType)`: 'arg' should be one of "geneName", "entrezId"
 
 test_that("Functional Analysis", {
     stem <- "03-functional-analysis"

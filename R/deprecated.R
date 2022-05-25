@@ -55,6 +55,14 @@ setMethod(
 
 #' @export
 #' @rdname deprecated
+plotMeanAverage <- function(...) {
+    ## > .Deprecated("plotMA")
+    assert(requireNamespace("BiocGenerics", quietly = TRUE))
+    BiocGenerics::plotMA(...)
+}
+
+#' @export
+#' @rdname deprecated
 prepareRNASeqTemplate <- function(...) {
     .Defunct("prepareTemplate")
 }
