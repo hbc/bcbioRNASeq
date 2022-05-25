@@ -145,7 +145,7 @@ test_that("Quality control", {
     }
     p <- plotCorrelationHeatmap(object)
     expect_s3_class(p, "pheatmap")
-    for fun in list(
+    for (fun in list(
         plotDispEsts,
         plotPCACovariates
     )) {
