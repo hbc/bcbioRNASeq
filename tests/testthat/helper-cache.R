@@ -7,8 +7,8 @@ files <- c(
     "bcb_fast.rds",
     "fastrnaseq.tar.gz"
 )
-mapply(
-    FUN = function(remoteDir, file, envir) {
+Map(
+    f = function(remoteDir, file, envir) {
         destfile <- file.path("cache", file)
         if (!file.exists(destfile)) {
             utils::download.file(
@@ -19,8 +19,8 @@ mapply(
     },
     file = files,
     MoreArgs = list(
-        remoteDir = bcbioRNASeqTestsURL,
-        envir = environment()
+        "remoteDir" = bcbioRNASeqTestsURL,
+        "envir" = environment()
     )
 )
 rm(files)

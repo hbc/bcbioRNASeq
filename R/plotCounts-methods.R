@@ -35,7 +35,8 @@ NULL
         do.call(what = plotCounts, args = args)
     }
 
-formals(`plotCounts,bcbioRNASeq`)[["normalized"]] <- .normalized
+formals(`plotCounts,bcbioRNASeq`)[["normalized"]] <- # nolint
+    .normalized
 
 
 

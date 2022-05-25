@@ -29,7 +29,8 @@ NULL
         )
     }
 
-formals(`plotCountsPerBiotype,bcbioRNASeq`)[["normalized"]] <- .normalized
+formals(`plotCountsPerBiotype,bcbioRNASeq`)[["normalized"]] <- # nolint
+    .normalized
 
 
 
@@ -56,7 +57,7 @@ setMethod(
         )
     }
 
-formals(`plotCountsPerBroadClass,bcbioRNASeq`) <-
+formals(`plotCountsPerBroadClass,bcbioRNASeq`) <- # nolint
     formals(`plotCountsPerBiotype,bcbioRNASeq`)
 
 

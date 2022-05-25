@@ -86,7 +86,7 @@ NULL
                     "NAMES", "NULL"
                 ))
             }
-            slot(object, "NAMES") <- NULL
+            slot(object, "NAMES") <- NULL # nolint
         }
         ## elementMetadata
         if (ncol(slot(object, "elementMetadata")) != 0L) {

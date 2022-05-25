@@ -33,7 +33,8 @@ NULL
         )
     }
 
-formals(`plotCorrelationHeatmap,bcbioRNASeq`)[["normalized"]] <- .dt
+formals(`plotCorrelationHeatmap,bcbioRNASeq`)[["normalized"]] <- # nolint
+    .dt
 
 
 

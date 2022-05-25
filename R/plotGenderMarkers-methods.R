@@ -32,7 +32,8 @@ NULL
         )
     }
 
-formals(`plotGenderMarkers,bcbioRNASeq`)[["normalized"]] <- .normalized
+formals(`plotGenderMarkers,bcbioRNASeq`)[["normalized"]] <- # nolint
+    .normalized
 
 
 

@@ -70,14 +70,14 @@ NULL
             FUN.VALUE = logical(1L)
         )
         ## Get the requested counts from object.
-        assays <- mapply(
+        assays <- Map(
             normalized = normalized,
             log2 = log2,
             MoreArgs = list(
                 "object" = object,
                 "nonzero" = nonzero
             ),
-            FUN = function(normalized, log2, object, nonzero) {
+            f = function(normalized, log2, object, nonzero) {
                 suppressMessages({
                     mat <- tryCatch(
                         expr = counts(object, normalized = normalized),
@@ -93,9 +93,7 @@ NULL
                     mat <- log2(mat + 1L)
                 }
                 mat
-            },
-            SIMPLIFY = FALSE,
-            USE.NAMES = TRUE
+            }
         )
         assays <- Filter(f = Negate(is.null), x = assays)
         titles <- vapply(
@@ -104,7 +102,7 @@ NULL
             FUN.VALUE = character(1L)
         )
         titles <- titles[names(assays)]
-        plotlist <- mapply(
+        plotlist <- Map(
             assay = assays,
             title = titles,
             MoreArgs = list(
@@ -112,7 +110,7 @@ NULL
                 "legend" = legend,
                 "lineColor" = lineColor
             ),
-            FUN = function(assay, title, fill, legend, lineColor) {
+            f = function(assay, title, fill, legend, lineColor) {
                 p <- vsn::meanSdPlot(
                     x = assay,
                     ranks = TRUE,
@@ -128,9 +126,7 @@ NULL
                 p[["layers"]][[2L]][["aes_params"]][["colour"]] <- lineColor
                 p[["layers"]][[2L]][["aes_params"]][["size"]] <- 1L
                 p
-            },
-            SIMPLIFY = FALSE,
-            USE.NAMES = FALSE
+            }
         )
         ## Remove the plot (color) legend, if desired.
         if (!isTRUE(legend)) {

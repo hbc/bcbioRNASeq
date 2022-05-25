@@ -30,7 +30,7 @@ NULL
         )
     }
 
-formals(`plotCountsPerFeature,bcbioRNASeq`)[["normalized"]] <-
+formals(`plotCountsPerFeature,bcbioRNASeq`)[["normalized"]] <- # nolint
     unique(c("tmm", .normalized))
 
 

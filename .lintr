@@ -13,7 +13,7 @@ linters: linters_with_defaults(
     condition_message_linter(),
     conjunct_test_linter(),
     consecutive_stopifnot_linter(),
-    cyclocomp_linter(),
+    cyclocomp_linter(55),
     duplicate_argument_linter(),
     equals_na_linter(),
     expect_comparison_linter(),

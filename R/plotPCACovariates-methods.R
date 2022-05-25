@@ -28,19 +28,15 @@ NULL
 
 
 
-## Updated 2021-09-10.
+## Updated 2022-05-24.
 `plotPCACovariates,bcbioRNASeq` <- # nolint
     function(object,
              metrics = TRUE,
              normalized,
              ...) {
-        alertWarning(sprintf(
-            "Disabled until bug is fixed in {.pkg %s}.", "DEGreport"
-        ))
-        return(invisible())
-        validObject(object)
         assert(
             requireNamespace("DEGreport", quietly = TRUE),
+            validObject(object),
             isAny(metrics, c("character", "logical"))
         )
         normalized <- match.arg(normalized)
@@ -104,7 +100,8 @@ NULL
         )
     }
 
-formals(`plotPCACovariates,bcbioRNASeq`)[["normalized"]] <- .normalized
+formals(`plotPCACovariates,bcbioRNASeq`)[["normalized"]] <- # nolint
+    .normalized
 
 
 

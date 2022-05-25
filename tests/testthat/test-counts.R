@@ -1,5 +1,5 @@
 test_that("Slotted assays", {
-    mapply(
+    Map(
         normalized = list(
             FALSE,
             TRUE,
@@ -12,7 +12,7 @@ test_that("Slotted assays", {
             "tpm",
             "vst"
         ),
-        FUN = function(normalized, assay) {
+        f = function(normalized, assay) {
             ## Check that all are matrices.
             expect_is(
                 object = counts(object, normalized = normalized),
@@ -23,13 +23,13 @@ test_that("Slotted assays", {
                 object = counts(object, normalized = normalized),
                 expected = assays(object)[[assay]]
             )
-        },
-        SIMPLIFY = FALSE
+        }
     )
 })
 
 test_that("On the fly assay calculations", {
     for (normalized in c("tmm", "rle")) {
+        # FIXME Need to rework this using `expect_type` instead.
         expect_is(
             object = counts(object, normalized = normalized),
             class = "matrix"

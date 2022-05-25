@@ -1,16 +1,17 @@
+## """
+## Extra coverage of code in F1000 manuscript.
+## Updated 2022-05-24.
+##
+## Note that DESeqAnalysis approach is new and not mentioned in manuscript.
+## """
+## nolint start
 suppressPackageStartupMessages({
     library(rmarkdown)
     library(basejump)
     library(DESeq2)
     library(DESeqAnalysis)
 })
-
-
-
-## Note that DESeqAnalysis approach is new and not mentioned in the current
-## F1000v2 manuscript.
-
-## bcbioRNASeq object.
+## nolint end
 bcb <- import(
     file = cacheURL(
         url = pasteURL(
@@ -28,19 +29,15 @@ bcb <- updateObject(bcb)
 expect_s4_class(bcb, "bcbioRNASeq")
 ## Note that "object" is used instead of "bcb" in some tests below.
 object <- bcb
-
 alphaThreshold <- 0.05
 lfcThreshold <- 0L
-
 ## Run DESeq2.
 dds <- as(bcb, "DESeqDataSet")
 design(dds) <- ~day
 dds <- DESeq(dds)
 vst <- varianceStabilizingTransformation(dds)
-
 ## > resultsNames(dds)
 ## [1] "Intercept"  "day_1_vs_0" "day_3_vs_0" "day_7_vs_0"
-
 contrasts <- list(
     "day_1_vs_0" = c(
         "factor" = "day",
@@ -58,25 +55,19 @@ contrasts <- list(
         "denominator" = 0L
     )
 )
-
-resListUnshrunken <- mapply(
-    FUN = DESeq2::results,
+resListUnshrunken <- Map(
+    f = DESeq2::results,
     contrast = contrasts,
     MoreArgs = list(
         "object" = dds,
         "alpha" = alphaThreshold,
         "lfcThreshold" = lfcThreshold
-    ),
-    SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
+    )
 )
-names(resListUnshrunken) <- names(contrasts)
-
 ## This is used in some unit tests below.
 res <- resListUnshrunken[[1L]]
-
-resListShrunken <- mapply(
-    FUN = DESeq2::lfcShrink,
+resListShrunken <- Map(
+    f = DESeq2::lfcShrink,
     res = resListUnshrunken,
     contrast = contrasts,
     MoreArgs = list(
@@ -84,11 +75,8 @@ resListShrunken <- mapply(
         "type" = "normal",
         "alpha" = alphaThreshold,
         "lfcThreshold" = lfcThreshold
-    ),
-    SIMPLIFY = FALSE,
-    USE.NAMES = TRUE
+    )
 )
-
 ## See `help(topic = DESeqAnalysis, DESeqAnalysis)` for details.
 deseq <- DESeqAnalysis(
     data = dds, # DESeqDataSet
@@ -97,12 +85,10 @@ deseq <- DESeqAnalysis(
     lfcShrink = resListShrunken # DESeqResults list (shrunken)
 )
 
-
-
 test_that("counts", {
     for (normalized in list(FALSE, TRUE, "tpm", "rlog", "vst")) {
         x <- counts(object, normalized = normalized)
-        expect_is(x, "matrix")
+        expect_type(x, "integer")
     }
 })
 
@@ -164,11 +150,11 @@ test_that("Differential expression", {
     ## "lfc" argument renamed to "lfcThreshold".
     resTbl <- resultsTables(res, lfcThreshold = 1L)
     expect_is(resTbl, "list")
+    ## FIXME Need to rework this.
     expect_is(resTbl[[1L]], "tbl_df")
+    ## FIXME Need to rework this in favor of markdownTables.
     expect_output(topTables(resTbl, n = 5L))
 })
-
-
 
 ## Modified, updated version of bcbio_rnaseq_output_example repo.
 ## https://github.com/bcbio/bcbio_rnaseq_output_example/
