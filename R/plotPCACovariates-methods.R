@@ -32,8 +32,6 @@ NULL
 
 
 
-## FIXME Need to ensure colnames counts and rownames metadata are identical.
-
 ## Updated 2022-05-25.
 `plotPCACovariates,bcbioRNASeq` <- # nolint
     function(object,

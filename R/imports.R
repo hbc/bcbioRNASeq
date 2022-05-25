@@ -1,7 +1,7 @@
 ## S4 classes ==================================================================
 
 #' @importClassesFrom AcidGenomes Tx2Gene
-#' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
+#' @importClassesFrom DESeq2 DESeqDataSet DESeqResults DESeqTransform
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #' SummarizedExperiment
 #' @importClassesFrom edgeR DGEList
@@ -13,14 +13,14 @@ NULL
 
 #' @importFrom AcidGenerics as.DESeqDataSet as.DESeqTransform as.DGEList
 #' camelCase droplevels2 encode humanize interestingGroups interestingGroups<-
-#' makeNames mapGenesToRownames metrics plot5Prime3PrimeBias
+#' makeNames mapGenesToRownames markdownTables metrics plot5Prime3PrimeBias
 #' plotCorrelationHeatmap plotCounts plotCountsCorrelation
 #' plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
-#' plotCountsPerFeature plotExonicMappingRate plotGenderMarkers
+#' plotCountsPerFeature plotDEGHeatmap plotExonicMappingRate plotGenderMarkers
 #' plotGeneSaturation plotIntronicMappingRate plotMappedReads plotMappingRate
 #' plotPCACovariates plotMeanSD plotPseudoVsAlignedCounts plotQC
 #' plotRRNAMappingRate plotTotalReads relativeLogExpression sampleData
-#' showHeader slotAlignedCounts stripTranscriptVersions tmm
+#' showHeader slotAlignedCounts stripTranscriptVersions tmm topTables
 #' @importFrom AcidGenomes Tx2Gene
 #' @importFrom BiocGenerics as.data.frame colSums counts counts<- do.call
 #' estimateSizeFactors plotDispEsts plotPCA rowSums updateObject width
@@ -29,7 +29,7 @@ NULL
 #' @importFrom SummarizedExperiment assay assay<- assayNames assayNames<- assays
 #' assays<- colData colData<- rowData rowRanges
 #' @importFrom methods coerce show
-#' @importFrom pipette import
+#' @importFrom pipette export import
 #'
 #' @importMethodsFrom AcidBase showHeader
 #' @importMethodsFrom AcidExperiment droplevels2 humanize interestingGroups

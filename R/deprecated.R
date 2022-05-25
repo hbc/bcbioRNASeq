@@ -43,10 +43,10 @@ plotGenesDetected <- function(object, ...) {
         )
     }
 
+#' @export
 #' @rdname deprecated
 #' @param `results` `DESeqResults.`
 #' @param `counts` `DESeqTransform`.
-#' @export
 setMethod(
     f = "plotDEGHeatmap",
     signature = signature(object = "missing"),
@@ -59,7 +59,21 @@ prepareRNASeqTemplate <- function(...) {
     .Defunct("prepareTemplate")
 }
 
-## FIXME Need to soft deprecate topTables here.
+`topTables,DESeqResults` <- # nolint
+    function(object, ...) {
+        markdownTables(
+            object = object,
+            ...
+        )
+    }
+
+#' @export
+#' @rdname deprecated
+setMethod(
+    f = "topTables",
+    signature = signature(object = "DESeqResults"),
+    definition = `topTables,DESeqResults`
+)
 
 #' @export
 #' @rdname deprecated
