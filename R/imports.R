@@ -1,7 +1,8 @@
 ## S4 classes ==================================================================
 
 #' @importClassesFrom AcidGenomes Tx2Gene
-#' @importClassesFrom DESeq2 DESeqDataSet DESeqResults DESeqTransform
+#' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
+#' @importClassesFrom IRanges DataFrameList
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #' SummarizedExperiment
 #' @importClassesFrom edgeR DGEList

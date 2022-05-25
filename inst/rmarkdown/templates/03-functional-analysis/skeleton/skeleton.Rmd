@@ -291,11 +291,13 @@ many relevant phenotypic differences are manifested by small but consistent
 changes in a set of genes.
 
 ```{r ranked-list}
-# FIXME `geneId` is no longer supported.
+## FIXME `geneId` is no longer supported.
+## FIXME Need to add support for `EnsemblId` here.
+## FIXME Can we pass in symbol here instead?
 rankedListEnsembl <- RankedList(
     object = deseq,
     value = "stat",
-    keyType = "geneId"
+    keyType = "ensemblId"
 )
 rankedListEnsembl <- rankedListEnsembl[[params[["results_name"]]]]
 assert(

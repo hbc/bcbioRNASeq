@@ -5,6 +5,7 @@ degPatterns <- DEGreport::degPatterns
 degPlot <- DEGreport::degPlot
 import <- pipette::import
 pasteURL <- AcidBase::pasteURL
+realpath <- AcidBase::realpath
 results <- DESeq2::results
 resultsTables <- AcidGenerics::resultsTables
 significants <- DEGreport::significants
@@ -25,8 +26,7 @@ object <- import(
     )
 )
 object <- updateObject(object)
-alphaThreshold <- 0.05
-lfcThreshold <- 0L
+bcb <- object
 dds <- as.DESeqDataSet(object)
 design(dds) <- ~day
 dds <- DESeq(dds)
@@ -48,6 +48,8 @@ contrasts <- list(
         "denominator" = 0L
     )
 )
+alphaThreshold <- 0.05
+lfcThreshold <- 0L
 resListUnshrunken <- Map(
     f = DESeq2::results,
     contrast = contrasts,
@@ -264,8 +266,8 @@ test_that("Quality Control", {
         clean = TRUE
     )
     outfile <- file.path(renderDir, paste0(stem, ".html"))
-    expect_identical(x, outfile)
     expect_true(file.exists(outfile))
+    expect_identical(realpath(x), realpath(outfile))
 })
 
 ## FIXME This step is failing due to contrast naming issue:
@@ -295,8 +297,8 @@ test_that("Differential Expression", {
         clean = TRUE
     )
     outfile <- file.path(renderDir, paste0(stem, ".html"))
-    expect_identical(x, outfile)
     expect_true(file.exists(outfile))
+    expect_identical(realpath(x), realpath(outfile))
 })
 
 ## FIXME Need to address this warning:

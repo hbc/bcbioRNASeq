@@ -122,6 +122,7 @@ Imports:
     AcidPlots,
     BiocGenerics,
     DESeq2,
+    IRanges,
     S4Vectors,
     bcbioBase,
     edgeR,
