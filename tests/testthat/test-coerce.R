@@ -28,7 +28,7 @@ test_that("bcbioRNASeq to DGEList (edgeR)", {
     expect_s4_class(x, "DGEList")
     expect_true(validObject(x))
     counts <- x[["counts"]]
-    expect_is(counts, "matrix")
+    expect_type(counts, "double")
     expect_false(is.integer(counts))
     expect_identical(
         object = round(colSums(counts)),

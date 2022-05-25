@@ -1,5 +1,4 @@
 ## nocov start
-## nolint start
 
 
 
@@ -12,15 +11,16 @@ NULL
 
 
 ## v0.3.17 =====================================================================
-#' @rdname plotCountsPerFeature
+
 #' @export
+#' @rdname plotCountsPerFeature
 plotCountsPerGene <- function(object, ...) {
     assert(.isGeneLevel(object))
     plotCountsPerFeature(object, ...)
 }
 
-#' @rdname deprecated
 #' @export
+#' @rdname deprecated
 plotGenesDetected <- function(object, ...) {
     assert(.isGeneLevel(object))
     plotFeaturesDetected(object, ...)
@@ -28,5 +28,25 @@ plotGenesDetected <- function(object, ...) {
 
 
 
-## nolint end
+## F1000v2 manuscript ==========================================================
+
+#' @export
+#' @rdname deprecated
+writeCounts <-
+    function(
+        ...,
+        dir = getOption(x = "acid.export.dir", default = getwd())
+    ) {
+    ## > .Deprecated("export")
+    objects <- list(...)
+    names(objects) <- dots(..., character = TRUE)
+    Map(
+        object = objects,
+        con = file.path(dir, paste0(names(objects), ".csv")),
+        f = export
+    )
+}
+
+
+
 ## nocov end

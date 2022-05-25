@@ -40,7 +40,7 @@ NULL
 #' plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
 #' plotCountsPerFeature plotGenderMarkers plotPCA
 #' @importMethodsFrom DESeq2 estimateSizeFactors
-#' @importMethodsFrom pipette droplevels2 encode import
+#' @importMethodsFrom pipette droplevels2 encode export import
 #' @importMethodsFrom syntactic camelCase makeNames
 NULL
 
@@ -55,7 +55,7 @@ NULL
 
 ## Standard functions ==========================================================
 
-#' @importFrom AcidBase methodFormals realpath showSlotInfo standardizeCall
+#' @importFrom AcidBase dots methodFormals realpath showSlotInfo standardizeCall
 #' @importFrom AcidCLI abort alert alertInfo alertSuccess alertWarning dl h1 h2
 #' h3 toInlineString txt ul
 #' @importFrom AcidExperiment detectLanes importSampleData

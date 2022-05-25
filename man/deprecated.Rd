@@ -3,14 +3,20 @@
 \name{deprecated}
 \alias{deprecated}
 \alias{plotGenesDetected}
+\alias{writeCounts}
 \title{Deprecated functions}
 \usage{
 plotGenesDetected(object, ...)
+
+writeCounts(..., dir = getOption(x = "acid.export.dir", default = getwd()))
 }
 \arguments{
 \item{object}{Object.}
 
 \item{...}{Additional arguments.}
+
+\item{dir}{\code{character(1)}.
+Directory path.}
 }
 \value{
 \code{.Deprecated}.

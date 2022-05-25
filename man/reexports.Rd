@@ -3,9 +3,11 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
+\alias{loadRemoteData}
 \alias{plotFeaturesDetected}
 \alias{plotHeatmap}
 \alias{plotQuantileHeatmap}
+\alias{saveData}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -14,5 +16,7 @@ below to see their documentation.
 
 \describe{
   \item{AcidGenerics}{\code{\link[AcidGenerics]{plotFeaturesDetected}}, \code{\link[AcidGenerics]{plotHeatmap}}, \code{\link[AcidGenerics]{plotQuantileHeatmap}}}
+
+  \item{pipette}{\code{\link[pipette]{loadRemoteData}}, \code{\link[pipette]{saveData}}}
 }}
 

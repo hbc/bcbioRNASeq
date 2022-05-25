@@ -11,7 +11,7 @@ plotPCACovariates(object, ...)
   object,
   metrics = TRUE,
   normalized = c("tpm", "sf", "fpkm", "vst", "rlog", "tmm", "rle"),
-  ...
+  fdr = 0.1
 )
 }
 \arguments{
@@ -66,6 +66,10 @@ Note that \code{logical(1)} support only applies to \code{counts()}. Other
 functions in the package require \code{character(1)} and use \code{match.arg()}
 internally.}
 
+\item{fdr}{\code{numeric(1)}.
+Cutoff to determine the minimum false discovery rate (FDR) to consider
+significant correlations between principal components (PCs) and covariates.}
+
 \item{...}{Additional arguments, passed to \code{DEGreport::degCovariates()}.}
 }
 \value{
@@ -77,7 +81,7 @@ Find correlation between principal components (PCs) and covariates
 \note{
 Requires the DEGreport package to be installed.
 
-Updated 2022-03-07.
+Updated 2022-05-25.
 }
 \examples{
 data(bcb)
