@@ -2,11 +2,15 @@
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit AcidGenerics::plotPCACovariates
 #' @note Requires the DEGreport package to be installed.
-#' @note Updated 2022-03-07.
+#' @note Updated 2022-05-25.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments, passed to `DEGreport::degCovariates()`.
+#'
+#' @param fdr `numeric(1)`.
+#' Cutoff to determine the minimum false discovery rate (FDR) to consider
+#' significant correlations between principal components (PCs) and covariates.
 #'
 #' @param metrics `boolean`. Include sample summary metrics as covariates.
 #' Defaults to include all metrics columns (`TRUE`), but desired columns can
@@ -28,16 +32,19 @@ NULL
 
 
 
-## Updated 2022-05-24.
+## FIXME Need to ensure colnames counts and rownames metadata are identical.
+
+## Updated 2022-05-25.
 `plotPCACovariates,bcbioRNASeq` <- # nolint
     function(object,
              metrics = TRUE,
              normalized,
-             ...) {
+             fdr = 0.1) {
         assert(
             requireNamespace("DEGreport", quietly = TRUE),
             validObject(object),
-            isAny(metrics, c("character", "logical"))
+            isAny(metrics, c("character", "logical")),
+            isNumber(fdr)
         )
         normalized <- match.arg(normalized)
         ## Get the normalized counts.
@@ -53,10 +60,9 @@ NULL
         ## `na.rm` here fixes the issue.
         keep <- which(bapply(data, is.numeric))
         numerics <- data[, keep, drop = FALSE]
-        keep <- which(colSums(numerics, na.rm = TRUE) > 0L)
+        keep <- which(colSums(as.data.frame(numerics), na.rm = TRUE) > 0L)
         numerics <- numerics[, keep, drop = FALSE]
         metadata <- cbind(factors, numerics)
-        rownames(metadata) <- data[["sampleId"]]
         ## Select the metrics to use for plot.
         if (isTRUE(metrics)) {
             ## Sort columns alphabetically.
@@ -75,29 +81,13 @@ NULL
         }
         assert(isSubset(col, colnames(metadata)))
         metadata <- metadata[, col]
-        ## Handle warnings in DEGreport more gracefully.
-        withCallingHandlers(
-            expr = DEGreport::degCovariates(
+        suppressWarnings({
+            DEGreport::degCovariates(
                 counts = counts,
                 metadata = metadata,
-                ...
-            ),
-            warning = function(w) {
-                if (isTRUE(grepl(
-                    pattern = "joining character vector and factor",
-                    x = as.character(w)
-                ))) {
-                    invokeRestart("muffleWarning")
-                } else if (isTRUE(grepl(
-                    pattern = "Unquoting language objects",
-                    x = as.character(w)
-                ))) {
-                    invokeRestart("muffleWarning")
-                } else {
-                    w
-                }
-            }
-        )
+                fdr = fdr
+            )
+        })
     }
 
 formals(`plotPCACovariates,bcbioRNASeq`)[["normalized"]] <- # nolint
