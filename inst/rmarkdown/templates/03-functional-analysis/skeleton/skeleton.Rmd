@@ -76,6 +76,7 @@ invisible(lapply(
     ),
     FUN = initDir
 ))
+evalPathview <- params[["pathview"]]
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -248,7 +249,9 @@ print(enrichGoTbl)
 
 ```{r dotplot}
 try({
-    enrichplot::dotplot(enrichGo, showCategory = 25L)
+    suppressWarnings({
+        enrichplot::dotplot(enrichGo, showCategory = 25L)
+    })
 })
 ```
 
@@ -256,10 +259,12 @@ try({
 
 ```{r emapplot}
 try({
-    enrichplot::emapplot(
-        x = enrichplot::pairwise_termsim(enrichGo),
-        showCategory = 25L
-    )
+    suppressWarnings({
+        enrichplot::emapplot(
+            x = enrichplot::pairwise_termsim(enrichGo),
+            showCategory = 25L
+        )
+    })
 })
 ```
 
@@ -322,6 +327,9 @@ rankedListEntrez <-
         error = function(e) NULL
     )
 evalEntrez <- is.numeric(rankedListEntrez)
+if (isFALSE(evalEntrez)) {
+    evalPathview <- FALSE
+}
 ```
 
 ```{r gse-go}
@@ -330,7 +338,7 @@ evalEntrez <- is.numeric(rankedListEntrez)
 gseaGo <- clusterProfiler::gseGO(
     geneList = rankedListEnsembl,
     ont = params[["go_class"]],
-    OrgDb = get(orgDb),
+    OrgDb = get(orgDb, envir = asNamespace(orgDb)),
     keyType = "ENSEMBL",
     pvalueCutoff = 0.05
 )
@@ -504,7 +512,7 @@ print(gseaKeggTbl)
 
 ## Pathview {.tabset}
 
-```{r pathview-kegg-plots, message=FALSE, results="asis", eval=params[["pathview"]]}
+```{r pathview-kegg-plots, message=FALSE, results="asis", eval=evalPathview}
 ## NOTE This requires Entrez identifiers.
 ## > help(topic = "pathview", package = "pathview")
 ##

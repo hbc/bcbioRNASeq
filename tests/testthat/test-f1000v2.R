@@ -5,6 +5,7 @@ degPatterns <- DEGreport::degPatterns
 degPlot <- DEGreport::degPlot
 import <- pipette::import
 pasteURL <- AcidBase::pasteURL
+plotVolcano <- AcidGenerics::plotVolcano
 realpath <- AcidBase::realpath
 results <- DESeq2::results
 resultsNames <- AcidGenerics::resultsNames
@@ -189,6 +190,7 @@ test_that("Differential expression", {
     ## NOTE The generic formals have been renamed here.
     ## object : results
     ## DESeqTransform : counts
+    ## Still providing legacy, deprecated support.
     p <- plotDEGHeatmap(
         object = res,
         DESeqTransform = vst
