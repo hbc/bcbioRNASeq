@@ -2,6 +2,8 @@
 ## Alternatively, consider using the AcidGSEA package for fast preranked GSEA.
 ##
 ## Expecting that input DESeq2 analysis uses Ensembl identifiers.
+## This template will also intentionally error if Entrez identifiers are not
+## defined in the `"entrezId"` column of `DESeqDataSet` `rowData()` return.
 ##
 ## - KEGG supported organisms:
 ##   http://www.genome.jp/kegg/catalog/org_list.html
@@ -24,10 +26,6 @@ params:
   ## Results (i.e. contrast) name or position.
   ## Refer to `resultsNames()` for details.
   results_name: "treatment_vs_control"
-
-  ## Full Latin organism name (e.g. "Homo sapiens"). If left `NULL`, will
-  ## attempt to detect from DESeqAnalysis object.
-  organism: NULL
 
   ## Supported GO classes:
   ## - "BP": Biological Process
@@ -76,7 +74,7 @@ invisible(lapply(
     ),
     FUN = initDir
 ))
-evalPathview <- params[["pathview"]]
+assert(isSubset(params[["go_class"]], c("BP", "CC", "MF")))
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -99,11 +97,8 @@ print(deseq)
 We need to attach organism-specific packages from Bioconductor.
 
 ```{r bioc-packages, message=FALSE}
-## Detect the organism from the DESeqDataSet object, if necessary.
-organism <- params[["organism"]]
-if (is.null(organism)) {
-    organism <- organism(as(deseq, "DESeqDataSet"))
-}
+## Expecting full Latin name, e.g. "Homo sapiens".
+organism <- organism(as.DESeqDataSet(deseq))
 ## Get OrgDb package from organism name (e.g. "org.Mm.eg.db").
 match <- stringi::stri_match_first_regex(
     str = organism,
@@ -138,23 +133,9 @@ Sys.setenv(
 ## nolint end
 ```
 
-Match the KEGG organism code (e.g. "hsa" for Homo sapiens).
-
-```{r check-db-codes}
-keggCode <-
-    organism |>
-    clusterProfiler::search_kegg_organism("scientific_name") |>
-    getElement("kegg_code")
-assert(
-    hasLength(keggCode, n = 1L),
-    isMatchingRegex(pattern = "^[a-z]{3}$", x = keggCode),
-    isSubset(params[["go_class"]], c("BP", "CC", "MF"))
-)
-```
-
 We need to extract the corresponding `DESeqDataSet` and `DESeqResults` objects.
 
-```{r get-deseqdataset}
+```{r deseqdataset}
 dds <- as.DESeqDataSet(deseq)
 assert(
     is(dds, "DESeqDataSet"),
@@ -163,22 +144,27 @@ assert(
 print(dds)
 ```
 
-```{r get-deseqresults}
+```{r deseqresults}
 ## Refer to `DESeqAnalysis::resultsNames()` for available options.
-res <- DESeqAnalysis::results(object = deseq, i = params[["results_name"]])
+res <- DESeqAnalysis::results(
+    object = deseq,
+    i = params[["results_name"]]
+)
 assert(
     is(res, "DESeqResults"),
     validObject(res)
 )
-print(res)
-```
-
-Now we can prepare the gene list vectors required for enrichment analysis.
-
-```{r results}
 ## Not allowing the user to apply post-hoc LFC filtering in params.
 alphaThreshold <- alphaThreshold(res)
 lfcThreshold <- lfcThreshold(res)
+print(res)
+```
+
+## Significant results vectors
+
+Now we can prepare the input required for enrichment analysis.
+
+```{r results-vectors}
 ## Subset NA adjusted P values.
 res <- res[!is.na(res[["padj"]]), , drop = FALSE]
 res <- res[order(res[["padj"]]), , drop = FALSE]
@@ -187,13 +173,79 @@ dds <- dds[rownames(res), , drop = FALSE]
 ## Set our background genes vector (aka universe).
 allGenes <- rownames(res)
 ## > help(topic = "deg", package = "DESeqAnalysis")
-sigGenes <- deg(res, direction = "both")
+sigGenes <- DESeqAnalysis::deg(object = res, direction = "both")
 sigRes <- res[sigGenes, , drop = FALSE]
 ## LFC ranked list vector.
 lfcVec <- sigRes[["log2FoldChange"]]
 names(lfcVec) <- rownames(sigRes)
+## Sort from upregulated to downregulated.
 lfcVec <- sort(lfcVec, decreasing = TRUE)
 summary(lfcVec)
+```
+
+## Entrez identifier mappings
+
+[Entrez][] identifiers are required for [Kyoto Encyclopedia of Genes and
+Genomes (KEGG)][KEGG] analysis. Here we are defining 1:1 mappings of the
+[Ensembl][] gene identifiers to [Entrez][] identifiers. For genes that map to
+multiple [Entrez][] identifiers, we are using the oldest identifier to define
+the 1:1 mapping.
+
+```{r entrez-mappings}
+e2e <- Ensembl2Entrez(object = dds, format = "1:1")
+assert(isSubset(rownames(e2e), rownames(dds)))
+allEntrez <- e2e[["entrezId"]]
+names(allEntrez) <- rownames(e2e)
+str(allEntrez)
+```
+
+Now we can obtain a vector of significant genes and LFCs that map to Entrez.
+
+```{r entrez-results-vectors}
+idx <- na.omit(match(x = sigGenes, table = names(allEntrez)))
+sigEntrez <- allEntrez[idx]
+str(sigEntrez)
+entrezLfcVec <- sigRes[names(sigEntrez), "log2FoldChange", drop = TRUE]
+names(entrezLfcVec) <- unname(sigEntrez)
+## Sort from upregulated to downregulated.
+entrezLfcVec <- sort(entrezLfcVec, decreasing = TRUE)
+str(entrezLfcVec)
+```
+
+## GSEA ranked lists
+
+A common approach in analyzing gene expression profiles was identifying
+differential expressed genes that are deemed interesting. The enrichment
+analysis we demonstrated previously were based on these differentially
+expressed genes. This approach will find genes where the difference is large,
+but it will not detect a situation where the difference is small, but evidenced
+in coordinated way in a set of related genes. [Gene Set Enrichment Analysis
+(GSEA)][GSEA] directly addresses this limitation. All genes can be used in
+[GSEA][]; [GSEA][] aggregates the per gene statistics across genes within a
+gene set, therefore making it possible to detect situations where all genes in
+a predefined set change in a small but coordinated way. Since it is likely that
+many relevant phenotypic differences are manifested by small but consistent
+changes in a set of genes.
+
+```{r gsea-ranked-lists}
+## Assuming the DESeq analysis input contains Ensembl reference genome. The
+## gene identifiers should be defined as `"geneId"` in DESeqDataSet rowData.
+rankedListEnsembl <-
+    AcidGSEA::RankedList(
+        object = deseq,
+        value = "stat",
+        keyType = "ensemblId"
+    ) |>
+    (`[[`)(params[["results_name"]])
+## Entrez identifiers must be defined in the `"entrezId"` column of
+## DESeqDataSet rowData, otherwise this step will error.
+rankedListEntrez <-
+    AcidGSEA::RankedList(
+        object = deseq,
+        value = "stat",
+        keyType = "entrezId"
+    ) |>
+    (`[[`)(params[["results_name"]])
 ```
 
 # GO enrichment analysis
@@ -286,52 +338,6 @@ try({
 
 ## GO GSEA analysis
 
-A common approach in analyzing gene expression profiles was identifying
-differential expressed genes that are deemed interesting. The enrichment
-analysis we demonstrated previously were based on these differentially
-expressed genes. This approach will find genes where the difference is large,
-but it will not detect a situation where the difference is small, but evidenced
-in coordinated way in a set of related genes. [Gene Set Enrichment Analysis
-(GSEA)][GSEA] directly addresses this limitation. All genes can be used in
-[GSEA][]; [GSEA][] aggregates the per gene statistics across genes within a
-gene set, therefore making it possible to detect situations where all genes in
-a predefined set change in a small but coordinated way. Since it is likely that
-many relevant phenotypic differences are manifested by small but consistent
-changes in a set of genes.
-
-```{r ranked-list}
-rankedListEnsembl <- AcidGSEA::RankedList(
-    object = deseq,
-    value = "stat",
-    keyType = "ensemblId"
-)
-rankedListEnsembl <- rankedListEnsembl[[params[["results_name"]]]]
-assert(
-    is.numeric(rankedListEnsembl),
-    hasNames(rankedListEnsembl)
-)
-## Entrez identifiers must be defined in the "entrezId" column of DESeqDataSet
-## rowData, otherwise this step will return NULL. In this case, we'll skip the
-## enrichment steps that require Entrez identifiers (e.g. KEGG, see below).
-rankedListEntrez <-
-    tryCatch(
-        expr = {
-            x <- AcidGSEA::RankedList(
-                object = deseq,
-                value = "stat",
-                keyType = "entrezId"
-            )
-            x <- x[[params[["results_name"]]]]
-            x
-        },
-        error = function(e) NULL
-    )
-evalEntrez <- is.numeric(rankedListEntrez)
-if (isFALSE(evalEntrez)) {
-    evalPathview <- FALSE
-}
-```
-
 ```{r gse-go}
 ## Now we're ready to run GSEA.
 ## > help("gseGO", "clusterProfiler")
@@ -374,38 +380,18 @@ print(gseaGoTbl)
 
 # KEGG enrichment analysis
 
-[Entrez][] identifiers are required for [Kyoto Encyclopedia of Genes and
-Genomes (KEGG)][KEGG] analysis. Here we are defining 1:1 mappings of the
-[Ensembl][] gene identifiers to [Entrez][] identifiers. For genes that map to
-multiple [Entrez][] identifiers, we are using the oldest identifier to define
-the 1:1 mapping.
+Match the KEGG organism code (e.g. "hsa" for Homo sapiens).
 
-Now let's get the background of unique Entrez identifiers.
-
-```{r all-entrez, eval=evalEntrez}
-ensembl2entrez <- Ensembl2Entrez(object = dds, format = "1:1")
-allEntrez <- ensembl2entrez[["entrezId"]]
-names(allEntrez) <- ensembl2entrez[["ensemblId"]]
-str(allEntrez)
-```
-
-Let's obtain a vector of significant genes that map to Entrez.
-
-```{r sig-entrez, eval=evalEntrez}
-idx <- na.omit(match(x = sigGenes, table = ensembl2entrez[["ensemblId"]]))
-sigEntrez <- ensembl2entrez[["entrezId"]][idx]
-names(sigEntrez) <- ensembl2entrez[["ensemblId"]][idx]
-str(sigEntrez)
-```
-
-Note that this vector can contain duplicate Entrez IDs, which we will resolve by significance (adjusted P value).
-
-```{r entrez-lfc-vec, eval=evalEntrez}
-entrezLfcVec <- sigRes[names(sigEntrez), "log2FoldChange", drop = TRUE]
-names(entrezLfcVec) <- unname(sigEntrez)
-## Sort from upregulated to downregulated.
-entrezLfcVec <- sort(entrezLfcVec, decreasing = TRUE)
-str(entrezLfcVec)
+```{r check-db-codes}
+## e.g. "hsa" for "Homo sapiens".
+keggCode <-
+    organism |>
+    clusterProfiler::search_kegg_organism("scientific_name") |>
+    getElement("kegg_code")
+assert(
+    hasLength(keggCode, n = 1L),
+    isMatchingRegex(pattern = "^[a-z]{3}$", x = keggCode)
+)
 ```
 
 ```{r enrich-kegg}
@@ -476,7 +462,7 @@ correct for multiple test correction, so by adjusting the `minGSSize` and
 `maxGSSize` parameters you can test fewer pathways and limit testing to the
 pathways of interest.
 
-```{r kegg-gsea, eval=evalEntrez}
+```{r kegg-gsea}
 gseaKegg <- clusterProfiler::gseKEGG(
     geneList = entrezLfcVec,
     organism = keggCode,
@@ -512,7 +498,7 @@ print(gseaKeggTbl)
 
 ## Pathview {.tabset}
 
-```{r pathview-kegg-plots, message=FALSE, results="asis", eval=evalPathview}
+```{r pathview-kegg-plots, message=FALSE, results="asis", eval=params[["pathview"]]}
 ## NOTE This requires Entrez identifiers.
 ## > help(topic = "pathview", package = "pathview")
 ##
