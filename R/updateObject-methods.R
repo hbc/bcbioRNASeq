@@ -2,7 +2,7 @@
 #'
 #' @name updateObject
 #' @author Michael Steinbaugh
-#' @note Updated 2022-05-07.
+#' @note Updated 2022-05-26.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -48,7 +48,7 @@ NULL
 
 
 
-## Updated 2022-04-25.
+## Updated 2022-05-26.
 `updateObject,bcbioRNASeq` <- # nolint
     function(object,
              rowRanges = NULL,
@@ -63,10 +63,9 @@ NULL
         }
         assert(is(version, "package_version"))
         if (isTRUE(verbose)) {
-            h1("Update object")
             alert(sprintf(
                 fmt = paste(
-                    "Updating {.var %s} object from version {.val %s}",
+                    "Updating {.cls %s} object from version {.val %s}",
                     "to {.val %s}."
                 ),
                 "bcbioRNASeq",
@@ -75,9 +74,6 @@ NULL
             ))
         }
         ## Legacy slots --------------------------------------------------------
-        if (isTRUE(verbose)) {
-            h2("Legacy slots")
-        }
         ## NAMES
         if (!is.null(slot(object, "NAMES"))) {
             if (isTRUE(verbose)) {
@@ -94,7 +90,7 @@ NULL
                 alertInfo(sprintf(
                     fmt = paste(
                         "{.var %s} slot must contain a",
-                        "zero-column {.var %s}."
+                        "zero-column {.cls %s}."
                     ),
                     "elementMetadata", "DataFrame"
                 ))
@@ -111,14 +107,7 @@ NULL
                     ))
                 }
                 assays <- slot(object, "assays")
-                ## Extract assay matrix from ShallowSimpleListAssays object.
-                if (packageVersion("SummarizedExperiment") >= "1.15") {
-                    ## Bioconductor 3.10+.
-                    assay <- getListElement(x = assays, i = 1L)
-                } else {
-                    ## Legacy method.
-                    assay <- assays[[1L]]
-                }
+                assay <- getListElement(x = assays, i = 1L)
                 rownames <- rownames(assay)
                 assert(isCharacter(rownames))
                 rowRanges <- emptyRanges(names = rownames)
@@ -149,9 +138,6 @@ NULL
             }
         }
         ## Metadata ------------------------------------------------------------
-        if (isTRUE(verbose)) {
-            h2("Metadata")
-        }
         ## bcbioLog
         if (is.null(metadata[["bcbioLog"]])) {
             if (isTRUE(verbose)) {
@@ -221,7 +207,7 @@ NULL
         if (!is.integer(metadata[["ensemblRelease"]])) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
-                    "Setting {.var %s} as {.val %s}.",
+                    "Setting {.var %s} as {.cls %s}.",
                     "ensemblRelease", "integer"
                 ))
             }
@@ -232,8 +218,8 @@ NULL
         if (!is.character(metadata[["genomeBuild"]])) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
-                    "Setting {.var %s} as {.val %s}.",
-                    "genomeBuild", "empty character"
+                    "Setting {.var %s} as {.cls %s}.",
+                    "genomeBuild", "character"
                 ))
             }
             metadata[["genomeBuild"]] <- character()
@@ -253,8 +239,8 @@ NULL
         if (!isSubset("gffFile", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
-                    "Setting {.var %s} as {.val %s}.",
-                    "gffFile", "empty character"
+                    "Setting {.var %s} as {.cls %s}.",
+                    "gffFile", "character"
                 ))
             }
             metadata[["gffFile"]] <- character()
@@ -309,7 +295,7 @@ NULL
         if (is(programVersions, "data.frame")) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
-                    "Coercing {.var %s} to {.var %s}.",
+                    "Coercing {.var %s} to {.cls %s}.",
                     "programVersions", "DataFrame"
                 ))
             }
@@ -319,8 +305,8 @@ NULL
         if (!is.character(metadata[["sampleMetadataFile"]])) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
-                    "Setting {.var %s} as {.val %s}.",
-                    "sampleMetadataFile", "empty character"
+                    "Setting {.var %s} as {.cls %s}.",
+                    "sampleMetadataFile", "character"
                 ))
             }
             metadata[["sampleMetadataFile"]] <- character()
@@ -376,9 +362,6 @@ NULL
         }
         ## tximport-specific
         if (isSubset(metadata[["caller"]], .tximportCallers)) {
-            if (isTRUE(verbose)) {
-                h3("tximport")
-            }
             ## countsFromAbundance
             if (!isSubset("countsFromAbundance", names(metadata))) {
                 countsFromAbundance <- "lengthScaledTPM"
@@ -395,7 +378,7 @@ NULL
             if (!is(tx2gene, "Tx2Gene")) {
                 if (isTRUE(verbose)) {
                     alert(sprintf(
-                        "Coercing {.var %s} to {.var %s} class object.",
+                        "Coercing {.var %s} to {.cls %s}.",
                         "tx2gene", "Tx2Gene"
                     ))
                 }
@@ -409,9 +392,6 @@ NULL
         ## Filter NULL metadata.
         metadata <- Filter(f = Negate(is.null), x = metadata)
         ## Assays --------------------------------------------------------------
-        if (isTRUE(verbose)) {
-            h2("Assays")
-        }
         assays <- assays(object)
         ## These variables are needed for assay handling.
         caller <- metadata[["caller"]]
@@ -447,7 +427,7 @@ NULL
             if (is(assays[["vst"]], "DESeqTransform")) {
                 if (isTRUE(verbose)) {
                     alert(sprintf(
-                        "Coercing {.var %s} assay from {.val %s} to {.val %s}.",
+                        "Coercing {.var %s} assay from {.cls %s} to {.cls %s}.",
                         "vst", "DESeqTransform", "matrix"
                     ))
                 }
@@ -457,7 +437,7 @@ NULL
             if (is(assays[["rlog"]], "DESeqTransform")) {
                 if (isTRUE(verbose)) {
                     alert(sprintf(
-                        "Coercing {.var %s} assay from {.val %s} to {.val %s}.",
+                        "Coercing {.var %s} assay from {.cls %s} to {.cls %s}.",
                         "rlog", "DESeqTransform", "matrix"
                     ))
                 }
@@ -510,9 +490,6 @@ NULL
         ## Filter NULL assays.
         assays <- Filter(f = Negate(is.null), x = assays)
         ## Row ranges ----------------------------------------------------------
-        if (isTRUE(verbose)) {
-            h2("Row ranges")
-        }
         rowRanges <- rowRanges(object)
         if (hasLength(colnames(mcols(rowRanges)))) {
             colnames(mcols(rowRanges)) <-
@@ -532,13 +509,122 @@ NULL
         if (isSubset("rowRangesMetadata", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
-                    "Moving {.val %s} into {.var %s} metadata.",
+                    "Moving {.var %s} into {.var %s} metadata.",
                     "rowRangesMetadata", "rowRanges"
                 ))
             }
             metadata(rowRanges)[["ensembldb"]] <-
                 metadata[["rowRangesMetadata"]]
             metadata[["rowRangesMetadata"]] <- NULL
+        }
+        ## genomeBuild
+        if (
+            !isSubset(
+                x = "genomeBuild",
+                y = names(metadata(rowRanges))
+            ) &&
+            isSubset(
+                x = "ensembldb",
+                y = names(metadata(rowRanges))
+            )
+        ) {
+            if (isTRUE(verbose)) {
+                alert(sprintf(
+                    "Setting {.var %s} in {.var %s} metadata.",
+                    "genomeBuild", "rowRanges"
+                ))
+            }
+            edb <- metadata(rowRanges)[["ensembldb"]]
+            metadata(rowRanges)[["genomeBuild"]] <-
+                edb[
+                    which(edb[["name"]] == "genome_build"),
+                    "value",
+                    drop = TRUE
+                ]
+        }
+        ## level
+        if (
+            !isSubset(
+                x = "level",
+                y = names(metadata(rowRanges))
+            ) &&
+            isSubset(
+                x = "level",
+                y = names(metadata)
+            )
+        ) {
+            if (isTRUE(verbose)) {
+                alert(sprintf(
+                    "Setting {.var %s} in {.var %s} metadata.",
+                    "level", "rowRanges"
+                ))
+            }
+            metadata(rowRanges)[["level"]] <-
+                metadata[["level"]]
+        }
+        ## organism
+        if (
+            !isSubset(
+                x = "organism",
+                y = names(metadata(rowRanges))
+            ) &&
+            isSubset(
+                x = "organism",
+                y = names(metadata)
+            )
+        ) {
+            if (isTRUE(verbose)) {
+                alert(sprintf(
+                    "Setting {.var %s} in {.var %s} metadata.",
+                    "organism", "rowRanges"
+                ))
+            }
+            metadata(rowRanges)[["organism"]] <-
+                metadata[["organism"]]
+        }
+        ## provider
+        if (
+            !isSubset(
+                x = "provider",
+                y = names(metadata(rowRanges))
+            ) &&
+            isSubset(
+                x = "ensembldb",
+                y = names(metadata(rowRanges))
+            )
+        ) {
+            if (isTRUE(verbose)) {
+                alert(sprintf(
+                    "Setting {.var %s} in {.var %s} metadata.",
+                    "provider", "rowRanges"
+                ))
+            }
+            metadata(rowRanges)[["provider"]] <- "Ensembl"
+        }
+        ## release
+        if (
+            !isSubset(
+                x = "release",
+                y = names(metadata(rowRanges))
+            ) &&
+            isSubset(
+                x = "ensembldb",
+                y = names(metadata(rowRanges))
+            )
+        ) {
+            if (isTRUE(verbose)) {
+                alert(sprintf(
+                    "Setting {.var %s} in {.var %s} metadata.",
+                    "release", "rowRanges"
+                ))
+            }
+            edb <- metadata(rowRanges)[["ensembldb"]]
+            metadata(rowRanges)[["release"]] <-
+                as.integer(edb[
+                    which(edb[["name"]] == "ensembl_version"),
+                    "value",
+                    drop = TRUE
+                ])
         }
         ## biotype
         if (isSubset("biotype", colnames(mcols(rowRanges)))) {
@@ -559,7 +645,7 @@ NULL
         ) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
-                    "Setting {.var %s} to {.val %s}.",
+                    "Setting {.var %s} to {.cls %s}.",
                     "broadClass", "factor"
                 ))
             }
@@ -594,9 +680,6 @@ NULL
         ## Recommended method as of v0.3.0 update.
         rowRanges <- encode(rowRanges)
         ## Column data ---------------------------------------------------------
-        if (isTRUE(verbose)) {
-            h2("Column data")
-        }
         colData <- colData(object)
         colnames(colData) <- camelCase(colnames(colData), strict = TRUE)
         ## Move metrics from metadata into colData, if necessary.
@@ -661,7 +744,7 @@ NULL
         validObject(bcb)
         if (isTRUE(verbose)) {
             alertSuccess(sprintf(
-                "Update of {.var %s} object was successful.",
+                "Update of {.cls %s} object was successful.",
                 "bcbioRNASeq"
             ))
         }
