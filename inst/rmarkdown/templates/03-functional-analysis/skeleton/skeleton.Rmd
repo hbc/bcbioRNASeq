@@ -1,6 +1,8 @@
 ---
 ## Alternatively, consider using the AcidGSEA package for fast preranked GSEA.
 ##
+## Expecting that input DESeq2 analysis uses Ensembl identifiers.
+##
 ## - KEGG supported organisms:
 ##   http://www.genome.jp/kegg/catalog/org_list.html
 ## - OrgDb supported organisms:
@@ -10,7 +12,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-05-25.
+## Updated 2022-05-26.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -102,7 +104,7 @@ if (is.null(organism)) {
     organism <- organism(as(deseq, "DESeqDataSet"))
 }
 ## Get OrgDb package from organism name (e.g. "org.Mm.eg.db").
-match <- stri_match_first_regex(
+match <- stringi::stri_match_first_regex(
     str = organism,
     pattern = "^([A-Z])[a-z]+\\s([a-z])[a-z]+$"
 )
@@ -161,8 +163,8 @@ print(dds)
 ```
 
 ```{r get-deseqresults}
-## Refer to `resultsNames()` for available options.
-res <- results(deseq, i = params[["results_name"]])
+## Refer to `DESeqAnalysis::resultsNames()` for available options.
+res <- DESeqAnalysis::results(object = deseq, i = params[["results_name"]])
 assert(
     is(res, "DESeqResults"),
     validObject(res)
@@ -271,7 +273,9 @@ Here we are plotting genes colored by LFC for top significant [GO][] terms.
 
 ```{r cnetplot}
 try({
-    enrichplot::cnetplot(enrichGo, foldChange = lfcVec)
+    suppressWarnings({
+        enrichplot::cnetplot(enrichGo, foldChange = lfcVec)
+    })
 })
 ```
 
@@ -291,10 +295,7 @@ many relevant phenotypic differences are manifested by small but consistent
 changes in a set of genes.
 
 ```{r ranked-list}
-## FIXME `geneId` is no longer supported.
-## FIXME Need to add support for `EnsemblId` here.
-## FIXME Can we pass in symbol here instead?
-rankedListEnsembl <- RankedList(
+rankedListEnsembl <- AcidGSEA::RankedList(
     object = deseq,
     value = "stat",
     keyType = "ensemblId"
@@ -310,7 +311,7 @@ assert(
 rankedListEntrez <-
     tryCatch(
         expr = {
-            x <- RankedList(
+            x <- AcidGSEA::RankedList(
                 object = deseq,
                 value = "stat",
                 keyType = "entrezId"
@@ -338,7 +339,10 @@ gseaGoTbl <-
     slot("result") |>
     as.data.frame() |>
     camelCase()
-saveData(gseaGo, gseaGoTbl, dir = params[["data_dir"]])
+saveData(
+    gseaGo, gseaGoTbl,
+    dir = params[["data_dir"]]
+)
 export(
     object = gseaGoTbl,
     file = file.path(
@@ -464,7 +468,7 @@ correct for multiple test correction, so by adjusting the `minGSSize` and
 `maxGSSize` parameters you can test fewer pathways and limit testing to the
 pathways of interest.
 
-```{r kegg-gsea}
+```{r kegg-gsea, eval=evalEntrez}
 gseaKegg <- clusterProfiler::gseKEGG(
     geneList = entrezLfcVec,
     organism = keggCode,
@@ -501,6 +505,7 @@ print(gseaKeggTbl)
 ## Pathview {.tabset}
 
 ```{r pathview-kegg-plots, message=FALSE, results="asis", eval=params[["pathview"]]}
+## NOTE This requires Entrez identifiers.
 ## > help(topic = "pathview", package = "pathview")
 ##
 ## There is currently no way to set the output path of the pathview PNG files,

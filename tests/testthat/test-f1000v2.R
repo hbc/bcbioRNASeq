@@ -7,6 +7,7 @@ import <- pipette::import
 pasteURL <- AcidBase::pasteURL
 realpath <- AcidBase::realpath
 results <- DESeq2::results
+resultsNames <- AcidGenerics::resultsNames
 resultsTables <- AcidGenerics::resultsTables
 significants <- DEGreport::significants
 ## nolint end
@@ -25,7 +26,7 @@ object <- import(
         pkg = .pkgName
     )
 )
-object <- updateObject(object)
+object <- updateObject(object, verbose = TRUE)
 bcb <- object
 dds <- as.DESeqDataSet(object)
 design(dds) <- ~day
@@ -77,6 +78,11 @@ deseq <- DESeqAnalysis(
     results = resListUnshrunken,
     lfcShrink = resListShrunken
 )
+## Experimental approach that remaps to human orthologs.
+## This can time out if Ensembl Archives are offline.
+## > deseqHuman <- try({
+## >     AcidGSEA::convertToHuman(deseq)
+## > })
 
 test_that("counts", {
     for (normalized in list(FALSE, TRUE, "tpm", "rlog", "vst")) {
@@ -270,10 +276,6 @@ test_that("Quality Control", {
     expect_identical(realpath(x), realpath(outfile))
 })
 
-## FIXME This step is failing due to contrast naming issue:
-## as 0 is the reference level, was expecting day_1_vs_0 to be present
-## in 'resultsNames(object)'
-
 test_that("Differential Expression", {
     stem <- "02-differential-expression"
     input <- file.path(renderDir, paste0(stem, ".Rmd"))
@@ -300,12 +302,6 @@ test_that("Differential Expression", {
     expect_true(file.exists(outfile))
     expect_identical(realpath(x), realpath(outfile))
 })
-
-## FIXME Need to address this warning:
-## ggrepel: 6 unlabeled data points (too many overlaps). Consider increasing max.overlaps
-
-## FIXME Need to rework our keyType matching...
-## Error in `match.arg(keyType)`: 'arg' should be one of "geneName", "entrezId"
 
 test_that("Functional Analysis", {
     stem <- "03-functional-analysis"
