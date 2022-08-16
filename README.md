@@ -145,7 +145,7 @@ validObject(object)
 The papers and software cited in our workflows are available as a [shared
 library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 
-[bcbio]: https://github.com/chapmanb/bcbio-nextgen/
+[bcbio]: https://github.com/bcbio/bcbio-nextgen/
 [biocmanager]: https://cran.r-project.org/package=BiocManager
 [bioconda]: https://bioconda.github.io/
 [bioconductor]: https://bioconductor.org/
@@ -155,7 +155,7 @@ library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 [edger]: http://bioconductor.org/packages/edgeR/
 [limma-voom]: https://bioconductor.org/packages/limma/
 [paperpile]: https://paperpile.com/
-[r markdown]: http://rmarkdown.rstudio.com/
+[r markdown]: https://rmarkdown.rstudio.com/
 [r]: https://www.r-project.org/
 [rangedsummarizedexperiment]: http://bioconductor.org/packages/SummarizedExperiment/
 [rstudio]: https://www.rstudio.com/
