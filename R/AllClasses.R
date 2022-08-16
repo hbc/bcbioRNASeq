@@ -1,8 +1,7 @@
 #' bcbio RNA-Seq data set
 #'
 #' `bcbioRNASeq` is an S4 class that extends `RangedSummarizedExperiment`, and
-#' is designed to store a [bcbio](https://bcbio-nextgen.readthedocs.org) RNA-seq
-#' analysis.
+#' is designed to store a bcbio RNA-seq analysis.
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
