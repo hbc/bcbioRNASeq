@@ -577,7 +577,7 @@ avoid any disruption for active RNA-seq experiments.
 - `aggregateReplicates` has moved to [basejump][], and now works primarily on
   `SummarizedExperiment` method, instead of `bcbioRNASeq`.
 - Offloaded a number of S4 generics to basejump infrastructure, which are now
-  defined in the [bioverbs][] package: `alphaSummary`, `contrastName`,
+  defined in the bioverbs package: `alphaSummary`, `contrastName`,
   `plot5Prime3PrimeBias`, `plotCountDensity`, `plotCountsPerGene`,
   `plotDEGHeatmap`, `plotDEGPCA`, `plotExonicMappingRate`, `plotGenderMarkers`,
   `plotGeneSaturation`, `plotGenesDetected`, `plotIntronicMappingRate`.
@@ -780,7 +780,7 @@ avoid any disruption for active RNA-seq experiments.
 
 ## Infrastructure changes
 
-- Added [macOS][] testing to [Travis CI][] build checks.
+- Added macOS testing to [Travis CI][] build checks.
 - Fixed [clusterProfiler][] compilation error on [Travis CI][] by installing
   `libudunits2-dev` (Linux).
 
@@ -1244,15 +1244,14 @@ Last set of code fixes before F1000v2 resubmission.
 [bioconda]: https://bioconda.github.io/
 [bioconductor]: https://bioconductor.org/
 [biomart]: https://bioconductor.org/packages/biomaRt/
-[bioverbs]: https://bioverbs.acidgenomics.com/
 [chbutils]: https://github.com/hbc/CHBUtils/
 [clusterprofiler]: https://bioconductor.org/packages/clusterProfiler/
 [covr]: https://github.com/r-lib/covr/
 [degreport]: https://bioconductor.org/packages/DEGreport/
 [deseq2]: https://bioconductor.org/packages/DESeq2/
-[deseqanalysis]: https://deseqanalysis.acidgenomcis.com/
+[deseqanalysis]: https://r.acidgenomics.com/packages/deseqanalysis/
 [dplyr]: https://dplyr.tidyverse.org/
-[dropbox]: https://dropbox.com/
+[dropbox]: https://www.dropbox.com/
 [edger]: https://bioconductor.org/packages/edgeR/
 [ensdb.hsapiens.v75]: https://bioconductor.org/packages/EnsDb.Hsapiens.v75/
 [ensembl]: https://www.ensembl.org/
@@ -1261,18 +1260,16 @@ Last set of code fixes before F1000v2 resubmission.
 [f1000]: https://f1000.com/
 [ggplot2]: https://ggplot2.tidyverse.org/
 [hbc]: https://bioinformatics.sph.harvard.edu/
-[lintr]: https://github.com/jimhester/lintr/
-[macos]: https://www.apple.com/macos/
-[markdown]: https://daringfireball.net/projects/markdown/syntax/
+[lintr]: https://github.com/r-lib/lintr/
+[markdown]: https://daringfireball.net/projects/markdown/
 [r markdown]: https://rmarkdown.rstudio.com/
 [r]: https://www.r-project.org/
 [rdavidwebservice]: https://bioconductor.org/packages/RDAVIDWebService/
 [rlang]: https://cran.r-project.org/package=rlang
-[stem cell commons]: http://stemcellcommons.org/
-[testthat]: https://github.com/hadley/testthat/
+[stem cell commons]: https://dataverse.harvard.edu/dataverse/stemcellcommons
+[testthat]: https://github.com/r-lib/testthat/
 [tidyeval]: https://tidyeval.tidyverse.org/
 [tidyverse]: https://www.tidyverse.org/
 [travis ci]: https://travis-ci.org/
 [tximport]: https://bioconductor.org/packages/tximport/
-[viridis]: https://cran.r-project.org/web/packages/viridis/index.html
-[windows]: https://www.microsoft.com/en-us/windows/
+[viridis]: https://cran.r-project.org/package=viridis
