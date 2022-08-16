@@ -53,7 +53,7 @@
 #' functions in the package require `character(1)` and use `match.arg()`
 #' internally.
 #'
-#' [featureCounts]: http://bioinf.wehi.edu.au/featureCounts/
+#' [featureCounts]: https://doi.org/10.1093/bioinformatics/btt656
 #' [tximport]: https://bioconductor.org/packages/tximport/
 #'
 #' @param value Value to assign.

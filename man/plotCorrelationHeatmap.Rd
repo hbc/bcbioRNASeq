@@ -19,7 +19,7 @@ Normalization method to apply:
 \item \code{FALSE}: Raw counts.
 When using a \href{https://bioconductor.org/packages/tximport/}{tximport}-compatible caller, these are length scaled
 by default (see \code{countsFromAbundance} argument).
-When using a \href{http://bioinf.wehi.edu.au/featureCounts/}{featureCounts}-compatible caller, these are \code{integer}.
+When using a \href{https://doi.org/10.1093/bioinformatics/btt656}{featureCounts}-compatible caller, these are \code{integer}.
 }
 
 \href{https://bioconductor.org/packages/tximport/}{tximport} caller-specific normalizations:

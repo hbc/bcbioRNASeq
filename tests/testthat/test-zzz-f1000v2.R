@@ -93,7 +93,8 @@ test_that("counts", {
 })
 
 test_that("saveData and writeCounts", {
-    tempdir <- file.path(tempdir(), .pkgName)
+    ## FIXME Call this inside each check using AcidBase::tempdir2.
+    tempdir <- file.path(tempdir2(), .pkgName)
     unlink(tempdir)
     raw <- counts(object, normalized = FALSE)
     normalized <- counts(object, normalized = TRUE)
@@ -239,18 +240,18 @@ templatesDir <- system.file(
     package = .pkgName,
     mustWork = TRUE
 )
-renderDir <- file.path(
-    tempdir(),
-    .pkgName,
-    paste("render", Sys.Date(), sep = "-")
-)
-unlink(renderDir, recursive = TRUE)
-renderDir <- initDir(renderDir)
+renderDir <- AcidBase::tempdir2()
 renderFiles <- saveData(
     bcb, dds, deseq, res,
     dir = renderDir,
     ext = "rds",
     overwrite = TRUE
+)
+withr::with_dir(
+    new = renderDir,
+    code = {
+        AcidMarkdown::prepareTemplate()
+    }
 )
 
 test_that("Quality Control", {
@@ -323,8 +324,6 @@ test_that("Functional Analysis", {
         params = list(
             "deseq_file" = renderFiles[["deseq"]],
             "results_name" = resultsNames(deseq)[[1L]],
-            "organism" = organism(as(deseq, "DESeqDataSet")),
-            ## NOTE Enabling this is slow and can be error prone.
             "pathview" = FALSE
         )
     )
@@ -333,4 +332,4 @@ test_that("Functional Analysis", {
     expect_true(file.exists(outfile))
 })
 
-unlink(renderDir, recursive = TRUE)
+AcidBase::unlink2(renderDir)

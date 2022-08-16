@@ -239,6 +239,7 @@ rankedListEnsembl <-
     (`[[`)(params[["results_name"]])
 ## Entrez identifiers must be defined in the `"entrezId"` column of
 ## DESeqDataSet rowData, otherwise this step will error.
+## FIXME This is failing for F1000 mouse example, due to 50% threshold.
 rankedListEntrez <-
     AcidGSEA::RankedList(
         object = deseq,

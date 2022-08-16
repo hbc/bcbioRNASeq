@@ -35,7 +35,7 @@ information metadata is preserved from the time when the bcbio data was
 originally loaded into R.
 }
 \note{
-Updated 2022-05-07.
+Updated 2022-05-26.
 }
 \section{Legacy \code{bcbioRNADataSet} class}{
 

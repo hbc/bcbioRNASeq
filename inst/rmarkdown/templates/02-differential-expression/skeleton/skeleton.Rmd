@@ -321,6 +321,7 @@ have scaled the data by row and used the `ward.D2` method for clustering
 [@Ward1963-xf].
 
 ```{r plot-deg-heatmap, results="asis"}
+## FIXME These aren't printing with current version of knitr...
 invisible(Map(
     f = function(object, i, ...) {
         markdownHeader(text = i, level = 3L)

@@ -53,7 +53,7 @@ print(object)
 # Sample metadata
 
 ```{r sample-data}
-sampleData(object)
+as.data.frame(sampleData(object))
 ```
 
 # Read metrics {.tabset}
@@ -216,6 +216,7 @@ cluster by plotting the correlation between the expression profiles of the
 samples.
 
 ```{r plot-correlation-heatmap}
+## FIXME This isn't printing in current template.
 plotCorrelationHeatmap(object)
 ```
 

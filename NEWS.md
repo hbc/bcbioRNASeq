@@ -1235,11 +1235,11 @@ Last set of code fixes before F1000v2 resubmission.
 
 [annotationhub]: https://bioconductor.org/packages/AnnotationHub/
 [appveyor ci]: https://ci.appveyor.com/
-[basejump]: https://basejump.acidgenomics.com/
-[bcbio]: https://github.com/chapmanb/bcbio-nextgen/
-[bcbiobase]: https://bioinformatics.sph.harvard.edu/bcbioBase/
-[bcbiornaseq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
-[bcbiosinglecell]: https://bioinformatics.sph.harvard.edu/bcbioSingleCell/
+[basejump]: https://r.acidgenomics.com/packages/basejump/
+[bcbio]: https://github.com/bcbio/bcbio-nextgen/
+[bcbiobase]: https://r.acidgenomics.com/packages/bcbiobase/
+[bcbiornaseq]: https://r.acidgenomics.com/packages/bcbiornaseq/
+[bcbiosinglecell]: https://r.acidgenomics.com/packages/bcbiosinglecell/
 [bcbiosmallrna]: https://github.com/lpantano/bcbioSmallRna/
 [bioconda]: https://bioconda.github.io/
 [bioconductor]: https://bioconductor.org/
@@ -1247,7 +1247,7 @@ Last set of code fixes before F1000v2 resubmission.
 [bioverbs]: https://bioverbs.acidgenomics.com/
 [chbutils]: https://github.com/hbc/CHBUtils/
 [clusterprofiler]: https://bioconductor.org/packages/clusterProfiler/
-[covr]: https://github.com/jimhester/covr/
+[covr]: https://github.com/r-lib/covr/
 [degreport]: https://bioconductor.org/packages/DEGreport/
 [deseq2]: https://bioconductor.org/packages/DESeq2/
 [deseqanalysis]: https://deseqanalysis.acidgenomcis.com/
@@ -1270,7 +1270,7 @@ Last set of code fixes before F1000v2 resubmission.
 [rlang]: https://cran.r-project.org/package=rlang
 [stem cell commons]: http://stemcellcommons.org/
 [testthat]: https://github.com/hadley/testthat/
-[tidyeval]: http://dplyr.tidyverse.org/articles/programming.html
+[tidyeval]: https://tidyeval.tidyverse.org/
 [tidyverse]: https://www.tidyverse.org/
 [travis ci]: https://travis-ci.org/
 [tximport]: https://bioconductor.org/packages/tximport/
