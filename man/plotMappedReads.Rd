@@ -12,8 +12,8 @@ plotMappedReads(object, ...)
   interestingGroups = NULL,
   limit = 10000000L,
   perMillion = TRUE,
-  labels = list(title = "Mapped reads", subtitle = NULL, sampleAxis = NULL, metricAxis
-    = "reads"),
+  labels = list(title = "Mapped reads", subtitle = NULL, sampleAxis = NULL, metricAxis =
+    "reads"),
   flip = getOption(x = "acid.flip", default = TRUE)
 )
 }

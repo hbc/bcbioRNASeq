@@ -11,8 +11,8 @@ plotMappingRate(object, ...)
   object,
   interestingGroups = NULL,
   limit = 0.7,
-  labels = list(title = "Mapping rate", subtitle = NULL, sampleAxis = NULL, metricAxis
-    = "mapping rate (\%)"),
+  labels = list(title = "Mapping rate", subtitle = NULL, sampleAxis = NULL, metricAxis =
+    "mapping rate (\%)"),
   flip = getOption(x = "acid.flip", default = TRUE)
 )
 }
