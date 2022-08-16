@@ -102,8 +102,7 @@ this mode is enabled.}
 }
 \description{
 \code{bcbioRNASeq} is an S4 class that extends \code{RangedSummarizedExperiment}, and
-is designed to store a \href{https://bcbio-nextgen.readthedocs.org}{bcbio} RNA-seq
-analysis.
+is designed to store a bcbio RNA-seq analysis.
 }
 \details{
 Automatically imports RNA-seq counts, metadata, and the program versions used
@@ -164,13 +163,13 @@ labeling samples, to help avoid unexpected downstream behavior in R due to
 \code{bcbioRNASeq()} provides support for automatic import of genome annotations,
 which internally get processed into genomic ranges (\code{GRanges}) and are
 slotted into the \code{rowRanges()} of the object. Currently, we offer support for
-(1) \href{https://ensembl.org/}{Ensembl} genome annotations from \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub} via \href{https://bioconductor.org/packages/ensembldb/}{ensembldb}
+(1) \href{https://useast.ensembl.org/}{Ensembl} genome annotations from \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub} via \href{https://bioconductor.org/packages/ensembldb/}{ensembldb}
 (\emph{recommended}); or (2) direct import from a GTF/GFF file using
 \href{https://bioconductor.org/packages/rtracklayer/}{rtracklayer}.
 
 \href{https://bioconductor.org/packages/ensembldb/}{ensembldb} requires the \code{organism} and \code{ensemblRelease} arguments to be
 defined. When both of these are set, \code{bcbioRNASeq} will attempt to
-download and use the pre-built \href{https://ensembl.org/}{Ensembl} genome annotations from
+download and use the pre-built \href{https://useast.ensembl.org/}{Ensembl} genome annotations from
 \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub}. This method is preferred over direct loading of a GTF/GFF
 file because the \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub} annotations contain additional rich
 metadata not defined in a GFF file, specifically \code{description} and \code{entrezId}
@@ -180,16 +179,16 @@ Alternatively, if you are working with a non-standard or poorly annotated
 genome that isn't available on \href{https://bioconductor.org/packages/AnnotationHub/}{AnnotationHub}, we provide fall back
 support for loading the genome annotations directly from the GTF file used by
 the bcbio RNA-seq pipeline. This should be fully automatic for an R session
-active on the same server used to run \href{https://bcbio-nextgen.readthedocs.io/}{bcbio}.
+active on the same server used to run \href{https://bcbio-nextgen.readthedocs.io/en/latest/}{bcbio}.
 
 Example bcbio GTF path: \code{genomes/Hsapiens/hg38/rnaseq/ref-transcripts.gtf}.
 
 In the event that you are working from a remote environment that doesn't
-have file system access to the \href{https://bcbio-nextgen.readthedocs.io/}{bcbio} \code{genomes} directory, we provide
+have file system access to the \href{https://bcbio-nextgen.readthedocs.io/en/latest/}{bcbio} \code{genomes} directory, we provide
 additional fall back support for importing genome annotations from a GTF/GFF
 directly with the \code{gffFile} argument.
 
-Internally, genome annotations are imported via the \href{https://steinbaugh.com/basejump/}{basejump} package,
+Internally, genome annotations are imported via the \href{https://r.acidgenomics.com/packages/acidgenomes/}{AcidGenomes} package,
 specifically with either of these functions:
 \itemize{
 \item \code{AcidGenomes::makeGRangesFromEnsembl()}.

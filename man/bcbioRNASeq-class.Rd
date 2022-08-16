@@ -6,8 +6,7 @@
 \title{bcbio RNA-Seq data set}
 \description{
 \code{bcbioRNASeq} is an S4 class that extends \code{RangedSummarizedExperiment}, and
-is designed to store a \href{https://bcbio-nextgen.readthedocs.org}{bcbio} RNA-seq
-analysis.
+is designed to store a bcbio RNA-seq analysis.
 }
 \details{
 \code{bcbioRNASeq} extended \code{SummarizedExperiment} prior to v0.2.0, where we

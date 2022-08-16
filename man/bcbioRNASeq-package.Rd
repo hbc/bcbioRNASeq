@@ -4,8 +4,7 @@
 \name{bcbioRNASeq-package}
 \title{bcbioRNASeq}
 \description{
-Import and analyze \href{https://bcbio-nextgen.readthedocs.io/}{bcbio} RNA-seq
-data.
+Import and analyze bcbio RNA-seq data.
 }
 \seealso{
 Useful links:

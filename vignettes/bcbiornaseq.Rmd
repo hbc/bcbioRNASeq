@@ -347,20 +347,20 @@ utils::sessionInfo()
 The papers and software cited in our workflows are available as a [shared library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 
 [annotationhub]: https://bioconductor.org/packages/AnnotationHub/
-[bcbio]: https://bcbio-nextgen.readthedocs.io/
-[bcbiornaseq]: https://bioinformatics.sph.harvard.edu/bcbioRNASeq/
+[bcbio]: https://bcbio-nextgen.readthedocs.io/en/latest/
+[bcbiornaseq]: https://r.acidgenomics.com/packages/bcbiornaseq/
 [clusterprofiler]: https://bioconductor.org/packages/clusterProfiler/
 [deseq2]: https://bioconductor.org/packages/DESeq2/
 [edger]: https://bioconductor.org/packages/edgeR/
-[ensembl]: https://www.ensembl.org/
+[ensembl]: https://useast.ensembl.org/
 [ensembldb]: https://bioconductor.org/packages/ensembldb/
 [f1000 paper]: http://dx.doi.org/10.12688/f1000research.12093.2
-[featurecounts]: http://bioinf.wehi.edu.au/featureCounts/
+[featurecounts]: https://doi.org/10.1093/bioinformatics/btt656
 [genomicranges]: https://bioconductor.org/packages/GenomicRanges/
 [geo]: https://www.ncbi.nlm.nih.gov/geo/
 [gff]: https://useast.ensembl.org/info/website/upload/gff.html
 [gse65267]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
-[gsea]: http://software.broadinstitute.org/gsea/
+[gsea]: https://www.gsea-msigdb.org/gsea/
 [hisat2]: https://ccb.jhu.edu/software/hisat2/
 [kallisto]: https://pachterlab.github.io/kallisto/
 [kegg]: https://www.genome.jp/kegg/

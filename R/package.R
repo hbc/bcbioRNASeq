@@ -1,7 +1,6 @@
 #' bcbioRNASeq
 #'
-#' Import and analyze [bcbio](https://bcbio-nextgen.readthedocs.io/) RNA-seq
-#' data.
+#' Import and analyze bcbio RNA-seq data.
 #'
 #' @aliases NULL
 #' @keywords internal
