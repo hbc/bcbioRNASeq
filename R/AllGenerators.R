@@ -81,16 +81,16 @@
 #' additional fall back support for importing genome annotations from a GTF/GFF
 #' directly with the `gffFile` argument.
 #'
-#' Internally, genome annotations are imported via the [basejump][] package,
+#' Internally, genome annotations are imported via the [AcidGenomes][] package,
 #' specifically with either of these functions:
 #'
 #' - `AcidGenomes::makeGRangesFromEnsembl()`.
 #' - `AcidGenomes::makeGRangesFromGFF()`.
 #'
-#' [AnnotationHub]: https://bioconductor.org/packages/AnnotationHub/
-#' [basejump]: https://steinbaugh.com/basejump/
-#' [bcbio]: https://bcbio-nextgen.readthedocs.io/
-#' [Ensembl]: https://ensembl.org/
+#' [acidgenomes]: https://r.acidgenomics.com/packages/acidgenomes/
+#' [annotationhub]: https://bioconductor.org/packages/AnnotationHub/
+#' [bcbio]: https://bcbio-nextgen.readthedocs.io/en/latest/
+#' [ensembl]: https://useast.ensembl.org/
 #' [ensembldb]: https://bioconductor.org/packages/ensembldb/
 #' [rtracklayer]: https://bioconductor.org/packages/rtracklayer/
 #'
