@@ -1,3 +1,6 @@
+## FIXME Add an assert check that the object contains Entrez identifiers
+## earlier in the template.
+
 ---
 ## Alternatively, consider using the AcidGSEA package for fast preranked GSEA.
 ##
