@@ -1,3 +1,9 @@
+## FIXME Add a note that `organism`, `genomeBuild`, and `ensemblRelease` are
+## currently recommended for running clusterProfiler enrichment analysis
+## template.
+
+
+
 #' @inherit bcbioRNASeq-class title description
 #' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
 #' @note Updated 2022-05-09.
