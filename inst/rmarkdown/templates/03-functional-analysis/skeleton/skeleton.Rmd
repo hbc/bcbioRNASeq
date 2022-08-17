@@ -1,9 +1,11 @@
 ---
 ## Alternatively, consider using the AcidGSEA package for fast preranked GSEA.
 ##
-## Expecting that input DESeq2 analysis uses Ensembl identifiers.
-## This template will also intentionally error if Entrez identifiers are not
-## defined in the `"entrezId"` column of `DESeqDataSet` `rowData()` return.
+## This template expects an input DESeq2 analysis with Ensembl identifiers.
+## It ntentionally error if Entrez identifiers are not defined in the
+## `"entrezId"` column of `DESeqDataSet` `rowData()` return. This can be
+## resolved by running `bcbioRNASeq()` with the `organism`, `genomeBuild`,
+## and `ensemblRelease` arguments defined.
 ##
 ## - KEGG supported organisms:
 ##   http://www.genome.jp/kegg/catalog/org_list.html
@@ -14,7 +16,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-05-26.
+## Updated 2022-08-17.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -51,10 +53,12 @@ bibliography: "bibliography.bib"
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
+## FIXME Need to add knitr or DT here.
 ## nolint start
 suppressPackageStartupMessages({
-    library(goalie)
+    library(withr)
     library(stringi)
+    library(goalie)
     library(basejump)
     library(bcbioRNASeq)
     library(DESeqAnalysis)
@@ -75,6 +79,7 @@ invisible(lapply(
     FUN = initDir
 ))
 assert(isSubset(params[["go_class"]], c("BP", "CC", "MF")))
+pathview <- params[["pathview"]]
 ```
 
 ```{r header, child="_header.Rmd"}
@@ -118,7 +123,7 @@ packages <- c(
     "R.utils",
     "clusterProfiler",
     "enrichplot",
-    "ggnewscale",  # For `cnetplot()`.
+    "ggnewscale",
     "pathview",
     "withr",
     orgDb
@@ -295,6 +300,7 @@ export(
         )
     )
 )
+## FIXME Need to wrap in knitr kable or DT call here.
 print(enrichGoTbl)
 ```
 
@@ -342,6 +348,7 @@ try({
 ```{r gse-go}
 ## Now we're ready to run GSEA.
 ## > help("gseGO", "clusterProfiler")
+## FIXME Need to suppress warning in fgseaMultilevel here.
 gseaGo <- clusterProfiler::gseGO(
     geneList = rankedListEnsembl,
     ont = params[["go_class"]],
@@ -376,6 +383,7 @@ export(
         )
     )
 )
+## FIXME Need to wrap in knitr kable or DT call here.
 print(gseaGoTbl)
 ```
 
@@ -427,6 +435,7 @@ export(
         )
     )
 )
+## FIXME Need to wrap in knitr kable or DT call here.
 print(keggTbl)
 ```
 
@@ -464,6 +473,7 @@ correct for multiple test correction, so by adjusting the `minGSSize` and
 pathways of interest.
 
 ```{r kegg-gsea}
+## FIXME Can we use gene symbol here instead as input?
 gseaKegg <- clusterProfiler::gseKEGG(
     geneList = entrezLfcVec,
     organism = keggCode,
@@ -494,12 +504,13 @@ export(
         )
     )
 )
+## FIXME Need to wrap in knitr or DT call here.
 print(gseaKeggTbl)
 ```
 
 ## Pathview {.tabset}
 
-```{r pathview-kegg-plots, message=FALSE, results="asis", eval=params[["pathview"]]}
+```{r pathview-kegg-plots, message=FALSE, results="asis", eval=pathview}
 ## NOTE This requires Entrez identifiers.
 ## > help(topic = "pathview", package = "pathview")
 ##
