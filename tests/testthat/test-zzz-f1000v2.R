@@ -15,7 +15,7 @@ significants <- DEGreport::significants
 
 ## Manuscript uses `loadRemoteData()` instead.
 object <- import(
-    file = cacheURL(
+    con = cacheURL(
         url = pasteURL(
             "github.com",
             "hbc",
