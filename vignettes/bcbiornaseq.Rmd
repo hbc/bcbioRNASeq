@@ -101,7 +101,7 @@ When working with a bcbio run that has incorrect or outdated metadata, the simpl
 ```{r}
 sampleMetadataFile <- file.path(uploadDir, "sample_metadata.csv")
 stopifnot(file.exists(sampleMetadataFile))
-import(file = sampleMetadataFile)
+import(sampleMetadataFile)
 ```
 
 ```{r}
@@ -166,7 +166,7 @@ For the vignette, we are loading a pre-computed version of the example `bcbioRNA
 
 ```{r}
 object <- import(
-    file = cacheURL(
+    con = cacheURL(
         pasteURL(
             "github.com",
             "hbc",
