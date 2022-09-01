@@ -31,7 +31,7 @@
                 "Failed to locate {.var %s} matrix.", "featureCounts"
             ))
         }
-        counts <- import(file = file)
+        counts <- import(file)
         assert(is.matrix(counts))
         colnames(counts) <- makeNames(colnames(counts))
         assert(isSubset(samples, colnames(counts)))
