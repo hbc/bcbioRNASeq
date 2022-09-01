@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.5.1.9000
-Date: 2022-08-16
+Date: 2022-09-01
 Authors@R: c(
     person(
         given = "Michael",
@@ -130,7 +130,6 @@ Imports:
     goalie,
     methods,
     pipette,
-    sessioninfo,
     syntactic,
     tximport,
     utils
@@ -142,6 +141,7 @@ Suggests:
     DOSE,
     EnsDb.Hsapiens.v75,
     GenomeInfoDb,
+    R.utils,
     basejump,
     clusterProfiler,
     enrichplot,
