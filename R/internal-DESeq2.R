@@ -6,7 +6,7 @@
 
 
 
-## Updated 2020-01-17.
+## Updated 2022-09-01.
 `new,DESeqDataSet` <- # nolint
     function(se, quiet = FALSE) {
         assert(isFlag(quiet))
@@ -56,7 +56,7 @@
         )
         m <- m[intersect(names(m), keep)]
         m[["date"]] <- Sys.Date()
-        m[["sessionInfo"]] <- session_info()
+        m[["sessionInfo"]] <- sessionInfo()
         metadata(se) <- m
         ## Generate the DESeqDataSet.
         ## Using an empty design formula.
