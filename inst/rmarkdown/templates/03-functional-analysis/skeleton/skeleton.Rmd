@@ -7,6 +7,9 @@
 ## resolved by running `bcbioRNASeq()` with the `organism`, `genomeBuild`,
 ## and `ensemblRelease` arguments defined.
 ##
+## FIXME Add an assert check that the object contains Entrez identifiers
+## earlier in the template.
+##
 ## - KEGG supported organisms:
 ##   http://www.genome.jp/kegg/catalog/org_list.html
 ## - OrgDb supported organisms:
