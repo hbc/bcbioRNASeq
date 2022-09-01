@@ -7,9 +7,6 @@
 ## resolved by running `bcbioRNASeq()` with the `organism`, `genomeBuild`,
 ## and `ensemblRelease` arguments defined.
 ##
-## FIXME Add an assert check that the object contains Entrez identifiers
-## earlier in the template.
-##
 ## - KEGG supported organisms:
 ##   http://www.genome.jp/kegg/catalog/org_list.html
 ## - OrgDb supported organisms:
@@ -102,7 +99,7 @@ pathview <- params[["pathview"]]
 ```{r header, child="_header.Rmd"}
 ```
 
-# Prepare variables for enrichment analysis
+## Prepare variables for enrichment analysis
 
 First, we need to load the `DESeqAnalysis` object, which has been generated
 from our `bcbioRNASeq` object during the differential expression step.
@@ -122,7 +119,8 @@ We need to extract the corresponding `DESeqDataSet` and `DESeqResults` objects.
 dds <- as.DESeqDataSet(deseq)
 assert(
     is(dds, "DESeqDataSet"),
-    validObject(dds)
+    validObject(dds),
+    isSubset(c("geneId", "entrezId"), colnames(rowData(dds)))
 )
 print(dds)
 ```
@@ -144,7 +142,7 @@ print(res)
 We need to get the relevant Bioconductor `OrgDb` package from the full Latin
 organism name (e.g. `"Homo sapiens"` to `"org.Hs.eg.db"`).
 
-```{r org-db, message=FALSE}
+```{r orgdb, message=FALSE}
 organism <- organism(dds)
 match <- stri_match_first_regex(
     str = organism,
@@ -161,7 +159,7 @@ assert(isInstalled(orgDb))
 rm(match)
 ```
 
-## Significant results vectors
+### Significant results vectors
 
 Now we can prepare the input required for enrichment analysis.
 
@@ -184,7 +182,7 @@ lfcVec <- sort(lfcVec, decreasing = TRUE)
 summary(lfcVec)
 ```
 
-## Entrez identifier mappings
+### Entrez identifier mappings
 
 [Entrez][] identifiers are required for [Kyoto Encyclopedia of Genes and
 Genomes (KEGG)][KEGG] analysis. Here we are defining 1:1 mappings of the
@@ -213,7 +211,7 @@ entrezLfcVec <- sort(entrezLfcVec, decreasing = TRUE)
 str(entrezLfcVec)
 ```
 
-## GSEA ranked lists
+### GSEA ranked lists
 
 A common approach in analyzing gene expression profiles was identifying
 differential expressed genes that are deemed interesting. The enrichment
@@ -254,7 +252,7 @@ assert(
 )
 ```
 
-# GO enrichment analysis
+## GO enrichment analysis
 
 [Gene Ontology (GO)][GO] term enrichment is a technique for interpreting sets
 of genes making use of the [Gene Ontology][GO] system of classification, in
@@ -302,7 +300,7 @@ export(
 )
 ```
 
-## Dot plot
+### Dot plot
 
 ```{r dotplot}
 ## > help(topic = "dotplot", package = "enrichplot")
@@ -313,7 +311,7 @@ try({
 })
 ```
 
-## GO terms map
+### GO terms map
 
 ```{r emapplot}
 ## > help(topic = "emapplot", package = "enrichplot")
@@ -327,7 +325,7 @@ try({
 })
 ```
 
-## Gene map
+### Gene map
 
 In order to consider the potentially biological complexities in which a gene
 may belong to multiple annotation categories, and provide information of
@@ -344,7 +342,7 @@ try({
 })
 ```
 
-## GO GSEA analysis
+### GO GSEA analysis
 
 Now we're ready to run GSEA using the GO terms.
 
@@ -386,13 +384,12 @@ export(
 )
 ```
 
-# KEGG enrichment analysis
+## KEGG enrichment analysis
 
-Match the KEGG organism code (e.g. "hsa" for Homo sapiens).
+Match the KEGG organism code (e.g. `"hsa"` for *Homo sapiens*).
 
 ```{r check-db-codes}
 ## > help(topic = "search_kegg_organism", package = "clusterProfiler")
-## e.g. "hsa" for "Homo sapiens".
 keggCode <-
     search_kegg_organism(organism, "scientific_name") |>
     getElement("kegg_code")
@@ -440,7 +437,7 @@ export(
 )
 ```
 
-## KEGG GSEA analysis
+### KEGG GSEA analysis
 
 [GSEA][] analysis is performed with the [clusterProfiler][] tool using KEGG
 gene sets and using the log2 fold changes as input. By using the log2 fold
@@ -510,7 +507,7 @@ export(
 )
 ```
 
-## Pathview {.tabset}
+### Pathview {.tabset}
 
 ```{r pathview-kegg-plots, message=FALSE, results="asis", eval=pathview}
 ## > help(topic = "pathview", package = "pathview")
@@ -572,7 +569,7 @@ if (hasLength(pathways)) {
     invisible(lapply(
         X = figures,
         FUN = function(figure) {
-            markdownHeader(basename(figure), level = 3L, asis = TRUE)
+            markdownHeader(basename(figure), level = 4L, asis = TRUE)
             cat(paste0("<img src=\"", figure, "\">\n"))
         }
     ))
