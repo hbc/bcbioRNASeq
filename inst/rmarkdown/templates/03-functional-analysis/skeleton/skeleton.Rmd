@@ -16,7 +16,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-08-17.
+## Updated 2022-09-01.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -42,7 +42,7 @@ params:
   results_dir: !r file.path("results", Sys.Date(), "functional-analysis")
 
   ## Pathview KEGG plots tend to be slow to render.
-  pathview: FALSE
+  pathview: TRUE
 
 title: "`r params[['title']]`"
 author: "`r getOption('author')`"
@@ -53,11 +53,20 @@ bibliography: "bibliography.bib"
 ---
 
 ```{r setup, cache=FALSE, message=FALSE}
-## FIXME Need to add knitr or DT here.
 ## nolint start
 suppressPackageStartupMessages({
-    library(withr)
+    ## CRAN packages.
+    library(R.utils)
+    library(ggnewscale)
     library(stringi)
+    library(withr)
+    ## Bioconductor packages.
+    library(DESeq2)
+    library(DOSE)
+    library(clusterProfiler)
+    library(enrichplot)
+    library(pathview)
+    ## Acid Genomics packages.
     library(goalie)
     library(basejump)
     library(bcbioRNASeq)
@@ -68,6 +77,11 @@ prepareTemplate()
 source("_setup.R")
 ## May encounter warning from ggrepel package otherwise.
 options("ggrepel.max.overlaps" = Inf)
+## Avoid logical coercion error in DOSE.
+Sys.setenv(
+    "_R_CHECK_LENGTH_1_CONDITION_" = "false",
+    "_R_CHECK_LENGTH_1_LOGIC2_" = "false"
+)
 ## nolint end
 keggPlotsDir <- file.path(params[["results_dir"]], "kegg-plots")
 invisible(lapply(
@@ -99,45 +113,6 @@ assert(
 print(deseq)
 ```
 
-We need to attach organism-specific packages from Bioconductor.
-
-```{r bioc-packages, message=FALSE}
-## Expecting full Latin name, e.g. "Homo sapiens".
-organism <- organism(as.DESeqDataSet(deseq))
-## Get OrgDb package from organism name (e.g. "org.Mm.eg.db").
-match <- stringi::stri_match_first_regex(
-    str = organism,
-    pattern = "^([A-Z])[a-z]+\\s([a-z])[a-z]+$"
-)
-orgDb <- paste(
-    "org",
-    paste(match[, 2L:3L], collapse = ""),
-    "eg",
-    "db",
-    sep = "."
-)
-rm(match)
-## Use `BiocManager::install()` to install missing packages, if necessary.
-packages <- c(
-    "DOSE",
-    "R.utils",
-    "clusterProfiler",
-    "enrichplot",
-    "ggnewscale",
-    "pathview",
-    "withr",
-    orgDb
-)
-assert(allAreInstalled(packages))
-## Avoid logical coercion error in DOSE.
-## nolint start
-Sys.setenv(
-    "_R_CHECK_LENGTH_1_CONDITION_" = "false",
-    "_R_CHECK_LENGTH_1_LOGIC2_" = "false"
-)
-## nolint end
-```
-
 We need to extract the corresponding `DESeqDataSet` and `DESeqResults` objects.
 
 ```{r deseqdataset}
@@ -150,11 +125,9 @@ print(dds)
 ```
 
 ```{r deseqresults}
-## Refer to `DESeqAnalysis::resultsNames()` for available options.
-res <- DESeqAnalysis::results(
-    object = deseq,
-    i = params[["results_name"]]
-)
+## > help(topic = "results", package = "DESeqAnalysis")
+## > help(topic = "resultsNames", package = "DESeqAnalysis")
+res <- results(object = deseq, i = params[["results_name"]])
 assert(
     is(res, "DESeqResults"),
     validObject(res)
@@ -163,6 +136,26 @@ assert(
 alphaThreshold <- alphaThreshold(res)
 lfcThreshold <- lfcThreshold(res)
 print(res)
+```
+
+We need to get the relevant Bioconductor `OrgDb` package from the full Latin
+organism name (e.g. `"Homo sapiens"` to `"org.Hs.eg.db"`).
+
+```{r org-db, message=FALSE}
+organism <- organism(dds)
+match <- stri_match_first_regex(
+    str = organism,
+    pattern = "^([A-Z])[a-z]+\\s([a-z])[a-z]+$"
+)
+orgDb <- paste(
+    "org",
+    paste(match[, 2L:3L], collapse = ""),
+    "eg",
+    "db",
+    sep = "."
+)
+assert(isInstalled(orgDb))
+rm(match)
 ```
 
 ## Significant results vectors
@@ -178,7 +171,7 @@ dds <- dds[rownames(res), , drop = FALSE]
 ## Set our background genes vector (aka universe).
 allGenes <- rownames(res)
 ## > help(topic = "deg", package = "DESeqAnalysis")
-sigGenes <- DESeqAnalysis::deg(object = res, direction = "both")
+sigGenes <- deg(object = res, direction = "both")
 sigRes <- res[sigGenes, , drop = FALSE]
 ## LFC ranked list vector.
 lfcVec <- sigRes[["log2FoldChange"]]
@@ -233,10 +226,11 @@ many relevant phenotypic differences are manifested by small but consistent
 changes in a set of genes.
 
 ```{r gsea-ranked-lists}
+## > help(topic = "RankedList", package = "AcidGSEA")
 ## Assuming the DESeq analysis input contains Ensembl reference genome. The
 ## gene identifiers should be defined as `"geneId"` in DESeqDataSet rowData.
 rankedListEnsembl <-
-    AcidGSEA::RankedList(
+    RankedList(
         object = deseq,
         value = "stat",
         keyType = "ensemblId"
@@ -244,14 +238,17 @@ rankedListEnsembl <-
     (`[[`)(params[["results_name"]])
 ## Entrez identifiers must be defined in the `"entrezId"` column of
 ## DESeqDataSet rowData, otherwise this step will error.
-## FIXME This is failing for F1000 mouse example, due to 50% threshold.
 rankedListEntrez <-
-    AcidGSEA::RankedList(
+    RankedList(
         object = deseq,
         value = "stat",
         keyType = "entrezId"
     ) |>
     (`[[`)(params[["results_name"]])
+assert(
+    is.numeric(rankedListEnsembl),
+    is.numeric(rankedListEntrez)
+)
 ```
 
 # GO enrichment analysis
@@ -262,7 +259,8 @@ which genes are assigned to a set of predefined bins depending on their
 functional characteristics.
 
 ```{r enrich-go}
-enrichGo <- clusterProfiler::enrichGO(
+## > help(topic = "enrichGO", package = "clusterProfiler")
+enrichGo <- enrichGO(
     gene = sigGenes,
     OrgDb = orgDb,
     keyType = "ENSEMBL",
@@ -271,19 +269,18 @@ enrichGo <- clusterProfiler::enrichGO(
     qvalueCutoff = 0.05,
     readable = TRUE
 )
-enrichGoTbl <-
+enrichGoDf <-
     enrichGo |>
     slot("result") |>
     as.data.frame() |>
     camelCase()
 saveData(
-    enrichGo,
-    enrichGoTbl,
+    enrichGo, enrichGoDf,
     dir = params[["data_dir"]]
 )
 export(
-    object = enrichGoTbl,
-    file = file.path(
+    object = enrichGoDf,
+    con = file.path(
         params[["results_dir"]],
         paste0(
             paste(
@@ -300,16 +297,15 @@ export(
         )
     )
 )
-## FIXME Need to wrap in knitr kable or DT call here.
-print(enrichGoTbl)
 ```
 
 ## Dot plot
 
 ```{r dotplot}
+## > help(topic = "dotplot", package = "enrichplot")
 try({
     suppressWarnings({
-        enrichplot::dotplot(enrichGo, showCategory = 25L)
+        dotplot(enrichGo, showCategory = 25L)
     })
 })
 ```
@@ -317,10 +313,11 @@ try({
 ## GO terms map
 
 ```{r emapplot}
+## > help(topic = "emapplot", package = "enrichplot")
 try({
     suppressWarnings({
-        enrichplot::emapplot(
-            x = enrichplot::pairwise_termsim(enrichGo),
+        emapplot(
+            x = pairwise_termsim(enrichGo),
             showCategory = 25L
         )
     })
@@ -336,38 +333,39 @@ numeric changes if available.
 Here we are plotting genes colored by LFC for top significant [GO][] terms.
 
 ```{r cnetplot}
+## > help(topic = "cnetplot", package = "enrichplot")
 try({
     suppressWarnings({
-        enrichplot::cnetplot(enrichGo, foldChange = lfcVec)
+        cnetplot(enrichGo, foldChange = lfcVec)
     })
 })
 ```
 
 ## GO GSEA analysis
 
+Now we're ready to run GSEA using the GO terms.
+
 ```{r gse-go}
-## Now we're ready to run GSEA.
-## > help("gseGO", "clusterProfiler")
-## FIXME Need to suppress warning in fgseaMultilevel here.
-gseaGo <- clusterProfiler::gseGO(
+## > help(topic = "gseGO", package = "clusterProfiler")
+gseaGo <- gseGO(
     geneList = rankedListEnsembl,
     ont = params[["go_class"]],
     OrgDb = get(orgDb, envir = asNamespace(orgDb)),
     keyType = "ENSEMBL",
     pvalueCutoff = 0.05
 )
-gseaGoTbl <-
+gseaGoDf <-
     gseaGo |>
     slot("result") |>
     as.data.frame() |>
     camelCase()
 saveData(
-    gseaGo, gseaGoTbl,
+    gseaGo, gseaGoDf,
     dir = params[["data_dir"]]
 )
 export(
-    object = gseaGoTbl,
-    file = file.path(
+    object = gseaGoDf,
+    con = file.path(
         params[["results_dir"]],
         paste0(
             paste(
@@ -383,8 +381,6 @@ export(
         )
     )
 )
-## FIXME Need to wrap in knitr kable or DT call here.
-print(gseaGoTbl)
 ```
 
 # KEGG enrichment analysis
@@ -392,34 +388,38 @@ print(gseaGoTbl)
 Match the KEGG organism code (e.g. "hsa" for Homo sapiens).
 
 ```{r check-db-codes}
+## > help(topic = "search_kegg_organism", package = "clusterProfiler")
 ## e.g. "hsa" for "Homo sapiens".
 keggCode <-
-    organism |>
-    clusterProfiler::search_kegg_organism("scientific_name") |>
+    search_kegg_organism(organism, "scientific_name") |>
     getElement("kegg_code")
 assert(
-    hasLength(keggCode, n = 1L),
+    isString(keggCode),
     isMatchingRegex(pattern = "^[a-z]{3}$", x = keggCode)
 )
 ```
 
 ```{r enrich-kegg}
-kegg <- clusterProfiler::enrichKEGG(
+## > help(topic = "enrichKEGG", package = "clusterProfiler")
+kegg <- enrichKEGG(
     gene = as.character(sigEntrez),
     organism = keggCode,
     keyType = "ncbi-geneid",
     universe = as.character(allEntrez),
     qvalueCutoff = 0.05
 )
-keggTbl <-
+keggDf <-
     kegg |>
     slot("result") |>
     as.data.frame() |>
     camelCase()
-saveData(kegg, keggTbl, dir = params[["data_dir"]])
+saveData(
+    kegg, keggDf,
+    dir = params[["data_dir"]]
+)
 export(
-    object = keggTbl,
-    file = file.path(
+    object = keggDf,
+    con = file.path(
         params[["results_dir"]],
         paste0(
             paste(
@@ -435,8 +435,6 @@ export(
         )
     )
 )
-## FIXME Need to wrap in knitr kable or DT call here.
-print(keggTbl)
 ```
 
 ## KEGG GSEA analysis
@@ -473,21 +471,24 @@ correct for multiple test correction, so by adjusting the `minGSSize` and
 pathways of interest.
 
 ```{r kegg-gsea}
-## FIXME Can we use gene symbol here instead as input?
-gseaKegg <- clusterProfiler::gseKEGG(
+## > help(topic = "gseKEGG", package = "clusterProfiler")
+gseaKegg <- gseKEGG(
     geneList = entrezLfcVec,
     organism = keggCode,
     keyType = "ncbi-geneid"
 )
-gseaKeggTbl <-
+gseaKeggDf <-
     gseaKegg |>
     slot("result") |>
     as.data.frame() |>
     camelCase()
-saveData(gseaKegg, dir = params[["data_dir"]])
+saveData(
+    gseaKegg, gseaKeggDf,
+    dir = params[["data_dir"]]
+)
 export(
-    object = gseaKeggTbl,
-    file = file.path(
+    object = gseaKeggDf,
+    con = file.path(
         params[["results_dir"]],
         paste0(
             paste(
@@ -504,38 +505,43 @@ export(
         )
     )
 )
-## FIXME Need to wrap in knitr or DT call here.
-print(gseaKeggTbl)
 ```
 
 ## Pathview {.tabset}
 
 ```{r pathview-kegg-plots, message=FALSE, results="asis", eval=pathview}
-## NOTE This requires Entrez identifiers.
 ## > help(topic = "pathview", package = "pathview")
+##
+## This requires Entrez identifiers to be defined in the DESeqAnalysis object
+## defined in params.
+##
+## The `gene.data` vector must be numeric with Entrez identifiers as names.
 ##
 ## There is currently no way to set the output path of the pathview PNG files,
 ## so we're changing the working directory temporarily using the withr package.
 ##
 ## Also, We're using `tryCatch()` here to return to the user any pathways that
 ## didn't output graphics correctly.
-pathways <- gseaKeggTbl[["id"]]
+##
+## Using `withTimeout` here to harden against very large pathway sets
+## (e.g.`"mmu01100"` for F1000 paper example) that can fail to plot.
+##
+## dplyr may need to be unloaded for pathview to work.
+pathways <- gseaKeggDf[["id"]]
 if (hasLength(pathways)) {
-    ## `gene.data` vector must be numeric with Entrez identifiers as names.
-    ## Using `withTimeout` here to harden against very large pathway sets
-    ## (e.g.`"mmu01100"` for F1000 paper example) that can fail to plot.
-    ## dplyr may need to be unloaded for pathview to work.
-    ## > suppressWarnings(detach("package:dplyr", unload = TRUE, force = TRUE))
-    withr::with_dir(
+    ## > suppressWarnings({
+    ## >     detach("package:dplyr", unload = TRUE, force = TRUE))
+    ## > })
+    with_dir(
         new = keggPlotsDir,
         code = {
             invisible(lapply(
                 X = pathways,
                 FUN = function(pathway) {
                     tryCatch(
-                        expr = R.utils::withTimeout(
+                        expr = withTimeout(
                             expr = {
-                                pathview::pathview(
+                                pathview(
                                     gene.data = entrezLfcVec,
                                     pathway.id = pathway,
                                     gene.idtype = "entrez",
