@@ -39,7 +39,7 @@ source("_setup.R")
 # Load `bcbioRNASeq` object
 
 ```{r load-object}
-object <- import(file = params[["bcb_file"]])
+object <- import(params[["bcb_file"]])
 assert(
     is(object, "bcbioRNASeq"),
     validObject(object)
