@@ -83,7 +83,6 @@ NULL
 #' validNames validate validateClasses
 #' @importFrom methods as as<- is new setAs setClass setMethod setValidity slot
 #' slot<- validObject .hasSlot
-#' @importFrom sessioninfo session_info
 #' @importFrom tximport tximport
-#' @importFrom utils capture.output packageName packageVersion
+#' @importFrom utils capture.output packageName packageVersion sessionInfo
 NULL
