@@ -5,7 +5,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-05-24.
+## Updated 2022-09-01.
 params:
   title: "Differential expression with DESeq2"
 
@@ -76,7 +76,7 @@ invisible(lapply(
 ```{r header, child="_header.Rmd"}
 ```
 
-# Load `bcbioRNASeq` object
+## Load `bcbioRNASeq` object
 
 ```{r load-object}
 object <- import(params[["bcb_file"]])
@@ -87,7 +87,7 @@ assert(
 print(object)
 ```
 
-# Create `DESeqDataSet`
+## Create `DESeqDataSet`
 
 Here we are using an S4 coercion method to convert our `bcbioRNASeq` object to
 a `DESeqDataSet`. This prepares a gene-level `RangedSummarizedExperiment` with
@@ -104,7 +104,7 @@ assert(
 print(dds)
 ```
 
-# Design
+## Design
 
 The design formula, specified with the `design()` function, must contain factor
 columns in `colData()` / `sampleData()`.
@@ -119,7 +119,7 @@ snake case.
 design(dds) <- params[["design"]]
 ```
 
-# Pre-filtering
+## Pre-filtering
 
 While it is not necessary to pre-filter low count genes before running the
 DESeq2 functions, there are two reasons which make pre-filtering useful: by
@@ -138,7 +138,7 @@ dds <- dds[keep, ]
 print(dds)
 ```
 
-# Factor reference level
+## Factor reference level
 
 By default, [R][] will choose a reference level for factors based on
 alphabetical order. Then, if you never tell the [DESeq2][] functions which
@@ -168,7 +168,7 @@ either the `factor()` or `relevel()` functions. Generally we recommend using
 ## > colData(dds)[["treatment"]] <- droplevels(colData(dds)[["group"]])
 ```
 
-# Differential expression analysis
+## Differential expression analysis
 
 Now that our `DESeqDataSet` is properly set up, we can move on to performing
 the differential expression. The standard differential expression analysis
@@ -187,7 +187,7 @@ of results.
 dds <- DESeq(dds)
 ```
 
-# Variance stabilization
+## Variance stabilization
 
 After we perform the differential expression, we need to calculate
 variance-stabilized counts, which are stored in a `DESeqTransform` object.
@@ -201,7 +201,7 @@ assert(is(dt, "DESeqTransform"))
 interestingGroups(dt) <- interestingGroups(object)
 ```
 
-# Results
+## Results
 
 For contrast argument as character vector:
 
@@ -253,7 +253,7 @@ We performed the analysis using a BH adjusted *P* value cutoff of
 `r params[["alpha_threshold"]]` and a log fold-change (LFC) ratio cutoff of
 `r params[["lfc_threshold"]]`.
 
-# Package into `DESeqAnalysis` object
+## Package into `DESeqAnalysis` object
 
 ```{r deseqanalysis}
 deseq <- DESeqAnalysis(
@@ -265,9 +265,9 @@ deseq <- DESeqAnalysis(
 saveData(deseq, dir = params[["data_dir"]])
 ```
 
-# Plots
+## Plots
 
-## MA plot {.tabset}
+### MA plot {.tabset}
 
 An MA plot compares transformed counts on `M` (log ratio) and `A` (mean
 average) scales [@Yang2002-sx].
@@ -275,7 +275,7 @@ average) scales [@Yang2002-sx].
 ```{r plot-ma, results="asis"}
 invisible(Map(
     f = function(object, i) {
-        markdownHeader(text = i, level = 3L, asis = TRUE)
+        markdownHeader(text = i, level = 4L, asis = TRUE)
         print(plotMA(object = object, i = i))
     },
     i = resultsNames(deseq),
@@ -283,7 +283,7 @@ invisible(Map(
 ))
 ```
 
-## Volcano plot {.tabset}
+### Volcano plot {.tabset}
 
 A volcano plot compares significance (BH-adjusted *P* value) against fold
 change (log2) [@Cui2003-rn; @Li2014-ll]. Genes in the green box with text
@@ -293,7 +293,7 @@ interest.
 ```{r plot-volcano, results="asis"}
 invisible(Map(
     f = function(object, i) {
-        markdownHeader(text = i, level = 3L, asis = TRUE)
+        markdownHeader(text = i, level = 4L, asis = TRUE)
         print(plotVolcano(object = object, i = i))
     },
     i = resultsNames(deseq),
@@ -301,12 +301,12 @@ invisible(Map(
 ))
 ```
 
-## DEG PCA {.tabset}
+### DEG PCA {.tabset}
 
 ```{r plot-deg-pca, results="asis"}
 invisible(Map(
     f = function(object, i) {
-        markdownHeader(text = i, level = 3L, asis = TRUE)
+        markdownHeader(text = i, level = 4L, asis = TRUE)
         print(plotDEGPCA(object = object, i = i))
     },
     i = resultsNames(deseq),
@@ -314,7 +314,7 @@ invisible(Map(
 ))
 ```
 
-## DEG Heatmap {.tabset}
+### DEG Heatmap {.tabset}
 
 This plot shows only differentially expressed genes on a per-sample basis. We
 have scaled the data by row and used the `ward.D2` method for clustering
@@ -324,7 +324,7 @@ have scaled the data by row and used the `ward.D2` method for clustering
 ## FIXME These aren't printing with current version of knitr...
 invisible(Map(
     f = function(object, i, ...) {
-        markdownHeader(text = i, level = 3L)
+        markdownHeader(text = i, level = 4L)
         plotDEGHeatmap(object = object, i = i, ...)
     },
     i = resultsNames(deseq),
@@ -336,7 +336,7 @@ invisible(Map(
 ))
 ```
 
-## Top tables
+### Top tables
 
 Only the top up- and down-regulated genes are shown.
 
@@ -351,7 +351,7 @@ invisible(Map(
 ))
 ```
 
-# Export results
+## Export results
 
 Subset the results into separate tables, containing all genes, differentially
 expressed genes in both directions, and directional tables.

@@ -36,7 +36,7 @@ source("_setup.R")
 ```{r header, child="_header.Rmd"}
 ```
 
-# Load `bcbioRNASeq` object
+Load `bcbioRNASeq` object.
 
 ```{r load-object}
 object <- import(params[["bcb_file"]])
@@ -47,18 +47,18 @@ assert(
 print(object)
 ```
 
-[bcbio][] run data was imported from:  
+bcbio-nextgen run data was imported from:  
 **`r metadata(object)[["uploadDir"]]`**.
 
-# Sample metadata
+## Sample metadata
 
 ```{r sample-data}
 as.data.frame(sampleData(object))
 ```
 
-# Read metrics {.tabset}
+## Read metrics {.tabset}
 
-## Total reads
+### Total reads
 
 High quality RNA-seq samples ideally should have at least 10 million reads per
 sample.
@@ -67,7 +67,7 @@ sample.
 plotTotalReads(object)
 ```
 
-## Mapped reads
+### Mapped reads
 
 The number of mapped reads should correspond to the number of total reads.
 
@@ -75,7 +75,7 @@ The number of mapped reads should correspond to the number of total reads.
 plotMappedReads(object)
 ```
 
-## Mapping rate
+### Mapping rate
 
 The genomic mapping rate represents the percentage of reads mapping to the
 reference genome. Low mapping rates are indicative of sample contamination,
@@ -85,13 +85,13 @@ poor sequencing quality or other artifacts.
 plotMappingRate(object)
 ```
 
-## Number of genes detected
+### Number of genes detected
 
 ```{r plot-genes-detected}
 plotGenesDetected(object)
 ```
 
-## Gene detection saturation
+### Gene detection saturation
 
 We should observe a linear trend in the number of genes detected with the
 number of mapped reads, which indicates that the sample input was not
@@ -101,7 +101,7 @@ overloaded.
 plotGeneSaturation(object)
 ```
 
-## Exonic mapping rate
+### Exonic mapping rate
 
 Ideally, at least 60% of total reads should map to exons.
 
@@ -109,7 +109,7 @@ Ideally, at least 60% of total reads should map to exons.
 plotExonicMappingRate(object)
 ```
 
-## Intronic mapping rate
+### Intronic mapping rate
 
 The majority of reads should map to exons and not introns.
 
@@ -117,7 +117,7 @@ The majority of reads should map to exons and not introns.
 plotIntronicMappingRate(object)
 ```
 
-## rRNA mapping rate
+### rRNA mapping rate
 
 Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 
@@ -125,7 +125,7 @@ Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 plotRRNAMappingRate(object)
 ```
 
-## 5'->3' bias
+### 5'->3' bias
 
 RNA-seq data can have specific biases at either the 5’ or 3’ end of sequenced
 fragments. It is common to see a small amount of bias, especially if polyA
@@ -137,7 +137,7 @@ Bioanalyzer and check the RIN scores.
 plot5Prime3PrimeBias(object)
 ```
 
-## Counts per gene
+### Counts per gene
 
 Generally, we expect similar count spreads for all genes between samples unless
 the library sizes or total RNA expression are different.
@@ -154,7 +154,7 @@ plotCountsPerGene(object, geom = "boxplot")
 plotCountsPerGene(object, geom = "density")
 ```
 
-## Counts per biotype
+### Counts per biotype
 
 Different RNA-seq processing methods can preferentially capture a subset of the
 RNA species from the total RNA. For example, polyA selection should select for
@@ -164,7 +164,7 @@ mostly coding genes and skip a large percentage of non-polyA non-coding RNA.
 plotCountsPerBiotype(object)
 ```
 
-## Counts per broad biotype class
+### Counts per broad biotype class
 
 The Ensembl biotype clasifications are too specific to plot them all. Here we
 have grouped the biotypes into broad classes.
@@ -173,7 +173,7 @@ have grouped the biotypes into broad classes.
 plotCountsPerBroadClass(object)
 ```
 
-# Variance stabilization
+## Variance stabilization
 
 These plots show the standard deviation of normalized counts.
 
@@ -181,7 +181,7 @@ These plots show the standard deviation of normalized counts.
 plotMeanSD(object)
 ```
 
-# Sample similarity analysis
+## Sample similarity analysis
 
 Before performing similarity analysis, we transform counts to log2, which acts
 to minimize large differences in sequencing depth and helps normalize all
@@ -196,7 +196,7 @@ transformation that gives similar results for high counts as a log2
 transformation but also shrinks the values of low counts towards the genes’
 average across samples [@Love2014-sq].
 
-## Principal component analysis (PCA)
+### Principal component analysis (PCA)
 
 PCA [@Jolliffe2002-jz] is a multivariate technique that allows us to summarize
 the systematic patterns of variations in the data. PCA takes the expression
@@ -209,7 +209,7 @@ look at how samples are clustering.
 plotPCA(object)
 ```
 
-## Hierarchical clustering
+### Hierarchical clustering
 
 Inter-correlation analysis (ICA) is another way to look at how well samples
 cluster by plotting the correlation between the expression profiles of the
@@ -220,7 +220,7 @@ samples.
 plotCorrelationHeatmap(object)
 ```
 
-# Export results
+## Export results
 
 ```{r export}
 files <- export(
@@ -243,9 +243,9 @@ These are *not suitable* for plots.
 - `counts.csv`: Raw counts. These counts will vary across samples due to
   differences in sequencing depth, and are not size factor adjusted.
 
-# Methods
+## Methods
 
-RNA-seq counts were generated by [bcbio][] and [bcbioRNASeq][]
+RNA-seq counts were generated by [bcbio-nextgen][] and [bcbioRNASeq][]
 [@Steinbaugh2018-rc]. Counts were imported into [R][] using [tximport][]
 [@Soneson2016-tu] and [DESeq2][] [@Love2014-sq]. Gene annotations were obtained
 from [Ensembl][]. Plots were generated by [ggplot2][] [@Wickham2009-si].
