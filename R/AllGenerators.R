@@ -1,4 +1,7 @@
 #' @inherit bcbioRNASeq-class title description
+#' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
+#' @note Updated 2022-05-09.
+#' @export
 #'
 #' @details
 #' Automatically imports RNA-seq counts, metadata, and the program versions used
@@ -114,10 +117,6 @@
 #' possible.
 #'
 #' [sshfs]: https://github.com/osxfuse/osxfuse/wiki/SSHFS
-#'
-#' @author Michael Steinbaugh, Lorena Pantano, Rory Kirchner, Victor Barrera
-#' @note Updated 2022-03-07.
-#' @export
 #'
 #' @inheritParams AcidExperiment::makeSummarizedExperiment
 #' @inheritParams AcidRoxygen::params
