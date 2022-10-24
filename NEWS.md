@@ -2,11 +2,26 @@
 
 ## bcbioRNASeq 0.5.1 (2022-10-24)
 
+Major changes:
+
+- Reworked functional analysis template.
+- Reworked R Markdown templates to use level 2 headers by default instead of
+  level 1, to pass markdownlint-cli checks (from Node; can use koopa to
+  install). Our configuration needs to be updated in AcidMarkdown to reflect
+  this change.
+- Updated unit tests to testthat 3 engine.
+
 Minor changes:
 
-- Updated functional analysis R Markdown template.
+- Reworked and resaved example objects.
+- Reworked quality control and differential expression R Markdown templates
+  slightly, adding lintr exceptions.
+- Switched to using `Map` instead of `mapply`, where applicable.
+- Now enabling pathview by default in functional analysis template.
 - Removed `sessioninfo` as a dependency, switching back to using utils
-  `sessionInfo` internally instead.
+ `sessionInfo` internally instead.
+- Included some additional reexports to make the package work with F1000v2
+  manuscript as best as possible.
 
 ## bcbioRNASeq 0.5.0 (2022-05-09)
 
