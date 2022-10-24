@@ -2,7 +2,7 @@
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
 #' @inherit AcidGenerics::plotPCACovariates
 #' @note Requires the DEGreport package to be installed.
-#' @note Updated 2022-05-25.
+#' @note Updated 2022-10-24.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
@@ -39,7 +39,7 @@ NULL
              normalized,
              fdr = 0.1) {
         assert(
-            requireNamespace("DEGreport", quietly = TRUE),
+            requireNamespaces("DEGreport"),
             validObject(object),
             isAny(metrics, c("character", "logical")),
             isNumber(fdr)

@@ -56,7 +56,8 @@ NULL
 
 ## Standard functions ==========================================================
 
-#' @importFrom AcidBase dots methodFormals realpath showSlotInfo standardizeCall
+#' @importFrom AcidBase dots methodFormals realpath requireNamespaces
+#' showSlotInfo standardizeCall
 #' @importFrom AcidCLI abort alert alertInfo alertSuccess alertWarning dl h1 h2
 #' h3 toInlineString txt ul
 #' @importFrom AcidExperiment detectLanes importSampleData

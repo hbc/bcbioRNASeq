@@ -2,7 +2,7 @@
 #' @author Michael Steinbaugh, Lorena Patano
 #' @inherit AcidGenerics::plotMeanSD
 #' @note Requires the vsn package to be installed.
-#' @note Updated 2022-03-07.
+#' @note Updated 2022-10-24.
 #'
 #' @inheritParams bcbioRNASeq
 #' @inheritParams AcidRoxygen::params
@@ -48,7 +48,7 @@ NULL
              legend = getOption(x = "acid.legend", default = TRUE)) {
         validObject(object)
         assert(
-            requireNamespace("vsn", quietly = TRUE),
+            requireNamespaces("vsn"),
             isFlag(legend),
             isGGScale(fill, scale = "continuous", aes = "fill", nullOK = TRUE),
             isString(lineColor, nullOK = TRUE)
