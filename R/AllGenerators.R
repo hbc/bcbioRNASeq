@@ -139,7 +139,7 @@
 #' - `"hisat2"`: [HISAT2][] (Hierarchical Indexing for Spliced Alignment of
 #' Transcripts) graph-based aligned counts.
 #'
-#' [HISAT2]: https://ccb.jhu.edu/software/hisat2/
+#' [HISAT2]: https://daehwankimlab.github.io/hisat2/
 #' [Kallisto]: https://pachterlab.github.io/kallisto/
 #' [Sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
 #' [Salmon]: https://combine-lab.github.io/salmon/

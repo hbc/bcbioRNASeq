@@ -361,7 +361,7 @@ The papers and software cited in our workflows are available as a [shared librar
 [gff]: https://useast.ensembl.org/info/website/upload/gff.html
 [gse65267]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65267
 [gsea]: https://www.gsea-msigdb.org/gsea/
-[hisat2]: https://ccb.jhu.edu/software/hisat2/
+[hisat2]: https://daehwankimlab.github.io/hisat2/
 [kallisto]: https://pachterlab.github.io/kallisto/
 [kegg]: https://www.genome.jp/kegg/
 [paperpile]: https://paperpile.com/

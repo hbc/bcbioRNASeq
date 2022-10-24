@@ -40,7 +40,7 @@ Expression caller:
 \item \code{"sailfish"}: \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{Sailfish} alignment-free, lightweight counts.
 \item \code{"star"}: \href{https://github.com/alexdobin/STAR/}{STAR} (Spliced Transcripts Alignment to a Reference)
 aligned counts.
-\item \code{"hisat2"}: \href{https://ccb.jhu.edu/software/hisat2/}{HISAT2} (Hierarchical Indexing for Spliced Alignment of
+\item \code{"hisat2"}: \href{https://daehwankimlab.github.io/hisat2/}{HISAT2} (Hierarchical Indexing for Spliced Alignment of
 Transcripts) graph-based aligned counts.
 }}
 

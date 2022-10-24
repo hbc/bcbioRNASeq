@@ -736,7 +736,7 @@ Minor changes:
 - Ensure `genomeBuild` is detected from [AnnotationHub][] `rowRangesMetadata` if
   applicable, and not left `NULL` in the metadata.
 - Updated internal code to use `aes` instead of `aes_string`, which uses
-  [tidyeval][] and quasiquotation.
+  tidyeval and quasiquotation.
 - `plotGene`: reduced the number of `return` options to simply "facet" and
   "wide". Previously, this also supported "grid", "list", and "markdown", but
   these were removed because they are not frequently used.
@@ -790,8 +790,8 @@ Minor changes:
 
 Infrastructure changes:
 
-- Added macOS testing to [Travis CI][] build checks.
-- Fixed [clusterProfiler][] compilation error on [Travis CI][] by installing
+- Added macOS testing to Travis CI build checks.
+- Fixed [clusterProfiler][] compilation error on Travis CI by installing
   `libudunits2-dev` (Linux).
 
 ## bcbioRNASeq 0.2.3 (2018-05-10)
@@ -1153,7 +1153,7 @@ Deprecations:
 
 ## bcbioRNASeq 0.0.20 (2017-06-09)
 
-- Added [Travis CI][] support for automatic rendering of quality control report.
+- Added Travis CI support for automatic rendering of quality control report.
 
 ## bcbioRNASeq 0.0.19 (2017-06-07)
 
@@ -1278,8 +1278,6 @@ Deprecations:
 [r]: https://www.r-project.org/
 [rdavidwebservice]: https://bioconductor.org/packages/RDAVIDWebService/
 [testthat]: https://github.com/r-lib/testthat/
-[tidyeval]: https://tidyeval.tidyverse.org/
 [tidyverse]: https://www.tidyverse.org/
-[travis ci]: https://travis-ci.org/
 [tximport]: https://bioconductor.org/packages/tximport/
 [viridis]: https://cran.r-project.org/package=viridis
