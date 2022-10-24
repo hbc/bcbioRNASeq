@@ -278,7 +278,7 @@ log2VstCounts <- counts(object, normalized = "vst")
 We are providing `bcbioRNASeq` method support for the `export` function, which automatically exports matrices defined in `assays` and corresponding metadata (e.g. `rowData`, `colData`) to disk in a single call.
 
 ```{r}
-files <- export(object, dir = tempdir())
+files <- export(object, con = tempdir())
 print(files)
 ```
 
