@@ -149,6 +149,7 @@ Suggests:
     hexbin (>= 1.28.0),
     knitr (>= 1.40),
     org.Hs.eg.db (>= 3.15.0),
+    org.Mm.eg.db (>= 3.15.0),
     pathview (>= 1.36.1),
     pheatmap (>= 1.0.12),
     rhdf5 (>= 2.40.0),
