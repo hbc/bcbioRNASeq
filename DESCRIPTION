@@ -2,7 +2,7 @@ Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
 Version: 0.5.0.9000
-Date: 2022-09-01
+Date: 2022-10-24
 Authors@R: c(
     person(
         given = "Michael",
@@ -112,54 +112,53 @@ Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 4.2),
-    SummarizedExperiment
+    SummarizedExperiment (>= 1.26.0)
 Imports:
-    AcidBase,
-    AcidCLI,
-    AcidExperiment,
-    AcidGenerics,
-    AcidGenomes,
-    AcidPlots,
-    BiocGenerics,
-    DESeq2,
-    IRanges,
-    S4Vectors,
-    bcbioBase,
-    edgeR,
-    ggplot2,
-    goalie,
+    AcidBase (>= 0.6.8),
+    AcidCLI (>= 0.2.4),
+    AcidExperiment (>= 0.4.4.9000),
+    AcidGenerics (>= 0.6.4),
+    AcidGenomes (>= 0.4.4.9000),
+    AcidPlots (>= 0.5.1),
+    BiocGenerics (>= 0.42.0),
+    DESeq2 (>= 1.36.0),
+    IRanges (>= 2.30.0),
+    S4Vectors (>= 0.34.0),
+    bcbioBase (>= 0.8.1),
+    edgeR (>= 3.38.0),
+    ggplot2 (>= 3.3.6),
+    goalie (>= 0.6.6),
     methods,
-    pipette,
-    syntactic,
-    tximport,
+    pipette (>= 0.10.0.9000),
+    syntactic (>= 0.6.3),
+    tximport (>= 1.24.0),
     utils
 Suggests:
-    AcidGSEA,
-    BiocStyle,
-    DEGreport,
-    DESeqAnalysis,
-    DOSE,
-    EnsDb.Hsapiens.v75,
-    GenomeInfoDb,
-    R.utils,
-    basejump,
-    clusterProfiler,
-    enrichplot,
-    ggnewscale,
-    hexbin,
-    knitr,
-    org.Hs.eg.db,
-    org.Mm.eg.db,
-    pathview,
-    pheatmap,
-    rhdf5,
-    rmarkdown,
-    roxygen2,
-    stringi,
+    AcidGSEA (>= 0.8.6.9000),
+    BiocStyle (>= 2.24.0),
+    DEGreport (>= 1.32.0),
+    DESeqAnalysis (>= 0.6.6.9000),
+    DOSE (>= 3.22.1),
+    EnsDb.Hsapiens.v75 (>= 2.99.0),
+    GenomeInfoDb (>= 1.32.0),
+    R.utils (>= 2.12.0),
+    basejump (>= 0.16.0),
+    clusterProfiler (>= 4.4.4),
+    enrichplot (>= 1.16.2),
+    ggnewscale (>= 0.4.8),
+    hexbin (>= 1.28.0),
+    knitr (>= 1.40),
+    org.Hs.eg.db (>= 3.15.0),
+    pathview (>= 1.36.1),
+    pheatmap (>= 1.0.12),
+    rhdf5 (>= 2.40.0),
+    rmarkdown (>= 2.17),
+    roxygen2 (>= 7.2.1),
+    stringi (>= 1.7.8),
     testthat (>= 3.0.0),
-    viridis,
-    vsn,
-    withr
+    viridis (>= 0.6.2),
+    vsn (>= 3.64.0),
+    withr (>= 2.5.0)
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
