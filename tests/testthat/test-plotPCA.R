@@ -8,6 +8,6 @@ test_that("label", {
 test_that("Fast mode", {
     expect_error(
         object = plotPCA(bcb_fast),
-        expected = "fast mode"
+        regexp = "fast mode"
     )
 })
