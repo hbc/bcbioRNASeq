@@ -81,7 +81,7 @@ Find correlation between principal components (PCs) and covariates
 \note{
 Requires the DEGreport package to be installed.
 
-Updated 2022-05-25.
+Updated 2022-10-24.
 }
 \examples{
 data(bcb)
