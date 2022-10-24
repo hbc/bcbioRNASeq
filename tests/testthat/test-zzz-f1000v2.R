@@ -93,8 +93,7 @@ test_that("counts", {
 })
 
 test_that("saveData and writeCounts", {
-    ## FIXME Call this inside each check using AcidBase::tempdir2.
-    tempdir <- file.path(tempdir2(), .pkgName)
+    tempdir <- tempdir2()
     unlink(tempdir)
     raw <- counts(object, normalized = FALSE)
     normalized <- counts(object, normalized = TRUE)
@@ -240,7 +239,7 @@ templatesDir <- system.file(
     package = .pkgName,
     mustWork = TRUE
 )
-renderDir <- AcidBase::tempdir2()
+renderDir <- tempdir2()
 renderFiles <- saveData(
     bcb, dds, deseq, res,
     dir = renderDir,

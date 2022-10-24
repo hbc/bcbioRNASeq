@@ -21,6 +21,6 @@ test_that("method", {
 test_that("Fast mode", {
     expect_error(
         object = plotCorrelationHeatmap(bcb_fast),
-        expected = "fast mode"
+        regexp = "fast mode"
     )
 })

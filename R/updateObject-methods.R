@@ -523,10 +523,10 @@ NULL
                 x = "genomeBuild",
                 y = names(metadata(rowRanges))
             ) &&
-            isSubset(
-                x = "ensembldb",
-                y = names(metadata(rowRanges))
-            )
+                isSubset(
+                    x = "ensembldb",
+                    y = names(metadata(rowRanges))
+                )
         ) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -548,10 +548,10 @@ NULL
                 x = "level",
                 y = names(metadata(rowRanges))
             ) &&
-            isSubset(
-                x = "level",
-                y = names(metadata)
-            )
+                isSubset(
+                    x = "level",
+                    y = names(metadata)
+                )
         ) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -568,10 +568,10 @@ NULL
                 x = "organism",
                 y = names(metadata(rowRanges))
             ) &&
-            isSubset(
-                x = "organism",
-                y = names(metadata)
-            )
+                isSubset(
+                    x = "organism",
+                    y = names(metadata)
+                )
         ) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -588,10 +588,10 @@ NULL
                 x = "provider",
                 y = names(metadata(rowRanges))
             ) &&
-            isSubset(
-                x = "ensembldb",
-                y = names(metadata(rowRanges))
-            )
+                isSubset(
+                    x = "ensembldb",
+                    y = names(metadata(rowRanges))
+                )
         ) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -607,10 +607,10 @@ NULL
                 x = "release",
                 y = names(metadata(rowRanges))
             ) &&
-            isSubset(
-                x = "ensembldb",
-                y = names(metadata(rowRanges))
-            )
+                isSubset(
+                    x = "ensembldb",
+                    y = names(metadata(rowRanges))
+                )
         ) {
             if (isTRUE(verbose)) {
                 alert(sprintf(

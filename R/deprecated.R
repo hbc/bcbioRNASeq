@@ -86,19 +86,17 @@ setMethod(
 #' @export
 #' @rdname deprecated
 writeCounts <-
-    function(
-        ...,
-        dir = getOption(x = "acid.export.dir", default = getwd())
-    ) {
-    ## > .Deprecated("export")
-    objects <- list(...)
-    names(objects) <- dots(..., character = TRUE)
-    Map(
-        object = objects,
-        con = file.path(dir, paste0(names(objects), ".csv")),
-        f = export
-    )
-}
+    function(...,
+             dir = getOption(x = "acid.export.dir", default = getwd())) {
+        ## > .Deprecated("export")
+        objects <- list(...)
+        names(objects) <- dots(..., character = TRUE)
+        Map(
+            object = objects,
+            con = file.path(dir, paste0(names(objects), ".csv")),
+            f = export
+        )
+    }
 
 
 

@@ -6,6 +6,6 @@ test_that("bcbioRNASeq", {
     expect_true("aligned" %in% assayNames(bcb))
     expect_error(
         object = slotAlignedCounts(bcb),
-        expected = "aligned"
+        regexp = "aligned"
     )
 })

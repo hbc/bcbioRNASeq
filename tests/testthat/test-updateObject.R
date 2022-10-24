@@ -31,39 +31,29 @@ test_that("Expected success", {
 test_that("metadata slot updates", {
     ## genomeBuild
     metadata(invalid)[["genomeBuild"]] <- FALSE
-
     ## gtf
     metadata(invalid)[["gtf"]] <- TRUE
-
     ## gtfFile
     gffFile <- "XXX.gtf.gz"
     metadata(invalid)[["gtfFile"]] <- gffFile
-
     ## missingGenes
     missingGenes <- "XXX"
-
     ## yamlFile
     yamlFile <- "XXX"
-
     x <- updateObject(invalid)
     expect_true(validObject(x))
-
     ## genomeBuild
     expect_identical(
         object = metadata(x)[["genomeBuild"]],
         expected = character()
     )
-
     ## gtf
     expect_null(metadata(x)[["gtf"]])
-
     ## gtfFile
     expect_null(metadata(x)[["gtfFile"]])
     expect_identical(metadata(x)[["gffFile"]], gffFile)
-
     ## missingGenes
     expect_null(metadata(x)[["missingGenes"]])
-
     ## yamlFile
     expect_null(metadata(x)[["yamlFile"]])
 })
