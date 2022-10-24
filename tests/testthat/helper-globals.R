@@ -19,9 +19,7 @@ assay <- SummarizedExperiment::assay
 hasInternet <- goalie::hasInternet
 initDir <- AcidBase::initDir
 nonzeroRowsAndCols <- AcidGenerics::nonzeroRowsAndCols
-render <- rmarkdown::render
 seqnames <- GenomeInfoDb::seqnames
-tempdir2 <- AcidBase::tempdir2
 
 object <- bcb
 g2s <- Gene2Symbol(object)

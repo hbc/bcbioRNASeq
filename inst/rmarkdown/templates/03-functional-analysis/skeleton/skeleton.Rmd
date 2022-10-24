@@ -16,7 +16,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-09-01.
+## Updated 2022-10-24.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -128,7 +128,7 @@ print(dds)
 ```{r deseqresults}
 ## > help(topic = "results", package = "DESeqAnalysis")
 ## > help(topic = "resultsNames", package = "DESeqAnalysis")
-res <- results(object = deseq, i = params[["results_name"]])
+res <- DESeqAnalysis::results(object = deseq, i = params[["results_name"]])
 assert(
     is(res, "DESeqResults"),
     validObject(res)

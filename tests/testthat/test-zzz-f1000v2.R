@@ -7,10 +7,12 @@ import <- pipette::import
 pasteURL <- AcidBase::pasteURL
 plotVolcano <- AcidGenerics::plotVolcano
 realpath <- AcidBase::realpath
+render <- rmarkdown::render
 results <- DESeq2::results
 resultsNames <- AcidGenerics::resultsNames
 resultsTables <- AcidGenerics::resultsTables
 significants <- DEGreport::significants
+tempdir2 <- AcidBase::tempdir2
 ## nolint end
 
 ## Manuscript uses `loadRemoteData()` instead.
@@ -323,7 +325,7 @@ test_that("Functional Analysis", {
         params = list(
             "deseq_file" = renderFiles[["deseq"]],
             "results_name" = resultsNames(deseq)[[1L]],
-            "pathview" = FALSE
+            "pathview" = TRUE
         )
     )
     outfile <- file.path(renderDir, paste0(stem, ".html"))
