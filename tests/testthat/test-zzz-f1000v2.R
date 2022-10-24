@@ -320,12 +320,13 @@ test_that("Functional Analysis", {
         to = input,
         overwrite = TRUE
     )
+    ## Enabling pathview here is too slow for CI.
     x <- render(
         input = input,
         params = list(
             "deseq_file" = renderFiles[["deseq"]],
             "results_name" = resultsNames(deseq)[[1L]],
-            "pathview" = TRUE
+            "pathview" = FALSE
         )
     )
     outfile <- file.path(renderDir, paste0(stem, ".html"))

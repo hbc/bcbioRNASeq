@@ -1,6 +1,6 @@
 # Release notes
 
-## bcbioRNASeq 0.5.1 (UNRELEASED)
+## bcbioRNASeq 0.5.1 (2022-10-24)
 
 Minor changes:
 
