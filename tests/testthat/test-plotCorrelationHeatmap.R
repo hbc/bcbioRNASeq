@@ -1,3 +1,8 @@
+## Can hit this cryptic ggplot2 error on macOS unless we call at the top.
+## > no applicable method for 'depth' applied to an object of class "NULL"
+## https://github.com/tidyverse/ggplot2/issues/2514
+grid::current.viewport()
+
 object <- bcb
 
 test_that("method", {
