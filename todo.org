@@ -1,6 +1,8 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
+** TODO R Markdown sidebar now is messed up in render output.
+    Consider reworking AcidMarkdown defaults to address this.
 ** TODO Consider rounding raw counts to integer.
     This better matches conventions used in internal bcbio-nextgen R script.
     Non-integer counts tend to confuse people.
