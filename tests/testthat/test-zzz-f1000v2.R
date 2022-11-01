@@ -307,6 +307,10 @@ test_that("Differential Expression", {
     expect_identical(realpath(x), realpath(outfile))
 })
 
+## NOTE This test may fail due to ggrepel overlap warning.
+## # ggrepel: 5 unlabeled data points (too many overlaps).
+## # Consider increasing max.overlaps
+
 test_that("Functional Analysis", {
     stem <- "03-functional-analysis"
     input <- file.path(renderDir, paste0(stem, ".Rmd"))
