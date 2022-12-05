@@ -1,6 +1,8 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
+** TODO Need to improve code coverage / error messages against `ensemblRelease` mismatch.
+    https://github.com/hbc/bcbioRNASeq/issues/190
 ** TODO R Markdown sidebar now is messed up in render output.
     Consider reworking AcidMarkdown defaults to address this.
 ** TODO Consider rounding raw counts to integer.
