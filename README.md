@@ -157,5 +157,5 @@ library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 [r markdown]: https://rmarkdown.rstudio.com/
 [r]: https://www.r-project.org/
 [rangedsummarizedexperiment]: http://bioconductor.org/packages/SummarizedExperiment/
-[rstudio]: https://www.rstudio.com/
+[rstudio]: https://posit.co/products/open-source/rstudio/
 [workflow paper]: https://doi.org/10.12688/f1000research.12093.2
