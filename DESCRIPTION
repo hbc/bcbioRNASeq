@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.5.1
-Date: 2022-10-24
+Version: 0.5.2.9000
+Date: 2023-02-08
 Authors@R: c(
     person(
         given = "Michael",
@@ -163,5 +163,5 @@ Suggests:
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr, rmarkdown

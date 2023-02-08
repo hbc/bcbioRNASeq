@@ -31,7 +31,8 @@ NULL
 #' assays<- colData colData<- rowData rowRanges
 #' @importFrom methods coerce show
 #' @importFrom pipette export import
-#'
+NULL
+
 #' @importMethodsFrom AcidBase showHeader
 #' @importMethodsFrom AcidExperiment droplevels2 humanize interestingGroups
 #' interestingGroups<- mapGenesToRownames metrics sampleData
@@ -56,8 +57,7 @@ NULL
 
 ## Standard functions ==========================================================
 
-#' @importFrom AcidBase dots methodFormals realpath requireNamespaces
-#' showSlotInfo standardizeCall
+#' @importFrom AcidBase dots methodFormals realpath showSlotInfo standardizeCall
 #' @importFrom AcidCLI abort alert alertInfo alertSuccess alertWarning dl h1 h2
 #' h3 toInlineString txt ul
 #' @importFrom AcidExperiment detectLanes importSampleData
@@ -81,7 +81,7 @@ NULL
 #' bapply hasDimnames hasLength hasUniqueCols hasValidDimnames isADirectory
 #' isAFile isAURL isAny isCharacter isDirectory isFile isFlag isGGScale isInt
 #' isInRange isNonNegative isNumber isPositive isProportion isString isSubset
-#' validNames validate validateClasses
+#' requireNamespaces validNames validate validateClasses
 #' @importFrom methods as as<- is new setAs setClass setMethod setValidity slot
 #' slot<- validObject .hasSlot
 #' @importFrom tximport tximport
