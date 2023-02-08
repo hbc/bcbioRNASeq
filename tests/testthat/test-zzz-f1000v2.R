@@ -325,6 +325,7 @@ test_that("Functional Analysis", {
         overwrite = TRUE
     )
     ## Enabling pathview here is too slow for CI.
+    ## NOTE This can return warnings due to ggrepel max.overlaps limit.
     x <- render(
         input = input,
         params = list(
