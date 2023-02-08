@@ -1,5 +1,12 @@
 # Release notes
 
+## bcbioRNASeq 0.5.2 (2023-02-08)
+
+Minor changes:
+
+- Updated dependencies to Bioconductor 3.16.
+- Migrated `requireNamespaces` import from AcidBase to goalie.
+
 ## bcbioRNASeq 0.5.1 (2022-10-24)
 
 Major changes:
