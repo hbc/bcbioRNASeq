@@ -1,7 +1,7 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.5.2.9000
+Version: 0.5.2
 Date: 2023-02-08
 Authors@R: c(
     person(
@@ -112,53 +112,53 @@ Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 4.2),
-    SummarizedExperiment (>= 1.26.0)
+    SummarizedExperiment (>= 1.28.0)
 Imports:
     AcidBase (>= 0.6.8),
-    AcidCLI (>= 0.2.4),
+    AcidCLI (>= 0.2.7),
     AcidExperiment (>= 0.4.4),
-    AcidGenerics (>= 0.6.4),
-    AcidGenomes (>= 0.4.4),
-    AcidPlots (>= 0.5.1),
-    BiocGenerics (>= 0.42.0),
-    DESeq2 (>= 1.36.0),
-    IRanges (>= 2.30.0),
-    S4Vectors (>= 0.34.0),
+    AcidGenerics (>= 0.6.5),
+    AcidGenomes (>= 0.4.5),
+    AcidPlots (>= 0.5.3),
+    BiocGenerics (>= 0.44.0),
+    DESeq2 (>= 1.38.0),
+    IRanges (>= 2.32.0),
+    S4Vectors (>= 0.36.0),
     bcbioBase (>= 0.8.1),
-    edgeR (>= 3.38.0),
-    ggplot2 (>= 3.3.6),
-    goalie (>= 0.6.6),
+    edgeR (>= 3.40.0),
+    ggplot2 (>= 3.4.0),
+    goalie (>= 0.6.8),
+    pipette (>= 0.10.2),
+    syntactic (>= 0.6.4),
+    tximport (>= 1.26.0),
     methods,
-    pipette (>= 0.10.0),
-    syntactic (>= 0.6.3),
-    tximport (>= 1.24.0),
     utils
 Suggests:
     AcidGSEA (>= 0.8.6),
-    BiocStyle (>= 2.24.0),
-    DEGreport (>= 1.32.0),
+    BiocStyle (>= 2.26.0),
+    DEGreport (>= 1.34.0),
     DESeqAnalysis (>= 0.6.6),
-    DOSE (>= 3.22.1),
+    DOSE (>= 3.24.0),
     EnsDb.Hsapiens.v75 (>= 2.99.0),
-    GenomeInfoDb (>= 1.32.0),
-    R.utils (>= 2.12.0),
-    basejump (>= 0.16.0),
-    clusterProfiler (>= 4.4.4),
-    enrichplot (>= 1.16.2),
+    GenomeInfoDb (>= 1.34.0),
+    R.utils (>= 2.12.2),
+    basejump (>= 0.16.3),
+    clusterProfiler (>= 4.6.0),
+    enrichplot (>= 1.18.0),
     ggnewscale (>= 0.4.8),
-    hexbin (>= 1.28.0),
-    knitr (>= 1.40),
-    org.Hs.eg.db (>= 3.15.0),
-    org.Mm.eg.db (>= 3.15.0),
-    pathview (>= 1.36.1),
+    hexbin (>= 1.28.2),
+    knitr (>= 1.42),
+    org.Hs.eg.db (>= 3.16.0),
+    org.Mm.eg.db (>= 3.16.0),
+    pathview (>= 1.38.0),
     pheatmap (>= 1.0.12),
-    rhdf5 (>= 2.40.0),
-    rmarkdown (>= 2.17),
-    roxygen2 (>= 7.2.1),
-    stringi (>= 1.7.8),
-    testthat (>= 3.0.0),
+    rhdf5 (>= 2.42.0),
+    rmarkdown (>= 2.20),
+    roxygen2 (>= 7.2.3),
+    stringi (>= 1.7.12),
+    testthat (>= 3.1.6),
     viridis (>= 0.6.2),
-    vsn (>= 3.64.0),
+    vsn (>= 3.66.0),
     withr (>= 2.5.0)
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3
