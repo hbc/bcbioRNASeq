@@ -1,6 +1,9 @@
 #+TITLE: bcbioRNASeq
 #+STARTUP: content
 * Development
+** TODO Need to handle edge case of kallisto usage with GENCODE.
+    Need to split based on the pipe and take the first instance for the transcript ID.
+    https://support.bioconductor.org/p/9149475/
 ** TODO Need to improve code coverage / error messages against `ensemblRelease` mismatch.
     https://github.com/hbc/bcbioRNASeq/issues/190
 ** TODO R Markdown sidebar now is messed up in render output.
