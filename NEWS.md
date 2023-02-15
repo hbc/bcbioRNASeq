@@ -1,5 +1,14 @@
 # Release notes
 
+## bcbioRNASeq 0.5.3 (2023-02-15)
+
+Minor changes:
+
+- Added transcript identifier sanitization support during `tximport` call for
+  kallisto aligned against GENCODE reference. Refer to related [Bioconductor
+  issue](https://support.bioconductor.org/p/9149475/)
+  for details.
+
 ## bcbioRNASeq 0.5.2 (2023-02-08)
 
 Minor changes:
