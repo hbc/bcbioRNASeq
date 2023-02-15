@@ -103,7 +103,25 @@
             "txIdCol" = "txId"
         )
         txi <- do.call(what = tximport, args = args)
-        ## Assert checks before return.
+        assert(isSubset(c("abundance", "counts", "length"), names(txi)))
+        ## Handle edge case kallisto GENCODE transcript identifier sanitization.
+        ## https://support.bioconductor.org/p/9149475/
+        if (allAreMatchingFixed(x = rownames(txi[["counts"]]), pattern = "|")) {
+            alert(sprintf(
+                "Sanitizing transcript identifiers in {.fun %s} return.",
+                "tximport"
+            ))
+            sanitizeTranscriptIds <- function(x) {
+                sub(pattern = "^([^\\|]+)\\|.+$", replacement = "\\1", x = x)
+            }
+            rownames(txi[["abundance"]]) <-
+                sanitizeTranscriptIds(rownames(txi[["abundance"]]))
+            rownames(txi[["counts"]]) <-
+                sanitizeTranscriptIds(rownames(txi[["counts"]]))
+            rownames(txi[["length"]]) <-
+                sanitizeTranscriptIds(rownames(txi[["length"]]))
+        }
+        ## Run assert checks before return.
         invisible(lapply(
             X = txi[c("abundance", "counts", "length")],
             FUN = function(x) {
