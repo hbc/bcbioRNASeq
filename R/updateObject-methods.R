@@ -52,7 +52,7 @@ NULL
 
 
 
-## Updated 2022-05-26.
+## Updated 2023-03-07.
 `updateObject,bcbioRNASeq` <- # nolint
     function(object,
              rowRanges = NULL,
@@ -78,7 +78,7 @@ NULL
             ))
         }
         ## Legacy slots --------------------------------------------------------
-        ## NAMES
+        ## NAMES.
         if (!is.null(slot(object, "NAMES"))) {
             if (isTRUE(verbose)) {
                 alertInfo(sprintf(
@@ -88,7 +88,7 @@ NULL
             }
             slot(object, "NAMES") <- NULL # nolint
         }
-        ## elementMetadata
+        ## elementMetadata.
         if (ncol(slot(object, "elementMetadata")) != 0L) {
             if (isTRUE(verbose)) {
                 alertInfo(sprintf(
@@ -102,7 +102,7 @@ NULL
             slot(object, "elementMetadata") <-
                 as(matrix(nrow = nrow(object), ncol = 0L), "DataFrame")
         }
-        ## rowRanges
+        ## rowRanges.
         if (!.hasSlot(object, "rowRanges")) {
             if (is.null(rowRanges)) {
                 if (isTRUE(verbose)) {
@@ -142,7 +142,7 @@ NULL
             }
         }
         ## Metadata ------------------------------------------------------------
-        ## bcbioLog
+        ## bcbioLog.
         if (is.null(metadata[["bcbioLog"]])) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
@@ -152,7 +152,7 @@ NULL
             }
             metadata[["bcbioLog"]] <- character()
         }
-        ## bcbioCommandsLog
+        ## bcbioCommandsLog.
         if (is.null(metadata[["bcbioCommandsLog"]])) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
@@ -162,7 +162,7 @@ NULL
             }
             metadata[["bcbioCommandsLog"]] <- character()
         }
-        ## call
+        ## call.
         if (!isSubset("call", names(metadata))) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
@@ -171,7 +171,7 @@ NULL
             }
             metadata[["call"]] <- call(name = "bcbioRNASeq")
         }
-        ## caller
+        ## caller.
         if (!isSubset("caller", names(metadata))) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
@@ -181,12 +181,12 @@ NULL
             }
             metadata[["caller"]] <- "salmon"
         }
-        ## dataVersions
+        ## dataVersions.
         dataVersions <- metadata[["dataVersions"]]
         if (is(dataVersions, "data.frame")) {
             metadata[["dataVersions"]] <- as(dataVersions, "DataFrame")
         }
-        ## design
+        ## design.
         if (isSubset("design", names(metadata))) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
@@ -195,7 +195,7 @@ NULL
             }
             metadata[["design"]] <- NULL
         }
-        ## ensemblRelease
+        ## ensemblRelease.
         if (isSubset("ensemblVersion", names(metadata))) {
             ## Renamed in v0.2.0.
             if (isTRUE(verbose)) {
@@ -218,7 +218,7 @@ NULL
             metadata[["ensemblRelease"]] <-
                 as.integer(metadata[["ensemblRelease"]])
         }
-        ## genomeBuild
+        ## genomeBuild.
         if (!is.character(metadata[["genomeBuild"]])) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
@@ -228,7 +228,7 @@ NULL
             }
             metadata[["genomeBuild"]] <- character()
         }
-        ## gffFile
+        ## gffFile.
         if (isSubset("gtfFile", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -249,7 +249,7 @@ NULL
             }
             metadata[["gffFile"]] <- character()
         }
-        ## gtf
+        ## gtf.
         if (isSubset("gtf", names(metadata))) {
             if (isTRUE(verbose)) {
                 alertWarning(sprintf(
@@ -259,7 +259,7 @@ NULL
             }
             metadata[["gtf"]] <- NULL
         }
-        ## lanes
+        ## lanes.
         if (!is.integer(metadata[["lanes"]])) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -268,7 +268,7 @@ NULL
             }
             metadata[["lanes"]] <- as.integer(metadata[["lanes"]])
         }
-        ## level
+        ## level.
         if (!isSubset("level", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -278,11 +278,11 @@ NULL
             }
             metadata[["level"]] <- "genes"
         }
-        ## packageVersion
+        ## packageVersion.
         metadata[["previousVersion"]] <- metadata[["version"]]
         metadata[["packageVersion"]] <- .pkgVersion
         metadata[["version"]] <- NULL
-        ## programVersions
+        ## programVersions.
         if (!isSubset("programVersions", names(metadata)) &&
             isSubset("programs", names(metadata))) {
             if (isTRUE(verbose)) {
@@ -305,7 +305,7 @@ NULL
             }
             metadata[["programVersions"]] <- as(programVersions, "DataFrame")
         }
-        ## sampleMetadataFile
+        ## sampleMetadataFile.
         if (!is.character(metadata[["sampleMetadataFile"]])) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -315,8 +315,8 @@ NULL
             }
             metadata[["sampleMetadataFile"]] <- character()
         }
-        ## sessionInfo
-        ## Support for legacy devtoolsSessionInfo stash.
+        ## sessionInfo.
+        ## Support for legacy `devtoolsSessionInfo` stash.
         ## Previously, we stashed both devtools* and utils* variants.
         if (isSubset("utilsSessionInfo", names(metadata))) {
             if (isTRUE(verbose)) {
@@ -329,7 +329,7 @@ NULL
             ] <- "sessionInfo"
             metadata[["devtoolsSessionInfo"]] <- NULL
         }
-        ## template
+        ## template.
         if (isSubset("template", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf("Dropping legacy {.var %s}.", "template"))
@@ -355,7 +355,7 @@ NULL
             }
             metadata[["unannotatedGenes"]] <- NULL
         }
-        ## yamlFile
+        ## yamlFile.
         if (isSubset("yamlFile", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -364,9 +364,9 @@ NULL
             }
             metadata[["yamlFile"]] <- NULL
         }
-        ## tximport-specific
+        ## tximport-specific.
         if (isSubset(metadata[["caller"]], .tximportCallers)) {
-            ## countsFromAbundance
+            ## countsFromAbundance.
             if (!isSubset("countsFromAbundance", names(metadata))) {
                 countsFromAbundance <- "lengthScaledTPM"
                 if (isTRUE(verbose)) {
@@ -377,7 +377,7 @@ NULL
                 }
                 metadata[["countsFromAbundance"]] <- countsFromAbundance
             }
-            ## tx2gene
+            ## tx2gene.
             tx2gene <- metadata[["tx2gene"]]
             if (!is(tx2gene, "Tx2Gene")) {
                 if (isTRUE(verbose)) {
@@ -481,7 +481,6 @@ NULL
             }
             assays[["tmm"]] <- NULL
         }
-
         ## Always put the required assays first.
         assert(isSubset(.assays, names(assays)))
         assays <- assays[unique(c(.assays, names(assays)))]
@@ -509,7 +508,15 @@ NULL
                 )
             }
         }
-        ## rowRangesMetadata
+        ## Rename legacy "entrezId" to "ncbiGeneId".
+        if (
+            !isSubset("ncbiGeneId", colnames(mcols(rowRanges))) &&
+            isSubset("entrezId", colnames(mcols(rowRanges)))
+        ) {
+            colnames(mcols(rowRanges))[
+                colnames(mcols(rowRanges)) == "entrezId"] <- "ncbiGeneId"
+        }
+        ## rowRangesMetadata.
         if (isSubset("rowRangesMetadata", names(metadata))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -521,7 +528,7 @@ NULL
                 metadata[["rowRangesMetadata"]]
             metadata[["rowRangesMetadata"]] <- NULL
         }
-        ## genomeBuild
+        ## genomeBuild.
         if (
             !isSubset(
                 x = "genomeBuild",
@@ -546,7 +553,7 @@ NULL
                     drop = TRUE
                 ]
         }
-        ## level
+        ## level.
         if (
             !isSubset(
                 x = "level",
@@ -566,7 +573,7 @@ NULL
             metadata(rowRanges)[["level"]] <-
                 metadata[["level"]]
         }
-        ## organism
+        ## organism.
         if (
             !isSubset(
                 x = "organism",
@@ -586,7 +593,7 @@ NULL
             metadata(rowRanges)[["organism"]] <-
                 metadata[["organism"]]
         }
-        ## provider
+        ## provider.
         if (
             !isSubset(
                 x = "provider",
@@ -605,7 +612,7 @@ NULL
             }
             metadata(rowRanges)[["provider"]] <- "Ensembl"
         }
-        ## release
+        ## release.
         if (
             !isSubset(
                 x = "release",
@@ -630,7 +637,7 @@ NULL
                     drop = TRUE
                 ])
         }
-        ## biotype
+        ## biotype.
         if (isSubset("biotype", colnames(mcols(rowRanges)))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -642,7 +649,7 @@ NULL
                 as.factor(mcols(rowRanges)[["biotype"]])
             mcols(rowRanges)[["biotype"]] <- NULL
         }
-        ## broadClass
+        ## broadClass.
         if (
             isSubset("broadClass", colnames(mcols(rowRanges))) &&
                 is.character(mcols(rowRanges)[["broadClass"]])
@@ -656,7 +663,7 @@ NULL
             mcols(rowRanges)[["broadClass"]] <-
                 as.factor(mcols(rowRanges)[["broadClass"]])
         }
-        ## ensgene
+        ## ensgene.
         if (isSubset("ensgene", colnames(mcols(rowRanges)))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
@@ -668,7 +675,7 @@ NULL
                 as.character(mcols(rowRanges)[["ensgene"]])
             mcols(rowRanges)[["ensgene"]] <- NULL
         }
-        ## symbol
+        ## symbol.
         if (isSubset("symbol", colnames(mcols(rowRanges)))) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
