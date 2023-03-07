@@ -1,7 +1,3 @@
-## FIXME Ensure we rename "entrezId" to "ncbiGeneId", when applicable.
-
-
-
 #' Update object
 #'
 #' @name updateObject
