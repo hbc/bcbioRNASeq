@@ -1,8 +1,12 @@
+## FIXME Ensure we rename "entrezId" to "ncbiGeneId", when applicable.
+
+
+
 #' Update object
 #'
 #' @name updateObject
 #' @author Michael Steinbaugh
-#' @note Updated 2022-05-26.
+#' @note Updated 2023-03-07.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
