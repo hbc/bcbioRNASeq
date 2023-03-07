@@ -1,11 +1,9 @@
 ---
 ## Alternatively, consider using the AcidGSEA package for fast preranked GSEA.
 ##
-## This template expects an input DESeq2 analysis with Ensembl identifiers.
-## It ntentionally error if Entrez identifiers are not defined in the
-## `"entrezId"` column of `DESeqDataSet` `rowData()` return. This can be
-## resolved by running `bcbioRNASeq()` with the `organism`, `genomeBuild`,
-## and `ensemblRelease` arguments defined.
+## This template expects an input DESeqAnalysis object aligned against Ensembl
+## identifiers. It intentionally will error if NCBI gene (Entrez) identifiers
+## are not defined in the DESeqAnalysis object metadata.
 ##
 ## - KEGG supported organisms:
 ##   http://www.genome.jp/kegg/catalog/org_list.html
@@ -16,7 +14,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-10-24.
+## Updated 2023-03-07.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -108,8 +106,38 @@ from our `bcbioRNASeq` object during the differential expression step.
 deseq <- import(params[["deseq_file"]])
 assert(
     is(deseq, "DESeqAnalysis"),
-    validObject(deseq)
+    validObject(deseq),
+    isSubset(
+        x = c("geneIdNoVersion", "ncbiGeneId"),
+        y = colnames(rowData(deseq@data))
+    ),
+    hasNoDuplicates(rowData(deseq@data)[["geneIdNoVersion"]])
 )
+rowRanges(deseq@data) <- as(rowRanges(deseq@data), "EnsemblGenes")
+rowData(deseq@data)[["geneId"]] <- rowData(deseq@data)[["geneIdNoVersion"]]
+rownames(deseq@data) <- as.character(rowData(deseq@data)[["geneId"]])
+rownames(deseq@transform) <- rownames(deseq@data)
+if (is.list(deseq@results)) {
+    deseq@results <- lapply(
+        X = deseq@results,
+        rownames = rownames(deseq@data),
+        FUN = function(res, rownames) {
+            rownames(res) <- rownames
+            res
+        }
+    )
+}
+if (is.list(deseq@lfcShrink)) {
+    deseq@lfcShrink <- lapply(
+        X = deseq@lfcShrink,
+        rownames = rownames(deseq@data),
+        FUN = function(res, rownames) {
+            rownames(res) <- rownames
+            res
+        }
+    )
+}
+assert(validObject(deseq))
 print(deseq)
 ```
 
@@ -117,11 +145,6 @@ We need to extract the corresponding `DESeqDataSet` and `DESeqResults` objects.
 
 ```{r deseqdataset}
 dds <- as.DESeqDataSet(deseq)
-assert(
-    is(dds, "DESeqDataSet"),
-    validObject(dds),
-    isSubset(c("geneId", "entrezId"), colnames(rowData(dds)))
-)
 print(dds)
 ```
 
@@ -170,45 +193,43 @@ res <- res[order(res[["padj"]]), , drop = FALSE]
 ## Match the DESeqDataSet.
 dds <- dds[rownames(res), , drop = FALSE]
 ## Set our background genes vector (aka universe).
-allGenes <- rownames(res)
+allEnsemblGenes <- rownames(res)
 ## > help(topic = "deg", package = "DESeqAnalysis")
-sigGenes <- deg(object = res, direction = "both")
-sigRes <- res[sigGenes, , drop = FALSE]
+sigEnsemblGenes <- deg(object = res, direction = "both")
+sigEnsemblRes <- res[sigEnsemblGenes, , drop = FALSE]
 ## LFC ranked list vector.
-lfcVec <- sigRes[["log2FoldChange"]]
-names(lfcVec) <- rownames(sigRes)
+ensemblLfcVec <- sigEnsemblRes[["log2FoldChange"]]
+names(ensemblLfcVec) <- rownames(sigEnsemblRes)
 ## Sort from upregulated to downregulated.
-lfcVec <- sort(lfcVec, decreasing = TRUE)
-summary(lfcVec)
+ensemblLfcVec <- sort(ensemblLfcVec, decreasing = TRUE)
+summary(ensemblLfcVec)
 ```
 
-### Entrez identifier mappings
+### Ensembl-to-NCBI gene identifier mappings
 
-[Entrez][] identifiers are required for [Kyoto Encyclopedia of Genes and
-Genomes (KEGG)][KEGG] analysis. Here we are defining 1:1 mappings of the
-[Ensembl][] gene identifiers to [Entrez][] identifiers. For genes that map to
-multiple [Entrez][] identifiers, we are using the oldest identifier to define
-the 1:1 mapping.
+NCBI gene (Entrez) identifiers are required for [Kyoto Encyclopedia of Genes and
+Genomes (KEGG)][KEGG] analysis. Here we are defining 1:1 mappings of the Ensembl
+gene identifiers to NCBI gene identifiers. For genes that map to multiple NCBI
+identifiers, we are using the oldest identifier to define the 1:1 mapping.
 
-```{r entrez-mappings}
-e2e <- Ensembl2Entrez(object = dds, format = "1:1")
-assert(isSubset(rownames(e2e), rownames(dds)))
-allEntrez <- e2e[["entrezId"]]
-names(allEntrez) <- rownames(e2e)
-str(allEntrez)
+```{r ensembl-to-ncbi}
+map <- Ensembl2Ncbi(object = dds, format = "1:1")
+assert(isSubset(rownames(map), rownames(dds)))
+allNcbiGenes <- map[["ncbiGeneId"]]
+names(allNcbiGenes) <- rownames(map)
+str(allNcbiGenes)
 ```
 
 Now we can obtain a vector of significant genes and LFCs that map to Entrez.
 
-```{r entrez-results-vectors}
-idx <- na.omit(match(x = sigGenes, table = names(allEntrez)))
-sigEntrez <- allEntrez[idx]
-str(sigEntrez)
-entrezLfcVec <- sigRes[names(sigEntrez), "log2FoldChange", drop = TRUE]
-names(entrezLfcVec) <- unname(sigEntrez)
+```{r ncbi-results-vectors}
+idx <- na.omit(match(x = sigEnsemblGenes, table = names(allNcbiGenes)))
+sigNcbiGenes <- allNcbiGenes[idx]
+ncbiLfcVec <- sigEnsemblRes[names(sigNcbiGenes), "log2FoldChange", drop = TRUE]
+names(ncbiLfcVec) <- unname(sigNcbiGenes)
 ## Sort from upregulated to downregulated.
-entrezLfcVec <- sort(entrezLfcVec, decreasing = TRUE)
-str(entrezLfcVec)
+ncbiLfcVec <- sort(ncbiLfcVec, decreasing = TRUE)
+str(ncbiLfcVec)
 ```
 
 ### GSEA ranked lists
@@ -230,25 +251,23 @@ changes in a set of genes.
 ## > help(topic = "RankedList", package = "AcidGSEA")
 ## Assuming the DESeq analysis input contains Ensembl reference genome. The
 ## gene identifiers should be defined as `"geneId"` in DESeqDataSet rowData.
-rankedListEnsembl <-
-    RankedList(
-        object = deseq,
-        value = "stat",
-        keyType = "ensemblId"
-    ) |>
-    (`[[`)(params[["results_name"]])
-## Entrez identifiers must be defined in the `"entrezId"` column of
+rankedListEnsembl <- RankedList(
+    object = deseq,
+    value = "stat",
+    keyType = "ensemblGeneId"
+)
+rankedListEnsembl <- rankedListEnsembl[[params[["results_name"]]]]
+## NCBI gene identifiers must be defined in the `"ncbiGeneId"` column of
 ## DESeqDataSet rowData, otherwise this step will error.
-rankedListEntrez <-
-    RankedList(
-        object = deseq,
-        value = "stat",
-        keyType = "entrezId"
-    ) |>
-    (`[[`)(params[["results_name"]])
+rankedListNcbi <- RankedList(
+    object = deseq,
+    value = "stat",
+    keyType = "ncbiGeneId"
+)
+rankedListNcbi <- rankedListNcbi[[params[["results_name"]]]]
 assert(
     is.numeric(rankedListEnsembl),
-    is.numeric(rankedListEntrez)
+    is.numeric(rankedListNcbi)
 )
 ```
 
@@ -262,11 +281,11 @@ functional characteristics.
 ```{r enrich-go}
 ## > help(topic = "enrichGO", package = "clusterProfiler")
 enrichGo <- enrichGO(
-    gene = sigGenes,
+    gene = sigEnsemblGenes,
     OrgDb = orgDb,
     keyType = "ENSEMBL",
     ont = params[["go_class"]],
-    universe = allGenes,
+    universe = allEnsemblGenes,
     qvalueCutoff = 0.05,
     readable = TRUE
 )
@@ -337,7 +356,7 @@ Here we are plotting genes colored by LFC for top significant [GO][] terms.
 ## > help(topic = "cnetplot", package = "enrichplot")
 try({
     suppressWarnings({
-        cnetplot(enrichGo, foldChange = lfcVec)
+        cnetplot(enrichGo, foldChange = ensemblLfcVec)
     })
 })
 ```
@@ -402,10 +421,10 @@ assert(
 ```{r enrich-kegg}
 ## > help(topic = "enrichKEGG", package = "clusterProfiler")
 kegg <- enrichKEGG(
-    gene = as.character(sigEntrez),
+    gene = as.character(sigNcbiGenes),
     organism = keggCode,
     keyType = "ncbi-geneid",
-    universe = as.character(allEntrez),
+    universe = as.character(allNcbiGenes),
     qvalueCutoff = 0.05
 )
 keggDf <-
@@ -473,7 +492,7 @@ pathways of interest.
 ```{r kegg-gsea}
 ## > help(topic = "gseKEGG", package = "clusterProfiler")
 gseaKegg <- gseKEGG(
-    geneList = entrezLfcVec,
+    geneList = ncbiLfcVec,
     organism = keggCode,
     keyType = "ncbi-geneid"
 )
@@ -542,7 +561,7 @@ if (hasLength(pathways)) {
                         expr = withTimeout(
                             expr = {
                                 pathview(
-                                    gene.data = entrezLfcVec,
+                                    gene.data = ncbiLfcVec,
                                     pathway.id = pathway,
                                     gene.idtype = "entrez",
                                     gene.annotpkg = NULL,
