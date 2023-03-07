@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.5.3
-Date: 2023-02-15
+Version: 0.5.4.9000
+Date: 2023-03-07
 Authors@R: c(
     person(
         given = "Michael",
@@ -114,35 +114,35 @@ Depends:
     R (>= 4.2),
     SummarizedExperiment (>= 1.28.0)
 Imports:
-    AcidBase (>= 0.6.8),
+    AcidBase (>= 0.6.13),
     AcidCLI (>= 0.2.7),
-    AcidExperiment (>= 0.4.4),
-    AcidGenerics (>= 0.6.5),
-    AcidGenomes (>= 0.4.5),
-    AcidPlots (>= 0.5.3),
+    AcidExperiment (>= 0.4.6),
+    AcidGenerics (>= 0.6.7),
+    AcidGenomes (>= 0.4.9),
+    AcidPlots (>= 0.5.4),
     BiocGenerics (>= 0.44.0),
     DESeq2 (>= 1.38.0),
     IRanges (>= 2.32.0),
     S4Vectors (>= 0.36.0),
     bcbioBase (>= 0.8.1),
     edgeR (>= 3.40.0),
-    ggplot2 (>= 3.4.0),
+    ggplot2 (>= 3.4.1),
     goalie (>= 0.6.8),
-    pipette (>= 0.10.2),
+    pipette (>= 0.10.5),
     syntactic (>= 0.6.4),
     tximport (>= 1.26.0),
     methods,
     utils
 Suggests:
-    AcidGSEA (>= 0.8.6),
+    AcidGSEA (>= 0.8.8),
     BiocStyle (>= 2.26.0),
     DEGreport (>= 1.34.0),
-    DESeqAnalysis (>= 0.6.6),
+    DESeqAnalysis (>= 0.6.8),
     DOSE (>= 3.24.0),
     EnsDb.Hsapiens.v75 (>= 2.99.0),
     GenomeInfoDb (>= 1.34.0),
     R.utils (>= 2.12.2),
-    basejump (>= 0.16.3),
+    basejump (>= 0.16.5),
     clusterProfiler (>= 4.6.0),
     enrichplot (>= 1.18.0),
     ggnewscale (>= 0.4.8),
