@@ -5,7 +5,7 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
-#' @note Updated 2022-05-07.
+#' @note Updated 2022-03-07.
 #'
 #' @details
 #' `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
@@ -224,11 +224,9 @@ setValidity(
         ok <- validate(
             is(rowRanges, "GenomicRanges"),
             is(rowData, "DataFrame"),
-            identical(names(rowRanges), rownames(object))
-            ## This check fails on BioC 3.6; SummarizedExperiment 1.8.
-            ## nolint start
-            ## > identical(rownames(rowData), rownames(object))
-            ## nolint end
+            identical(names(rowRanges), rownames(object)),
+            identical(rownames(rowData), rownames(object)),
+            areDisjointSets(x = colnames(rowData), y = "entrezId")
         )
         if (!isTRUE(ok)) {
             return(ok)
