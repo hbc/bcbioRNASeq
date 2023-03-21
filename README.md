@@ -39,16 +39,15 @@ Configure [Conda][] to use the [Bioconda][] channels.
 
 ```sh
 # Don't install recipe into base environment.
-name='r-bcbiornaseq'
-conda create --name="$name" "$name"
-conda activate "$name"
+conda create --name='r-bcbiornaseq@0.5.3' 'r-bcbiornaseq==0.5.3'
+conda activate 'r-bcbiornaseq@0.5.3'
 R
 ```
 
 ### [Docker][] method
 
 ```sh
-image='acidgenomics/r-packages:bcbiornaseq'
+image='quay.io/biocontainers/r-bcbiornaseq:0.5.3--r42hdfd78af_1'
 workdir='/mnt/work'
 docker pull "$image"
 docker run -it \
