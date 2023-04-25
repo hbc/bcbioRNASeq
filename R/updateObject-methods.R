@@ -507,10 +507,11 @@ NULL
         ## Rename legacy "entrezId" to "ncbiGeneId".
         if (
             !isSubset("ncbiGeneId", colnames(mcols(rowRanges))) &&
-            isSubset("entrezId", colnames(mcols(rowRanges)))
+                isSubset("entrezId", colnames(mcols(rowRanges)))
         ) {
             colnames(mcols(rowRanges))[
-                colnames(mcols(rowRanges)) == "entrezId"] <- "ncbiGeneId"
+                colnames(mcols(rowRanges)) == "entrezId"
+            ] <- "ncbiGeneId"
         }
         ## rowRangesMetadata.
         if (isSubset("rowRangesMetadata", names(metadata))) {
