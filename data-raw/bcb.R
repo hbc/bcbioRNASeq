@@ -27,4 +27,5 @@ stopifnot(
     is(object, "bcbioRNASeq"),
     validObject(object)
 )
-use_data(object, overwrite = TRUE, compress = "xz")
+bcb <- object
+use_data(bcb, overwrite = TRUE, compress = "xz")
