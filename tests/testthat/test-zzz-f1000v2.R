@@ -81,11 +81,6 @@ deseq <- DESeqAnalysis(
     results = resListUnshrunken,
     lfcShrink = resListShrunken
 )
-## Experimental approach that remaps to human orthologs.
-## This can time out if Ensembl Archives are offline.
-## > deseqHuman <- try({
-## >     AcidGSEA::convertToHuman(deseq)
-## > })
 
 test_that("counts", {
     for (normalized in list(FALSE, TRUE, "tpm", "rlog", "vst")) {
