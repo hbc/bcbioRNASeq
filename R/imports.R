@@ -23,8 +23,8 @@ NULL
 #' plotRRNAMappingRate plotTotalReads relativeLogExpression sampleData
 #' showHeader slotAlignedCounts stripTranscriptVersions tmm topTables
 #' @importFrom AcidGenomes Tx2Gene
-#' @importFrom BiocGenerics as.data.frame colSums counts counts<- do.call
-#' estimateSizeFactors plotDispEsts plotPCA rowSums updateObject width
+#' @importFrom BiocGenerics as.data.frame counts counts<- do.call
+#' estimateSizeFactors plotDispEsts plotPCA updateObject width
 #' @importFrom S4Vectors Rle cbind droplevels getListElement head lapply mcols
 #' mcols<- metadata metadata<-
 #' @importFrom SummarizedExperiment assay assay<- assayNames assayNames<- assays
