@@ -39,22 +39,9 @@ Configure [Conda][] to use the [Bioconda][] channels.
 
 ```sh
 # Don't install recipe into base environment.
-conda create --name='r-bcbiornaseq@0.5.3' 'r-bcbiornaseq==0.5.3'
-conda activate 'r-bcbiornaseq@0.5.3'
+conda create --name='r-bcbiornaseq' 'r-bcbiornaseq'
+conda activate 'r-bcbiornaseq'
 R
-```
-
-### [Docker][] method
-
-```sh
-image='quay.io/biocontainers/r-bcbiornaseq:0.5.3--r42hdfd78af_1'
-workdir='/mnt/work'
-docker pull "$image"
-docker run -it \
-    --volume="${PWD}:${workdir}" \
-    --workdir="$workdir" \
-    "$image" \
-    R
 ```
 
 ## Load [bcbio][] RNA-seq data
@@ -149,7 +136,6 @@ library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 [bioconductor]: https://bioconductor.org/
 [conda]: https://conda.io/
 [deseq2]: http://bioconductor.org/packages/DESeq2/
-[docker]: https://www.docker.com/
 [edger]: http://bioconductor.org/packages/edgeR/
 [limma-voom]: https://bioconductor.org/packages/limma/
 [paperpile]: https://paperpile.com/
