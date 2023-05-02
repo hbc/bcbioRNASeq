@@ -14,6 +14,8 @@ Major changes:
 Minor changes:
 
 - Resaved example `bcb` object using Bioconductor 3.17 dependencies.
+- Now classing on `DFrame` and `GRanges` instead of `DataFrame` and
+  `GenomicRanges` virtual classes internally.
 
 ## bcbioRNASeq 0.5.3 (2023-02-15)
 
