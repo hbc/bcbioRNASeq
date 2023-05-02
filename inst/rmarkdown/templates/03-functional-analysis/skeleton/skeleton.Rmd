@@ -14,7 +14,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2023-03-07.
+## Updated 2023-05-02.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -66,10 +66,11 @@ suppressPackageStartupMessages({
     library(pathview)
     ## Acid Genomics packages.
     library(goalie)
+    library(AcidGenomes)
     library(basejump)
-    library(bcbioRNASeq)
     library(DESeqAnalysis)
     library(AcidGSEA)
+    library(bcbioRNASeq)
 })
 prepareTemplate()
 source("_setup.R")
@@ -103,20 +104,25 @@ First, we need to load the `DESeqAnalysis` object, which has been generated
 from our `bcbioRNASeq` object during the differential expression step.
 
 ```{r load-deseqanalysis}
+## Ensure that our DESeqAnalysis object contains NCBI gene identifiers.
 deseq <- import(params[["deseq_file"]])
+deseq <- updateObject(deseq)
 assert(
     is(deseq, "DESeqAnalysis"),
     validObject(deseq),
-    isSubset(
-        x = c("geneIdNoVersion", "ncbiGeneId"),
-        y = colnames(rowData(deseq@data))
-    ),
-    hasNoDuplicates(rowData(deseq@data)[["geneIdNoVersion"]])
+    isSubset("ncbiGeneId", colnames(rowData(deseq@data)))
 )
-rowRanges(deseq@data) <- as(rowRanges(deseq@data), "EnsemblGenes")
-rowData(deseq@data)[["geneId"]] <- rowData(deseq@data)[["geneIdNoVersion"]]
-rownames(deseq@data) <- as.character(rowData(deseq@data)[["geneId"]])
-rownames(deseq@transform) <- rownames(deseq@data)
+rowRanges(deseq@data) <- EnsemblGenes(rowRanges(deseq@data))
+if (!isSubset("geneIdNoVersion", colnames(rowData(deseq@data)))) {
+    rowData(deseq@data)[["geneIdNoVersion"]] <-
+        rowData(deseq@data)[["geneId"]]
+    rowData(deseq@transform)[["geneIdNoVersion"]] <-
+        rowData(deseq@transform)[["geneId"]]
+}
+rownames(deseq@data) <-
+    as.character(rowData(deseq@data)[["geneIdNoVersion"]])
+rownames(deseq@transform) <-
+    as.character(rowData(deseq@transform)[["geneIdNoVersion"]])
 if (is.list(deseq@results)) {
     deseq@results <- lapply(
         X = deseq@results,
