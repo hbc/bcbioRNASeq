@@ -320,14 +320,16 @@ test_that("Functional Analysis", {
         overwrite = TRUE
     )
     ## Enabling pathview here is too slow for CI.
-    x <- render(
-        input = input,
-        params = list(
-            "deseq_file" = renderFiles[["deseq"]],
-            "results_name" = resultsNames(deseq)[[1L]],
-            "pathview" = FALSE
+    suppressWarnings({
+        x <- render(
+            input = input,
+            params = list(
+                "deseq_file" = renderFiles[["deseq"]],
+                "results_name" = resultsNames(deseq)[[1L]],
+                "pathview" = FALSE
+            )
         )
-    )
+    })
     outfile <- file.path(renderDir, paste0(stem, ".html"))
     expect_identical(x, outfile)
     expect_true(file.exists(outfile))
