@@ -5,7 +5,7 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
-#' @note Updated 2022-03-07.
+#' @note Updated 2023-05-02.
 #'
 #' @details
 #' `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
@@ -115,7 +115,6 @@ setValidity(
             return(ok)
         }
         ## Class checks.
-        df <- c("DFrame", "DataFrame")
         ok <- validateClasses(
             object = metadata,
             expected = list(
@@ -124,7 +123,7 @@ setValidity(
                 "bcbioLog" = "character",
                 "call" = "call",
                 "caller" = "character",
-                "dataVersions" = df,
+                "dataVersions" = "DFrame",
                 "date" = "Date",
                 "ensemblRelease" = "integer",
                 "genomeBuild" = "character",
@@ -134,7 +133,7 @@ setValidity(
                 "level" = "character",
                 "organism" = "character",
                 "packageVersion" = "package_version",
-                "programVersions" = df,
+                "programVersions" = "DFrame",
                 "projectDir" = "character",
                 "runDate" = "Date",
                 "sampleDirs" = "character",
@@ -222,8 +221,8 @@ setValidity(
         rowRanges <- rowRanges(object)
         rowData <- rowData(object)
         ok <- validate(
-            is(rowRanges, "GenomicRanges"),
-            is(rowData, "DataFrame"),
+            is(rowRanges, "GRanges"),
+            is(rowData, "DFrame"),
             identical(names(rowRanges), rownames(object)),
             identical(rownames(rowData), rownames(object)),
             areDisjointSets(x = colnames(rowData), y = "entrezId")

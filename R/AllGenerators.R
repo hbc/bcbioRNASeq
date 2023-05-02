@@ -263,10 +263,10 @@ bcbioRNASeq <-
         assert(is.list(yaml))
         dataVersions <-
             importDataVersions(file.path(projectDir, "data_versions.csv"))
-        assert(is(dataVersions, "DataFrame"))
+        assert(is(dataVersions, "DFrame"))
         programVersions <-
             importProgramVersions(file.path(projectDir, "programs.txt"))
-        assert(is(programVersions, "DataFrame"))
+        assert(is(programVersions, "DFrame"))
         log <- import(file.path(projectDir, "bcbio-nextgen.log"))
         ## This step enables our minimal dataset to pass checks.
         tryCatch(
@@ -377,7 +377,7 @@ bcbioRNASeq <-
             colData <- sampleData
         }
         assert(
-            is(colData, "DataFrame"),
+            is(colData, "DFrame"),
             identical(samples, rownames(colData))
         )
         ## Assays (counts) -----------------------------------------------------
@@ -485,7 +485,7 @@ bcbioRNASeq <-
                 rowRanges <- emptyRanges(rownames(assays[[1L]]))
             }
         }
-        assert(is(rowRanges, "GenomicRanges"))
+        assert(is(rowRanges, "GRanges"))
         ## Attempt to get genome build and Ensembl release if not declared. Note
         ## that these will remain NULL when using GTF file (see above).
         if (is.null(genomeBuild)) {

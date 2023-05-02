@@ -2,7 +2,7 @@
 
 #' @importClassesFrom AcidGenomes Tx2Gene
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
-#' @importClassesFrom IRanges DataFrameList
+#' @importClassesFrom IRanges DFrameList
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
 #' SummarizedExperiment
 #' @importClassesFrom edgeR DGEList

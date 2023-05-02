@@ -8,7 +8,7 @@
 \alias{plotDEGHeatmap,missing-method}
 \alias{plotMeanAverage}
 \alias{prepareRNASeqTemplate}
-\alias{topTables,DataFrameList-method}
+\alias{topTables,DFrameList-method}
 \alias{writeCounts}
 \title{Deprecated functions}
 \usage{
@@ -24,7 +24,7 @@ plotMeanAverage(...)
 
 prepareRNASeqTemplate(...)
 
-\S4method{topTables}{DataFrameList}(object, ...)
+\S4method{topTables}{DFrameList}(object, ...)
 
 writeCounts(..., dir = getOption(x = "acid.export.dir", default = getwd()))
 }

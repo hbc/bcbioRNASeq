@@ -67,7 +67,7 @@ prepareRNASeqTemplate <- function(...) {
     .Defunct("prepareTemplate")
 }
 
-`topTables,DataFrameList` <- # nolint
+`topTables,DFrameList` <- # nolint
     function(object, ...) {
         markdownTables(
             object = object,
@@ -79,8 +79,8 @@ prepareRNASeqTemplate <- function(...) {
 #' @rdname deprecated
 setMethod(
     f = "topTables",
-    signature = signature(object = "DataFrameList"),
-    definition = `topTables,DataFrameList`
+    signature = signature(object = "DFrameList"),
+    definition = `topTables,DFrameList`
 )
 
 #' @export

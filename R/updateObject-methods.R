@@ -92,11 +92,11 @@ NULL
                         "{.var %s} slot must contain a",
                         "zero-column {.cls %s}."
                     ),
-                    "elementMetadata", "DataFrame"
+                    "elementMetadata", "DFrame"
                 ))
             }
             slot(object, "elementMetadata") <-
-                as(matrix(nrow = nrow(object), ncol = 0L), "DataFrame")
+                as(matrix(nrow = nrow(object), ncol = 0L), "DFrame")
         }
         ## rowRanges.
         if (!.hasSlot(object, "rowRanges")) {
@@ -114,7 +114,7 @@ NULL
                 rowData <- slot(object, "elementMetadata")
                 mcols(rowRanges) <- rowData
             }
-            assert(isAny(rowRanges, c("GenomicRanges", "GenomicRangesList")))
+            assert(isAny(rowRanges, c("GRanges", "GRangesList")))
             slot(object, "rowRanges") <- rowRanges
         } else if (
             .hasSlot(object, "rowRanges") &&
@@ -180,7 +180,7 @@ NULL
         ## dataVersions.
         dataVersions <- metadata[["dataVersions"]]
         if (is(dataVersions, "data.frame")) {
-            metadata[["dataVersions"]] <- as(dataVersions, "DataFrame")
+            metadata[["dataVersions"]] <- as(dataVersions, "DFrame")
         }
         ## design.
         if (isSubset("design", names(metadata))) {
@@ -296,10 +296,10 @@ NULL
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Coercing {.var %s} to {.cls %s}.",
-                    "programVersions", "DataFrame"
+                    "programVersions", "DFrame"
                 ))
             }
-            metadata[["programVersions"]] <- as(programVersions, "DataFrame")
+            metadata[["programVersions"]] <- as(programVersions, "DFrame")
         }
         ## sampleMetadataFile.
         if (!is.character(metadata[["sampleMetadataFile"]])) {
@@ -383,7 +383,7 @@ NULL
                     ))
                 }
                 assert(is.data.frame(tx2gene))
-                tx2gene <- as(tx2gene, "DataFrame")
+                tx2gene <- as(tx2gene, "DFrame")
                 colnames(tx2gene) <- c("txId", "geneId")
                 rownames(tx2gene) <- NULL
                 metadata[["tx2gene"]] <- Tx2Gene(tx2gene)

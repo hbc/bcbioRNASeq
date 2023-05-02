@@ -222,7 +222,7 @@ test_that("Detecting patterns", {
 test_that("resultsTables and topTables", {
     ## "lfc" argument renamed to "lfcThreshold".
     resTbl <- resultsTables(res, lfcThreshold = 1L)
-    expect_s4_class(resTbl, "DataFrameList")
+    expect_s4_class(resTbl, "DFrameList")
     expect_s4_class(resTbl[[1L]], "DESeqResults")
     expect_output(topTables(resTbl, n = 5L))
 })
