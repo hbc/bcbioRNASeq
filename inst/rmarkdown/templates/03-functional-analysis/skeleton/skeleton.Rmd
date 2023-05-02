@@ -110,7 +110,7 @@ deseq <- updateObject(deseq)
 assert(
     is(deseq, "DESeqAnalysis"),
     validObject(deseq),
-    isSubset("ncbiGeneId", colnames(rowData(deseq@data)))
+    isSubset(c("geneId", "ncbiGeneId"), colnames(rowData(deseq@data)))
 )
 rowRanges(deseq@data) <- EnsemblGenes(rowRanges(deseq@data))
 if (!isSubset("geneIdNoVersion", colnames(rowData(deseq@data)))) {
