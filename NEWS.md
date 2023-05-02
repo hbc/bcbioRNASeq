@@ -1,5 +1,20 @@
 # Release notes
 
+## bcbioRNASeq 0.5.4 (2023-05-02)
+
+Major changes:
+
+- `bcbioRNASeq` object will now fail validity checks with `validObject` if
+  `entrezId` is defined in rowData instead of now preferred `ncbiGeneId`. This
+  breaking change can be resolved using `updateObject`.
+- Fixed breaking change in functional analysis R Markdown template, due to new
+  usage of `ncbiGeneId` instead of legacy `entrezId` metadata in `GRanges`
+  returned by AcidGenomes package.
+
+Minor changes:
+
+- Resaved example `bcb` object using Bioconductor 3.17 dependencies.
+
 ## bcbioRNASeq 0.5.3 (2023-02-15)
 
 Minor changes:
@@ -35,7 +50,7 @@ Minor changes:
 - Switched to using `Map` instead of `mapply`, where applicable.
 - Now enabling pathview by default in functional analysis template.
 - Removed `sessioninfo` as a dependency, switching back to using utils
- `sessionInfo` internally instead.
+  `sessionInfo` internally instead.
 - Included some additional reexports to make the package work with F1000v2
   manuscript as best as possible.
 
