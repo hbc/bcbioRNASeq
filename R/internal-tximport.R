@@ -137,6 +137,8 @@
 
 
 
+## FIXME Switch this to a simple boolean function.
+
 #' Detect if object is tximport list return
 #'
 #' @note Updated 2022-03-07.
