@@ -49,7 +49,7 @@ NULL
             )
         ) +
             acid_geom_bar() +
-            acid_scale_y_continuous_nopad(limits = c(0L, 100L))
+            acid_scale_y_continuous_nopad()
         ## Labels.
         labels[["fill"]] <- paste(interestingGroups, collapse = ":\n")
         names(labels)[names(labels) == "sampleAxis"] <- "x"
