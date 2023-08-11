@@ -73,7 +73,7 @@ NULL
             p <- p + geom_smooth(method = "lm", se = FALSE)
         }
         ## Color palette.
-        p <- p + autoDiscreteColorScale()
+        p <- p + acid_scale_color_discrete()
         ## Hide sample name legend.
         if (isTRUE(label)) {
             p <- p + acid_geom_label_repel(

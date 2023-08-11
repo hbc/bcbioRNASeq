@@ -64,9 +64,10 @@ NULL
 #' makeSummarizedExperiment matchInterestingGroups
 #' @importFrom AcidGenomes detectOrganism emptyRanges importTx2Gene
 #' makeGRangesFromEnsembl makeGRangesFromGFF
-#' @importFrom AcidPlots !! acid_coord_flip acid_geom_abline acid_geom_bar
-#' acid_geom_label_repel acid_scale_y_continuous_nopad autoDiscreteColorScale
-#' autoDiscreteFillScale matchLabels pretty_breaks  sym wrap_plots
+#' @importFrom AcidPlots .data acid_discrete_coord_flip acid_geom_abline
+#' acid_geom_bar acid_geom_label_repel acid_scale_color_discrete
+#' acid_scale_fill_discrete acid_scale_y_continuous_nopad matchLabels
+#' pretty_breaks wrap_plots
 #' @importFrom DESeq2 DESeq DESeqDataSet fpkm rlog
 #' varianceStabilizingTransformation
 #' @importFrom S4Vectors DataFrame SimpleList

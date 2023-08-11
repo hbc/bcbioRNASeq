@@ -49,10 +49,10 @@ NULL
         names(labels)[names(labels) == "metricAxis"] <- "y"
         p <- p + do.call(what = labs, args = labels)
         ## Color palette.
-        p <- p + autoDiscreteColorScale()
+        p <- p + acid_scale_color_discrete()
         ## Flip.
         if (isTRUE(flip)) {
-            p <- acid_coord_flip(p)
+            p <- p + acid_discrete_coord_flip()
         }
         ## Hide sample name legend.
         if (identical(interestingGroups, "sampleName")) {
