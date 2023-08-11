@@ -57,9 +57,9 @@ NULL
         p <- ggplot(
             data = as.data.frame(data),
             mapping = aes(
-                x = !!sym("mappedReads"),
-                y = !!sym("geneCount"),
-                color = !!sym("interestingGroups")
+                x = .data[["mappedReads"]],
+                y = .data[["geneCount"]],
+                color = .data[["interestingGroups"]]
             )
         ) +
             geom_point(size = 3L) +
@@ -77,7 +77,7 @@ NULL
         ## Hide sample name legend.
         if (isTRUE(label)) {
             p <- p + acid_geom_label_repel(
-                mapping = aes(label = !!sym("sampleName"))
+                mapping = aes(label = .data[["sampleName"]])
             )
         }
         ## Return.

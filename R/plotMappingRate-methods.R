@@ -40,9 +40,9 @@ NULL
         p <- ggplot(
             data = as.data.frame(data),
             mapping = aes(
-                x = !!sym("sampleName"),
-                y = !!sym("mappedReads") / !!sym("totalReads") * 100L,
-                fill = !!sym("interestingGroups")
+                x = .data[["sampleName"]],
+                y = .data[["mappedReads"]] / .data[["totalReads"]] * 100L,
+                fill = .data[["interestingGroups"]]
             )
         ) +
             acid_geom_bar() +

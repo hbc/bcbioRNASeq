@@ -46,9 +46,9 @@ NULL
         p <- ggplot(
             data = as.data.frame(data),
             mapping = aes(
-                x = !!sym("sampleName"),
-                y = !!sym(metricCol) * 100L,
-                fill = !!sym("interestingGroups")
+                x = .data[["sampleName"]],
+                y = .data[[metricCol]] * 100L,
+                fill = .data[["interestingGroups"]]
             )
         ) +
             acid_geom_bar() +

@@ -51,9 +51,9 @@ NULL
         p <- ggplot(
             data = as.data.frame(data),
             mapping = aes(
-                x = !!sym("sampleName"),
-                y = !!sym("mappedReads"),
-                fill = !!sym("interestingGroups")
+                x = .data[["sampleName"]],
+                y = .data[["mappedReads"]],
+                fill = .data[["interestingGroups"]]
             )
         ) +
             acid_geom_bar() +

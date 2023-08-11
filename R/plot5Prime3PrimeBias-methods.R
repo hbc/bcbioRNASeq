@@ -36,9 +36,9 @@ NULL
         p <- ggplot(
             data = as.data.frame(data),
             mapping = aes(
-                x = !!sym("sampleName"),
-                y = !!sym("x5x3Bias"),
-                color = !!sym("interestingGroups")
+                x = .data[["sampleName"]],
+                y = .data[["x5x3Bias"]],
+                color = .data[["interestingGroups"]]
             )
         ) +
             geom_point(size = 3L) +
