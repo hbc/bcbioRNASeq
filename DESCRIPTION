@@ -111,8 +111,8 @@ License: AGPL-3
 Encoding: UTF-8
 LazyData: false
 Depends:
-    R (>= 4.2),
-    SummarizedExperiment (>= 1.28.0)
+    R (>= 4.3),
+    SummarizedExperiment (>= 1.30.0)
 Imports:
     AcidBase (>= 0.6.15),
     AcidCLI (>= 0.2.7),
@@ -124,7 +124,7 @@ Imports:
     DESeq2 (>= 1.38.0),
     IRanges (>= 2.32.0),
     S4Vectors (>= 0.36.0),
-    bcbioBase (>= 0.8.1),
+    bcbioBase (>= 0.8.2),
     edgeR (>= 3.40.0),
     ggplot2 (>= 3.4.2),
     goalie (>= 0.6.8),
@@ -162,6 +162,7 @@ Suggests:
     withr (>= 2.5.0)
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3
+Config/testthat/parallel: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr, rmarkdown
