@@ -279,8 +279,10 @@ NULL
         metadata[["packageVersion"]] <- .pkgVersion
         metadata[["version"]] <- NULL
         ## programVersions.
-        if (!isSubset("programVersions", names(metadata)) &&
-            isSubset("programs", names(metadata))) {
+        if (
+            !isSubset("programVersions", names(metadata)) &&
+                isSubset("programs", names(metadata))
+        ) {
             if (isTRUE(verbose)) {
                 alert(sprintf(
                     "Renaming {.var %s} to {.var %s}.",

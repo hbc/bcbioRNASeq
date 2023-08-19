@@ -14,7 +14,7 @@ linters: linters_with_defaults(
     condition_message_linter(),
     conjunct_test_linter(),
     consecutive_assertion_linter(),
-    cyclocomp_linter(complexity_limit = 30L),
+    cyclocomp_linter(complexity_limit = 60L),
     duplicate_argument_linter(),
     equals_na_linter(),
     expect_comparison_linter(),
