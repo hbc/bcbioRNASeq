@@ -1,5 +1,13 @@
 # Release notes
 
+## bcbioRNASeq 0.5.5 (2023-08-19)
+
+Minor changes:
+
+- Now requiring R 4.3 / Bioconductor 3.17.
+- Reworked internal tximport handling to use new `isTximport` assert check
+  from the goalie package.
+
 ## bcbioRNASeq 0.5.4 (2023-05-02)
 
 Major changes:
