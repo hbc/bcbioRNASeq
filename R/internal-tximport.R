@@ -131,40 +131,6 @@
                 )
             }
         ))
-        assert(.isTximportReturn(txi))
+        assert(isTximport(txi))
         txi
     }
-
-
-
-## FIXME Switch this to a simple boolean function.
-
-#' Detect if object is tximport list return
-#'
-#' @note Updated 2022-03-07.
-#' @noRd
-.isTximportReturn <- function(txi) {
-    assert(
-        is.list(txi),
-        areIntersectingSets(
-            x = c(
-                "abundance",
-                "counts",
-                "countsFromAbundance",
-                "infReps", # v1.9+
-                "length"
-            ),
-            y = names(txi)
-        ),
-        identical(
-            x = dimnames(txi[["abundance"]]),
-            y = dimnames(txi[["counts"]])
-        ),
-        identical(
-            x = dimnames(txi[["abundance"]]),
-            y = dimnames(txi[["length"]])
-        ),
-        isString(txi[["countsFromAbundance"]])
-    )
-    TRUE
-}

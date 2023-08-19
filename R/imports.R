@@ -82,8 +82,8 @@ NULL
 #' areSetEqual assert bapply hasDimnames hasLength hasUniqueCols
 #' hasValidDimnames isADirectory isAFile isAURL isAny isCharacter isDirectory
 #' isFile isFlag isGGScale isInt isInRange isNonNegative isNumber isPositive
-#' isProportion isString isSubset requireNamespaces validNames validate
-#' validateClasses
+#' isProportion isString isSubset isTximport requireNamespaces validNames
+#' validate validateClasses
 #' @importFrom methods as as<- is new setAs setClass setMethod setValidity slot
 #' slot<- validObject .hasSlot
 #' @importFrom tximport tximport
