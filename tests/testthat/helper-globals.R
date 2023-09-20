@@ -8,6 +8,7 @@ options(
 )
 
 Gene2Symbol <- AcidGenerics::Gene2Symbol
+`design<-` <- BiocGenerics::`design<-`
 `sampleData<-` <- AcidGenerics::`sampleData<-`
 assay <- SummarizedExperiment::assay
 data <- utils::data
