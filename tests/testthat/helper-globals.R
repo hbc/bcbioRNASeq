@@ -7,19 +7,17 @@ options(
     "warnPartialMatchDollar" = FALSE
 )
 
-data(bcb, envir = environment())
-## > invisible(validObject(bcb))
-
-bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds")) # nolint
-## > invisible(validObject(bcb_fast))
-
 Gene2Symbol <- AcidGenerics::Gene2Symbol
 `sampleData<-` <- AcidGenerics::`sampleData<-`
 assay <- SummarizedExperiment::assay
+data <- utils::data
 hasInternet <- goalie::hasInternet
 initDir <- AcidBase::initDir
 nonzeroRowsAndCols <- AcidGenerics::nonzeroRowsAndCols
 seqnames <- GenomeInfoDb::seqnames
+
+data(bcb, envir = environment())
+bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds")) # nolint
 
 object <- bcb
 g2s <- Gene2Symbol(object)
