@@ -2,7 +2,7 @@
 #'
 #' @name show
 #' @author Michael Steinbaugh
-#' @note Updated 2022-03-07.
+#' @note Updated 2023-09-21.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -17,10 +17,10 @@ NULL
 
 
 
-## Updated 2021-02-22.
+## Updated 2023-09-21.
 `show,bcbioRNASeq` <- # nolint
     function(object) {
-        validObject(object)
+        assert(validObject(object))
         showHeader(object)
         ## Metadata.
         m <- metadata(object)
@@ -49,6 +49,7 @@ NULL
         ## Extend the standard RangedSummarizedExperiment method.
         rse <- as(object, "RangedSummarizedExperiment")
         cat(capture.output(show(rse)), sep = "\n")
+        invisible(NULL)
     }
 
 
