@@ -40,7 +40,7 @@
         if (isTRUE(txOut)) {
             assert(is.null(tx2gene))
         } else {
-            assert(is(tx2gene, "Tx2Gene"))
+            assert(is(tx2gene, "TxToGene"))
         }
         type <- match.arg(type)
         countsFromAbundance <- match.arg(

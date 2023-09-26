@@ -394,13 +394,13 @@ bcbioRNASeq <-
             if (isTRUE(txOut)) {
                 tx2gene <- NULL
             } else {
-                tx2gene <- importTx2Gene(
+                tx2gene <- importTxToGene(
                     file = file.path(projectDir, "tx2gene.csv"),
                     organism = organism,
                     genomeBuild = genomeBuild,
                     release = ensemblRelease
                 )
-                assert(is(tx2gene, "Tx2Gene"))
+                assert(is(tx2gene, "TxToGene"))
             }
             txi <- .tximport(
                 sampleDirs = sampleDirs,

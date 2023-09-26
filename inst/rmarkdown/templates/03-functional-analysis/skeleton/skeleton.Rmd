@@ -219,7 +219,7 @@ gene identifiers to NCBI gene identifiers. For genes that map to multiple NCBI
 identifiers, we are using the oldest identifier to define the 1:1 mapping.
 
 ```{r ensembl-to-ncbi}
-map <- Ensembl2Ncbi(object = dds, format = "1:1")
+map <- EnsemblToNcbi(object = dds, format = "1:1")
 assert(isSubset(rownames(map), rownames(dds)))
 allNcbiGenes <- map[["ncbiGeneId"]]
 names(allNcbiGenes) <- rownames(map)

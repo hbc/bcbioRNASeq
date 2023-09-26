@@ -170,7 +170,7 @@ setValidity(
                 ok <- validateClasses(
                     object = metadata,
                     expected = list(
-                        "tx2gene" = "Tx2Gene"
+                        "tx2gene" = "TxToGene"
                     ),
                     subset = TRUE
                 )

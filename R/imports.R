@@ -1,6 +1,6 @@
 ## S4 classes ==================================================================
 
-#' @importClassesFrom AcidGenomes Tx2Gene
+#' @importClassesFrom AcidGenomes TxToGene
 #' @importClassesFrom DESeq2 DESeqDataSet DESeqTransform
 #' @importClassesFrom IRanges DFrameList
 #' @importClassesFrom SummarizedExperiment RangedSummarizedExperiment
@@ -22,7 +22,7 @@ NULL
 #' plotPCACovariates plotMeanSD plotPseudoVsAlignedCounts plotQC
 #' plotRRNAMappingRate plotTotalReads relativeLogExpression sampleData
 #' showHeader slotAlignedCounts stripTranscriptVersions tmm topTables
-#' @importFrom AcidGenomes Tx2Gene
+#' @importFrom AcidGenomes TxToGene
 #' @importFrom BiocGenerics as.data.frame counts counts<- do.call
 #' estimateSizeFactors plotDispEsts plotPCA updateObject width
 #' @importFrom S4Vectors Rle cbind droplevels getListElement head lapply mcols
@@ -62,7 +62,7 @@ NULL
 #' h3 toInlineString txt ul
 #' @importFrom AcidExperiment detectLanes importSampleData
 #' makeSummarizedExperiment matchInterestingGroups
-#' @importFrom AcidGenomes detectOrganism emptyRanges importTx2Gene
+#' @importFrom AcidGenomes detectOrganism emptyRanges importTxToGene
 #' makeGRangesFromEnsembl makeGRangesFromGFF
 #' @importFrom AcidPlots .data acid_discrete_coord_flip acid_geom_abline
 #' acid_geom_bar acid_geom_label_repel acid_scale_color_discrete

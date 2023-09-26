@@ -377,18 +377,18 @@ NULL
             }
             ## tx2gene.
             tx2gene <- metadata[["tx2gene"]]
-            if (!is(tx2gene, "Tx2Gene")) {
+            if (!is(tx2gene, "TxToGene")) {
                 if (isTRUE(verbose)) {
                     alert(sprintf(
                         "Coercing {.var %s} to {.cls %s}.",
-                        "tx2gene", "Tx2Gene"
+                        "tx2gene", "TxToGene"
                     ))
                 }
                 assert(is.data.frame(tx2gene))
                 tx2gene <- as(tx2gene, "DFrame")
                 colnames(tx2gene) <- c("txId", "geneId")
                 rownames(tx2gene) <- NULL
-                metadata[["tx2gene"]] <- Tx2Gene(tx2gene)
+                metadata[["tx2gene"]] <- TxToGene(tx2gene)
             }
         }
         ## Filter NULL metadata.

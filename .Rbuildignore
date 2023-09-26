@@ -10,5 +10,4 @@
 ^doc$
 ^docs$
 ^pkgdown$
-^tests$
 ^todo\.org$

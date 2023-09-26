@@ -7,7 +7,7 @@ options(
     "warnPartialMatchDollar" = FALSE
 )
 
-Gene2Symbol <- AcidGenerics::Gene2Symbol
+GeneToSymbol <- AcidGenerics::GeneToSymbol
 `design<-` <- BiocGenerics::`design<-`
 `sampleData<-` <- AcidGenerics::`sampleData<-`
 assay <- SummarizedExperiment::assay
@@ -21,7 +21,7 @@ data(bcb, envir = environment())
 bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds")) # nolint
 
 object <- bcb
-g2s <- Gene2Symbol(object)
+g2s <- GeneToSymbol(object)
 geneIds <- head(g2s[["geneId"]])
 geneNames <- head(g2s[["geneName"]])
 

@@ -12,7 +12,7 @@
 #' data(bcb)
 #'
 #' ## bcbioRNASeq ====
-#' g2s <- AcidGenerics::Gene2Symbol(bcb)
+#' g2s <- AcidGenerics::GeneToSymbol(bcb)
 #' geneIds <- head(g2s[["geneId"]])
 #' print(geneIds)
 #' geneNames <- head(g2s[["geneName"]])
