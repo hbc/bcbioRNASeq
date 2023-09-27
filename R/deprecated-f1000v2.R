@@ -1,6 +1,6 @@
 ## nocov start
 
-## FIXME Add alternate camelCase variants used in the F1000v2 paper.
+## FIXME Need to go back through F1000v2 paper and double check these.
 
 
 
@@ -12,8 +12,6 @@ NULL
 
 
 
-## v0.3.17 =====================================================================
-
 #' @export
 #' @rdname plotCountsPerFeature
 plotCountsPerGene <- function(object, ...) {
@@ -21,16 +19,7 @@ plotCountsPerGene <- function(object, ...) {
     plotCountsPerFeature(object, ...)
 }
 
-#' @export
-#' @rdname deprecated
-plotGenesDetected <- function(object, ...) {
-    assert(.isGeneLevel(object))
-    plotFeaturesDetected(object, ...)
-}
 
-
-
-## F1000v2 manuscript ==========================================================
 
 `plotDegHeatmap,deprecated` <- # nolint
     function(object, results, counts, ...) {
@@ -45,6 +34,8 @@ plotGenesDetected <- function(object, ...) {
         )
     }
 
+
+
 #' @export
 #' @rdname deprecated
 #' @param `results` `DESeqResults.`
@@ -55,19 +46,34 @@ setMethod(
     definition = `plotDegHeatmap,deprecated`
 )
 
+
+
+#' @export
+#' @rdname deprecated
+plotGenesDetected <- function(object, ...) {
+    assert(.isGeneLevel(object))
+    plotFeaturesDetected(object, ...)
+}
+
+
+
 #' @export
 #' @rdname deprecated
 plotMeanAverage <- function(...) {
     ## > .Deprecated("plotMA")
-    assert(requireNamespace("BiocGenerics", quietly = TRUE))
-    BiocGenerics::plotMA(...)
+    assert(requireNamespace("AcidGenerics", quietly = TRUE))
+    AcidGenerics::plotMa(...)
 }
+
+
 
 #' @export
 #' @rdname deprecated
 prepareRNASeqTemplate <- function(...) {
     .Defunct("prepareTemplate")
 }
+
+
 
 `topTables,DFrameList` <- # nolint
     function(object, ...) {
@@ -77,6 +83,8 @@ prepareRNASeqTemplate <- function(...) {
         )
     }
 
+
+
 #' @export
 #' @rdname deprecated
 setMethod(
@@ -84,6 +92,8 @@ setMethod(
     signature = signature(object = "DFrameList"),
     definition = `topTables,DFrameList`
 )
+
+
 
 #' @export
 #' @rdname deprecated
