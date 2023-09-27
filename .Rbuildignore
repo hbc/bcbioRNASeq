@@ -11,4 +11,5 @@
 ^docs$
 ^longtests$
 ^pkgdown$
+^tests/testthat/cache$
 ^todo\.org$
