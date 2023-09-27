@@ -1,7 +1,7 @@
 skip_if_not(hasInternet())
 
 ## Load a legacy object that doesn't contain rowRanges.
-invalid <- import(file.path(bcbioRNASeqTestsURL, "bcbioRNASeq_0.1.4.rds"))
+invalid <- import(file.path(bcbioRnaSeqTestsUrl, "bcbioRNASeq_0.1.4.rds"))
 
 test_that("v0.1.4 up", {
     expect_error(

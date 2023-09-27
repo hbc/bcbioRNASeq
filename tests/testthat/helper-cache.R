@@ -19,7 +19,7 @@ Map(
     },
     file = files,
     MoreArgs = list(
-        "remoteDir" = bcbioRNASeqTestsURL,
+        "remoteDir" = bcbioRnaSeqTestsUrl,
         "envir" = environment()
     )
 )

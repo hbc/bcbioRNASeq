@@ -39,7 +39,7 @@
 #'
 #' ## Example that depends on remote file.
 #' object <- pipette::import(file.path(
-#'     bcbioRNASeqTestsURL,
+#'     bcbioRnaSeqTestsUrl,
 #'     "bcbioRNASeq_0.1.4.rds"
 #' ))
 #' object <- updateObject(object, verbose = TRUE)

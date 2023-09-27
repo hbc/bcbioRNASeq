@@ -31,8 +31,8 @@
 #' @export
 #'
 #' @examples
-#' bcbioRNASeqTestsURL
-bcbioRNASeqTestsURL <- paste0(
+#' bcbioRnaSeqTestsUrl
+bcbioRnaSeqTestsUrl <- paste0(
     "http://r.acidgenomics.com/testdata/bcbiornaseq/",
     "v", .pkgVersion$major, ".", .pkgVersion$minor # nolint
 )
