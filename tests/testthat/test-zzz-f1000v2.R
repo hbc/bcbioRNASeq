@@ -1,10 +1,10 @@
 ## nolint start
 DESeqAnalysis <- DESeqAnalysis::DESeqAnalysis
-cacheURL <- pipette::cacheURL
+cacheUrl <- pipette::cacheUrl
 degPatterns <- DEGreport::degPatterns
 degPlot <- DEGreport::degPlot
 import <- pipette::import
-pasteURL <- AcidBase::pasteURL
+pasteUrl <- AcidBase::pasteUrl
 plotVolcano <- AcidGenerics::plotVolcano
 realpath <- AcidBase::realpath
 render <- rmarkdown::render
@@ -17,8 +17,8 @@ tempdir2 <- AcidBase::tempdir2
 
 ## Manuscript uses `loadRemoteData()` instead.
 object <- import(
-    con = cacheURL(
-        url = pasteURL(
+    con = cacheUrl(
+        url = pasteUrl(
             "github.com",
             "hbc",
             "bcbioRNASeq",
