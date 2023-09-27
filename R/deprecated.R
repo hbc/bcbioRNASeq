@@ -1,5 +1,7 @@
 ## nocov start
 
+## FIXME Add alternate camelCase variants used in the F1000v2 paper.
+
 
 
 #' @name deprecated
@@ -30,13 +32,13 @@ plotGenesDetected <- function(object, ...) {
 
 ## F1000v2 manuscript ==========================================================
 
-`plotDEGHeatmap,deprecated` <- # nolint
+`plotDegHeatmap,deprecated` <- # nolint
     function(object, results, counts, ...) {
         assert(
             is(results, "DESeqResults"),
             is(counts, "DESeqTransform")
         )
-        plotDEGHeatmap(
+        plotDegHeatmap(
             object = results,
             DESeqTransform = counts,
             ...
@@ -48,9 +50,9 @@ plotGenesDetected <- function(object, ...) {
 #' @param `results` `DESeqResults.`
 #' @param `counts` `DESeqTransform`.
 setMethod(
-    f = "plotDEGHeatmap",
+    f = "plotDegHeatmap",
     signature = signature(object = "missing"),
-    definition = `plotDEGHeatmap,deprecated`
+    definition = `plotDegHeatmap,deprecated`
 )
 
 #' @export

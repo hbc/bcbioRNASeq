@@ -1,6 +1,6 @@
-#' @name plotMeanSD
+#' @name plotMeanSd
 #' @author Michael Steinbaugh, Lorena Patano
-#' @inherit AcidGenerics::plotMeanSD
+#' @inherit AcidGenerics::plotMeanSd
 #' @note Requires the vsn package to be installed.
 #' @note Updated 2022-10-24.
 #'
@@ -31,14 +31,14 @@
 #'
 #' ## bcbioRNASeq ====
 #' if (requireNamespace("vsn", quietly = TRUE)) {
-#'     plotMeanSD(bcb)
+#'     plotMeanSd(bcb)
 #' }
 NULL
 
 
 
 ## Updated 2022-03-07.
-`plotMeanSD,bcbioRNASeq` <- # nolint
+`plotMeanSd,bcbioRNASeq` <- # nolint
     function(object,
              fill = ggplot2::scale_fill_gradient(
                  low = AcidPlots::lightPalette[["gray"]],
@@ -50,8 +50,8 @@ NULL
         assert(
             requireNamespaces("vsn"),
             isFlag(legend),
-            isGGScale(fill, scale = "continuous", aes = "fill", nullOK = TRUE),
-            isString(lineColor, nullOK = TRUE)
+            isGgscale(fill, scale = "continuous", aes = "fill", nullOk = TRUE),
+            isString(lineColor, nullOk = TRUE)
         )
         ## Determine which genes are non-zero, and should be included in plot.
         raw <- counts(object, normalized = FALSE)
@@ -139,10 +139,10 @@ NULL
 
 
 
-#' @rdname plotMeanSD
+#' @rdname plotMeanSd
 #' @export
 setMethod(
-    f = "plotMeanSD",
+    f = "plotMeanSd",
     signature = signature(object = "bcbioRNASeq"),
-    definition = `plotMeanSD,bcbioRNASeq`
+    definition = `plotMeanSd,bcbioRNASeq`
 )

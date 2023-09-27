@@ -38,7 +38,7 @@ NULL
         assert(
             .isGeneLevel(object),
             isSubset(c("counts", "aligned"), assayNames(object)),
-            isString(title, nullOK = TRUE)
+            isString(title, nullOk = TRUE)
         )
         ## Coercing to SummarizedExperiment, for fast subsetting.
         object <- as(object, "RangedSummarizedExperiment")

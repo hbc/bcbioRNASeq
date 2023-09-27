@@ -1,6 +1,6 @@
-#' @name plotPCACovariates
+#' @name plotPcaCovariates
 #' @author Lorena Pantano, Michael Steinbaugh, Rory Kirchner
-#' @inherit AcidGenerics::plotPCACovariates
+#' @inherit AcidGenerics::plotPcaCovariates
 #' @note Requires the DEGreport package to be installed.
 #' @note Updated 2022-10-24.
 #'
@@ -26,14 +26,14 @@
 #'
 #' ## bcbioRNASeq ====
 #' if (requireNamespace("DEGreport", quietly = TRUE)) {
-#'     plotPCACovariates(bcb)
+#'     plotPcaCovariates(bcb)
 #' }
 NULL
 
 
 
 ## Updated 2022-05-25.
-`plotPCACovariates,bcbioRNASeq` <- # nolint
+`plotPcaCovariates,bcbioRNASeq` <- # nolint
     function(object,
              metrics = TRUE,
              normalized,
@@ -52,7 +52,7 @@ NULL
         keep <- which(bapply(data, is.factor))
         factors <- data[, keep, drop = FALSE]
         ## Drop columns that are all zeroes (not useful to plot). Sometimes we
-        ## are missing values for some samples but not others; plotPCACovariates
+        ## are missing values for some samples but not others; plotPcaCovariates
         ## was failing in those cases when checking if a column was a numeric.
         ## Here we ignore the NAs for numeric column checking. Adding the
         ## `na.rm` here fixes the issue.
@@ -74,7 +74,7 @@ NULL
         ## Check for minimum number of metrics.
         if (length(col) < 2L) {
             abort(sprintf(
-                "{.fun %s} requires >= 2 metrics.", "plotPCACovariates"
+                "{.fun %s} requires >= 2 metrics.", "plotPcaCovariates"
             ))
         }
         assert(isSubset(col, colnames(metadata)))
@@ -88,15 +88,15 @@ NULL
         })
     }
 
-formals(`plotPCACovariates,bcbioRNASeq`)[["normalized"]] <- # nolint
+formals(`plotPcaCovariates,bcbioRNASeq`)[["normalized"]] <- # nolint
     .normalized
 
 
 
-#' @rdname plotPCACovariates
+#' @rdname plotPcaCovariates
 #' @export
 setMethod(
-    f = "plotPCACovariates",
+    f = "plotPcaCovariates",
     signature = signature(object = "bcbioRNASeq"),
-    definition = `plotPCACovariates,bcbioRNASeq`
+    definition = `plotPcaCovariates,bcbioRNASeq`
 )

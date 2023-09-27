@@ -1,6 +1,6 @@
-#' @name plotRRNAMappingRate
+#' @name plotRrnaMappingRate
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit AcidGenerics::plotRRNAMappingRate
+#' @inherit AcidGenerics::plotRrnaMappingRate
 #' @note Updated 2022-05-09.
 #'
 #' @inheritParams AcidRoxygen::params
@@ -10,13 +10,13 @@
 #' data(bcb)
 #'
 #' ## bcbioRNASeq ====
-#' plotRRNAMappingRate(bcb)
+#' plotRrnaMappingRate(bcb)
 NULL
 
 
 
 ## Updated 2022-05-09.
-`plotRRNAMappingRate,bcbioRNASeq` <- # nolint
+`plotRrnaMappingRate,bcbioRNASeq` <- # nolint
     function(object,
              interestingGroups = NULL,
              limit = 0.1,
@@ -81,10 +81,10 @@ NULL
 
 
 
-#' @rdname plotRRNAMappingRate
+#' @rdname plotRrnaMappingRate
 #' @export
 setMethod(
-    f = "plotRRNAMappingRate",
+    f = "plotRrnaMappingRate",
     signature = signature(object = "bcbioRNASeq"),
-    definition = `plotRRNAMappingRate,bcbioRNASeq`
+    definition = `plotRrnaMappingRate,bcbioRNASeq`
 )

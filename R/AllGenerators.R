@@ -85,7 +85,7 @@
 #' specifically with either of these functions:
 #'
 #' - `AcidGenomes::makeGRangesFromEnsembl()`.
-#' - `AcidGenomes::makeGRangesFromGFF()`.
+#' - `AcidGenomes::makeGRangesFromGff()`.
 #'
 #' [acidgenomes]: https://r.acidgenomics.com/packages/acidgenomes/
 #' [annotationhub]: https://bioconductor.org/packages/AnnotationHub/
@@ -158,7 +158,7 @@
 #' Skip internal DESeq2 calculations and transformations.
 #' Don't enable this setting when using the quality control R Markdown
 #' template.
-#' Note that some plotting functions, such as `plotPCA()` will not work when
+#' Note that some plotting functions, such as `plotPca()` will not work when
 #' this mode is enabled.
 #'
 #' @return `bcbioRNASeq`.
@@ -219,17 +219,17 @@ bcbioRNASeq <-
         assert(
             isAny(samples, classes = c("character", "NULL")),
             isAny(censorSamples, classes = c("character", "NULL")),
-            isString(sampleMetadataFile, nullOK = TRUE),
-            isString(organism, nullOK = TRUE),
-            isString(genomeBuild, nullOK = TRUE),
-            isInt(ensemblRelease, nullOK = TRUE),
+            isString(sampleMetadataFile, nullOk = TRUE),
+            isString(organism, nullOk = TRUE),
+            isString(genomeBuild, nullOk = TRUE),
+            isInt(ensemblRelease, nullOk = TRUE),
             isAny(transgeneNames, classes = c("character", "NULL")),
-            isString(gffFile, nullOK = TRUE),
+            isString(gffFile, nullOk = TRUE),
             isCharacter(interestingGroups),
             isFlag(fast)
         )
         if (isString(gffFile)) {
-            assert(isAFile(gffFile) || isAURL(gffFile))
+            assert(isAFile(gffFile) || isAUrl(gffFile))
         }
         ## Don't allow AnnotationHub formals when specifying GFF file.
         if (!is.null(gffFile)) {
@@ -312,7 +312,7 @@ bcbioRNASeq <-
             )
         } else {
             ## Automatic metadata from YAML file.
-            sampleData <- getSampleDataFromYAML(yaml)
+            sampleData <- getSampleDataFromYaml(yaml)
         }
         assert(isSubset(rownames(sampleData), names(sampleDirs)))
         ## Subset the sample directories, if necessary.
@@ -365,7 +365,7 @@ bcbioRNASeq <-
         ## Sample metrics. Note that sample metrics used for QC plots are not
         ## currently generated when using fast RNA-seq workflow. This depends
         ## upon MultiQC and aligned counts generated with STAR.
-        colData <- getMetricsFromYAML(yaml)
+        colData <- getMetricsFromYaml(yaml)
         if (hasLength(colData)) {
             assert(
                 areDisjointSets(colnames(colData), colnames(sampleData)),
@@ -469,10 +469,10 @@ bcbioRNASeq <-
             ## GTF/GFF file.
             if (is.null(gffFile)) {
                 ## Attempt to use bcbio GTF automatically.
-                gffFile <- getGTFFileFromYAML(yaml)
+                gffFile <- getGtfFileFromYaml(yaml)
             }
             if (!is.null(gffFile) && isFALSE(fast)) {
-                rowRanges <- makeGRangesFromGFF(
+                rowRanges <- makeGRangesFromGff(
                     file = gffFile,
                     level = level,
                     ignoreVersion = TRUE

@@ -146,7 +146,7 @@ test_that("Quality control", {
         plotCountsPerFeature,
         plotCountDensity,
         plotMeanSD,
-        plotPCA
+        plotPca
     )) {
         p <- fun(object)
         expect_s3_class(p, "ggplot")
@@ -155,7 +155,7 @@ test_that("Quality control", {
     expect_s3_class(p, "pheatmap")
     for (fun in list(
         plotDispEsts,
-        plotPCACovariates
+        plotPcaCovariates
     )) {
         p <- fun(object)
         expect_type(p, "list")

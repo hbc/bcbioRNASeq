@@ -62,9 +62,9 @@ NULL
 NULL
 
 #' @export
-#' @name plotDEGHeatmap
+#' @name plotDegHeatmap
 #' @rdname deprecated
-#' @usage plotDEGHeatmap(object, ...)
+#' @usage plotDegHeatmap(object, ...)
 NULL
 
 #' @export
@@ -110,21 +110,21 @@ NULL
 NULL
 
 #' @export
-#' @name plotMeanSD
-#' @rdname plotMeanSD
-#' @usage plotMeanSD(object, ...)
+#' @name plotMeanSd
+#' @rdname plotMeanSd
+#' @usage plotMeanSd(object, ...)
 NULL
 
 #' @export
-#' @name plotPCA
-#' @rdname plotPCA
-#' @usage plotPCA(object, ...)
+#' @name plotPca
+#' @rdname plotPca
+#' @usage plotPca(object, ...)
 NULL
 
 #' @export
-#' @name plotPCACovariates
-#' @rdname plotPCACovariates
-#' @usage plotPCACovariates(object, ...)
+#' @name plotPcaCovariates
+#' @rdname plotPcaCovariates
+#' @usage plotPcaCovariates(object, ...)
 NULL
 
 #' @export
@@ -134,15 +134,15 @@ NULL
 NULL
 
 #' @export
-#' @name plotQC
-#' @rdname plotQC
-#' @usage plotQC(object, ...)
+#' @name plotQc
+#' @rdname plotQc
+#' @usage plotQc(object, ...)
 NULL
 
 #' @export
-#' @name plotRRNAMappingRate
-#' @rdname plotRRNAMappingRate
-#' @usage plotRRNAMappingRate(object, ...)
+#' @name plotRrnaMappingRate
+#' @rdname plotRrnaMappingRate
+#' @usage plotRrnaMappingRate(object, ...)
 NULL
 
 #' @export

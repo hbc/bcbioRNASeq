@@ -307,7 +307,7 @@ invisible(Map(
 invisible(Map(
     f = function(object, i) {
         markdownHeader(text = i, level = 4L, asis = TRUE)
-        print(plotDEGPCA(object = object, i = i))
+        print(plotDegPca(object = object, i = i))
     },
     i = resultsNames(deseq),
     MoreArgs = list("object" = deseq)
@@ -324,7 +324,7 @@ have scaled the data by row and used the `ward.D2` method for clustering
 invisible(Map(
     f = function(object, i, ...) {
         markdownHeader(text = i, level = 4L)
-        plotDEGHeatmap(object = object, i = i, ...)
+        plotDegHeatmap(object = object, i = i, ...)
     },
     i = resultsNames(deseq),
     MoreArgs = list(

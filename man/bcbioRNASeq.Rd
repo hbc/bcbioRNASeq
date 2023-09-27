@@ -94,7 +94,7 @@ Fast mode.
 Skip internal DESeq2 calculations and transformations.
 Don't enable this setting when using the quality control R Markdown
 template.
-Note that some plotting functions, such as \code{plotPCA()} will not work when
+Note that some plotting functions, such as \code{plotPca()} will not work when
 this mode is enabled.}
 }
 \value{
@@ -192,7 +192,7 @@ Internally, genome annotations are imported via the \href{https://r.acidgenomics
 specifically with either of these functions:
 \itemize{
 \item \code{AcidGenomes::makeGRangesFromEnsembl()}.
-\item \code{AcidGenomes::makeGRangesFromGFF()}.
+\item \code{AcidGenomes::makeGRangesFromGff()}.
 }
 }
 

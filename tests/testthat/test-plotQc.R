@@ -1,10 +1,10 @@
-test_that("plotQC", {
-    x <- plotQC(object)
+test_that("plotQc", {
+    x <- plotQc(object)
     expect_s3_class(x, "ggplot")
 })
 
 test_that("Fast mode", {
-    x <- plotQC(bcb_fast)
+    x <- plotQc(bcb_fast)
     expect_s3_class(x, "ggplot")
 })
 
@@ -20,8 +20,8 @@ test_that("Interesting groups support", {
         plotIntronicMappingRate,
         plotMappedReads,
         plotMappingRate,
-        plotPCA,
-        plotRRNAMappingRate,
+        plotPca,
+        plotRrnaMappingRate,
         plotTotalReads
     )) {
         expect_type(fun, "closure")

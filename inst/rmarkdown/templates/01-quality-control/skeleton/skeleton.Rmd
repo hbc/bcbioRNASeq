@@ -122,7 +122,7 @@ plotIntronicMappingRate(object)
 Samples should have a ribosomal RNA (rRNA) contamination rate below 10%.
 
 ```{r plot-rrna-mapping-rate}
-plotRRNAMappingRate(object)
+plotRrnaMappingRate(object)
 ```
 
 ### 5'->3' bias
@@ -178,7 +178,7 @@ plotCountsPerBroadClass(object)
 These plots show the standard deviation of normalized counts.
 
 ```{r plot-mean-sd}
-plotMeanSD(object)
+plotMeanSd(object)
 ```
 
 ## Sample similarity analysis
@@ -206,7 +206,7 @@ variation, and identify potential sample outliers. The PCA plot is a way to
 look at how samples are clustering.
 
 ```{r plot-pca}
-plotPCA(object)
+plotPca(object)
 ```
 
 ### Hierarchical clustering

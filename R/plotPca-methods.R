@@ -1,13 +1,13 @@
 #' Principal component analysis plot
 #'
-#' @name plotPCA
+#' @name plotPca
 #' @author Michael Steinbaugh
 #' @note Updated 2022-03-07.
 #'
 #' @inheritParams plotCounts
 #' @inheritParams AcidRoxygen::params
 #' @param ... Passthrough to `SummarizedExperiment` method defined in AcidPlots.
-#' See `AcidPlots::plotPCA()` for details.
+#' See `AcidPlots::plotPca()` for details.
 #'
 #' @return `ggplot`.
 #'
@@ -15,17 +15,17 @@
 #' data(bcb)
 #'
 #' ## bcbioRNASeq ====
-#' plotPCA(bcb, label = FALSE)
-#' plotPCA(bcb, label = TRUE)
+#' plotPca(bcb, label = FALSE)
+#' plotPca(bcb, label = TRUE)
 NULL
 
 
 
 ## Updated 2020-09-15.
-`plotPCA,bcbioRNASeq` <- # nolint
+`plotPca,bcbioRNASeq` <- # nolint
     function(object, normalized, ...) {
         do.call(
-            what = plotPCA,
+            what = plotPca,
             args = list(
                 object = .normalizedSE(
                     object = object,
@@ -36,15 +36,15 @@ NULL
         )
     }
 
-formals(`plotPCA,bcbioRNASeq`)[["normalized"]] <- # nolint
+formals(`plotPca,bcbioRNASeq`)[["normalized"]] <- # nolint
     .dt
 
 
 
-#' @rdname plotPCA
+#' @rdname plotPca
 #' @export
 setMethod(
-    f = "plotPCA",
+    f = "plotPca",
     signature = signature(object = "bcbioRNASeq"),
-    definition = `plotPCA,bcbioRNASeq`
+    definition = `plotPca,bcbioRNASeq`
 )

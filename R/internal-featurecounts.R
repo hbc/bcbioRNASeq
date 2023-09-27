@@ -11,7 +11,7 @@
         assert(
             isADirectory(projectDir),
             isCharacter(samples),
-            isCharacter(genes, nullOK = TRUE)
+            isCharacter(genes, nullOk = TRUE)
         )
         alert(sprintf(
             "Importing aligned counts from {.pkg %s}.", "featureCounts"

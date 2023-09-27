@@ -1,5 +1,5 @@
-test_that("plotPCACovariates", {
-    x <- plotPCACovariates(object)
+test_that("plotPcaCovariates", {
+    x <- plotPcaCovariates(object)
     expect_type(x, "list")
     expected <- c(
         "plot",

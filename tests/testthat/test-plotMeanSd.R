@@ -1,6 +1,6 @@
 skip_if_not_installed("vsn")
 
-test_that("plotMeanSD", {
-    x <- plotMeanSD(object)
+test_that("plotMeanSd", {
+    x <- plotMeanSd(object)
     expect_s3_class(x, "ggplot")
 })

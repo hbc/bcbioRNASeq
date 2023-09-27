@@ -17,14 +17,14 @@ NULL
 #' makeNames mapGenesToRownames markdownTables metrics plot5Prime3PrimeBias
 #' plotCorrelationHeatmap plotCounts plotCountsCorrelation
 #' plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
-#' plotCountsPerFeature plotDEGHeatmap plotExonicMappingRate plotGenderMarkers
+#' plotCountsPerFeature plotDegHeatmap plotExonicMappingRate plotGenderMarkers
 #' plotGeneSaturation plotIntronicMappingRate plotMappedReads plotMappingRate
-#' plotPCACovariates plotMeanSD plotPseudoVsAlignedCounts plotQC
-#' plotRRNAMappingRate plotTotalReads relativeLogExpression sampleData
+#' plotPca plotPcaCovariates plotMeanSd plotPseudoVsAlignedCounts plotQc
+#' plotRrnaMappingRate plotTotalReads relativeLogExpression sampleData
 #' showHeader slotAlignedCounts stripTranscriptVersions tmm topTables
 #' @importFrom AcidGenomes TxToGene
 #' @importFrom BiocGenerics as.data.frame counts counts<- do.call
-#' estimateSizeFactors plotDispEsts plotPCA updateObject width
+#' estimateSizeFactors plotDispEsts updateObject width
 #' @importFrom S4Vectors Rle cbind droplevels getListElement head lapply mcols
 #' mcols<- metadata metadata<-
 #' @importFrom SummarizedExperiment assay assay<- assayNames assayNames<- assays
@@ -40,7 +40,7 @@ NULL
 #' @importMethodsFrom AcidGenomes stripTranscriptVersions
 #' @importMethodsFrom AcidPlots plotCorrelationHeatmap plotCountsCorrelation
 #' plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
-#' plotCountsPerFeature plotGenderMarkers plotPCA
+#' plotCountsPerFeature plotGenderMarkers plotPca
 #' @importMethodsFrom DESeq2 estimateSizeFactors
 #' @importMethodsFrom pipette droplevels2 encode export import
 #' @importMethodsFrom syntactic camelCase makeNames
@@ -63,7 +63,7 @@ NULL
 #' @importFrom AcidExperiment detectLanes importSampleData
 #' makeSummarizedExperiment matchInterestingGroups
 #' @importFrom AcidGenomes detectOrganism emptyRanges importTxToGene
-#' makeGRangesFromEnsembl makeGRangesFromGFF
+#' makeGRangesFromEnsembl makeGRangesFromGff
 #' @importFrom AcidPlots .data acid_discrete_coord_flip acid_geom_abline
 #' acid_geom_bar acid_geom_label_repel acid_scale_color_discrete
 #' acid_scale_fill_discrete acid_scale_y_continuous_nopad matchLabels
@@ -72,16 +72,16 @@ NULL
 #' varianceStabilizingTransformation
 #' @importFrom S4Vectors DataFrame SimpleList
 #' @importFrom SummarizedExperiment SummarizedExperiment
-#' @importFrom bcbioBase getGTFFileFromYAML getMetricsFromYAML
-#' getSampleDataFromYAML importDataVersions importProgramVersions projectDir
+#' @importFrom bcbioBase getGtfFileFromYaml getMetricsFromYaml
+#' getSampleDataFromYaml importDataVersions importProgramVersions projectDir
 #' runDate sampleDirs
 #' @importFrom edgeR DGEList
 #' @importFrom ggplot2 aes expand_limits geom_point geom_smooth ggplot ggtitle
 #' guides labs scale_y_continuous theme
 #' @importFrom goalie allAreMatchingFixed areDisjointSets areIntersectingSets
 #' areSetEqual assert bapply hasDimnames hasLength hasUniqueCols
-#' hasValidDimnames isADirectory isAFile isAURL isAny isCharacter isDirectory
-#' isFile isFlag isGGScale isInt isInRange isNonNegative isNumber isPositive
+#' hasValidDimnames isADirectory isAFile isAUrl isAny isCharacter isDirectory
+#' isFile isFlag isGgscale isInt isInRange isNonNegative isNumber isPositive
 #' isProportion isString isSubset isTximport requireNamespaces validNames
 #' validate validateClasses
 #' @importFrom methods as as<- is new setAs setClass setMethod setValidity slot

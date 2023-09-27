@@ -1,6 +1,6 @@
-#' @name plotQC
+#' @name plotQc
 #' @author Michael Steinbaugh
-#' @inherit AcidGenerics::plotQC
+#' @inherit AcidGenerics::plotQc
 #' @note Updated 2022-03-07.
 #'
 #' @inheritParams AcidRoxygen::params
@@ -10,13 +10,13 @@
 #' data(bcb)
 #'
 #' ## bcbioRNASeq ====
-#' plotQC(bcb)
+#' plotQc(bcb)
 NULL
 
 
 
 ## Updated 2020-09-15.
-`plotQC,bcbioRNASeq` <- # nolint
+`plotQc,bcbioRNASeq` <- # nolint
     function(object) {
         validObject(object)
         plotlist <- list(
@@ -24,23 +24,23 @@ NULL
             "mappingRate" = plotMappingRate(object),
             "exonicMappingRate" = plotExonicMappingRate(object),
             "intronicMappingRate" = plotIntronicMappingRate(object),
-            "rrnaMappingRate" = plotRRNAMappingRate(object),
+            "rrnaMappingRate" = plotRrnaMappingRate(object),
             "x5Prime3PrimeBias" = plot5Prime3PrimeBias(object),
             "featuresDetected" = plotFeaturesDetected(object),
             "countsPerFeature" = plotCountsPerFeature(object)
         )
         if (!.isFastMode(object)) {
-            plotlist[["pca"]] <- plotPCA(object)
+            plotlist[["pca"]] <- plotPca(object)
         }
         wrap_plots(plotlist)
     }
 
 
 
-#' @rdname plotQC
+#' @rdname plotQc
 #' @export
 setMethod(
-    f = "plotQC",
+    f = "plotQc",
     signature = signature(object = "bcbioRNASeq"),
-    definition = `plotQC,bcbioRNASeq`
+    definition = `plotQc,bcbioRNASeq`
 )

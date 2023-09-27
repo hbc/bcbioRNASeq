@@ -166,8 +166,8 @@ For the vignette, we are loading a pre-computed version of the example `bcbioRNA
 
 ```{r}
 object <- import(
-    con = cacheURL(
-        pasteURL(
+    con = cacheUrl(
+        pasteUrl(
             "github.com",
             "hbc",
             "bcbioRNASeq",
@@ -200,7 +200,7 @@ The `interestingGroups` definition defaults to `sampleName`, which is automatica
 
 Interesting groups must be defined using a `character` vector and refer to column names defined in the `colData` slot of the object. Note that the bcbioRNASeq package uses lower camel case formatting for column names (e.g. "sampleName"), so the interesting groups should be defined using camel case, not snake (e.g. "sample_name") or dotted case (e.g. "sample.name").
 
-This approach was inspired by the DESeq2 package, which uses the argument `intgroup` in some functions, such as `plotPCA` for labeling groups of interest. We took this idea and ran with it for a number of our quality control functions, which are described in detail below.
+This approach was inspired by the DESeq2 package, which uses the argument `intgroup` in some functions, such as `plotPca` for labeling groups of interest. We took this idea and ran with it for a number of our quality control functions, which are described in detail below.
 
 ```{r}
 interestingGroups(object) <- c("treatment", "day")
@@ -232,7 +232,7 @@ plotIntronicMappingRate(object)
 Note that the samples here have a high rRNA mapping rate. This can be indicative of the polyA enrichment or ribo depletion protocol not having removed all ribosomal RNA (rRNA) transcripts. This will reduce the number of biologically meaningful reads in the experiment and is best avoided.
 
 ```{r}
-plotRRNAMappingRate(object)
+plotRrnaMappingRate(object)
 ```
 
 ## 5'->3' bias
@@ -260,7 +260,7 @@ plotCountsPerFeature(object, geom = "density")
 We can visualize sample similarity with principal component analysis (PCA) and hierarchical clustering of sample correlations. These functions support multiple normalization methods with the `normalized` argument.
 
 ```{r}
-plotPCA(object)
+plotPca(object)
 plotCorrelationHeatmap(object)
 ```
 
