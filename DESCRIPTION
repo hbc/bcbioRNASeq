@@ -115,7 +115,7 @@ Imports:
     AcidBase (>= 0.7.0),
     AcidCLI (>= 0.3.0),
     AcidExperiment (>= 0.5.0),
-    AcidGenerics (>= 0.7.1),
+    AcidGenerics (>= 0.7.2),
     AcidGenomes (>= 0.6.0),
     AcidPlots (>= 0.7.1),
     BiocGenerics (>= 0.46.0),
