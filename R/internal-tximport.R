@@ -33,7 +33,7 @@
              tx2gene,
              ignoreTxVersion = TRUE) {
         assert(
-            all(isDirectory(sampleDirs)),
+            all(isDir(sampleDirs)),
             identical(names(sampleDirs), makeNames(basename(sampleDirs))),
             isFlag(txOut)
         )
@@ -49,7 +49,7 @@
         )
         ## Locate the counts files ---------------------------------------------
         subdirs <- file.path(sampleDirs, type)
-        assert(all(isDirectory(subdirs)))
+        assert(all(isDir(subdirs)))
         basename <- ifelse(
             test = identical(type, "kallisto"),
             yes = "abundance.h5",

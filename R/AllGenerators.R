@@ -210,7 +210,7 @@ bcbioRNASeq <-
              countsFromAbundance = "lengthScaledTPM",
              interestingGroups = "sampleName",
              fast = FALSE) {
-        assert(isADirectory(uploadDir))
+        assert(isADir(uploadDir))
         level <- match.arg(level)
         caller <- match.arg(caller)
         if (identical(level, "transcripts")) {

@@ -14,8 +14,10 @@ assay <- SummarizedExperiment::assay
 data <- utils::data
 hasInternet <- goalie::hasInternet
 initDir <- AcidBase::initDir
+isADir <- goalie::isADir
 nonzeroRowsAndCols <- AcidGenerics::nonzeroRowsAndCols
 seqnames <- GenomeInfoDb::seqnames
+untar <- utils::untar
 
 data(bcb, envir = environment())
 bcb_fast <- readRDS(file.path(cacheDir, "bcb_fast.rds")) # nolint

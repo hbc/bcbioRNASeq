@@ -71,6 +71,12 @@ test_that("Fast mode in R", {
 
 test_that("bcbio fastrnaseq pipeline", {
     uploadDir <- file.path(cacheDir, "fastrnaseq")
+    if (!isADir(uploadDir)) {
+        tarfile <- file.path(cacheDir, "fastrnaseq.tar.gz")
+        assert(isAFile(tarfile))
+        untar(tarfile = tarfile, exdir = cacheDir)
+        assert(isADir(uploadDir))
+    }
     object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
     expect_s4_class(object, "bcbioRNASeq")
 })

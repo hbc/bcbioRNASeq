@@ -9,7 +9,7 @@
 .featureCounts <-
     function(projectDir, samples, genes = NULL) {
         assert(
-            isADirectory(projectDir),
+            isADir(projectDir),
             isCharacter(samples),
             isCharacter(genes, nullOk = TRUE)
         )

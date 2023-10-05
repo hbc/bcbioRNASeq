@@ -91,7 +91,7 @@ NULL
 #' guides labs scale_y_continuous theme
 #' @importFrom goalie allAreMatchingFixed areDisjointSets areIntersectingSets
 #' areSetEqual assert bapply hasDimnames hasLength hasUniqueCols
-#' hasValidDimnames isADirectory isAFile isAUrl isAny isCharacter isDirectory
+#' hasValidDimnames isADir isAFile isAUrl isAny isCharacter isDir
 #' isFile isFlag isGgscale isInt isInRange isNonNegative isNumber isPositive
 #' isProportion isString isSubset isTximport requireNamespaces validNames
 #' validate validateClasses
