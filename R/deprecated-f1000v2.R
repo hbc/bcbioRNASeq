@@ -133,7 +133,7 @@ plotRRNAMappingRate <- function(...) {
 prepareRNASeqTemplate <- function(...) {
     .Deprecated("AcidMarkdown::prepareTemplate")
     assert(requireNamespaces("AcidMarkdown"))
-    prepareTemplate(...)
+    AcidMarkdown::prepareTemplate(...)
 }
 
 
@@ -142,7 +142,7 @@ prepareRNASeqTemplate <- function(...) {
     function(object, ...) {
         .Deprecated("DESeqAnalysis::markdownTables")
         assert(requireNamespaces("DESeqAnalysis"))
-        markdownTables(object = object, ...)
+        DESeqAnalysis::markdownTables(object = object, ...)
     }
 
 #' @export

@@ -1,5 +1,6 @@
 ## nolint start
 DESeqAnalysis <- DESeqAnalysis::DESeqAnalysis
+`design<-` <- DESeq2::`design<-`
 cacheUrl <- pipette::cacheUrl
 degPatterns <- DEGreport::degPatterns
 degPlot <- DEGreport::degPlot
