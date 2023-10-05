@@ -243,11 +243,11 @@ RNA-seq data can have specific biases at either the 5’ or 3’ end of sequence
 plot5Prime3PrimeBias(object)
 ```
 
-## Gene distributions
+## Feature (gene) distributions
 
 ```{r}
 plotFeaturesDetected(object)
-plotGeneSaturation(object)
+plotFeatureSaturation(object)
 ```
 
 ```{r}

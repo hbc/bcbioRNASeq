@@ -5,7 +5,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2022-09-01.
+## Updated 2023-10-05.
 params:
   title: "Differential expression with DESeq2"
 
@@ -276,7 +276,7 @@ average) scales [@Yang2002-sx].
 invisible(Map(
     f = function(object, i) {
         markdownHeader(text = i, level = 4L, asis = TRUE)
-        print(plotMA(object = object, i = i))
+        print(plotMa(object = object, i = i))
     },
     i = resultsNames(deseq),
     MoreArgs = list("object" = deseq)

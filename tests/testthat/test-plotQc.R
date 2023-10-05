@@ -10,12 +10,10 @@ test_that("Fast mode", {
 
 test_that("Interesting groups support", {
     for (fun in list(
-        ## plotCountsPerGene
-        ## plotGenesDetected
         plot5Prime3PrimeBias,
         plotCountsPerFeature,
         plotExonicMappingRate,
-        plotGeneSaturation,
+        plotFeatureSaturation,
         plotFeaturesDetected,
         plotIntronicMappingRate,
         plotMappedReads,

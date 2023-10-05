@@ -1,5 +1,5 @@
-test_that("plotGeneSaturation", {
-    x <- plotGeneSaturation(
+test_that("plotFeatureSaturation", {
+    x <- plotFeatureSaturation(
         object = object,
         trendline = TRUE,
         label = TRUE

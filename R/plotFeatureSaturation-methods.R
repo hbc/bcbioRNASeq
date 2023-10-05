@@ -1,7 +1,7 @@
-#' @name plotGeneSaturation
+#' @name plotFeatureSaturation
 #' @author Michael Steinbaugh, Rory Kirchner, Victor Barrera
-#' @inherit AcidGenerics::plotGeneSaturation
-#' @note Updated 2022-05-09.
+#' @inherit AcidGenerics::plotFeatureSaturation
+#' @note Updated 2023-10-05.
 #'
 #' @inheritParams AcidRoxygen::params
 #' @param ... Additional arguments.
@@ -10,14 +10,14 @@
 #' data(bcb)
 #'
 #' ## bcbioRNASeq ====
-#' plotGeneSaturation(bcb, label = FALSE)
-#' plotGeneSaturation(bcb, label = TRUE)
+#' plotFeatureSaturation(bcb, label = FALSE)
+#' plotFeatureSaturation(bcb, label = TRUE)
 NULL
 
 
 
-## Updated 2022-05-09.
-`plotGeneSaturation,bcbioRNASeq` <- # nolint
+## Updated 2023-10-05.
+`plotFeatureSaturation,bcbioRNASeq` <- # nolint
     function(object,
              interestingGroups = NULL,
              minCounts = 1L,
@@ -86,10 +86,10 @@ NULL
 
 
 
-#' @rdname plotGeneSaturation
+#' @rdname plotFeatureSaturation
 #' @export
 setMethod(
-    f = "plotGeneSaturation",
+    f = "plotFeatureSaturation",
     signature = signature(object = "bcbioRNASeq"),
-    definition = `plotGeneSaturation,bcbioRNASeq`
+    definition = `plotFeatureSaturation,bcbioRNASeq`
 )

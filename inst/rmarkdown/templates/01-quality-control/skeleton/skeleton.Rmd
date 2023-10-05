@@ -85,20 +85,20 @@ poor sequencing quality or other artifacts.
 plotMappingRate(object)
 ```
 
-### Number of genes detected
+### Number of features (genes) detected
 
-```{r plot-genes-detected}
-plotGenesDetected(object)
+```{r plot-features-detected}
+plotFeaturesDetected(object)
 ```
 
-### Gene detection saturation
+### Feature (gene) detection saturation
 
 We should observe a linear trend in the number of genes detected with the
 number of mapped reads, which indicates that the sample input was not
 overloaded.
 
-```{r plot-gene-saturation}
-plotGeneSaturation(object)
+```{r plot-feature-saturation}
+plotFeatureSaturation(object)
 ```
 
 ### Exonic mapping rate

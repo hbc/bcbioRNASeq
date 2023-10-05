@@ -80,15 +80,15 @@ NULL
 NULL
 
 #' @export
-#' @name plotGenderMarkers
-#' @rdname plotGenderMarkers
-#' @usage plotGenderMarkers(object, ...)
+#' @name plotFeatureSaturation
+#' @rdname plotFeatureSaturation
+#' @usage plotFeatureSaturation(object, ...)
 NULL
 
 #' @export
-#' @name plotGeneSaturation
-#' @rdname plotGeneSaturation
-#' @usage plotGeneSaturation(object, ...)
+#' @name plotGenderMarkers
+#' @rdname plotGenderMarkers
+#' @usage plotGenderMarkers(object, ...)
 NULL
 
 #' @export
@@ -173,12 +173,6 @@ NULL
 #' @name tmm
 #' @rdname tmm
 #' @usage tmm(object, ...)
-NULL
-
-#' @export
-#' @name topTables
-#' @rdname deprecated
-#' @usage topTables(object, ...)
 NULL
 
 #' @export

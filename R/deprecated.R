@@ -38,6 +38,8 @@ plotDEGHeatmap <- function(...) {
     DESeqAnalysis::plotDegHeatmap(...)
 }
 
+
+
 `plotDegHeatmap,deprecated` <- # nolint
     function(object, results, counts, ...) {
         assert(
@@ -65,10 +67,30 @@ setMethod(
 
 #' @export
 #' @rdname deprecated
+plotGeneSaturation <- function(object, ...) {
+    .Deprecated("plotFeatureSaturation")
+    assert(.isGeneLevel(object))
+    plotFeatureSaturation(object, ...)
+}
+
+
+
+#' @export
+#' @rdname deprecated
 plotGenesDetected <- function(object, ...) {
     .Deprecated("plotFeaturesDetected")
     assert(.isGeneLevel(object))
     plotFeaturesDetected(object, ...)
+}
+
+
+
+#' @export
+#' @rdname deprecated
+plotMA <- function(...) {
+    .Deprecated("DESeqAnalysis::plotMa")
+    assert(requireNamespaces("DESeqAnalysis"))
+    DESeqAnalysis::plotMa(...)
 }
 
 
@@ -138,20 +160,13 @@ prepareRNASeqTemplate <- function(...) {
 
 
 
-`topTables,DFrameList` <- # nolint
-    function(object, ...) {
-        .Deprecated("DESeqAnalysis::markdownTables")
-        assert(requireNamespaces("DESeqAnalysis"))
-        DESeqAnalysis::markdownTables(object = object, ...)
-    }
-
 #' @export
 #' @rdname deprecated
-setMethod(
-    f = "topTables",
-    signature = signature(object = "DFrameList"),
-    definition = `topTables,DFrameList`
-)
+topTables <- function(...) {
+    .Deprecated("DESeqAnalysis::markdownTables")
+    assert(requireNamespaces("DESeqAnalysis"))
+    DESeqAnalysis::markdownTables(...)
+}
 
 
 

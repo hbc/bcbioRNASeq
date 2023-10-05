@@ -27,11 +27,12 @@ NULL
 #' makeNames mapGenesToRownames markdownTables metrics plot5Prime3PrimeBias
 #' plotCorrelationHeatmap plotCounts plotCountsCorrelation
 #' plotCountsCorrelationHeatmap plotCountsPerBiotype plotCountsPerBroadClass
-#' plotCountsPerFeature plotDegHeatmap plotExonicMappingRate plotGenderMarkers
-#' plotGeneSaturation plotIntronicMappingRate plotMappedReads plotMappingRate
-#' plotPca plotPcaCovariates plotMeanSd plotPseudoVsAlignedCounts plotQc
-#' plotRrnaMappingRate plotTotalReads relativeLogExpression sampleData
-#' showHeader slotAlignedCounts stripTranscriptVersions tmm topTables
+#' plotCountsPerFeature plotDegHeatmap plotExonicMappingRate
+#' plotFeatureSaturation plotGenderMarkers plotIntronicMappingRate
+#' plotMappedReads plotMappingRate plotPca plotPcaCovariates plotMeanSd
+#' plotPseudoVsAlignedCounts plotQc plotRrnaMappingRate plotTotalReads
+#' relativeLogExpression sampleData showHeader slotAlignedCounts
+#' stripTranscriptVersions tmm
 #' @importFrom AcidGenomes TxToGene
 #' @importFrom BiocGenerics as.data.frame counts counts<- do.call
 #' estimateSizeFactors plotDispEsts updateObject width
