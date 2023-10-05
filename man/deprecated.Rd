@@ -4,6 +4,8 @@
 \alias{plotDegHeatmap}
 \alias{topTables}
 \alias{deprecated}
+\alias{camel}
+\alias{plotCountsPerGene}
 \alias{plotDegHeatmap,missing-method}
 \alias{plotGenesDetected}
 \alias{plotMeanAverage}
@@ -15,6 +17,10 @@
 plotDegHeatmap(object, ...)
 
 topTables(object, ...)
+
+camel(...)
+
+plotCountsPerGene(object, ...)
 
 \S4method{plotDegHeatmap}{missing}(object, results, counts, ...)
 
@@ -29,12 +35,12 @@ prepareRNASeqTemplate(...)
 writeCounts(..., dir = getOption(x = "acid.export.dir", default = getwd()))
 }
 \arguments{
+\item{...}{Additional arguments.}
+
 \item{object}{Object.}
 
 \item{counts}{\code{matrix}.
 Count matrix. Normalized counts are recommended.}
-
-\item{...}{Additional arguments.}
 
 \item{dir}{\code{character(1)}.
 Directory path.}

@@ -11,8 +11,19 @@ NULL
 
 
 #' @export
-#' @rdname plotCountsPerFeature
+#' @rdname deprecated
+camel <- function(...) {
+    .Deprecated("syntactic::camelCase")
+    assert(requireNamespaces("syntactic"))
+    syntactic::camelCase(...)
+}
+
+
+
+#' @export
+#' @rdname deprecated
 plotCountsPerGene <- function(object, ...) {
+    .Deprecated("plotCountsPerFeature")
     assert(.isGeneLevel(object))
     plotCountsPerFeature(object, ...)
 }
@@ -21,6 +32,7 @@ plotCountsPerGene <- function(object, ...) {
 
 `plotDegHeatmap,deprecated` <- # nolint
     function(object, results, counts, ...) {
+        .Deprecated("DESeqAnalysis::plotDegHeatmap")
         assert(
             is(results, "DESeqResults"),
             is(counts, "DESeqTransform")
@@ -31,8 +43,6 @@ plotCountsPerGene <- function(object, ...) {
             ...
         )
     }
-
-
 
 #' @export
 #' @rdname deprecated
@@ -49,6 +59,7 @@ setMethod(
 #' @export
 #' @rdname deprecated
 plotGenesDetected <- function(object, ...) {
+    .Deprecated("plotFeaturesDetected")
     assert(.isGeneLevel(object))
     plotFeaturesDetected(object, ...)
 }
@@ -58,9 +69,9 @@ plotGenesDetected <- function(object, ...) {
 #' @export
 #' @rdname deprecated
 plotMeanAverage <- function(...) {
-    ## > .Deprecated("plotMA")
-    assert(requireNamespace("AcidGenerics", quietly = TRUE))
-    AcidGenerics::plotMa(...)
+    .Deprecated("DESeqAnalysis::plotMa")
+    assert(requireNamespaces("DESeqAnalysis"))
+    DESeqAnalysis::plotMa(...)
 }
 
 
@@ -68,20 +79,19 @@ plotMeanAverage <- function(...) {
 #' @export
 #' @rdname deprecated
 prepareRNASeqTemplate <- function(...) {
-    .Defunct("prepareTemplate")
+    .Deprecated("AcidMarkdown::prepareTemplate")
+    assert(requireNamespaces("AcidMarkdown"))
+    prepareTemplate(...)
 }
 
 
 
 `topTables,DFrameList` <- # nolint
     function(object, ...) {
-        markdownTables(
-            object = object,
-            ...
-        )
+        .Deprecated("DESeqAnalysis::markdownTables")
+        assert(requireNamespaces("DESeqAnalysis"))
+        markdownTables(object = object, ...)
     }
-
-
 
 #' @export
 #' @rdname deprecated
@@ -98,14 +108,15 @@ setMethod(
 writeCounts <-
     function(...,
              dir = getOption(x = "acid.export.dir", default = getwd())) {
-        ## > .Deprecated("export")
+        .Deprecated("export")
         objects <- list(...)
         names(objects) <- dots(..., character = TRUE)
-        Map(
+        out <- Map(
             object = objects,
             con = file.path(dir, paste0(names(objects), ".csv")),
             f = export
         )
+        invisible(out)
     }
 
 
