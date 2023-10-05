@@ -13,7 +13,7 @@ is designed to store a bcbio RNA-seq analysis.
 migrated to \code{RangedSummarizedExperiment}.
 }
 \note{
-Updated 2023-05-02.
+Updated 2023-10-05.
 }
 \section{Automatic metadata}{
 

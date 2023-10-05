@@ -1,7 +1,7 @@
 #' @name plotPseudoVsAlignedCounts
 #' @author Michael Steinbaugh
 #' @inherit AcidGenerics::plotPseudoVsAlignedCounts
-#' @note Updated 2022-03-08.
+#' @note Updated 2023-10-05.
 #'
 #' @note Currently supported for salmon or kallisto. The function will
 #' intentionally error for datasets containing aligned counts in the primary
@@ -28,7 +28,7 @@ NULL
 
 
 
-## Updated 2020-01-20.
+## Updated 2023-10-05.
 `plotPseudoVsAlignedCounts,bcbioRNASeq` <- # nolint
     function(object,
              genes = NULL,
@@ -83,11 +83,9 @@ NULL
             plotCountsCorrelation(
                 x = pseudo,
                 y = aligned,
-                labels = list(
-                    title = title
-                ),
-                .xname = "pseudoaligned",
-                .yname = "aligned",
+                xName = "pseudoaligned",
+                yName = "aligned",
+                labels = list("title" = title),
                 ...
             )
         } else {

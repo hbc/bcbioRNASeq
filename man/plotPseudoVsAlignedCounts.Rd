@@ -35,7 +35,7 @@ defined.}
 Plot pseudo vs. aligned counts
 }
 \note{
-Updated 2022-03-08.
+Updated 2023-10-05.
 
 Currently supported for salmon or kallisto. The function will
 intentionally error for datasets containing aligned counts in the primary
