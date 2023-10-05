@@ -5,7 +5,7 @@
 #'
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @export
-#' @note Updated 2023-05-02.
+#' @note Updated 2023-10-05.
 #'
 #' @details
 #' `bcbioRNASeq` extended `SummarizedExperiment` prior to v0.2.0, where we
@@ -169,9 +169,7 @@ setValidity(
             if (identical(metadata[["level"]], "genes")) {
                 ok <- validateClasses(
                     object = metadata,
-                    expected = list(
-                        "tx2gene" = "TxToGene"
-                    ),
+                    expected = list("tx2gene" = "TxToGene"),
                     subset = TRUE
                 )
                 if (!isTRUE(ok)) {

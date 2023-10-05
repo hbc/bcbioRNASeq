@@ -2,7 +2,7 @@
 #'
 #' @name updateObject
 #' @author Michael Steinbaugh
-#' @note Updated 2023-03-07.
+#' @note Updated 2023-10-05.
 #'
 #' @details
 #' Update old objects created by the bcbioRNASeq package. The session
@@ -48,7 +48,7 @@ NULL
 
 
 
-## Updated 2023-03-07.
+## Updated 2023-10-05.
 `updateObject,bcbioRNASeq` <- # nolint
     function(object,
              rowRanges = NULL,
@@ -376,19 +376,29 @@ NULL
                 metadata[["countsFromAbundance"]] <- countsFromAbundance
             }
             ## tx2gene.
-            tx2gene <- metadata[["tx2gene"]]
-            if (!is(tx2gene, "TxToGene")) {
+            t2g <- metadata[["tx2gene"]]
+            if (is(t2g, "Tx2Gene")) {
                 if (isTRUE(verbose)) {
                     alert(sprintf(
-                        "Coercing {.var %s} to {.cls %s}.",
-                        "tx2gene", "TxToGene"
+                        "Coercing {.cls %s} to {.cls %s}.",
+                        "Tx2Gene", "TxToGene"
                     ))
                 }
-                assert(is.data.frame(tx2gene))
-                tx2gene <- as(tx2gene, "DFrame")
-                colnames(tx2gene) <- c("txId", "geneId")
-                rownames(tx2gene) <- NULL
-                metadata[["tx2gene"]] <- TxToGene(tx2gene)
+                t2g <- DataFrame(slot(t2g, "listData"))
+                t2g <- TxToGene(t2g)
+                metadata[["tx2gene"]] <- t2g
+            } else if (is.data.frame(t2g)) {
+                if (isTRUE(verbose)) {
+                    alert(sprintf(
+                        "Coercing {.cls %s} to {.cls %s}.",
+                        "data.frame", "TxToGene"
+                    ))
+                }
+                t2g <- as(t2g, "DFrame")
+                colnames(t2g) <- c("txId", "geneId")
+                rownames(t2g) <- NULL
+                t2g <- TxToGene(t2g)
+                metadata[["tx2gene"]] <- t2g
             }
         }
         ## Filter NULL metadata.
