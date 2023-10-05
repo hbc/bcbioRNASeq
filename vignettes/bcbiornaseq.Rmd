@@ -310,8 +310,8 @@ We also provide a parameterized starter R Markdown template for standard DESeq2 
 
 Now you can perform differential expression analysis with DESeq2. The authors of that package have provided a number of detailed, well documented references online:
 
-- [Analyzing RNA-seq data with DESeq2](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).
-- [RNA-Seq workflow: gene-level exploratory analysis and differential expression](http://dx.doi.org/10.12688/f1000research.7035.2).
+- [Analyzing RNA-seq data with DESeq2](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).
+- [RNA-Seq workflow: gene-level exploratory analysis and differential expression](https://dx.doi.org/10.12688/f1000research.7035.2).
 - [Differential analyses for RNA-seq: transcript-level estimates improve gene-level inferences](https://f1000research.com/articles/4-1521/v2).
 
 ## edgeR
@@ -354,7 +354,7 @@ The papers and software cited in our workflows are available as a [shared librar
 [edger]: https://bioconductor.org/packages/edgeR/
 [ensembl]: https://useast.ensembl.org/
 [ensembldb]: https://bioconductor.org/packages/ensembldb/
-[f1000 paper]: http://dx.doi.org/10.12688/f1000research.12093.2
+[f1000 paper]: https://dx.doi.org/10.12688/f1000research.12093.2
 [featurecounts]: https://doi.org/10.1093/bioinformatics/btt656
 [genomicranges]: https://bioconductor.org/packages/GenomicRanges/
 [geo]: https://www.ncbi.nlm.nih.gov/geo/
@@ -367,7 +367,7 @@ The papers and software cited in our workflows are available as a [shared librar
 [paperpile]: https://paperpile.com/
 [r markdown]: https://rmarkdown.rstudio.com/
 [r]: https://www.r-project.org/
-[sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
+[sailfish]: https://www.cs.cmu.edu/~ckingsf/software/sailfish/
 [salmon]: https://combine-lab.github.io/salmon/
 [star]: https://github.com/alexdobin/STAR/
 [summarizedexperiment]: https://bioconductor.org/packages/SummarizedExperiment/

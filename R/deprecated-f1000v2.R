@@ -1,7 +1,5 @@
 ## nocov start
 
-## FIXME Need to go back through F1000v2 paper and double check these.
-
 
 
 #' @name deprecated

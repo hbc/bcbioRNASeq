@@ -6,9 +6,9 @@
 ## are not defined in the DESeqAnalysis object metadata.
 ##
 ## - KEGG supported organisms:
-##   http://www.genome.jp/kegg/catalog/org_list.html
+##   https://www.genome.jp/kegg/catalog/org_list.html
 ## - OrgDb supported organisms:
-##   http://bioconductor.org/packages/release/BiocViews.html#___OrgDb
+##   https://bioconductor.org/packages/release/BiocViews.html#___OrgDb
 ##
 ## Refer to `rmarkdown::render()` for details on how to generate an HTML report
 ## from this template inside of an R script. In particular, the `params`
@@ -607,4 +607,4 @@ if (hasLength(pathways)) {
 ```{r links, child="_links.Rmd"}
 ```
 
-[introduction to gene set enrichment analysis]: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1239896
+[introduction to gene set enrichment analysis]: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1239896

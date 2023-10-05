@@ -141,7 +141,7 @@
 #'
 #' [HISAT2]: https://daehwankimlab.github.io/hisat2/
 #' [Kallisto]: https://pachterlab.github.io/kallisto/
-#' [Sailfish]: http://www.cs.cmu.edu/~ckingsf/software/sailfish/
+#' [Sailfish]: https://www.cs.cmu.edu/~ckingsf/software/sailfish/
 #' [Salmon]: https://combine-lab.github.io/salmon/
 #' [STAR]: https://github.com/alexdobin/STAR/
 #'

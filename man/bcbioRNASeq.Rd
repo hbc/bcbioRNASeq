@@ -37,7 +37,7 @@ Expression caller:
 \itemize{
 \item \code{"salmon"} (\emph{default}): \href{https://combine-lab.github.io/salmon/}{Salmon} alignment-free, quasi-mapped counts.
 \item \code{"kallisto"}: \href{https://pachterlab.github.io/kallisto/}{Kallisto} alignment-free, pseudo-aligned counts.
-\item \code{"sailfish"}: \href{http://www.cs.cmu.edu/~ckingsf/software/sailfish/}{Sailfish} alignment-free, lightweight counts.
+\item \code{"sailfish"}: \href{https://www.cs.cmu.edu/~ckingsf/software/sailfish/}{Sailfish} alignment-free, lightweight counts.
 \item \code{"star"}: \href{https://github.com/alexdobin/STAR/}{STAR} (Spliced Transcripts Alignment to a Reference)
 aligned counts.
 \item \code{"hisat2"}: \href{https://daehwankimlab.github.io/hisat2/}{HISAT2} (Hierarchical Indexing for Spliced Alignment of

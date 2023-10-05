@@ -1,6 +1,6 @@
 # bcbioRNASeq
 
-[![Install with Bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg)](http://bioconda.github.io/recipes/r-bcbiornaseq/README.html) ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)
+[![Install with Bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg)](https://bioconda.github.io/recipes/r-bcbiornaseq/README.html) ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)
 
 [R][] package for [bcbio][] RNA-seq analysis.
 
@@ -135,12 +135,12 @@ library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 [bioconda]: https://bioconda.github.io/
 [bioconductor]: https://bioconductor.org/
 [conda]: https://conda.io/
-[deseq2]: http://bioconductor.org/packages/DESeq2/
-[edger]: http://bioconductor.org/packages/edgeR/
+[deseq2]: https://bioconductor.org/packages/DESeq2/
+[edger]: https://bioconductor.org/packages/edgeR/
 [limma-voom]: https://bioconductor.org/packages/limma/
 [paperpile]: https://paperpile.com/
 [r markdown]: https://rmarkdown.rstudio.com/
 [r]: https://www.r-project.org/
-[rangedsummarizedexperiment]: http://bioconductor.org/packages/SummarizedExperiment/
+[rangedsummarizedexperiment]: https://bioconductor.org/packages/SummarizedExperiment/
 [rstudio]: https://posit.co/products/open-source/rstudio/
 [workflow paper]: https://doi.org/10.12688/f1000research.12093.2
