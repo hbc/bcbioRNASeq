@@ -5,7 +5,9 @@ degPatterns <- DEGreport::degPatterns
 degPlot <- DEGreport::degPlot
 import <- pipette::import
 pasteUrl <- AcidBase::pasteUrl
+plotMa <- AcidGenerics::plotMa
 plotVolcano <- AcidGenerics::plotVolcano
+prepareTemplate <- AcidMarkdown::prepareTemplate
 realpath <- AcidBase::realpath
 render <- rmarkdown::render
 results <- DESeq2::results
@@ -83,7 +85,7 @@ deseq <- DESeqAnalysis(
 
 test_that("counts", {
     for (normalized in list(FALSE, TRUE, "tpm", "rlog", "vst")) {
-        x <- counts(object, normalized = normalized)
+        x <- counts(bcb, normalized = normalized)
         expect_type(x, "double")
     }
 })
@@ -91,11 +93,11 @@ test_that("counts", {
 test_that("saveData and writeCounts", {
     tempdir <- tempdir2()
     unlink(tempdir)
-    raw <- counts(object, normalized = FALSE)
-    normalized <- counts(object, normalized = TRUE)
-    tpm <- counts(object, normalized = "tpm")
-    rlog <- counts(object, normalized = "rlog")
-    vst <- counts(object, normalized = "vst")
+    raw <- counts(bcb, normalized = FALSE)
+    normalized <- counts(bcb, normalized = TRUE)
+    tpm <- counts(bcb, normalized = "tpm")
+    rlog <- counts(bcb, normalized = "rlog")
+    vst <- counts(bcb, normalized = "vst")
     saveData(
         raw, normalized, tpm, rlog, vst,
         dir = file.path(tempdir, "saveData")
@@ -113,9 +115,11 @@ test_that("saveData and writeCounts", {
             "vst.rds"
         )
     )
-    writeCounts(
-        raw, normalized, tpm, rlog, vst,
-        dir = file.path(tempdir, "writeCounts")
+    expect_warning(
+        writeCounts(
+            raw, normalized, tpm, rlog, vst,
+            dir = file.path(tempdir, "writeCounts")
+        )
     )
     expect_identical(
         object = sort(list.files(
@@ -133,6 +137,7 @@ test_that("saveData and writeCounts", {
     unlink(tempdir)
 })
 
+## NOTE This can return figure margins too large error.
 test_that("Quality control", {
     for (fun in list(
         plotTotalReads,
@@ -144,25 +149,25 @@ test_that("Quality control", {
         plotCountsPerGene,
         plotCountsPerFeature,
         plotCountDensity,
-        plotMeanSD,
+        plotMeanSd,
         plotPca
     )) {
-        p <- fun(object)
+        p <- fun(bcb)
         expect_s3_class(p, "ggplot")
     }
-    p <- plotCorrelationHeatmap(object)
+    p <- plotCorrelationHeatmap(bcb)
     expect_s3_class(p, "pheatmap")
     for (fun in list(
         plotDispEsts,
         plotPcaCovariates
     )) {
-        p <- fun(object)
+        p <- fun(bcb)
         expect_type(p, "list")
     }
 })
 
 test_that("plotCountsPerFeature", {
-    p <- plotCountsPerFeature(object, geom = "density")
+    p <- plotCountsPerFeature(bcb, geom = "density")
     expect_identical(nrow(p[["data"]]), 457704L)
     expect_match(p[["labels"]][["subtitle"]], "38142")
 })
@@ -179,7 +184,7 @@ test_that("Differential expression", {
         object = x[[2L]],
         expected = "LFC > 0 (up)    1521  1102"
     )
-    p <- plotMeanAverage(res)
+    p <- plotMa(res)
     expect_s3_class(p, "ggplot")
     p <- plotVolcano(res)
     expect_s3_class(p, "ggplot")
@@ -187,13 +192,13 @@ test_that("Differential expression", {
     ## object : results
     ## DESeqTransform : counts
     ## Still providing legacy, deprecated support.
-    p <- plotDEGHeatmap(
+    p <- plotDegHeatmap(
         object = res,
         DESeqTransform = vst
     )
     expect_s3_class(p, "pheatmap")
     p <- degPlot(
-        object,
+        bcb,
         res = res,
         n = 3L,
         slot = "vst",
@@ -207,10 +212,10 @@ test_that("Differential expression", {
 test_that("Detecting patterns", {
     ddsLrt <- DESeq(dds, test = "LRT", reduced = ~1L)
     resLrt <- results(ddsLrt)
-    ma <- counts(object, "vst")[significants(res, fc = 2L), ]
+    ma <- counts(bcb, "vst")[significants(res, fc = 2L), ]
     resPatterns <- degPatterns(
         ma = ma,
-        metadata = colData(object),
+        metadata = colData(bcb),
         time = "day",
         minc = 60L
     )
@@ -218,12 +223,12 @@ test_that("Detecting patterns", {
     expect_s3_class(p, "ggplot")
 })
 
-test_that("resultsTables and topTables", {
+test_that("resultsTables and markdownTables", {
     ## "lfc" argument renamed to "lfcThreshold".
     resTbl <- resultsTables(res, lfcThreshold = 1L)
     expect_s4_class(resTbl, "DFrameList")
     expect_s4_class(resTbl[[1L]], "DESeqResults")
-    expect_output(topTables(resTbl, n = 5L))
+    expect_output(markdownTables(resTbl, n = 5L))
 })
 
 ## Modified, updated version of bcbio_rnaseq_output_example repo.
@@ -232,7 +237,7 @@ test_that("resultsTables and topTables", {
 templatesDir <- system.file(
     "rmarkdown",
     "templates",
-    package = .pkgName,
+    package = "bcbioRNASeq",
     mustWork = TRUE
 )
 renderDir <- tempdir2()
@@ -245,7 +250,7 @@ renderFiles <- saveData(
 withr::with_dir(
     new = renderDir,
     code = {
-        AcidMarkdown::prepareTemplate()
+        prepareTemplate()
     }
 )
 
