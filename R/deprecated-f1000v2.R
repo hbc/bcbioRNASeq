@@ -30,9 +30,16 @@ plotCountsPerGene <- function(object, ...) {
 
 
 
+#' @export
+#' @rdname deprecated
+plotDEGHeatmap <- function(...) {
+    .Deprecated("DESeqAnalysis::plotDegHeatmap")
+    assert(requireNamespaces("DESeqAnalysis"))
+    DESeqAnalysis::plotDegHeatmap(...)
+}
+
 `plotDegHeatmap,deprecated` <- # nolint
     function(object, results, counts, ...) {
-        .Deprecated("DESeqAnalysis::plotDegHeatmap")
         assert(
             is(results, "DESeqResults"),
             is(counts, "DESeqTransform")
@@ -72,6 +79,51 @@ plotMeanAverage <- function(...) {
     .Deprecated("DESeqAnalysis::plotMa")
     assert(requireNamespaces("DESeqAnalysis"))
     DESeqAnalysis::plotMa(...)
+}
+
+
+
+#' @export
+#' @rdname deprecated
+plotMeanSD <- function(...) {
+    .Deprecated("plotMeanSd")
+    plotMeanSd(...)
+}
+
+
+
+#' @export
+#' @rdname deprecated
+plotPCA <- function(...) {
+    .Deprecated("plotPca")
+    plotPca(...)
+}
+
+
+
+#' @export
+#' @rdname deprecated
+plotPCACovariates <- function(...) {
+    .Deprecated("plotPcaCovariates")
+    plotPcaCovariates(...)
+}
+
+
+
+#' @export
+#' @rdname deprecated
+plotQC <- function(...) {
+    .Deprecated("plotQc")
+    plotQc(...)
+}
+
+
+
+#' @export
+#' @rdname deprecated
+plotRRNAMappingRate <- function(...) {
+    .Deprecated("plotRrnaMappingRate")
+    plotRrnaMappingRate(...)
 }
 
 

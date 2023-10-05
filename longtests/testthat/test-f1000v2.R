@@ -16,7 +16,7 @@ tempdir2 <- AcidBase::tempdir2
 ## nolint end
 
 ## Manuscript uses `loadRemoteData()` instead.
-object <- import(
+bcb <- import(
     con = cacheUrl(
         url = pasteUrl(
             "github.com",
@@ -26,12 +26,11 @@ object <- import(
             "f1000v2/data/bcb.rda",
             protocol = "https"
         ),
-        pkg = .pkgName
+        pkg = "bcbioRNASeq"
     )
 )
-object <- updateObject(object, verbose = TRUE)
-bcb <- object
-dds <- as.DESeqDataSet(object)
+bcb <- updateObject(bcb, verbose = TRUE)
+dds <- as.DESeqDataSet(bcb)
 design(dds) <- ~day
 dds <- DESeq(dds)
 vst <- varianceStabilizingTransformation(dds)

@@ -6,9 +6,15 @@
 \alias{deprecated}
 \alias{camel}
 \alias{plotCountsPerGene}
+\alias{plotDEGHeatmap}
 \alias{plotDegHeatmap,missing-method}
 \alias{plotGenesDetected}
 \alias{plotMeanAverage}
+\alias{plotMeanSD}
+\alias{plotPCA}
+\alias{plotPCACovariates}
+\alias{plotQC}
+\alias{plotRRNAMappingRate}
 \alias{prepareRNASeqTemplate}
 \alias{topTables,DFrameList-method}
 \alias{writeCounts}
@@ -22,11 +28,23 @@ camel(...)
 
 plotCountsPerGene(object, ...)
 
+plotDEGHeatmap(...)
+
 \S4method{plotDegHeatmap}{missing}(object, results, counts, ...)
 
 plotGenesDetected(object, ...)
 
 plotMeanAverage(...)
+
+plotMeanSD(...)
+
+plotPCA(...)
+
+plotPCACovariates(...)
+
+plotQC(...)
+
+plotRRNAMappingRate(...)
 
 prepareRNASeqTemplate(...)
 
