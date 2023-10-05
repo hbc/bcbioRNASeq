@@ -18,7 +18,7 @@ nonzeroRowsAndCols <- AcidGenerics::nonzeroRowsAndCols
 seqnames <- GenomeInfoDb::seqnames
 
 data(bcb, envir = environment())
-bcb_fast <- readRDS(file.path("cache", "bcb_fast.rds")) # nolint
+bcb_fast <- readRDS(file.path(cacheDir, "bcb_fast.rds")) # nolint
 
 object <- bcb
 g2s <- GeneToSymbol(object)

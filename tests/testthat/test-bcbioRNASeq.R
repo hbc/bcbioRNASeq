@@ -70,7 +70,7 @@ test_that("Fast mode in R", {
 })
 
 test_that("bcbio fastrnaseq pipeline", {
-    uploadDir <- file.path("cache", "fastrnaseq")
+    uploadDir <- file.path(cacheDir, "fastrnaseq")
     object <- bcbioRNASeq(uploadDir = uploadDir, fast = TRUE)
     expect_s4_class(object, "bcbioRNASeq")
 })
@@ -258,9 +258,9 @@ test_that("GTF/GFF file", {
             "Mus_musculus.GRCm38.90.gtf.gz",
             sep = "/"
         )
-        gffFile <- file.path("cache", basename(gffURL))
+        gffFile <- file.path(cacheDir, basename(gffURL))
         if (!file.exists(gffFile)) {
-            initDir("cache")
+            initDir(cacheDir)
             download.file(url = gffURL, destfile = gffFile)
         }
         object <- bcbioRNASeq(

@@ -133,6 +133,7 @@ Imports:
     methods,
     utils
 Suggests:
+    AcidDevTools (>= 0.7.0),
     AcidGSEA (>= 0.8.9),
     BiocStyle (>= 2.28.0),
     DEGreport (>= 1.36.0),

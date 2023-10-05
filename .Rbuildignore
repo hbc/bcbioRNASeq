@@ -9,7 +9,5 @@
 ^data-raw$
 ^doc$
 ^docs$
-^longtests$
 ^pkgdown$
-^tests/testthat/cache$
 ^todo\.org$
