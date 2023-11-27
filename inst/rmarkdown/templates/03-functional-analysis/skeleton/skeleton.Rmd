@@ -14,7 +14,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2023-05-02.
+## Updated 2023-11-27.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -219,7 +219,7 @@ gene identifiers to NCBI gene identifiers. For genes that map to multiple NCBI
 identifiers, we are using the oldest identifier to define the 1:1 mapping.
 
 ```{r ensembl-to-ncbi}
-map <- EnsemblToNcbi(object = dds, format = "1:1")
+map <- EnsemblToNcbi(dds)
 assert(isSubset(rownames(map), rownames(dds)))
 allNcbiGenes <- map[["ncbiGeneId"]]
 names(allNcbiGenes) <- rownames(map)
@@ -229,6 +229,7 @@ str(allNcbiGenes)
 Now we can obtain a vector of significant genes and LFCs that map to Entrez.
 
 ```{r ncbi-results-vectors}
+## FIXME Rework this approach.
 idx <- na.omit(match(x = sigEnsemblGenes, table = names(allNcbiGenes)))
 sigNcbiGenes <- allNcbiGenes[idx]
 ncbiLfcVec <- sigEnsemblRes[names(sigNcbiGenes), "log2FoldChange", drop = TRUE]
