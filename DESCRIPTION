@@ -1,8 +1,8 @@
 Package: bcbioRNASeq
 Title: Bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.6.0
-Date: 2023-10-05
+Version: 0.6.1
+Date: 2023-12-05
 Authors@R: c(
     person(
         given = "Michael",
@@ -112,12 +112,12 @@ Encoding: UTF-8
 LazyData: false
 Depends: R (>= 4.3)
 Imports:
-    AcidBase (>= 0.7.0),
+    AcidBase (>= 0.7.2),
     AcidCLI (>= 0.3.0),
-    AcidExperiment (>= 0.5.0),
-    AcidGenerics (>= 0.7.2),
-    AcidGenomes (>= 0.6.0),
-    AcidPlots (>= 0.7.1),
+    AcidExperiment (>= 0.5.4),
+    AcidGenerics (>= 0.7.4),
+    AcidGenomes (>= 0.7.1),
+    AcidPlots (>= 0.7.2),
     BiocGenerics (>= 0.46.0),
     DESeq2 (>= 1.40.0),
     IRanges (>= 2.34.0),
@@ -125,15 +125,15 @@ Imports:
     SummarizedExperiment (>= 1.30.0),
     bcbioBase (>= 0.9.0),
     edgeR (>= 3.42.0),
-    ggplot2 (>= 3.4.3),
-    goalie (>= 0.7.1),
-    pipette (>= 0.14.0),
-    syntactic (>= 0.7.0),
+    ggplot2 (>= 3.4.4),
+    goalie (>= 0.7.7),
+    pipette (>= 0.15.0),
+    syntactic (>= 0.7.1),
     tximport (>= 1.28.0),
     methods,
     utils
 Suggests:
-    AcidDevTools (>= 0.7.1),
+    AcidDevTools (>= 0.7.3),
     AcidGSEA (>= 0.9.0),
     AcidMarkdown (>= 0.3.0),
     BiocStyle (>= 2.28.0),
@@ -147,7 +147,7 @@ Suggests:
     enrichplot (>= 1.20.0),
     ggnewscale (>= 0.4.9),
     hexbin (>= 1.28.3),
-    knitr (>= 1.44),
+    knitr (>= 1.45),
     org.Hs.eg.db (>= 3.17.0),
     org.Mm.eg.db (>= 3.17.0),
     pathview (>= 1.40.0),
@@ -155,10 +155,10 @@ Suggests:
     rhdf5 (>= 2.44.0),
     rmarkdown (>= 2.25),
     roxygen2 (>= 7.2.3),
-    testthat (>= 3.1.10),
+    testthat (>= 3.2.1),
     viridis (>= 0.6.4),
     vsn (>= 3.68.0),
-    withr (>= 2.5.1)
+    withr (>= 2.5.2)
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3
 Config/testthat/parallel: true
