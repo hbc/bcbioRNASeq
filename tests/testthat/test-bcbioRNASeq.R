@@ -255,14 +255,14 @@ test_that("Sample selection", {
 ## basejump tests also.
 test_that("GTF/GFF file", {
     for (level in eval(formals(bcbioRNASeq)[["level"]])) {
-        gffURL <- paste(
-            "ftp://ftp.ensembl.org",
+        gffURL <- pasteUrl(
+            "ftp.ensembl.org",
             "pub",
             "release-90",
             "gtf",
             "mus_musculus",
             "Mus_musculus.GRCm38.90.gtf.gz",
-            sep = "/"
+            protocol = "ftp"
         )
         gffFile <- file.path(cacheDir, basename(gffURL))
         if (!file.exists(gffFile)) {

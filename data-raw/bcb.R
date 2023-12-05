@@ -9,7 +9,7 @@ suppressPackageStartupMessages({
 ## nolint end
 load_all()
 ## Restrict to 2 MB.
-limit <- structure(2e6L, class = "object_size")
+limit <- structure(2e6L, class = "object_size") # nolint
 uploadDir <- system.file("extdata", "bcbio", package = "bcbioRNASeq")
 object <- bcbioRNASeq(
     uploadDir = uploadDir,
