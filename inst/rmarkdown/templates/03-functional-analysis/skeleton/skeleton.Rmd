@@ -14,7 +14,7 @@
 ## from this template inside of an R script. In particular, the `params`
 ## argument is useful for passing in variables.
 ##
-## Updated 2023-11-27.
+## Updated 2023-12-05.
 params:
   title: "Functional analysis with clusterProfiler"
 
@@ -229,7 +229,6 @@ str(allNcbiGenes)
 Now we can obtain a vector of significant genes and LFCs that map to Entrez.
 
 ```{r ncbi-results-vectors}
-## FIXME Rework this approach.
 idx <- na.omit(match(x = sigEnsemblGenes, table = names(allNcbiGenes)))
 sigNcbiGenes <- allNcbiGenes[idx]
 ncbiLfcVec <- sigEnsemblRes[names(sigNcbiGenes), "log2FoldChange", drop = TRUE]
