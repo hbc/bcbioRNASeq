@@ -1351,7 +1351,7 @@ Deprecations:
 [ensdb.hsapiens.v75]: https://bioconductor.org/packages/EnsDb.Hsapiens.v75/
 [ensembl]: https://www.ensembl.org/
 [ensembldb]: https://bioconductor.org/packages/ensembldb/
-[f1000]: https://f1000.com/
+[f1000]: https://www.f1000.com/
 [ggplot2]: https://ggplot2.tidyverse.org/
 [hbc]: https://bioinformatics.sph.harvard.edu/
 [lintr]: https://github.com/r-lib/lintr/
