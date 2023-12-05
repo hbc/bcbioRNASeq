@@ -1,7 +1,3 @@
-## nocov start
-
-
-
 #' @name deprecated
 #' @inherit AcidRoxygen::deprecated description examples return seealso title
 #' @inheritParams AcidRoxygen::params
@@ -185,7 +181,3 @@ writeCounts <-
         )
         invisible(out)
     }
-
-
-
-## nocov end
