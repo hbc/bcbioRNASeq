@@ -1,5 +1,31 @@
 # Release notes
 
+## bcbioRNASeq 0.6.1 (2023-12-05)
+
+Minor changes:
+
+- Updated functional analysis template for potential breaking change with
+  `EnsemblToNcbi` step, which no longer supports `format` argument.
+
+## bcbioRNASeq 0.6.0 (2023-10-05)
+
+Major changes:
+
+- We're now enforcing strict camel case for function names.
+
+Minor changes:
+
+- Resaved example `bcb` object.
+- Renamed `plotGeneSaturation` to `plotFeatureSaturation` in QC template.
+- Renamed `plotGenesDetected` to `plotFeaturesDetected` in QC template.
+- Renamed `plotMeanSD` to `plotMeanSd` in QC template.
+- Renamed `plotPCA` to `plotPca` in QC template.
+- Renamed `plotRRNAMappingRate` to `plotRrnaMappingRate` in QC template.
+- Renamed `plotMA` to `plotMa` in DE template.
+- Renamed `plotDEGPCA` to `plotDegPca` in DE template.
+- Renamed `plotDEGHeatmap` to `plotDegHeatmap` in DE template.
+- Renamed `Ensembl2Ncbi` to `EnsemblToNcbi` in FA template.
+
 ## bcbioRNASeq 0.5.5 (2023-08-19)
 
 Minor changes:
