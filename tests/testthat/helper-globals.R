@@ -16,6 +16,7 @@ hasInternet <- goalie::hasInternet
 initDir <- AcidBase::initDir
 isADir <- goalie::isADir
 nonzeroRowsAndCols <- AcidGenerics::nonzeroRowsAndCols
+pasteUrl <- AcidBase::pasteUrl
 seqnames <- GenomeInfoDb::seqnames
 untar <- utils::untar
 
