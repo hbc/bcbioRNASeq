@@ -5,6 +5,8 @@
 Minor changes:
 
 - Fix for extract (`[`) method, where `drop` argument must appear at the end.
+- Migrated `bcbioRNASeq` generator unit test that imports GFF file to longtests,
+  as this can be slow to download from Ensembl FTP server.
 
 ## bcbioRNASeq 0.6.1 (2023-12-05)
 
