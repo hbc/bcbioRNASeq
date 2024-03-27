@@ -5,7 +5,7 @@
 \alias{[,bcbioRNASeq,ANY,ANY,ANY-method}
 \title{Extract or replace parts of an object}
 \usage{
-\S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, drop = FALSE, recalculate = TRUE)
+\S4method{[}{bcbioRNASeq,ANY,ANY,ANY}(x, i, j, recalculate = TRUE, drop = FALSE)
 }
 \arguments{
 \item{x}{Object.}
@@ -26,18 +26,18 @@ For more information:
 \if{html}{\out{<div class="sourceCode">}}\preformatted{help(topic = "Extract", package = "base")
 }\if{html}{\out{</div>}}}
 
-\item{drop}{For matrices and arrays.  If \code{TRUE} the result is
-    coerced to the lowest possible dimension (see the examples).  This
-    only works for extracting elements, not for the replacement.  See
-    \code{\link[base]{drop}} for further details.
-  }
-
 \item{recalculate}{\code{logical(1)}.
 Recalculate DESeq2 normalized counts and variance-stabilizing
 transformations defined in \code{assays}.\cr
 Recommended by default, but can take a long time for large datasets.\cr\
 If \code{FALSE}, these assays will be removed automatically: \code{normalized},
 \code{rlog}, \code{vst}.}
+
+\item{drop}{For matrices and arrays.  If \code{TRUE} the result is
+    coerced to the lowest possible dimension (see the examples).  This
+    only works for extracting elements, not for the replacement.  See
+    \code{\link[base]{drop}} for further details.
+  }
 }
 \value{
 \code{bcbioRNASeq}.
@@ -50,7 +50,7 @@ Internal count transformations are rescaled automatically, if defined. DESeq2
 transformations will only be updated when \code{recalculate = TRUE}.
 }
 \note{
-Updated 2020-12-21.
+Updated 2024-03-27.
 }
 \examples{
 ## bcbioRNASeq ====

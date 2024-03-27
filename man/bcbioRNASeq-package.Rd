@@ -2,6 +2,7 @@
 % Please edit documentation in R/package.R
 \docType{package}
 \name{bcbioRNASeq-package}
+\alias{bcbioRNASeq-package}
 \title{bcbioRNASeq}
 \description{
 Import and analyze bcbio RNA-seq data.

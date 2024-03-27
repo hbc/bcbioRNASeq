@@ -8,7 +8,7 @@
 #' @name extract
 #' @author Michael Steinbaugh, Lorena Pantano
 #' @inherit base::Extract params references
-#' @note Updated 2020-12-21.
+#' @note Updated 2024-03-27.
 #'
 #' @inheritParams AcidRoxygen::params
 #'
@@ -50,11 +50,11 @@ NULL
 
 
 
-## Updated 2020-12-21.
+## Updated 2024-03-27.
 `extract,bcbioRNASeq` <- # nolint
     function(x, i, j,
-             drop = FALSE,
-             recalculate = TRUE) {
+             recalculate = TRUE,
+             drop = FALSE) {
         validObject(x)
         assert(
             identical(drop, FALSE),
