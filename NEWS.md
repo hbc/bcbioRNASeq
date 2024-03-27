@@ -1,5 +1,11 @@
 # Release notes
 
+## bcbioRNASeq 0.6.2 (2024-03-27)
+
+Minor changes:
+
+- Fix for extract (`[`) method, where `drop` argument must appear at the end.
+
 ## bcbioRNASeq 0.6.1 (2023-12-05)
 
 Minor changes:
