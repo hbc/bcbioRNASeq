@@ -1,7 +1,7 @@
 Package: bcbioRNASeq
 Title: Bcbio RNA-Seq
 Description: Toolkit for bcbio RNA-seq analysis.
-Version: 0.6.2.9000
+Version: 0.6.2
 Date: 2024-03-27
 Authors@R: c(
     person(
