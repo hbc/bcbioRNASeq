@@ -1,6 +1,10 @@
 # bcbioRNASeq
 
-[![Install with Bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg)](https://bioconda.github.io/recipes/r-bcbiornaseq/README.html) ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)
+[![Install with Bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg)](https://bioconda.github.io/recipes/r-bcbiornaseq/README.html)
+![Lifecycle: retired](https://img.shields.io/badge/lifecycle-retired-red.svg)
+
+**NOTE: [bcbio-nextgen][bcbio] is no longer under active development.**
+Refer to the [notice of discontinuation][] for additional details.
 
 [R][] package for [bcbio][] RNA-seq analysis.
 
@@ -138,6 +142,7 @@ library](https://paperpile.com/shared/e1q8fn) on [Paperpile][].
 [deseq2]: https://bioconductor.org/packages/DESeq2/
 [edger]: https://bioconductor.org/packages/edgeR/
 [limma-voom]: https://bioconductor.org/packages/limma/
+[notice of discontinuation]: https://github.com/bcbio/bcbio-nextgen/issues/3749
 [paperpile]: https://paperpile.com/
 [r markdown]: https://rmarkdown.rstudio.com/
 [r]: https://www.r-project.org/
